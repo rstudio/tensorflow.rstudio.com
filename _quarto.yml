@@ -1,0 +1,23 @@
+project:
+  type: website
+  render:
+    - index.qmd
+    - keras/guides/*.qmd
+
+toc: true
+
+
+
+format:
+  html:
+    code-copy: true
+
+execute:
+  freeze: true
+
+
+
+
+website:
+  title: "tf-site-title"
+
