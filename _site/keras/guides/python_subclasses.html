@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.183">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>tf-site-title - Python Subclasses</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+
+  <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../../site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="../../">
+  <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="../../site_libs/quarto-search/fuse.min.js"></script>
+  <script src="../../site_libs/quarto-search/quarto-search.js"></script>
+  <script src="../../site_libs/quarto-html/quarto.js"></script>
+  <script src="../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="../../site_libs/quarto-html/anchor.min.js"></script>
+  <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "sidebar",
+    "copy-button": false,
+    "collapse-after": 3,
+    "panel-placement": "start",
+    "type": "textbox",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#examples" id="toc-examples" class="nav-link active" data-scroll-target="#examples">Examples</a>
+<ul class="collapse">
+<li><a href="#a-custom-constraint-r6" id="toc-a-custom-constraint-r6" class="nav-link" data-scroll-target="#a-custom-constraint-r6">A custom constraint (R6)</a></li>
+<li><a href="#a-custom-constraint-py_class" id="toc-a-custom-constraint-py_class" class="nav-link" data-scroll-target="#a-custom-constraint-py_class">A custom constraint (<code>%py_class%</code>)</a></li>
+<li><a href="#a-custom-layer-r6" id="toc-a-custom-layer-r6" class="nav-link" data-scroll-target="#a-custom-layer-r6">A custom layer (R6)</a></li>
+<li><a href="#a-custom-layer-py_class" id="toc-a-custom-layer-py_class" class="nav-link" data-scroll-target="#a-custom-layer-py_class">A custom layer (<code>%py_class%</code>)</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
+
+<div class="quarto-title"><h1 class="title display-7">Python Subclasses</h1></div></header>
+
+<p>When using keras, a desire to create Python-based subclasses can arise in a number of ways. For example, when you want to:</p>
+<ul>
+<li>define custom layers and/or models</li>
+<li>implement custom training logic</li>
+<li>create custom losses or optimizers</li>
+<li>define custom callbacks</li>
+<li>… and more!</li>
+</ul>
+<p>In such scenarios, the most powerful and flexible approach is to directly inherit from, and then modify and/or enhance an appropriate Python class.</p>
+<p>Subclassing a Python class in R is generally straightforward. Two syntaxes are provided: one that adheres to R conventions and uses <code>R6::R6Class</code> as the class constructor, and one that adheres more to Python conventions, and attempts to replicate Python syntax in R.</p>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<section id="a-custom-constraint-r6" class="level3">
+<h3 class="anchored" data-anchor-id="a-custom-constraint-r6">A custom constraint (R6)</h3>
+<p>For demonstration purposes, let’s say you want to implement a custom keras kernel constraint via subclassing. Using R6:</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>NonNegative <span class="ot">&lt;-</span> R6<span class="sc">::</span><span class="fu">R6Class</span>(<span class="st">"NonNegative"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">inherit =</span> keras<span class="sc">$</span>constraints<span class="sc">$</span>Constraint,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"__call__"</span> <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>       w <span class="sc">*</span> <span class="fu">k_cast</span>(w <span class="sc">&gt;=</span> <span class="dv">0</span>, <span class="fu">k_floatx</span>())</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>NonNegative <span class="ot">&lt;-</span> <span class="fu">r_to_py</span>(NonNegative, <span class="at">convert=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stderr">
+<pre><code>Loaded Tensorflow version 2.8.0</code></pre>
+</div>
+</div>
+<p>The <code>r_to_py</code> method will convert an R6 class generator into a Python class generator. After conversion, Python class generators will be different from R6 class generators in a few ways:</p>
+<ul>
+<li><p>New class instances are generated by calling the class directly: <code>NonNegative()</code> (not <code>NonNegative$new()</code>)</p></li>
+<li><p>All methods (functions) are (potentially) modified to ensure their first argument is <code>self</code>.</p></li>
+<li><p>All methods have in scope <code>__class__</code>, <code>super</code> and the class name (<code>NonNegative</code>).</p></li>
+<li><p>For convenience, some method names are treated as aliases:</p>
+<ul>
+<li><code>initialize</code> is treated as an alias for <code>__init__</code>()</li>
+<li><code>finalize</code> is treated as an alias for <code>__del__</code>()</li>
+</ul></li>
+<li><p><code>super</code> can be accessed in 3 ways:</p>
+<ol type="1">
+<li>R6 style, which supports only single inheritance (the most common type)</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>super<span class="sc">$</span><span class="fu">initialize</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="2" type="1">
+<li>Python 2 style, which requires explicitly providing the class generator and instance</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">super</span>(NonNegative, self)<span class="sc">$</span><span class="st">`</span><span class="at">__init__</span><span class="st">`</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="3" type="1">
+<li>Python 3 style</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">super</span>()<span class="sc">$</span><span class="st">`</span><span class="at">__init__</span><span class="st">`</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>When subclassing Keras base classes, it is generally your responsibility to call <code>super$initialize()</code> if you are masking a superclass initializer by providing your own <code>initialize</code> method.</p></li>
+<li><p>Passing <code>convert=FALSE</code> to <code>r_to_py()</code> will mean that all R methods will receive Python objects as arguments, and are expected to return Python objects. This allows for some features not available with <code>convert=TRUE</code>, namely, modifying some Python objects, like dictionaries or lists, in-place.</p></li>
+<li><p>Active bindings (methods supplied to <code>R6Class(active=...)</code>) are converted to Python <code>@property</code>-decorated methods.</p></li>
+<li><p>R6 classes with private methods or attributes are not supported.</p></li>
+<li><p>The argument supplied to <code>inherit</code> can be:</p>
+<ul>
+<li>missing or <code>NULL</code></li>
+<li>a Python class generator</li>
+<li>an R6 class generator, as long as it can be converted to a Python class generator as well</li>
+<li>a list of Python/R6 classes (for multiple inheritance)</li>
+<li>A list of superclasses, with optional additional keywords (e.g., <code>metaclass=</code>, only for advanced Python use cases)</li>
+</ul></li>
+</ul>
+</section>
+<section id="a-custom-constraint-py_class" class="level3">
+<h3 class="anchored" data-anchor-id="a-custom-constraint-py_class">A custom constraint (<code>%py_class%</code>)</h3>
+<p>As an alternative to <code>r_to_py(R6Class(...))</code>, we also provide <code>%py_class%</code>, a more concise alternative syntax for achieving the same outcome. <code>%py_class%</code> is heavily inspired by the Python <code>class</code> statement syntax, and is especially convenient when translating Python code to R. Translating the above example, you could write the same using <code>%py_class%</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">NonNegative</span>(keras<span class="sc">$</span>constraints<span class="sc">$</span>Constraint) <span class="sc">%py_class%</span> {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"__call__"</span> <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    w <span class="sc">*</span> <span class="fu">k_cast</span>(w <span class="sc">&gt;=</span> <span class="dv">0</span>, <span class="fu">k_floatx</span>())</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice, this is very similar to the equivalent <a href="https://www.tensorflow.org/versions/r2.5/api_docs/python/tf/keras/constraints/Constraint">Python code</a>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="sourceCode python cell-code code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NonNegative(tf.keras.constraints.Constraint):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__call__</span>(<span class="va">self</span>, w):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> w <span class="op">*</span> tf.cast(tf.math.greater_equal(w, <span class="fl">0.</span>), w.dtype)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Some (potentially surprising) notes about <code>%py_class%</code>:</p>
+<ul>
+<li><p>Just like the Python <code>class</code> statement, it assigns the constructed class in the current scope! (There is no need to write <code>NonNegative &lt;- ...</code>).</p></li>
+<li><p>The left hand side can be:</p>
+<ul>
+<li>A bare symbol, <code>ClassName</code></li>
+<li>A pseudo-call, with superclasses and keywords as arguments: <code>ClassName(Superclass1, Superclass2, metaclass=my_metaclass)</code></li>
+</ul></li>
+<li><p>The right hand side is evaluated in a new environment to form the namespace for the class methods.</p></li>
+<li><p><code>%py_class%</code> objects can be safely defined at the top level of an R package. (see details about <code>delay_load</code> below)</p></li>
+<li><p>Two keywords are treated specially: <code>convert</code> and <code>delay_load</code>.</p></li>
+<li><p>If you want to call <code>r_to_py</code> with <code>convert=FALSE</code>, pass it as a keyword:</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">NonNegative</span>(keras<span class="sc">$</span>constraints<span class="sc">$</span>Constraint, <span class="at">convert=</span><span class="cn">FALSE</span>) <span class="sc">%py_class%</span> { ... }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>You can delay creating the python type object until this first time a class instance is created by passing <code>delay_load=TRUE</code>. The default value is <code>FALSE</code> for most contexts, but <code>TRUE</code> if you are in an R package. (The actual test performed is <code>identical(topenv(), globalenv())</code>). If a <code>%py_class%</code> type object is delayed, it will display <code>"&lt;&lt;R6type&gt;.ClassName&gt; (delayed)"</code> when printed.</p></li>
+<li><p>An additional convenience is that if the first expression of a function body or the class body is a literal character string, it is automatically taken as the <code>__doc__</code> attribute of the class or method. The doc string will then be visible to both python and R tools e.g.&nbsp;<code>reticulate::py_help()</code>. See <code>?py_class</code> for an example.</p></li>
+</ul>
+<p>In all other regards, <code>%py_class%</code> is equivalent to <code>r_to_py(R6Class())</code> (indeed, under the hood, they do the same thing).</p>
+</section>
+<section id="a-custom-layer-r6" class="level3">
+<h3 class="anchored" data-anchor-id="a-custom-layer-r6">A custom layer (R6)</h3>
+<p>The same pattern can be extended to all sorts of keras objects. For example, a custom layer can be written by subclassing the base Keras Layer:</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>CustomLayer <span class="ot">&lt;-</span> <span class="fu">r_to_py</span>(R6<span class="sc">::</span><span class="fu">R6Class</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">classname =</span> <span class="st">"CustomLayer"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">inherit =</span> keras<span class="sc">$</span>layers<span class="sc">$</span>Layer,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">public =</span> <span class="fu">list</span>(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">initialize =</span> <span class="cf">function</span>(output_dim) {</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>output_dim <span class="ot">&lt;-</span> output_dim</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">build =</span> <span class="cf">function</span>(input_shape) {</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>      self<span class="sc">$</span>kernel <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">add_weight</span>(</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">'kernel'</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">shape =</span> <span class="fu">list</span>(input_shape[[<span class="dv">2</span>]], self<span class="sc">$</span>output_dim),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">initializer =</span> <span class="fu">initializer_random_normal</span>(),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">trainable =</span> <span class="cn">TRUE</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">call =</span> <span class="cf">function</span>(x, <span class="at">mask =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">k_dot</span>(x, self<span class="sc">$</span>kernel)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">compute_output_shape =</span> <span class="cf">function</span>(input_shape) {</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(input_shape[[<span class="dv">1</span>]], self<span class="sc">$</span>output_dim)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="a-custom-layer-py_class" class="level3">
+<h3 class="anchored" data-anchor-id="a-custom-layer-py_class">A custom layer (<code>%py_class%</code>)</h3>
+<p>or using <code>%py_class%</code>:</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CustomLayer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(output_dim) {</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>output_dim <span class="ot">&lt;-</span> output_dim</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  build <span class="ot">&lt;-</span> <span class="cf">function</span>(input_shape) {</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>kernel <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">add_weight</span>(</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">name =</span> <span class="st">'kernel'</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="fu">list</span>(input_shape[[<span class="dv">2</span>]], self<span class="sc">$</span>output_dim),</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">initializer =</span> <span class="fu">initializer_random_normal</span>(),</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">trainable =</span> <span class="cn">TRUE</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">mask =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">k_dot</span>(x, self<span class="sc">$</span>kernel)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  compute_output_shape <span class="ot">&lt;-</span> <span class="cf">function</span>(input_shape) {</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(input_shape[[<span class="dv">1</span>]], self<span class="sc">$</span>output_dim)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+
+</section>
+</section>
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+</body></html>

@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.183">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>tf-site-title - Transfer learning and fine-tuning</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+
+  <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../../site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="../../">
+  <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="../../site_libs/quarto-search/fuse.min.js"></script>
+  <script src="../../site_libs/quarto-search/quarto-search.js"></script>
+  <script src="../../site_libs/quarto-html/quarto.js"></script>
+  <script src="../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="../../site_libs/quarto-html/anchor.min.js"></script>
+  <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "sidebar",
+    "copy-button": false,
+    "collapse-after": 3,
+    "panel-placement": "start",
+    "type": "textbox",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<h2 id="toc-title">On this page</h2>
+<ul>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+<li><a href="#freezing-layers-understanding-the-trainable-attribute" id="toc-freezing-layers-understanding-the-trainable-attribute" class="nav-link" data-scroll-target="#freezing-layers-understanding-the-trainable-attribute">Freezing layers: understanding the <code>trainable</code> attribute</a></li>
+<li><a href="#recursive-setting-of-the-trainable-attribute" id="toc-recursive-setting-of-the-trainable-attribute" class="nav-link" data-scroll-target="#recursive-setting-of-the-trainable-attribute">Recursive setting of the <code>trainable</code> attribute</a></li>
+<li><a href="#the-typical-transfer-learning-workflow" id="toc-the-typical-transfer-learning-workflow" class="nav-link" data-scroll-target="#the-typical-transfer-learning-workflow">The typical transfer-learning workflow</a></li>
+<li><a href="#fine-tuning" id="toc-fine-tuning" class="nav-link" data-scroll-target="#fine-tuning">Fine-tuning</a></li>
+<li><a href="#transfer-learning-and-fine-tuning-with-a-custom-training-loop" id="toc-transfer-learning-and-fine-tuning-with-a-custom-training-loop" class="nav-link" data-scroll-target="#transfer-learning-and-fine-tuning-with-a-custom-training-loop">Transfer learning and fine-tuning with a custom training loop</a></li>
+<li><a href="#an-end-to-end-example-fine-tuning-an-image-classification-model-on-a-cats-vs.-dogs-dataset" id="toc-an-end-to-end-example-fine-tuning-an-image-classification-model-on-a-cats-vs.-dogs-dataset" class="nav-link" data-scroll-target="#an-end-to-end-example-fine-tuning-an-image-classification-model-on-a-cats-vs.-dogs-dataset">An end-to-end example: fine-tuning an image classification model on a cats vs.&nbsp;dogs dataset</a>
+<ul class="collapse">
+<li><a href="#getting-the-data" id="toc-getting-the-data" class="nav-link" data-scroll-target="#getting-the-data">Getting the data</a></li>
+<li><a href="#standardizing-the-data" id="toc-standardizing-the-data" class="nav-link" data-scroll-target="#standardizing-the-data">Standardizing the data</a></li>
+<li><a href="#using-random-data-augmentation" id="toc-using-random-data-augmentation" class="nav-link" data-scroll-target="#using-random-data-augmentation">Using random data augmentation</a></li>
+</ul></li>
+<li><a href="#build-a-model" id="toc-build-a-model" class="nav-link" data-scroll-target="#build-a-model">Build a model</a></li>
+<li><a href="#train-the-top-layer" id="toc-train-the-top-layer" class="nav-link" data-scroll-target="#train-the-top-layer">Train the top layer</a></li>
+<li><a href="#do-a-round-of-fine-tuning-of-the-entire-model" id="toc-do-a-round-of-fine-tuning-of-the-entire-model" class="nav-link" data-scroll-target="#do-a-round-of-fine-tuning-of-the-entire-model">Do a round of fine-tuning of the entire model</a></li>
+</ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
+
+<div class="quarto-title"><h1 class="title display-7">Transfer learning and fine-tuning</h1></div></header>
+
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>printf <span class="ot">&lt;-</span> <span class="cf">function</span>(...) <span class="fu">writeLines</span>(<span class="fu">sprintf</span>(...))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p><strong>Transfer learning</strong> consists of taking features learned on one problem, and leveraging them on a new, similar problem. For instance, features from a model that has learned to identify racoons may be useful to kick-start a model meant to identify skunks.</p>
+<p>Transfer learning is usually done for tasks where your dataset has too little data to train a full-scale model from scratch.</p>
+<p>The most common incarnation of transfer learning in the context of deep learning is the following workflow:</p>
+<ol type="1">
+<li>Take layers from a previously trained model.</li>
+<li>Freeze them, so as to avoid destroying any of the information they contain during future training rounds.</li>
+<li>Add some new, trainable layers on top of the frozen layers. They will learn to turn the old features into predictions on a new dataset.</li>
+<li>Train the new layers on your dataset.</li>
+</ol>
+<p>A last, optional step, is <strong>fine-tuning</strong>, which consists of unfreezing the entire model you obtained above (or part of it), and re-training it on the new data with a very low learning rate. This can potentially achieve meaningful improvements, by incrementally adapting the pretrained features to the new data.</p>
+<p>First, we will go over the Keras <code>trainable</code> API in detail, which underlies most transfer learning and fine-tuning workflows.</p>
+<p>Then, we’ll demonstrate the typical workflow by taking a model pretrained on the ImageNet dataset, and retraining it on the Kaggle “cats vs dogs” classification dataset.</p>
+<p>This is adapted from <a href="https://www.manning.com/books/deep-learning-with-r">Deep Learning with R</a> and the 2016 blog post <a href="https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html">“building powerful image classification models using very little data”</a>.</p>
+</section>
+<section id="freezing-layers-understanding-the-trainable-attribute" class="level2">
+<h2 class="anchored" data-anchor-id="freezing-layers-understanding-the-trainable-attribute">Freezing layers: understanding the <code>trainable</code> attribute</h2>
+<p>Layers and models have three weight attributes:</p>
+<ul>
+<li><code>weights</code> is the list of all weights variables of the layer.</li>
+<li><code>trainable_weights</code> is the list of those that are meant to be updated (via gradient descent) to minimize the loss during training.</li>
+<li><code>non_trainable_weights</code> is the list of those that aren’t meant to be trained. Typically they are updated by the model during the forward pass.</li>
+</ul>
+<p><strong>Example: the <code>Dense</code> layer has 2 trainable weights (kernel and bias)</strong></p>
+<div class="cell" data-hold="true">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stderr">
+<pre><code>Loaded Tensorflow version 2.8.0</code></pre>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>layer<span class="sc">$</span><span class="fu">build</span>(<span class="fu">shape</span>(<span class="cn">NULL</span>, <span class="dv">4</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"weights: %s"</span>, <span class="fu">length</span>(layer<span class="sc">$</span>weights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>weights: 2</code></pre>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"trainable_weights: %s"</span>, <span class="fu">length</span>(layer<span class="sc">$</span>trainable_weights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>trainable_weights: 2</code></pre>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"non_trainable_weights: %s"</span>, <span class="fu">length</span>(layer<span class="sc">$</span>non_trainable_weights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>non_trainable_weights: 0</code></pre>
+</div>
+</div>
+<p>In general, all weights are trainable weights. The only built-in layer that has non-trainable weights is <code>layer_batch_normalization()</code>. It uses non-trainable weights to keep track of the mean and variance of its inputs during training. To learn how to use non-trainable weights in your own custom layers, see the <a href="https://keras.rstudio.com/articles/new-guides/making_new_layers_and_models_via_subclassing.html">guide to writing new layers from scratch</a>.</p>
+<p><strong>Example: The layer instance returned by <code>layer_batch_normalization()</code> has 2 trainable weights and 2 non-trainable weights</strong></p>
+<div class="cell" data-hold="true">
+<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_batch_normalization</span>()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>layer<span class="sc">$</span><span class="fu">build</span>(<span class="fu">shape</span>(<span class="cn">NULL</span>, <span class="dv">4</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"weights: %s"</span>, <span class="fu">length</span>(layer<span class="sc">$</span>weights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>weights: 4</code></pre>
+</div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"trainable_weights: %s"</span>, <span class="fu">length</span>(layer<span class="sc">$</span>trainable_weights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>trainable_weights: 2</code></pre>
+</div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"non_trainable_weights: %s"</span>, <span class="fu">length</span>(layer<span class="sc">$</span>non_trainable_weights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>non_trainable_weights: 2</code></pre>
+</div>
+</div>
+<p>Layers and models also feature a boolean attribute <code>trainable</code>. Its value can be changed. Setting <code>layer$trainable</code> to <code>FALSE</code> moves all the layer’s weights from trainable to non-trainable. This is called “freezing” the layer: the state of a frozen layer won’t be updated during training (either when training with <code>fit()</code> or when training with any custom loop that relies on <code>trainable_weights</code> to apply gradient updates).</p>
+<p><strong>Example: setting <code>trainable</code> to <code>False</code></strong></p>
+<div class="cell" data-hold="true">
+<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">=</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">3</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>layer<span class="sc">$</span><span class="fu">build</span>(<span class="fu">shape</span>(<span class="cn">NULL</span>, <span class="dv">4</span>))  <span class="co"># Create the weights</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>layer<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">FALSE</span>     <span class="co"># Freeze the layer</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"weights: %s"</span>, <span class="fu">length</span>(layer<span class="sc">$</span>weights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>weights: 2</code></pre>
+</div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"trainable_weights: %s"</span>, <span class="fu">length</span>(layer<span class="sc">$</span>trainable_weights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>trainable_weights: 0</code></pre>
+</div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"non_trainable_weights: %s"</span>, <span class="fu">length</span>(layer<span class="sc">$</span>non_trainable_weights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>non_trainable_weights: 2</code></pre>
+</div>
+</div>
+<p>When a trainable weight becomes non-trainable, its value is no longer updated during training.</p>
+<div class="cell">
+<div class="sourceCode" id="cb22"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a model with 2 layers</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>layer1 <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>layer2 <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"sigmoid"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer1</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer2</span>()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Freeze the first layer</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>layer1<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep a copy of the weights of layer1 for later reference</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>initial_layer1_weights_values <span class="ot">&lt;-</span> <span class="fu">get_weights</span>(layer1)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"adam"</span>, <span class="at">loss =</span> <span class="st">"mse"</span>)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="fu">k_random_normal</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)), <span class="fu">k_random_normal</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)))</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that the weights of layer1 have not changed during training</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>final_layer1_weights_values <span class="ot">&lt;-</span> <span class="fu">get_weights</span>(layer1)</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all.equal</span>(initial_layer1_weights_values, final_layer1_weights_values))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Do not confuse the <code>layer$trainable</code> attribute with the <code>training</code> argument in a layer instance’s <code>call</code> signature <code>layer(training =)</code> (which controls whether the layer should run its forward pass in inference mode or training mode). For more information, see the <a href="https://keras.io/getting_started/faq/#whats-the-difference-between-the-training-argument-in-call-and-the-trainable-attribute">Keras FAQ</a>.</p>
+</section>
+<section id="recursive-setting-of-the-trainable-attribute" class="level2">
+<h2 class="anchored" data-anchor-id="recursive-setting-of-the-trainable-attribute">Recursive setting of the <code>trainable</code> attribute</h2>
+<p>If you set <code>trainable = FALSE</code> on a model or on any layer that has sublayers, all child layers become non-trainable as well.</p>
+<p><strong>Example:</strong></p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>inner_model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_model</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"sigmoid"</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">FALSE</span>  <span class="co"># Freeze the outer model</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(inner_model<span class="sc">$</span>trainable <span class="sc">==</span> <span class="cn">FALSE</span>)             <span class="co"># All layers in `model` are now frozen</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(inner_model<span class="sc">$</span>layers[[<span class="dv">1</span>]]<span class="sc">$</span>trainable <span class="sc">==</span> <span class="cn">FALSE</span>)  <span class="co"># `trainable` is propagated recursively</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="the-typical-transfer-learning-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="the-typical-transfer-learning-workflow">The typical transfer-learning workflow</h2>
+<p>This leads us to how a typical transfer learning workflow can be implemented in Keras:</p>
+<ol type="1">
+<li>Instantiate a base model and load pre-trained weights into it.</li>
+<li>Freeze all layers in the base model by setting <code>trainable = FALSE</code>.</li>
+<li>Create a new model on top of the output of one (or several) layers from the base model.</li>
+<li>Train your new model on your new dataset.</li>
+</ol>
+<p>Note that an alternative, more lightweight workflow could also be:</p>
+<ol type="1">
+<li>Instantiate a base model and load pre-trained weights into it.</li>
+<li>Run your new dataset through it and record the output of one (or several) layers from the base model. This is called <strong>feature extraction</strong>.</li>
+<li>Use that output as input data for a new, smaller model.</li>
+</ol>
+<p>A key advantage of that second workflow is that you only run the base model once on your data, rather than once per epoch of training. So it’s a lot faster and cheaper.</p>
+<p>An issue with that second workflow, though, is that it doesn’t allow you to dynamically modify the input data of your new model during training, which is required when doing data augmentation, for instance. Transfer learning is typically used for tasks when your new dataset has too little data to train a full-scale model from scratch, and in such scenarios data augmentation is very important. So in what follows, we will focus on the first workflow.</p>
+<p>Here’s what the first workflow looks like in Keras:</p>
+<p>First, instantiate a base model with pre-trained weights.</p>
+<div class="cell">
+<div class="sourceCode" id="cb24"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>base_model <span class="ot">&lt;-</span> <span class="fu">application_xception</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> <span class="st">'imagenet'</span>, <span class="co"># Load weights pre-trained on ImageNet.</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_top =</span> <span class="cn">FALSE</span> <span class="co"># Do not include the ImageNet classifier at the top.</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, freeze the base model.</p>
+<div class="cell">
+<div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>base_model<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Create a new model on top.</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>outputs <span class="ot">&lt;-</span> inputs <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># We make sure that the base_model is running in inference mode here,</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># by passing `training=FALSE`. This is important for fine-tuning, as you will</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># learn in a few paragraphs.</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">base_model</span>(<span class="at">training=</span><span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert features of shape `base_model$output_shape[-1]` to vectors</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_global_average_pooling_2d</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># A Dense classifier with a single unit (binary classification)</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1</span>)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(inputs, outputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Train the model on new data.</p>
+<div class="cell">
+<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="fu">optimizer_adam</span>(),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">loss =</span> <span class="fu">loss_binary_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">metrics =</span> <span class="fu">metric_binary_accuracy</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(new_dataset, <span class="at">epochs =</span> <span class="dv">20</span>, <span class="at">callbacks =</span> ..., <span class="at">validation_data =</span> ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="fine-tuning" class="level2">
+<h2 class="anchored" data-anchor-id="fine-tuning">Fine-tuning</h2>
+<p>Once your model has converged on the new data, you can try to unfreeze all or part of the base model and retrain the whole model end-to-end with a very low learning rate.</p>
+<p>This is an optional last step that can potentially give you incremental improvements. It could also potentially lead to quick overfitting – keep that in mind.</p>
+<p>It is critical to only do this step <em>after</em> the model with frozen layers has been trained to convergence. If you mix randomly-initialized trainable layers with trainable layers that hold pre-trained features, the randomly-initialized layers will cause very large gradient updates during training, which will destroy your pre-trained features.</p>
+<p>It’s also critical to use a very low learning rate at this stage, because you are training a much larger model than in the first round of training, on a dataset that is typically very small. As a result, you are at risk of overfitting very quickly if you apply large weight updates. Here, you only want to re-adapt the pretrained weights in an incremental way.</p>
+<p>This is how to implement fine-tuning of the whole base model:</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unfreeze the base model</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>base_model<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># It's important to recompile your model after you make any changes</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># to the `trainable` attribute of any inner layer, so that your changes</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># are taken into account</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="fl">1e-5</span>), <span class="co"># Very low learning rate</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="fu">loss_binary_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">metric_binary_accuracy</span>()</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Train end-to-end. Be careful to stop before you overfit!</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(new_dataset, <span class="at">epochs=</span><span class="dv">10</span>, <span class="at">callbacks=</span>..., <span class="at">validation_data=</span>...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Important note about <code>compile()</code> and <code>trainable</code></strong></p>
+<p>Calling <code>compile()</code> on a model is meant to “freeze” the behavior of that model. This implies that the <code>trainable</code> attribute values at the time the model is compiled should be preserved throughout the lifetime of that model, until <code>compile</code> is called again. Hence, if you change any <code>trainable</code> value, make sure to call <code>compile()</code> again on your model for your changes to be taken into account.</p>
+<p><strong>Important notes about <code>layer_batch_normalization()</code></strong></p>
+<p>Many image models contain <code>BatchNormalization</code> layers. That layer is a special case on every imaginable count. Here are a few things to keep in mind.</p>
+<ul>
+<li><code>BatchNormalization</code> contains 2 non-trainable weights that get updated during training. These are the variables tracking the mean and variance of the inputs.</li>
+<li>When you set <code>bn_layer$trainable = FALSE</code>, the <code>BatchNormalization</code> layer will run in inference mode, and will not update its mean and variance statistics. This is not the case for other layers in general, as <a href="https://keras.io/getting_started/faq/#whats-the-difference-between-the-training-argument-in-call-and-the-trainable-attribute">weight trainability and inference/training modes are two orthogonal concepts</a>. But the two are tied in the case of the <code>BatchNormalization</code> layer.</li>
+<li>When you unfreeze a model that contains <code>BatchNormalization</code> layers in order to do fine-tuning, you should keep the <code>BatchNormalization</code> layers in inference mode by passing <code>training = FALSE</code> when calling the base model. Otherwise the updates applied to the non-trainable weights will suddenly destroy what the model has learned.</li>
+</ul>
+<p>You’ll see this pattern in action in the end-to-end example at the end of this guide.</p>
+</section>
+<section id="transfer-learning-and-fine-tuning-with-a-custom-training-loop" class="level2">
+<h2 class="anchored" data-anchor-id="transfer-learning-and-fine-tuning-with-a-custom-training-loop">Transfer learning and fine-tuning with a custom training loop</h2>
+<p>If instead of <code>fit()</code>, you are using your own low-level training loop, the workflow stays essentially the same. You should be careful to only take into account the list <code>model$trainable_weights</code> when applying gradient updates:</p>
+<div class="cell">
+<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create base model</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>base_model <span class="ot">=</span> <span class="fu">application_xception</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> <span class="st">'imagenet'</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_top =</span> <span class="cn">FALSE</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Freeze base model</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>base_model<span class="sc">$</span>trainable <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new model on top.</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>))</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>outputs <span class="ot">&lt;-</span> inputs <span class="sc">%&gt;%</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">base_model</span>(<span class="at">training =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_global_average_pooling_2d</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1</span>)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(inputs, outputs)</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_binary_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> <span class="fu">optimizer_adam</span>()</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="co"># helper to zip gradients with weights</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>xyz <span class="ot">&lt;-</span> <span class="cf">function</span>(...) <span class="fu">.mapply</span>(c, <span class="fu">list</span>(...), <span class="cn">NULL</span>)</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over the batches of a dataset.</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>new_dataset <span class="ot">&lt;-</span> ...</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="sc">!</span><span class="fu">is.null</span>(batch <span class="ot">&lt;-</span> <span class="fu">iter_next</span>(new_dataset))) {</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(inputs, targets) <span class="sc">%&lt;-%</span> batch</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Open a GradientTape.</span></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">GradientTape</span>() <span class="sc">%as%</span> tape, {</span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Forward pass.</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>    predictions <span class="ot">=</span> <span class="fu">model</span>(inputs)</span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute the loss value for this batch.</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>    loss_value <span class="ot">=</span> <span class="fu">loss_fn</span>(targets, predictions)</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get gradients of loss w.r.t. the *trainable* weights.</span></span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>  gradients <span class="ot">&lt;-</span> tape<span class="sc">$</span><span class="fu">gradient</span>(loss_value, model<span class="sc">$</span>trainable_weights)</span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Update the weights of the model.</span></span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>  optimizer<span class="sc">$</span><span class="fu">apply_gradients</span>(<span class="fu">xyz</span>(gradients, model<span class="sc">$</span>trainable_weights))</span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Likewise for fine-tuning.</p>
+</section>
+<section id="an-end-to-end-example-fine-tuning-an-image-classification-model-on-a-cats-vs.-dogs-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="an-end-to-end-example-fine-tuning-an-image-classification-model-on-a-cats-vs.-dogs-dataset">An end-to-end example: fine-tuning an image classification model on a cats vs.&nbsp;dogs dataset</h2>
+<p>To solidify these concepts, let’s walk you through a concrete end-to-end transfer learning and fine-tuning example. We will load the Xception model, pre-trained on ImageNet, and use it on the Kaggle “cats vs.&nbsp;dogs” classification dataset.</p>
+<section id="getting-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="getting-the-data">Getting the data</h3>
+<p>First, let’s fetch the cats vs.&nbsp;dogs dataset using TFDS. If you have your own dataset, you’ll probably want to use the utility <code>image_dataset_from_directory()</code> to generate similar labeled dataset objects from a set of images on disk filed into class-specific folders.</p>
+<p>Transfer learning is most useful when working with very small datasets. To keep our dataset small, we will use 40% of the original training data (25,000 images) for training, 10% for validation, and 10% for testing.</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reticulate::py_install("tensorflow_datasets", pip = TRUE)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>tfds <span class="ot">&lt;-</span> reticulate<span class="sc">::</span><span class="fu">import</span>(<span class="st">"tensorflow_datasets"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(train_ds, validation_ds, test_ds) <span class="sc">%&lt;-%</span> tfds<span class="sc">$</span><span class="fu">load</span>(</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cats_vs_dogs"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reserve 10% for validation and 10% for test</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">split =</span> <span class="fu">c</span>(<span class="st">"train[:40%]"</span>, <span class="st">"train[40%:50%]"</span>, <span class="st">"train[50%:60%]"</span>),</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">as_supervised=</span><span class="cn">TRUE</span>  <span class="co"># Include labels</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"Number of training samples: %d"</span>, <span class="fu">length</span>(train_ds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>Number of training samples: 9305</code></pre>
+</div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"Number of validation samples: %d"</span>, <span class="fu">length</span>(validation_ds) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>Number of validation samples: 2326</code></pre>
+</div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">printf</span>(<span class="st">"Number of test samples: %d"</span>, <span class="fu">length</span>(test_ds))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>Number of test samples: 2326</code></pre>
+</div>
+</div>
+<p>These are the first 9 images in the training dataset – as you can see, they’re all different sizes.</p>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="fl">1.5</span>,<span class="dv">0</span>))</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>train_ds <span class="sc">%&gt;%</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_take</span>(<span class="dv">9</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_array_iterator</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">iterate</span>(<span class="cf">function</span>(batch) {</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(image, label) <span class="sc">%&lt;-%</span> batch</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">as.raster</span>(image, <span class="at">max =</span> <span class="dv">255</span>))</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(<span class="fu">sprintf</span>(<span class="st">"label: %s   size: %s"</span>,</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>                  label, <span class="fu">paste</span>(<span class="fu">dim</span>(image), <span class="at">collapse =</span> <span class="st">" x "</span>)))</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="transfer_learning_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We can also see that label 1 is “dog” and label 0 is “cat”.</p>
+</section>
+<section id="standardizing-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="standardizing-the-data">Standardizing the data</h3>
+<p>Our raw images have a variety of sizes. In addition, each pixel consists of 3 integer values between 0 and 255 (RGB level values). This isn’t a great fit for feeding a neural network. We need to do 2 things:</p>
+<ul>
+<li>Standardize to a fixed image size. We pick 150x150.</li>
+<li>Normalize pixel values between -1 and 1. We’ll do this using a <code>layer_normalization()</code> as part of the model itself.</li>
+</ul>
+<p>In general, it’s a good practice to develop models that take raw data as input, as opposed to models that take already-preprocessed data. The reason being that, if your model expects preprocessed data, any time you export your model to use it elsewhere (in a web browser, in a mobile app), you’ll need to reimplement the exact same preprocessing pipeline. This gets very tricky very quickly. So we should do the least possible amount of preprocessing before hitting the model.</p>
+<p>Here, we’ll do image resizing in the data pipeline (because a deep neural network can only process contiguous batches of data), and we’ll do the input value scaling as part of the model, when we create it.</p>
+<p>Let’s resize images to 150x150:</p>
+<div class="cell">
+<div class="sourceCode" id="cb37"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr, <span class="at">include.only =</span> <span class="st">"%&lt;&gt;%"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>size <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>train_ds      <span class="sc">%&lt;&gt;%</span> <span class="fu">dataset_map</span>(<span class="cf">function</span>(x, y) <span class="fu">list</span>(tf<span class="sc">$</span>image<span class="sc">$</span><span class="fu">resize</span>(x, size), y))</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>validation_ds <span class="sc">%&lt;&gt;%</span> <span class="fu">dataset_map</span>(<span class="cf">function</span>(x, y) <span class="fu">list</span>(tf<span class="sc">$</span>image<span class="sc">$</span><span class="fu">resize</span>(x, size), y))</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>test_ds       <span class="sc">%&lt;&gt;%</span> <span class="fu">dataset_map</span>(<span class="cf">function</span>(x, y) <span class="fu">list</span>(tf<span class="sc">$</span>image<span class="sc">$</span><span class="fu">resize</span>(x, size), y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Besides, let’s batch the data and use caching and prefetching to optimize loading speed.</p>
+<div class="cell">
+<div class="sourceCode" id="cb38"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>dataset_cache_batch_prefetch <span class="ot">&lt;-</span> <span class="cf">function</span>(dataset, <span class="at">batch_size =</span> <span class="dv">32</span>, <span class="at">buffer_size =</span> <span class="dv">10</span>) {</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  dataset <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dataset_cache</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dataset_batch</span>(batch_size) <span class="sc">%&gt;%</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dataset_prefetch</span>(buffer_size)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>train_ds      <span class="sc">%&lt;&gt;%</span> <span class="fu">dataset_cache_batch_prefetch</span>()</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>validation_ds <span class="sc">%&lt;&gt;%</span> <span class="fu">dataset_cache_batch_prefetch</span>()</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>test_ds       <span class="sc">%&lt;&gt;%</span> <span class="fu">dataset_cache_batch_prefetch</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="using-random-data-augmentation" class="level3">
+<h3 class="anchored" data-anchor-id="using-random-data-augmentation">Using random data augmentation</h3>
+<p>When you don’t have a large image dataset, it’s a good practice to artificially introduce sample diversity by applying random yet realistic transformations to the training images, such as random horizontal flipping or small random rotations. This helps expose the model to different aspects of the training data while slowing down overfitting.</p>
+<div class="cell">
+<div class="sourceCode" id="cb39"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data_augmentation <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_random_flip</span>(<span class="st">"horizontal"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_random_rotation</span>(.<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s visualize what the first image of the first batch looks like after various random transformations:</p>
+<div class="cell">
+<div class="sourceCode" id="cb40"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>batch <span class="ot">&lt;-</span> train_ds <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_take</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_iterator</span>() <span class="sc">%&gt;%</span> <span class="fu">iter_next</span>()</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(images, labels) <span class="sc">%&lt;-%</span> batch</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>first_image <span class="ot">&lt;-</span> images[<span class="dv">1</span>, <span class="fu">all_dims</span>(), drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>augmented_image <span class="ot">&lt;-</span> <span class="fu">data_augmentation</span>(first_image, <span class="at">training =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>plot_image <span class="ot">&lt;-</span> <span class="cf">function</span>(image, <span class="at">main =</span> <span class="fu">deparse1</span>(<span class="fu">substitute</span>(image))) {</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  image <span class="sc">%&gt;%</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">k_squeeze</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="co"># drop batch dim</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.array</span>() <span class="sc">%&gt;%</span>   <span class="co"># convert from tensor to R array</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.raster</span>(<span class="at">max =</span> <span class="dv">255</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>()</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.null</span>(main))</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">title</span>(main)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">1</span>))</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_image</span>(first_image)</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_image</span>(augmented_image)</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_image</span>(<span class="fu">data_augmentation</span>(first_image, <span class="at">training =</span> <span class="cn">TRUE</span>), <span class="st">"augmented 2"</span>)</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_image</span>(<span class="fu">data_augmentation</span>(first_image, <span class="at">training =</span> <span class="cn">TRUE</span>), <span class="st">"augmented 3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="transfer_learning_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="build-a-model" class="level2">
+<h2 class="anchored" data-anchor-id="build-a-model">Build a model</h2>
+<p>Now let’s build a model that follows the blueprint we’ve explained earlier.</p>
+<p>Note that:</p>
+<ul>
+<li>We add <code>layer_rescaling()</code> to scale input values (initially in the <code>[0, 255]</code> range) to the <code>[-1, 1]</code> range.</li>
+<li>We add a <code>layer_dropout()</code> before the classification layer, for regularization.</li>
+<li>We make sure to pass <code>training = FALSE</code> when calling the base model, so that it runs in inference mode, so that batchnorm statistics don’t get updated even after we unfreeze the base model for fine-tuning.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb41"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>base_model <span class="ot">=</span> <span class="fu">application_xception</span>(</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">weights =</span> <span class="st">"imagenet"</span>, <span class="co"># Load weights pre-trained on ImageNet.</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>),</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">include_top =</span> <span class="cn">FALSE</span> <span class="co"># Do not include the ImageNet classifier at the top.</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Freeze the base_model</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>base_model<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new model on top</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>inputs <span class="ot">=</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">150</span>, <span class="dv">3</span>))</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>outputs <span class="ot">&lt;-</span> inputs <span class="sc">%&gt;%</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data_augmentation</span>() <span class="sc">%&gt;%</span>   <span class="co"># Apply random data augmentation</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Pre-trained Xception weights requires that input be scaled</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># from (0, 255) to a range of (-1., +1.), the rescaling layer</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># outputs: `(inputs * scale) + offset`</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_rescaling</span>(<span class="at">scale =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fl">127.5</span>, <span class="at">offset =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The base model contains batchnorm layers. We want to keep them in inference mode</span></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># when we unfreeze the base model for fine-tuning, so we make sure that the</span></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># base_model is running in inference mode here.</span></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">base_model</span>(<span class="at">training =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_global_average_pooling_2d</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(.<span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1</span>)</span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(inputs, outputs)</span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>Model: "model_1"
+____________________________________________________________________________
+ Layer (type)                Output Shape              Param #   Trainable  
+============================================================================
+ input_7 (InputLayer)        [(None, 150, 150, 3)]     0         Y          
+ sequential_3 (Sequential)   (None, 150, 150, 3)       0         Y          
+ rescaling (Rescaling)       (None, 150, 150, 3)       0         Y          
+ xception (Functional)       (None, 5, 5, 2048)        20861480  N          
+ global_average_pooling2d_1   (None, 2048)             0         Y          
+ (GlobalAveragePooling2D)                                                   
+ dropout (Dropout)           (None, 2048)              0         Y          
+ dense_8 (Dense)             (None, 1)                 2049      Y          
+============================================================================
+Total params: 20,863,529
+Trainable params: 2,049
+Non-trainable params: 20,861,480
+____________________________________________________________________________</code></pre>
+</div>
+</div>
+</section>
+<section id="train-the-top-layer" class="level2">
+<h2 class="anchored" data-anchor-id="train-the-top-layer">Train the top layer</h2>
+<div class="cell">
+<div class="sourceCode" id="cb43"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="fu">optimizer_adam</span>(),</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="fu">loss_binary_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">metric_binary_accuracy</span>()</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>epochs <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(train_ds, <span class="at">epochs =</span> epochs, <span class="at">validation_data =</span> validation_ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="do-a-round-of-fine-tuning-of-the-entire-model" class="level2">
+<h2 class="anchored" data-anchor-id="do-a-round-of-fine-tuning-of-the-entire-model">Do a round of fine-tuning of the entire model</h2>
+<p>Finally, let’s unfreeze the base model and train the entire model end-to-end with a low learning rate.</p>
+<p>Importantly, although the base model becomes trainable, it is still running in inference mode since we passed <code>training = FALSE</code> when calling it when we built the model. This means that the batch normalization layers inside won’t update their batch statistics. If they did, they would wreck havoc on the representations learned by the model so far.</p>
+<div class="cell">
+<div class="sourceCode" id="cb44"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Unfreeze the base_model. Note that it keeps running in inference mode</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># since we passed `training = FALSE` when calling it. This means that</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the batchnorm layers will not update their batch statistics.</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># This prevents the batchnorm layers from undoing all the training</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co"># we've done so far.</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>base_model<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-stdout">
+<pre><code>Model: "model_1"
+____________________________________________________________________________
+ Layer (type)                Output Shape              Param #   Trainable  
+============================================================================
+ input_7 (InputLayer)        [(None, 150, 150, 3)]     0         Y          
+ sequential_3 (Sequential)   (None, 150, 150, 3)       0         Y          
+ rescaling (Rescaling)       (None, 150, 150, 3)       0         Y          
+ xception (Functional)       (None, 5, 5, 2048)        20861480  Y          
+ global_average_pooling2d_1   (None, 2048)             0         Y          
+ (GlobalAveragePooling2D)                                                   
+ dropout (Dropout)           (None, 2048)              0         Y          
+ dense_8 (Dense)             (None, 1)                 2049      Y          
+============================================================================
+Total params: 20,863,529
+Trainable params: 20,809,001
+Non-trainable params: 54,528
+____________________________________________________________________________</code></pre>
+</div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="fl">1e-5</span>),</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> <span class="fu">loss_binary_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">metric_binary_accuracy</span>()</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>epochs <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(train_ds, <span class="at">epochs =</span> epochs, <span class="at">validation_data =</span> validation_ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After 10 epochs, fine-tuning gains us a nice improvement here.</p>
+
+
+
+</section>
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+</body></html>
