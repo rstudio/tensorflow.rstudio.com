@@ -2,6 +2,7 @@
 library(envir)
 attach_eval({
   import_from(magrittr, `%>%`, `%<>%`)
+  import_from(glue, glue)
   #
   # ll <- list.files
   # formals(ll)$all.files <- TRUE
@@ -40,13 +41,19 @@ tutobook_to_qmd <- function(x) {
 
 
 translate_py_to_r <- function(x) {
+  force(x)
   lgsub <- function(pt, rp, fixed = FALSE)
     x <<- base::gsub(pt, rp, x, perl=!fixed, fixed=fixed)
 
+  # browser()
 
 
   lgsub("```{python}", "```{r}", fixed = TRUE)
   lgsub("zip(", "zip_lists(", fixed = TRUE)
+  lgsub("tf.constant(", "as_tensor(", fixed = TRUE)
+  lgsub(".ipynb)", ".qmd)", fixed = TRUE) # cross links
+  lgsub("tf.function", "tf_function", fixed = TRUE)
+  lgsub("**", "^", fixed = TRUE)
   lgsub("^(\\s*)([a-zA-Z._]+) =", "\\1\\2 <-")
 
   x <- paste0(x, collapse = "\n")
@@ -55,6 +62,9 @@ translate_py_to_r <- function(x) {
   lgsub("```list(r)", "```{r}", fixed = TRUE)
 
   lgsub("def ([a-zA-Z_]+)\\(self,? ?(.*)\\):",
+        "\\1 <- function(\\2) {    }")
+
+  lgsub("def ([a-zA-Z_]+)\\((.*)\\):",
         "\\1 <- function(\\2) {    }")
 
   lgsub("with ([a-zA-Z.()]+) as ([a-zA-Z.()]+):",
@@ -115,16 +125,26 @@ translate_py_to_r <- function(x) {
   x
 }
 
+ipynb_file <- "tensorflow/guide/basics.ipynb"
+qmd_file <- sub("\\.ipynb$", ".qmd", ipynb_file)
+
+unlink(qmd_file)
+system(glue("quarto convert {file}"))
+
+x <- readLines(qmd_file)
+
+x <- x[!startsWith(x, "#| id:")]
+x <- translate_py_to_r(x)
+writeLines(x, qmd_file)
+
 
 
 # tutobook_file <- "keras/guides/customizing_what_happens_in_fit.py"
-tutobook_file <- "keras/guides/preprocessing_layers.py"
+# tutobook_file <- "keras/guides/preprocessing_layers.py"
 
-x <- readLines(tutobook_file)
-x <- tutobook_to_qmd(x)
-x <- translate_py_to_r(x)
+# x <- readLines(tutobook_file)
+# x <- tutobook_to_qmd(x)
+# x <- translate_py_to_r(x)
 
-
-
-qmd_file <- sub("\\.py$", ".qmd", tutobook_file)
-writeLines(x, qmd_file)
+# qmd_file <- sub("\\.py$", ".qmd", tutobook_file)
+# writeLines(x, qmd_file)

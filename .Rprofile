@@ -2,8 +2,10 @@
 if(file.exists("~/.Rprofile"))
   sys.source("~/.Rprofile")
 
-if(is.na(Sys.getenv("CUDA_VISIBLE_DEVICES", NA)))
-  Sys.setenv(CUDA_VISIBLE_DEVICES = if(interactive()) 1 else 0)
+if(is.na(Sys.getenv("CUDA_VISIBLE_DEVICES", NA)) &&
+   system("hostname", intern = TRUE) == "horse") {
+    Sys.setenv(CUDA_VISIBLE_DEVICES = if (interactive()) 1 else 0)
+}
 
 set.seed(123456)
 
@@ -24,4 +26,13 @@ options(
 setHook("plot.new", function() par(las = 1))
 
 setHook(packageEvent("reticulate", "onLoad"),
-        function(...) try(reticulate::use_virtualenv("r-tensorflow-site", required = TRUE)))
+        function(...)
+          try(reticulate::use_virtualenv("r-tensorflow-site", required = TRUE))
+)
+
+options(
+  reticulate.onPyInit = function() {
+    message("Initialized Python: ", reticulate::py_exe())
+    options(reticulate.onPyInit = NULL)
+  }
+)
