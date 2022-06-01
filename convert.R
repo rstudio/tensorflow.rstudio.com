@@ -120,20 +120,38 @@ translate_py_to_r <- function(x) {
   lgsub("super\\(.*, self\\)\\.compile\\((.*)\\)",
         "super$compile(\\1)")
 
+  lgsub("www$", "www.", fixed = TRUE)
+  lgsub("$com", ".com", fixed = TRUE)
+  lgsub("$org", ".org", fixed = TRUE)
+  lgsub("$html", ".html", fixed = TRUE)
+  lgsub("$png", ".png", fixed = TRUE)
+  lgsub("$jpg", ".jpg", fixed = TRUE)
   lgsub("e$g.", "e.g.", fixed=TRUE)
+
+  lgsub("^(\\s*[^( ]+) =", "\\1 <-")
 
   x
 }
 
-ipynb_file <- "tensorflow/guide/basics.ipynb"
+ipynb_file <- "tensorflow/guide/tensor.ipynb"
 qmd_file <- sub("\\.ipynb$", ".qmd", ipynb_file)
 
 unlink(qmd_file)
-system(glue("quarto convert {file}"))
+system(glue("quarto convert {ipynb_file}"))
 
 x <- readLines(qmd_file)
 
 x <- x[!startsWith(x, "#| id:")]
+# replace "jupyter: python3"
+if(x[2] == "jupyter: python3") {
+  x[2] <- qmd_file %>%
+    basename() %>%
+    sub(".qmd", "", ., fixed = TRUE) %>%
+    sub("_", " ", ., fixed = TRUE) %>%
+    stringr::str_to_title() %>%
+    sprintf("title: %s", .)
+}
+
 x <- translate_py_to_r(x)
 writeLines(x, qmd_file)
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript
+#!/usr/bin/env -S Rscript --vanilla
 
 
 # remotes::update_packages()
@@ -20,7 +20,7 @@ python <- reticulate::install_python(force = "--fresh" %in% commandArgs(TRUE))
 reticulate::virtualenv_create(envname, python = python)
 
 keras::install_keras(
-  version = "release-cpu",
+  version = "release",
   method = "virtualenv",
   envname = envname,
   extra_packages = c("keras-tuner",
