@@ -2,7 +2,12 @@ project:
   type: website
   render:
     - index.qmd
+    - tensorflow/guide/*.qmd
     - keras/guides/*.qmd
+  preview:
+    port: 5555
+    browser: false
+
 
 toc: true
 

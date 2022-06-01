@@ -2,5 +2,6 @@
 title: "mysite"
 listing:
   contents:
-    - "keras/guides/*.qmd"
+    - tensorflow/guide/*.qmd
+    - keras/guides/*.qmd
 ---

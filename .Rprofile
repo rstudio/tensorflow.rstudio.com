@@ -3,8 +3,10 @@ if(file.exists("~/.Rprofile"))
   sys.source("~/.Rprofile")
 
 if(is.na(Sys.getenv("CUDA_VISIBLE_DEVICES", NA)) &&
-   system("hostname", intern = TRUE) == "horse") {
-    Sys.setenv(CUDA_VISIBLE_DEVICES = if (interactive()) 1 else 0)
+   Sys.info()[["sysname"]] == "Linux" &&
+   system("hostname", intern = TRUE) == "horse")
+{
+  Sys.setenv(CUDA_VISIBLE_DEVICES = if (interactive()) 1 else 0)
 }
 
 set.seed(123456)
@@ -19,7 +21,11 @@ options(
   scipen = 6,
   keras.view_metrics = FALSE,
   str = utils::strOptions(list.len = 8),
-  width = 76
+  width = 76,
+  reticulate.onPyInit = function() {
+    message("Initialized Python: ", reticulate::py_exe())
+    options(reticulate.onPyInit = NULL)
+  }
 )
 
 
@@ -30,9 +36,3 @@ setHook(packageEvent("reticulate", "onLoad"),
           try(reticulate::use_virtualenv("r-tensorflow-site", required = TRUE))
 )
 
-options(
-  reticulate.onPyInit = function() {
-    message("Initialized Python: ", reticulate::py_exe())
-    options(reticulate.onPyInit = NULL)
-  }
-)
