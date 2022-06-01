@@ -1,122 +1,127 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-  <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.183">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <meta name="author" content="Francois Chollet, Mark Omernick, Tomasz Kalinowski">
-  <meta name="description" content="Overview of how to leverage preprocessing layers to create end-to-end models.">
-  <title>tf-site-title - Working with preprocessing layers</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
 
-  <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-  <script src="../../site_libs/clipboard/clipboard.min.js"></script>
-  <meta name="quarto:offset" content="../../">
-  <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-  <script src="../../site_libs/quarto-search/fuse.min.js"></script>
-  <script src="../../site_libs/quarto-search/quarto-search.js"></script>
-  <script src="../../site_libs/quarto-html/quarto.js"></script>
-  <script src="../../site_libs/quarto-html/popper.min.js"></script>
-  <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-  <script src="../../site_libs/quarto-html/anchor.min.js"></script>
-  <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-  <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <script id="quarto-search-options" type="application/json">{
-    "location": "sidebar",
-    "copy-button": false,
-    "collapse-after": 3,
-    "panel-placement": "start",
-    "type": "textbox",
-    "limit": 20,
-    "language": {
-      "search-no-results-text": "No results",
-      "search-matching-documents-text": "matching documents",
-      "search-copy-link-title": "Copy link to search",
-      "search-hide-matches-text": "Hide additional matches",
-      "search-more-match-text": "more match in this document",
-      "search-more-matches-text": "more matches in this document",
-      "search-clear-button-title": "Clear",
-      "search-detached-cancel-button-title": "Cancel",
-      "search-submit-button-title": "Submit"
-    }
-  }</script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+<meta charset="utf-8">
+<meta name="generator" content="quarto-99.9.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Francois Chollet, Mark Omernick, Tomasz Kalinowski">
+<meta name="description" content="Overview of how to leverage preprocessing layers to create end-to-end models.">
+
+<title>tf-site-title - Working with preprocessing layers</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
 </head>
+
 <body>
+
 <div id="quarto-search-results"></div>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
@@ -124,50 +129,74 @@
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc">
-<h2 id="toc-title">On this page</h2>
-<ul>
-<li><a href="#keras-preprocessing" id="toc-keras-preprocessing" class="nav-link active" data-scroll-target="#keras-preprocessing">Keras preprocessing</a></li>
-<li><a href="#available-preprocessing-layers" id="toc-available-preprocessing-layers" class="nav-link" data-scroll-target="#available-preprocessing-layers">Available preprocessing layers</a>
-<ul class="collapse">
-<li><a href="#text-preprocessing" id="toc-text-preprocessing" class="nav-link" data-scroll-target="#text-preprocessing">Text preprocessing</a></li>
-<li><a href="#numerical-features-preprocessing" id="toc-numerical-features-preprocessing" class="nav-link" data-scroll-target="#numerical-features-preprocessing">Numerical features preprocessing</a></li>
-<li><a href="#categorical-features-preprocessing" id="toc-categorical-features-preprocessing" class="nav-link" data-scroll-target="#categorical-features-preprocessing">Categorical features preprocessing</a></li>
-<li><a href="#image-preprocessing" id="toc-image-preprocessing" class="nav-link" data-scroll-target="#image-preprocessing">Image preprocessing</a></li>
-<li><a href="#image-data-augmentation" id="toc-image-data-augmentation" class="nav-link" data-scroll-target="#image-data-augmentation">Image data augmentation</a></li>
-</ul></li>
-<li><a href="#the-adapt-function" id="toc-the-adapt-function" class="nav-link" data-scroll-target="#the-adapt-function">The <code>adapt()</code> function</a></li>
-<li><a href="#preprocessing-data-before-the-model-or-inside-the-model" id="toc-preprocessing-data-before-the-model-or-inside-the-model" class="nav-link" data-scroll-target="#preprocessing-data-before-the-model-or-inside-the-model">Preprocessing data before the model or inside the model</a></li>
-<li><a href="#benefits-of-doing-preprocessing-inside-the-model-at-inference-time" id="toc-benefits-of-doing-preprocessing-inside-the-model-at-inference-time" class="nav-link" data-scroll-target="#benefits-of-doing-preprocessing-inside-the-model-at-inference-time">Benefits of doing preprocessing inside the model at inference time</a></li>
-<li><a href="#preprocessing-during-multi-worker-training" id="toc-preprocessing-during-multi-worker-training" class="nav-link" data-scroll-target="#preprocessing-during-multi-worker-training">Preprocessing during multi-worker training</a></li>
-<li><a href="#quick-recipes" id="toc-quick-recipes" class="nav-link" data-scroll-target="#quick-recipes">Quick recipes</a>
-<ul class="collapse">
-<li><a href="#image-data-augmentation-1" id="toc-image-data-augmentation-1" class="nav-link" data-scroll-target="#image-data-augmentation-1">Image data augmentation</a></li>
-<li><a href="#normalizing-numerical-features" id="toc-normalizing-numerical-features" class="nav-link" data-scroll-target="#normalizing-numerical-features">Normalizing numerical features</a></li>
-<li><a href="#encoding-string-categorical-features-via-one-hot-encoding" id="toc-encoding-string-categorical-features-via-one-hot-encoding" class="nav-link" data-scroll-target="#encoding-string-categorical-features-via-one-hot-encoding">Encoding string categorical features via one-hot encoding</a></li>
-<li><a href="#encoding-integer-categorical-features-via-one-hot-encoding" id="toc-encoding-integer-categorical-features-via-one-hot-encoding" class="nav-link" data-scroll-target="#encoding-integer-categorical-features-via-one-hot-encoding">Encoding integer categorical features via one-hot encoding</a></li>
-<li><a href="#applying-the-hashing-trick-to-an-integer-categorical-feature" id="toc-applying-the-hashing-trick-to-an-integer-categorical-feature" class="nav-link" data-scroll-target="#applying-the-hashing-trick-to-an-integer-categorical-feature">Applying the hashing trick to an integer categorical feature</a></li>
-<li><a href="#encoding-text-as-a-sequence-of-token-indices" id="toc-encoding-text-as-a-sequence-of-token-indices" class="nav-link" data-scroll-target="#encoding-text-as-a-sequence-of-token-indices">Encoding text as a sequence of token indices</a></li>
-<li><a href="#encoding-text-as-a-dense-matrix-of-ngrams-with-multi-hot-encoding" id="toc-encoding-text-as-a-dense-matrix-of-ngrams-with-multi-hot-encoding" class="nav-link" data-scroll-target="#encoding-text-as-a-dense-matrix-of-ngrams-with-multi-hot-encoding">Encoding text as a dense matrix of ngrams with multi-hot encoding</a></li>
-<li><a href="#encoding-text-as-a-dense-matrix-of-ngrams-with-tf-idf-weighting" id="toc-encoding-text-as-a-dense-matrix-of-ngrams-with-tf-idf-weighting" class="nav-link" data-scroll-target="#encoding-text-as-a-dense-matrix-of-ngrams-with-tf-idf-weighting">Encoding text as a dense matrix of ngrams with TF-IDF weighting</a></li>
-</ul></li>
-<li><a href="#important-gotchas" id="toc-important-gotchas" class="nav-link" data-scroll-target="#important-gotchas">Important gotchas</a>
-<ul class="collapse">
-<li><a href="#working-with-lookup-layers-with-very-large-vocabularies" id="toc-working-with-lookup-layers-with-very-large-vocabularies" class="nav-link" data-scroll-target="#working-with-lookup-layers-with-very-large-vocabularies">Working with lookup layers with very large vocabularies</a></li>
-</ul></li>
-</ul>
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#keras-preprocessing" id="toc-keras-preprocessing" class="nav-link active" data-scroll-target="#keras-preprocessing">Keras preprocessing</a></li>
+  <li><a href="#available-preprocessing-layers" id="toc-available-preprocessing-layers" class="nav-link" data-scroll-target="#available-preprocessing-layers">Available preprocessing layers</a>
+  <ul class="collapse">
+  <li><a href="#text-preprocessing" id="toc-text-preprocessing" class="nav-link" data-scroll-target="#text-preprocessing">Text preprocessing</a></li>
+  <li><a href="#numerical-features-preprocessing" id="toc-numerical-features-preprocessing" class="nav-link" data-scroll-target="#numerical-features-preprocessing">Numerical features preprocessing</a></li>
+  <li><a href="#categorical-features-preprocessing" id="toc-categorical-features-preprocessing" class="nav-link" data-scroll-target="#categorical-features-preprocessing">Categorical features preprocessing</a></li>
+  <li><a href="#image-preprocessing" id="toc-image-preprocessing" class="nav-link" data-scroll-target="#image-preprocessing">Image preprocessing</a></li>
+  <li><a href="#image-data-augmentation" id="toc-image-data-augmentation" class="nav-link" data-scroll-target="#image-data-augmentation">Image data augmentation</a></li>
+  </ul></li>
+  <li><a href="#the-adapt-function" id="toc-the-adapt-function" class="nav-link" data-scroll-target="#the-adapt-function">The <code>adapt()</code> function</a></li>
+  <li><a href="#preprocessing-data-before-the-model-or-inside-the-model" id="toc-preprocessing-data-before-the-model-or-inside-the-model" class="nav-link" data-scroll-target="#preprocessing-data-before-the-model-or-inside-the-model">Preprocessing data before the model or inside the model</a></li>
+  <li><a href="#benefits-of-doing-preprocessing-inside-the-model-at-inference-time" id="toc-benefits-of-doing-preprocessing-inside-the-model-at-inference-time" class="nav-link" data-scroll-target="#benefits-of-doing-preprocessing-inside-the-model-at-inference-time">Benefits of doing preprocessing inside the model at inference time</a></li>
+  <li><a href="#preprocessing-during-multi-worker-training" id="toc-preprocessing-during-multi-worker-training" class="nav-link" data-scroll-target="#preprocessing-during-multi-worker-training">Preprocessing during multi-worker training</a></li>
+  <li><a href="#quick-recipes" id="toc-quick-recipes" class="nav-link" data-scroll-target="#quick-recipes">Quick recipes</a>
+  <ul class="collapse">
+  <li><a href="#image-data-augmentation-1" id="toc-image-data-augmentation-1" class="nav-link" data-scroll-target="#image-data-augmentation-1">Image data augmentation</a></li>
+  <li><a href="#normalizing-numerical-features" id="toc-normalizing-numerical-features" class="nav-link" data-scroll-target="#normalizing-numerical-features">Normalizing numerical features</a></li>
+  <li><a href="#encoding-string-categorical-features-via-one-hot-encoding" id="toc-encoding-string-categorical-features-via-one-hot-encoding" class="nav-link" data-scroll-target="#encoding-string-categorical-features-via-one-hot-encoding">Encoding string categorical features via one-hot encoding</a></li>
+  <li><a href="#encoding-integer-categorical-features-via-one-hot-encoding" id="toc-encoding-integer-categorical-features-via-one-hot-encoding" class="nav-link" data-scroll-target="#encoding-integer-categorical-features-via-one-hot-encoding">Encoding integer categorical features via one-hot encoding</a></li>
+  <li><a href="#applying-the-hashing-trick-to-an-integer-categorical-feature" id="toc-applying-the-hashing-trick-to-an-integer-categorical-feature" class="nav-link" data-scroll-target="#applying-the-hashing-trick-to-an-integer-categorical-feature">Applying the hashing trick to an integer categorical feature</a></li>
+  <li><a href="#encoding-text-as-a-sequence-of-token-indices" id="toc-encoding-text-as-a-sequence-of-token-indices" class="nav-link" data-scroll-target="#encoding-text-as-a-sequence-of-token-indices">Encoding text as a sequence of token indices</a></li>
+  <li><a href="#encoding-text-as-a-dense-matrix-of-ngrams-with-multi-hot-encoding" id="toc-encoding-text-as-a-dense-matrix-of-ngrams-with-multi-hot-encoding" class="nav-link" data-scroll-target="#encoding-text-as-a-dense-matrix-of-ngrams-with-multi-hot-encoding">Encoding text as a dense matrix of ngrams with multi-hot encoding</a></li>
+  <li><a href="#encoding-text-as-a-dense-matrix-of-ngrams-with-tf-idf-weighting" id="toc-encoding-text-as-a-dense-matrix-of-ngrams-with-tf-idf-weighting" class="nav-link" data-scroll-target="#encoding-text-as-a-dense-matrix-of-ngrams-with-tf-idf-weighting">Encoding text as a dense matrix of ngrams with TF-IDF weighting</a></li>
+  </ul></li>
+  <li><a href="#important-gotchas" id="toc-important-gotchas" class="nav-link" data-scroll-target="#important-gotchas">Important gotchas</a>
+  <ul class="collapse">
+  <li><a href="#working-with-lookup-layers-with-very-large-vocabularies" id="toc-working-with-lookup-layers-with-very-large-vocabularies" class="nav-link" data-scroll-target="#working-with-lookup-layers-with-very-large-vocabularies">Working with lookup layers with very large vocabularies</a></li>
+  </ul></li>
+  </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 <header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Working with preprocessing layers</h1>
+</div>
+
+<div>
+  <div class="description">
+    Overview of how to leverage preprocessing layers to create end-to-end models.
+  </div>
+</div>
 
 
-<div class="quarto-title"><h1 class="title display-7">Working with preprocessing layers</h1><div class="quarto-description"><p>Overview of how to leverage preprocessing layers to create end-to-end models.</p></div></div><div class="quarto-title-meta"><div><div class="quarto-title-meta-heading">Author</div><div class="quarto-title-meta-contents"><div class="quarto-title-authors"><div><div>
-<p>Francois Chollet, Mark Omernick, Tomasz Kalinowski</p>
-</div></div></div></div></div></div></header>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Francois Chollet, Mark Omernick, Tomasz Kalinowski </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
 
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="keras-preprocessing" class="level2">
@@ -236,28 +265,28 @@
 <p>Crucially, these layers are <strong>non-trainable</strong>. Their state is not set during training; it must be set <strong>before training</strong>, either by initializing them from a precomputed constant, or by “adapting” them on data.</p>
 <p>You set the state of a preprocessing layer by exposing it to training data, via <code>adapt()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>),</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>),</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.9</span>, <span class="fl">1.0</span>),</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">1.6</span>, <span class="fl">1.7</span>))</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_normalization</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stderr">
 <pre><code>Loaded Tensorflow version 2.8.0</code></pre>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adapt</span>(layer, data)</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adapt</span>(layer, data)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>normalized_data <span class="ot">&lt;-</span> <span class="fu">as.array</span>(<span class="fu">layer</span>(data))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Features mean: %.2f"</span>, <span class="fu">mean</span>(normalized_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] "Features mean: -0.00"</code></pre>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Features std: %.2f"</span>, <span class="fu">sd</span>(normalized_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Features std: %.2f"</span>, <span class="fu">sd</span>(normalized_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] "Features std: 1.06"</code></pre>
 </div>
 </div>
 <p><code>adapt()</code> takes either an array or a <code>tf_dataset</code>. In the case of <code>layer_string_lookup()</code> and <code>layer_text_vectorization()</code>, you can also pass a character vector:</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Congratulations!"</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Today is your day."</span>,</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You're off to Great Places!"</span>,</span>
@@ -291,7 +320,7 @@
 <p>In addition, adaptable layers always expose an option to directly set state via constructor arguments or weight assignment. If the intended state values are known at layer construction time, or are calculated outside of the <code>adapt()</code> call, they can be set without relying on the layer’s internal computation. For instance, if external vocabulary files for the <code>layer_text_vectorization()</code>, <code>layer_string_lookup()</code>, or <code>layer_integer_lookup()</code> layers already exist, those can be loaded directly into the lookup tables by passing a path to the vocabulary file in the layer’s constructor arguments.</p>
 <p>Here’s an example where we instantiate a <code>layer_string_lookup()</code> layer with precomputed vocabulary:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>vocab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>)</span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>vocab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>),</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">c</span>(<span class="st">"d"</span>, <span class="st">"z"</span>, <span class="st">"b"</span>)))</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_string_lookup</span>(<span class="at">vocabulary=</span>vocab)</span>
@@ -309,7 +338,7 @@
 <p>There are two ways you could be using preprocessing layers:</p>
 <p><strong>Option 1:</strong> Make them part of the model, like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">preprocessing_layer</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rest_of_the_model</span>()</span>
@@ -318,14 +347,14 @@
 <p>With this option, preprocessing will happen on device, synchronously with the rest of the model execution, meaning that it will benefit from GPU acceleration. If you’re training on GPU, this is the best option for the <code>layer_normalization()</code> layer, and for all image preprocessing and data augmentation layers.</p>
 <p><strong>Option 2:</strong> apply it to your <code>tf_dataset</code>, so as to obtain a dataset that yields batches of preprocessed data, like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> ... <span class="co"># define dataset</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="cf">function</span>(x, y) <span class="fu">list</span>(<span class="fu">preprocessing_layer</span>(x), y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With this option, your preprocessing will happen on CPU, asynchronously, and will be buffered before going into the model. In addition, if you call <code>tfdatasets::dataset_prefetch()</code> on your dataset, the preprocessing will happen efficiently in parallel with training:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="cf">function</span>(x, y) <span class="fu">list</span>(<span class="fu">preprocessing_layer</span>(x), y)) <span class="sc">%&gt;%</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_prefetch</span>()</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(dataset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -338,7 +367,7 @@
 <p>When all data preprocessing is part of the model, other people can load and use your model without having to be aware of how each feature is expected to be encoded &amp; normalized. Your inference model will be able to process raw images or raw structured data, and will not require users of the model to be aware of the details of e.g.&nbsp;the tokenization scheme used for text, the indexing scheme used for categorical features, whether image pixel values are normalized to <code>[-1, +1]</code> or to <code>[0, 1]</code>, etc. This is especially powerful if you’re exporting your model to another runtime, such as TensorFlow.js: you won’t have to reimplement your preprocessing pipeline in JavaScript.</p>
 <p>If you initially put your preprocessing layers in your <code>tf_dataset</code> pipeline, you can export an inference model that packages the preprocessing. Simply instantiate a new model that chains your preprocessing layers and your training model:</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">preprocessing_layer</span>(input) <span class="sc">%&gt;%</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">training_model</span>()</span>
@@ -350,7 +379,7 @@
 <p>Preprocessing layers are compatible with the <a href="https://www.tensorflow.org/api_docs/python/tf/distribute">tf.distribute</a> API for running training across multiple machines.</p>
 <p>In general, preprocessing layers should be placed inside a <code>strategy$scope()</code> and called either inside or before the model as discussed above.</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(strategy<span class="sc">$</span><span class="fu">scope</span>(), {</span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(strategy<span class="sc">$</span><span class="fu">scope</span>(), {</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape=</span>input_shape)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    preprocessing_layer <span class="ot">&lt;-</span> <span class="fu">layer_hashing</span>(<span class="at">num_bins =</span> <span class="dv">10</span>)</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    dense_layer <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">16</span>)</span>
@@ -364,7 +393,7 @@
 <h3 class="anchored" data-anchor-id="image-data-augmentation-1">Image data augmentation</h3>
 <p>Note that image data augmentation layers are only active during training (similar to the <code>layer_dropout()</code> layer).</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data augmentation stage with horizontal flipping, rotations, zooms</span></span>
@@ -405,7 +434,7 @@
 <section id="normalizing-numerical-features" class="level3">
 <h3 class="anchored" data-anchor-id="normalizing-numerical-features">Normalizing numerical features</h3>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">c</span>(x_train, y_train), ...) <span class="sc">%&lt;-%</span> <span class="fu">dataset_cifar10</span>()</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>x_train <span class="ot">&lt;-</span> x_train <span class="sc">%&gt;%</span></span>
@@ -436,7 +465,7 @@
 <section id="encoding-string-categorical-features-via-one-hot-encoding" class="level3">
 <h3 class="anchored" data-anchor-id="encoding-string-categorical-features-via-one-hot-encoding">Encoding string categorical features via one-hot encoding</h3>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some toy data</span></span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some toy data</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"a"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">k_reshape</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)) <span class="co"># reshape into matrix with shape: (6, 1)</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -465,7 +494,7 @@
 <section id="encoding-integer-categorical-features-via-one-hot-encoding" class="level3">
 <h3 class="anchored" data-anchor-id="encoding-integer-categorical-features-via-one-hot-encoding">Encoding integer categorical features via one-hot encoding</h3>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some toy data</span></span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some toy data</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">0</span>)), <span class="st">"int32"</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use layer_integer_lookup() to build an </span></span>
@@ -494,7 +523,7 @@
 <h3 class="anchored" data-anchor-id="applying-the-hashing-trick-to-an-integer-categorical-feature">Applying the hashing trick to an integer categorical feature</h3>
 <p>If you have a categorical feature that can take many different values (on the order of 10e3 or higher), where each value only appears a few times in the data, it becomes impractical and ineffective to index and one-hot encode the feature values. Instead, it can be a good idea to apply the “hashing trick”: hash the values to a vector of fixed size. This keeps the size of the feature space manageable, and removes the need for explicit indexing.</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data: 10,000 random integers with values between 0 and 100,000</span></span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data: 10,000 random integers with values between 0 and 100,000</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">10000</span>, <span class="dv">1</span>), <span class="at">dtype =</span> <span class="st">"int64"</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the Hashing layer to hash the values to the range [0, 64]</span></span>
@@ -513,7 +542,7 @@
 <h3 class="anchored" data-anchor-id="encoding-text-as-a-sequence-of-token-indices">Encoding text as a sequence of token indices</h3>
 <p>This is how you should preprocess text to be passed to an <code>Embedding</code> layer.</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -537,7 +566,7 @@
 <pre><code>Encoded text:
  2 19 14 1 9 2 1</code></pre>
 </div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="cn">NULL</span>), <span class="at">dtype=</span><span class="st">"int64"</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
@@ -564,7 +593,7 @@
 <div class="cell-output-stdout">
 <pre><code>Training model...</code></pre>
 </div>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"rmsprop"</span>, <span class="at">loss =</span> <span class="st">"mse"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset)</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -581,7 +610,7 @@
 <div class="cell-output-stdout">
 <pre><code>Calling end-to-end model on test string...</code></pre>
 </div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>test_output <span class="ot">&lt;-</span> <span class="fu">end_to_end_model</span>(test_data)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Model output:"</span>, <span class="fu">as.array</span>(test_output), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
@@ -595,7 +624,7 @@
 <h3 class="anchored" data-anchor-id="encoding-text-as-a-dense-matrix-of-ngrams-with-multi-hot-encoding">Encoding text as a dense matrix of ngrams with multi-hot encoding</h3>
 <p>This is how you can preprocess text to be passed to a <code>Dense</code> layer.</p>
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some text data to adapt the layer</span></span>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some text data to adapt the layer</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>adapt_data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The Brain is wider than the Sky"</span>,</span>
 <span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"For put them side by side"</span>,</span>
@@ -616,7 +645,7 @@
 <pre><code>Encoded text:
  1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 1 0 0 0</code></pre>
 </div>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>input <span class="ot">=</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> text_vectorizer<span class="sc">$</span><span class="fu">vocabulary_size</span>(), <span class="at">dtype=</span><span class="st">"int64"</span>)</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
@@ -641,7 +670,7 @@
 <div class="cell-output-stdout">
 <pre><code>Training model...</code></pre>
 </div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer=</span><span class="st">"rmsprop"</span>, <span class="at">loss=</span><span class="st">"mse"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset)</span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -659,7 +688,7 @@
 <div class="cell-output-stdout">
 <pre><code>Calling end-to-end model on test string...</code></pre>
 </div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>test_output <span class="ot">&lt;-</span> <span class="fu">end_to_end_model</span>(test_data)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Model output: "</span>); <span class="fu">print</span>(test_output); <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
@@ -674,7 +703,7 @@
 <h3 class="anchored" data-anchor-id="encoding-text-as-a-dense-matrix-of-ngrams-with-tf-idf-weighting">Encoding text as a dense matrix of ngrams with TF-IDF weighting</h3>
 <p>This is an alternative way of preprocessing text before passing it to a <code>layer_dense</code> layer.</p>
 <div class="cell">
-<div class="sourceCode" id="cb42"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some text data to adapt the layer</span></span>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some text data to adapt the layer</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>adapt_data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The Brain is wider than the Sky"</span>,</span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"For put them side by side"</span>,</span>
@@ -700,7 +729,7 @@
 <pre><code>Encoded text:
  5.461647 1.694596 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.098612 1.098612 1.098612 0 0 0 0 0 0 0 0 0 1.098612 0 0 0 0 0 0 0 1.098612 1.098612 0 0 0</code></pre>
 </div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> text_vectorizer<span class="sc">$</span><span class="fu">vocabulary_size</span>(), <span class="at">dtype=</span><span class="st">"int64"</span>)</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">1</span>)</span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
@@ -722,7 +751,7 @@
 <div class="cell-output-stdout">
 <pre><code>Training model...</code></pre>
 </div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer=</span><span class="st">"rmsprop"</span>, <span class="at">loss=</span><span class="st">"mse"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset)</span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -740,7 +769,7 @@
 <div class="cell-output-stdout">
 <pre><code>Calling end-to-end model on test string...</code></pre>
 </div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>test_output <span class="ot">&lt;-</span> <span class="fu">end_to_end_model</span>(test_data)</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Model output: "</span>); <span class="fu">print</span>(test_output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
@@ -760,11 +789,11 @@
 <p>In such case, for best performance, you should avoid using <code>adapt()</code>. Instead, pre-compute your vocabulary in advance (you could use Apache Beam or TF Transform for this) and store it in a file. Then load the vocabulary into the layer at construction time by passing the filepath as the <code>vocabulary</code> argument.</p>
 
 
+</section>
+</section>
 
-</section>
-</section>
 </main> <!-- /main -->
-<script type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
   const anchorJS = new window.AnchorJS();
@@ -785,7 +814,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.blur();
     // flash "checked"
     button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
     setTimeout(function() {
+      button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
@@ -841,6 +873,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 </body></html>

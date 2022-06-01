@@ -1,120 +1,125 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-  <meta charset="utf-8">
-  <meta name="generator" content="quarto-0.9.183">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>tf-site-title - Writing Layer and Model objects from scratch.</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      {   }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-    code span.at { color: #7d9029; } /* Attribute */
-    code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #4070a0; } /* Char */
-    code span.cn { color: #880000; } /* Constant */
-    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-    code span.dt { color: #902000; } /* DataType */
-    code span.dv { color: #40a070; } /* DecVal */
-    code span.er { color: #ff0000; font-weight: bold; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #40a070; } /* Float */
-    code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
-    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-    code span.op { color: #666666; } /* Operator */
-    code span.ot { color: #007020; } /* Other */
-    code span.pp { color: #bc7a00; } /* Preprocessor */
-    code span.sc { color: #4070a0; } /* SpecialChar */
-    code span.ss { color: #bb6688; } /* SpecialString */
-    code span.st { color: #4070a0; } /* String */
-    code span.va { color: #19177c; } /* Variable */
-    code span.vs { color: #4070a0; } /* VerbatimString */
-    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-  </style>
 
-  <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-  <script src="../../site_libs/clipboard/clipboard.min.js"></script>
-  <meta name="quarto:offset" content="../../">
-  <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-  <script src="../../site_libs/quarto-search/fuse.min.js"></script>
-  <script src="../../site_libs/quarto-search/quarto-search.js"></script>
-  <script src="../../site_libs/quarto-html/quarto.js"></script>
-  <script src="../../site_libs/quarto-html/popper.min.js"></script>
-  <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-  <script src="../../site_libs/quarto-html/anchor.min.js"></script>
-  <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-  <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <script id="quarto-search-options" type="application/json">{
-    "location": "sidebar",
-    "copy-button": false,
-    "collapse-after": 3,
-    "panel-placement": "start",
-    "type": "textbox",
-    "limit": 20,
-    "language": {
-      "search-no-results-text": "No results",
-      "search-matching-documents-text": "matching documents",
-      "search-copy-link-title": "Copy link to search",
-      "search-hide-matches-text": "Hide additional matches",
-      "search-more-match-text": "more match in this document",
-      "search-more-matches-text": "more matches in this document",
-      "search-clear-button-title": "Clear",
-      "search-detached-cancel-button-title": "Cancel",
-      "search-submit-button-title": "Submit"
-    }
-  }</script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+<meta charset="utf-8">
+<meta name="generator" content="quarto-99.9.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>tf-site-title - Writing Layer and Model objects from scratch.</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
 </head>
+
 <body>
+
 <div id="quarto-search-results"></div>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
@@ -122,31 +127,47 @@
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc">
-<h2 id="toc-title">On this page</h2>
-<ul>
-<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
-<li><a href="#the-layer-class-a-combination-of-state-weights-and-some-computation" id="toc-the-layer-class-a-combination-of-state-weights-and-some-computation" class="nav-link" data-scroll-target="#the-layer-class-a-combination-of-state-weights-and-some-computation">The <code>Layer</code> class: a combination of state (weights) and some computation</a></li>
-<li><a href="#layers-can-have-non-trainable-weights" id="toc-layers-can-have-non-trainable-weights" class="nav-link" data-scroll-target="#layers-can-have-non-trainable-weights">Layers can have non-trainable weights</a></li>
-<li><a href="#best-practice-deferring-weight-creation-until-the-shape-of-the-inputs-is-known" id="toc-best-practice-deferring-weight-creation-until-the-shape-of-the-inputs-is-known" class="nav-link" data-scroll-target="#best-practice-deferring-weight-creation-until-the-shape-of-the-inputs-is-known">Best practice: deferring weight creation until the shape of the inputs is known</a></li>
-<li><a href="#layers-are-recursively-composable" id="toc-layers-are-recursively-composable" class="nav-link" data-scroll-target="#layers-are-recursively-composable">Layers are recursively composable</a></li>
-<li><a href="#the-add_loss-method" id="toc-the-add_loss-method" class="nav-link" data-scroll-target="#the-add_loss-method">The <code>add_loss()</code> method</a></li>
-<li><a href="#the-add_metric-method" id="toc-the-add_metric-method" class="nav-link" data-scroll-target="#the-add_metric-method">The <code>add_metric()</code> method</a></li>
-<li><a href="#you-can-optionally-enable-serialization-on-your-layers" id="toc-you-can-optionally-enable-serialization-on-your-layers" class="nav-link" data-scroll-target="#you-can-optionally-enable-serialization-on-your-layers">You can optionally enable serialization on your layers</a></li>
-<li><a href="#privileged-training-argument-in-the-call-method" id="toc-privileged-training-argument-in-the-call-method" class="nav-link" data-scroll-target="#privileged-training-argument-in-the-call-method">Privileged <code>training</code> argument in the <code>call()</code> method</a></li>
-<li><a href="#privileged-mask-argument-in-the-call-method" id="toc-privileged-mask-argument-in-the-call-method" class="nav-link" data-scroll-target="#privileged-mask-argument-in-the-call-method">Privileged <code>mask</code> argument in the <code>call()</code> method</a></li>
-<li><a href="#the-model-class" id="toc-the-model-class" class="nav-link" data-scroll-target="#the-model-class">The <code>Model</code> class</a></li>
-<li><a href="#putting-it-all-together-an-end-to-end-example" id="toc-putting-it-all-together-an-end-to-end-example" class="nav-link" data-scroll-target="#putting-it-all-together-an-end-to-end-example">Putting it all together: an end-to-end example</a></li>
-<li><a href="#beyond-object-oriented-development-the-functional-api" id="toc-beyond-object-oriented-development-the-functional-api" class="nav-link" data-scroll-target="#beyond-object-oriented-development-the-functional-api">Beyond object-oriented development: the Functional API</a></li>
-<li><a href="#defining-custom-layers-and-models-in-an-r-package" id="toc-defining-custom-layers-and-models-in-an-r-package" class="nav-link" data-scroll-target="#defining-custom-layers-and-models-in-an-r-package">Defining custom layers and models in an R package</a></li>
-<li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-</ul>
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#the-layer-class-a-combination-of-state-weights-and-some-computation" id="toc-the-layer-class-a-combination-of-state-weights-and-some-computation" class="nav-link" data-scroll-target="#the-layer-class-a-combination-of-state-weights-and-some-computation">The <code>Layer</code> class: a combination of state (weights) and some computation</a></li>
+  <li><a href="#layers-can-have-non-trainable-weights" id="toc-layers-can-have-non-trainable-weights" class="nav-link" data-scroll-target="#layers-can-have-non-trainable-weights">Layers can have non-trainable weights</a></li>
+  <li><a href="#best-practice-deferring-weight-creation-until-the-shape-of-the-inputs-is-known" id="toc-best-practice-deferring-weight-creation-until-the-shape-of-the-inputs-is-known" class="nav-link" data-scroll-target="#best-practice-deferring-weight-creation-until-the-shape-of-the-inputs-is-known">Best practice: deferring weight creation until the shape of the inputs is known</a></li>
+  <li><a href="#layers-are-recursively-composable" id="toc-layers-are-recursively-composable" class="nav-link" data-scroll-target="#layers-are-recursively-composable">Layers are recursively composable</a></li>
+  <li><a href="#the-add_loss-method" id="toc-the-add_loss-method" class="nav-link" data-scroll-target="#the-add_loss-method">The <code>add_loss()</code> method</a></li>
+  <li><a href="#the-add_metric-method" id="toc-the-add_metric-method" class="nav-link" data-scroll-target="#the-add_metric-method">The <code>add_metric()</code> method</a></li>
+  <li><a href="#you-can-optionally-enable-serialization-on-your-layers" id="toc-you-can-optionally-enable-serialization-on-your-layers" class="nav-link" data-scroll-target="#you-can-optionally-enable-serialization-on-your-layers">You can optionally enable serialization on your layers</a></li>
+  <li><a href="#privileged-training-argument-in-the-call-method" id="toc-privileged-training-argument-in-the-call-method" class="nav-link" data-scroll-target="#privileged-training-argument-in-the-call-method">Privileged <code>training</code> argument in the <code>call()</code> method</a></li>
+  <li><a href="#privileged-mask-argument-in-the-call-method" id="toc-privileged-mask-argument-in-the-call-method" class="nav-link" data-scroll-target="#privileged-mask-argument-in-the-call-method">Privileged <code>mask</code> argument in the <code>call()</code> method</a></li>
+  <li><a href="#the-model-class" id="toc-the-model-class" class="nav-link" data-scroll-target="#the-model-class">The <code>Model</code> class</a></li>
+  <li><a href="#putting-it-all-together-an-end-to-end-example" id="toc-putting-it-all-together-an-end-to-end-example" class="nav-link" data-scroll-target="#putting-it-all-together-an-end-to-end-example">Putting it all together: an end-to-end example</a></li>
+  <li><a href="#beyond-object-oriented-development-the-functional-api" id="toc-beyond-object-oriented-development-the-functional-api" class="nav-link" data-scroll-target="#beyond-object-oriented-development-the-functional-api">Beyond object-oriented development: the Functional API</a></li>
+  <li><a href="#defining-custom-layers-and-models-in-an-r-package" id="toc-defining-custom-layers-and-models-in-an-r-package" class="nav-link" data-scroll-target="#defining-custom-layers-and-models-in-an-r-package">Defining custom layers and models in an R package</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-<header id="title-block-header" class="quarto-title-block default">
 
-<div class="quarto-title"><h1 class="title display-7">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</h1></div></header>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
 
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
@@ -154,7 +175,7 @@
 
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
@@ -173,7 +194,7 @@
 <p>One of the central abstractions in Keras is the <code>Layer</code> class. A layer encapsulates both a state (the layer’s “weights”) and a transformation from inputs to outputs (a “call”, the layer’s forward pass).</p>
 <p>Here’s a densely-connected layer. It has a state: the variables <code>w</code> and <code>b</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>, <span class="at">input_dim =</span> <span class="dv">32</span>) {</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    w_init <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">random_normal_initializer</span>()</span>
@@ -198,7 +219,7 @@
 </div>
 <p>You would use a layer by calling it on some tensor input(s), much like a regular function.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>linear_layer <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">4</span>, <span class="dv">2</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">linear_layer</span>(x)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -212,11 +233,11 @@
 <p>However, one additional step is needed to make it behave like the builtin layers present in the keras R package (e.g., <code>layer_dense()</code>).</p>
 <p>Keras layers in R are designed to compose nicely with the pipe operator (<code>%&gt;%</code>), so that the layer instance is conveniently created on demand when an existing model or tensor is piped in. In order to make a custom layer similarly compose nicely with the pipe, you can call <code>create_layer_wrapper()</code> on the layer class constructor.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>layer_linear <span class="ot">&lt;-</span> <span class="fu">create_layer_wrapper</span>(Linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>layer_linear <span class="ot">&lt;-</span> <span class="fu">create_layer_wrapper</span>(Linear)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now <code>layer_linear</code> is a layer constructor that composes nicely with <code>%&gt;%</code>, just like the built-in layers:</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_linear</span>(<span class="dv">4</span>, <span class="dv">2</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span>(<span class="fu">k_ones</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -225,7 +246,7 @@
 [[ 0.09593566 -0.0239684  -0.08020082 -0.20181108]
  [ 0.09593566 -0.0239684  -0.08020082 -0.20181108]], shape=(2, 4), dtype=float32)</code></pre>
 </div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>Model: "sequential"
 ____________________________________________________________________________
@@ -241,7 +262,7 @@ ____________________________________________________________________________</co
 </div>
 <p>Because the pattern above is so common, there is a convenience function that combines the steps of subclassing <code>keras$layers$Layer</code> and calling <code>create_layer_wrapper</code> on the output: the <code>Layer</code> function. The <code>layer_linear</code> defined below is identical to the <code>layer_linear</code> defined above.</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>layer_linear <span class="ot">&lt;-</span> <span class="fu">Layer</span>(</span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>layer_linear <span class="ot">&lt;-</span> <span class="fu">Layer</span>(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Linear"</span>,</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">initialize =</span>  <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>, <span class="at">input_dim =</span> <span class="dv">32</span>) {</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
@@ -263,14 +284,14 @@ ____________________________________________________________________________</co
 <p>For the remainder of this vignette we’ll be using the <code>%py_class%</code> constructor. However, in your own code feel free to use <code>create_layer_wrapper</code> and/or <code>Layer</code> if you prefer.</p>
 <p>Note that the weights <code>w</code> and <code>b</code> are automatically tracked by the layer upon being set as layer attributes:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all.equal</span>(</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all.equal</span>(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  linear_layer<span class="sc">$</span>weights,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(linear_layer<span class="sc">$</span>w, linear_layer<span class="sc">$</span>b)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You also have access to a quicker shortcut for adding a weight to a layer: the <code>add_weight()</code> method:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>, <span class="at">input_dim =</span> <span class="dv">32</span>) {</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    w_init <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">random_normal_initializer</span>()</span>
@@ -307,7 +328,7 @@ ____________________________________________________________________________</co
 <p>Besides trainable weights, you can add non-trainable weights to a layer as well. Such weights are meant not to be taken into account during backpropagation, when you are training the layer.</p>
 <p>Here’s how to add and use a non-trainable weight:</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ComputeSum</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ComputeSum</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(input_dim) {</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>total <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">Variable</span>(</span>
@@ -329,7 +350,7 @@ ____________________________________________________________________________</co
 <div class="cell-output-stdout">
 <pre><code>[1] 2 2</code></pre>
 </div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">my_sum</span>(x)</span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">my_sum</span>(x)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">as.numeric</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>[1] 4 4</code></pre>
@@ -337,15 +358,15 @@ ____________________________________________________________________________</co
 </div>
 <p>It’s part of <code>layer$weights</code>, but it gets categorized as a non-trainable weight:</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"weights:"</span>, <span class="fu">length</span>(my_sum<span class="sc">$</span>weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"weights:"</span>, <span class="fu">length</span>(my_sum<span class="sc">$</span>weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>weights: 1 </code></pre>
 </div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"non-trainable weights:"</span>, <span class="fu">length</span>(my_sum<span class="sc">$</span>non_trainable_weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"non-trainable weights:"</span>, <span class="fu">length</span>(my_sum<span class="sc">$</span>non_trainable_weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>non-trainable weights: 1 </code></pre>
 </div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It's not included in the trainable weights:</span></span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It's not included in the trainable weights:</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"trainable_weights:"</span>, my_sum<span class="sc">$</span>trainable_weights, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>trainable_weights:  </code></pre>
@@ -356,7 +377,7 @@ ____________________________________________________________________________</co
 <h2 class="anchored" data-anchor-id="best-practice-deferring-weight-creation-until-the-shape-of-the-inputs-is-known">Best practice: deferring weight creation until the shape of the inputs is known</h2>
 <p>Our <code>Linear</code> layer above took an <code>input_dim</code>argument that was used to compute the shape of the weights <code>w</code> and <code>b</code> in <code>initialize()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>, <span class="at">input_dim =</span> <span class="dv">32</span>) {</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>w <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">add_weight</span>(</span>
@@ -379,7 +400,7 @@ ____________________________________________________________________________</co
 <p>In many cases, you may not know in advance the size of your inputs, and you would like to lazily create weights when that value becomes known, some time after instantiating the layer.</p>
 <p>In the Keras API, we recommend creating layer weights in the <code>build(self, inputs_shape)</code> method of your layer. Like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>) {</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>units <span class="ot">&lt;-</span> units</span>
@@ -405,7 +426,7 @@ ____________________________________________________________________________</co
 </div>
 <p>The <code>build()</code> method of your layer will automatically run the first time your layer instance is called. You now have a layer that can handle an arbitrary number of input features:</p>
 <div class="cell">
-<div class="sourceCode" id="cb28"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># At instantiation, we don't know on what inputs this is going to get called</span></span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># At instantiation, we don't know on what inputs this is going to get called</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>linear_layer <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">32</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The layer's weights are created dynamically the first time the layer is called</span></span>
@@ -422,7 +443,7 @@ ____________________________________________________________________________</co
 <p>If you assign a Layer instance as an attribute of another Layer, the outer layer will start tracking the weights created by the inner layer.</p>
 <p>We recommend creating such sublayers in the <code>initialize()</code> method and leave it to the first <code>call()</code> to trigger building their weights.</p>
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's assume we are reusing the Linear class</span></span>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's assume we are reusing the Linear class</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with a `build` method that we defined above.</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">MLPBlock</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
@@ -453,11 +474,11 @@ Warning in is.na(d): is.na() applied to non-(list or vector) of type
 Warning in is.na(d): is.na() applied to non-(list or vector) of type
 'environment'</code></pre>
 </div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"weights:"</span>, <span class="fu">length</span>(mlp<span class="sc">$</span>weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"weights:"</span>, <span class="fu">length</span>(mlp<span class="sc">$</span>weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>weights: 6 </code></pre>
 </div>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"trainable weights:"</span>, <span class="fu">length</span>(mlp<span class="sc">$</span>trainable_weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"trainable weights:"</span>, <span class="fu">length</span>(mlp<span class="sc">$</span>trainable_weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>trainable weights: 6 </code></pre>
 </div>
@@ -467,7 +488,7 @@ Warning in is.na(d): is.na() applied to non-(list or vector) of type
 <h2 class="anchored" data-anchor-id="the-add_loss-method">The <code>add_loss()</code> method</h2>
 <p>When writing the <code>call()</code> method of a layer, you can create loss tensors that you will want to use later, when writing your training loop. This is doable by calling <code>self$add_loss(value)</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb36"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A layer that creates an activity regularization loss</span></span>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A layer that creates an activity regularization loss</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ActivityRegularizationLayer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">rate =</span> <span class="fl">1e-2</span>) {</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
@@ -482,7 +503,7 @@ Warning in is.na(d): is.na() applied to non-(list or vector) of type
 </div>
 <p>These losses (including those created by any inner layer) can be retrieved via <code>layer$losses</code>. This property is reset at the start of every <code>call()</code> to the top-level layer, so that <code>layer$losses</code> always contains the loss values created during the last forward pass.</p>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">OuterLayer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">OuterLayer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>activity_reg <span class="ot">&lt;-</span> <span class="fu">ActivityRegularizationLayer</span>(<span class="fl">1e-2</span>)</span>
@@ -504,7 +525,7 @@ Warning in is.na(d): is.na() applied to non-(list or vector) of type
 </div>
 <p>In addition, the <code>loss</code> property also contains regularization losses created for the weights of any inner layer:</p>
 <div class="cell">
-<div class="sourceCode" id="cb38"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">OuterLayerWithKernelRegularizer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">OuterLayerWithKernelRegularizer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">32</span>, <span class="at">kernel_regularizer =</span> <span class="fu">regularizer_l2</span>(<span class="fl">1e-3</span>))</span>
@@ -527,7 +548,7 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 </div>
 <p>These losses are meant to be taken into account when writing training loops, like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb40"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate an optimizer.</span></span>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate an optimizer.</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> <span class="fu">optimizer_sgd</span>(<span class="at">learning_rate =</span> <span class="fl">1e-3</span>)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_sparse_categorical_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -550,7 +571,7 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <p>For a detailed guide about writing training loops, see the <a href="../../guides/writing_a_training_loop_from_scratch/">guide to writing a training loop from scratch</a>.</p>
 <p>These losses also work seamlessly with <code>fit()</code> (they get automatically summed and added to the main loss, if any):</p>
 <div class="cell">
-<div class="sourceCode" id="cb41"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">3</span>))</span>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">3</span>))</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span> <span class="fu">layer_activity_regularization</span>()</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># output &lt;- ActivityRegularizationLayer()(input)</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
@@ -578,7 +599,7 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <p>Similarly to <code>add_loss()</code>, layers also have an <code>add_metric()</code> method for tracking the moving average of a quantity during training.</p>
 <p>Consider the following layer: a “logistic endpoint” layer. It takes as inputs predictions and targets, it computes a loss which it tracks via <code>add_loss()</code>, and it computes an accuracy scalar, which it tracks via <code>add_metric()</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb42"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LogisticEndpoint</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LogisticEndpoint</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">name =</span> <span class="cn">NULL</span>) {</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(<span class="at">name =</span> name)</span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_binary_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>)</span>
@@ -603,7 +624,7 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 </div>
 <p>Metrics tracked in this way are accessible via <code>layer$metrics</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb43"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">LogisticEndpoint</span>()</span>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">LogisticEndpoint</span>()</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>logits <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
@@ -613,19 +634,19 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <div class="cell-output-stdout">
 <pre><code>layer$metrics: </code></pre>
 </div>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(layer<span class="sc">$</span>metrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(layer<span class="sc">$</span>metrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>List of 1
  $ :BinaryAccuracy(name=binary_accuracy,dtype=float32,threshold=0.5)</code></pre>
 </div>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"current accuracy value:"</span>, <span class="fu">as.numeric</span>(layer<span class="sc">$</span>metrics[[<span class="dv">1</span>]]<span class="sc">$</span><span class="fu">result</span>()), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"current accuracy value:"</span>, <span class="fu">as.numeric</span>(layer<span class="sc">$</span>metrics[[<span class="dv">1</span>]]<span class="sc">$</span><span class="fu">result</span>()), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-stdout">
 <pre><code>current accuracy value: 1 </code></pre>
 </div>
 </div>
 <p>Just like for <code>add_loss()</code>, these metrics are tracked by <code>fit()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb49"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">3</span>), <span class="at">name =</span> <span class="st">"inputs"</span>)</span>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">3</span>), <span class="at">name =</span> <span class="st">"inputs"</span>)</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">10</span>), <span class="at">name =</span> <span class="st">"targets"</span>)</span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>logits <span class="ot">&lt;-</span> inputs <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span>
 <span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">LogisticEndpoint</span>(<span class="at">name =</span> <span class="st">"predictions"</span>)(logits, targets)</span>
@@ -645,7 +666,7 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <h2 class="anchored" data-anchor-id="you-can-optionally-enable-serialization-on-your-layers">You can optionally enable serialization on your layers</h2>
 <p>If you need your custom layers to be serializable as part of a <a href="../../guides/functional_api/">Functional model</a>, you can optionally implement a <code>get_config()</code> method:</p>
 <div class="cell">
-<div class="sourceCode" id="cb50"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>) {</span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>units <span class="ot">&lt;-</span> units</span>
@@ -682,11 +703,11 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <pre><code>$units
 [1] 64</code></pre>
 </div>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>new_layer <span class="ot">&lt;-</span> Linear<span class="sc">$</span><span class="fu">from_config</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>new_layer <span class="ot">&lt;-</span> Linear<span class="sc">$</span><span class="fu">from_config</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that the <code>initialize()</code> method of the base <code>Layer</code> class takes some additional named arguments, in particular a <code>name</code> and a <code>dtype</code>. It’s good practice to pass these arguments to the parent class in <code>initialize()</code> and to include them in the layer config:</p>
 <div class="cell">
-<div class="sourceCode" id="cb53"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>, ...) {</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(...)</span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>units <span class="ot">&lt;-</span> units</span>
@@ -727,11 +748,11 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
  $ dtype    : chr "float32"
  $ units    : num 64</code></pre>
 </div>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>new_layer <span class="ot">&lt;-</span> Linear<span class="sc">$</span><span class="fu">from_config</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>new_layer <span class="ot">&lt;-</span> Linear<span class="sc">$</span><span class="fu">from_config</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you need more flexibility when deserializing the layer from its config, you can also override the <code>from_config()</code> class method. This is the base implementation of <code>from_config()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb56"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>from_config <span class="ot">&lt;-</span> <span class="cf">function</span>(cls, config) <span class="fu">do.call</span>(cls, config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>from_config <span class="ot">&lt;-</span> <span class="cf">function</span>(cls, config) <span class="fu">do.call</span>(cls, config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To learn more about serialization and saving, see the complete <a href="../../guides/serialization_and_saving/">guide to saving and serializing models</a>.</p>
 </section>
@@ -740,7 +761,7 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <p>Some layers, in particular the <code>BatchNormalization</code> layer and the <code>Dropout</code> layer, have different behaviors during training and inference. For such layers, it is standard practice to expose a <code>training</code> (boolean) argument in the <code>call()</code> method.</p>
 <p>By exposing this argument in <code>call()</code>, you enable the built-in training and evaluation loops (e.g.&nbsp;<code>fit()</code>) to correctly use the layer in training and inference. Note, the default of <code>NULL</code> means that the training parameter will be inferred by keras from the training context (e.g., it will be <code>TRUE</code> if called from <code>fit()</code>, <code>FALSE</code> if called from <code>predict()</code>)</p>
 <div class="cell">
-<div class="sourceCode" id="cb57"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CustomDropout</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CustomDropout</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(rate, ...) {</span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(...)</span>
 <span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>rate <span class="ot">&lt;-</span> rate</span>
@@ -776,7 +797,7 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <p>So if you’re wondering, “should I use the <code>Layer</code> class or the <code>Model</code> class?”, ask yourself: will I need to call <code>fit()</code> on it? Will I need to call <code>save()</code> on it? If so, go with <code>Model</code>. If not (either because your class is just a block in a bigger system, or because you are writing training &amp; saving code yourself), use <code>Layer</code>.</p>
 <p>For instance, we could take our mini-resnet example above, and use it to build a <code>Model</code> that we could train with <code>fit()</code>, and that we could save with <code>save_model_weights_tf()</code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb58"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ResNet</span>(keras<span class="sc">$</span>Model) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ResNet</span>(keras<span class="sc">$</span>Model) <span class="sc">%py_class%</span> {</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">num_classes =</span> <span class="dv">1000</span>) {</span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
 <span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>block_1 <span class="ot">&lt;-</span> <span class="fu">ResNetBlock</span>()</span>
@@ -812,7 +833,7 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <p>Let’s put all of these things together into an end-to-end example: we’re going to implement a Variational AutoEncoder (VAE). We’ll train it on MNIST digits.</p>
 <p>Our VAE will be a subclass of <code>Model</code>, built as a nested composition of layers that subclass <code>Layer</code>. It will feature a regularization loss (KL divergence).</p>
 <div class="cell">
-<div class="sourceCode" id="cb59"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sampling</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sampling</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(z_mean, z_log_var) <span class="sc">%&lt;-%</span> inputs</span>
 <span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    batch <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">shape</span>(z_mean)[<span class="dv">1</span>]</span>
@@ -886,7 +907,7 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 </div>
 <p>Let’s write a simple training loop on MNIST:</p>
 <div class="cell">
-<div class="sourceCode" id="cb60"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfautograph)</span>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfautograph)</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -968,7 +989,7 @@ step 900: mean loss = 0.0711</code></pre>
 </div>
 <p>Note that since the VAE is subclassing <code>Model</code>, it features built-in training loops. So you could also have trained it like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb62"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>vae <span class="ot">&lt;-</span> <span class="fu">VariationalAutoEncoder</span>(<span class="dv">784</span>, <span class="dv">64</span>, <span class="dv">32</span>)</span>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>vae <span class="ot">&lt;-</span> <span class="fu">VariationalAutoEncoder</span>(<span class="dv">784</span>, <span class="dv">64</span>, <span class="dv">32</span>)</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> <span class="fu">optimizer_adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-3</span>)</span>
 <span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -981,7 +1002,7 @@ step 900: mean loss = 0.0711</code></pre>
 <p>If you prefer a less object-oriented way of programming, you can also build models using the <a href="../../guides/functional_api/">Functional API</a>. Importantly, choosing one style or another does not prevent you from leveraging components written in the other style: you can always mix-and-match.</p>
 <p>For instance, the Functional API example below reuses the same <code>Sampling</code> layer we defined in the example above:</p>
 <div class="cell">
-<div class="sourceCode" id="cb63"><pre class="sourceCode r cell-code code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>original_dim <span class="ot">&lt;-</span> <span class="dv">784</span></span>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>original_dim <span class="ot">&lt;-</span> <span class="dv">784</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>intermediate_dim <span class="ot">&lt;-</span> <span class="dv">64</span></span>
 <span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>latent_dim <span class="ot">&lt;-</span> <span class="dv">32</span></span>
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1031,10 +1052,10 @@ step 900: mean loss = 0.0711</code></pre>
 </ul>
 
 
-
 </section>
+
 </main> <!-- /main -->
-<script type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
   const anchorJS = new window.AnchorJS();
@@ -1055,7 +1076,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.blur();
     // flash "checked"
     button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
     setTimeout(function() {
+      button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
@@ -1111,6 +1135,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 </body></html>
