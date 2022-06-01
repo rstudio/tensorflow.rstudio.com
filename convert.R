@@ -133,7 +133,7 @@ translate_py_to_r <- function(x) {
   x
 }
 
-ipynb_file <- "tensorflow/guide/tensor.ipynb"
+ipynb_file <- "tensorflow/guide/variable.ipynb"
 qmd_file <- sub("\\.ipynb$", ".qmd", ipynb_file)
 
 unlink(qmd_file)
@@ -154,6 +154,9 @@ if(x[2] == "jupyter: python3") {
 
 x <- translate_py_to_r(x)
 writeLines(x, qmd_file)
+
+file.edit(qmd_file)
+rstudioapi::restartSession()
 
 
 
