@@ -130,6 +130,7 @@ translate_py_to_r <- function(x) {
   lgsub("$org", ".org", fixed = TRUE)
   lgsub("$html", ".html", fixed = TRUE)
   lgsub("$png", ".png", fixed = TRUE)
+  lgsub("$qmd", ".qmd", fixed = TRUE)
   lgsub("$jpg", ".jpg", fixed = TRUE)
   lgsub("en$wikipedia", "en.wikipedia", fixed = TRUE)
   lgsub("e$g.", "e.g.", fixed=TRUE)
@@ -139,7 +140,7 @@ translate_py_to_r <- function(x) {
   x
 }
 
-ipynb_file <- "tensorflow/guide/autodiff.ipynb"
+ipynb_file <- "tensorflow/guide/intro_to_graphs.ipynb"
 qmd_file <- sub("\\.ipynb$", ".qmd", ipynb_file)
 
 unlink(qmd_file)
