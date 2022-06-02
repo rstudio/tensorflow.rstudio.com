@@ -67,8 +67,11 @@ translate_py_to_r <- function(x) {
   lgsub("def ([a-zA-Z_]+)\\((.*)\\):",
         "\\1 <- function(\\2) {    }")
 
-  lgsub("with ([a-zA-Z.()]+) as ([a-zA-Z.()]+):",
+  lgsub("with ([a-zA-Z.$()= ]+) as ([a-zA-Z.()]+):",
         "with(\\1 %as% \\2, {    })")
+
+  lgsub("with ([a-zA-Z.$()= ]+):",
+        "with(\\1, {    })")
 
   lgsub("```\\{r}\n+", "```{r}\n")
   lgsub("\n+```\n+", "\n```\n\n")
@@ -120,12 +123,15 @@ translate_py_to_r <- function(x) {
   lgsub("super\\(.*, self\\)\\.compile\\((.*)\\)",
         "super$compile(\\1)")
 
+  lgsub("([^ ])=([^ ])", "\\1 = \\2")
+
   lgsub("www$", "www.", fixed = TRUE)
   lgsub("$com", ".com", fixed = TRUE)
   lgsub("$org", ".org", fixed = TRUE)
   lgsub("$html", ".html", fixed = TRUE)
   lgsub("$png", ".png", fixed = TRUE)
   lgsub("$jpg", ".jpg", fixed = TRUE)
+  lgsub("en$wikipedia", "en.wikipedia", fixed = TRUE)
   lgsub("e$g.", "e.g.", fixed=TRUE)
 
   lgsub("^(\\s*[^( ]+) =", "\\1 <-")
@@ -133,7 +139,7 @@ translate_py_to_r <- function(x) {
   x
 }
 
-ipynb_file <- "tensorflow/guide/variable.ipynb"
+ipynb_file <- "tensorflow/guide/autodiff.ipynb"
 qmd_file <- sub("\\.ipynb$", ".qmd", ipynb_file)
 
 unlink(qmd_file)

@@ -586,5 +586,103 @@
     "title": "Variable",
     "section": "Next steps",
     "text": "Next steps\nTo understand how variables are typically used, see our guide on automatic differentiation."
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html",
+    "href": "tensorflow/guide/autodiff.html",
+    "title": "Autodiff",
+    "section": "",
+    "text": "#@title Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#\n# https://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License."
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#automatic-differentiation-and-gradients",
+    "href": "tensorflow/guide/autodiff.html#automatic-differentiation-and-gradients",
+    "title": "Autodiff",
+    "section": "Automatic Differentiation and Gradients",
+    "text": "Automatic Differentiation and Gradients\nAutomatic differentiation is useful for implementing machine learning algorithms such as backpropagation for training neural networks.\nIn this guide, you will explore ways to compute gradients with TensorFlow, especially in eager execution."
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#setup",
+    "href": "tensorflow/guide/autodiff.html#setup",
+    "title": "Autodiff",
+    "section": "Setup",
+    "text": "Setup\n\nlibrary(tensorflow)\nlibrary(keras)"
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#computing-gradients",
+    "href": "tensorflow/guide/autodiff.html#computing-gradients",
+    "title": "Autodiff",
+    "section": "Computing gradients",
+    "text": "Computing gradients\nTo differentiate automatically, TensorFlow needs to remember what operations happen in what order during the forward pass. Then, during the backward pass, TensorFlow traverses this list of operations in reverse order to compute gradients."
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#gradient-tapes",
+    "href": "tensorflow/guide/autodiff.html#gradient-tapes",
+    "title": "Autodiff",
+    "section": "Gradient tapes",
+    "text": "Gradient tapes\nTensorFlow provides the tf$GradientTape() API for automatic differentiation; that is, computing the gradient of a computation with respect to some inputs, usually tf$Variables. TensorFlow “records” relevant operations executed inside the context of a tf$GradientTape() onto a “tape”. TensorFlow then uses that tape to compute the gradients of a “recorded” computation using reverse mode differentiation.\nHere is a simple example:\n\nx <- tf$Variable(3)\n\nLoaded Tensorflow version 2.9.1\n\nwith(tf$GradientTape() %as% tape, {\n  y <- x ^ 2\n})\n\nOnce you’ve recorded some operations, use GradientTape$gradient(target, sources) to calculate the gradient of some target (often a loss) relative to some source (often the model’s variables):\n\n# dy = 2x * dx\n\ndy_dx <- tape$gradient(y, x)\ndy_dx\n\ntf.Tensor(6.0, shape=(), dtype=float32)\n\n\nThe above example uses scalars, but tf$GradientTape works as easily on any tensor:\n\nw <- tf$Variable(tf$random$normal(c(3L, 2L)), name = 'w')\nb <- tf$Variable(tf$zeros(2L, dtype = tf$float32), name = 'b')\nx <- as_tensor(1:3, \"float32\", shape = c(1, 3))\n\nwith(tf$GradientTape(persistent = TRUE) %as% tape, {\n  y <- tf$matmul(x, w) + b\n  loss <- mean(y ^ 2)\n})\n\nTo get the gradient of loss with respect to both variables, you can pass both as sources to the gradient method. The tape is flexible about how sources are passed and will accept any nested combination of lists or dictionaries and return the gradient structured the same way (see tf$nest).\n\nc(dl_dw, dl_db) %<-% tape$gradient(loss, c(w, b))\n\nThe gradient with respect to each source has the shape of the source:\n\nw$shape\n\nTensorShape([3, 2])\n\ndl_dw$shape\n\nTensorShape([3, 2])\n\n\nHere is the gradient calculation again, this time passing a named list of variables:\n\nmy_vars <- list(w = w,\n                b = b)\n\ngrad <- tape$gradient(loss, my_vars)\ngrad$b\n\ntf.Tensor([-0.39992297 -3.231268  ], shape=(2), dtype=float32)"
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#gradients-with-respect-to-a-model",
+    "href": "tensorflow/guide/autodiff.html#gradients-with-respect-to-a-model",
+    "title": "Autodiff",
+    "section": "Gradients with respect to a model",
+    "text": "Gradients with respect to a model\nIt’s common to collect tf$Variables into a tf$Module or one of its subclasses (tf$keras$layers$Layer, tf$keras$Model) for checkpointing and exporting.\nIn most cases, you will want to calculate gradients with respect to a model’s trainable variables. Since all subclasses of tf$Module aggregate their variables in the Module$trainable_variables property, you can calculate these gradients in a few lines of code:\n\nlayer <- layer_dense(units = 2, activation = 'relu')\nx <- as_tensor(1:3, \"float32\", shape = c(1, -1))\n\nwith(tf$GradientTape() %as% tape, {\n  # Forward pass\n  y <- layer(x)\n  loss <- mean(y ^ 2)\n})\n\n# Calculate gradients with respect to every trainable variable\ngrad <- tape$gradient(loss, layer$trainable_variables)\n\n\nfor (pair in zip_lists(layer$trainable_variables, grad)) {\n  c(var, g) %<-% pair\n  print(glue::glue('{var$name}, shape: {format(g$shape)}'))\n}\n\ndense/kernel:0, shape: (3, 2)\ndense/bias:0, shape: (2)"
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#controlling-what-the-tape-watches",
+    "href": "tensorflow/guide/autodiff.html#controlling-what-the-tape-watches",
+    "title": "Autodiff",
+    "section": "Controlling what the tape watches",
+    "text": "Controlling what the tape watches\nThe default behavior is to record all operations after accessing a trainable tf$Variable. The reasons for this are:\n\nThe tape needs to know which operations to record in the forward pass to calculate the gradients in the backwards pass.\nThe tape holds references to intermediate outputs, so you don’t want to record unnecessary operations.\nThe most common use case involves calculating the gradient of a loss with respect to all a model’s trainable variables.\n\nFor example, the following fails to calculate a gradient because the tf$Tensor is not “watched” by default, and the tf$Variable is not trainable:\n\n# A trainable variable\nx0 <- tf$Variable(3.0, name = 'x0')\n\n# Not trainable\nx1 <- tf$Variable(3.0, name = 'x1', trainable = FALSE)\n\n# Not a Variable: A variable + tensor returns a tensor.\nx2 <- tf$Variable(2.0, name = 'x2') + 1.0\n\n# Not a variable\nx3 <- as_tensor(3.0, name = 'x3')\n\nwith(tf$GradientTape() %as% tape, {\n  y <- (x0 ^ 2) + (x1 ^ 2) + (x2 ^ 2)\n})\n\ngrad <- tape$gradient(y, list(x0, x1, x2, x3))\n\nstr(grad)\n\nList of 4\n $ :<tf.Tensor: shape=(), dtype=float32, numpy=6.0>\n $ : NULL\n $ : NULL\n $ : NULL\n\n\nYou can list the variables being watched by the tape using the GradientTape$watched_variables method:\n\ntape$watched_variables()\n\n[[1]]\n<tf.Variable 'x0:0' shape=() dtype=float32, numpy=3.0>\n\n\ntf$GradientTape provides hooks that give the user control over what is or is not watched.\nTo record gradients with respect to a tf$Tensor, you need to call GradientTape$watch(x):\n\nx <- as_tensor(3.0)\nwith(tf$GradientTape() %as% tape, {\n  tape$watch(x)\n  y <- x ^ 2\n})\n\n# dy = 2x * dx\ndy_dx <- tape$gradient(y, x)\nas.array(dy_dx)\n\n[1] 6\n\n\nConversely, to disable the default behavior of watching all tf$Variables, set watch_accessed_variables = FALSE when creating the gradient tape. This calculation uses two variables, but only connects the gradient for one of the variables:\n\nx0 <- tf$Variable(0.0)\nx1 <- tf$Variable(10.0)\n\nwith(tf$GradientTape(watch_accessed_variables = FALSE) %as% tape, {\n  tape$watch(x1)\n  y0 <- sin(x0)\n  y1 <- tf$nn$softplus(x1)\n  y <- y0 + y1\n  ys <- sum(y)\n})\n\nSince GradientTape$watch was not called on x0, no gradient is computed with respect to it:\n\n# dys/dx1 = exp(x1) / (1 + exp(x1)) = sigmoid(x1)\ngrad <- tape$gradient(ys, list(x0 = x0, x1 = x1))\n\ncat('dy/dx0: ', grad$x0)\n\ndy/dx0: \n\ncat('dy/dx1: ', as.array(grad$x1))\n\ndy/dx1:  0.9999546"
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#intermediate-results",
+    "href": "tensorflow/guide/autodiff.html#intermediate-results",
+    "title": "Autodiff",
+    "section": "Intermediate results",
+    "text": "Intermediate results\nYou can also request gradients of the output with respect to intermediate values computed inside the tf$GradientTape context.\n\nx <- as_tensor(3.0)\n\nwith(tf$GradientTape() %as% tape, {\n  tape$watch(x)\n  y <- x * x\n  z <- y * y\n})\n\n# Use the tape to compute the gradient of z with respect to the\n# intermediate value y.\n# dz_dy = 2 * y and y = x ^ 2 = 9\ntape$gradient(z, y) |> as.array()\n\n[1] 18\n\n\nBy default, the resources held by a GradientTape are released as soon as the GradientTape$gradient method is called. To compute multiple gradients over the same computation, create a gradient tape with persistent = TRUE. This allows multiple calls to the gradient method as resources are released when the tape object is garbage collected. For example:\n\nx <- as_tensor(c(1, 3.0))\nwith(tf$GradientTape(persistent = TRUE) %as% tape, {\n\n  tape$watch(x)\n  y <- x * x\n  z <- y * y\n})\n\nas.array(tape$gradient(z, x))  # c(4.0, 108.0); (4 * x^3 at x = c(1.0, 3.0)\n\n[1]   4 108\n\nas.array(tape$gradient(y, x))  # c(2.0, 6.0);   (2 * x at x = c(1.0, 3.0)\n\n[1] 2 6\n\n\n\nrm(tape)   # Drop the reference to the tape"
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#notes-on-performance",
+    "href": "tensorflow/guide/autodiff.html#notes-on-performance",
+    "title": "Autodiff",
+    "section": "Notes on performance",
+    "text": "Notes on performance\n\nThere is a tiny overhead associated with doing operations inside a gradient tape context. For most eager execution this will not be a noticeable cost, but you should still use tape context around the areas only where it is required.\nGradient tapes use memory to store intermediate results, including inputs and outputs, for use during the backwards pass.\nFor efficiency, some ops (like ReLU) don’t need to keep their intermediate results and they are pruned during the forward pass. However, if you use persistent = TRUE on your tape, nothing is discarded and your peak memory usage will be higher."
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#gradients-of-non-scalar-targets",
+    "href": "tensorflow/guide/autodiff.html#gradients-of-non-scalar-targets",
+    "title": "Autodiff",
+    "section": "Gradients of non-scalar targets",
+    "text": "Gradients of non-scalar targets\nA gradient is fundamentally an operation on a scalar.\n\nx <- tf$Variable(2.0)\nwith(tf$GradientTape(persistent = TRUE) %as% tape, {\n  y0 <- x ^ 2\n  y1 <- 1 / x\n})\n\nas.array(tape$gradient(y0, x))\n\n[1] 4\n\nas.array(tape$gradient(y1, x))\n\n[1] -0.25\n\n\nThus, if you ask for the gradient of multiple targets, the result for each source is:\n\nThe gradient of the sum of the targets, or equivalently\nThe sum of the gradients of each target.\n\n\nx <- tf$Variable(2.0)\nwith(tf$GradientTape() %as% tape, {\n  y0 <- x^2\n  y1 <- 1 / x\n})\n\nas.array(tape$gradient(list(y0 = y0, y1 = y1), x))\n\n[1] 3.75\n\n\nSimilarly, if the target(s) are not scalar the gradient of the sum is calculated:\n\nx <- tf$Variable(2)\n\nwith(tf$GradientTape() %as% tape, {\n  y <- x * c(3, 4)\n})\n\nas.array(tape$gradient(y, x))\n\n[1] 7\n\n\nThis makes it simple to take the gradient of the sum of a collection of losses, or the gradient of the sum of an element-wise loss calculation.\nIf you need a separate gradient for each item, refer to Jacobians.\nIn some cases you can skip the Jacobian. For an element-wise calculation, the gradient of the sum gives the derivative of each element with respect to its input-element, since each element is independent:\n\nx <- tf$linspace(-10.0, 10.0, as.integer(200+1))\n\nwith(tf$GradientTape() %as% tape, {\n  tape$watch(x)\n  y <- tf$nn$sigmoid(x)\n})\n\ndy_dx <- tape$gradient(y, x)\n\n\nfor(var in alist(x, y, dy_dx))\n  eval(bquote(.(var) <- as.array(.(var))))\nplot(NULL, xlim = range(x), ylim = range(y), ann=F, frame.plot = F)\nlines(x, y, col = \"royalblue\", lwd = 2)\nlines(x, dy_dx, col = \"coral\", lwd=2)\nlegend(\"topleft\", inset = .05,\n       expression(y, dy/dx),\n       col = c(\"royalblue\", \"coral\"), lwd = 2)"
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#control-flow",
+    "href": "tensorflow/guide/autodiff.html#control-flow",
+    "title": "Autodiff",
+    "section": "Control flow",
+    "text": "Control flow\nBecause a gradient tape records operations as they are executed, Python control flow is naturally handled (for example, if and while statements).\nHere a different variable is used on each branch of an if. The gradient only connects to the variable that was used:\n\nx <- as_tensor(1.0)\n\nv0 <- tf$Variable(2.0)\nv1 <- tf$Variable(2.0)\n\nwith(tf$GradientTape(persistent = TRUE) %as% tape, {\n  tape$watch(x)\n  if (as.logical(x > 0.0))\n    result <- v0\n  else\n    result <- v1 ^ 2\n})\n\nc(dv0, dv1) %<-% tape$gradient(result, list(v0, v1))\n\ndv0\n\ntf.Tensor(1.0, shape=(), dtype=float32)\n\ndv1\n\nNULL\n\n\nJust remember that the control statements themselves are not differentiable, so they are invisible to gradient-based optimizers.\nDepending on the value of x in the above example, the tape either records result = v0 or result = v1 ^ 2. The gradient with respect to x is always NULL.\n\n(dx <- tape$gradient(result, x))\n\nNULL"
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#getting-a-gradient-of-null",
+    "href": "tensorflow/guide/autodiff.html#getting-a-gradient-of-null",
+    "title": "Autodiff",
+    "section": "Getting a gradient of NULL",
+    "text": "Getting a gradient of NULL\nWhen a target is not connected to a source you will get a gradient of NULL.\n\nx <- tf$Variable(2)\ny <- tf$Variable(3)\n\nwith(tf$GradientTape() %as% tape, {\n  z <- y * y\n})\ntape$gradient(z, x)\n\nHere z is obviously not connected to x, but there are several less-obvious ways that a gradient can be disconnected.\n\n1. Replaced a variable with a tensor\nIn the section on “controlling what the tape watches” you saw that the tape will automatically watch a tf$Variable but not a tf$Tensor.\nOne common error is to inadvertently replace a tf$Variable with a tf$Tensor, instead of using Variable$assign to update the tf$Variable. Here is an example:\n\nx <- tf$Variable(2.0)\n\nfor (epoch in seq(2)) {\n\n  with(tf$GradientTape() %as% tape,\n       {  y <- x+1 })\n\n  cat(x$`__class__`$`__name__`, \": \")\n  print(tape$gradient(y, x))\n  x <- x + 1   # This should be `x$assign_add(1)`\n}\n\nResourceVariable : tf.Tensor(1.0, shape=(), dtype=float32)\nEagerTensor : NULL\n\n\n\n\n2. Did calculations outside of TensorFlow\nThe tape can’t record the gradient path if the calculation exits TensorFlow. For example:\n\nnp <- reticulate::import(\"numpy\", convert = FALSE)\nx <- tf$Variable(as_tensor(1:4, dtype=tf$float32, shape = c(2, 2)))\n\nwith(tf$GradientTape() %as% tape, {\n  x2 <- x ^ 2\n\n  # This step is calculated with NumPy\n  y <- np$mean(x2, axis = 0L)\n\n  # Like most tf ops, reduce_mean will cast the NumPy array to a constant tensor\n  # using `tf$convert_to_tensor`.\n  y <- tf$reduce_mean(y, axis = 0L)\n})\n\nprint(tape$gradient(y, x))\n\nNULL\n\n\n\n\n3. Took gradients through an integer or string\nIntegers and strings are not differentiable. If a calculation path uses these data types there will be no gradient.\nNobody expects strings to be differentiable, but it’s easy to accidentally create an int constant or variable if you don’t specify the dtype.\n\nx <- as_tensor(10L)\n\nwith(tf$GradientTape() %as% g, {\n  g$watch(x)\n  y <- x * x\n})\n\ng$gradient(y, x)\n\nWARNING:tensorflow:The dtype of the watched tensor must be floating (e.g. tf.float32), got tf.int32\nWARNING:tensorflow:The dtype of the target tensor must be floating (e.g. tf.float32) when calling GradientTape.gradient, got tf.int32\nWARNING:tensorflow:The dtype of the source tensor must be floating (e.g. tf.float32) when calling GradientTape.gradient, got tf.int32\nTensorFlow doesn’t automatically cast between types, so, in practice, you’ll often get a type error instead of a missing gradient.\n\n\n4. Took gradients through a stateful object\nState stops gradients. When you read from a stateful object, the tape can only observe the current state, not the history that lead to it.\nA tf$Tensor is immutable. You can’t change a tensor once it’s created. It has a value, but no state. All the operations discussed so far are also stateless: the output of a tf$matmul only depends on its inputs.\nA tf$Variable has internal state—its value. When you use the variable, the state is read. It’s normal to calculate a gradient with respect to a variable, but the variable’s state blocks gradient calculations from going farther back. For example:\n\nx0 <- tf$Variable(3.0)\nx1 <- tf$Variable(0.0)\n\nwith(tf$GradientTape() %as% tape, {\n  # Update x1 <- x1 + x0.\n  x1$assign_add(x0)\n  # The tape starts recording from x1.\n  y <- x1^2   # y = (x1 + x0)^2\n})\n\n# This doesn't work.\nprint(tape$gradient(y, x0))  #dy/dx0 = 2*(x1 + x0)\n\nNULL\n\n\nSimilarly, tf$data$Dataset iterators and tf$queues are stateful, and will stop all gradients on tensors that pass through them."
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#no-gradient-registered",
+    "href": "tensorflow/guide/autodiff.html#no-gradient-registered",
+    "title": "Autodiff",
+    "section": "No gradient registered",
+    "text": "No gradient registered\nSome tf$Operations are registered as being non-differentiable* and will return NULL. Others have no gradient registered**.\nThe tf$raw_ops page shows which low-level ops have gradients registered.\nIf you attempt to take a gradient through a float op that has no gradient registered the tape will throw an error instead of silently returning NULL. This way you know something has gone wrong.\nFor example, the tf$image$adjust_contrast function wraps raw_ops$AdjustContrastv2, which could have a gradient but the gradient is not implemented:\n\nimage <- tf$Variable(array(c(0.5, 0, 0), c(1,1,1)))\ndelta <- tf$Variable(0.1)\n\nwith(tf$GradientTape() %as% tape, {\n  new_image <- tf$image$adjust_contrast(image, delta)\n})\n\ntry(print(tape$gradient(new_image, list(image, delta))))\n\nError in py_call_impl(callable, dots$args, dots$keywords) : \n  LookupError: gradient registry has no entry for: AdjustContrastv2\n\n\nIf you need to differentiate through this op, you’ll either need to implement the gradient and register it (using tf$RegisterGradient) or re-implement the function using other ops."
+  },
+  {
+    "objectID": "tensorflow/guide/autodiff.html#zeros-instead-of-null",
+    "href": "tensorflow/guide/autodiff.html#zeros-instead-of-null",
+    "title": "Autodiff",
+    "section": "Zeros instead of NULL",
+    "text": "Zeros instead of NULL\nIn some cases it would be convenient to get 0 instead of NULL for unconnected gradients. You can decide what to return when you have unconnected gradients using the unconnected_gradients argument:\n\nx <- tf$Variable(c(2, 2))\ny <- tf$Variable(3)\n\nwith(tf$GradientTape() %as% tape, {\n  z <- y^2\n})\ntape$gradient(z, x, unconnected_gradients = tf$UnconnectedGradients$ZERO)\n\ntf.Tensor([0. 0.], shape=(2), dtype=float32)"
   }
 ]
