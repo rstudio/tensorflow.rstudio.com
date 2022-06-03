@@ -53,7 +53,7 @@ translate_py_to_r <- function(x) {
   lgsub("tf.constant(", "as_tensor(", fixed = TRUE)
   lgsub(".ipynb)", ".qmd)", fixed = TRUE) # cross links
   lgsub("tf.function", "tf_function", fixed = TRUE)
-  lgsub("**", "^", fixed = TRUE)
+  # lgsub("**", "^", fixed = TRUE) # too commonly unbolds text in prose
   lgsub("^(\\s*)([a-zA-Z._]+) =", "\\1\\2 <-")
 
   x <- paste0(x, collapse = "\n")
@@ -94,25 +94,24 @@ translate_py_to_r <- function(x) {
 
   lgsub("keras$Input(", "layer_input(", fixed = TRUE)
   lgsub("(keras\\$)?layers\\$Dense\\(", "layer_dense(")
-  lgsub("(keras\\$)?layers\\$LeakyReLU\\(",
-        "layer_activation_leaky_relu(")
+  lgsub("(keras\\$)?layers\\$LeakyReLU\\(", "layer_activation_leaky_relu(")
   lgsub("(keras\\$)?layers\\$Reshape\\(", "layer_reshape(")
-  lgsub("(keras\\$)?layers\\$Conv2DTranspose\\(",
-        "layer_conv_2d_transpose(")
+  lgsub("(keras\\$)?layers\\$Conv2DTranspose\\(", "layer_conv_2d_transpose(")
   lgsub("(keras\\$)?layers\\$Conv3D\\(", "layer_conv_3d(")
   lgsub("(keras\\$)?layers\\$Conv2D\\(", "layer_conv_2d(")
   lgsub("(keras\\$)?layers\\$Conv1D\\(", "layer_conv_1d(")
-  lgsub("(keras\\$)?layers\\$GlobalMaxPooling1D\\(",
-        "layer_global_max_pooling_1d(")
-
-  lgsub("(keras\\$)?layers\\$GlobalMaxPooling2D\\(",
-        "layer_global_max_pooling_2d(")
-  lgsub("(keras\\$)?layers\\$GlobalMaxPooling3D\\(",
-        "layer_global_max_pooling_3d(")
+  lgsub("(keras\\$)?layers\\$GlobalMaxPooling1D\\(", "layer_global_max_pooling_1d(")
+  lgsub("(keras\\$)?layers\\$GlobalMaxPooling2D\\(", "layer_global_max_pooling_2d(")
+  lgsub("(keras\\$)?layers\\$GlobalMaxPooling3D\\(", "layer_global_max_pooling_3d(")
+  lgsub("(keras\\$)?layers\\$MaxPooling1D\\(", "layer_max_pooling_1d(")
+  lgsub("(keras\\$)?layers\\$MaxPooling2D\\(", "layer_max_pooling_2d(")
+  lgsub("(keras\\$)?layers\\$MaxPooling3D\\(", "layer_max_pooling_3d(")
   lgsub("keras$Sequential(", "keras_model_sequential(", fixed = TRUE)
   lgsub("$fit(", " %>% fit(", fixed = TRUE)
   lgsub("$compile(", " %>% compile(", fixed = TRUE)
   lgsub("$evaluate(", " %>% evaluate(", fixed = TRUE)
+  lgsub("$add(", " %>% ", fixed = TRUE)
+  lgsub("keras$Model(", "keras_model(", fixed = TRUE)
 
   lgsub("__init__ <-", "initialize <-", fixed = TRUE)
 
@@ -124,6 +123,9 @@ translate_py_to_r <- function(x) {
         "super$compile(\\1)")
 
   lgsub("([^ ])=([^ ])", "\\1 = \\2")
+
+  lgsub("len(", "length(", fixed = TRUE)
+
 
   lgsub("www$", "www.", fixed = TRUE)
   lgsub("$com", ".com", fixed = TRUE)
@@ -140,32 +142,48 @@ translate_py_to_r <- function(x) {
   x
 }
 
-ipynb_file <- "tensorflow/guide/intro_to_graphs.ipynb"
-qmd_file <- sub("\\.ipynb$", ".qmd", ipynb_file)
 
-unlink(qmd_file)
-system(glue("quarto convert {ipynb_file}"))
+# ipynb_file <- "tensorflow/guide/intro_to_graphs.ipynb"
+# ipynb_file <- "tensorflow/guide/intro_to_graphs.ipynb"
 
-x <- readLines(qmd_file)
+convert <- function(path) {
+  if (endsWith(path, "ipynb")) {
+    ipynb_file <- path
+    qmd_file <- sub("\\.ipynb$", ".qmd", ipynb_file)
 
-x <- x[!startsWith(x, "#| id:")]
-# replace "jupyter: python3"
-if(x[2] == "jupyter: python3") {
-  x[2] <- qmd_file %>%
-    basename() %>%
-    sub(".qmd", "", ., fixed = TRUE) %>%
-    sub("_", " ", ., fixed = TRUE) %>%
-    stringr::str_to_title() %>%
-    sprintf("title: %s", .)
+    unlink(qmd_file)
+    system(glue("quarto convert {ipynb_file}"))
+
+    x <- readLines(qmd_file)
+
+    x <- x[!startsWith(x, "#| id:")]
+    # replace "jupyter: python3"
+    if (x[2] == "jupyter: python3") {
+      x[2] <- qmd_file %>%
+        basename() %>%
+        sub(".qmd", "", ., fixed = TRUE) %>%
+        sub("_", " ", ., fixed = TRUE) %>%
+        stringr::str_to_title() %>%
+        sprintf("title: %s", .)
+    }
+  } else {
+    # keras tuto book
+    tutobook_file <- path
+    qmd_file <- sub("\\.py$", ".qmd", tutobook_file)
+    x <- readLines(tutobook_file)
+    x <- tutobook_to_qmd(x)
+  }
+
+  x <- translate_py_to_r(x)
+  writeLines(x, qmd_file)
+
+  file.edit(qmd_file)
+  rstudioapi::restartSession()
+
 }
 
-x <- translate_py_to_r(x)
-writeLines(x, qmd_file)
-
-file.edit(qmd_file)
-rstudioapi::restartSession()
-
-
+path <- "keras/guides/sequential_model.py"
+convert(path)
 
 # tutobook_file <- "keras/guides/customizing_what_happens_in_fit.py"
 # tutobook_file <- "keras/guides/preprocessing_layers.py"

@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "mysite",
     "section": "",
-    "text": "Francois Chollet, Tomasz Kalinowski\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nScott Zhu, Francois Chollet, Tomasz Kalinowski\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverview of how to leverage preprocessing layers to create end-to-end models.\n\n\n\n\n\n\nFrancois Chollet, Mark Omernick, Tomasz Kalinowski\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRick Chao, Francois Chollet, Tomasz Kalinowski\n\n\n\n\n\n\nNo matching items"
+    "text": "Francois Chollet, Tomasz Kalinowski\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nComplete guide to the Sequential model.\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nScott Zhu, Francois Chollet, Tomasz Kalinowski\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverview of how to leverage preprocessing layers to create end-to-end models.\n\n\n\n\n\n\nFrancois Chollet, Mark Omernick, Tomasz Kalinowski\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRick Chao, Francois Chollet, Tomasz Kalinowski\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "tensorflow/guide/basics.html#tensors",
@@ -740,5 +740,61 @@
     "title": "Intro To_graphs",
     "section": "Next steps",
     "text": "Next steps\nYou can learn more about tf_function() on the API reference page and by following the Better performance with tf_function guide."
+  },
+  {
+    "objectID": "keras/guides/sequential_model.html",
+    "href": "keras/guides/sequential_model.html",
+    "title": "The Sequential model",
+    "section": "",
+    "text": "library(tensorflow)\nlibrary(keras)"
+  },
+  {
+    "objectID": "keras/guides/sequential_model.html#when-to-use-a-sequential-model",
+    "href": "keras/guides/sequential_model.html#when-to-use-a-sequential-model",
+    "title": "The Sequential model",
+    "section": "When to use a Sequential model",
+    "text": "When to use a Sequential model\nA Sequential model is appropriate for a plain stack of layers where each layer has exactly one input tensor and one output tensor.\nSchematically, the following Sequential model:\n\n# Define Sequential model with 3 layers\nmodel <- keras_model_sequential() %>% \n  layer_dense(2, activation = \"relu\", name = \"layer1\") %>% \n  layer_dense(3, activation = \"relu\", name = \"layer2\") %>% \n  layer_dense(4, name = \"layer3\")\n\n# Call model on a test input\nx <- tf$ones(shape(3, 3))\ny <- model(x)\n\nis equivalent to this function:\n\n# Create 3 layers\nlayer1 <- layer_dense(units = 2, activation = \"relu\", name = \"layer1\")\nlayer2 <- layer_dense(units = 3, activation = \"relu\", name = \"layer2\")\nlayer3 <- layer_dense(units = 4, name = \"layer3\")\n\n# Call layers on a test input\nx <- tf$ones(shape(3, 3))\ny <- layer3(layer2(layer1(x)))\n\nA Sequential model is not appropriate when:\n\nYour model has multiple inputs or multiple outputs\nAny of your layers has multiple inputs or multiple outputs\nYou need to do layer sharing\nYou want non-linear topology (e.g. a residual connection, a multi-branch model)"
+  },
+  {
+    "objectID": "keras/guides/sequential_model.html#creating-a-sequential-model",
+    "href": "keras/guides/sequential_model.html#creating-a-sequential-model",
+    "title": "The Sequential model",
+    "section": "Creating a Sequential model",
+    "text": "Creating a Sequential model\nYou can create a Sequential model by piping a model through a series layers.\n\nmodel <- keras_model_sequential() %>%\n  layer_dense(2, activation = \"relu\") %>%\n  layer_dense(3, activation = \"relu\") %>%\n  layer_dense(4)\n\nIts layers are accessible via the layers attribute:\n\nmodel$layers\n\nYou can also create a Sequential model incrementally:\n\nmodel <- keras_model_sequential()\nmodel %>% layer_dense(2, activation = \"relu\")\nmodel %>% layer_dense(3, activation = \"relu\")\nmodel %>% layer_dense(4)\n\nNote that there’s also a corresponding pop() method to remove layers: a Sequential model behaves very much like a stack of layers.\n\nmodel %>% pop_layer()\nlength(model$layers)  # 2\n\nAlso note that the Sequential constructor accepts a name argument, just like any layer or model in Keras. This is useful to annotate TensorBoard graphs with semantically meaningful names.\n\nmodel <- keras_model_sequential(name = \"my_sequential\")\nmodel %>% layer_dense(2, activation = \"relu\", name = \"layer1\")\nmodel %>% layer_dense(3, activation = \"relu\", name = \"layer2\")\nmodel %>% layer_dense(4, name = \"layer3\")"
+  },
+  {
+    "objectID": "keras/guides/sequential_model.html#specifying-the-input-shape-in-advance",
+    "href": "keras/guides/sequential_model.html#specifying-the-input-shape-in-advance",
+    "title": "The Sequential model",
+    "section": "Specifying the input shape in advance",
+    "text": "Specifying the input shape in advance\nGenerally, all layers in Keras need to know the shape of their inputs in order to be able to create their weights. So when you create a layer like this, initially, it has no weights:\n\nlayer <- layer_dense(units = 3)\nlayer$weights  # Empty\n\nIt creates its weights the first time it is called on an input, since the shape of the weights depends on the shape of the inputs:\n\n# Call layer on a test input\nx <- tf$ones(shape(1, 4))\ny <- layer(x)\nlayer$weights  # Now it has weights, of shape (4, 3) and (3,)\n\nNaturally, this also applies to Sequential models. When you instantiate a Sequential model without an input shape, it isn’t “built”: it has no weights (and calling model$weights results in an error stating just this). The weights are created when the model first sees some input data:\n\nmodel <- keras_model_sequential() %>% \n        layer_dense(2, activation = \"relu\") %>% \n        layer_dense(3, activation = \"relu\") %>% \n        layer_dense(4)\n\n# No weights at this stage!\n# At this point, you can't do this:\n\ntry(model$weights)\n\n\n# The model summary is also not available:\nsummary(model)\n\n\n# Call the model on a test input\nx <- tf$ones(shape(1, 4))\ny <- model(x)\ncat(\"Number of weights after calling the model:\", length(model$weights), \"\\n\")  # 6\n\nOnce a model is “built”, you can call its summary() method to display its contents (the summary() method is also called by the default print() method:\n\nsummary(model)\n\nHowever, it can be very useful when building a Sequential model incrementally to be able to display the summary of the model so far, including the current output shape. In this case, you should start your model by passing an input_shape argument to your model, so that it knows its input shape from the start:\n\nmodel <- keras_model_sequential(input_shape = c(4))\nmodel %>% layer_dense(2, activation = \"relu\")\n\nmodel\n\nModels built with a predefined input shape like this always have weights (even before seeing any data) and always have a defined output shape.\nIn general, it’s a recommended best practice to always specify the input shape of a Sequential model in advance if you know what it is."
+  },
+  {
+    "objectID": "keras/guides/sequential_model.html#a-common-debugging-workflow-summary",
+    "href": "keras/guides/sequential_model.html#a-common-debugging-workflow-summary",
+    "title": "The Sequential model",
+    "section": "A common debugging workflow: %>% + summary()",
+    "text": "A common debugging workflow: %>% + summary()\nWhen building a new Sequential architecture, it’s useful to incrementally stack layers and print model summaries. For instance, this enables you to monitor how a stack of Conv2D and MaxPooling2D layers is downsampling image feature maps:\n\nmodel <- keras_model_sequential(input_shape = c(250, 250, 3)) # 250x250 RGB images\n  \nmodel %>% \n  layer_conv_2d(32, 5, strides = 2, activation = \"relu\") %>%\n  layer_conv_2d(32, 3, activation = \"relu\") %>%\n  layer_max_pooling_2d(3) \n\n# Can you guess what the current output shape is at this point? Probably not.\n# Let's just print it:\nmodel\n\n# The answer was: (40, 40, 32), so we can keep downsampling...\nmodel %>%\n  layer_conv_2d(32, 3, activation = \"relu\") %>%\n  layer_conv_2d(32, 3, activation = \"relu\") %>%\n  layer_max_pooling_2d(3) %>%\n  layer_conv_2d(32, 3, activation = \"relu\") %>%\n  layer_conv_2d(32, 3, activation = \"relu\") %>%\n  layer_max_pooling_2d(2) \n\n# And now?\nmodel\n\n# Now that we have 4x4 feature maps, time to apply global max pooling.\nmodel %>% layer_global_max_pooling_2d()\n\n# Finally, we add a classification layer.\nmodel %>% layer_dense(10)\n\nVery practical, right?"
+  },
+  {
+    "objectID": "keras/guides/sequential_model.html#what-to-do-once-you-have-a-model",
+    "href": "keras/guides/sequential_model.html#what-to-do-once-you-have-a-model",
+    "title": "The Sequential model",
+    "section": "What to do once you have a model",
+    "text": "What to do once you have a model\nOnce your model architecture is ready, you will want to:\n\nTrain your model, evaluate it, and run inference. See our guide to training & evaluation with the built-in loops\nSave your model to disk and restore it. See our guide to serialization & saving.\nSpeed up model training by leveraging multiple GPUs. See our guide to multi-GPU and distributed training."
+  },
+  {
+    "objectID": "keras/guides/sequential_model.html#feature-extraction-with-a-sequential-model",
+    "href": "keras/guides/sequential_model.html#feature-extraction-with-a-sequential-model",
+    "title": "The Sequential model",
+    "section": "Feature extraction with a Sequential model",
+    "text": "Feature extraction with a Sequential model\nOnce a Sequential model has been built, it behaves like a Functional API model. This means that every layer has an input and output attribute. These attributes can be used to do neat things, like quickly creating a model that extracts the outputs of all intermediate layers in a Sequential model:\n\ninitial_model <-\n  keras_model_sequential(input_shape = c(250, 250, 3)) %>%\n  layer_conv_2d(32, 5, strides = 2, activation = \"relu\") %>%\n  layer_conv_2d(32, 3, activation = \"relu\") %>%\n  layer_conv_2d(32, 3, activation = \"relu\")\n\nfeature_extractor <- keras_model(\n  inputs = initial_model$inputs,\n  outputs = lapply(initial_model$layers, \\(layer) layer$output)\n)\n\n# Call feature extractor on test input.\n\nx <- tf$ones(shape(1, 250, 250, 3))\nfeatures <- feature_extractor(x)\n\nHere’s a similar example that only extract features from one layer:\n\ninitial_model <-\n  keras_model_sequential(input_shape = c(250, 250, 3)) %>%\n  layer_conv_2d(32, 5, strides = 2, activation = \"relu\") %>%\n  layer_conv_2d(32, 3, activation = \"relu\", name = \"my_intermediate_layer\") %>%\n  layer_conv_2d(32, 3, activation = \"relu\")\n\nfeature_extractor <- keras_model(\n  inputs = initial_model$inputs,\n  outputs =  get_layer(initial_model, name = \"my_intermediate_layer\")$output\n)\n\n# Call feature extractor on test input.\nx <- tf$ones(shape(1, 250, 250, 3))\nfeatures <- feature_extractor(x)"
+  },
+  {
+    "objectID": "keras/guides/sequential_model.html#transfer-learning-with-a-sequential-model",
+    "href": "keras/guides/sequential_model.html#transfer-learning-with-a-sequential-model",
+    "title": "The Sequential model",
+    "section": "Transfer learning with a Sequential model",
+    "text": "Transfer learning with a Sequential model\nTransfer learning consists of freezing the bottom layers in a model and only training the top layers. If you aren’t familiar with it, make sure to read our guide to transfer learning.\nHere are two common transfer learning blueprint involving Sequential models.\nFirst, let’s say that you have a Sequential model, and you want to freeze all layers except the last one. In this case, you would simply iterate over model$layers and set layer$trainable = FALSE on each layer, except the last one. Like this:\n\nmodel <- keras_model_sequential(input_shape = c(784)) %>%\n  layer_dense(32, activation = 'relu') %>%\n  layer_dense(32, activation = 'relu') %>%\n  layer_dense(32, activation = 'relu') %>%\n  layer_dense(10)\n\n\n# Presumably you would want to first load pre-trained weights.\nmodel$load_weights(...)\n\n# Freeze all layers except the last one.\nfor (layer in head(model$layers, -1))\n  layer$trainable <- FALSE\n\n# can also just call: freeze_weights(model, to = -2)\n\n# Recompile and train (this will only update the weights of the last layer).\nmodel %>% compile(...)\nmodel %>% fit(...)\n\nAnother common blueprint is to use a Sequential model to stack a pre-trained model and some freshly initialized classification layers. Like this:"
   }
 ]
