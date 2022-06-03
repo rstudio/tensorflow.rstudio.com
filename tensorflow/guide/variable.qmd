@@ -1,5 +1,5 @@
 ---
-title: Variable
+title: Introduction to Variables
 ---
 
 ##### Copyright 2020 The TensorFlow Authors.
@@ -17,8 +17,6 @@ title: Variable
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ```
-
-# Introduction to Variables
 
 A TensorFlow **variable** is the recommended way to represent shared,
 persistent state your program manipulates. This guide covers how to

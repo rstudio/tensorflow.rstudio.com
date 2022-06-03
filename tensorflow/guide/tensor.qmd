@@ -1,5 +1,5 @@
 ---
-title: Tensor
+title: Introduction to Tensors
 ---
 
 ##### Copyright 2020 The TensorFlow Authors.
@@ -19,8 +19,6 @@ title: Tensor
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ```
-
-# Introduction to Tensors
 
 ```{r}
 library(tensorflow)
@@ -286,9 +284,9 @@ tf$reshape(rank_3_tensor, as.integer(c(5, 6)))
 try(tf$reshape(rank_3_tensor, as.integer(c(7, -1))))
 ```
 
-| Some bad reshapes.                                                                                                                                                                                                                                            |
-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![You can\'t reorder axes, use tf\$transpose for that](images/tensor/reshape-bad.png) ![Anything that mixes the slices of data together is probably wrong.](images/tensor/reshape-bad4.png) ![The new shape must fit exactly](images/tensor/reshape-bad2.png) |
+| Some bad reshapes.                                                                                                                                                                                                                                           |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![You can't reorder axes, use tf\$transpose for that](images/tensor/reshape-bad.png) ![Anything that mixes the slices of data together is probably wrong.](images/tensor/reshape-bad4.png) ![The new shape must fit exactly](images/tensor/reshape-bad2.png) |
 
 You may run across not-fully-specified shapes. Either the shape contains
 a `NULL` (an axis-length is unknown) or the whole shape is `NULL` (the

@@ -1,5 +1,5 @@
 ---
-title: Autodiff
+title: Introduction to gradients and automatic differentiation
 ---
 
 ##### Copyright 2020 The TensorFlow Authors.
@@ -17,8 +17,6 @@ title: Autodiff
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ```
-
-# Introduction to gradients and automatic differentiation
 
 ## Automatic Differentiation and Gradients
 

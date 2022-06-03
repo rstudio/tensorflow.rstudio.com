@@ -4,8 +4,6 @@ title: Tensorflow Basics
 
 ##### Copyright 2020 The TensorFlow Authors.
 
-# TensorFlow basics
-
 This guide provides a quick overview of *TensorFlow basics*. Each
 section of this doc is an overview of a larger topic---you can find
 links to full guides at the end of each section.
@@ -412,4 +410,3 @@ plot(history, metrics = 'loss', method = "base")
 
 Refer to [Basic training loops](basic_training_loops.qmd) and the [Keras
 guide](https://www.tensorflow.org/guide/keras) for more details.
-
