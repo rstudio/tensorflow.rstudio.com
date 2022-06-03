@@ -1,7 +1,3 @@
 ---
-title: "mysite"
-listing:
-  contents:
-    - tensorflow/guide/*.qmd
-    - keras/guides/*.qmd
+title: "R Interface to Tensorflow"
 ---
