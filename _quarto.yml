@@ -8,22 +8,44 @@ project:
     port: 5555
     browser: false
 
+execute:
+  freeze: false
+  eval: false
 
-toc: true
-
-
+website:
+  title: TensorFlow for R
+  site-url: https://tensorflow.rstudio.com
+  page-navigation: true
+  reader-mode: true
+  favicon: "images/favicon/icon.png"
+  navbar:
+    search: true
+    background: light
+    collapse-below: lg
+    logo: "images/favicon/icon.png"
+  sidebar:
+    - id: tensorflow
+      title: TensorFlow
+      align: left
+      collapse-level: 3
+      contents:
+        - text: Tensorflow Basics
+          contents:
+          - text: Overview
+            href: tensorflow/guide/basics.qmd
+          - text: Tensors
+            href: tensorflow/guide/tensor.qmd
+          - text: Variables
+            href: tensorflow/guide/variable.qmd
+          - text: Automatic differentiation
+            href: tensorflow/guide/autodiff.qmd
 
 format:
   html:
+    toc: true
     code-copy: true
-
-execute:
-  freeze: true
-  eval: false
-
-
-
-
-website:
-  title: "tf-site-title"
-
+    code-overflow: wrap
+    css: /css/styles.css
+    theme:
+      light: [cosmo, /css/theme.scss]
+      dark: [cosmo, /css/theme-dark.scss]
