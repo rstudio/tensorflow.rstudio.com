@@ -182,7 +182,8 @@ convert <- function(path) {
 
 }
 
-path <- "keras/guides/sequential_model.py"
+# path <- "keras/guides/sequential_model.py"
+path <- "keras/guides/functional_api.py"
 convert(path)
 
 # tutobook_file <- "keras/guides/customizing_what_happens_in_fit.py"
