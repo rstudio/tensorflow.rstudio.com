@@ -484,6 +484,7 @@ model
 Plot the model:
 
 ```{r}
+#| fig-height: 16
 plot(model, show_shapes = TRUE)
 ```
 
@@ -574,8 +575,8 @@ Use these features to create a new feature-extraction model that returns
 the values of the intermediate layer activations:
 
 ```{r}
-feat_extraction_model <- 
-  keras_model(inputs = vgg19$input, outputs = features_list)
+feat_extraction_model <-  keras_model(inputs = vgg19$input, 
+                                      outputs = features_list)
 
 img <- random_uniform_array(c(1, 224, 224, 3))
 extracted_features <- feat_extraction_model(img)
