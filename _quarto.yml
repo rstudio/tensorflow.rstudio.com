@@ -23,20 +23,34 @@ website:
     search: true
     logo: "images/favicon/icon.png"
   sidebar:
-    - title: TensorFlow
-      search: true
-      contents:
-        - text: Tensorflow Basics
-        - text: Overview
-          href: tensorflow/guide/basics.qmd
-        - text: Tensors
-          href: tensorflow/guide/tensor.qmd
-        - text: Variables
-          href: tensorflow/guide/variable.qmd
-        - text: Automatic differentiation
-          href: tensorflow/guide/autodiff.qmd
-        - text: Graphs and functions
-          href: tensorflow/guide/intro_to_graphs.qmd
+    style: "docked"
+    search: true
+    # collapse-level: 2
+    contents:
+      - section: Tensorflow Basics
+        contents:
+          - text: Overview
+            href: tensorflow/guide/basics.qmd
+          - text: Tensors
+            href: tensorflow/guide/tensor.qmd
+          - text: Variables
+            href: tensorflow/guide/variable.qmd
+          - text: Automatic differentiation
+            href: tensorflow/guide/autodiff.qmd
+          - text: Graphs and functions
+            href: tensorflow/guide/intro_to_graphs.qmd
+      - section: Keras
+        contents:
+          - keras/guides/sequential_model.qmd
+          - keras/guides/functional_api.qmd
+          - keras/guides/making_new_layers_and_models_via_subclassing.qmd
+          - keras/guides/customizing_what_happens_in_fit.qmd
+          - keras/guides/preprocessing_layers.qmd
+          - keras/guides/transfer_learning.qmd
+          - keras/guides/working_with_rnns.qmd
+          - keras/guides/writing_your_own_callbacks.qmd
+      - section: Advanced
+          - keras/guides/python_subclasses.qmd
 
 
 format:
