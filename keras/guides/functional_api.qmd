@@ -26,7 +26,7 @@ acyclic graph (DAG) of layers. So the functional API is a way to build
 
 Consider the following model:
 
-```{r, eval = F}
+```{r, eval = FALSE}
 (input: 784-dimensional vectors)
        ↧
 [Dense (64 units, relu activation)]
@@ -691,7 +691,7 @@ Optionally, implement the class method `from_config(class_constructor, config)` 
 is used when recreating a layer instance given its config.
 The default implementation of `from_config` is approximately:
 
-```{r}
+```{r, eval = FALSE}
 from_config <- function(layer_constructor, config) 
   do.call(layer_constructor, config)
 ```
@@ -721,7 +721,7 @@ R code, not data structures).
 
 #### Less verbose
 
-There is no `super$initialize(...)`, no `call <- function(...) {    }`,
+There is no `super$initialize(...)`, no `call <- function(...) {   }`,
 etc.
 
 Compare:
@@ -738,6 +738,8 @@ With the subclassed version:
 
 ```{r}
 MLP <- new_model_class(
+  classname = "MLP",
+  
   initialize = function(...) {
     super$initialize(...)
     self$dense_1 <- layer_dense(units = 64, activation = 'relu')
@@ -746,7 +748,7 @@ MLP <- new_model_class(
   
   call = function(inputs) {
     inputs %>% 
-      self$dense_1()
+      self$dense_1() %>% 
       self$dense_2()
   }
 )
@@ -844,11 +846,10 @@ layer_custom_rnn <- new_layer_class(
   
   call = function(inputs) {
     message("inputs shape: ", format(inputs$shape))
-    # inputs shape is (batch_size, time_steps, channels)
-    c(batch_size, time_steps, channels) %<-% dim(inputs)
-    outputs <- vector("list", time_steps)
+    c(batch_size, timesteps, channels) %<-% dim(inputs)
+    outputs <- vector("list", timesteps)
     state <- tf$zeros(shape(batch_size, self$units))
-    for (t in 1:time_steps) {
+    for (t in 1:timesteps) {
       # iterate over each time_step
       outputs[[t]] <- state <-
         inputs[, t, ] %>%
@@ -907,10 +908,10 @@ layer_custom_rnn <- new_layer_class(
   },
   
   call = function(inputs) {
-    # c(batch_size, time_steps, channels) %<-% dim(inputs)
-    outputs <- vector("list", time_steps)
+    c(batch_size, timesteps, channels) %<-% dim(inputs)
+    outputs <- vector("list", timesteps)
     state <- tf$zeros(shape(batch_size, self$units))
-    for (t in 1:time_steps) {
+    for (t in 1:timesteps) {
       # iterate over each time_step
       outputs[[t]] <- state <-
         inputs[, t, ] %>%

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.377">
+<meta name="generator" content="quarto-99.9.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>tf-site-title - Writing Layer and Model objects from scratch.</title>
+<title>TensorFlow for R - Writing Layer and Model objects from scratch.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,27 +80,30 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicon/icon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 20,
   "language": {
     "search-no-results-text": "No results",
@@ -118,12 +121,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </head>
 
-<body>
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <img src="../../images/favicon/icon.png" alt="">
+    <span class="navbar-title">TensorFlow for R</span>
+  </a>
+          <div class="quarto-toggle-container ms-auto">
+              <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+          </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tensorflow/guide/basics.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tensorflow/guide/tensor.html" class="sidebar-item-text sidebar-link">Tensors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tensorflow/guide/variable.html" class="sidebar-item-text sidebar-link">Variables</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tensorflow/guide/autodiff.html" class="sidebar-item-text sidebar-link">Automatic differentiation</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tensorflow/guide/intro_to_graphs.html" class="sidebar-item-text sidebar-link">Graphs and functions</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc">
@@ -153,10 +218,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</h1>
+<h1 class="title d-none d-lg-block">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</h1>
 </div>
-
-
 
 
 
@@ -181,11 +244,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tf_version</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
-<pre><code>Loaded Tensorflow version 2.8.0</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loaded Tensorflow version 2.9.1</code></pre>
 </div>
-<div class="cell-output-stdout">
-<pre><code>[1] '2.8'</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] '2.9'</code></pre>
 </div>
 </div>
 </section>
@@ -223,10 +286,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>linear_layer <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">4</span>, <span class="dv">2</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">linear_layer</span>(x)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[[0.11195514 0.06101172 0.05288789 0.03446084]
- [0.11195514 0.06101172 0.05288789 0.03446084]], shape=(2, 4), dtype=float32)</code></pre>
+[[-0.12252003 -0.07721802  0.02356294 -0.04726242]
+ [-0.12252003 -0.07721802  0.02356294 -0.04726242]], shape=(2, 4), dtype=float32)</code></pre>
 </div>
 </div>
 <p><code>Linear</code> behaves similarly to a layer present in the Python interface to keras (e.g., <code>keras$layers$Dense</code>).</p>
@@ -241,13 +304,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_linear</span>(<span class="dv">4</span>, <span class="dv">2</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span>(<span class="fu">k_ones</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[[ 0.09593566 -0.0239684  -0.08020082 -0.20181108]
- [ 0.09593566 -0.0239684  -0.08020082 -0.20181108]], shape=(2, 4), dtype=float32)</code></pre>
+[[-0.07688868 -0.02687556 -0.04943929  0.00642188]
+ [-0.07688868 -0.02687556 -0.04943929  0.00642188]], shape=(2, 4), dtype=float32)</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>Model: "sequential"
 ____________________________________________________________________________
  Layer (type)                     Output Shape                  Param #     
@@ -316,10 +379,10 @@ ____________________________________________________________________________</co
 <span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>linear_layer <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">4</span>, <span class="dv">2</span>)</span>
 <span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">linear_layer</span>(x)</span>
 <span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[[-0.10461128  0.03076715  0.03548232 -0.02009123]
- [-0.10461128  0.03076715  0.03548232 -0.02009123]], shape=(2, 4), dtype=float32)</code></pre>
+[[-0.02470569 -0.08144875  0.05874256 -0.06067646]
+ [-0.02470569 -0.08144875  0.05874256 -0.06067646]], shape=(2, 4), dtype=float32)</code></pre>
 </div>
 </div>
 </section>
@@ -347,28 +410,28 @@ ____________________________________________________________________________</co
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>my_sum <span class="ot">&lt;-</span> <span class="fu">ComputeSum</span>(<span class="dv">2</span>)</span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">my_sum</span>(x)</span>
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">as.numeric</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 2 2</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">my_sum</span>(x)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">as.numeric</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 4 4</code></pre>
 </div>
 </div>
 <p>It’s part of <code>layer$weights</code>, but it gets categorized as a non-trainable weight:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"weights:"</span>, <span class="fu">length</span>(my_sum<span class="sc">$</span>weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>weights: 1 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"non-trainable weights:"</span>, <span class="fu">length</span>(my_sum<span class="sc">$</span>non_trainable_weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>non-trainable weights: 1 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It's not included in the trainable weights:</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"trainable_weights:"</span>, my_sum<span class="sc">$</span>trainable_weights, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>trainable_weights:  </code></pre>
 </div>
 </div>
@@ -431,10 +494,6 @@ ____________________________________________________________________________</co
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The layer's weights are created dynamically the first time the layer is called</span></span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">linear_layer</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
-<pre><code>Warning in is.na(d): is.na() applied to non-(list or vector) of type
-'environment'</code></pre>
-</div>
 </div>
 <p>Implementing <code>build()</code> separately as shown above nicely separates creating weights only once from using weights in every call. However, for some advanced custom layers, it can become impractical to separate the state creation and computation. Layer implementers are allowed to defer weight creation to the first <code>call()</code>, but need to take care that later calls use the same weights. In addition, since <code>call()</code> is likely to be executed for the first time inside a <code>tf_function()</code>, any variable creation that takes place in <code>call()</code> should be wrapped in a <code>tf$init_scope()</code>.</p>
 </section>
@@ -443,43 +502,33 @@ ____________________________________________________________________________</co
 <p>If you assign a Layer instance as an attribute of another Layer, the outer layer will start tracking the weights created by the inner layer.</p>
 <p>We recommend creating such sublayers in the <code>initialize()</code> method and leave it to the first <code>call()</code> to trigger building their weights.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's assume we are reusing the Linear class</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with a `build` method that we defined above.</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">MLPBlock</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>linear_1 <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">32</span>)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>linear_2 <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">32</span>)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>linear_3 <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">1</span>)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">linear_1</span>(inputs)</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">relu</span>(x)</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">linear_2</span>(x)</span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">relu</span>(x)</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">linear_3</span>(x)</span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>mlp <span class="ot">&lt;-</span> <span class="fu">MLPBlock</span>()</span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">mlp</span>(tf<span class="sc">$</span><span class="fu">ones</span>(<span class="at">shape =</span> <span class="fu">shape</span>(<span class="dv">3</span>, <span class="dv">64</span>))) <span class="co"># The first call to the `mlp` will create the weights</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stderr">
-<pre><code>Warning in is.na(d): is.na() applied to non-(list or vector) of type
-'environment'
-
-Warning in is.na(d): is.na() applied to non-(list or vector) of type
-'environment'
-
-Warning in is.na(d): is.na() applied to non-(list or vector) of type
-'environment'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"weights:"</span>, <span class="fu">length</span>(mlp<span class="sc">$</span>weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's assume we are reusing the Linear class</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with a `build` method that we defined above.</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">MLPBlock</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>linear_1 <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">32</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>linear_2 <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">32</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>linear_3 <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">1</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">linear_1</span>(inputs)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">relu</span>(x)</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">linear_2</span>(x)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">relu</span>(x)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">linear_3</span>(x)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>mlp <span class="ot">&lt;-</span> <span class="fu">MLPBlock</span>()</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">mlp</span>(tf<span class="sc">$</span><span class="fu">ones</span>(<span class="at">shape =</span> <span class="fu">shape</span>(<span class="dv">3</span>, <span class="dv">64</span>))) <span class="co"># The first call to the `mlp` will create the weights</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"weights:"</span>, <span class="fu">length</span>(mlp<span class="sc">$</span>weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>weights: 6 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"trainable weights:"</span>, <span class="fu">length</span>(mlp<span class="sc">$</span>trainable_weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"trainable weights:"</span>, <span class="fu">length</span>(mlp<span class="sc">$</span>trainable_weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>trainable weights: 6 </code></pre>
 </div>
 </div>
@@ -488,110 +537,110 @@ Warning in is.na(d): is.na() applied to non-(list or vector) of type
 <h2 class="anchored" data-anchor-id="the-add_loss-method">The <code>add_loss()</code> method</h2>
 <p>When writing the <code>call()</code> method of a layer, you can create loss tensors that you will want to use later, when writing your training loop. This is doable by calling <code>self$add_loss(value)</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A layer that creates an activity regularization loss</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ActivityRegularizationLayer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">rate =</span> <span class="fl">1e-2</span>) {</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>rate <span class="ot">&lt;-</span> rate</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">add_loss</span>(self<span class="sc">$</span>rate <span class="sc">*</span> tf<span class="sc">$</span><span class="fu">reduce_sum</span>(inputs))</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    inputs</span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A layer that creates an activity regularization loss</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ActivityRegularizationLayer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">rate =</span> <span class="fl">1e-2</span>) {</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>rate <span class="ot">&lt;-</span> rate</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">add_loss</span>(self<span class="sc">$</span>rate <span class="sc">*</span> tf<span class="sc">$</span><span class="fu">reduce_sum</span>(inputs))</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    inputs</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>These losses (including those created by any inner layer) can be retrieved via <code>layer$losses</code>. This property is reset at the start of every <code>call()</code> to the top-level layer, so that <code>layer$losses</code> always contains the loss values created during the last forward pass.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">OuterLayer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>activity_reg <span class="ot">&lt;-</span> <span class="fu">ActivityRegularizationLayer</span>(<span class="fl">1e-2</span>)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">activity_reg</span>(inputs)</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">OuterLayer</span>()</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">length</span>(layer<span class="sc">$</span>losses) <span class="sc">==</span> <span class="dv">0</span>) <span class="co"># No losses yet since the layer has never been called</span></span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="fu">layer</span>(tf<span class="sc">$</span><span class="fu">zeros</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="sc">|&gt;</span> <span class="fu">invisible</span>()</span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">length</span>(layer<span class="sc">$</span>losses) <span class="sc">==</span> <span class="dv">1</span>) <span class="co"># We created one loss value</span></span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="co"># `layer$losses` gets reset at the start of each call()</span></span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="fu">layer</span>(tf<span class="sc">$</span><span class="fu">zeros</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="sc">|&gt;</span> <span class="fu">invisible</span>()</span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">length</span>(layer<span class="sc">$</span>losses) <span class="sc">==</span> <span class="dv">1</span>) <span class="co"># This is the loss created during the call above</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">OuterLayer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>activity_reg <span class="ot">&lt;-</span> <span class="fu">ActivityRegularizationLayer</span>(<span class="fl">1e-2</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">activity_reg</span>(inputs)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">OuterLayer</span>()</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">length</span>(layer<span class="sc">$</span>losses) <span class="sc">==</span> <span class="dv">0</span>) <span class="co"># No losses yet since the layer has never been called</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">layer</span>(tf<span class="sc">$</span><span class="fu">zeros</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="sc">|&gt;</span> <span class="fu">invisible</span>()</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">length</span>(layer<span class="sc">$</span>losses) <span class="sc">==</span> <span class="dv">1</span>) <span class="co"># We created one loss value</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="co"># `layer$losses` gets reset at the start of each call()</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="fu">layer</span>(tf<span class="sc">$</span><span class="fu">zeros</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="sc">|&gt;</span> <span class="fu">invisible</span>()</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">length</span>(layer<span class="sc">$</span>losses) <span class="sc">==</span> <span class="dv">1</span>) <span class="co"># This is the loss created during the call above</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In addition, the <code>loss</code> property also contains regularization losses created for the weights of any inner layer:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">OuterLayerWithKernelRegularizer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">32</span>, <span class="at">kernel_regularizer =</span> <span class="fu">regularizer_l2</span>(<span class="fl">1e-3</span>))</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">dense</span>(inputs)</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">OuterLayerWithKernelRegularizer</span>()</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="fu">layer</span>(tf<span class="sc">$</span><span class="fu">zeros</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="sc">|&gt;</span> <span class="fu">invisible</span>()</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># This is `1e-3 * sum(layer$dense$kernel ** 2)`,</span></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co"># created by the `kernel_regularizer` above.</span></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(layer<span class="sc">$</span>losses)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">OuterLayerWithKernelRegularizer</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">32</span>, <span class="at">kernel_regularizer =</span> <span class="fu">regularizer_l2</span>(<span class="fl">1e-3</span>))</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">dense</span>(inputs)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">OuterLayerWithKernelRegularizer</span>()</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="fu">layer</span>(tf<span class="sc">$</span><span class="fu">zeros</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="sc">|&gt;</span> <span class="fu">invisible</span>()</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="co"># This is `1e-3 * sum(layer$dense$kernel ** 2)`,</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co"># created by the `kernel_regularizer` above.</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(layer<span class="sc">$</span>losses)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
+tf.Tensor(0.0019989477, shape=(), dtype=float32)</code></pre>
 </div>
 </div>
 <p>These losses are meant to be taken into account when writing training loops, like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate an optimizer.</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> <span class="fu">optimizer_sgd</span>(<span class="at">learning_rate =</span> <span class="fl">1e-3</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_sparse_categorical_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over the batches of a dataset.</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>dataset_iterator <span class="ot">&lt;-</span> reticulate<span class="sc">::</span><span class="fu">as_iterator</span>(train_dataset)</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="sc">!</span><span class="fu">is.null</span>(batch <span class="ot">&lt;-</span> <span class="fu">iter_next</span>(dataset_iterator))) {</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(x_batch_train, y_batch_train) <span class="sc">%&lt;-%</span> batch</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">GradientTape</span>() <span class="sc">%as%</span> tape, {</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    logits <span class="ot">&lt;-</span> <span class="fu">layer</span>(x_batch_train) <span class="co"># Logits for this minibatch</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loss value for this minibatch</span></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    loss_value <span class="ot">&lt;-</span> <span class="fu">loss_fn</span>(y_batch_train, logits)</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add extra losses created during this forward pass:</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    loss_value <span class="ot">&lt;-</span> loss_value <span class="sc">+</span> <span class="fu">sum</span>(model<span class="sc">$</span>losses)</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  grads <span class="ot">&lt;-</span> tape<span class="sc">$</span><span class="fu">gradient</span>(loss_value, model<span class="sc">$</span>trainable_weights)</span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>  optimizer<span class="sc">$</span><span class="fu">apply_gradients</span>(</span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>    purrr<span class="sc">::</span><span class="fu">transpose</span>(<span class="fu">list</span>(grads, model<span class="sc">$</span>trainable_weights)))</span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate an optimizer.</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> <span class="fu">optimizer_sgd</span>(<span class="at">learning_rate =</span> <span class="fl">1e-3</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_sparse_categorical_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over the batches of a dataset.</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>dataset_iterator <span class="ot">&lt;-</span> reticulate<span class="sc">::</span><span class="fu">as_iterator</span>(train_dataset)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(<span class="sc">!</span><span class="fu">is.null</span>(batch <span class="ot">&lt;-</span> <span class="fu">iter_next</span>(dataset_iterator))) {</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(x_batch_train, y_batch_train) <span class="sc">%&lt;-%</span> batch</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">GradientTape</span>() <span class="sc">%as%</span> tape, {</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    logits <span class="ot">&lt;-</span> <span class="fu">layer</span>(x_batch_train) <span class="co"># Logits for this minibatch</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loss value for this minibatch</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    loss_value <span class="ot">&lt;-</span> <span class="fu">loss_fn</span>(y_batch_train, logits)</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add extra losses created during this forward pass:</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    loss_value <span class="ot">&lt;-</span> loss_value <span class="sc">+</span> <span class="fu">sum</span>(model<span class="sc">$</span>losses)</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>  grads <span class="ot">&lt;-</span> tape<span class="sc">$</span><span class="fu">gradient</span>(loss_value, model<span class="sc">$</span>trainable_weights)</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>  optimizer<span class="sc">$</span><span class="fu">apply_gradients</span>(</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>    purrr<span class="sc">::</span><span class="fu">transpose</span>(<span class="fu">list</span>(grads, model<span class="sc">$</span>trainable_weights)))</span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For a detailed guide about writing training loops, see the <a href="../../guides/writing_a_training_loop_from_scratch/">guide to writing a training loop from scratch</a>.</p>
 <p>These losses also work seamlessly with <code>fit()</code> (they get automatically summed and added to the main loss, if any):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">3</span>))</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span> <span class="fu">layer_activity_regularization</span>()</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># output &lt;- ActivityRegularizationLayer()(input)</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co"># If there is a loss passed in `compile`, the regularization</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># losses get added to it</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"adam"</span>, <span class="at">loss =</span> <span class="st">"mse"</span>)</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)),</span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)),</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="co"># It's also possible not to pass any loss in `compile`,</span></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="co"># since the model already has a loss to minimize, via the `add_loss`</span></span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="co"># call during the forward pass!</span></span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"adam"</span>)</span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)),</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)),</span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">3</span>))</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span> <span class="fu">layer_activity_regularization</span>()</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># output &lt;- ActivityRegularizationLayer()(input)</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># If there is a loss passed in `compile`, the regularization</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># losses get added to it</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"adam"</span>, <span class="at">loss =</span> <span class="st">"mse"</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)),</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)),</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># It's also possible not to pass any loss in `compile`,</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co"># since the model already has a loss to minimize, via the `add_loss`</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="co"># call during the forward pass!</span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"adam"</span>)</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)),</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)),</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="the-add_metric-method" class="level2">
@@ -599,76 +648,117 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <p>Similarly to <code>add_loss()</code>, layers also have an <code>add_metric()</code> method for tracking the moving average of a quantity during training.</p>
 <p>Consider the following layer: a “logistic endpoint” layer. It takes as inputs predictions and targets, it computes a loss which it tracks via <code>add_loss()</code>, and it computes an accuracy scalar, which it tracks via <code>add_metric()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LogisticEndpoint</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">name =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(<span class="at">name =</span> name)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_binary_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>accuracy_fn <span class="ot">&lt;-</span> <span class="fu">metric_binary_accuracy</span>()</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(targets, logits, <span class="at">sample_weights =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute the training-time loss value and add it</span></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># to the layer using `self$add_loss()`.</span></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>    loss <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">loss_fn</span>(targets, logits, sample_weights)</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">add_loss</span>(loss)</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Log accuracy as a metric and add it</span></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># to the layer using `self.add_metric()`.</span></span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    acc <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">accuracy_fn</span>(targets, logits, sample_weights)</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">add_metric</span>(acc, <span class="at">name =</span> <span class="st">"accuracy"</span>)</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return the inference-time prediction tensor (for `.predict()`).</span></span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>    tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">softmax</span>(logits)</span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">LogisticEndpoint</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">name =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(<span class="at">name =</span> name)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_binary_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>accuracy_fn <span class="ot">&lt;-</span> <span class="fu">metric_binary_accuracy</span>()</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(targets, logits, <span class="at">sample_weights =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute the training-time loss value and add it</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># to the layer using `self$add_loss()`.</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    loss <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">loss_fn</span>(targets, logits, sample_weights)</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">add_loss</span>(loss)</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Log accuracy as a metric and add it</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># to the layer using `self.add_metric()`.</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    acc <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">accuracy_fn</span>(targets, logits, sample_weights)</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">add_metric</span>(acc, <span class="at">name =</span> <span class="st">"accuracy"</span>)</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Return the inference-time prediction tensor (for `.predict()`).</span></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>    tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">softmax</span>(logits)</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Metrics tracked in this way are accessible via <code>layer$metrics</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">LogisticEndpoint</span>()</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>logits <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">layer</span>(targets, logits)</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"layer$metrics: "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">LogisticEndpoint</span>()</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>logits <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">layer</span>(targets, logits)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"layer$metrics: "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>layer$metrics: </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(layer<span class="sc">$</span>metrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(layer<span class="sc">$</span>metrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>List of 1
  $ :BinaryAccuracy(name=binary_accuracy,dtype=float32,threshold=0.5)</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"current accuracy value:"</span>, <span class="fu">as.numeric</span>(layer<span class="sc">$</span>metrics[[<span class="dv">1</span>]]<span class="sc">$</span><span class="fu">result</span>()), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"current accuracy value:"</span>, <span class="fu">as.numeric</span>(layer<span class="sc">$</span>metrics[[<span class="dv">1</span>]]<span class="sc">$</span><span class="fu">result</span>()), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>current accuracy value: 1 </code></pre>
 </div>
 </div>
 <p>Just like for <code>add_loss()</code>, these metrics are tracked by <code>fit()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">3</span>), <span class="at">name =</span> <span class="st">"inputs"</span>)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">10</span>), <span class="at">name =</span> <span class="st">"targets"</span>)</span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>logits <span class="ot">&lt;-</span> inputs <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">LogisticEndpoint</span>(<span class="at">name =</span> <span class="st">"predictions"</span>)(logits, targets)</span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(<span class="at">inputs =</span> <span class="fu">list</span>(inputs, targets), <span class="at">outputs =</span> predictions)</span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"adam"</span>)</span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">inputs =</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>)),</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">targets =</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">10</span>))</span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(data, <span class="at">epochs =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">3</span>), <span class="at">name =</span> <span class="st">"inputs"</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="dv">10</span>), <span class="at">name =</span> <span class="st">"targets"</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>logits <span class="ot">&lt;-</span> inputs <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">LogisticEndpoint</span>(<span class="at">name =</span> <span class="st">"predictions"</span>)(logits, targets)</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(<span class="at">inputs =</span> <span class="fu">list</span>(inputs, targets), <span class="at">outputs =</span> predictions)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"adam"</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">inputs =</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>)),</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">targets =</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">10</span>))</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(data, <span class="at">epochs =</span> <span class="dv">1</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="you-can-optionally-enable-serialization-on-your-layers" class="level2">
 <h2 class="anchored" data-anchor-id="you-can-optionally-enable-serialization-on-your-layers">You can optionally enable serialization on your layers</h2>
 <p>If you need your custom layers to be serializable as part of a <a href="../../guides/functional_api/">Functional model</a>, you can optionally implement a <code>get_config()</code> method:</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>) {</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>units <span class="ot">&lt;-</span> units</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  build <span class="ot">&lt;-</span> <span class="cf">function</span>(input_shape) {</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>w <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">add_weight</span>(</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="fu">shape</span>(<span class="fu">tail</span>(input_shape, <span class="dv">1</span>), self<span class="sc">$</span>units),</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">initializer =</span> <span class="st">"random_normal"</span>,</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">trainable =</span> <span class="cn">TRUE</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>b <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">add_weight</span>(</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="fu">shape</span>(self<span class="sc">$</span>units),</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">initializer =</span> <span class="st">"random_normal"</span>,</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">trainable =</span> <span class="cn">TRUE</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>    tf<span class="sc">$</span><span class="fu">matmul</span>(inputs, self<span class="sc">$</span>w) <span class="sc">+</span> self<span class="sc">$</span>b</span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>  get_config <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">units =</span> self<span class="sc">$</span>units)</span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Now you can recreate the layer from its config:</span></span>
+<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">64</span>)</span>
+<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a>config <span class="ot">&lt;-</span> layer<span class="sc">$</span><span class="fu">get_config</span>()</span>
+<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$units
+[1] 64</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>new_layer <span class="ot">&lt;-</span> Linear<span class="sc">$</span><span class="fu">from_config</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that the <code>initialize()</code> method of the base <code>Layer</code> class takes some additional named arguments, in particular a <code>name</code> and a <code>dtype</code>. It’s good practice to pass these arguments to the parent class in <code>initialize()</code> and to include them in the layer config:</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>) {</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>, ...) {</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(...)</span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>units <span class="ot">&lt;-</span> units</span>
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -690,69 +780,28 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>  get_config <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">units =</span> self<span class="sc">$</span>units)</span>
-<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Now you can recreate the layer from its config:</span></span>
-<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">64</span>)</span>
-<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a>config <span class="ot">&lt;-</span> layer<span class="sc">$</span><span class="fu">get_config</span>()</span>
-<span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
-<pre><code>$units
-[1] 64</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>new_layer <span class="ot">&lt;-</span> Linear<span class="sc">$</span><span class="fu">from_config</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Note that the <code>initialize()</code> method of the base <code>Layer</code> class takes some additional named arguments, in particular a <code>name</code> and a <code>dtype</code>. It’s good practice to pass these arguments to the parent class in <code>initialize()</code> and to include them in the layer config:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Linear</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>, ...) {</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(...)</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>units <span class="ot">&lt;-</span> units</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  build <span class="ot">&lt;-</span> <span class="cf">function</span>(input_shape) {</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>w <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">add_weight</span>(</span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="fu">shape</span>(<span class="fu">tail</span>(input_shape, <span class="dv">1</span>), self<span class="sc">$</span>units),</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">initializer =</span> <span class="st">"random_normal"</span>,</span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">trainable =</span> <span class="cn">TRUE</span></span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>b <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">add_weight</span>(</span>
-<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="fu">shape</span>(self<span class="sc">$</span>units),</span>
-<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">initializer =</span> <span class="st">"random_normal"</span>,</span>
-<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">trainable =</span> <span class="cn">TRUE</span></span>
-<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
-<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>    tf<span class="sc">$</span><span class="fu">matmul</span>(inputs, self<span class="sc">$</span>w) <span class="sc">+</span> self<span class="sc">$</span>b</span>
-<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>  get_config <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>    config <span class="ot">&lt;-</span> super<span class="sc">$</span><span class="fu">get_config</span>()</span>
-<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>    config<span class="sc">$</span>units <span class="ot">&lt;-</span> self<span class="sc">$</span>units</span>
-<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>    config</span>
-<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-32"><a href="#cb53-32" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">64</span>)</span>
-<span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a>config <span class="ot">&lt;-</span> layer<span class="sc">$</span><span class="fu">get_config</span>()</span>
-<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>    config <span class="ot">&lt;-</span> super<span class="sc">$</span><span class="fu">get_config</span>()</span>
+<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>    config<span class="sc">$</span>units <span class="ot">&lt;-</span> self<span class="sc">$</span>units</span>
+<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>    config</span>
+<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb50-29"><a href="#cb50-29" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb50-30"><a href="#cb50-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-31"><a href="#cb50-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-32"><a href="#cb50-32" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">Linear</span>(<span class="dv">64</span>)</span>
+<span id="cb50-33"><a href="#cb50-33" aria-hidden="true" tabindex="-1"></a>config <span class="ot">&lt;-</span> layer<span class="sc">$</span><span class="fu">get_config</span>()</span>
+<span id="cb50-34"><a href="#cb50-34" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>List of 4
  $ name     : chr "linear_9"
  $ trainable: logi TRUE
  $ dtype    : chr "float32"
  $ units    : num 64</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>new_layer <span class="ot">&lt;-</span> Linear<span class="sc">$</span><span class="fu">from_config</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>new_layer <span class="ot">&lt;-</span> Linear<span class="sc">$</span><span class="fu">from_config</span>(config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you need more flexibility when deserializing the layer from its config, you can also override the <code>from_config()</code> class method. This is the base implementation of <code>from_config()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>from_config <span class="ot">&lt;-</span> <span class="cf">function</span>(cls, config) <span class="fu">do.call</span>(cls, config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>from_config <span class="ot">&lt;-</span> <span class="cf">function</span>(cls, config) <span class="fu">do.call</span>(cls, config)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To learn more about serialization and saving, see the complete <a href="../../guides/serialization_and_saving/">guide to saving and serializing models</a>.</p>
 </section>
@@ -761,18 +810,18 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <p>Some layers, in particular the <code>BatchNormalization</code> layer and the <code>Dropout</code> layer, have different behaviors during training and inference. For such layers, it is standard practice to expose a <code>training</code> (boolean) argument in the <code>call()</code> method.</p>
 <p>By exposing this argument in <code>call()</code>, you enable the built-in training and evaluation loops (e.g.&nbsp;<code>fit()</code>) to correctly use the layer in training and inference. Note, the default of <code>NULL</code> means that the training parameter will be inferred by keras from the training context (e.g., it will be <code>TRUE</code> if called from <code>fit()</code>, <code>FALSE</code> if called from <code>predict()</code>)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CustomDropout</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(rate, ...) {</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(...)</span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>rate <span class="ot">&lt;-</span> rate</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs, <span class="at">training =</span> <span class="cn">NULL</span>) {</span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">isTRUE</span>(training)) {</span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">dropout</span>(inputs, <span class="at">rate =</span> self<span class="sc">$</span>rate))</span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>    inputs</span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CustomDropout</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(rate, ...) {</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(...)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>rate <span class="ot">&lt;-</span> rate</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs, <span class="at">training =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">isTRUE</span>(training)) {</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">dropout</span>(inputs, <span class="at">rate =</span> self<span class="sc">$</span>rate))</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>    inputs</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="privileged-mask-argument-in-the-call-method" class="level2">
@@ -797,28 +846,28 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <p>So if you’re wondering, “should I use the <code>Layer</code> class or the <code>Model</code> class?”, ask yourself: will I need to call <code>fit()</code> on it? Will I need to call <code>save()</code> on it? If so, go with <code>Model</code>. If not (either because your class is just a block in a bigger system, or because you are writing training &amp; saving code yourself), use <code>Layer</code>.</p>
 <p>For instance, we could take our mini-resnet example above, and use it to build a <code>Model</code> that we could train with <code>fit()</code>, and that we could save with <code>save_model_weights_tf()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ResNet</span>(keras<span class="sc">$</span>Model) <span class="sc">%py_class%</span> {</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">num_classes =</span> <span class="dv">1000</span>) {</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>block_1 <span class="ot">&lt;-</span> <span class="fu">ResNetBlock</span>()</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>block_2 <span class="ot">&lt;-</span> <span class="fu">ResNetBlock</span>()</span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>global_pool <span class="ot">&lt;-</span> <span class="fu">layer_global_average_pooling_2d</span>()</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>classifier <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> num_classes)</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">block_1</span>(inputs)</span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">block_2</span>(x)</span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">global_pool</span>(x)</span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">classifier</span>(x)</span>
-<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a>resnet <span class="ot">&lt;-</span> <span class="fu">ResNet</span>()</span>
-<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> ...</span>
-<span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a>resnet <span class="sc">%&gt;%</span> <span class="fu">fit</span>(dataset, <span class="at">epochs =</span> <span class="dv">10</span>)</span>
-<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a>resnet <span class="sc">%&gt;%</span> <span class="fu">save_model_tf</span>(filepath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ResNet</span>(keras<span class="sc">$</span>Model) <span class="sc">%py_class%</span> {</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">num_classes =</span> <span class="dv">1000</span>) {</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>block_1 <span class="ot">&lt;-</span> <span class="fu">ResNetBlock</span>()</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>block_2 <span class="ot">&lt;-</span> <span class="fu">ResNetBlock</span>()</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>global_pool <span class="ot">&lt;-</span> <span class="fu">layer_global_average_pooling_2d</span>()</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>classifier <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> num_classes)</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">block_1</span>(inputs)</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">block_2</span>(x)</span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">global_pool</span>(x)</span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">classifier</span>(x)</span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a>resnet <span class="ot">&lt;-</span> <span class="fu">ResNet</span>()</span>
+<span id="cb55-20"><a href="#cb55-20" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> ...</span>
+<span id="cb55-21"><a href="#cb55-21" aria-hidden="true" tabindex="-1"></a>resnet <span class="sc">%&gt;%</span> <span class="fu">fit</span>(dataset, <span class="at">epochs =</span> <span class="dv">10</span>)</span>
+<span id="cb55-22"><a href="#cb55-22" aria-hidden="true" tabindex="-1"></a>resnet <span class="sc">%&gt;%</span> <span class="fu">save_model_tf</span>(filepath)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="putting-it-all-together-an-end-to-end-example" class="level2">
@@ -833,168 +882,168 @@ tf.Tensor(0.0018123012, shape=(), dtype=float32)</code></pre>
 <p>Let’s put all of these things together into an end-to-end example: we’re going to implement a Variational AutoEncoder (VAE). We’ll train it on MNIST digits.</p>
 <p>Our VAE will be a subclass of <code>Model</code>, built as a nested composition of layers that subclass <code>Layer</code>. It will feature a regularization loss (KL divergence).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sampling</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(z_mean, z_log_var) <span class="sc">%&lt;-%</span> inputs</span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    batch <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">shape</span>(z_mean)[<span class="dv">1</span>]</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    dim <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">shape</span>(z_mean)[<span class="dv">2</span>]</span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>    epsilon <span class="ot">&lt;-</span> <span class="fu">k_random_normal</span>(<span class="at">shape =</span> <span class="fu">c</span>(batch, dim))</span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>    z_mean <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">0.5</span> <span class="sc">*</span> z_log_var) <span class="sc">*</span> epsilon</span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a><span class="fu">Encoder</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Maps MNIST digits to a triplet (z_mean, z_log_var, z)."</span></span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">latent_dim =</span> <span class="dv">32</span>, <span class="at">intermediate_dim =</span> <span class="dv">64</span>, <span class="at">name =</span> <span class="st">"encoder"</span>, ...) {</span>
-<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(<span class="at">name =</span> name, ...)</span>
-<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense_proj <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> intermediate_dim, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
-<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense_mean <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> latent_dim)</span>
-<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense_log_var <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> latent_dim)</span>
-<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>sampling <span class="ot">&lt;-</span> <span class="fu">Sampling</span>()</span>
-<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
-<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">dense_proj</span>(inputs)</span>
-<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a>    z_mean <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">dense_mean</span>(x)</span>
-<span id="cb59-26"><a href="#cb59-26" aria-hidden="true" tabindex="-1"></a>    z_log_var <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">dense_log_var</span>(x)</span>
-<span id="cb59-27"><a href="#cb59-27" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">sampling</span>(<span class="fu">c</span>(z_mean, z_log_var))</span>
-<span id="cb59-28"><a href="#cb59-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(z_mean, z_log_var, z)</span>
-<span id="cb59-29"><a href="#cb59-29" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb59-30"><a href="#cb59-30" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb59-31"><a href="#cb59-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-32"><a href="#cb59-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-33"><a href="#cb59-33" aria-hidden="true" tabindex="-1"></a><span class="fu">Decoder</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
-<span id="cb59-34"><a href="#cb59-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Converts z, the encoded digit vector, back into a readable digit."</span></span>
-<span id="cb59-35"><a href="#cb59-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-36"><a href="#cb59-36" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(original_dim, <span class="at">intermediate_dim =</span> <span class="dv">64</span>, <span class="at">name =</span> <span class="st">"decoder"</span>, ...) {</span>
-<span id="cb59-37"><a href="#cb59-37" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(<span class="at">name =</span> name, ...)</span>
-<span id="cb59-38"><a href="#cb59-38" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense_proj <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> intermediate_dim, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
-<span id="cb59-39"><a href="#cb59-39" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense_output <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> original_dim, <span class="at">activation =</span> <span class="st">"sigmoid"</span>)</span>
-<span id="cb59-40"><a href="#cb59-40" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb59-41"><a href="#cb59-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-42"><a href="#cb59-42" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
-<span id="cb59-43"><a href="#cb59-43" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">dense_proj</span>(inputs)</span>
-<span id="cb59-44"><a href="#cb59-44" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">dense_output</span>(x)</span>
-<span id="cb59-45"><a href="#cb59-45" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb59-46"><a href="#cb59-46" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb59-47"><a href="#cb59-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-48"><a href="#cb59-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-49"><a href="#cb59-49" aria-hidden="true" tabindex="-1"></a><span class="fu">VariationalAutoEncoder</span>(keras<span class="sc">$</span>Model) <span class="sc">%py_class%</span> {</span>
-<span id="cb59-50"><a href="#cb59-50" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Combines the encoder and decoder into an end-to-end model for training."</span></span>
-<span id="cb59-51"><a href="#cb59-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-52"><a href="#cb59-52" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(original_dim, <span class="at">intermediate_dim =</span> <span class="dv">64</span>, <span class="at">latent_dim =</span> <span class="dv">32</span>,</span>
-<span id="cb59-53"><a href="#cb59-53" aria-hidden="true" tabindex="-1"></a>                         <span class="at">name =</span> <span class="st">"autoencoder"</span>, ...) {</span>
-<span id="cb59-54"><a href="#cb59-54" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(<span class="at">name =</span> name, ...)</span>
-<span id="cb59-55"><a href="#cb59-55" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>original_dim <span class="ot">&lt;-</span> original_dim</span>
-<span id="cb59-56"><a href="#cb59-56" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>encoder <span class="ot">&lt;-</span> <span class="fu">Encoder</span>(</span>
-<span id="cb59-57"><a href="#cb59-57" aria-hidden="true" tabindex="-1"></a>      <span class="at">latent_dim =</span> latent_dim,</span>
-<span id="cb59-58"><a href="#cb59-58" aria-hidden="true" tabindex="-1"></a>      <span class="at">intermediate_dim =</span> intermediate_dim</span>
-<span id="cb59-59"><a href="#cb59-59" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb59-60"><a href="#cb59-60" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>decoder <span class="ot">&lt;-</span> <span class="fu">Decoder</span>(original_dim, <span class="at">intermediate_dim =</span> intermediate_dim)</span>
-<span id="cb59-61"><a href="#cb59-61" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb59-62"><a href="#cb59-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-63"><a href="#cb59-63" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
-<span id="cb59-64"><a href="#cb59-64" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(z_mean, z_log_var, z) <span class="sc">%&lt;-%</span> self<span class="sc">$</span><span class="fu">encoder</span>(inputs)</span>
-<span id="cb59-65"><a href="#cb59-65" aria-hidden="true" tabindex="-1"></a>    reconstructed <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">decoder</span>(z)</span>
-<span id="cb59-66"><a href="#cb59-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add KL divergence regularization loss.</span></span>
-<span id="cb59-67"><a href="#cb59-67" aria-hidden="true" tabindex="-1"></a>    kl_loss <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> tf<span class="sc">$</span><span class="fu">reduce_mean</span>(z_log_var <span class="sc">-</span> tf<span class="sc">$</span><span class="fu">square</span>(z_mean) <span class="sc">-</span> tf<span class="sc">$</span><span class="fu">exp</span>(z_log_var) <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb59-68"><a href="#cb59-68" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">add_loss</span>(kl_loss)</span>
-<span id="cb59-69"><a href="#cb59-69" aria-hidden="true" tabindex="-1"></a>    reconstructed</span>
-<span id="cb59-70"><a href="#cb59-70" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb59-71"><a href="#cb59-71" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sampling</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(z_mean, z_log_var) <span class="sc">%&lt;-%</span> inputs</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    batch <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">shape</span>(z_mean)[<span class="dv">1</span>]</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    dim <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">shape</span>(z_mean)[<span class="dv">2</span>]</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    epsilon <span class="ot">&lt;-</span> <span class="fu">k_random_normal</span>(<span class="at">shape =</span> <span class="fu">c</span>(batch, dim))</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    z_mean <span class="sc">+</span> <span class="fu">exp</span>(<span class="fl">0.5</span> <span class="sc">*</span> z_log_var) <span class="sc">*</span> epsilon</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="fu">Encoder</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Maps MNIST digits to a triplet (z_mean, z_log_var, z)."</span></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">latent_dim =</span> <span class="dv">32</span>, <span class="at">intermediate_dim =</span> <span class="dv">64</span>, <span class="at">name =</span> <span class="st">"encoder"</span>, ...) {</span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(<span class="at">name =</span> name, ...)</span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense_proj <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> intermediate_dim, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense_mean <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> latent_dim)</span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense_log_var <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> latent_dim)</span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>sampling <span class="ot">&lt;-</span> <span class="fu">Sampling</span>()</span>
+<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">dense_proj</span>(inputs)</span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>    z_mean <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">dense_mean</span>(x)</span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>    z_log_var <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">dense_log_var</span>(x)</span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">sampling</span>(<span class="fu">c</span>(z_mean, z_log_var))</span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(z_mean, z_log_var, z)</span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-33"><a href="#cb56-33" aria-hidden="true" tabindex="-1"></a><span class="fu">Decoder</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb56-34"><a href="#cb56-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Converts z, the encoded digit vector, back into a readable digit."</span></span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-36"><a href="#cb56-36" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(original_dim, <span class="at">intermediate_dim =</span> <span class="dv">64</span>, <span class="at">name =</span> <span class="st">"decoder"</span>, ...) {</span>
+<span id="cb56-37"><a href="#cb56-37" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(<span class="at">name =</span> name, ...)</span>
+<span id="cb56-38"><a href="#cb56-38" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense_proj <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> intermediate_dim, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
+<span id="cb56-39"><a href="#cb56-39" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>dense_output <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> original_dim, <span class="at">activation =</span> <span class="st">"sigmoid"</span>)</span>
+<span id="cb56-40"><a href="#cb56-40" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb56-41"><a href="#cb56-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-42"><a href="#cb56-42" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
+<span id="cb56-43"><a href="#cb56-43" aria-hidden="true" tabindex="-1"></a>    x <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">dense_proj</span>(inputs)</span>
+<span id="cb56-44"><a href="#cb56-44" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">dense_output</span>(x)</span>
+<span id="cb56-45"><a href="#cb56-45" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb56-46"><a href="#cb56-46" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb56-47"><a href="#cb56-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-48"><a href="#cb56-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-49"><a href="#cb56-49" aria-hidden="true" tabindex="-1"></a><span class="fu">VariationalAutoEncoder</span>(keras<span class="sc">$</span>Model) <span class="sc">%py_class%</span> {</span>
+<span id="cb56-50"><a href="#cb56-50" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Combines the encoder and decoder into an end-to-end model for training."</span></span>
+<span id="cb56-51"><a href="#cb56-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-52"><a href="#cb56-52" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(original_dim, <span class="at">intermediate_dim =</span> <span class="dv">64</span>, <span class="at">latent_dim =</span> <span class="dv">32</span>,</span>
+<span id="cb56-53"><a href="#cb56-53" aria-hidden="true" tabindex="-1"></a>                         <span class="at">name =</span> <span class="st">"autoencoder"</span>, ...) {</span>
+<span id="cb56-54"><a href="#cb56-54" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(<span class="at">name =</span> name, ...)</span>
+<span id="cb56-55"><a href="#cb56-55" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>original_dim <span class="ot">&lt;-</span> original_dim</span>
+<span id="cb56-56"><a href="#cb56-56" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>encoder <span class="ot">&lt;-</span> <span class="fu">Encoder</span>(</span>
+<span id="cb56-57"><a href="#cb56-57" aria-hidden="true" tabindex="-1"></a>      <span class="at">latent_dim =</span> latent_dim,</span>
+<span id="cb56-58"><a href="#cb56-58" aria-hidden="true" tabindex="-1"></a>      <span class="at">intermediate_dim =</span> intermediate_dim</span>
+<span id="cb56-59"><a href="#cb56-59" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-60"><a href="#cb56-60" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>decoder <span class="ot">&lt;-</span> <span class="fu">Decoder</span>(original_dim, <span class="at">intermediate_dim =</span> intermediate_dim)</span>
+<span id="cb56-61"><a href="#cb56-61" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb56-62"><a href="#cb56-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-63"><a href="#cb56-63" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs) {</span>
+<span id="cb56-64"><a href="#cb56-64" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(z_mean, z_log_var, z) <span class="sc">%&lt;-%</span> self<span class="sc">$</span><span class="fu">encoder</span>(inputs)</span>
+<span id="cb56-65"><a href="#cb56-65" aria-hidden="true" tabindex="-1"></a>    reconstructed <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">decoder</span>(z)</span>
+<span id="cb56-66"><a href="#cb56-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add KL divergence regularization loss.</span></span>
+<span id="cb56-67"><a href="#cb56-67" aria-hidden="true" tabindex="-1"></a>    kl_loss <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> tf<span class="sc">$</span><span class="fu">reduce_mean</span>(z_log_var <span class="sc">-</span> tf<span class="sc">$</span><span class="fu">square</span>(z_mean) <span class="sc">-</span> tf<span class="sc">$</span><span class="fu">exp</span>(z_log_var) <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb56-68"><a href="#cb56-68" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span><span class="fu">add_loss</span>(kl_loss)</span>
+<span id="cb56-69"><a href="#cb56-69" aria-hidden="true" tabindex="-1"></a>    reconstructed</span>
+<span id="cb56-70"><a href="#cb56-70" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb56-71"><a href="#cb56-71" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s write a simple training loop on MNIST:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfautograph)</span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>original_dim <span class="ot">&lt;-</span> <span class="dv">784</span></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>vae <span class="ot">&lt;-</span> <span class="fu">VariationalAutoEncoder</span>(original_dim, <span class="dv">64</span>, <span class="dv">32</span>)</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> <span class="fu">optimizer_adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-3</span>)</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>mse_loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_mean_squared_error</span>()</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>loss_metric <span class="ot">&lt;-</span> <span class="fu">metric_mean</span>()</span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>x_train <span class="ot">&lt;-</span> <span class="fu">dataset_mnist</span>()<span class="sc">$</span>train<span class="sc">$</span>x <span class="sc">%&gt;%</span></span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array_reshape</span>(<span class="fu">c</span>(<span class="dv">60000</span>, <span class="dv">784</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">/</span><span class="st">`</span>(<span class="dv">255</span>)</span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> <span class="fu">tensor_slices_dataset</span>(x_train) <span class="sc">%&gt;%</span></span>
-<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_shuffle</span>(<span class="at">buffer_size =</span> <span class="dv">1024</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">64</span>)</span>
-<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>epochs <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over epochs.</span></span>
-<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (epoch <span class="cf">in</span> <span class="fu">seq</span>(epochs)) {</span>
-<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"Start of epoch %d</span><span class="sc">\n</span><span class="st">"</span>, epoch))</span>
-<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Iterate over the batches of the dataset.</span></span>
-<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># autograph lets you use tfdatasets in `for` and `while`</span></span>
-<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autograph</span>({</span>
-<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>    step <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (x_batch_train <span class="cf">in</span> train_dataset) {</span>
-<span id="cb60-32"><a href="#cb60-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">GradientTape</span>() <span class="sc">%as%</span> tape, {</span>
-<span id="cb60-33"><a href="#cb60-33" aria-hidden="true" tabindex="-1"></a>        <span class="do">## Note: we're four opaque contexts deep here (for, autograph, for,</span></span>
-<span id="cb60-34"><a href="#cb60-34" aria-hidden="true" tabindex="-1"></a>        <span class="do">## with), When in doubt about the objects or methods that are available</span></span>
-<span id="cb60-35"><a href="#cb60-35" aria-hidden="true" tabindex="-1"></a>        <span class="do">## (e.g., what is `tape` here?), remember you can always drop into a</span></span>
-<span id="cb60-36"><a href="#cb60-36" aria-hidden="true" tabindex="-1"></a>        <span class="do">## debugger right here:</span></span>
-<span id="cb60-37"><a href="#cb60-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># browser()</span></span>
-<span id="cb60-38"><a href="#cb60-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-39"><a href="#cb60-39" aria-hidden="true" tabindex="-1"></a>        reconstructed <span class="ot">&lt;-</span> <span class="fu">vae</span>(x_batch_train)</span>
-<span id="cb60-40"><a href="#cb60-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Compute reconstruction loss</span></span>
-<span id="cb60-41"><a href="#cb60-41" aria-hidden="true" tabindex="-1"></a>        loss <span class="ot">&lt;-</span> <span class="fu">mse_loss_fn</span>(x_batch_train, reconstructed)</span>
-<span id="cb60-42"><a href="#cb60-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-43"><a href="#cb60-43" aria-hidden="true" tabindex="-1"></a>        loss <span class="sc">%&lt;&gt;%</span> <span class="fu">add</span>(vae<span class="sc">$</span>losses[[<span class="dv">1</span>]]) <span class="co"># Add KLD regularization loss</span></span>
-<span id="cb60-44"><a href="#cb60-44" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb60-45"><a href="#cb60-45" aria-hidden="true" tabindex="-1"></a>      grads <span class="ot">&lt;-</span> tape<span class="sc">$</span><span class="fu">gradient</span>(loss, vae<span class="sc">$</span>trainable_weights)</span>
-<span id="cb60-46"><a href="#cb60-46" aria-hidden="true" tabindex="-1"></a>      optimizer<span class="sc">$</span><span class="fu">apply_gradients</span>(</span>
-<span id="cb60-47"><a href="#cb60-47" aria-hidden="true" tabindex="-1"></a>        purrr<span class="sc">::</span><span class="fu">transpose</span>(<span class="fu">list</span>(grads, vae<span class="sc">$</span>trainable_weights)))</span>
-<span id="cb60-48"><a href="#cb60-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-49"><a href="#cb60-49" aria-hidden="true" tabindex="-1"></a>      <span class="fu">loss_metric</span>(loss)</span>
-<span id="cb60-50"><a href="#cb60-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-51"><a href="#cb60-51" aria-hidden="true" tabindex="-1"></a>      step <span class="sc">%&lt;&gt;%</span> <span class="fu">add</span>(<span class="dv">1</span>)</span>
-<span id="cb60-52"><a href="#cb60-52" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (step <span class="sc">%%</span> <span class="dv">100</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb60-53"><a href="#cb60-53" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"step %d: mean loss = %.4f</span><span class="sc">\n</span><span class="st">"</span>, step, loss_metric<span class="sc">$</span><span class="fu">result</span>()))</span>
-<span id="cb60-54"><a href="#cb60-54" aria-hidden="true" tabindex="-1"></a>      }</span>
-<span id="cb60-55"><a href="#cb60-55" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb60-56"><a href="#cb60-56" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb60-57"><a href="#cb60-57" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-stdout">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfautograph)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>original_dim <span class="ot">&lt;-</span> <span class="dv">784</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>vae <span class="ot">&lt;-</span> <span class="fu">VariationalAutoEncoder</span>(original_dim, <span class="dv">64</span>, <span class="dv">32</span>)</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> <span class="fu">optimizer_adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-3</span>)</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>mse_loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_mean_squared_error</span>()</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>loss_metric <span class="ot">&lt;-</span> <span class="fu">metric_mean</span>()</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>x_train <span class="ot">&lt;-</span> <span class="fu">dataset_mnist</span>()<span class="sc">$</span>train<span class="sc">$</span>x <span class="sc">%&gt;%</span></span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array_reshape</span>(<span class="fu">c</span>(<span class="dv">60000</span>, <span class="dv">784</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">/</span><span class="st">`</span>(<span class="dv">255</span>)</span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> <span class="fu">tensor_slices_dataset</span>(x_train) <span class="sc">%&gt;%</span></span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_shuffle</span>(<span class="at">buffer_size =</span> <span class="dv">1024</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">64</span>)</span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>epochs <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over epochs.</span></span>
+<span id="cb57-24"><a href="#cb57-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (epoch <span class="cf">in</span> <span class="fu">seq</span>(epochs)) {</span>
+<span id="cb57-25"><a href="#cb57-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"Start of epoch %d</span><span class="sc">\n</span><span class="st">"</span>, epoch))</span>
+<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-27"><a href="#cb57-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Iterate over the batches of the dataset.</span></span>
+<span id="cb57-28"><a href="#cb57-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># autograph lets you use tfdatasets in `for` and `while`</span></span>
+<span id="cb57-29"><a href="#cb57-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autograph</span>({</span>
+<span id="cb57-30"><a href="#cb57-30" aria-hidden="true" tabindex="-1"></a>    step <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb57-31"><a href="#cb57-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (x_batch_train <span class="cf">in</span> train_dataset) {</span>
+<span id="cb57-32"><a href="#cb57-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">GradientTape</span>() <span class="sc">%as%</span> tape, {</span>
+<span id="cb57-33"><a href="#cb57-33" aria-hidden="true" tabindex="-1"></a>        <span class="do">## Note: we're four opaque contexts deep here (for, autograph, for,</span></span>
+<span id="cb57-34"><a href="#cb57-34" aria-hidden="true" tabindex="-1"></a>        <span class="do">## with), When in doubt about the objects or methods that are available</span></span>
+<span id="cb57-35"><a href="#cb57-35" aria-hidden="true" tabindex="-1"></a>        <span class="do">## (e.g., what is `tape` here?), remember you can always drop into a</span></span>
+<span id="cb57-36"><a href="#cb57-36" aria-hidden="true" tabindex="-1"></a>        <span class="do">## debugger right here:</span></span>
+<span id="cb57-37"><a href="#cb57-37" aria-hidden="true" tabindex="-1"></a>        <span class="co"># browser()</span></span>
+<span id="cb57-38"><a href="#cb57-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-39"><a href="#cb57-39" aria-hidden="true" tabindex="-1"></a>        reconstructed <span class="ot">&lt;-</span> <span class="fu">vae</span>(x_batch_train)</span>
+<span id="cb57-40"><a href="#cb57-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Compute reconstruction loss</span></span>
+<span id="cb57-41"><a href="#cb57-41" aria-hidden="true" tabindex="-1"></a>        loss <span class="ot">&lt;-</span> <span class="fu">mse_loss_fn</span>(x_batch_train, reconstructed)</span>
+<span id="cb57-42"><a href="#cb57-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-43"><a href="#cb57-43" aria-hidden="true" tabindex="-1"></a>        loss <span class="sc">%&lt;&gt;%</span> <span class="fu">add</span>(vae<span class="sc">$</span>losses[[<span class="dv">1</span>]]) <span class="co"># Add KLD regularization loss</span></span>
+<span id="cb57-44"><a href="#cb57-44" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb57-45"><a href="#cb57-45" aria-hidden="true" tabindex="-1"></a>      grads <span class="ot">&lt;-</span> tape<span class="sc">$</span><span class="fu">gradient</span>(loss, vae<span class="sc">$</span>trainable_weights)</span>
+<span id="cb57-46"><a href="#cb57-46" aria-hidden="true" tabindex="-1"></a>      optimizer<span class="sc">$</span><span class="fu">apply_gradients</span>(</span>
+<span id="cb57-47"><a href="#cb57-47" aria-hidden="true" tabindex="-1"></a>        purrr<span class="sc">::</span><span class="fu">transpose</span>(<span class="fu">list</span>(grads, vae<span class="sc">$</span>trainable_weights)))</span>
+<span id="cb57-48"><a href="#cb57-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-49"><a href="#cb57-49" aria-hidden="true" tabindex="-1"></a>      <span class="fu">loss_metric</span>(loss)</span>
+<span id="cb57-50"><a href="#cb57-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-51"><a href="#cb57-51" aria-hidden="true" tabindex="-1"></a>      step <span class="sc">%&lt;&gt;%</span> <span class="fu">add</span>(<span class="dv">1</span>)</span>
+<span id="cb57-52"><a href="#cb57-52" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> (step <span class="sc">%%</span> <span class="dv">100</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb57-53"><a href="#cb57-53" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"step %d: mean loss = %.4f</span><span class="sc">\n</span><span class="st">"</span>, step, loss_metric<span class="sc">$</span><span class="fu">result</span>()))</span>
+<span id="cb57-54"><a href="#cb57-54" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb57-55"><a href="#cb57-55" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb57-56"><a href="#cb57-56" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb57-57"><a href="#cb57-57" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>Start of epoch 1
-step 100: mean loss = 0.1247
-step 200: mean loss = 0.0987
-step 300: mean loss = 0.0888
-step 400: mean loss = 0.0839
-step 500: mean loss = 0.0806
-step 600: mean loss = 0.0785
-step 700: mean loss = 0.0770
-step 800: mean loss = 0.0759
-step 900: mean loss = 0.0749
+step 100: mean loss = 0.1280
+step 200: mean loss = 0.1003
+step 300: mean loss = 0.0899
+step 400: mean loss = 0.0848
+step 500: mean loss = 0.0813
+step 600: mean loss = 0.0791
+step 700: mean loss = 0.0774
+step 800: mean loss = 0.0762
+step 900: mean loss = 0.0752
 Start of epoch 2
-step 100: mean loss = 0.0739
-step 200: mean loss = 0.0734
-step 300: mean loss = 0.0729
-step 400: mean loss = 0.0726
-step 500: mean loss = 0.0722
-step 600: mean loss = 0.0719
-step 700: mean loss = 0.0716
-step 800: mean loss = 0.0714
-step 900: mean loss = 0.0711</code></pre>
+step 100: mean loss = 0.0742
+step 200: mean loss = 0.0737
+step 300: mean loss = 0.0732
+step 400: mean loss = 0.0729
+step 500: mean loss = 0.0725
+step 600: mean loss = 0.0721
+step 700: mean loss = 0.0718
+step 800: mean loss = 0.0716
+step 900: mean loss = 0.0713</code></pre>
 </div>
 </div>
 <p>Note that since the VAE is subclassing <code>Model</code>, it features built-in training loops. So you could also have trained it like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>vae <span class="ot">&lt;-</span> <span class="fu">VariationalAutoEncoder</span>(<span class="dv">784</span>, <span class="dv">64</span>, <span class="dv">32</span>)</span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> <span class="fu">optimizer_adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-3</span>)</span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>vae <span class="sc">%&gt;%</span> <span class="fu">compile</span>(optimizer, <span class="at">loss =</span> <span class="fu">loss_mean_squared_error</span>())</span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>vae <span class="sc">%&gt;%</span> <span class="fu">fit</span>(x_train, x_train, <span class="at">epochs =</span> <span class="dv">2</span>, <span class="at">batch_size =</span> <span class="dv">64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>vae <span class="ot">&lt;-</span> <span class="fu">VariationalAutoEncoder</span>(<span class="dv">784</span>, <span class="dv">64</span>, <span class="dv">32</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> <span class="fu">optimizer_adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-3</span>)</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>vae <span class="sc">%&gt;%</span> <span class="fu">compile</span>(optimizer, <span class="at">loss =</span> <span class="fu">loss_mean_squared_error</span>())</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>vae <span class="sc">%&gt;%</span> <span class="fu">fit</span>(x_train, x_train, <span class="at">epochs =</span> <span class="dv">2</span>, <span class="at">batch_size =</span> <span class="dv">64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="beyond-object-oriented-development-the-functional-api" class="level2">
@@ -1002,36 +1051,36 @@ step 900: mean loss = 0.0711</code></pre>
 <p>If you prefer a less object-oriented way of programming, you can also build models using the <a href="../../guides/functional_api/">Functional API</a>. Importantly, choosing one style or another does not prevent you from leveraging components written in the other style: you can always mix-and-match.</p>
 <p>For instance, the Functional API example below reuses the same <code>Sampling</code> layer we defined in the example above:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>original_dim <span class="ot">&lt;-</span> <span class="dv">784</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>intermediate_dim <span class="ot">&lt;-</span> <span class="dv">64</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>latent_dim <span class="ot">&lt;-</span> <span class="dv">32</span></span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define encoder model.</span></span>
-<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>original_inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> original_dim, <span class="at">name =</span> <span class="st">"encoder_input"</span>)</span>
-<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> intermediate_dim, <span class="at">activation =</span> <span class="st">"relu"</span>)(original_inputs)</span>
-<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>z_mean <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> latent_dim, <span class="at">name =</span> <span class="st">"z_mean"</span>)(x)</span>
-<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>z_log_var <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> latent_dim, <span class="at">name =</span> <span class="st">"z_log_var"</span>)(x)</span>
-<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">Sampling</span>()(<span class="fu">list</span>(z_mean, z_log_var))</span>
-<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>encoder <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(<span class="at">inputs =</span> original_inputs, <span class="at">outputs =</span> z, <span class="at">name =</span> <span class="st">"encoder"</span>)</span>
-<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Define decoder model.</span></span>
-<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>latent_inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> latent_dim, <span class="at">name =</span> <span class="st">"z_sampling"</span>)</span>
-<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> intermediate_dim, <span class="at">activation =</span> <span class="st">"relu"</span>)(latent_inputs)</span>
-<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a>outputs <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> original_dim, <span class="at">activation =</span> <span class="st">"sigmoid"</span>)(x)</span>
-<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a>decoder <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(<span class="at">inputs =</span> latent_inputs, <span class="at">outputs =</span> outputs, <span class="at">name =</span> <span class="st">"decoder"</span>)</span>
-<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Define VAE model.</span></span>
-<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a>outputs <span class="ot">&lt;-</span> <span class="fu">decoder</span>(z)</span>
-<span id="cb63-21"><a href="#cb63-21" aria-hidden="true" tabindex="-1"></a>vae <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(<span class="at">inputs =</span> original_inputs, <span class="at">outputs =</span> outputs, <span class="at">name =</span> <span class="st">"vae"</span>)</span>
-<span id="cb63-22"><a href="#cb63-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Add KL divergence regularization loss.</span></span>
-<span id="cb63-24"><a href="#cb63-24" aria-hidden="true" tabindex="-1"></a>kl_loss <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> tf<span class="sc">$</span><span class="fu">reduce_mean</span>(z_log_var <span class="sc">-</span> tf<span class="sc">$</span><span class="fu">square</span>(z_mean) <span class="sc">-</span> tf<span class="sc">$</span><span class="fu">exp</span>(z_log_var) <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb63-25"><a href="#cb63-25" aria-hidden="true" tabindex="-1"></a>vae<span class="sc">$</span><span class="fu">add_loss</span>(kl_loss)</span>
-<span id="cb63-26"><a href="#cb63-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-27"><a href="#cb63-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Train.</span></span>
-<span id="cb63-28"><a href="#cb63-28" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> keras<span class="sc">$</span>optimizers<span class="sc">$</span><span class="fu">Adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-3</span>)</span>
-<span id="cb63-29"><a href="#cb63-29" aria-hidden="true" tabindex="-1"></a>vae <span class="sc">%&gt;%</span> <span class="fu">compile</span>(optimizer, <span class="at">loss =</span> <span class="fu">loss_mean_squared_error</span>())</span>
-<span id="cb63-30"><a href="#cb63-30" aria-hidden="true" tabindex="-1"></a>vae <span class="sc">%&gt;%</span> <span class="fu">fit</span>(x_train, x_train, <span class="at">epochs =</span> <span class="dv">3</span>, <span class="at">batch_size =</span> <span class="dv">64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>original_dim <span class="ot">&lt;-</span> <span class="dv">784</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>intermediate_dim <span class="ot">&lt;-</span> <span class="dv">64</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>latent_dim <span class="ot">&lt;-</span> <span class="dv">32</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define encoder model.</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>original_inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> original_dim, <span class="at">name =</span> <span class="st">"encoder_input"</span>)</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> intermediate_dim, <span class="at">activation =</span> <span class="st">"relu"</span>)(original_inputs)</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>z_mean <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> latent_dim, <span class="at">name =</span> <span class="st">"z_mean"</span>)(x)</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>z_log_var <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> latent_dim, <span class="at">name =</span> <span class="st">"z_log_var"</span>)(x)</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">Sampling</span>()(<span class="fu">list</span>(z_mean, z_log_var))</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>encoder <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(<span class="at">inputs =</span> original_inputs, <span class="at">outputs =</span> z, <span class="at">name =</span> <span class="st">"encoder"</span>)</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Define decoder model.</span></span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>latent_inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> latent_dim, <span class="at">name =</span> <span class="st">"z_sampling"</span>)</span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> intermediate_dim, <span class="at">activation =</span> <span class="st">"relu"</span>)(latent_inputs)</span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>outputs <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> original_dim, <span class="at">activation =</span> <span class="st">"sigmoid"</span>)(x)</span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>decoder <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(<span class="at">inputs =</span> latent_inputs, <span class="at">outputs =</span> outputs, <span class="at">name =</span> <span class="st">"decoder"</span>)</span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Define VAE model.</span></span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>outputs <span class="ot">&lt;-</span> <span class="fu">decoder</span>(z)</span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>vae <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(<span class="at">inputs =</span> original_inputs, <span class="at">outputs =</span> outputs, <span class="at">name =</span> <span class="st">"vae"</span>)</span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Add KL divergence regularization loss.</span></span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>kl_loss <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">*</span> tf<span class="sc">$</span><span class="fu">reduce_mean</span>(z_log_var <span class="sc">-</span> tf<span class="sc">$</span><span class="fu">square</span>(z_mean) <span class="sc">-</span> tf<span class="sc">$</span><span class="fu">exp</span>(z_log_var) <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>vae<span class="sc">$</span><span class="fu">add_loss</span>(kl_loss)</span>
+<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Train.</span></span>
+<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> keras<span class="sc">$</span>optimizers<span class="sc">$</span><span class="fu">Adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-3</span>)</span>
+<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a>vae <span class="sc">%&gt;%</span> <span class="fu">compile</span>(optimizer, <span class="at">loss =</span> <span class="fu">loss_mean_squared_error</span>())</span>
+<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>vae <span class="sc">%&gt;%</span> <span class="fu">fit</span>(x_train, x_train, <span class="at">epochs =</span> <span class="dv">3</span>, <span class="at">batch_size =</span> <span class="dv">64</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For more information, make sure to read the <a href="../../guides/functional_api/">Functional API guide</a>.</p>
 </section>

@@ -315,7 +315,7 @@ Like this:
 
 # Load a convolutional base with pre-trained weights
 
-```{r}
+```{r, eval = FALSE}
 base_model <- application_xception(
     weights = 'imagenet',
     include_top = FALSE,

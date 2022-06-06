@@ -32,7 +32,15 @@ options(
 setHook("plot.new", function() par(las = 1))
 
 setHook(packageEvent("reticulate", "onLoad"),
-        function(...)
+        function(...) {
           try(reticulate::use_virtualenv("r-tensorflow-site", required = TRUE))
-)
+        })
+
+# setHook("reticulate::tensorflow::load", function() {
+#   # suppressPackageStartupMessages(loadNamespace("tensorflow"))
+#
+#   msg <- capture.output(print(tensorflow::tf_config()))
+#   writeLines(msg, "./.tf_config")
+#   system(paste("echo", shQuote(paste0(collapse = "\n", msg)), "1>&2"))
+# })
 

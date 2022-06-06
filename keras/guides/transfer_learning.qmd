@@ -428,7 +428,7 @@ base_model = application_xception(
 base_model$trainable <- FALSE
 
 # Create new model on top
-inputs = layer_input(shape = c(150, 150, 3))
+inputs <- layer_input(shape = c(150, 150, 3))
 
 outputs <- inputs %>%
   data_augmentation() %>%   # Apply random data augmentation
@@ -459,7 +459,7 @@ model %>% compile(
   metrics = metric_binary_accuracy()
 )
 
-epochs <- 20
+epochs <- 2
 model %>% fit(train_ds, epochs = epochs, validation_data = validation_ds)
 ```
 
@@ -484,7 +484,7 @@ model %>% compile(
   metrics = metric_binary_accuracy()
 )
 
-epochs <- 10
+epochs <- 1
 model %>% fit(train_ds, epochs = epochs, validation_data = validation_ds)
 ```
 

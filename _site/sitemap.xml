@@ -1,31 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://tensorflow.rstudio.com/keras/guides/functional_api.html</loc>
-    <lastmod>2022-06-05T17:38:09.212Z</lastmod>
-  </url>
-  <url>
     <loc>https://tensorflow.rstudio.com/index.html</loc>
-    <lastmod>2022-06-05T17:38:09.816Z</lastmod>
+    <lastmod>2022-06-06T16:27:49.545Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/tensorflow/guide/autodiff.html</loc>
-    <lastmod>2022-06-05T17:35:51.247Z</lastmod>
+    <lastmod>2022-06-06T16:23:28.693Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/tensorflow/guide/basics.html</loc>
-    <lastmod>2022-06-05T17:35:52.323Z</lastmod>
+    <lastmod>2022-06-06T16:23:29.137Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/tensorflow/guide/intro_to_graphs.html</loc>
+    <lastmod>2022-06-06T16:23:29.641Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/tensorflow/guide/tensor.html</loc>
-    <lastmod>2022-06-05T17:35:53.491Z</lastmod>
+    <lastmod>2022-06-06T16:36:03.820Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/tensorflow/guide/variable.html</loc>
-    <lastmod>2022-06-05T17:35:54.447Z</lastmod>
+    <lastmod>2022-06-06T16:23:30.601Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/keras/guides/customizing_what_happens_in_fit.html</loc>
+    <lastmod>2022-06-06T16:23:31.037Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/keras/guides/functional_api.html</loc>
+    <lastmod>2022-06-06T16:23:31.633Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/keras/guides/making_new_layers_and_models_via_subclassing.html</loc>
+    <lastmod>2022-06-06T16:23:32.257Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/keras/guides/preprocessing_layers.html</loc>
+    <lastmod>2022-06-06T16:23:32.777Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/keras/guides/python_subclasses.html</loc>
+    <lastmod>2022-06-06T16:23:33.169Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/keras/guides/sequential_model.html</loc>
-    <lastmod>2022-06-05T17:35:55.451Z</lastmod>
+    <lastmod>2022-06-06T16:23:33.585Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/keras/guides/transfer_learning.html</loc>
+    <lastmod>2022-06-06T16:23:34.089Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/keras/guides/working_with_rnns.html</loc>
+    <lastmod>2022-06-06T16:23:34.585Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/keras/guides/writing_your_own_callbacks.html</loc>
+    <lastmod>2022-06-06T16:23:34.997Z</lastmod>
   </url>
 </urlset>

@@ -1,5 +1,6 @@
 project:
   type: website
+  execute-dir: project
   render:
     - index.qmd
     - tensorflow/guide/*.qmd
@@ -9,43 +10,37 @@ project:
     browser: false
 
 execute:
-  freeze: false
-  eval: false
+  freeze: auto
 
 website:
   title: TensorFlow for R
   site-url: https://tensorflow.rstudio.com
+  repo-url: https://github.com/t-kalinowski/tf-site
   page-navigation: true
   reader-mode: true
   favicon: "images/favicon/icon.png"
   navbar:
     search: true
-    background: light
-    collapse-below: lg
     logo: "images/favicon/icon.png"
   sidebar:
-    - id: tensorflow
-      title: TensorFlow
-      align: left
-      collapse-level: 3
+    - title: TensorFlow
+      search: true
       contents:
         - text: Tensorflow Basics
-          contents:
-          - text: Overview
-            href: tensorflow/guide/basics.qmd
-          - text: Tensors
-            href: tensorflow/guide/tensor.qmd
-          - text: Variables
-            href: tensorflow/guide/variable.qmd
-          - text: Automatic differentiation
-            href: tensorflow/guide/autodiff.qmd
+        - text: Overview
+          href: tensorflow/guide/basics.qmd
+        - text: Tensors
+          href: tensorflow/guide/tensor.qmd
+        - text: Variables
+          href: tensorflow/guide/variable.qmd
+        - text: Automatic differentiation
+          href: tensorflow/guide/autodiff.qmd
+        - text: Graphs and functions
+          href: tensorflow/guide/intro_to_graphs.qmd
+
 
 format:
   html:
     toc: true
-    code-copy: true
     code-overflow: wrap
-    css: /css/styles.css
-    theme:
-      light: [cosmo, /css/theme.scss]
-      dark: [cosmo, /css/theme-dark.scss]
+    theme: united
