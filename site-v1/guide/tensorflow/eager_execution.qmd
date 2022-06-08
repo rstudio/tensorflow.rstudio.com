@@ -1,0 +1,573 @@
+---
+title: "Eager execution"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Eager execution} 
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteEncoding{UTF-8}
+type: "docs"
+menu:
+  main:
+    name: "Eager execution"
+    identifier: "custom-basic-eager-execution"
+    parent: "custom-basic-top"
+    weight: 10
+aliases:
+  - /tensorflow/
+  - /tensorflow/articles/basic_usage.html
+  - /tensorflow/articles/using_tensorflow_api.html
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+
+TensorFlow's eager execution is an imperative programming environment that
+evaluates operations immediately, without building graphs: operations return
+concrete values instead of constructing a computational graph to run later. This
+makes it easy to get started with TensorFlow and debug models, and it
+reduces boilerplate as well. To follow along with this guide, run the code
+samples below in an interactive `R` interpreter.
+
+Eager execution is a flexible machine learning platform for research and
+experimentation, providing:
+
+* *An intuitive interface*—Structure your code naturally and use R data
+  structures. Quickly iterate on small models and small data.
+* *Easier debugging*—Call ops directly to inspect running models and test
+  changes. Use standard R debugging tools for immediate error reporting.
+* *Natural control flow*—Use R control flow instead of graph control
+  flow, simplifying the specification of dynamic models.
+
+Eager execution supports most TensorFlow operations and GPU acceleration.
+
+Note: Some models may experience increased overhead with eager execution
+enabled. Performance improvements are ongoing, but please
+[file a bug](https://github.com/tensorflow/tensorflow/issues) if you find a
+problem and share your benchmarks.
+
+## Setup and basic usage
+
+```{r}
+library(tensorflow)
+library(tfautograph)
+library(keras)
+library(tfdatasets)
+```
+
+In Tensorflow 2.0, eager execution is enabled by default.
+
+```{r}
+tf$executing_eagerly()
+```
+
+Now you can run TensorFlow operations and the results will return immediately:
+
+```{r}
+x <- matrix(2, ncol = 1, nrow = 1)
+m <- tf$matmul(x, x)
+m
+```
+
+Enabling eager execution changes how TensorFlow operations behave—now they
+immediately evaluate and return their values to R `tf$Tensor` objects
+reference concrete values instead of symbolic handles to nodes in a computational
+graph. Since there isn't a computational graph to build and run later in a
+session, it's easy to inspect results using `print()` or a debugger. Evaluating,
+printing, and checking tensor values does not break the flow for computing
+gradients.
+
+Eager execution works nicely with R. TensorFlow
+[math operations](https://www.tensorflow.org/api_guides/python/math_ops) convert
+R objects and R arrays to `tf$Tensor` objects. The
+`as.array` method returns the object's value as an R `array`.
+
+```{r}
+a <- tf$constant(matrix(c(1,2,3,4), ncol = 2))
+a
+```
+
+```{r}
+# Broadcasting support
+b <- tf$add(a, 1)
+b
+```
+
+```{r}
+# Operator overloading is supported
+a * b
+```
+
+```{r}
+# Obtain an R value from a Tensor
+as.array(a)
+```
+
+## Dynamic control flow
+
+A major benefit of eager execution is that all the functionality of the host
+language is available while your model is executing. So, for example,
+it is easy to write [fizzbuzz](https://en.wikipedia.org/wiki/Fizz_buzz):
+
+```{r}
+fizzbuzz <- autograph(function(max_num) {
+  counter <- tf$constant(0)
+  max_num <- tf$convert_to_tensor(max_num)
+  for (num in (tf$range(max_num) + 1)) {
+    if ((num %% 3 == 0) & (num %% 5 == 0)) {
+      tf$print("FizzBuzz")
+    } else if (num %% 3 == 0) {
+      tf$print("Fizz")
+    } else if (num %% 5 == 0) {
+      tf$print("Buzz")
+    } else {
+      tf$print(num)
+    }
+    counter <- counter + 1
+  }
+})
+fizzbuzz(15)
+```
+
+This has conditionals that depend on tensor values and it prints these values
+at runtime.
+
+## Eager training
+
+### Computing gradients
+
+[Automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation)
+is useful for implementing machine learning algorithms such as
+[backpropagation](https://en.wikipedia.org/wiki/Backpropagation) for training
+neural networks. During eager execution, use `tf$GradientTape` to trace
+operations for computing gradients later.
+
+You can use `tf$GradientTape` to train and/or compute gradients in eager. It is especially useful for complicated training loops.  
+
+Since different operations can occur during each call, all
+forward-pass operations get recorded to a "tape". To compute the gradient, play
+the tape backwards and then discard. A particular `tf$GradientTape` can only
+compute one gradient; subsequent calls throw a runtime error.
+
+```{r}
+w <- tf$Variable(1)
+with(tf$GradientTape() %as% tape, {
+  loss <- w * w
+})
+grad <- tape$gradient(loss, w)
+grad
+```
+
+### Train a model
+
+The following example creates a multi-layer model that classifies the standard
+MNIST handwritten digits. It demonstrates the optimizer and layer APIs to build
+trainable graphs in an eager execution environment.
+
+```{r}
+# Fetch and format the mnist data
+mnist <- dataset_mnist()
+dataset <- tensor_slices_dataset(mnist$train) %>% 
+  dataset_map(function(x) {
+    x$x <- tf$cast(x$x, tf$float32)/255
+    x$x <- tf$expand_dims(x$x, axis = -1L)
+    unname(x)
+  }) %>% 
+  dataset_shuffle(1000) %>% 
+  dataset_batch(32)
+
+dataset
+```
+
+```{r}
+mnist_model <- keras_model_sequential() %>% 
+  layer_conv_2d(filters = 16, kernel_size = c(3,3), activation= "relu",
+                input_shape = shape(NULL, NULL, 1)) %>% 
+  layer_conv_2d(filters = 16, kernel_size = c(3,3), activation = "relu") %>% 
+  layer_global_average_pooling_2d() %>% 
+  layer_dense(units = 10)
+```
+
+Even without training, call the model and inspect the output in eager execution:
+
+```{r}
+el <- dataset %>% 
+  dataset_take(1) %>% 
+  dataset_collect()
+mnist_model(el[[1]])
+```
+
+While keras models have a builtin training loop (using the fit method), sometimes you need more customization. Here's an example, of a training loop implemented with eager:
+
+```{r}
+optimizer <- optimizer_adam()
+loss_object <- tf$keras$losses$SparseCategoricalCrossentropy(from_logits = TRUE)
+
+loss_history <- list()
+```
+
+Note: Use the assert functions in `tf$debugging` to check if a condition holds up. This works in eager and graph execution.
+
+```{r}
+train_step <- function(images, labels) {
+  with(tf$GradientTape() %as% tape, {
+    logits <- mnist_model(images, training = TRUE)
+    tf$debugging$assert_equal(logits$shape, shape(32, 10))
+    loss_value <- loss_object(labels, logits)
+  })
+  loss_history <<- append(loss_history, loss_value)
+  grads <- tape$gradient(loss_value, mnist_model$trainable_variables)
+  optimizer$apply_gradients(
+    purrr::transpose(list(grads, mnist_model$trainable_variables))
+  )
+}
+
+train <- autograph(function() {
+  for (epoch in seq_len(3)) {
+    for (batch in dataset) {
+      train_step(batch[[1]], batch[[2]])
+    }
+    tf$print("Epoch", epoch, "finished.")
+  }
+})
+
+train()
+```
+
+```{r}
+history <- loss_history %>% 
+  purrr::map(as.numeric) %>% 
+  purrr::flatten_dbl()
+ggplot2::qplot(x = seq_along(history), y = history, geom = "line")
+```
+
+### Variables and optimizers
+
+`tf$Variable` objects store mutable `tf$Tensor`-like values accessed during
+training to make automatic differentiation easier. 
+
+The collections of variables can be encapsulated into layers or models, along with methods that operate on them. See [Custom Keras layers and models](../../keras/custom_layers/) for details. The main difference between layers and models is that models add methods like  `fit`, `evaluate`, and `save`.
+
+For example, the automatic differentiation example above
+can be rewritten:
+
+```{r}
+Linear <- function() {
+  keras_model_custom(model_fn = function(self) {
+    self$w <- tf$Variable(5, name = "weight")
+    self$b <- tf$Variable(10, name = "bias")
+    function(inputs, mask = NULL, training = TRUE) {
+      inputs*self$w + self$b
+    }
+  }) 
+}
+```
+
+```{r}
+# A toy dataset of points around 3 * x + 2
+NUM_EXAMPLES <- 2000
+training_inputs <- tf$random$normal(shape = shape(NUM_EXAMPLES))
+noise <- tf$random$normal(shape = shape(NUM_EXAMPLES))
+training_outputs <- training_inputs * 3 + 2 + noise
+
+# The loss function to be optimized
+loss <- function(model, inputs, targets) {
+  error <- model(inputs) - targets
+  tf$reduce_mean(tf$square(error))
+}
+
+grad <- function(model, inputs, targets) {
+  with(tf$GradientTape() %as% tape, {
+    loss_value <- loss(model, inputs, targets)
+  })
+  tape$gradient(loss_value, list(model$w, model$b))
+}
+```
+
+Next:
+
+1. Create the model.
+2. The Derivatives of a loss function with respect to model parameters.
+3. A strategy for updating the variables based on the derivatives.
+
+```{r}
+model <- Linear()
+optimizer <- optimizer_sgd(lr = 0.01)
+
+cat("Initial loss: ", as.numeric(loss(model, training_inputs, training_outputs), "\n"))
+
+for (i in seq_len(300)) {
+  grads <- grad(model, training_inputs, training_outputs)
+  optimizer$apply_gradients(purrr::transpose(
+    list(grads, list(model$w, model$b))
+  ))
+  if (i %% 20 == 0)
+    cat("Loss at step ", i, ": ", as.numeric(loss(model, training_inputs, training_outputs)), "\n")
+}
+
+```
+
+```{r}
+model$w
+model$b
+```
+
+Note: Variables persist until the last reference to the object
+is removed, and is the variable is deleted.
+
+### Object-based saving
+
+A Keras model includes a convinient `save_weights` method allowing you to easily create a checkpoint: 
+
+```{r}
+save_model_weights_tf(model, "weights")
+load_model_weights_tf(model, filepath = "weights")
+```
+
+Using `tf$train$Checkpoint` you can take full control over this process.
+
+This section is an abbreviated version of the [guide to training checkpoints](./checkpoint/).
+
+```{r}
+x <- tf$Variable(10)
+checkpoint <- tf$train$Checkpoint(x = x)
+```
+
+```{r}
+x$assign(2) # Assign a new value to the variables and save.
+checkpoint_path <- "ckpt/"
+checkpoint$save(checkpoint_path)
+```
+
+```{r}
+x$assign(11) # Change the variable after saving.
+checkpoint$restore(tf$train$latest_checkpoint(checkpoint_path))
+x
+```
+
+To save and load models, `tf$train$Checkpoint` stores the internal state of objects,
+without requiring hidden variables. To record the state of a `model`,
+an `optimizer`, and a global step, pass them to a `tf$train$Checkpoint`:
+
+```{r}
+model <- keras_model_sequential() %>% 
+  layer_conv_2d(filters = 16, kernel_size = c(3,3), activation = "relu") %>% 
+  layer_global_average_pooling_2d() %>% 
+  layer_dense(units = 10)
+
+optimizer <- optimizer_adam(lr = 0.001)
+
+checkpoint_dir <- 'path/to/model_dir'
+if (!dir.exists(checkpoint_dir))
+  dir.create(checkpoint_dir, recursive = TRUE)
+
+checkpoint_prefix <- file.path(checkpoint_dir, "ckpt")
+
+root <- tf$train$Checkpoint(optimizer = optimizer, model = model)
+
+root$save(checkpoint_prefix)
+root$restore(tf$train$latest_checkpoint(checkpoint_dir))
+```
+
+Note: In many training loops, variables are created after tf$train$Checkpoint.restore is called. These variables will be restored as soon as they are created, and assertions are available to ensure that a checkpoint has been fully loaded. See the guide to training checkpoints for details.
+
+### Object-oriented metrics
+
+`tf$keras$metrics` are stored as objects. Update a metric by passing the new data to
+the callable, and retrieve the result using the `tf$keras$metrics$result` method,
+for example:
+
+```{r}
+m <- tf$keras$metrics$Mean("loss")
+m(0)
+m(5)
+m$result()
+m(c(8, 9))
+m$result()
+```
+
+### Summaries and TensorBoard
+
+[TensorBoard](https://tensorflow.org/tensorboard) is a visualization tool for
+understanding, debugging and optimizing the model training process. It uses
+summary events that are written while executing the program.
+
+You can use `tf$summary` to record summaries of variable in eager execution.
+For example, to record summaries of `loss` once every 100 training steps:
+
+```{r, eval = FALSE}
+logdir <- "./tb/"
+writer = tf$summary$create_file_writer(logdir)
+tensorboard(log_dir = logdir) # This will open a browser window pointing to Tensorboard
+
+with(writer$as_default(), {
+  for (step in seq_len(1000)) {
+    # Calculate loss with your real train function.
+    loss = 1 - 0.001 * step
+    if (step %% 100 == 0)
+      tf$summary$scalar('loss', loss, step=step)
+  }
+})
+```
+
+## Advanced automatic differentiation topics
+
+### Dynamic models
+
+`tf$GradientTape` can also be used in dynamic models. This example for a
+[backtracking line search](https://wikipedia.org/wiki/Backtracking_line_search)
+algorithm looks like normal R code, except there are gradients and is
+differentiable, despite the complex control flow:
+
+```{r}
+line_search_step <- tf$custom_gradient(autograph(function(fn, init_x, rate = 1) {
+  with(tf$GradientTape() %as% tape, {
+    tape$watch(init_x)
+    value <- fn(init_x)
+  })
+  grad <- tape$gradient(value, init_x)
+  grad_norm <- tf$reduce_sum(grad * grad)
+  init_value <- value
+  while(value > (init_value - rate * grad_norm)) {
+    x <- init_x - rate * grad
+    value <- fn(x)
+    rate = rate/2
+  }
+  list(x, value)
+}))
+```
+
+### Custom gradients
+
+Custom gradients are an easy way to override gradients. Within the forward function, define the gradient with respect to the
+inputs, outputs, or intermediate results. For example, here's an easy way to clip
+the norm of the gradients in the backward pass:
+
+```{r}
+clip_gradient_by_norm <- function(x, norm) {
+  y <- tf$identity(x)
+  grad_fn <- function(dresult) {
+    list(tf$clip_by_norm(dresult, norm), NULL)
+  }
+  list(y, grad_fn)
+}
+```
+
+Custom gradients are commonly used to provide a numerically stable gradient for a
+sequence of operations:
+
+```{r}
+log1pexp <- function(x) {
+  tf$math$log(1 + tf$exp(x))
+}
+
+grad_log1pexp <- function(x) {
+  with(tf$GradientTape() %as% tape, {
+    tape$watch(x)
+    value <- log1pexp(x)
+  })
+  tape$gradient(value, x)
+}
+```
+
+```{r}
+# The gradient computation works fine at x = 0.
+grad_log1pexp(tf$constant(0))
+```
+```{r}
+# However, x = 100 fails because of numerical instability.
+grad_log1pexp(tf$constant(100))
+```
+
+Here, the `log1pexp` function can be analytically simplified with a custom
+gradient. The implementation below reuses the value for `tf$exp(x)` that is
+computed during the forward pass—making it more efficient by eliminating
+redundant calculations:
+
+```{r}
+log1pexp <- tf$custom_gradient(f = function(x) {
+  e <- tf$exp(x)
+  grad_fn <- function(dy) {
+    dy * (1 - 1/(e + e))
+  }
+  list(tf$math$log(1 + e), grad_fn)
+})
+
+grad_log1pexp <- function(x) {
+  with(tf$GradientTape() %as% tape, {
+    tape$watch(x)
+    value <- log1pexp(x)
+  })
+  tape$gradient(value, x)
+}
+```
+
+```{r}
+# As before, the gradient computation works fine at x = 0.
+grad_log1pexp(tf$constant(0))
+```
+
+```{r}
+# And the gradient computation also works at x = 100.
+grad_log1pexp(tf$constant(100))
+```
+
+## Performance
+
+Computation is automatically offloaded to GPUs during eager execution. If you
+want control over where a computation runs you can enclose it in a
+`tf$device('/gpu:0')` block (or the CPU equivalent):
+
+```{r, eval = FALSE}
+fun <- function(device, steps = 200) {
+  with(tf$device(device), {
+    x <- tf$random$normal(shape = shape)
+    for (i in seq_len(steps)) {
+      tf$matmul(x, x)  
+    }  
+  })
+}
+microbenchmark::microbenchmark(
+  fun("/cpu:0"),
+  fun("/gpu:0")
+)
+```
+
+```{r}
+# Unit: milliseconds
+#           expr      min        lq      mean    median        uq       max neval
+#  fun("/cpu:0") 1117.596 1135.5450 1165.6269 1157.2208 1195.1529 1300.2236   100
+#  fun("/gpu:0")  112.888  121.7164  127.8525  126.6708  132.0415  228.1009   100
+```
+
+A `tf$Tensor` object can be copied to a different device to execute its
+operations:
+
+```{r, eval = FALSE}
+x <- tf$random$normal(shape = shape(10,10))
+
+x_gpu0 <- x$gpu()
+x_cpu <- x$cpu()
+
+tf$matmul(x_cpu, x_cpu)    # Runs on CPU
+tf$matmul(x_gpu0, x_gpu0)  # Runs on GPU:0
+```
+
+### Benchmarks
+
+For compute-heavy models, such as
+[ResNet50](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/eager/python/examples/resnet50)
+training on a GPU, eager execution performance is comparable to `tf_function` execution.
+But this gap grows larger for models with less computation and there is work to
+be done for optimizing hot code paths for models with lots of small operations.
+
+## Work with functions
+
+While eager execution makes development and debugging more interactive,
+TensorFlow 1.x style graph execution has advantages for distributed training, performance
+optimizations, and production deployment. To bridge this gap, TensorFlow 2.0 introduces `function`s via the `tf_function` API. For more information, see the [tf_function](./function) guide.
+
+
+

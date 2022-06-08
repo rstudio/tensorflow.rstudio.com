@@ -1,0 +1,98 @@
+---
+title: "TensorFlow variables"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{TensorFlow variables} 
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteEncoding{UTF-8}
+type: "docs"
+menu:
+  main:
+    name: "Variables"
+    identifier: "custom-basic-variables"
+    parent: "custom-basic-top"
+    weight: 20
+aliases:
+  - /tensorflow/articles/howto_variables.html
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+A TensorFlow **variable** is the best way to represent shared, persistent state
+manipulated by your program.
+
+Variables are manipulated via the `tf$Variable` class. A `tf$Variable`
+represents a tensor whose value can be changed by running ops on it.  Specific
+ops allow you to read and modify the values of this tensor. Higher level
+libraries like Keras use `tf$Variable` to store model parameters. This
+guide covers how to create, update, and manage `tf$Variable`s in TensorFlow.
+
+## Create a variable
+
+To create a variable, simply provide the initial value
+
+```{r}
+library(tensorflow)
+my_variable <- tf$Variable(tf$zeros(shape(1,2,3)))
+```
+
+This creates a variable which is a three-dimensional tensor with shape `[1, 2,
+3]` filled with zeros. This variable will, by default, have the `dtype`
+`tf$float32`. The dtype is, if not specified, inferred from the initial
+value.
+
+If there's a `tf$device` scope active, the variable will be placed on that
+device; otherwise the variable will be placed on the "fastest" device compatible
+with its dtype (this means most variables are automatically placed on a GPU if
+one is available). For example, the following snippet creates a variable named
+`v` and places it on the second GPU device:
+
+```{r, eval = FALSE}
+with(tf$device("/device:GPU:1"), {
+  v <- tf$Variable(tf$zeros(c(10, 10)))
+})
+```
+
+Ideally though you should use the `tf$distribute` API, as that allows you to
+write your code once and have it work under many different distributed setups.
+
+## Use a variable
+
+To use the value of a `tf$Variable` in a TensorFlow graph, simply treat it like
+a normal `tf$Tensor`:
+
+```{r}
+v <- tf$Variable(0)
+w <- v + 1 # w is a tf.Tensor which is computed based on the value of v.
+# Any time a variable is used in an expression it gets automatically
+# converted to a tf$Tensor representing its value.
+```
+
+To assign a value to a variable, use the methods `assign`, `assign_add`, and
+friends in the `tf$Variable` class. For example, here is how you can call these
+methods:
+
+```{r}
+v <- tf$Variable(0)
+v$assign_add(1)
+```
+
+Most TensorFlow optimizers have specialized ops that efficiently update the
+values of variables according to some gradient descent-like algorithm. See
+`tf$keras$optimizers$Optimizer` for an explanation of how to use optimizers.
+
+You can also explicitly read the current value of a variable, using
+`read_value`:
+
+```{r}
+v <- tf$Variable(0)
+v$assign_add(1)
+v$read_value()
+```
+
+When the last reference to a `tf$Variable` goes out of scope its memory is
+freed.
+

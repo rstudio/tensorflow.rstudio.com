@@ -1,0 +1,273 @@
+---
+title: "Basic Regression"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial: Basic Regression}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+type: docs
+repo: https://github.com/rstudio/keras
+menu:
+  main:
+    name: "Regression"
+    identifier: "keras-tutorial-basic-regression"
+    parent: "tutorials-beginners-basic-ml-top"
+    weight: 25
+aliases:
+  - /keras/articles/tutorial_basic_regression.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+
+In a regression problem, we aim to predict the output of a continuous value, like a price or a probability. Contrast this with a classification problem, where we aim to predict a discrete label (for example, where a picture contains an apple or an orange).
+
+This notebook builds a model to predict the median price of homes in a Boston suburb during the mid-1970s. To do this, we'll provide the model with some data points about the suburb, such as the crime rate and the local property tax rate.
+
+
+```{r}
+library(keras)
+library(tfdatasets)
+```
+
+
+## The Boston Housing Prices dataset
+
+The [Boston Housing Prices dataset](https://www.cs.toronto.edu/~delve/data/boston/bostonDetail.html) is accessible directly from keras.
+
+```{r}
+boston_housing <- dataset_boston_housing()
+
+c(train_data, train_labels) %<-% boston_housing$train
+c(test_data, test_labels) %<-% boston_housing$test
+```
+
+
+### Examples and features
+
+This dataset is much smaller than the others we've worked with so far: it has 506 total examples that are split between 404 training examples and 102 test examples:
+
+
+```{r}
+paste0("Training entries: ", length(train_data), ", labels: ", length(train_labels))
+```
+
+The dataset contains 13 different features:
+
+ - Per capita crime rate.
+ - The proportion of residential land zoned for lots over 25,000 square feet.
+ - The proportion of non-retail business acres per town.
+ - Charles River dummy variable (= 1 if tract bounds river; 0 otherwise).
+ - Nitric oxides concentration (parts per 10 million).
+ - The average number of rooms per dwelling.
+ - The proportion of owner-occupied units built before 1940.
+ - Weighted distances to five Boston employment centers.
+ - Index of accessibility to radial highways.
+ - Full-value property-tax rate per $10,000.
+ - Pupil-teacher ratio by town.
+ - 1000 * (Bk - 0.63) ** 2 where Bk is the proportion of Black people by town.
+ - Percentage lower status of the population.
+
+Each one of these input data features is stored using a different scale. Some features are represented by a proportion between 0 and 1, other features are ranges between 1 and 12, some are ranges between 0 and 100, and so on. 
+
+```{r}
+train_data[1, ] # Display sample features, notice the different scales
+```
+
+Let's add column names for better data inspection.
+
+
+```{r message=FALSE}
+library(dplyr)
+
+column_names <- c('CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 
+                  'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT')
+
+train_df <- train_data %>% 
+  as_tibble(.name_repair = "minimal") %>% 
+  setNames(column_names) %>% 
+  mutate(label = train_labels)
+
+test_df <- test_data %>% 
+  as_tibble(.name_repair = "minimal") %>% 
+  setNames(column_names) %>% 
+  mutate(label = test_labels)
+```
+
+
+### Labels
+
+The labels are the house prices in thousands of dollars. (You may notice the mid-1970s prices.)
+
+```{r}
+train_labels[1:10] # Display first 10 entries
+```
+
+
+## Normalize features
+
+It's recommended to normalize features that use different scales and ranges. Although the model might converge without feature normalization, it makes training more difficult, and it makes the resulting model more dependent on the choice of units used in the input.
+
+We are going to use the `feature_spec` interface implemented in the `tfdatasets` package for normalization. The `feature_columns` interface allows for other common pre-processing operations on tabular data.
+
+```{r}
+spec <- feature_spec(train_df, label ~ . ) %>% 
+  step_numeric_column(all_numeric(), normalizer_fn = scaler_standard()) %>% 
+  fit()
+
+spec
+```
+
+The `spec` created with `tfdatasets` can be used together with `layer_dense_features` to perform  pre-processing directly in the TensorFlow graph.
+
+We can take a look at the output of a dense-features layer created by this `spec`:
+
+```{r}
+layer <- layer_dense_features(
+  feature_columns = dense_features(spec), 
+  dtype = tf$float32
+)
+layer(train_df)
+```
+
+Note that this returns a matrix (in the sense that it's a 2-dimensional Tensor) with
+scaled values.
+
+## Create the model
+
+Let's build our model. Here we will use the Keras **functional** API - which is the recommended way when using the `feature_spec` API. Note that we only need to pass the `dense_features` from the `spec` we just created.
+
+```{r}
+input <- layer_input_from_dataset(train_df %>% select(-label))
+
+output <- input %>% 
+  layer_dense_features(dense_features(spec)) %>% 
+  layer_dense(units = 64, activation = "relu") %>%
+  layer_dense(units = 64, activation = "relu") %>%
+  layer_dense(units = 1) 
+
+model <- keras_model(input, output)
+
+summary(model)
+```
+
+We then compile the model with:
+
+```{r}
+model %>% 
+  compile(
+    loss = "mse",
+    optimizer = optimizer_rmsprop(),
+    metrics = list("mean_absolute_error")
+  )
+```
+
+We will wrap the model building code into a function in order to be able to reuse it for different experiments. Remember that Keras `fit` modifies the model in-place.
+
+```{r}
+build_model <- function() {
+  input <- layer_input_from_dataset(train_df %>% select(-label))
+  
+  output <- input %>% 
+    layer_dense_features(dense_features(spec)) %>% 
+    layer_dense(units = 64, activation = "relu") %>%
+    layer_dense(units = 64, activation = "relu") %>%
+    layer_dense(units = 1) 
+  
+  model <- keras_model(input, output)
+  
+  model %>% 
+    compile(
+      loss = "mse",
+      optimizer = optimizer_rmsprop(),
+      metrics = list("mean_absolute_error")
+    )
+  
+  model
+}
+```
+
+
+## Train the model
+
+The model is trained for 500 epochs, recording training and validation accuracy in a `keras_training_history` object.
+We also show how to use a custom callback, replacing the default training output by a single dot per epoch.
+
+```{r}
+# Display training progress by printing a single dot for each completed epoch.
+print_dot_callback <- callback_lambda(
+  on_epoch_end = function(epoch, logs) {
+    if (epoch %% 80 == 0) cat("\n")
+    cat(".")
+  }
+)    
+
+model <- build_model()
+
+history <- model %>% fit(
+  x = train_df %>% select(-label),
+  y = train_df$label,
+  epochs = 500,
+  validation_split = 0.2,
+  verbose = 0,
+  callbacks = list(print_dot_callback)
+)
+```
+
+Now, we visualize the model's training progress using the metrics stored in the `history` variable. We want to use this data to determine how long to train before the model stops making progress.
+
+```{r}
+library(ggplot2)
+plot(history)
+```
+
+This graph shows little improvement in the model after about 200 epochs. Let's update the `fit` method to automatically stop training when the validation score doesn't improve. We'll use a [callback](https://keras.rstudio.com/reference/callback_early_stopping.html) that tests a training condition for every epoch. If a set amount of epochs elapses without showing improvement, it automatically stops the training.
+
+```{r}
+# The patience parameter is the amount of epochs to check for improvement.
+early_stop <- callback_early_stopping(monitor = "val_loss", patience = 20)
+
+model <- build_model()
+
+history <- model %>% fit(
+  x = train_df %>% select(-label),
+  y = train_df$label,
+  epochs = 500,
+  validation_split = 0.2,
+  verbose = 0,
+  callbacks = list(early_stop)
+)
+
+plot(history)
+```
+
+The graph shows the average error is about $2,500 dollars. Is this good? Well, $2,500 is not an insignificant amount when some of the labels are only $15,000.
+
+Let's see how did the model performs on the test set:
+
+```{r}
+c(loss, mae) %<-% (model %>% evaluate(test_df %>% select(-label), test_df$label, verbose = 0))
+
+paste0("Mean absolute error on test set: $", sprintf("%.2f", mae * 1000))
+```
+
+## Predict
+
+Finally, predict some housing prices using data in the testing set:
+
+```{r}
+test_predictions <- model %>% predict(test_df %>% select(-label))
+test_predictions[ , 1]
+```
+
+## Conclusion
+
+This notebook introduced a few techniques to handle a regression problem.
+
+ - Mean Squared Error (MSE) is a common loss function used for regression problems (different than classification problems).
+ - Similarly, evaluation metrics used for regression differ from classification. A common regression metric is Mean Absolute Error (MAE).
+- When input data features have values with different ranges, each feature should be scaled independently.
+- If there is not much training data, prefer a small network with few hidden layers to avoid overfitting.
+- Early stopping is a useful technique to prevent overfitting.

@@ -1,0 +1,135 @@
+---
+title: "Deploying Models"
+output: 
+  rmarkdown::html_vignette: default
+vignette: >
+  %\VignetteIndexEntry{Deploying Models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+type: docs
+repo: https://github.com/rstudio/cloudml
+menu:
+  main:
+    name: "Deploying Models"
+    identifier: "tools-cloudml-deployment"
+    parent: "cloudml-top"
+    weight: 50
+aliases:
+  - /tools/cloudml/deployment.html
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+You can host your trained machine learning models in the cloud and use the Cloud ML prediction service to infer target values for new data. This page discusses model hosting and prediction and introduces considerations you should keep in mind for your projects.
+
+## Model Deployment
+
+Cloud ML Engine can host your models so that you can get predictions from them in the cloud. The process of hosting a saved model is called deployment. The prediction service manages the infrastructure needed to run your model at scale, and makes it available for online and batch prediction requests. This section describes model deployment.
+
+### Exporting a SavedModel
+
+The Cloud ML prediction service makes use of models exported through the
+`export_savedmodel()` function which is available for models created using the [tensorflow](https://tensorflow.rstudio.com/tensorflow/), [keras](https://tensorflow.rstudio.com/keras/) and
+[tfestimators](https://tensorflow.rstudio.com/tfestimators/) packages or any other tool that support the [tf.train.Saver](https://www.tensorflow.org/api_docs/python/tf/train/Saver) interface.
+
+For instance, we can use `examples/keras/train.R` included in this package to define
+and train an MNIST keras model by running:
+
+```{r eval=FALSE}
+library(keras)
+
+FLAGS <- flags(
+  flag_numeric("dropout_rate", 0.4)
+)
+
+mnist <- dataset_mnist()
+x_train <- mnist$train$x
+y_train <- mnist$train$y
+x_test <- mnist$test$x
+y_test <- mnist$test$y
+
+x_train <- array_reshape(x_train, c(nrow(x_train), 784))
+x_test <- array_reshape(x_test, c(nrow(x_test), 784))
+x_train <- x_train / 255
+x_test <- x_test / 255
+
+y_train <- to_categorical(y_train, 10)
+y_test <- to_categorical(y_test, 10)
+
+model <- keras_model_sequential()
+
+model %>%
+  layer_dense(units = 256, activation = 'relu', input_shape = c(784)) %>%
+  layer_dropout(rate = FLAGS$dropout_rate) %>%
+  layer_dense(units = 128, activation = 'relu') %>%
+  layer_dropout(rate = 0.3) %>%
+  layer_dense(units = 10, activation = 'softmax')
+
+model %>% compile(
+  loss = 'categorical_crossentropy',
+  optimizer = optimizer_rmsprop(),
+  metrics = c('accuracy')
+)
+
+model %>% fit(
+  x_train, y_train,
+  epochs = 20, batch_size = 128,
+  validation_split = 0.2
+)
+
+export_savedmodel(model, "savedmodel")
+```
+
+### Deploying the Model
+
+Deployment is performed through `cloudml_deploy()` which uses the same `gcloud`
+and `cloudml` configuration concepts used while training. We can
+train any exported model by running:
+
+```{r eval=FALSE}
+cloudml_deploy("savedmodel", name = "keras_mnist")
+```
+```
+Copying file://savedmodel/variables/variables.data-00000-of-00001 [Content-Type=application/octet-stream]...
+Copying file://savedmodel/saved_model.pb [Content-Type=application/octet-stream]...
+Copying file://savedmodel/variables/variables.index [Content-Type=application/octet-stream]...
+/ [3/3 files][  1.9 MiB/  1.9 MiB] 100% Done                                    
+Operation completed over 3 objects/1.9 MiB.
+
+Model created and available in https://console.cloud.google.com/mlengine/models/keras_mnist
+```
+
+Notice that models make use of unique names and versions which can be specified
+using the `name` and `version` parameters in `cloudml_deploy()`.
+
+## Prediction
+
+Once a model is deployed, predictions can be performed by providing a list of inputs into
+`cloudml_predict()`:
+
+```{r eval=FALSE}
+mnist_image <- keras::dataset_mnist()$train$x[1,,]
+grid::grid.raster(mnist_image / 255)
+```
+
+![](../images/deploy-keras-mnist-image.png)
+<br>
+```{r eval=FALSE}
+cloudml_predict(
+  list(
+    as.vector(t(mnist_image))
+  ),
+  name = "keras_mnist",
+)
+```
+
+```
+$predictions
+                       dense_3
+1 0, 0, 0, 0, 0, 1, 0, 0, 0, 0
+```
+
+For additional information visit [Google Cloud Platform - Prediction Basics](https://cloud.google.com/ml-engine/docs/prediction-overview)

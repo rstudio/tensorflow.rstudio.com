@@ -1,0 +1,43 @@
+---
+title: "Overview"
+type: docs
+menu:
+  main:
+    name: "Overview"
+    identifier: "guide-get-started"
+    parent: "guide-top"
+    weight: 10
+---
+
+In the guide you will find documentation about specific functionality of the R packages in the TensorFlow ecosystem.
+
+## Essential documentation
+
+If you are just getting started started with TensorFlow for R, we recommend reading the following selected topics in the guide:
+
+* [Installing TensorFlow](/installation): Install TensorFlow R packages and its dependencies.
+* [Get started with Keras](/guide/keras/): First time using Keras? Read ir!
+* [Read more about Keras](/guide/keras/guide_keras/): More information about customizing your Keras models.
+* [Get started with TensorFlow Datasets](/guide/tfdatasets/introduction/): Overview of the TensorFlow Datasets API.
+* [Eager execution](/guide/tensorflow/eager_execution/): Understand TensorFlow's eager execution.
+
+## Customization
+
+Read the following guides for more information on how to customize your model with TensorFlow and Keras:
+
+* [Custom Layers](/guide/keras/custom_layers/): Create custom layers for your Keras models.
+* [Callbacks](/guide/keras/training_callbacks/): Using callbacks to customize model training.
+* [Ragged Tensors](/guide/tensorflow/ragged_tensors/): Data structure useful for sequences of variable length.
+* [Feature Spec API](/guide/tfdatasets/feature_spec/): Use the feature spec interface to build models for tabular data.
+  
+See also the [deployment guide](/deploy).
+
+
+
+
+
+
+
+
+
+

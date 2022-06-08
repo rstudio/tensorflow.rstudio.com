@@ -1,0 +1,244 @@
+---
+title: "Installing TensorFlow"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+## Overview
+
+Prior to using the **tensorflow** R package you need to install a
+version of TensorFlow on your system. Below we describe how to install
+TensorFlow as well the various options available for customizing your
+installation.
+
+Note that this article principally covers the use of the R
+`install_tensorflow()` function, which provides an easy to use wrapper
+for the various steps required to install TensorFlow.
+
+You can also choose to install TensorFlow manually (as described at
+<https://www.tensorflow.org/install/>). In that case the [Custom
+Installation] section covers how to arrange for the tensorflow R package
+to use the version you installed.
+
+## Quick Start
+
+First, install the tensorflow R package from GitHub as follows:
+
+```{r}
+devtools::install_github("rstudio/tensorflow")
+```
+
+Then, use the `install_tensorflow()` function to install TensorFlow:
+
+```{r}
+library(tensorflow)
+install_tensorflow()
+```
+
+You can confirm that the installation succeeded with:
+
+```{r}
+sess = tf$Session()
+hello <- tf$constant('Hello, TensorFlow!')
+sess$run(hello)
+```
+
+This will provide you with a default installation of TensorFlow suitable
+for use with the tensorflow R package. Read on if you want to learn
+about additional installation options, including installing a version of
+TensorFlow that takes advantage of Nvidia GPUs if you have the correct
+CUDA libraries installed.
+
+## Installation Methods
+
+TensorFlow is distributed as a Python package and so needs to be
+installed within a Python environment on your system. By default, the
+`install_tensorflow()` function attempts to install TensorFlow within an
+isolated Python environment ("r-reticulate").
+
+These are the available methods and their behavior:
+
+| Method     | Description                                                                |
+|------------|----------------------------------------------------------------------------|
+| auto       | Automatically choose an appropriate default for the current platform.      |
+| virtualenv | Install into a Python virtual environment at `~/.virtualenvs/r-reticulate` |
+| conda      | Install into an Anaconda Python environment named `r-reticulate`           |
+| system     | Install into the system Python environment                                 |
+
+The "virtualenv" and "conda" methods are available on Linux and OS X and
+the "conda" method is available on Windows.
+
+Note that the "virtualenv" method uses the system version of Python
+(i.e. one located at either `/usr/bin` or `/usr/local/bin`, in that
+order) rather than other versions of Python that may be installed. This
+is to ensure that the virtual environment is created with a version and
+configuration of Python that is widely tested with TensorFlow. If you
+want to install TensorFlow within another version of Python see the
+[Custom Installation] section below.
+
+To override the default behavior use the `method` parameter, for
+example:
+
+```{r}
+install_tensorflow(method = "conda")
+```
+
+You can also install TensorFlow within a different environment name, in
+this case you can use the `envname` argument:
+
+```{r}
+install_tensorflow(envname = "r-tensorflow")
+```
+
+## CPU vs. GPU
+
+TensorFlow can be configured to run on either CPUs or GPUs. The CPU
+version is much easier to install and configure so is the best starting
+place especially when you are first learning how to use TensorFlow.
+Here's the guidance on CPU vs. GPU versions from the TensorFlow website:
+
+-   **TensorFlow with CPU support only**. If your system does not have a
+    NVIDIA® GPU, you must install this version. Note that this version
+    of TensorFlow is typically much easier to install (typically, in 5
+    or 10 minutes), so even if you have an NVIDIA GPU, we recommend
+    installing this version first.
+
+-   **TensorFlow with GPU support**. TensorFlow programs typically run
+    significantly faster on a GPU than on a CPU. Therefore, if your
+    system has a NVIDIA® GPU meeting the prerequisites shown below and
+    you need to run performance-critical applications, you should
+    ultimately install this version.
+
+By default `install_tensorflow()` installs the CPU version of
+TensorFlow.
+
+If you want to install the GPU version please see the article on
+[installing the GPU
+version](https://tensorflow.rstudio.com/tools/local_gpu.html).
+
+## Alternate Versions
+
+By default, `install_tensorflow()` install the latest release version of
+TensorFlow. You can override this behavior by specifying the `version`
+parameter. For example:
+
+```{r}
+install_tensorflow(version = "1.0.0")
+```
+
+Note that this should be a full `major.minor.patch` version
+specification (rather than just major and minor versions).
+
+You can install the nightly build of TensorFlow (CPU or GPU version)
+with:
+
+```{r}
+install_tensorflow(version = "nightly")      # cpu version
+install_tensorflow(version = "nightly-gpu")  # gpu version
+```
+
+You can install any other build of TensorFlow by specifying a URL to a
+TensorFlow binary. For example:
+
+```{r}
+install_tensorflow(version = "https://files.pythonhosted.org/packages/c2/c1/a035e377cf5a5b90eff27f096448fa5c5a90cbcf13b7eb0673df888f2c2d/tf_nightly-1.12.0.dev20180918-cp36-cp36m-manylinux1_x86_64.whl")
+```
+
+Nightly builds for different OSes and architectures are linked on the
+[TensorFlow repository root
+page](https://github.com/tensorflow/tensorflow).
+
+## Custom Installation
+
+The `install_tensorflow()` function is provided as a convenient way to
+get started, but is not required. If you have an existing installation
+of TensorFlow or just prefer your own custom installation that's fine
+too.
+
+The full instructions for installing TensorFlow on various platforms are
+here: <https://www.tensorflow.org/install/>. After installing, please
+refer to the sections below on locating TensorFlow and meeting
+additional dependencies to ensure that the tensorflow for R package
+functions correctly with your installation.
+
+### Locating TensorFlow
+
+Once you've installed TensorFlow you need to ensure that the tensorflow
+for R package can find your installation. The package scans the system
+for various versions of Python, and also scans available virtual
+environments and conda environments, so in many cases things will just
+work without additional effort.
+
+If the version of TensorFlow you installed is not found automatically,
+then you can use the following techniques to ensure that TensorFlow is
+located.
+
+Specify the `TENSORFLOW_PYTHON` environment variable to force probing
+within a specific Python installation. For example:
+
+```{r}
+library(tensorflow)
+Sys.setenv(TENSORFLOW_PYTHON="/usr/local/bin/python")
+```
+
+Alternatively, call the `use_python` family of configuration functions:
+
+| Function           | Description                                           |
+|--------------------|-------------------------------------------------------|
+| `use_python()`     | Specify the path a specific Python binary.            |
+| `use_virtualenv()` | Specify the directory containing a Python virtualenv. |
+| `use_condaenv()`   | Specify the name of a conda environment.              |
+
+Note that `use_virtualenv` is not supported on Windows.
+
+For example:
+
+```{r}
+library(tensorflow)
+use_python("/usr/local/bin/python")
+use_virtualenv("~/myenv")
+use_condaenv("myenv")
+```
+
+Note that you can include multiple calls to the `use_` functions and all
+provided locations will be tried in the order they were specified.
+
+You can also use the `required` argument from the `use_*` functions. In
+this case TensorFlow will only be searched at the specified location.
+
+```{r}
+library(tensorflow)
+use_virtualenv("my_env", required = TRUE)
+```
+
+### Additional Dependencies
+
+There are some components of TensorFlow (e.g. the
+[Keras](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/keras)
+library) which have dependencies on additional Python packages. The
+`install_tensorflow()` function installs these dependencies
+automatically, however if you do a custom installation you should be
+sure to install them manually.
+
+You can install the additional dependencies with the following command:
+
+``` bash
+pip install h5py pyyaml requests Pillow scipy
+```
+
+## Supported Platforms
+
+Note that binary installations of TensorFlow are provided for Windows,
+OS X, and Ubuntu 14.04 or higher. It's possible that binary
+installations will work on other Linux variants but Ubuntu is the only
+platform tested and supported.
+
+In particular, if you are running on RedHat or CentOS you will need to
+[install from
+source](https://www.tensorflow.org/install/install_sources) then follow
+the instructions in the [Custom Installation] section to ensure that
+your installation of TensorFlow can be used with the tensorflow R
+package.
+

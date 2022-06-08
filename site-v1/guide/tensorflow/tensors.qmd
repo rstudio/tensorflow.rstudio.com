@@ -1,0 +1,280 @@
+---
+title: "TensorFlow tensors"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{TensorFlow tensors} 
+  %\VignetteEngine{knitr::rmarkdown} 
+  %\VignetteEncoding{UTF-8}
+type: "docs"
+menu:
+  main:
+    name: "Tensors"
+    identifier: "custom-basic-tensors"
+    parent: "custom-basic-top"
+    weight: 30
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+TensorFlow, as the name indicates, is a framework to define and run computations
+involving tensors. A *tensor* is a generalization of vectors and matrices to
+potentially higher dimensions. Internally, TensorFlow represents tensors as
+n-dimensional arrays of base datatypes.
+
+When writing a TensorFlow program, the main object you manipulate and pass
+around is the `tf$Tensor`. A `tf$Tensor` object represents a partially defined
+computation that will eventually produce a value. TensorFlow programs work by
+first building a graph of `tf$Tensor` objects, detailing how each tensor is
+computed based on the other available tensors and then by running parts of this
+graph to achieve the desired results.
+
+A `tf$Tensor` has the following properties:
+
+ * a data type (`float32`, `int32`, or `string`, for example)
+ * a shape
+
+
+Each element in the Tensor has the same data type, and the data type is always
+known. The shape (that is, the number of dimensions it has and the size of each
+dimension) might be only partially known. Most operations produce tensors of
+fully-known shapes if the shapes of their inputs are also fully known, but in
+some cases it's only possible to find the shape of a tensor at graph execution
+time.
+
+Some types of tensors are special, and these will be covered in other
+units of the TensorFlow guide. The main ones are:
+
+  * `tf$Variable`
+  * `tf$constant`
+  * `tf$SparseTensor`
+
+With the exception of `tf.Variable`, the value of a tensor is immutable, which
+means that in the context of a single execution tensors only have a single
+value. However, evaluating the same tensor twice can return different values;
+for example that tensor can be the result of reading data from disk, or
+generating a random number.
+
+## Rank
+
+The **rank** of a `tf$Tensor` object is its number of dimensions. Synonyms for
+rank include **order** or **degree** or **n-dimension**.
+Note that rank in TensorFlow is not the same as matrix rank in mathematics.
+As the following table shows, each rank in TensorFlow corresponds to a
+different mathematical entity:
+
+Rank | Math entity
+--- | ---
+0 | Scalar (magnitude only)
+1 | Vector (magnitude and direction)
+2 | Matrix (table of numbers)
+3 | 3-Tensor (cube of numbers)
+n | n-Tensor (you get the idea)
+
+
+### Rank 0
+
+The following snippet demonstrates creating a few rank 0 variables:
+
+```{r}
+library(tensorflow)
+mammal <- tf$Variable("Elephant", tf$string)
+ignition <- tf$Variable(451, tf$int16)
+floating <- tf$Variable(3.14159265359, tf$float64)
+its_complicated <- tf$Variable(12.3 - 4.85i, tf$complex64)
+```
+
+Note: A string is treated as a single object in TensorFlow, not as a sequence of
+characters. It is possible to have scalar strings, vectors of strings, etc.
+
+### Rank 1
+
+To create a rank 1 `tf.Tensor` object, you can pass a list of items as the
+initial value. For example:
+
+```{r}
+mystr <- tf$Variable(c("Hello"), tf$string)
+cool_numbers <- tf$Variable(c(3.14159, 2.71828), tf$float32)
+first_primes <- tf$Variable(c(2, 3, 5, 7, 11), tf$int32)
+its_very_complicated <- tf$Variable(c(12.3 - 4.85i, 7.5 - 6.23i), tf$complex64)
+```
+
+### Higher ranks
+
+A rank 2 `tf$Tensor` object consists of at least one row and at least
+one column:
+
+```{r}
+mymat <- tf$Variable(list(c(7, 2),c(11, 3)), tf$int16)
+```
+
+
+Higher-rank Tensors, similarly, consist of an n-dimensional array. For example,
+during image processing, many tensors of rank 4 are used, with dimensions
+corresponding to example-in-batch, image height, image width, and color channel.
+
+```{r}
+my_image <- tf$zeros(shape = shape(10, 299, 299, 3)) # batch x height x width x color
+```
+
+### Getting a `tf$Tensor` object's rank
+
+To determine the rank of a `tf$Tensor` object, call the `tf$rank` method.
+For example, the following method programmatically determines the rank
+of the `tf$Tensor` defined in the previous section:
+
+```{r}
+r <- tf$rank(my_image)
+r
+```
+
+### Referring to `tf$Tensor` slices
+
+Tensor elements can be extracted either by using functions like `tf$gather()` and `tf$slice()`, or by using `[` syntax.
+
+Extracting tensor elements with `[` in R is similar to extracting elements from standard R arrays, albeit with some minor differences in capabilities. In contrast to most `tf$` functions, `[` defaults to R style 1-based rather than 0-based indexes. Currently, only numeric indexes in `[` are supported (no logical or character indexes)
+
+Extracting works identically to R arrays if the slicing index is missing, supplied as a scalar, or as a sequence (e.g, created by `:` or `seq_len()`)  
+
+```r
+x[,1] )      # all rows, first column
+x[1:2,] )    # first two rows, all columns
+x[,1, drop = FALSE] ) # all rows, first column, but preserving the tensor rank
+```
+
+`[` also supports slices with a strided step, which can be specified in traditional R style with `seq()` or with a python-style second colon. If you are unfamiliar with python-style strided step syntax, see here for a [quick primer](https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.indexing.html#basic-slicing-and-indexing)
+
+```r
+x[, seq(1, 5, by = 2)]  # R style
+x[, 1:5:2]              # Equivalent python-style strided step 
+```
+
+Missing arguments for python syntax are valid, but they must be supplied as NULL or whole expression must by backticked.
+
+```r
+x[, `::2`] 
+x[, NULL:NULL:2] 
+x[, `2:`] 
+```
+
+`[` also accepts  `tf$newaxis` and `all_dims()` as arguments
+
+```r
+x[,, tf$newaxis]
+x[all_dims(), 1] # all_dims expands to the shape of the tensor
+```
+
+An important difference between extracting R arrays and tensorflow tensors with `[` is how negative numbers are interpreted. For tensorflow tensors, negative numbers are interpreted as selecting elements by counting from tail (e.g, they are interpreted python-style).  
+
+```r
+x[-1,]  # the last row
+```
+
+Tensors are accepted by `[` as well, but note that tensors suplied to `[` are not translated from R to python. Meaning that tensors are interpreted as 0-based, and if slicing a range with `:`, then the returned arrays is exclusive of the upper bound.
+
+```r
+x[, tf$constant(1L)] # second column
+x[, tf$constant(0L):tf$constant(2L)] # first two columns
+```
+
+If you are translating existing python code to R, note that you can set an option to have all `[` arguments be interpreted pure-python style by setting `options(tensorflow.extract.style = "python")`. See ``` ?`[.tensorflow.tensor` ``` for additional options and details.
+
+## Shape
+
+The **shape** of a tensor is the number of elements in each dimension.
+TensorFlow automatically infers shapes during graph construction. These inferred
+shapes might have known or unknown rank. If the rank is known, the sizes of each
+dimension might be known or unknown.
+
+The TensorFlow documentation uses three notational conventions to describe
+tensor dimensionality: rank, shape, and dimension number. The following table
+shows how these relate to one another:
+
+Rank | Shape | Dimension number | Example
+--- | --- | --- | ---
+0 | [] | 0-D | A 0-D tensor.  A scalar.
+1 | [D0] | 1-D | A 1-D tensor with shape [5].
+2 | [D0, D1] | 2-D | A 2-D tensor with shape [3, 4].
+3 | [D0, D1, D2] | 3-D | A 3-D tensor with shape [1, 4, 3].
+n | [D0, D1, ... Dn-1] | n-D | A tensor with shape [D0, D1, ... Dn-1].
+
+Shapes can be represented via lists of ints, or with the
+`tf$TensorShape`.
+
+### Getting a `tf$Tensor` object's shape
+
+There are two ways of accessing the shape of a `tf$Tensor`. While building the
+graph, it is often useful to ask what is already known about a tensor's
+shape. This can be done by reading the `shape` property of a `tf$Tensor` object.
+This method returns a `TensorShape` object, which is a convenient way of
+representing partially-specified shapes (since, when building the graph, not all
+shapes will be fully known).
+
+It is also possible to get a `tf$Tensor` that will represent the fully-defined
+shape of another `tf$Tensor` at runtime. This is done by calling the `tf$shape`
+operation. This way, you can build a graph that manipulates the shapes of
+tensors by building other tensors that depend on the dynamic shape of the input
+`tf$Tensor`.
+
+For example, here is how to make a vector of zeros with the same size as the
+number of columns in a given matrix:
+
+```{r}
+zeros <- tf$zeros(my_image$shape[2])
+```
+
+### Changing the shape of a `tf$Tensor`
+
+The **number of elements** of a tensor is the product of the sizes of all its
+shapes. The number of elements of a scalar is always `1`. Since there are often
+many different shapes that have the same number of elements, it's often
+convenient to be able to change the shape of a `tf.Tensor`, keeping its elements
+fixed. This can be done with `tf.reshape`.
+
+The following examples demonstrate how to reshape tensors:
+
+```{r}
+rank_three_tensor <- tf$ones(shape(3, 4, 5))
+matrix <- tf$reshape(rank_three_tensor, shape(6, 10))  # Reshape existing content into
+                                                 # a 6x10 matrix
+matrixB <- tf$reshape(matrix, shape(3, -1))  #  Reshape existing content into a 3x20
+                                       # matrix. -1 tells reshape to calculate
+                                       # the size of this dimension.
+matrixAlt <- tf$reshape(matrixB, shape(4, 3, -1))  # Reshape existing content into a
+                                             #4x3x5 tensor
+
+# Note that the number of elements of the reshaped Tensors has to match the
+# original number of elements. Therefore, the following example generates an
+# error because no possible value for the last dimension will match the number
+# of elements.
+```
+
+## Data types
+
+In addition to dimensionality, Tensors have a data type. Refer to the
+`tf$DType` page for a complete list of the data types.
+
+It is not possible to have a `tf$Tensor` with more than one data type. It is
+possible, however, to serialize arbitrary data structures as `string`s and store
+those in `tf$Tensor`s.
+
+It is possible to cast `tf$Tensor`s from one datatype to another using
+`tf$cast`:
+
+``` {r}
+# Cast a constant integer tensor into floating point.
+float_tensor <- tf$cast(tf$constant(c(1L, 2L, 3L)), dtype=tf$float32)
+```
+
+To inspect a `tf$Tensor`'s data type use the `Tensor.dtype` property.
+
+When creating a `tf$Tensor` from an R object you may optionally specify the
+datatype. If you don't, TensorFlow chooses a datatype that can represent your
+data. TensorFlow converts R integers to `tf$int32` and R floating
+point numbers to `tf$float32`. Otherwise TensorFlow uses the same rules numpy
+uses when converting to arrays.
+
+
+

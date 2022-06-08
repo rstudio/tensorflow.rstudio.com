@@ -1,0 +1,225 @@
+---
+title: "Estimator Basics"
+output: 
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Estimators Basics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+type: docs
+repo: https://github.com/rstudio/tfestimators
+menu:
+  main:
+    name: "Estimator Basics"
+    identifier: "tfestimators-basics"
+    parent: "tfestimators-using-tfestimators"
+    weight: 20
+aliases:
+  - /tfestimators
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+## Warning!
+
+> TensorFlow Estimators has not received updates by the TensorFlow team in a long time, and it's no longer recommended. You may find bugs when using `tfestimators` with recent versions of TensorFlow (>= 1.10).
+
+## Overview
+
+The basic components of the TensorFlow Estimators API include:
+
+- Canned estimators (pre-built implementations of various models).
+
+- Custom estimators (custom model implementations).
+
+- Estimator methods (core methods like `train()`, `predict()`, `evaluate()`, etc. which work the same for all canned and custom estimators).
+
+- Feature columns (definitions of how features should be transformed during modeling).
+
+- Input functions (sources of data for training, evaluation, and prediction).
+
+In addition, there are APIs that cover more advanced usages:
+
+- Experiments (wrappers around estimators that handle concerns like distributed training, hyperparameter tuning, etc.)
+
+- Run hooks (callbacks for recording context and interacting with each modelling processes)
+
+- SavedModel export utilities (exports the trained model to be deployed in places like CloudML)
+
+Please read our [white paper](http://terrytangyuan.github.io/data/papers/tf-estimators-kdd-paper.pdf) if you are interested in the detailed design of the above components. 
+
+Below we enumerate some of the core functions in each of these components to provide a high level overview of what's available. See the linked articles for more details on using all of the components together. 
+
+
+## Canned Estimators
+
+The **tfestimators** package includes a wide variety of canned estimators for common machine learning tasks. Currently, the following canned estimators are available:
+
+| Estimator  | Description |
+|---------------------------------------|----------------------------------------------------------------|
+| `linear_regressor()`  | Linear regressor model.  |
+| `linear_classifier()`  |  Linear classifier model. |
+| `dnn_regressor()`  | DNN Regression. |
+| `dnn_classifier()`  |  DNN Classification. |
+| `dnn_linear_combined_regressor()`  |  DNN Linear Combined Regression. |
+| `dnn_linear_combined_classifier()`  | DNN Linear Combined Classification. |
+
+Before you can use an estimator, you need to provide an input function and define a set of feature columns. The following two sections cover how to do this.
+
+## Input Functions
+
+Input functions are used to provide data to estimators during training, evaluation and prediction. The R interface provides several high-level input function implementations for various common R data sources, including:
+
+- Formulas
+- Matrices
+- Data Frames
+- Lists of vectors
+
+For example, here's how we might construct an input function that uses the `mtcars` data frame as a data source, treating the `drat`, `mpg`, and `am` variables as feature columns, and `vs` as a response.
+
+```{r}
+input <- input_fn(mtcars, 
+                  features = c("drat", "mpg", "am"),
+                  response = "vs",
+                  batch_size = 128,
+                  epochs = 3)
+```
+
+The formula interface is a bit more succinct, in this case, and should feel familiar to R users who have experience fitting models using the R `stats` package.
+
+```{r}
+input <- input_fn(vs ~ drat + mpg + am, data = mtcars,
+                  batch_size = 128,
+                  epochs = 3)
+```
+
+You can also write fully custom input functions that draw data from arbitrary data sources. See the [input functions](../input_functions/) article for additional details.
+
+## Feature Columns
+
+In TensorFlow, feature columns are used to specify the 'shapes', or 'types', of inputs that can be expected by a particular model. For example, in the following code, we define two simple feature columns: a numeric column called `"drat"`, and a indicator column called `"am"` with one-hot representation.
+
+```{r}
+cols <- feature_columns(
+  column_numeric("drat"),
+  column_indicator("am")
+)
+```
+
+There are a wide variety of feature column functions available:
+
+| Method  | Description |
+|---------------------------------------|----------------------------------------------------------------|
+| `column_indicator()`  | Represents multi-hot representation of given categorical column.   |
+| `column_numeric()`  |  Represents real valued or numerical features.  |
+| `column_embedding()`  | Creates an dense column that converts from sparse, categorical input.   |
+| `column_bucketized()`  | Represents discretized dense input.   |
+| `column_categorical_weighted()`  | Applies weight values to a categorical column.   |
+| `column_categorical_with_vocabulary_list()`  | 	Creates a categorical column with in-memory vocabulary. |
+| `column_categorical_with_vocabulary_file()`  | Creates a categorical column with a vocabulary file.   |
+| `column_categorical_with_identity()`  | Creates a categorical column that returns identity values.   |
+| `column_categorical_with_hash_bucket()`  | Represents sparse feature where ids are set by hashing.   |
+
+
+See the article on [feature columns](../feature_columns/) for additional details.
+
+## Creating an Estimator
+
+Here's an example of creating a DNN Linear Combined canned Estimator. In creating the estimator we pass the feature columns and other parameters that specifies the layers and architecture of the model. Note that this particular estimator takes two sets of feature columns -- one used for constructing the linear layer, and the other used for the fully connected deep layer.
+
+```{r}
+# construct feature columns
+linear_feature_columns <- feature_columns(column_numeric("mpg"))
+dnn_feature_columns <- feature_columns(column_numeric("drat"))
+
+# generate classifier
+classifier <-
+	dnn_linear_combined_classifier(
+	  linear_feature_columns = linear_feature_columns,
+	  dnn_feature_columns = dnn_feature_columns,
+	  dnn_hidden_units = c(3, 3),
+	  dnn_optimizer = "Adagrad"
+	)
+```
+
+## Training and Prediction
+
+Users can then call `train()` to train the initialized Estimator for a number of steps:
+
+```{r}
+classifier %>%
+  train(input_fn = input, steps = 2)
+```
+
+Once a model is trained, users can use `predict()` that makes predictions on a given input function that represents the inference data source. 
+
+``` {r}
+predictions <- predict(classifier, input_fn = input)
+```
+
+Users can also pass a key to `predict_keys` argument in `predict()` that generates different types of predictions, such as probabilities using `"probabilities"`:
+
+``` {r}
+predictions <- predict(
+  classifier,
+  input_fn = input,
+  predict_keys = "probabilities")
+```
+
+or logistic:
+
+``` {r}
+predictions <- predict(
+  classifier,
+  input_fn = input,
+  predict_keys = "logistic")
+```
+
+You can find all the available keys by printing `prediction_keys()`. However, not all keys can be used by different types of estimators. For example, regressors cannot use `"probabilities"` as one of the keys since probability output only makes sense for classification models.
+
+## Model Persistence
+
+Models created via `tfestimators` are persisted on disk. To obtain the location of where the model artifacts are stored, we can call `model_dir()`:
+
+```{r}
+saved_model_dir <- model_dir(classifier)
+```
+
+And subsequently load the saved model (in a new session) by passing the directory to the `model_dir` argument of the model constructor and use it for prediction or continue training:
+
+```{r}
+library(tfestimators)
+linear_feature_columns <- feature_columns(column_numeric("mpg"))
+dnn_feature_columns <- feature_columns(column_numeric("drat"))
+
+loaded_model <-
+	dnn_linear_combined_classifier(
+	  linear_feature_columns = linear_feature_columns,
+	  dnn_feature_columns = dnn_feature_columns,
+	  dnn_hidden_units = c(3, 3),
+	  dnn_optimizer = "Adagrad",
+	  model_dir = saved_model_dir
+	)
+loaded_model
+```
+
+## Generic methods
+
+There are a number of estimator methods which can be used generically with any canned or custom estimator:
+
+| Method  | Description |
+|---------------------------------------|----------------------------------------------------------------|
+| `train()`  |  Trains a model given training data input_fn. |
+| `predict()`  |  Returns predictions for given features. |
+| `evaluate()`  |  Evaluates the model given evaluation data input_fn. |
+| `train_and_evaluate()`  |  Trains and evaluates a model for both local and distributed configurations. |
+| `export_savedmodel()` | Exports inference graph as a SavedModel into a given directory. |
+
+
+
+
+
+

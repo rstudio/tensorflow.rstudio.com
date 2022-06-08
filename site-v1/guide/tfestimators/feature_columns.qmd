@@ -1,0 +1,139 @@
+---
+title: "Feature Columns"
+output: 
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Feature Columns}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+type: docs
+repo: https://github.com/rstudio/tfestimators
+menu:
+  main:
+    name: "Feature Columns"
+    identifier: "tfestimators-feature-columns"
+    parent: "tfestimators-using-tfestimators"
+    weight: 40
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+## Overview
+
+Feature columns are used to specify how Tensors received from the input function should be combined and transformed before entering the model. A feature column can be a plain mapping to some input column (e.g. `column_numeric()` for a column of numerical data), or a transformation of other feature columns (e.g. `column_crossed()` to define a new column as the cross of two other feature columns).
+
+The following feature columns are available:
+
+| Feature Column  | Description |
+|---------------------------------------|----------------------------------------------------------------|
+| `column_categorical_with_vocabulary_list()`  | Construct a Categorical Column with In-Memory Vocabulary.  |
+| `column_categorical_with_vocabulary_file()`  |  Construct a Categorical Column with a Vocabulary File. |
+| `column_categorical_with_identity()`  | Construct a Categorical Column that Returns Identity Values. |
+| `column_categorical_with_hash_bucket()`  |  Represents Sparse Feature where IDs are set by Hashing. |
+| `column_categorical_weighted()`  |  Construct a Weighted Categorical Column. |
+| `column_indicator()`  | Represents Multi-Hot Representation of Given Categorical Column. |
+| `column_numeric()`  | Construct a Real-Valued Column. |
+| `column_embedding()`  | Construct a Dense Column. |
+| `column_crossed()`  | Construct a Crossed Column. |
+| `column_bucketized()`  | Construct a Bucketized Column. |
+
+Some typical mappings of R data types to feature column are:
+
+| Data Type  | Feature Column                          |
+|------------|-----------------------------------------|
+| Numeric    | `column_numeric()`                      |
+| Factor     | `column_categorical_with_identity()`    |
+| Character  | `column_categorical_with_hash_bucket()` |
+
+
+We'll use the *flights* dataset from the [nycflights13](https://cran.r-project.org/package=nycflights13) package to explore how feature columns can be constructed. The *flights* dataset records airline on-time data for all flights departing NYC in 2013.
+
+```{r}
+library(nycflights13)
+print(flights)
+```
+
+```
+> print(flights)
+# A tibble: 336,776 x 19
+    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier flight tailnum origin  dest air_time
+   <int> <int> <int>    <int>          <int>     <dbl>    <int>          <int>     <dbl>   <chr>  <int>   <chr>  <chr> <chr>    <dbl>
+ 1  2013     1     1      517            515         2      830            819        11      UA   1545  N14228    EWR   IAH      227
+ 2  2013     1     1      533            529         4      850            830        20      UA   1714  N24211    LGA   IAH      227
+ 3  2013     1     1      542            540         2      923            850        33      AA   1141  N619AA    JFK   MIA      160
+# ... with 336,766 more rows, and 4 more variables: distance <dbl>, hour <dbl>, minute <dbl>, time_hour <dttm>
+```
+
+For example, we can define numeric columns based on the `dep_time` and `dep_delay` variables:
+
+```{r}
+cols <- feature_columns(
+  column_numeric("dep_time"),
+  column_numeric("dep_delay")
+)
+```
+
+You can also define multiple feature columns at once.
+
+```{r}
+cols <- feature_columns(
+  column_numeric("dep_time", "dep_delay")
+)
+```
+
+
+## Pattern Matching
+
+Often, you will find that you want to generate a number of feature column definitions based on some pattern existing in the names of your data set. **tfestimators** uses the [tidyselect](https://github.com/tidyverse/tidyselect) package to make it easy to define feature columns, similar to what you might be familiar with in the `dplyr` package. You can use the `names = ` argument of `feature_columns()` function to define a context from which variable names will be selected.
+
+For example, we can use the `ends_with()` helper to assert that all columns ending with `"time"` are numeric columns as follows:
+
+```{r}
+library(nycflights13)
+
+cols <- feature_columns(names = flights,
+  column_numeric(ends_with("time"))
+)
+```
+
+The `names` parameter can either be a character vector with the names as-is, or any named R object.
+
+If the code you are using to compose columns is more complicated, or if you need to save references to columns for use in column embeddings you can also establish a scope for given set of column names using the `with_columns()` function:
+
+```{r}
+cols <- with_columns(flights, {
+  feature_columns(
+    column_numeric(ends_with("time"))
+  )
+})
+```
+
+You can also use an alternate syntax of the form `(pattern) ~ (column)`, which can add clarity when longer pattern rules are used, as it separates the matching rule from the column definition:
+
+```{r}
+cols <- with_columns(flights, {
+  feature_columns(
+    ends_with("time") ~ column_numeric(),
+  )
+})
+```
+
+Available pattern matching operators include:
+
+| Operator | Description |
+|---------------------------------------|----------------------------------------------------------------|
+| `starts_with()`  | Starts with a prefix  |
+| `ends_with()`  |  Ends with a suffix |
+| `contains()`  |  Contains a literal string |
+| `matches()`  | Matches a regular expression |
+| `one_of()`  |  Included in character vector |
+| `everything()`  | All columns |
+
+See `help("select_helpers", package = "tidyselect")` for full information on the set of
+helpers made available by the **tidyselect** package.
+
+
+

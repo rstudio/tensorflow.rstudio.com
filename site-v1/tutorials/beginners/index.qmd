@@ -1,0 +1,115 @@
+---
+title: "Overview"
+type: docs
+menu:
+  main:
+    name: "Quickstart"
+    identifier: "tutorials-beginners-quickstart-quickstart"
+    parent: "tutorials-top"
+    weight: 23
+---
+
+This short introduction uses Keras to:
+
+1. Build a neural network that classifies images.
+1. Train this neural network.
+1. And, finally, evaluate the accuracy of the model.
+1. Save and restore the created model.
+
+Before running the quickstart you need to have Keras installed. Please refer to the [installation](/installation/) section for installation instructions.
+
+```{r}
+library(keras)
+```
+
+Let's start by loading and preparing the [MNIST dataset](http://yann.lecun.com/exdb/mnist/). The values of the pixels are integers between 0 and 255, and we will convert them to floats between 0 and 1.
+
+```{r}
+mnist <- dataset_mnist()
+mnist$train$x <- mnist$train$x/255
+mnist$test$x <- mnist$test$x/255
+```
+
+Now, let's define the a Keras model using the sequential API.
+
+```{r}
+model <- keras_model_sequential() %>% 
+  layer_flatten(input_shape = c(28, 28)) %>% 
+  layer_dense(units = 128, activation = "relu") %>% 
+  layer_dropout(0.2) %>% 
+  layer_dense(10, activation = "softmax")
+```
+
+**Note** that when using the Sequential API the first layer must specify the `input_shape` argument which represents the dimensions of the input. In our case, the images are 28x28.
+
+After defining the model, you can see information about layers, number of parameters, etc. with the `summary` function:
+
+```{r}
+summary(model)
+```
+
+The next step after building the model is to compile it. It's at compile time that we define what **loss** will be optimized and what **optimizer** will be used. You can also specify metrics, callbacks etc. that are meant to be run during the model fitting.
+
+Compiling is done with the `compile` function:
+
+```{r}
+model %>% 
+  compile(
+    loss = "sparse_categorical_crossentropy",
+    optimizer = "adam",
+    metrics = "accuracy"
+  )
+```
+
+**Note** that `compile` and `fit` (which we are going to see next) modify the `model` object in place, unlike most R functions. 
+
+Now let's fit our model:
+
+```{r}
+model %>% 
+  fit(
+    x = mnist$train$x, y = mnist$train$y,
+    epochs = 5,
+    validation_split = 0.3,
+    verbose = 2
+  )
+```
+
+We can now make predictions with our model using the `predict` function:
+
+```{r}
+predictions <- predict(model, mnist$test$x)
+head(predictions, 2)
+```
+
+By default `predict` will return the output of the last Keras layer.
+In our case this is the probability for each class. You can also use `predict_classes` and `predict_proba` to generate `class` and  `probability` outputs - these functions are slightly different from `predict`, since they will be run in batches.
+
+You can assess model performance on a different dataset using the `evaluate` function, for example:
+
+```{r}
+model %>% 
+  evaluate(mnist$test$x, mnist$test$y, verbose = 0)
+```
+
+Our model achieved ~90% accuracy on the test set. 
+
+Unlike models built with the `lm` function, to save Keras models for later prediction, you need to use specialized functions, like `save_model_tf`:
+
+```{r}
+save_model_tf(object = model, filepath = "model")
+```
+
+You can then reload the model and use it to make predictions:
+
+```{r}
+reloaded_model <- load_model_tf("model")
+all.equal(predict(model, mnist$test$x), predict(reloaded_model, mnist$test$x))
+```
+
+More information about saving and serializing models, as well as about different model types, is available in the guides.
+
+```{r include=FALSE}
+system("rm -r model")
+```
+
