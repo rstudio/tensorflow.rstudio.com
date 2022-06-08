@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.377">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>TensorFlow for R - Introduction to Tensors</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<link href="../../images/favicon/icon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <img src="../../images/favicon/icon.png" alt="">
+    <span class="navbar-title">TensorFlow for R</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../install/">Install</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutorials/">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../guides/">Guides</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../examples/">Examples</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../reference/">Reference</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../v1/">v1</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#basics" id="toc-basics" class="nav-link active" data-scroll-target="#basics">Basics</a></li>
+  <li><a href="#about-shapes" id="toc-about-shapes" class="nav-link" data-scroll-target="#about-shapes">About shapes</a></li>
+  <li><a href="#indexing" id="toc-indexing" class="nav-link" data-scroll-target="#indexing">Indexing</a>
+  <ul class="collapse">
+  <li><a href="#single-axis-indexing" id="toc-single-axis-indexing" class="nav-link" data-scroll-target="#single-axis-indexing">Single-axis indexing</a></li>
+  <li><a href="#multi-axis-indexing" id="toc-multi-axis-indexing" class="nav-link" data-scroll-target="#multi-axis-indexing">Multi-axis indexing</a></li>
+  </ul></li>
+  <li><a href="#manipulating-shapes" id="toc-manipulating-shapes" class="nav-link" data-scroll-target="#manipulating-shapes">Manipulating Shapes</a></li>
+  <li><a href="#more-on-dtypes" id="toc-more-on-dtypes" class="nav-link" data-scroll-target="#more-on-dtypes">More on <code>DTypes</code></a></li>
+  <li><a href="#broadcasting" id="toc-broadcasting" class="nav-link" data-scroll-target="#broadcasting">Broadcasting</a></li>
+  <li><a href="#tfconvert_to_tensor" id="toc-tfconvert_to_tensor" class="nav-link" data-scroll-target="#tfconvert_to_tensor"><code>tf$convert_to_tensor</code></a></li>
+  <li><a href="#ragged-tensors" id="toc-ragged-tensors" class="nav-link" data-scroll-target="#ragged-tensors">Ragged Tensors</a></li>
+  <li><a href="#string-tensors" id="toc-string-tensors" class="nav-link" data-scroll-target="#string-tensors">String tensors</a></li>
+  <li><a href="#sparse-tensors" id="toc-sparse-tensors" class="nav-link" data-scroll-target="#sparse-tensors">Sparse tensors</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/t-kalinowski/tf-site/edit/main/guides/tensorflow/tensor.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/t-kalinowski/tf-site/blob/main/guides/tensorflow/tensor.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/t-kalinowski/tf-site/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction to Tensors</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="copyright-2020-the-tensorflow-authors." class="level5">
+<h5 class="anchored" data-anchor-id="copyright-2020-the-tensorflow-authors.">Copyright 2020 The TensorFlow Authors.</h5>
+<div class="cell" data-cellview="form">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#@title Licensed under the Apache License, Version 2.0 (the "License");</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># you may not use this file except in compliance with the License.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># You may obtain a copy of the License at</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.apache.org/licenses/LICENSE-2.0</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Unless required by applicable law or agreed to in writing, software</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># distributed under the License is distributed on an "AS IS" BASIS,</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># See the License for the specific language governing permissions and</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># limitations under the License.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Tensors are multi-dimensional arrays with a uniform type (called a <code>dtype</code>). You can see all supported <code>dtypes</code> with <code>names(tf$dtypes)</code>.</p>
+<p>If you’re familiar with R array or <a href="https://numpy.org/devdocs/user/quickstart.html">NumPy</a>, tensors are (kind of) like R or NumPy arrays.</p>
+<p>All tensors are immutable: you can never update the contents of a tensor, only create a new one.</p>
+</section>
+<section id="basics" class="level2">
+<h2 class="anchored" data-anchor-id="basics">Basics</h2>
+<p>Let’s create some basic tensors.</p>
+<p>Here is a “scalar” or “rank-0” tensor . A scalar contains a single value, and no “axes”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This will be an float64 tensor by default; see "dtypes" below.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rank_0_tensor <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="dv">4</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rank_0_tensor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A “vector” or “rank-1” tensor is like a list of values. A vector has one axis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rank_1_tensor <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rank_1_tensor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A “matrix” or “rank-2” tensor has two axes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># If you want to be specific, you can set the dtype (see below) at creation time</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rank_2_tensor <span class="ot">&lt;-</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tensor</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)), </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">dtype=</span>tf<span class="sc">$</span>float16)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rank_2_tensor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 38%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>A scalar, shape: <code>[]</code></th>
+<th>A vector, shape: <code>[3]</code></th>
+<th>A matrix, shape: <code>[3, 2]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/tensor/scalar.png" class="img-fluid" alt="A scalar, the number 4"></td>
+<td><img src="images/tensor/vector.png" class="img-fluid" alt="The line with 3 sections, each one containing a number."></td>
+<td><img src="images/tensor/matrix.png" class="img-fluid" alt="A 3x2 grid, with each cell containing a number."></td>
+</tr>
+</tbody>
+</table>
+<p>Tensors may have more axes; here is a tensor with three axes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There can be an arbitrary number of</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># axes (sometimes called "dimensions")</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>rank_3_tensor <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">29</span>, <span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">5</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>rank_3_tensor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are many ways you might visualize a tensor with more than two axes.</p>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>A 3-axis tensor, shape: <code>[3, 2, 5]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td><img src="images/tensor/3-axis_numpy.png" class="img-fluid">! <img src="images/tensor/3-axis_numpy.png" class="img-fluid"> <img src="images/tensor/3-axis_block.png" class="img-fluid"></td>
+</tr>
+</tbody>
+</table>
+<p>You can convert a tensor to an R array using <code>as.array()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.array</span>(rank_2_tensor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Tensors often contain floats and ints, but have many other types, including:</p>
+<ul>
+<li>complex numbers</li>
+<li>strings</li>
+</ul>
+<p>The base <code>tf$Tensor</code> class requires tensors to be “rectangular”—that is, along each axis, every element is the same size. However, there are specialized types of tensors that can handle different shapes:</p>
+<ul>
+<li>Ragged tensors (see <a href="#ragged_tensors">RaggedTensor</a> below)</li>
+<li>Sparse tensors (see <a href="#sparse_tensors">SparseTensor</a> below)</li>
+</ul>
+<p>You can do basic math on tensors, including addition, element-wise multiplication, and matrix multiplication.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(1L, <span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> b <span class="co"># element-wise addition, same as tf$add(a, b)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>a <span class="sc">*</span> b <span class="co"># element-wise multiplication, same as tf$multiply(a, b)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">matmul</span>(a, b) <span class="co"># matrix multiplication</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Tensors are used in all kinds of operations (ops).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>), <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">1</span>)))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the largest value</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the largest value</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">reduce_max</span>(x) <span class="co"># can also just call max(c)</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the index of the largest value</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span>math<span class="sc">$</span><span class="fu">argmax</span>(x) </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">softmax</span>(x) <span class="co"># Compute the softmax</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="about-shapes" class="level2">
+<h2 class="anchored" data-anchor-id="about-shapes">About shapes</h2>
+<p>Tensors have shapes. Some vocabulary:</p>
+<ul>
+<li><strong>Shape</strong>: The length (number of elements) of each of the axes of a tensor.</li>
+<li><strong>Rank</strong>: Number of tensor axes. A scalar has rank 0, a vector has rank 1, a matrix is rank 2.</li>
+<li><strong>Axis</strong> or <strong>Dimension</strong>: A particular dimension of a tensor.</li>
+<li><strong>Size</strong>: The total number of items in the tensor, the product of the shape vector’s elements.</li>
+</ul>
+<p>Note: Although you may see reference to a “tensor of two dimensions”, a rank-2 tensor does not usually describe a 2D space.</p>
+<p>Tensors and <code>tf$TensorShape</code> objects have convenient properties for accessing these:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>rank_4_tensor <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">zeros</span>(<span class="fu">shape</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="table">
+<thead>
+<tr class="header">
+<th>A rank-4 tensor, shape: <code>[3, 2, 4, 5]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/tensor/shape.png" class="img-fluid" alt="A tensor shape is like a vector."></td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"Type of every element: "</span>, rank_4_tensor<span class="sc">$</span>dtype)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"Number of axes: "</span>, <span class="fu">length</span>(<span class="fu">dim</span>(rank_4_tensor)))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"Shape of tensor: "</span>, <span class="fu">dim</span>(rank_4_tensor)) <span class="co"># can also access via rank_4_tensor$shape</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"Elements along axis 0 of tensor: "</span>, <span class="fu">dim</span>(rank_4_tensor)[<span class="dv">1</span>])</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"Elements along the last axis of tensor: "</span>, <span class="fu">dim</span>(rank_4_tensor) <span class="sc">|&gt;</span> <span class="fu">tail</span>(<span class="dv">1</span>)) </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">message</span>(<span class="st">"Total number of elements (3*2*4*5): "</span>, <span class="fu">length</span>(rank_4_tensor)) <span class="co"># can also call tf$size()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>While axes are often referred to by their indices, you should always keep track of the meaning of each. Often axes are ordered from global to local: The batch axis first, followed by spatial dimensions, and features for each location last. This way feature vectors are contiguous regions of memory.</p>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typical axis order</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/tensor/shape2.png" class="img-fluid" alt="Keep track of what each axis is. A 4-axis tensor might be: Batch, Width, Height, Features"></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="indexing" class="level2">
+<h2 class="anchored" data-anchor-id="indexing">Indexing</h2>
+<section id="single-axis-indexing" class="level3">
+<h3 class="anchored" data-anchor-id="single-axis-indexing">Single-axis indexing</h3>
+<p>See <code>?`[.tensorflow.tensor`</code> for details</p>
+</section>
+<section id="multi-axis-indexing" class="level3">
+<h3 class="anchored" data-anchor-id="multi-axis-indexing">Multi-axis indexing</h3>
+<p>Higher rank tensors are indexed by passing multiple indices.</p>
+<p>The exact same rules as in the single-axis case apply to each axis independently.</p>
+<p>Read the <a href="https://tensorflow.org/guide/tensor_slicing">tensor slicing guide</a> to learn how you can apply indexing to manipulate individual elements in your tensors.</p>
+</section>
+</section>
+<section id="manipulating-shapes" class="level2">
+<h2 class="anchored" data-anchor-id="manipulating-shapes">Manipulating Shapes</h2>
+<p>Reshaping a tensor is of great utility.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shape returns a `TensorShape` object that shows the size along each axis</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)) </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span>shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can convert this object into an R vector too</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.integer</span>(x<span class="sc">$</span>shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can reshape a tensor into a new shape. The <code>tf$reshape</code> operation is fast and cheap as the underlying data does not need to be duplicated.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can reshape a tensor to a new shape.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that you're passing in integers</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>reshaped <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">reshape</span>(x, <span class="fu">c</span>(1L, 3L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span>shape</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>reshaped<span class="sc">$</span>shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The data maintains its layout in memory and a new tensor is created, with the requested shape, pointing to the same data. TensorFlow uses C-style “row-major” memory ordering, where incrementing the rightmost index corresponds to a single step in memory.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rank_3_tensor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you flatten a tensor you can see what order it is laid out in memory.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A `-1` passed in the `shape` argument says "Whatever fits".</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">reshape</span>(rank_3_tensor, <span class="fu">c</span>(<span class="sc">-</span>1L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A typical and reasonable use of <code>tf$reshape</code> is to combine or split adjacent axes (or add/remove <code>1</code>s).</p>
+<p>For this 3x2x5 tensor, reshaping to (3x2)x5 or 3x(2x5) are both reasonable things to do, as the slices do not mix:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">reshape</span>(rank_3_tensor, <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">3</span><span class="sc">*</span><span class="dv">2</span>, <span class="dv">5</span>)))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">reshape</span>(rank_3_tensor, <span class="fu">as.integer</span>(<span class="fu">c</span>(3L, <span class="sc">-</span>1L)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Some good reshapes.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/tensor/reshape-before.png" class="img-fluid" alt="A 3x2x5 tensor"> <img src="images/tensor/reshape-good1.png" class="img-fluid" alt="3x10"> <img src="images/tensor/reshape-good2.png" class="img-fluid" alt="6x5"></td>
+</tr>
+</tbody>
+</table>
+<p>https://www.tensorflow.org/guide/images/tensor/reshape-before.png https://www.tensorflow.org/guide/ https://www.tensorflow.org/guide/images/tensor/reshape-good2.png</p>
+<p>Reshaping will “work” for any new shape with the same total number of elements, but it will not do anything useful if you do not respect the order of the axes.</p>
+<p>Swapping axes in <code>tf$reshape</code> does not work; you need <code>tf$transpose</code> for that.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bad examples: don't do this</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># You can't reorder axes with reshape.</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">reshape</span>(rank_3_tensor, <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>)))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a mess</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">reshape</span>(rank_3_tensor, <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)))</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># This doesn't work at all</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(tf<span class="sc">$</span><span class="fu">reshape</span>(rank_3_tensor, <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">7</span>, <span class="sc">-</span><span class="dv">1</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Some bad reshapes.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/tensor/reshape-bad.png" class="img-fluid" alt="You can’t reorder axes, use tf$transpose for that"> <img src="images/tensor/reshape-bad4.png" class="img-fluid" alt="Anything that mixes the slices of data together is probably wrong."> <img src="images/tensor/reshape-bad2.png" class="img-fluid" alt="The new shape must fit exactly"></td>
+</tr>
+</tbody>
+</table>
+<p>You may run across not-fully-specified shapes. Either the shape contains a <code>NULL</code> (an axis-length is unknown) or the whole shape is <code>NULL</code> (the rank of the tensor is unknown).</p>
+<p>Except for <a href="#ragged_tensors"><code>tf$RaggedTensor</code></a>, such shapes will only occur in the context of TensorFlow’s symbolic, graph-building APIs:</p>
+<ul>
+<li><a href="function.qmd">tf_function</a></li>
+<li>The <a href="https://www.tensorflow.org/guide/keras/functional">keras functional API</a>.</li>
+</ul>
+</section>
+<section id="more-on-dtypes" class="level2">
+<h2 class="anchored" data-anchor-id="more-on-dtypes">More on <code>DTypes</code></h2>
+<p>To inspect a <code>tf$Tensor</code>’s data type use the <code>Tensor$dtype</code> property.</p>
+<p>When creating a <code>tf$Tensor</code> from a Python object you may optionally specify the datatype.</p>
+<p>If you don’t, TensorFlow chooses a datatype that can represent your data. TensorFlow converts R integers to <code>tf$int32</code> and R floating point numbers to <code>tf$float64</code>.</p>
+<p>You can cast from type to type.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>the_f64_tensor <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(<span class="fl">2.2</span>, <span class="fl">3.3</span>, <span class="fl">4.4</span>), <span class="at">dtype =</span> tf<span class="sc">$</span>float64)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>the_f16_tensor <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">cast</span>(the_f64_tensor, <span class="at">dtype =</span> tf<span class="sc">$</span>float16)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, cast to an uint8 and lose the decimal precision</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>the_u8_tensor <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">cast</span>(the_f16_tensor, <span class="at">dtype =</span> tf<span class="sc">$</span>uint8)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>the_u8_tensor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="broadcasting" class="level2">
+<h2 class="anchored" data-anchor-id="broadcasting">Broadcasting</h2>
+<p>Broadcasting is a concept borrowed from the <a href="https://numpy.org/doc/stable/user/basics.html">equivalent feature in NumPy</a>. In short, under certain conditions, smaller tensors are recycled automatically to fit larger tensors when running combined operations on them.</p>
+<p>The simplest and most common case is when you attempt to multiply or add a tensor to a scalar. In that case, the scalar is broadcast to be the same shape as the other argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="dv">2</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># All of these are the same computation</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">multiply</span>(x, <span class="dv">2</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>x <span class="sc">*</span> y</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>x <span class="sc">*</span> z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Likewise, axes with length 1 can be stretched out to match the other arguments. Both arguments can be stretched in the same computation.</p>
+<p>In this case a 3x1 matrix is element-wise multiplied by a 1x4 matrix to produce a 3x4 matrix. Note how the leading 1 is optional: The shape of y is <code>[4]</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These are the same computations</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">reshape</span>(x, <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>(y <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">range</span>(<span class="dv">1</span>, <span class="dv">5</span>,  <span class="at">dtype =</span> <span class="st">"float64"</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>x <span class="sc">*</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>A broadcasted add: a <code>[3, 1]</code> times a <code>[1, 4]</code> gives a <code>[3,4]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/tensor/broadcasting.png" class="img-fluid" alt="Adding a 3x1 matrix to a 4x1 matrix results in a 3x4 matrix">\</td>
+</tr>
+</tbody>
+</table>
+<p>Here is the same operation without broadcasting:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x_stretch <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>)))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>y_stretch <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>                             <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)))</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>x_stretch <span class="sc">*</span> y_stretch  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Most of the time, broadcasting is both time and space efficient, as the broadcast operation never materializes the expanded tensors in memory.</p>
+<p>You see what broadcasting looks like using <code>tf$broadcast_to</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">broadcast_to</span>(<span class="fu">as_tensor</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)), <span class="fu">c</span>(3L, 3L))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Unlike a mathematical op, for example, <code>broadcast_to</code> does nothing special to save memory. Here, you are materializing the tensor.</p>
+<p>It can get even more complicated. <a href="https://jakevdp.github.io/PythonDataScienceHandbook/02.05-computation-on-arrays-broadcasting.html">This section</a> of Jake VanderPlas’s book <em>Python Data Science Handbook</em> shows more broadcasting tricks (again in NumPy).</p>
+</section>
+<section id="tfconvert_to_tensor" class="level2">
+<h2 class="anchored" data-anchor-id="tfconvert_to_tensor"><code>tf$convert_to_tensor</code></h2>
+<p>Most ops, like <code>tf$matmul</code> and <code>tf$reshape</code> take arguments of class <code>tf$Tensor</code>. However, you’ll notice in the above case, objects shaped like tensors are also accepted.</p>
+<p>Most, but not all, ops call <code>convert_to_tensor</code> on non-tensor arguments. There is a registry of conversions, and most object classes like NumPy’s <code>ndarray</code>, <code>TensorShape</code>, Python lists, and <code>tf$Variable</code> will all convert automatically.</p>
+<p>See <code>tf$register_tensor_conversion_function</code> for more details, and if you have your own type you’d like to automatically convert to a tensor.</p>
+</section>
+<section id="ragged-tensors" class="level2">
+<h2 class="anchored" data-anchor-id="ragged-tensors">Ragged Tensors</h2>
+<p>A tensor with variable numbers of elements along some axis is called “ragged”. Use <code>tf$ragged$RaggedTensor</code> for ragged data.</p>
+<p>For example, This cannot be represented as a regular tensor:</p>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>A <code>tf$RaggedTensor</code>, shape: <code>[4, NULL]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/tensor/ragged.png" class="img-fluid" alt="A 2-axis ragged tensor, each row can have a different length."></td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ragged_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">list</span>(<span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">list</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">list</span>(<span class="dv">9</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(tensor <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(ragged_list))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Instead create a <code>tf$RaggedTensor</code> using <code>tf$ragged$constant</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>(ragged_tensor <span class="ot">&lt;-</span> tf<span class="sc">$</span>ragged<span class="sc">$</span><span class="fu">constant</span>(ragged_list))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The shape of a <code>tf$RaggedTensor</code> will contain some axes with unknown lengths:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ragged_tensor<span class="sc">$</span>shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="string-tensors" class="level2">
+<h2 class="anchored" data-anchor-id="string-tensors">String tensors</h2>
+<p><code>tf$string</code> is a <code>dtype</code>, which is to say you can represent data as strings (variable-length byte arrays) in tensors.</p>
+<p>The length of the string is not one of the axes of the tensor. See <code>tf$strings</code> for functions to manipulate them.</p>
+<p>Here is a scalar string tensor:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tensors can be strings, too here is a scalar string.</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>(scalar_string_tensor <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="st">"Gray wolf"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And a vector of strings:</p>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>A vector of strings, shape: <code>[3,]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/tensor/strings.png" class="img-fluid" alt="The string length is not one of the tensor’s axes."></td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>tensor_of_strings <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(<span class="st">"Gray wolf"</span>,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Quick brown fox"</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"Lazy dog"</span>))</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that the shape is (3). The string length is not included.</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>tensor_of_strings</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the above printout the <code>b</code> prefix indicates that <code>tf$string</code> dtype is not a unicode string, but a byte-string. See the <a href="https://www.tensorflow.org/tutorials/load_data/unicode">Unicode Tutorial</a> for more about working with unicode text in TensorFlow.</p>
+<p>If you pass unicode characters they are utf-8 encoded.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tensor</span>(<span class="st">"🥳👍"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Some basic functions with strings can be found in <code>tf$strings</code>, including <code>tf$strings$split</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># You can use split to split a string into a set of tensors</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span>strings<span class="sc">$</span><span class="fu">split</span>(scalar_string_tensor, <span class="at">sep=</span><span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ...and it turns into a `RaggedTensor` if you split up a tensor of strings,</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># as each string might be split into a different number of parts.</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span>strings<span class="sc">$</span><span class="fu">split</span>(tensor_of_strings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Three strings split, shape: <code>[3, NULL]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/tensor/string-split.png" class="img-fluid" alt="Splitting multiple strings returns a tf$RaggedTensor"></td>
+</tr>
+</tbody>
+</table>
+<p>And <code>tf$string$to_number</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="st">"1 10 100"</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span>strings<span class="sc">$</span><span class="fu">to_number</span>(tf<span class="sc">$</span>strings<span class="sc">$</span><span class="fu">split</span>(text, <span class="st">" "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Although you can’t use <code>tf$cast</code> to turn a string tensor into numbers, you can convert it into bytes, and then into numbers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>byte_strings <span class="ot">&lt;-</span> tf<span class="sc">$</span>strings<span class="sc">$</span><span class="fu">bytes_split</span>(<span class="fu">as_tensor</span>(<span class="st">"Duck"</span>))</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>byte_ints <span class="ot">&lt;-</span> tf<span class="sc">$</span>io<span class="sc">$</span><span class="fu">decode_raw</span>(<span class="fu">as_tensor</span>(<span class="st">"Duck"</span>), tf<span class="sc">$</span>uint8)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Byte strings: "</span>); <span class="fu">print</span>(byte_strings)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Bytes: "</span>); <span class="fu">print</span>(byte_ints)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or split it up as unicode and then decode it</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>unicode_bytes <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="st">"アヒル 🦆"</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>unicode_char_bytes <span class="ot">&lt;-</span> tf<span class="sc">$</span>strings<span class="sc">$</span><span class="fu">unicode_split</span>(unicode_bytes, <span class="st">"UTF-8"</span>)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>unicode_values <span class="ot">&lt;-</span> tf<span class="sc">$</span>strings<span class="sc">$</span><span class="fu">unicode_decode</span>(unicode_bytes, <span class="st">"UTF-8"</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Unicode bytes: "</span>); unicode_bytes</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Unicode chars: "</span>); unicode_char_bytes</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Unicode values: "</span>); unicode_values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>tf$string</code> dtype is used for all raw bytes data in TensorFlow. The <code>tf$io</code> module contains functions for converting data to and from bytes, including decoding images and parsing csv.</p>
+</section>
+<section id="sparse-tensors" class="level2">
+<h2 class="anchored" data-anchor-id="sparse-tensors">Sparse tensors</h2>
+<p>Sometimes, your data is sparse, like a very wide embedding space. TensorFlow supports <code>tf$sparse$SparseTensor</code> and related operations to store sparse data efficiently.</p>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>A <code>tf$SparseTensor</code>, shape: <code>[3, 4]</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="images/tensor/sparse.png" class="img-fluid" alt="An 3x4 grid, with values in only two of the cells."></td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sparse tensors store values by index in a memory-efficient manner</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>sparse_tensor <span class="ot">&lt;-</span> tf<span class="sc">$</span>sparse<span class="sc">$</span><span class="fu">SparseTensor</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">indices =</span> <span class="fu">rbind</span>(<span class="fu">c</span>(0L, 0L),</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(1L, 2L)),</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dense_shape =</span> <span class="fu">as.integer</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>sparse_tensor</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co"># You can convert sparse tensors to dense</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span>sparse<span class="sc">$</span><span class="fu">to_dense</span>(sparse_tensor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.377">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Scott Zhu, Francois Chollet, Tomasz Kalinowski">
+
+<title>TensorFlow for R - Working with RNNs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<link href="../../guides/keras/writing_your_own_callbacks.html" rel="next">
+<link href="../../guides/keras/transfer_learning.html" rel="prev">
+<link href="../../images/favicon/icon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <img src="../../images/favicon/icon.png" alt="">
+    <span class="navbar-title">TensorFlow for R</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../install/">Install</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../tutorials/">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../guides/">Guides</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../examples/">Examples</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../reference/">Reference</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../v1/">v1</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Working with RNNs</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Tensorflow Basics</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tensorflow/guide/basics.qmd" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tensorflow/guide/tensor.qmd" class="sidebar-item-text sidebar-link">Tensors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tensorflow/guide/variable.qmd" class="sidebar-item-text sidebar-link">Variables</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tensorflow/guide/autodiff.qmd" class="sidebar-item-text sidebar-link">Automatic differentiation</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tensorflow/guide/intro_to_graphs.qmd" class="sidebar-item-text sidebar-link">Graphs and functions</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Keras</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/keras/sequential_model.html" class="sidebar-item-text sidebar-link">The Sequential model</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/keras/functional_api.html" class="sidebar-item-text sidebar-link">The Functional API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/keras/making_new_layers_and_models_via_subclassing.html" class="sidebar-item-text sidebar-link">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/keras/customizing_what_happens_in_fit.html" class="sidebar-item-text sidebar-link">Customizing what happens in <code>fit()</code></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/keras/preprocessing_layers.html" class="sidebar-item-text sidebar-link">Working with preprocessing layers</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/keras/transfer_learning.html" class="sidebar-item-text sidebar-link">Transfer learning and fine-tuning</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/keras/working_with_rnns.html" class="sidebar-item-text sidebar-link active">Working with RNNs</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/keras/writing_your_own_callbacks.html" class="sidebar-item-text sidebar-link">Writing your own callbacks</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Advanced</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/keras/python_subclasses.html" class="sidebar-item-text sidebar-link">Python Subclasses</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Old site</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#built-in-rnn-layers-a-simple-example" id="toc-built-in-rnn-layers-a-simple-example" class="nav-link" data-scroll-target="#built-in-rnn-layers-a-simple-example">Built-in RNN layers: a simple example</a></li>
+  <li><a href="#outputs-and-states" id="toc-outputs-and-states" class="nav-link" data-scroll-target="#outputs-and-states">Outputs and states</a></li>
+  <li><a href="#rnn-layers-and-rnn-cells" id="toc-rnn-layers-and-rnn-cells" class="nav-link" data-scroll-target="#rnn-layers-and-rnn-cells">RNN layers and RNN cells</a></li>
+  <li><a href="#cross-batch-statefulness" id="toc-cross-batch-statefulness" class="nav-link" data-scroll-target="#cross-batch-statefulness">Cross-batch statefulness</a>
+  <ul class="collapse">
+  <li><a href="#rnn-state-reuse" id="toc-rnn-state-reuse" class="nav-link" data-scroll-target="#rnn-state-reuse">RNN State Reuse</a></li>
+  </ul></li>
+  <li><a href="#bidirectional-rnns" id="toc-bidirectional-rnns" class="nav-link" data-scroll-target="#bidirectional-rnns">Bidirectional RNNs</a></li>
+  <li><a href="#performance-optimization-and-cudnn-kernels" id="toc-performance-optimization-and-cudnn-kernels" class="nav-link" data-scroll-target="#performance-optimization-and-cudnn-kernels">Performance optimization and CuDNN kernels</a>
+  <ul class="collapse">
+  <li><a href="#using-cudnn-kernels-when-available" id="toc-using-cudnn-kernels-when-available" class="nav-link" data-scroll-target="#using-cudnn-kernels-when-available">Using CuDNN kernels when available</a></li>
+  </ul></li>
+  <li><a href="#rnns-with-listdict-inputs-or-nested-inputs" id="toc-rnns-with-listdict-inputs-or-nested-inputs" class="nav-link" data-scroll-target="#rnns-with-listdict-inputs-or-nested-inputs">RNNs with list/dict inputs, or nested inputs</a>
+  <ul class="collapse">
+  <li><a href="#define-a-custom-cell-that-supports-nested-inputoutput" id="toc-define-a-custom-cell-that-supports-nested-inputoutput" class="nav-link" data-scroll-target="#define-a-custom-cell-that-supports-nested-inputoutput">Define a custom cell that supports nested input/output</a></li>
+  <li><a href="#build-a-rnn-model-with-nested-inputoutput" id="toc-build-a-rnn-model-with-nested-inputoutput" class="nav-link" data-scroll-target="#build-a-rnn-model-with-nested-inputoutput">Build a RNN model with nested input/output</a></li>
+  <li><a href="#train-the-model-with-randomly-generated-data" id="toc-train-the-model-with-randomly-generated-data" class="nav-link" data-scroll-target="#train-the-model-with-randomly-generated-data">Train the model with randomly generated data</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/t-kalinowski/tf-site/edit/main/guides/keras/working_with_rnns.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/t-kalinowski/tf-site/blob/main/guides/keras/working_with_rnns.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/t-kalinowski/tf-site/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Working with RNNs</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Scott Zhu, Francois Chollet, Tomasz Kalinowski </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Recurrent neural networks (RNN) are a class of neural networks that is powerful for modeling sequence data such as time series or natural language.</p>
+<p>Schematically, a RNN layer uses a <code>for</code> loop to iterate over the timesteps of a sequence, while maintaining an internal state that encodes information about the timesteps it has seen so far.</p>
+<p>The Keras RNN API is designed with a focus on:</p>
+<ul>
+<li><p><strong>Ease of use</strong>: the built-in <code>layer_rnn()</code>, <code>layer_lstm()</code>, <code>layer_gru()</code> layers enable you to quickly build recurrent models without having to make difficult configuration choices.</p></li>
+<li><p><strong>Ease of customization</strong>: You can also define your own RNN cell layer (the inner part of the <code>for</code> loop) with custom behavior, and use it with the generic <code>layer_rnn</code> layer (the <code>for</code> loop itself). This allows you to quickly prototype different research ideas in a flexible way with minimal code.</p></li>
+</ul>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="built-in-rnn-layers-a-simple-example" class="level2">
+<h2 class="anchored" data-anchor-id="built-in-rnn-layers-a-simple-example">Built-in RNN layers: a simple example</h2>
+<p>There are three built-in RNN layers in Keras:</p>
+<ol type="1">
+<li><p><code>layer_simple_rnn()</code>, a fully-connected RNN where the output from the previous timestep is to be fed to the next timestep.</p></li>
+<li><p><code>layer_gru()</code>, first proposed in <a href="https://arxiv.org/abs/1406.1078">Cho et al., 2014</a>.</p></li>
+<li><p><code>layer_lstm()</code>, first proposed in <a href="http://www.bioinf.jku.at/publications/older/2604.pdf">Hochreiter &amp; Schmidhuber, 1997</a>.</p></li>
+</ol>
+<p>Here is a simple example of a sequential model that processes sequences of integers, embeds each integer into a 64-dimensional vector, then processes the sequence of vectors using a <code>layer_lstm()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add an Embedding layer expecting input vocab of size 1000, and</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># output embedding dimension of size 64.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_embedding</span>(<span class="at">input_dim =</span> <span class="dv">1000</span>, <span class="at">output_dim =</span> <span class="dv">64</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a LSTM layer with 128 internal units.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_lstm</span>(<span class="dv">128</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add a Dense layer with 10 units.</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Built-in RNNs support a number of useful features:</p>
+<ul>
+<li>Recurrent dropout, via the <code>dropout</code> and <code>recurrent_dropout</code> arguments</li>
+<li>Ability to process an input sequence in reverse, via the <code>go_backwards</code> argument</li>
+<li>Loop unrolling (which can lead to a large speedup when processing short sequences on CPU), via the <code>unroll</code> argument</li>
+<li>…and more.</li>
+</ul>
+<p>For more information, see the <a href="https://keras.io/api/layers/recurrent_layers/">RNN API documentation</a>.</p>
+</section>
+<section id="outputs-and-states" class="level2">
+<h2 class="anchored" data-anchor-id="outputs-and-states">Outputs and states</h2>
+<p>By default, the output of a RNN layer contains a single vector per sample. This vector is the RNN cell output corresponding to the last timestep, containing information about the entire input sequence. The shape of this output is <code>(batch_size, units)</code> where <code>units</code> corresponds to the <code>units</code> argument passed to the layer’s constructor.</p>
+<p>A RNN layer can also return the entire sequence of outputs for each sample (one vector per timestep per sample), if you set <code>return_sequences = TRUE</code>. The shape of this output is <code>(batch_size, timesteps, units)</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_embedding</span>(<span class="at">input_dim =</span> <span class="dv">1000</span>, <span class="at">output_dim =</span> <span class="dv">64</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The output of GRU will be a 3D tensor of shape (batch_size, timesteps, 256)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_gru</span>(<span class="dv">256</span>, <span class="at">return_sequences =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The output of SimpleRNN will be a 2D tensor of shape (batch_size, 128)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_simple_rnn</span>(<span class="dv">128</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In addition, a RNN layer can return its final internal state(s). The returned states can be used to resume the RNN execution later, or <a href="https://arxiv.org/abs/1409.3215">to initialize another RNN</a>. This setting is commonly used in the encoder-decoder sequence-to-sequence model, where the encoder final state is used as the initial state of the decoder.</p>
+<p>To configure a RNN layer to return its internal state, set <code>return_state = TRUE</code> when creating the layer. Note that <code>LSTM</code> has 2 state tensors, but <code>GRU</code> only has one.</p>
+<p>To configure the initial state of the layer, call the layer instance with the additional named argument <code>initial_state</code>. Note that the shape of the state needs to match the unit size of the layer, like in the example below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>encoder_vocab <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>decoder_vocab <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>encoder_input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="cn">NULL</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>encoder_embedded <span class="ot">&lt;-</span> encoder_input <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_embedding</span>(<span class="at">input_dim=</span>encoder_vocab, <span class="at">output_dim=</span><span class="dv">64</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Return states in addition to output</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(output, state_h, state_c) <span class="sc">%&lt;-%</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_lstm</span>(encoder_embedded, <span class="at">units =</span> <span class="dv">64</span>, <span class="at">return_state=</span><span class="cn">TRUE</span>, <span class="at">name=</span><span class="st">"encoder"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>encoder_state <span class="ot">&lt;-</span> <span class="fu">list</span>(state_h, state_c)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>decoder_input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="cn">NULL</span>))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>decoder_embedded <span class="ot">&lt;-</span> decoder_input <span class="sc">%&gt;%</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_embedding</span>(<span class="at">input_dim =</span> decoder_vocab, <span class="at">output_dim =</span> <span class="dv">64</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Pass the 2 states to a new LSTM layer, as initial state</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>decoder_lstm_layer <span class="ot">&lt;-</span> <span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">name =</span> <span class="st">"decoder"</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>decoder_output <span class="ot">&lt;-</span> <span class="fu">decoder_lstm_layer</span>(decoder_embedded, <span class="at">initial_state =</span> encoder_state)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> decoder_output <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(<span class="at">inputs =</span> <span class="fu">list</span>(encoder_input, decoder_input),</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>                     <span class="at">outputs =</span> output)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="rnn-layers-and-rnn-cells" class="level2">
+<h2 class="anchored" data-anchor-id="rnn-layers-and-rnn-cells">RNN layers and RNN cells</h2>
+<p>In addition to the built-in RNN layers, the RNN API also provides cell-level APIs. Unlike RNN layers, which process whole batches of input sequences, the RNN cell only processes a single timestep.</p>
+<p>The cell is the inside of the <code>for</code> loop of a RNN layer. Wrapping a cell inside a <code>layer_rnn()</code> layer gives you a layer capable of processing a sequence, e.g.&nbsp;<code>layer_rnn(layer_lstm_cell(10))</code>.</p>
+<p>Mathematically, <code>layer_rnn(layer_lstm_cell(10))</code> produces the same result as <code>layer_lstm(10)</code>. In fact, the implementation of this layer in TF v1.x was just creating the corresponding RNN cell and wrapping it in a RNN layer. However using the built-in <code>layer_gru()</code> and <code>layer_lstm()</code> layers enable the use of CuDNN and you may see better performance.</p>
+<p>There are three built-in RNN cells, each of them corresponding to the matching RNN layer.</p>
+<ul>
+<li><p><code>layer_simple_rnn_cell()</code> corresponds to the <code>layer_simple_rnn()</code> layer.</p></li>
+<li><p><code>layer_gru_cell</code> corresponds to the <code>layer_gru</code> layer.</p></li>
+<li><p><code>layer_lstm_cell</code> corresponds to the <code>layer_lstm</code> layer.</p></li>
+</ul>
+<p>The cell abstraction, together with the generic <code>layer_rnn()</code> class, makes it very easy to implement custom RNN architectures for your research.</p>
+</section>
+<section id="cross-batch-statefulness" class="level2">
+<h2 class="anchored" data-anchor-id="cross-batch-statefulness">Cross-batch statefulness</h2>
+<p>When processing very long (possibly infinite) sequences, you may want to use the pattern of <strong>cross-batch statefulness</strong>.</p>
+<p>Normally, the internal state of a RNN layer is reset every time it sees a new batch (i.e.&nbsp;every sample seen by the layer is assumed to be independent of the past). The layer will only maintain a state while processing a given sample.</p>
+<p>If you have very long sequences though, it is useful to break them into shorter sequences, and to feed these shorter sequences sequentially into a RNN layer without resetting the layer’s state. That way, the layer can retain information about the entirety of the sequence, even though it’s only seeing one sub-sequence at a time.</p>
+<p>You can do this by setting <code>stateful = TRUE</code> in the constructor.</p>
+<p>If you have a sequence <code>s = c(t0, t1, ... t1546, t1547)</code>, you would split it into e.g.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">=</span> <span class="fu">c</span>(t0, t1, ..., t100)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">=</span> <span class="fu">c</span>(t101, ..., t201)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>s16 <span class="ot">=</span> <span class="fu">c</span>(t1501, ..., t1547)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then you would process it via:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lstm_layer <span class="ot">&lt;-</span> <span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">stateful =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(s <span class="cf">in</span> sub_sequences)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">lstm_layer</span>(s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When you want to clear the state, you can use <code>layer$reset_states()</code>.</p>
+<blockquote class="blockquote">
+<p>Note: In this setup, sample <code>i</code> in a given batch is assumed to be the continuation of sample <code>i</code> in the previous batch. This means that all batches should contain the same number of samples (batch size). E.g. if a batch contains <code>[sequence_A_from_t0_to_t100, sequence_B_from_t0_to_t100]</code>, the next batch should contain <code>[sequence_A_from_t101_to_t200,  sequence_B_from_t101_to_t200]</code>.</p>
+</blockquote>
+<p>Here is a complete example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>paragraph1 <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">50</span>), <span class="at">dtype =</span> <span class="st">"float32"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>paragraph2 <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">50</span>), <span class="at">dtype =</span> <span class="st">"float32"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>paragraph3 <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">50</span>), <span class="at">dtype =</span> <span class="st">"float32"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>lstm_layer <span class="ot">&lt;-</span> <span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">stateful =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">lstm_layer</span>(paragraph1)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">lstm_layer</span>(paragraph2)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">lstm_layer</span>(paragraph3)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># reset_states() will reset the cached state to the original initial_state.</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># If no initial_state was provided, zero-states will be used by default.</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>lstm_layer<span class="sc">$</span><span class="fu">reset_states</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="rnn-state-reuse" class="level3">
+<h3 class="anchored" data-anchor-id="rnn-state-reuse">RNN State Reuse</h3>
+<p>The recorded states of the RNN layer are not included in the <code>layer$weights()</code>. If you would like to reuse the state from a RNN layer, you can retrieve the states value by <code>layer$states</code> and use it as the initial state of a new layer instance via the Keras functional API like <code>new_layer(inputs, initial_state = layer$states)</code>, or model subclassing.</p>
+<p>Please also note that a sequential model cannot be used in this case since it only supports layers with single input and output. The extra input of initial state makes it impossible to use here.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>paragraph1 <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">50</span>), <span class="at">dtype =</span> <span class="st">"float32"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>paragraph2 <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">50</span>), <span class="at">dtype =</span> <span class="st">"float32"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>paragraph3 <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">50</span>), <span class="at">dtype =</span> <span class="st">"float32"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>lstm_layer <span class="ot">&lt;-</span> <span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">stateful =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">lstm_layer</span>(paragraph1)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">lstm_layer</span>(paragraph2)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>existing_state <span class="ot">&lt;-</span> lstm_layer<span class="sc">$</span>states</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>new_lstm_layer <span class="ot">&lt;-</span> <span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">64</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>new_output <span class="ot">&lt;-</span> <span class="fu">new_lstm_layer</span>(paragraph3, <span class="at">initial_state =</span> existing_state)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="bidirectional-rnns" class="level2">
+<h2 class="anchored" data-anchor-id="bidirectional-rnns">Bidirectional RNNs</h2>
+<p>For sequences other than time series (e.g.&nbsp;text), it is often the case that a RNN model can perform better if it not only processes sequence from start to end, but also backwards. For example, to predict the next word in a sentence, it is often useful to have the context around the word, not only just the words that come before it.</p>
+<p>Keras provides an easy API for you to build such bidirectional RNNs: the <code>bidirectional()</code> wrapper.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">shape</span>(<span class="dv">5</span>, <span class="dv">10</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bidirectional</span>(<span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">64</span>, <span class="at">return_sequences =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bidirectional</span>(<span class="fu">layer_lstm</span>(<span class="at">units =</span> <span class="dv">32</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Under the hood, <code>bidirectional()</code> will copy the RNN layer passed in, and flip the <code>go_backwards</code> field of the newly copied layer, so that it will process the inputs in reverse order.</p>
+<p>The output of the <code>bidirectional</code> RNN will be, by default, the concatenation of the forward layer output and the backward layer output. If you need a different merging behavior, e.g.&nbsp;averaging, change the <code>merge_mode</code> parameter in the <code>bidirectional</code> wrapper constructor. For more details about <code>bidirectional</code>, please check <a href="https://keras.io/api/layers/recurrent_layers/bidirectional/">the API docs</a>.</p>
+</section>
+<section id="performance-optimization-and-cudnn-kernels" class="level2">
+<h2 class="anchored" data-anchor-id="performance-optimization-and-cudnn-kernels">Performance optimization and CuDNN kernels</h2>
+<p>In TensorFlow 2.0, the built-in LSTM and GRU layers have been updated to leverage CuDNN kernels by default when a GPU is available. With this change, the prior <code>layer_cudnn_gru/layer_cudnn_lstm</code> layers have been deprecated, and you can build your model without worrying about the hardware it will run on.</p>
+<p>Since the CuDNN kernel is built with certain assumptions, this means the layer <strong>will not be able to use the CuDNN kernel if you change the defaults of the built-in LSTM or GRU layers</strong>. E.g.:</p>
+<ul>
+<li>Changing the <code>activation</code> function from <code>"tanh"</code> to something else.</li>
+<li>Changing the <code>recurrent_activation</code> function from <code>"sigmoid"</code> to something else.</li>
+<li>Using <code>recurrent_dropout &gt; 0</code>.</li>
+<li>Setting <code>unroll</code> to <code>TRUE</code>, which forces LSTM/GRU to decompose the inner <code>tf$while_loop</code> into an unrolled <code>for</code> loop.</li>
+<li>Setting <code>use_bias</code> to <code>FALSE</code>.</li>
+<li>Using masking when the input data is not strictly right padded (if the mask corresponds to strictly right padded data, CuDNN can still be used. This is the most common case).</li>
+</ul>
+<p>For the detailed list of constraints, please see the documentation for the <a href="https://keras.io/api/layers/recurrent_layers/lstm/">LSTM</a> and <a href="https://keras.io/api/layers/recurrent_layers/gru/">GRU</a> layers.</p>
+<section id="using-cudnn-kernels-when-available" class="level3">
+<h3 class="anchored" data-anchor-id="using-cudnn-kernels-when-available">Using CuDNN kernels when available</h3>
+<p>Let’s build a simple LSTM model to demonstrate the performance difference.</p>
+<p>We’ll use as input sequences the sequence of rows of MNIST digits (treating each row of pixels as a timestep), and we’ll predict the digit’s label.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>batch_size <span class="ot">&lt;-</span> <span class="dv">64</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Each MNIST image batch is a tensor of shape (batch_size, 28, 28).</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Each input sequence will be of size (28, 28) (height is treated like time).</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>input_dim <span class="ot">&lt;-</span> <span class="dv">28</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>units <span class="ot">&lt;-</span> <span class="dv">64</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>output_size <span class="ot">&lt;-</span> <span class="dv">10</span>  <span class="co"># labels are from 0 to 9</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the RNN model</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>build_model <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">allow_cudnn_kernel =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># CuDNN is only available at the layer level, and not at the cell level.</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This means `layer_lstm(units = units)` will use the CuDNN kernel,</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># while layer_rnn(cell = layer_lstm_cell(units)) will run on non-CuDNN kernel.</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (allow_cudnn_kernel)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The LSTM layer with default options uses CuDNN.</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    lstm_layer <span class="ot">&lt;-</span> <span class="fu">layer_lstm</span>(<span class="at">units =</span> units)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Wrapping a LSTMCell in a RNN layer will not use CuDNN.</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    lstm_layer <span class="ot">&lt;-</span> <span class="fu">layer_rnn</span>(<span class="at">cell =</span> <span class="fu">layer_lstm_cell</span>(<span class="at">units =</span> units))</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">shape</span>(<span class="cn">NULL</span>, input_dim)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lstm_layer</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_batch_normalization</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dense</span>(output_size)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>  model</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s load the MNIST dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mnist <span class="ot">&lt;-</span> <span class="fu">dataset_mnist</span>()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mnist<span class="sc">$</span>train<span class="sc">$</span>x <span class="ot">&lt;-</span> mnist<span class="sc">$</span>train<span class="sc">$</span>x <span class="sc">/</span> <span class="dv">255</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>mnist<span class="sc">$</span>test<span class="sc">$</span>x <span class="ot">&lt;-</span> mnist<span class="sc">$</span>test<span class="sc">$</span>x <span class="sc">/</span> <span class="dv">255</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(sample, sample_label) <span class="sc">%&lt;-%</span> <span class="fu">with</span>(mnist<span class="sc">$</span>train, <span class="fu">list</span>(x[<span class="dv">1</span>,,], y[<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s create a model instance and train it.</p>
+<p>We choose <code>sparse_categorical_crossentropy()</code> as the loss function for the model. The output of the model has shape of <code>(batch_size, 10)</code>. The target for the model is an integer vector, each of the integer is in the range of 0 to 9.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">build_model</span>(<span class="at">allow_cudnn_kernel =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">loss =</span> <span class="fu">loss_sparse_categorical_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">optimizer =</span> <span class="st">"sgd"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">metrics =</span> <span class="st">"accuracy"</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  mnist<span class="sc">$</span>train<span class="sc">$</span>x,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  mnist<span class="sc">$</span>train<span class="sc">$</span>y,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_data =</span> <span class="fu">with</span>(mnist<span class="sc">$</span>test, <span class="fu">list</span>(x, y)),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> batch_size,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">1</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, let’s compare to a model that does not use the CuDNN kernel:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>noncudnn_model <span class="ot">&lt;-</span> <span class="fu">build_model</span>(<span class="at">allow_cudnn_kernel=</span><span class="cn">FALSE</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>noncudnn_model<span class="sc">$</span><span class="fu">set_weights</span>(model<span class="sc">$</span><span class="fu">get_weights</span>())</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>noncudnn_model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">loss=</span><span class="fu">loss_sparse_categorical_crossentropy</span>(<span class="at">from_logits=</span><span class="cn">TRUE</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">optimizer=</span><span class="st">"sgd"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">metrics=</span><span class="st">"accuracy"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>noncudnn_model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  mnist<span class="sc">$</span>train<span class="sc">$</span>x,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  mnist<span class="sc">$</span>train<span class="sc">$</span>y,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_data =</span> <span class="fu">with</span>(mnist<span class="sc">$</span>test, <span class="fu">list</span>(x, y)),</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> batch_size,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">1</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When running on a machine with a NVIDIA GPU and CuDNN installed, the model built with CuDNN is much faster to train compared to the model that uses the regular TensorFlow kernel.</p>
+<p>The same CuDNN-enabled model can also be used to run inference in a CPU-only environment. The <code>tf$device()</code> annotation below is just forcing the device placement. The model will run on CPU by default if no GPU is available.</p>
+<p>You simply don’t have to worry about the hardware you’re running on anymore. Isn’t that pretty cool?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">device</span>(<span class="st">"CPU:0"</span>), {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    cpu_model <span class="ot">&lt;-</span> <span class="fu">build_model</span>(<span class="at">allow_cudnn_kernel=</span><span class="cn">TRUE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    cpu_model<span class="sc">$</span><span class="fu">set_weights</span>(model<span class="sc">$</span><span class="fu">get_weights</span>())</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    result <span class="ot">&lt;-</span> cpu_model <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">predict_on_batch</span>(<span class="fu">k_expand_dims</span>(sample, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">k_argmax</span>(<span class="at">axis =</span> <span class="dv">2</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="fu">sprintf</span>(</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Predicted result is: %s, target result is: %s</span><span class="sc">\n</span><span class="st">"</span>, <span class="fu">as.numeric</span>(result), sample_label))</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># show mnist image</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    sample <span class="sc">%&gt;%</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">apply</span>(<span class="dv">2</span>, rev) <span class="sc">%&gt;%</span> <span class="co"># flip</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">t</span>() <span class="sc">%&gt;%</span>           <span class="co"># rotate</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">image</span>(<span class="at">axes =</span> <span class="cn">FALSE</span>, <span class="at">asp =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="fu">grey</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">256</span>)))</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="rnns-with-listdict-inputs-or-nested-inputs" class="level2">
+<h2 class="anchored" data-anchor-id="rnns-with-listdict-inputs-or-nested-inputs">RNNs with list/dict inputs, or nested inputs</h2>
+<p>Nested structures allow implementers to include more information within a single timestep. For example, a video frame could have audio and video input at the same time. The data shape in this case could be:</p>
+<p><code>[batch, timestep, {"video": [height, width, channel], "audio": [frequency]}]</code></p>
+<p>In another example, handwriting data could have both coordinates x and y for the current position of the pen, as well as pressure information. So the data representation could be:</p>
+<p><code>[batch, timestep, {"location": [x, y], "pressure": [force]}]</code></p>
+<p>The following code provides an example of how to build a custom RNN cell that accepts such structured inputs.</p>
+<section id="define-a-custom-cell-that-supports-nested-inputoutput" class="level3">
+<h3 class="anchored" data-anchor-id="define-a-custom-cell-that-supports-nested-inputoutput">Define a custom cell that supports nested input/output</h3>
+<p>See <a href="../../guides/making_new_layers_and_models_via_subclassing/">Making new Layers &amp; Models via subclassing</a> for details on writing your own layers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">NestedCell</span>(keras<span class="sc">$</span>layers<span class="sc">$</span>Layer) <span class="sc">%py_class%</span> {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(unit_1, unit_2, unit_3, ...) {</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>unit_1 <span class="ot">&lt;-</span> unit_1</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>unit_2 <span class="ot">&lt;-</span> unit_2</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>unit_3 <span class="ot">&lt;-</span> unit_3</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>state_size <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">shape</span>(unit_1), <span class="fu">shape</span>(unit_2, unit_3))</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>output_size <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">shape</span>(unit_1), <span class="fu">shape</span>(unit_2, unit_3))</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>(...)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  build <span class="ot">&lt;-</span> <span class="cf">function</span>(self, input_shapes) {</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># expect input_shape to contain 2 items, [(batch, i1), (batch, i2, i3)]</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># dput(input_shapes) gives: list(list(NULL, 32L), list(NULL, 64L, 32L))</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    i1 <span class="ot">&lt;-</span> input_shapes[[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)]] <span class="co"># 32</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    i2 <span class="ot">&lt;-</span> input_shapes[[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)]] <span class="co"># 64</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    i3 <span class="ot">&lt;-</span> input_shapes[[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)]] <span class="co"># 32</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>kernel_1 <span class="ot">=</span> self<span class="sc">$</span><span class="fu">add_weight</span>(</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="fu">shape</span>(i1, self<span class="sc">$</span>unit_1),</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">initializer =</span> <span class="st">"uniform"</span>,</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">name =</span> <span class="st">"kernel_1"</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>kernel_2_3 <span class="ot">=</span> self<span class="sc">$</span><span class="fu">add_weight</span>(</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> <span class="fu">shape</span>(i2, i3, self<span class="sc">$</span>unit_2, self<span class="sc">$</span>unit_3),</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">initializer =</span> <span class="st">"uniform"</span>,</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">name =</span> <span class="st">"kernel_2_3"</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>  call <span class="ot">&lt;-</span> <span class="cf">function</span>(inputs, states) {</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># inputs should be in [(batch, input_1), (batch, input_2, input_3)]</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># state should be in shape [(batch, unit_1), (batch, unit_2, unit_3)]</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Don't forget you can call `browser()` here while the layer is being traced!</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(input_1, input_2) <span class="sc">%&lt;-%</span> tf<span class="sc">$</span>nest<span class="sc">$</span><span class="fu">flatten</span>(inputs)</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(s1, s2) <span class="sc">%&lt;-%</span> states</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>    output_1 <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">matmul</span>(input_1, self<span class="sc">$</span>kernel_1)</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>    output_2_3 <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">einsum</span>(<span class="st">"bij,ijkl-&gt;bkl"</span>, input_2, self<span class="sc">$</span>kernel_2_3)</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>    state_1 <span class="ot">&lt;-</span> s1 <span class="sc">+</span> output_1</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>    state_2_3 <span class="ot">&lt;-</span> s2 <span class="sc">+</span> output_2_3</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    output <span class="ot">&lt;-</span> <span class="fu">tuple</span>(output_1, output_2_3)</span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>    new_states <span class="ot">&lt;-</span> <span class="fu">tuple</span>(state_1, state_2_3)</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tuple</span>(output, new_states)</span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>  get_config <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="st">"unit_1"</span> <span class="ot">=</span> self<span class="sc">$</span>unit_1,</span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>         <span class="st">"unit_2"</span> <span class="ot">=</span> self<span class="sc">$</span>unit_2,</span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>         <span class="st">"unit_3"</span> <span class="ot">=</span> self<span class="sc">$</span>unit_3)</span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="build-a-rnn-model-with-nested-inputoutput" class="level3">
+<h3 class="anchored" data-anchor-id="build-a-rnn-model-with-nested-inputoutput">Build a RNN model with nested input/output</h3>
+<p>Let’s build a Keras model that uses a <code>layer_rnn</code> layer and the custom cell we just defined.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>unit_1 <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>unit_2 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>unit_3 <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>i1 <span class="ot">&lt;-</span> <span class="dv">32</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>i2 <span class="ot">&lt;-</span> <span class="dv">64</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>i3 <span class="ot">&lt;-</span> <span class="dv">32</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>batch_size <span class="ot">&lt;-</span> <span class="dv">64</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>num_batches <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>timestep <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>cell <span class="ot">&lt;-</span> <span class="fu">NestedCell</span>(unit_1, unit_2, unit_3)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>rnn <span class="ot">&lt;-</span> <span class="fu">layer_rnn</span>(<span class="at">cell =</span> cell)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>input_1 <span class="ot">=</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="cn">NULL</span>, i1))</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>input_2 <span class="ot">=</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="cn">NULL</span>, i2, i3))</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>outputs <span class="ot">=</span> <span class="fu">rnn</span>(<span class="fu">tuple</span>(input_1, input_2))</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>model <span class="ot">=</span> <span class="fu">keras_model</span>(<span class="fu">list</span>(input_1, input_2), outputs)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(<span class="at">optimizer=</span><span class="st">"adam"</span>, <span class="at">loss=</span><span class="st">"mse"</span>, <span class="at">metrics=</span><span class="st">"accuracy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="train-the-model-with-randomly-generated-data" class="level3">
+<h3 class="anchored" data-anchor-id="train-the-model-with-randomly-generated-data">Train the model with randomly generated data</h3>
+<p>Since there isn’t a good candidate dataset for this model, we use random data for demonstration.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>input_1_data <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(batch_size <span class="sc">*</span> num_batches, timestep, i1))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>input_2_data <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(batch_size <span class="sc">*</span> num_batches, timestep, i2, i3))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>target_1_data <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(batch_size <span class="sc">*</span> num_batches, unit_1))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>target_2_data <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="fu">c</span>(batch_size <span class="sc">*</span> num_batches, unit_2, unit_3))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>input_data <span class="ot">&lt;-</span> <span class="fu">list</span>(input_1_data, input_2_data)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>target_data <span class="ot">&lt;-</span> <span class="fu">list</span>(target_1_data, target_2_data)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(input_data, target_data, <span class="at">batch_size=</span>batch_size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With <code>keras::layer_rnn()</code>, you are only expected to define the math logic for an individual step within the sequence, and the <code>layer_rnn()</code> will handle the sequence iteration for you. It’s an incredibly powerful way to quickly prototype new kinds of RNNs (e.g.&nbsp;a LSTM variant).</p>
+<p>For more details, please visit the <a href="https://keras.io/api/layers/recurrent_layers/rnn/">API docs</a>.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../guides/keras/transfer_learning.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Transfer learning and fine-tuning</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../guides/keras/writing_your_own_callbacks.html" class="pagination-link">
+        <span class="nav-page-text">Writing your own callbacks</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
