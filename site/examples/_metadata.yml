@@ -1,0 +1,2 @@
+project:
+  pre-render: Rscript -e 'for(file in list.files(pattern = "[.]R$")) knitr::spin(file, knit = FALSE)'

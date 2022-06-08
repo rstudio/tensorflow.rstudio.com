@@ -3,6 +3,7 @@ project:
   output-dir: ../_site
   render:
     - "**.qmd"
+    # - "!examples"
   preview:
     port: 5555
     browser: true
@@ -11,6 +12,7 @@ execute:
   enabled: false
   eval: false
   freeze: auto
+
 
 website:
   title: TensorFlow for R
@@ -33,33 +35,35 @@ website:
       - {text: Reference    ,href: reference/}
       - {text: v1           ,href: v1/}
 
-  sidebar:
 
+
+  sidebar:
+    metadata-file: guides/sidebar.yml
+    contains:
     - title: "Install"
       search: true
+      collapse-level: 2
+      style: docked
       contents:
         - install/
         - install/gpu/
 
     - title: "Tutorials"
-      search: true
       contents:
-        - tensorflow/tutorials/
+        - tutorials/
 
-    - id: guides
-      title: "Guides"
-      search: true
-      style: docked
-      collapse-level: 2
+    - title: "Guides"
+
+      id: guides
       contents:
-        - guides/
+        - index.qmd
         - section: Tensorflow Basics
           contents:
-            - {text: Overview                  ,href: tensorflow/guide/basics.qmd}
-            - {text: Tensors                   ,href: tensorflow/guide/tensor.qmd}
-            - {text: Variables                 ,href: tensorflow/guide/variable.qmd}
-            - {text: Automatic differentiation ,href: tensorflow/guide/autodiff.qmd}
-            - {text: Graphs and functions      ,href: tensorflow/guide/intro_to_graphs.qmd}
+            - {text: Overview                  ,href: guides/tensorflow/basics.qmd}
+            - {text: Tensors                   ,href: guides/tensorflow/tensor.qmd}
+            - {text: Variables                 ,href: guides/tensorflow/variable.qmd}
+            - {text: Automatic differentiation ,href: guides/tensorflow/autodiff.qmd}
+            - {text: Graphs and functions      ,href: guides/tensorflow/intro_to_graphs.qmd}
         - section: "---"
         - section: Keras
           contents:
@@ -74,17 +78,15 @@ website:
         - section: Advanced
           contents:
             - guides/keras/python_subclasses.qmd
-        - section: Old site
-          contents:
-            - guides/tf-old-site/*.qmd
 
-    - id: reference
-      title: "Reference"
+    - title: "Reference"
       search: true
       contents:
         - reference/index.qmd
 
 
+# metadata-files:
+#   - guides/_metadata.yml
 
 format:
   html:

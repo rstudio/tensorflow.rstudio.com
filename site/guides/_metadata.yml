@@ -1,0 +1,28 @@
+
+# website:
+#   sidebar:
+# - title: "Guides"
+#   id: guides
+#   contents:
+#     # - index.qmd
+#     - section: Tensorflow Basics
+#       # contents:
+#       #   - {text: Overview                  ,href: guides/tensorflow/basics.qmd}
+#       #   - {text: Tensors                   ,href: guides/tensorflow/tensor.qmd}
+#       #   - {text: Variables                 ,href: guides/tensorflow/variable.qmd}
+#       #   - {text: Automatic differentiation ,href: guides/tensorflow/autodiff.qmd}
+#       #   - {text: Graphs and functions      ,href: guides/tensorflow/intro_to_graphs.qmd}
+#     - section: "---"
+#     - section: Keras
+#       # contents:
+#       #   - guides/keras/sequential_model.qmd
+#       #   - guides/keras/functional_api.qmd
+#       #   - guides/keras/making_new_layers_and_models_via_subclassing.qmd
+#       #   - guides/keras/customizing_what_happens_in_fit.qmd
+#       #   - guides/keras/preprocessing_layers.qmd
+#       #   - guides/keras/transfer_learning.qmd
+#       #   - guides/keras/working_with_rnns.qmd
+#       #   - guides/keras/writing_your_own_callbacks.qmd
+#     - section: Advanced
+#     # contents:
+#       # - keras/python_subclasses.qmd

@@ -1,0 +1,412 @@
+---
+title: Tensorflow Basics
+---
+
+##### Copyright 2020 The TensorFlow Authors.
+
+This guide provides a quick overview of *TensorFlow basics*. Each
+section of this doc is an overview of a larger topic---you can find
+links to full guides at the end of each section.
+
+TensorFlow is an end-to-end platform for machine learning. It supports
+the following:
+
+-   Multidimensional-array based numeric computation (similar to
+    [Numpy](https://numpy.org)
+
+-   GPU and distributed processing
+
+-   Automatic differentiation
+
+-   Model construction, training, and export
+
+-   And more
+
+## Tensors
+
+TensorFlow operates on multidimensional arrays or *tensors* represented
+as `tensorflow.tensor` objects. Here is a two-dimensional tensor:
+
+```{r}
+library(tensorflow)
+
+x <- as_tensor(1:6, dtype = "float32", shape = c(2, 3))
+
+x
+x$shape
+x$dtype
+```
+
+The most important attributes of a tensor are its `shape` and `dtype`:
+
+-   `tensor$shape`: tells you the size of the tensor along each of its
+    axes.
+-   `tensor$dtype`: tells you the type of all the elements in the
+    tensor.
+
+TensorFlow implements standard mathematical operations on tensors, as
+well as many operations specialized for machine learning.
+
+For example:
+
+```{r}
+x + x
+```
+
+```{r}
+5 * x
+```
+
+```{r}
+tf$matmul(x, t(x)) 
+```
+
+```{r}
+tf$concat(list(x, x, x), axis = 0L)
+```
+
+```{r}
+tf$nn$softmax(x, axis = -1L)
+```
+
+```{r}
+sum(x) # same as tf$reduce_sum(x)
+```
+
+Running large calculations on CPU can be slow. When properly configured,
+TensorFlow can use accelerator hardware like GPUs to execute operations
+very quickly.
+
+```{r}
+if (length(tf$config$list_physical_devices('GPU')))
+  message("TensorFlow **IS** using the GPU") else
+  message("TensorFlow **IS NOT** using the GPU")
+```
+
+Refer to the [Tensor guide](tensorflow/guide/tensor.qmd) for details.
+
+## Variables
+
+Normal tensor objects are immutable. To store model weights (or other
+mutable state) in TensorFlow use a `tf$Variable`.
+
+```{r}
+var <- tf$Variable(c(0, 0, 0))
+var
+```
+
+```{r}
+var$assign(c(1, 2, 3))
+```
+
+```{r}
+var$assign_add(c(1, 1, 1))
+```
+
+Refer to the [Variables guide](variable$ipynb) for details.
+
+## Automatic differentiation
+
+[*Gradient descent*](https://en.wikipedia.org/wiki/Gradient_descent) and
+related algorithms are a cornerstone of modern machine learning.
+
+To enable this, TensorFlow implements automatic differentiation
+(autodiff), which uses calculus to compute gradients. Typically you'll
+use this to calculate the gradient of a model's *error* or *loss* with
+respect to its weights.
+
+```{r}
+x <- tf$Variable(1.0)
+
+f <- function(x)
+  x^2 + 2*x - 5
+```
+
+```{r}
+f(x)
+```
+
+At `x = 1.0`, `y = f(x) = (1^2 + 2*1 - 5) = -2`.
+
+The derivative of `y` is `y' = f'(x) = (2*x + 2) = 4`. TensorFlow can
+calculate this automatically:
+
+```{r}
+with(tf$GradientTape() %as% tape, {
+  y <- f(x)
+})
+
+g_x <- tape$gradient(y, x)  # g(x) = dy/dx
+
+g_x
+```
+
+This simplified example only takes the derivative with respect to a
+single scalar (`x`), but TensorFlow can compute the gradient with
+respect to any number of non-scalar tensors simultaneously.
+
+Refer to the [Autodiff guide](tensorflow/guide/autodiff.qmd) for
+details.
+
+## Graphs and `tf_function`
+
+While you can use TensorFlow interactively like any R library,
+TensorFlow also provides tools for:
+
+-   **Performance optimization**: to speed up training and inference.
+-   **Export**: so you can save your model when it's done training.
+
+These require that you use `tf_function()` to separate your
+pure-TensorFlow code from R.
+
+```{r}
+my_func <- tf_function(function(x) {
+  message('Tracing.')
+  tf$reduce_sum(x)
+})
+```
+
+The first time you run the `tf_function`, although it executes in R, it
+captures a complete, optimized graph representing the TensorFlow
+computations done within the function.
+
+```{r}
+x <- as_tensor(1:3)
+my_func(x)
+```
+
+On subsequent calls TensorFlow only executes the optimized graph,
+skipping any non-TensorFlow steps. Below, note that `my_func` doesn't
+print `"Tracing."` since `message` is an R function, not a TensorFlow
+function.
+
+```{r}
+x <- as_tensor(10:8)
+my_func(x)
+```
+
+A graph may not be reusable for inputs with a different *signature*
+(`shape` and `dtype`), so a new graph is generated instead:
+
+```{r}
+x <- as_tensor(c(10.0, 9.1, 8.2), dtype=tf$dtypes$float32)
+my_func(x)
+```
+
+These captured graphs provide two benefits:
+
+-   In many cases they provide a significant speedup in execution
+    (though not this trivial example).
+-   You can export these graphs, using `tf$saved_model`, to run on other
+    systems like a
+    [server](https://www.tensorflow.org/tfx/serving/docker) or a [mobile
+    device](https://www.tensorflow.org/lite/guide), no Python
+    installation required.
+
+Refer to [Intro to graphs](tensorflow/guide/intro_to_graphs.qmd) for
+more details.
+
+## Modules, layers, and models
+
+`tf$Module` is a class for managing your `tf$Variable` objects, and the
+`tf_function` objects that operate on them. The `tf$Module` class is
+necessary to support two significant features:
+
+1.  You can save and restore the values of your variables using
+    `tf$train$Checkpoint`. This is useful during training as it is quick
+    to save and restore a model's state.
+2.  You can import and export the `tf$Variable` values *and* the
+    `tf$function` graphs using `tf$saved_model`. This allows you to run
+    your model independently of the Python program that created it.
+
+Here is a complete example exporting a simple `tf$Module` object:
+
+```{r}
+library(keras) # %py_class% is exported by the keras package at this time
+MyModule(tf$Module) %py_class% {
+  initialize <- function(self, value) {
+    self$weight <- tf$Variable(value)
+  }
+  
+  multiply <- tf_function(function(self, x) {
+    x * self$weight
+  })
+}
+```
+
+```{r}
+mod <- MyModule(3)
+mod$multiply(as_tensor(c(1, 2, 3)))
+```
+
+Save the `Module`:
+
+```{r}
+save_path <- tempfile()
+tf$saved_model$save(mod, save_path)
+```
+
+The resulting SavedModel is independent of the code that created it. You
+can load a SavedModel from R, Python, other language bindings, or
+[TensorFlow Serving](https://www.tensorflow.org/tfx/serving/docker). You
+can also convert it to run with [TensorFlow
+Lite](https://www.tensorflow.org/lite/guide) or [TensorFlow
+JS](https://www.tensorflow.org/js/guide).
+
+```{r}
+reloaded <- tf$saved_model$load(save_path)
+reloaded$multiply(as_tensor(c(1, 2, 3)))
+```
+
+The `tf$keras$layers$Layer` and `tf$keras$Model` classes build on
+`tf$Module` providing additional functionality and convenience methods
+for building, training, and saving models. Some of these are
+demonstrated in the next section.
+
+Refer to [Intro to modules](tensorflow/guide/intro_to_modules.qmd) for
+details.
+
+## Training loops
+
+Now put this all together to build a basic model and train it from
+scratch.
+
+First, create some example data. This generates a cloud of points that
+loosely follows a quadratic curve:
+
+```{r}
+x <- as_tensor(seq(-2, 2, length.out = 201))
+
+f <- function(x)
+  x^2 + 2*x - 5
+
+ground_truth <- f(x) 
+y <- ground_truth + tf$random$normal(shape(201))
+
+x %<>% as.array()
+y %<>% as.array()
+ground_truth %<>% as.array()
+
+plot(x, y, type = 'p', col = "deepskyblue2", pch = 19)
+lines(x, ground_truth, col = "tomato2", lwd = 3)
+legend("topleft", 
+       col = c("deepskyblue2", "tomato2"),
+       lty = c(NA, 1), lwd = 3,
+       pch = c(19, NA), 
+       legend = c("Data", "Ground Truth"))
+
+```
+
+Create a model:
+
+```{r}
+Model(tf$keras$Model) %py_class% {
+  initialize <- function(units) {
+    super$initialize()
+    self$dense1 <- layer_dense(
+      units = units,
+      activation = tf$nn$relu,
+      kernel_initializer = tf$random$normal,
+      bias_initializer = tf$random$normal
+    )
+    self$dense2 <- layer_dense(units = 1)
+  }
+  
+  call <- function(x, training = TRUE) {
+    x %>% 
+      .[, tf$newaxis] %>% 
+      self$dense1() %>% 
+      self$dense2() %>% 
+      .[, 1] 
+  }
+}
+```
+
+```{r}
+model <- Model(64)
+```
+
+```{r}
+untrained_predictions <- model(as_tensor(x))
+
+plot(x, y, type = 'p', col = "deepskyblue2", pch = 19)
+lines(x, ground_truth, col = "tomato2", lwd = 3)
+lines(x, untrained_predictions, col = "forestgreen", lwd = 3)
+legend("topleft", 
+       col = c("deepskyblue2", "tomato2", "forestgreen"),
+       lty = c(NA, 1, 1), lwd = 3,
+       pch = c(19, NA), 
+       legend = c("Data", "Ground Truth", "Untrained predictions"))
+title("Before training")
+```
+
+Write a basic training loop:
+
+```{r}
+variables <- model$variables
+
+optimizer <- tf$optimizers$SGD(learning_rate=0.01)
+
+for (step in seq(1000)) {
+  
+  with(tf$GradientTape() %as% tape, {
+    prediction <- model(x)
+    error <- (y - prediction) ^ 2
+    mean_error <- mean(error)
+  })
+  gradient <- tape$gradient(mean_error, variables)
+  optimizer$apply_gradients(zip_lists(gradient, variables))
+
+  if (step %% 100 == 0)
+    message(sprintf('Mean squared error: %.3f', as.array(mean_error)))
+}
+```
+
+```{r}
+trained_predictions <- model(x)
+plot(x, y, type = 'p', col = "deepskyblue2", pch = 19)
+lines(x, ground_truth, col = "tomato2", lwd = 3)
+lines(x, trained_predictions, col = "forestgreen", lwd = 3)
+legend("topleft", 
+       col = c("deepskyblue2", "tomato2", "forestgreen"),
+       lty = c(NA, 1, 1), lwd = 3,
+       pch = c(19, NA), 
+       legend = c("Data", "Ground Truth", "Trained predictions"))
+title("After training")
+```
+
+That's working, but remember that implementations of common training
+utilities are available in the `tf$keras` module. So consider using
+those before writing your own. To start with, the `compile` and `fit`
+methods for Keras `Model`s implement a training loop for you:
+
+```{r}
+new_model <- Model(64)
+```
+
+```{r}
+new_model %>% compile(
+  loss = tf$keras$losses$MSE,
+  optimizer = tf$optimizers$SGD(learning_rate = 0.01)
+)
+
+history <- new_model %>% 
+  fit(x, y,
+      epochs = 100,
+      batch_size = 32,
+      verbose = 0)
+
+model$save('./my_model')
+```
+
+```{r, echo = FALSE}
+unlink("./my_model", recursive = TRUE)
+```
+
+```{r}
+plot(history, metrics = 'loss', method = "base") 
+# see ?plot.keras_training_history for more options.
+```
+
+Refer to [Basic training loops](basic_training_loops.qmd) and the [Keras
+guide](https://www.tensorflow.org/guide/keras) for more details.

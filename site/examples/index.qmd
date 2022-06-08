@@ -1,12 +1,5 @@
 ---
 title: "Keras Examples"
-menu:
-  main:
-    name: "Examples"
-    parent: "guide-top"
-    weight: 25
-aliases:
-  - /keras/articles/examples/
 ---
 
 | Example  | Description   |
@@ -22,7 +15,7 @@ aliases:
 | [eager_image_captioning](/guide/keras/examples/eager_image_captioning) | Generating image captions with Keras and eager execution. |
 | [eager_pix2pix](/guide/keras/examples/eager_pix2pix) | Image-to-image translation with Pix2Pix, using eager execution. |
 | [eager_styletransfer](/guide/keras/examples/eager_styletransfer) | Neural style transfer with eager execution. |
-| [fine_tuning](/guide/keras/examples/fine_tuning) | Fine tuning of a image classification model. | 
+| [fine_tuning](/guide/keras/examples/fine_tuning) | Fine tuning of a image classification model. |
 | [imdb_bidirectional_lstm](/guide/keras/examples/imdb_bidirectional_lstm) | Trains a Bidirectional LSTM on the IMDB sentiment classification task. |
 | [imdb_cnn](/guide/keras/examples/imdb_cnn) | Demonstrates the use of Convolution1D for text classification. |
 | [imdb_cnn_lstm](/guide/keras/examples/imdb_cnn_lstm) | Trains a convolutional stack followed by a recurrent stack network on the IMDB sentiment classification task. |
@@ -41,7 +34,7 @@ aliases:
 | [mnist_transfer_cnn](/guide/keras/examples/mnist_transfer_cnn) | Transfer learning toy example. |
 | [neural_style_transfer](/guide/keras/examples/neural_style_transfer) | Neural style transfer (generating an image with the same “content” as a base image, but with the “style” of a different picture). |
 | [nmt_attention](/guide/keras/examples/nmt_attention) | Neural machine translation with an attention mechanism. |
-| [quora_siamese_lstm](/guide/keras/examples/quora_siamese_lstm) | Classifying duplicate quesitons from Quora using Siamese Recurrent Architecture. | 
+| [quora_siamese_lstm](/guide/keras/examples/quora_siamese_lstm) | Classifying duplicate quesitons from Quora using Siamese Recurrent Architecture. |
 | [reuters_mlp](/guide/keras/examples/reuters_mlp) | Trains and evaluatea a simple MLP on the Reuters newswire topic classification task. |
 | [stateful_lstm](/guide/keras/examples/stateful_lstm) | Demonstrates how to use stateful RNNs to model long sequences efficiently. |
 | [text_explanation_lime](/guide/keras/examples/text_explanation_lime) | How to use lime to explain text data. |
@@ -68,20 +61,10 @@ aliases:
 
 <!--
 
-These examples are complete however don't yet work properly (see inline comments in 
+These examples are complete however don't yet work properly (see inline comments in
 scripts for details) so we aren't listing them.
 
 
 | [pretrained_word_embeddings](pretrained_word_embeddings) | Loads pre-trained word embeddings (GloVe embeddings) into a frozen Keras Embedding layer, and uses it to train a text classification model on the 20 Newsgroup dataset. |
 
 -->
-
-
-
-
-
-
-
-
-
-
