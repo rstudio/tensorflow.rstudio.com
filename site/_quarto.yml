@@ -1,0 +1,249 @@
+project:
+  type: website
+  # execute-dir: project
+  render:
+    - "**.qmd"
+  preview:
+    port: 5555
+    browser: true
+
+execute:
+  enabled: false
+  eval: false
+  freeze: auto
+
+website:
+  title: TensorFlow for R
+  site-url: https://tensorflow.rstudio.com
+  repo-url: https://github.com/t-kalinowski/tf-site
+  repo-actions: [edit, source, issue]
+  search: true
+  page-navigation: true
+  reader-mode: true
+  favicon: "images/favicon/icon.png"
+  navbar:
+    search: true
+    logo: "images/favicon/icon.png"
+    file: index.qmd
+    left:
+      - {text: Install      ,href: install/}
+      - {text: Tutorials    ,href: tutorials/}
+      # - sidebar:guides
+      - {text: Guides       ,href: guides/}
+      - {text: Examples     ,href: examples/}
+      - {text: Reference    ,href: reference/}
+      - {text: v1           ,href: v1/}
+
+  sidebar:
+
+    #
+    - title: "Install"
+      # id: install
+      search: true
+      contents:
+        - install/
+        - install/gpu/
+    #
+    - title: "Tutorials"
+      search: true
+      contents:
+        - tensorflow/tutorials/
+
+    - id: guides
+      title: "Guides"
+      search: true
+      style: docked
+      collapse-level: 2
+      contents:
+        - guides/
+        - section: Tensorflow Basics
+          contents:
+            - {text: Overview                  ,href: guides/basics.qmd}
+            - {text: Tensors                   ,href: guides/tensor.qmd}
+            - {text: Variables                 ,href: guides/variable.qmd}
+            - {text: Automatic differentiation ,href: guides/autodiff.qmd}
+            - {text: Graphs and functions      ,href: guides/intro_to_graphs.qmd}
+        - section: "---"
+        - section: Keras
+          contents:
+            - guides/keras/sequential_model.qmd
+            - guides/keras/functional_api.qmd
+            - guides/keras/making_new_layers_and_models_via_subclassing.qmd
+            - guides/keras/customizing_what_happens_in_fit.qmd
+            - guides/keras/preprocessing_layers.qmd
+            - guides/keras/transfer_learning.qmd
+            - guides/keras/working_with_rnns.qmd
+            - guides/keras/writing_your_own_callbacks.qmd
+        - section: Advanced
+          contents:
+            - guides/keras/python_subclasses.qmd
+        - section: Old site
+          contents:
+            - guides/tf-old-site/*.qmd
+
+    - id: reference
+      title: "Reference"
+      search: true
+      contents:
+        - reference/index.qmd
+
+
+    # - id: v1
+    #   title: "v1"
+    #   contents:
+    #     - v1/index.qmd
+    #     - v1/deploy/index.qmd
+    #     - v1/deploy/docker.qmd
+    #     - v1/deploy/plumber.qmd
+    #     - v1/deploy/rsconnect.qmd
+    #     - v1/deploy/shiny.qmd
+    #     - v1/guide/index.qmd
+    #     - v1/guide/keras/index.qmd
+    #     - v1/guide/keras/applications.qmd
+    #     - v1/guide/keras/custom_layers.qmd
+    #     - v1/guide/keras/custom_models.qmd
+    #     - v1/guide/keras/examples/index.qmd
+    #     - v1/guide/keras/examples/addition_rnn.qmd
+    #     - v1/guide/keras/examples/babi_memnn.qmd
+    #     - v1/guide/keras/examples/babi_rnn.qmd
+    #     - v1/guide/keras/examples/cifar10_cnn.qmd
+    #     - v1/guide/keras/examples/cifar10_densenet.qmd
+    #     - v1/guide/keras/examples/cifar10_resnet.qmd
+    #     - v1/guide/keras/examples/conv_filter_visualization.qmd
+    #     - v1/guide/keras/examples/conv_lstm.qmd
+    #     - v1/guide/keras/examples/deep_dream.qmd
+    #     - v1/guide/keras/examples/eager_cvae.qmd
+    #     - v1/guide/keras/examples/eager_dcgan.qmd
+    #     - v1/guide/keras/examples/eager_image_captioning.qmd
+    #     - v1/guide/keras/examples/eager_pix2pix.qmd
+    #     - v1/guide/keras/examples/eager_styletransfer.qmd
+    #     - v1/guide/keras/examples/fine_tuning.qmd
+    #     - v1/guide/keras/examples/image_ocr.qmd
+    #     - v1/guide/keras/examples/imdb_bidirectional_lstm.qmd
+    #     - v1/guide/keras/examples/imdb_cnn_lstm.qmd
+    #     - v1/guide/keras/examples/imdb_cnn.qmd
+    #     - v1/guide/keras/examples/imdb_fasttext.qmd
+    #     - v1/guide/keras/examples/imdb_lstm.qmd
+    #     - v1/guide/keras/examples/lstm_benchmark.qmd
+    #     - v1/guide/keras/examples/lstm_seq2seq.qmd
+    #     - v1/guide/keras/examples/lstm_stateful.qmd
+    #     - v1/guide/keras/examples/lstm_text_generation.qmd
+    #     - v1/guide/keras/examples/mmd_cvae.qmd
+    #     - v1/guide/keras/examples/mnist_acgan.qmd
+    #     - v1/guide/keras/examples/mnist_antirectifier.qmd
+    #     - v1/guide/keras/examples/mnist_cnn_embeddings.qmd
+    #     - v1/guide/keras/examples/mnist_cnn.qmd
+    #     - v1/guide/keras/examples/mnist_dataset_api.qmd
+    #     - v1/guide/keras/examples/mnist_hierarchical_rnn.qmd
+    #     - v1/guide/keras/examples/mnist_irnn.qmd
+    #     - v1/guide/keras/examples/mnist_mlp.qmd
+    #     - v1/guide/keras/examples/mnist_net2net.qmd
+    #     - v1/guide/keras/examples/mnist_siamese_graph.qmd
+    #     - v1/guide/keras/examples/mnist_swwae.qmd
+    #     - v1/guide/keras/examples/mnist_tfrecord.qmd
+    #     - v1/guide/keras/examples/mnist_transfer_cnn.qmd
+    #     - v1/guide/keras/examples/neural_style_transfer.qmd
+    #     - v1/guide/keras/examples/nmt_attention.qmd
+    #     - v1/guide/keras/examples/nueral_doodle.qmd
+    #     - v1/guide/keras/examples/pretrained_word_embeddings.qmd
+    #     - v1/guide/keras/examples/quora_siamese_lstm.qmd
+    #     - v1/guide/keras/examples/reuters_mlp_relu_vs_selu.qmd
+    #     - v1/guide/keras/examples/reuters_mlp.qmd
+    #     - v1/guide/keras/examples/stateful_lstm.qmd
+    #     - v1/guide/keras/examples/text_explanation_lime.qmd
+    #     - v1/guide/keras/examples/tfprob_vae.qmd
+    #     - v1/guide/keras/examples/unet_linux.qmd
+    #     - v1/guide/keras/examples/unet.qmd
+    #     - v1/guide/keras/examples/variational_autoencoder_deconv.qmd
+    #     - v1/guide/keras/examples/variational_autoencoder.qmd
+    #     - v1/guide/keras/examples/vq_vae.qmd
+    #     - v1/guide/keras/faq.qmd
+    #     - v1/guide/keras/functional_api.qmd
+    #     - v1/guide/keras/guide_keras.qmd
+    #     - v1/guide/keras/saving_serializing.qmd
+    #     - v1/guide/keras/sequential_model.qmd
+    #     - v1/guide/keras/training_callbacks.qmd
+    #     - v1/guide/keras/training_visualization.qmd
+    #     - v1/guide/saving/checkpoints.qmd
+    #     - v1/guide/saving/saved_model.qmd
+    #     - v1/guide/tensorflow/eager_execution.qmd
+    #     - v1/guide/tensorflow/ragged_tensors.qmd
+    #     - v1/guide/tensorflow/tensors.qmd
+    #     - v1/guide/tensorflow/variable.qmd
+    #     - v1/guide/tfdatasets/feature_columns.qmd
+    #     - v1/guide/tfdatasets/feature_spec.qmd
+    #     - v1/guide/tfdatasets/introduction.qmd
+    #     - v1/guide/tfestimators/creating_estimators.qmd
+    #     - v1/guide/tfestimators/dataset_api.qmd
+    #     - v1/guide/tfestimators/estimator_basics.qmd
+    #     - v1/guide/tfestimators/examples/index.qmd
+    #     - v1/guide/tfestimators/examples/custom_estimator.qmd
+    #     - v1/guide/tfestimators/examples/iris_custom_decay_dnn.qmd
+    #     - v1/guide/tfestimators/examples/iris_dnn_classifier.qmd
+    #     - v1/guide/tfestimators/examples/mnist.qmd
+    #     - v1/guide/tfestimators/examples/tensorflow_layers.qmd
+    #     - v1/guide/tfestimators/examples/wide_and_deep.qmd
+    #     - v1/guide/tfestimators/feature_columns.qmd
+    #     - v1/guide/tfestimators/input_functions.qmd
+    #     - v1/guide/tfestimators/parsing_spec.qmd
+    #     - v1/guide/tfestimators/run_hooks.qmd
+    #     - v1/guide/tfestimators/tensorboard.qmd
+    #     - v1/guide/tfestimators/tensorflow_layers.qmd
+    #     - v1/guide/tfhub/examples/index.qmd
+    #     - v1/guide/tfhub/examples/biggan_image_generation.qmd
+    #     - v1/guide/tfhub/examples/feature_column.qmd
+    #     - v1/guide/tfhub/examples/image_classification.qmd
+    #     - v1/guide/tfhub/examples/recipes.qmd
+    #     - v1/guide/tfhub/examples/text_classification.qmd
+    #     - v1/guide/tfhub/hub-with-keras.qmd
+    #     - v1/guide/tfhub/intro.qmd
+    #     - v1/guide/tfhub/key-concepts.qmd
+    #     - v1/installation/index.qmd
+    #     - v1/installation/custom.qmd
+    #     - v1/installation/gpu/index.qmd
+    #     - v1/installation/gpu/cloud_desktop_gpu/index.qmd
+    #     - v1/installation/gpu/cloud_server_gpu/index.qmd
+    #     - v1/installation/gpu/local_gpu/index.qmd
+    #     - v1/learn/resources.qmd
+    #     - v1/search.qmd
+    #     - v1/tools/index.qmd
+    #     - v1/tools/cloudml/deployment.qmd
+    #     - v1/tools/cloudml/getting_started.qmd
+    #     - v1/tools/cloudml/storage.qmd
+    #     - v1/tools/cloudml/training.qmd
+    #     - v1/tools/cloudml/tuning.qmd
+    #     - v1/tools/tensorboard/hparams.qmd
+    #     - v1/tools/tensorboard/tensorboard.qmd
+    #     - v1/tools/tfruns/managing.qmd
+    #     - v1/tools/tfruns/overview.qmd
+    #     - v1/tools/tfruns/tuning.qmd
+    #     - v1/tutorials/index.qmd
+    #     - v1/tutorials/advanced/index.qmd
+    #     - v1/tutorials/advanced/customization/autodiff.qmd
+    #     - v1/tutorials/advanced/customization/custom-layers.qmd
+    #     - v1/tutorials/advanced/customization/custom-training.qmd
+    #     - v1/tutorials/advanced/customization/tensors-operations.qmd
+    #     - v1/tutorials/advanced/distributed/distributed_training_with_keras.qmd
+    #     - v1/tutorials/advanced/images/cnn.qmd
+    #     - v1/tutorials/advanced/images/transfer-learning-hub.qmd
+    #     - v1/tutorials/advanced/structured/classify.qmd
+    #     - v1/tutorials/beginners/index.qmd
+    #     - v1/tutorials/beginners/basic-ml/index.qmd
+    #     - v1/tutorials/beginners/basic-ml/tutorial_basic_classification.qmd
+    #     - v1/tutorials/beginners/basic-ml/tutorial_basic_regression.qmd
+    #     - v1/tutorials/beginners/basic-ml/tutorial_basic_text_classification_with_tfhub.qmd
+    #     - v1/tutorials/beginners/basic-ml/tutorial_basic_text_classification.qmd
+    #     - v1/tutorials/beginners/basic-ml/tutorial_overfit_underfit.qmd
+    #     - v1/tutorials/beginners/basic-ml/tutorial_save_and_restore.qmd
+    #     - v1/tutorials/beginners/load/load_csv.qmd
+    #     - v1/tutorials/beginners/load/load_image.qmd
+    # - style: docked
+
+
+format:
+  html:
+    toc: true
+    code-overflow: wrap
+    theme:
+      light: united
+      dark: darkly
