@@ -36,10 +36,6 @@ tutobook_to_qmd <- function(x) {
   x
 }
 
-
-
-
-
 translate_py_to_r <- function(x) {
   force(x)
   lgsub <- function(pt, rp, fixed = FALSE)

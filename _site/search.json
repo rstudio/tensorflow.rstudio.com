@@ -4345,5 +4345,40 @@
     "title": "Overview",
     "section": "For experts",
     "text": "For experts\n\nAdvanced Quickstart: learn the subclassing API and how to create custom loops.\nCustomization: build custom layers and training loops in TensorFlow.\nDistributed Training: distribute your model training across multiple GPU’s or machines.\n\nWe also provide tutorials focused on different types of data:\n\nImages: Build more advanced models for classification and segmentation of images.\nStructured Data: Build models for structured data."
+  },
+  {
+    "objectID": "guides/tensorflow/tensor_slicing.html",
+    "href": "guides/tensorflow/tensor_slicing.html",
+    "title": "Tensor Slicing",
+    "section": "",
+    "text": "# Copyright 2020 The TensorFlow Authors.\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#\n# https://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License."
+  },
+  {
+    "objectID": "guides/tensorflow/tensor_slicing.html#setup",
+    "href": "guides/tensorflow/tensor_slicing.html#setup",
+    "title": "Tensor Slicing",
+    "section": "Setup",
+    "text": "Setup\n\nlibrary(tensorflow)"
+  },
+  {
+    "objectID": "guides/tensorflow/tensor_slicing.html#extract-tensor-slices",
+    "href": "guides/tensorflow/tensor_slicing.html#extract-tensor-slices",
+    "title": "Tensor Slicing",
+    "section": "Extract tensor slices",
+    "text": "Extract tensor slices\nPerform slicing using the [ operator:\n\nt1 <- as_tensor(c(1, 2, 3, 4, 5, 6, 7))\nt1[1:3]\n\n\n\n\n\n\n\n\nNote\n\n\n\nUnlike base R’s [ operator, TensorFlow’s [ uses negative indexes for selecting starting from the end.\nNULL can be used instead of the last dimension or first, depending if it appears before or after the :.\n\n\n\nt1[-3:NULL]\n\n\nFor 2-dimensional tensors,you can use something like:\n\nt2 <- as_tensor(rbind(c(0, 1, 2, 3, 4),\n                      c(5, 6, 7, 8, 9),\n                      c(10, 11, 12, 13, 14),\n                      c(15, 16, 17, 18, 19)))\n\nt2[NULL:-1, 2:3]\n\n\n\n\n\n\n\n\nNote\n\n\n\ntf$slice can be used instead of the [ operator. However, not that when using functions directly from the tf module, dimensions and indexes will start from 0, unlike in R.\nYou also need to make sure that indexes are passed to TensorFlow with the integer type, for example using the L suffix notation.\n\n\nYou can use tf$slice on higher dimensional tensors as well.\n\nt3 <- as_tensor(array(seq(from=1, to = 31, by = 2), dim = c(2,2,4)))\ntf$slice(\n  t3,\n  begin = list(1L, 1L, 0L),\n  size = list(1L, 1L, 2L)\n)\n\nYou can also use tf$strided_slice to extract slices of tensors by ‘striding’ over the tensor dimensions.\nUse tf$gather to extract specific indices from a single axis of a tensor.\n\ntf$gather(t1, indices = c(0L, 3L, 6L))\n\n\ntf$gather does not require indices to be evenly spaced.\n\nalphabet <- as_tensor(strsplit(\"abcdefghijklmnopqrstuvwxyz\", \"\")[[1]])\ntf$gather(alphabet, indices = c(2L, 0L, 19L, 18L))\n\n\nTo extract slices from multiple axes of a tensor, use tf$gather_nd. This is useful when you want to gather the elements of a matrix as opposed to just its rows or columns.\n\nt4 <- as_tensor(rbind(c(0, 5),\n                      c(1, 6),\n                      c(2, 7),\n                      c(3, 8),\n                      c(4, 9)))\n\ntf$gather_nd(t4, indices = list(list(2L), list(3L), list(0L)))\n\n\n\nt5 <- array(1:18, dim = c(2,3,3))\ntf$gather_nd(t5, indices = list(c(0L, 0L, 0L), c(1L, 2L, 1L)))\n\n\n# Return a list of two matrices\ntf$gather_nd(\n  t5,\n  indices = list(\n    list(c(0L, 0L), c(0L, 2L)), \n    list(c(1L, 0L), c(1L, 2L)))\n)\n\n\n# Return one matrix\ntf$gather_nd(\n  t5,\n  indices = list(c(0L, 0L), c(0L, 2L), c(1L, 0L), c(1L, 2L))\n)"
+  },
+  {
+    "objectID": "guides/tensorflow/tensor_slicing.html#insert-data-into-tensors",
+    "href": "guides/tensorflow/tensor_slicing.html#insert-data-into-tensors",
+    "title": "Tensor Slicing",
+    "section": "Insert data into tensors",
+    "text": "Insert data into tensors\nUse tf$scatter_nd to insert data at specific slices/indices of a tensor. Note that the tensor into which you insert values is zero-initialized.\n\nt6 <- as_tensor(list(10L))\nindices <- as_tensor(list(list(1L), list(3L), list(5L), list(7L), list(9L)))\ndata <- as_tensor(c(2, 4, 6, 8, 10))\n\ntf$scatter_nd(\n  indices = indices,\n  updates = data,\n  shape = t6\n)\n\nMethods like tf$scatter_nd which require zero-initialized tensors are similar to sparse tensor initializers. You can use tf$gather_nd and tf$scatter_nd to mimic the behavior of sparse tensor ops.\nConsider an example where you construct a sparse tensor using these two methods in conjunction.\n\n# Gather values from one tensor by specifying indices\nnew_indices <- as_tensor(rbind(c(0L, 2L), c(2L, 1L), c(3L, 3L)))\nt7 <- tf$gather_nd(t2, indices = new_indices)\n\n\n\n# Add these values into a new tensor\nt8 <- tf$scatter_nd(\n  indices = new_indices, \n  updates = t7, \n  shape = as_tensor(c(4L, 5L))\n)\nt8\n\nThis is similar to:\n\nt9 <- tf$SparseTensor(\n  indices = list(c(0L, 2L), c(2L, 1L), c(3L, 3L)),\n  values = c(2, 11, 18),\n  dense_shape = c(4L, 5L)\n)\nt9\n\n\n# Convert the sparse tensor into a dense tensor\nt10 <- tf$sparse$to_dense(t9)\nt10\n\nTo insert data into a tensor with pre-existing values, use tf$tensor_scatter_nd_add.\n\nt11 <- as_tensor(rbind(c(2, 7, 0),\n                       c(9, 0, 1),\n                       c(0, 3, 8)))\n\n# Convert the tensor into a magic square by inserting numbers at appropriate indices\nt12 <- tf$tensor_scatter_nd_add(\n  t11,\n  indices = list(c(0L, 2L), c(1L, 1L), c(2L, 0L)),\n  updates = c(6, 5, 4)\n)\nt12\n\nSimilarly, use tf$tensor_scatter_nd_sub to subtract values from a tensor with pre-existing values.\n\n# Convert the tensor into an identity matrix\nt13 <- tf$tensor_scatter_nd_sub(\n  t11,\n  indices = list(c(0L, 0L), c(0L, 1L), c(1L, 0L), c(1L, 1L), c(1L, 2L), c(2L, 1L), c(2L, 2L)),\n  updates = c(1, 7, 9, -1, 1, 3, 7)\n)\n\nprint(t13)\n\nUse tf$tensor_scatter_nd_min to copy element-wise minimum values from one tensor to another.\n\nt14 <- as_tensor(rbind(c(-2, -7, 0),\n                       c(-9, 0, 1),\n                       c(0, -3, -8)))\n\nt15 <- tf$tensor_scatter_nd_min(\n  t14,\n  indices = list(c(0L, 2L), c(1L, 1L), c(2L, 0L)),\n  updates = c(-6, -5, -4)\n)\nt15\n\nSimilarly, use tf$tensor_scatter_nd_max to copy element-wise maximum values from one tensor to another.\n\nt16 <- tf$tensor_scatter_nd_max(\n  t14,\n  indices = list(c(0L, 2L), c(1L, 1L), c(2L, 0L)),\n  updates = c(6, 5, 4)\n)\nt16"
+  },
+  {
+    "objectID": "guides/tensorflow/tensor_slicing.html#further-reading-and-resources",
+    "href": "guides/tensorflow/tensor_slicing.html#further-reading-and-resources",
+    "title": "Tensor Slicing",
+    "section": "Further reading and resources",
+    "text": "Further reading and resources\nIn this guide, you learned how to use the tensor slicing ops available with TensorFlow to exert finer control over the elements in your tensors.\n\nCheck out the slicing ops available with TensorFlow NumPy such as tf$experimental$numpy$take_along_axis and tf$experimental$numpy$take.\nAlso check out the Tensor guide and the Variable guide."
   }
 ]
