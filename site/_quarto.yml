@@ -71,6 +71,10 @@ website:
             - {text: Variables                 ,href: guides/tensorflow/variable.qmd}
             - {text: Automatic differentiation ,href: guides/tensorflow/autodiff.qmd}
             - {text: Graphs and functions      ,href: guides/tensorflow/intro_to_graphs.qmd}
+        - section: TensorFlow in depth
+          contents:
+            - text: Tensor Slicing
+              href: guides/tensorflow/tensor_slicing.qmd
         - section: "---"
         - section: Keras
           contents:
