@@ -1,17 +1,5 @@
 ---
 title: "Custom Installation"
-type: docs
-output: 
-  html_document:
-    toc_depth: 3
-    toc_float:
-        collapsed: false
-menu:
-  main:
-    name: "Custom Installation"
-    identifier: "custom-installation"
-    parent: "installation-overview"
-    weight: 11 
 ---
 
 ```{r setup, include=FALSE}
@@ -24,7 +12,7 @@ The full instructions for installing TensorFlow on various platforms are here: <
 
 ### Locating TensorFlow
 
-Once you've installed TensorFlow you need to ensure that the tensorflow for R package can find your installation. The package scans the system for various versions of Python, and also scans available virtual environments and conda environments, so in many cases things will just work without additional effort. 
+Once you've installed TensorFlow you need to ensure that the tensorflow for R package can find your installation. The package scans the system for various versions of Python, and also scans available virtual environments and conda environments, so in many cases things will just work without additional effort.
 
 If the version of TensorFlow you installed is not found automatically, then you can use the following techniques to ensure that TensorFlow is located.
 
@@ -40,11 +28,11 @@ You could also add the `RETICULATE_PYTHON` environment variable to your `.RProfi
 Alternatively, call the `use_python` family of configuration functions:
 
 
-| Function  | Description | 
+| Function  | Description |
 |----------------|------------------------------------------------------------------|
-| `use_python()` | Specify the path a specific Python binary. | 
-| `use_virtualenv()` | Specify the directory containing a Python virtualenv. | 
-| `use_condaenv()` | Specify the name of a conda environment. | 
+| `use_python()` | Specify the path a specific Python binary. |
+| `use_virtualenv()` | Specify the directory containing a Python virtualenv. |
+| `use_condaenv()` | Specify the name of a conda environment. |
 
 
 For example:
@@ -69,7 +57,7 @@ use_virtualenv("my_env", required = TRUE)
 
 ### Additional Dependencies
 
-There are some components of TensorFlow (e.g. the [Keras](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/python/keras) library) which have dependencies on additional Python packages. The `install_tensorflow()` function installs these dependencies automatically, however if you do a custom installation you should be sure to install them manually. 
+There are some components of TensorFlow (e.g. the [Keras](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/python/keras) library) which have dependencies on additional Python packages. The `install_tensorflow()` function installs these dependencies automatically, however if you do a custom installation you should be sure to install them manually.
 
 You can install the additional dependencies with the following command:
 
@@ -79,6 +67,6 @@ pip install h5py pyyaml requests Pillow scipy
 
 ## Supported Platforms
 
-Note that binary installations of TensorFlow are provided for Windows, OS X, and Ubuntu 16.04 or higher. It's possible that binary installations will work on other Linux variants but Ubuntu is the only platform tested and supported. 
+Note that binary installations of TensorFlow are provided for Windows, OS X, and Ubuntu 16.04 or higher. It's possible that binary installations will work on other Linux variants but Ubuntu is the only platform tested and supported.
 
 In particular, if you are running on RedHat or CentOS you will need to [install from source](https://www.tensorflow.org/install/source) then follow the instructions in the [Custom Installation] section to ensure that your installation of TensorFlow can be used with the tensorflow R package.
