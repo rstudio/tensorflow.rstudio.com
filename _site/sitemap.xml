@@ -2,310 +2,102 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tensorflow.rstudio.com/examples/addition_rnn.html</loc>
-    <lastmod>2022-06-08T20:48:17.109Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/babi_memnn.html</loc>
-    <lastmod>2022-06-08T20:48:17.917Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/babi_rnn.html</loc>
-    <lastmod>2022-06-08T20:48:18.719Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/cifar10_cnn.html</loc>
-    <lastmod>2022-06-08T20:48:19.378Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/cifar10_densenet.html</loc>
-    <lastmod>2022-06-08T20:48:20.125Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/cifar10_resnet.html</loc>
-    <lastmod>2022-06-08T20:48:20.906Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/conv_filter_visualization.html</loc>
-    <lastmod>2022-06-08T20:48:21.612Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/conv_lstm.html</loc>
-    <lastmod>2022-06-08T20:48:22.387Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/deep_dream.html</loc>
-    <lastmod>2022-06-08T20:48:23.134Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/eager_cvae.html</loc>
-    <lastmod>2022-06-08T20:48:23.937Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/eager_dcgan.html</loc>
-    <lastmod>2022-06-08T20:48:24.708Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/eager_image_captioning.html</loc>
-    <lastmod>2022-06-08T20:48:25.413Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/eager_pix2pix.html</loc>
-    <lastmod>2022-06-08T20:48:26.171Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/eager_styletransfer.html</loc>
-    <lastmod>2022-06-08T20:48:26.973Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/fine_tuning.html</loc>
-    <lastmod>2022-06-08T20:48:27.771Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/image_ocr.html</loc>
-    <lastmod>2022-06-08T20:48:28.556Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/imdb_bidirectional_lstm.html</loc>
-    <lastmod>2022-06-08T20:48:29.241Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/imdb_cnn.html</loc>
-    <lastmod>2022-06-08T20:48:29.899Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/imdb_cnn_lstm.html</loc>
-    <lastmod>2022-06-08T20:48:30.549Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/imdb_fasttext.html</loc>
-    <lastmod>2022-06-08T20:48:31.329Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/imdb_lstm.html</loc>
-    <lastmod>2022-06-08T20:48:32.095Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/index.html</loc>
-    <lastmod>2022-06-08T20:50:08.722Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/lstm_benchmark.html</loc>
-    <lastmod>2022-06-08T20:48:33.233Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/lstm_seq2seq.html</loc>
-    <lastmod>2022-06-08T20:48:33.991Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/lstm_stateful.html</loc>
-    <lastmod>2022-06-08T20:48:34.789Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/lstm_text_generation.html</loc>
-    <lastmod>2022-06-08T20:48:35.564Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mmd_cvae.html</loc>
-    <lastmod>2022-06-08T20:48:36.359Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_acgan.html</loc>
-    <lastmod>2022-06-08T20:48:37.141Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_antirectifier.html</loc>
-    <lastmod>2022-06-08T20:48:37.961Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_cnn.html</loc>
-    <lastmod>2022-06-08T20:48:38.796Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_cnn_embeddings.html</loc>
-    <lastmod>2022-06-08T20:48:39.668Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_dataset_api.html</loc>
-    <lastmod>2022-06-08T20:48:40.416Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_hierarchical_rnn.html</loc>
-    <lastmod>2022-06-08T20:48:41.261Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_irnn.html</loc>
-    <lastmod>2022-06-08T20:48:42.129Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_mlp.html</loc>
-    <lastmod>2022-06-08T20:48:42.918Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_net2net.html</loc>
-    <lastmod>2022-06-08T20:48:43.773Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_siamese_graph.html</loc>
-    <lastmod>2022-06-08T20:48:44.619Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_swwae.html</loc>
-    <lastmod>2022-06-08T20:48:45.449Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_tfrecord.html</loc>
-    <lastmod>2022-06-08T20:48:46.299Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/mnist_transfer_cnn.html</loc>
-    <lastmod>2022-06-08T20:48:47.131Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/neural_style_transfer.html</loc>
-    <lastmod>2022-06-08T20:48:47.967Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/nmt_attention.html</loc>
-    <lastmod>2022-06-08T20:48:48.830Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/nueral_doodle.html</loc>
-    <lastmod>2022-06-08T20:48:49.720Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/pretrained_word_embeddings.html</loc>
-    <lastmod>2022-06-08T20:48:50.528Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/quora_siamese_lstm.html</loc>
-    <lastmod>2022-06-08T20:48:51.336Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/reuters_mlp.html</loc>
-    <lastmod>2022-06-08T20:48:52.149Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/reuters_mlp_relu_vs_selu.html</loc>
-    <lastmod>2022-06-08T20:48:52.955Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/stateful_lstm.html</loc>
-    <lastmod>2022-06-08T20:48:53.789Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/text_explanation_lime.html</loc>
-    <lastmod>2022-06-08T20:48:54.555Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/tfprob_vae.html</loc>
-    <lastmod>2022-06-08T20:48:55.364Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/unet.html</loc>
-    <lastmod>2022-06-08T20:48:56.206Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/unet_linux.html</loc>
-    <lastmod>2022-06-08T20:48:56.992Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/variational_autoencoder.html</loc>
-    <lastmod>2022-06-08T20:48:57.862Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/variational_autoencoder_deconv.html</loc>
-    <lastmod>2022-06-08T20:48:58.697Z</lastmod>
-  </url>
-  <url>
-    <loc>https://tensorflow.rstudio.com/examples/vq_vae.html</loc>
-    <lastmod>2022-06-08T20:48:59.509Z</lastmod>
+    <lastmod>2022-06-09T00:29:45.669Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/index.html</loc>
-    <lastmod>2022-06-08T21:24:39.029Z</lastmod>
+    <lastmod>2022-06-08T23:46:27.581Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/customizing_what_happens_in_fit.html</loc>
-    <lastmod>2022-06-08T21:10:48.749Z</lastmod>
+    <lastmod>2022-06-08T23:26:29.031Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/functional_api.html</loc>
-    <lastmod>2022-06-08T20:49:02.623Z</lastmod>
+    <lastmod>2022-06-08T23:26:30.474Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/making_new_layers_and_models_via_subclassing.html</loc>
-    <lastmod>2022-06-08T20:49:04.080Z</lastmod>
+    <lastmod>2022-06-08T23:26:31.845Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/preprocessing_layers.html</loc>
-    <lastmod>2022-06-08T20:49:05.384Z</lastmod>
+    <lastmod>2022-06-08T23:26:33.031Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/python_subclasses.html</loc>
-    <lastmod>2022-06-08T20:49:06.998Z</lastmod>
+    <lastmod>2022-06-08T23:26:34.428Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/sequential_model.html</loc>
-    <lastmod>2022-06-08T20:49:08.137Z</lastmod>
+    <lastmod>2022-06-08T23:26:35.541Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/transfer_learning.html</loc>
-    <lastmod>2022-06-08T20:49:09.408Z</lastmod>
+    <lastmod>2022-06-08T23:26:36.816Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/working_with_rnns.html</loc>
-    <lastmod>2022-06-08T20:49:10.600Z</lastmod>
+    <lastmod>2022-06-08T23:26:37.992Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/writing_your_own_callbacks.html</loc>
-    <lastmod>2022-06-08T20:49:11.770Z</lastmod>
+    <lastmod>2022-06-08T23:26:39.092Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/autodiff.html</loc>
-    <lastmod>2022-06-08T20:49:13.095Z</lastmod>
+    <lastmod>2022-06-08T23:26:40.272Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/basics.html</loc>
-    <lastmod>2022-06-08T21:24:42.149Z</lastmod>
+    <lastmod>2022-06-08T23:29:44.601Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/intro_to_graphs.html</loc>
-    <lastmod>2022-06-08T20:49:15.640Z</lastmod>
+    <lastmod>2022-06-08T23:26:42.607Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/tensor.html</loc>
-    <lastmod>2022-06-08T20:49:16.933Z</lastmod>
+    <lastmod>2022-06-08T23:26:43.895Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/variable.html</loc>
-    <lastmod>2022-06-08T20:49:18.008Z</lastmod>
+    <lastmod>2022-06-08T23:26:45.043Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/install/custom.html</loc>
-    <lastmod>2022-06-08T20:49:19.095Z</lastmod>
+    <lastmod>2022-06-08T23:26:46.063Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/install/gpu/cloud_desktop_gpu/index.html</loc>
-    <lastmod>2022-06-08T20:49:20.054Z</lastmod>
+    <lastmod>2022-06-08T23:34:42.971Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/install/gpu/cloud_server_gpu/index.html</loc>
-    <lastmod>2022-06-08T20:49:20.901Z</lastmod>
+    <lastmod>2022-06-08T23:35:43.222Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/install/gpu/index.html</loc>
-    <lastmod>2022-06-08T20:49:21.684Z</lastmod>
+    <lastmod>2022-06-08T23:26:48.646Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/install/gpu/local_gpu/index.html</loc>
-    <lastmod>2022-06-08T20:49:22.815Z</lastmod>
+    <lastmod>2022-06-08T23:26:49.772Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/install/index.html</loc>
-    <lastmod>2022-06-08T20:49:23.850Z</lastmod>
+    <lastmod>2022-06-08T23:34:38.801Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/tutorials/quickstart/index.html</loc>
-    <lastmod>2022-06-08T20:49:24.189Z</lastmod>
+    <lastmod>2022-06-08T23:26:51.049Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/examples/index.html</loc>
+    <lastmod>2022-06-09T00:30:31.706Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/examples/cifar10_cnn.html</loc>
+    <lastmod>2022-06-09T00:30:38.882Z</lastmod>
   </url>
 </urlset>

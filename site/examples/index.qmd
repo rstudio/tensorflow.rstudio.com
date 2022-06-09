@@ -1,7 +1,13 @@
 ---
 title: "Keras Examples"
+listing:
+  contents: "*.qmd"
+  type: table
+  fields:
+    - title
+    - description
 ---
-
+<!--
 | Example  | Description   |
 |----------------------|------------------------------------|
 | [addition_rnn](/guide/keras/examples/addition_rnn) | Implementation of sequence to sequence learning for performing addition of two numbers (as strings). |
@@ -41,7 +47,7 @@ title: "Keras Examples"
 | [variational_autoencoder](/guide/keras/examples/variational_autoencoder) | Demonstrates how to build a variational autoencoder. |
 | [variational_autoencoder_deconv](/guide/keras/examples/variational_autoencoder_deconv) | Demonstrates how to build a variational autoencoder with Keras using deconvolution layers. |
 | [tfprob_vae](/guide/keras/examples/tfprob_vae) | A variational autoencoder using TensorFlow Probability on Kuzushiji-MNIST. |
-| [vq_vae](/guide/keras/examples/vq_vae) | Discrete Representation Learning with VQ-VAE and TensorFlow Probability. |
+| [vq_vae](/guide/keras/examples/vq_vae) | Discrete Representation Learning with VQ-VAE and TensorFlow Probability. | -->
 
 <!--
 | [cifar10_resnet](cifar10_resnet) | Trains a ResNet on the CIFAR10 dataset. |

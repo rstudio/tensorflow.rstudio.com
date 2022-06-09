@@ -3,10 +3,14 @@ project:
   output-dir: ../_site
   render:
     - "**.qmd"
+    # - "!guides"
+    # - "!install"
     # - "!examples"
+
+  # pre-render: spin-examples.R
   preview:
     port: 5555
-    browser: true
+    browser: false # true
 
 execute:
   enabled: false
@@ -33,30 +37,31 @@ website:
       - {text: Guides       ,href: guides/}
       - {text: Examples     ,href: examples/}
       - {text: Reference    ,href: reference/}
-      - {text: v1           ,href: v1/}
+      # - {text: v1           ,href: v1/}
 
 
 
   sidebar:
-    metadata-file: guides/sidebar.yml
-    contains:
+
     - title: "Install"
       search: true
       collapse-level: 2
       style: docked
       contents:
-        - install/
-        - install/gpu/
+        - install/index.qmd
+        - section: GPU
+          contents:
+            - install/gpu/local_gpu/index.qmd
+            - install/gpu/cloud_server_gpu/index.qmd
+            - install/gpu/cloud_desktop_gpu/index.qmd
 
     - title: "Tutorials"
       contents:
         - tutorials/
 
     - title: "Guides"
-
-      id: guides
       contents:
-        - index.qmd
+        - guides/index.qmd
         - section: Tensorflow Basics
           contents:
             - {text: Overview                  ,href: guides/tensorflow/basics.qmd}
@@ -84,9 +89,6 @@ website:
       contents:
         - reference/index.qmd
 
-
-# metadata-files:
-#   - guides/_metadata.yml
 
 format:
   html:
