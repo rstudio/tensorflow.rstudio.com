@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.377">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>TensorFlow for R - R Interface to Tensorflow</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<link href="../images/favicon/icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing-1 .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-path',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      page: 100,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
+      searchColumns: ["listing-date","listing-title","listing-author"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing-1'] = new List('listing-listing-1', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <img src="../images/favicon/icon.png" alt="">
+    <span class="navbar-title">TensorFlow for R</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../install/">Install</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tutorials/">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../guides/">Guides</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../examples/">Examples</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../deploy/">Deploy</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tools/">Tools</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/">Reference</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">R Interface to Tensorflow</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+
+
+
+
+<div class="quarto-listing quarto-listing-container-table" id="listing-listing-1">
+<div class="listing-actions-group">
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
+
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+path
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-listing-file-modified-sort="1654651679910" data-listing-reading-time-sort="2.37" data-listing-title-sort="Automatic differentiation and gradient tape" data-listing-filename-sort="autodiff.qmd">
+<td class="listing-path">
+/v1/tutorials/advanced/customization/autodiff.qmd
+</td>
+</tr>
+<tr data-index="1" data-listing-file-modified-sort="1654651679915" data-listing-reading-time-sort="8.765" data-listing-title-sort="Basic Image Classification" data-listing-filename-sort="tutorial_basic_classification.qmd">
+<td class="listing-path">
+/v1/tutorials/beginners/basic-ml/tutorial_basic_classification.qmd
+</td>
+</tr>
+<tr data-index="2" data-listing-file-modified-sort="1654651679916" data-listing-reading-time-sort="6.04" data-listing-title-sort="Basic Regression" data-listing-filename-sort="tutorial_basic_regression.qmd">
+<td class="listing-path">
+/v1/tutorials/beginners/basic-ml/tutorial_basic_regression.qmd
+</td>
+</tr>
+<tr data-index="3" data-listing-file-modified-sort="1654651679836" data-listing-reading-time-sort="6.13" data-listing-title-sort="Checkpoints" data-listing-filename-sort="checkpoints.qmd">
+<td class="listing-path">
+/v1/guide/saving/checkpoints.qmd
+</td>
+</tr>
+<tr data-index="4" data-listing-file-modified-sort="1654651679911" data-listing-reading-time-sort="7.1" data-listing-title-sort="Classify structured data with feature columns" data-listing-filename-sort="classify.qmd">
+<td class="listing-path">
+/v1/tutorials/advanced/structured/classify.qmd
+</td>
+</tr>
+<tr data-index="5" data-listing-file-modified-sort="1654651679875" data-listing-reading-time-sort="3.565" data-listing-title-sort="Cloud Desktop GPUs" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/installation/gpu/cloud_desktop_gpu/index.qmd
+</td>
+</tr>
+<tr data-index="6" data-listing-file-modified-sort="1654651679879" data-listing-reading-time-sort="3.98" data-listing-title-sort="Cloud Server GPUs" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/installation/gpu/cloud_server_gpu/index.qmd
+</td>
+</tr>
+<tr data-index="7" data-listing-file-modified-sort="1654651679910" data-listing-reading-time-sort="3.19" data-listing-title-sort="Convolutional Neural Network (CNN)" data-listing-filename-sort="cnn.qmd">
+<td class="listing-path">
+/v1/tutorials/advanced/images/cnn.qmd
+</td>
+</tr>
+<tr data-index="8" data-listing-file-modified-sort="1654651679842" data-listing-reading-time-sort="12.565" data-listing-title-sort="Custom Estimators" data-listing-filename-sort="creating_estimators.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/creating_estimators.qmd
+</td>
+</tr>
+<tr data-index="9" data-listing-file-modified-sort="1654651679847" data-listing-reading-time-sort="2.005" data-listing-title-sort="Custom Installation" data-listing-filename-sort="custom.qmd">
+<td class="listing-path">
+/v1/installation/custom.qmd
+</td>
+</tr>
+<tr data-index="10" data-listing-file-modified-sort="1654651679910" data-listing-reading-time-sort="6.305" data-listing-title-sort="Custom layers" data-listing-filename-sort="custom-layers.qmd">
+<td class="listing-path">
+/v1/tutorials/advanced/customization/custom-layers.qmd
+</td>
+</tr>
+<tr data-index="11" data-listing-file-modified-sort="1654651679910" data-listing-reading-time-sort="4.395" data-listing-title-sort="Custom training: basics" data-listing-filename-sort="custom-training.qmd">
+<td class="listing-path">
+/v1/tutorials/advanced/customization/custom-training.qmd
+</td>
+</tr>
+<tr data-index="12" data-listing-file-modified-sort="1654651679842" data-listing-reading-time-sort="1.775" data-listing-title-sort="Dataset API" data-listing-filename-sort="dataset_api.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/dataset_api.qmd
+</td>
+</tr>
+<tr data-index="13" data-listing-file-modified-sort="1654651679892" data-listing-reading-time-sort="2.27" data-listing-title-sort="Deploying Models" data-listing-filename-sort="deployment.qmd">
+<td class="listing-path">
+/v1/tools/cloudml/deployment.qmd
+</td>
+</tr>
+<tr data-index="14" data-listing-file-modified-sort="1654651679799" data-listing-reading-time-sort="4.235" data-listing-title-sort="Deploying a Shiny app with a TensorFlow model" data-listing-filename-sort="shiny.qmd">
+<td class="listing-path">
+/v1/deploy/shiny.qmd
+</td>
+</tr>
+<tr data-index="15" data-listing-file-modified-sort="1654651679799" data-listing-reading-time-sort="3.355" data-listing-title-sort="Deploying a TensorFlow API with Plumber" data-listing-filename-sort="plumber.qmd">
+<td class="listing-path">
+/v1/deploy/plumber.qmd
+</td>
+</tr>
+<tr data-index="16" data-listing-file-modified-sort="1654651679799" data-listing-reading-time-sort="1.74" data-listing-title-sort="Deploying a TensorFlow Model to RStudio Connect" data-listing-filename-sort="rsconnect.qmd">
+<td class="listing-path">
+/v1/deploy/rsconnect.qmd
+</td>
+</tr>
+<tr data-index="17" data-listing-file-modified-sort="1654651679792" data-listing-reading-time-sort="3.925" data-listing-title-sort="Deploying a TensorFlow model using TensorFlow serving" data-listing-filename-sort="docker.qmd">
+<td class="listing-path">
+/v1/deploy/docker.qmd
+</td>
+</tr>
+<tr data-index="18" data-listing-file-modified-sort="1654651679910" data-listing-reading-time-sort="4.21" data-listing-title-sort="Distributed training with Keras" data-listing-filename-sort="distributed_training_with_keras.qmd">
+<td class="listing-path">
+/v1/tutorials/advanced/distributed/distributed_training_with_keras.qmd
+</td>
+</tr>
+<tr data-index="19" data-listing-file-modified-sort="1654651679836" data-listing-reading-time-sort="10.475" data-listing-title-sort="Eager execution" data-listing-filename-sort="eager_execution.qmd">
+<td class="listing-path">
+/v1/guide/tensorflow/eager_execution.qmd
+</td>
+</tr>
+<tr data-index="20" data-listing-file-modified-sort="1654651679842" data-listing-reading-time-sort="5.79" data-listing-title-sort="Estimator Basics" data-listing-filename-sort="estimator_basics.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/estimator_basics.qmd
+</td>
+</tr>
+<tr data-index="21" data-listing-file-modified-sort="1654651679843" data-listing-reading-time-sort="4.98" data-listing-title-sort="Feature Columns" data-listing-filename-sort="feature_columns.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/feature_columns.qmd
+</td>
+</tr>
+<tr data-index="22" data-listing-file-modified-sort="1654651679838" data-listing-reading-time-sort="4.19" data-listing-title-sort="Feature Spec interface" data-listing-filename-sort="feature_spec.qmd">
+<td class="listing-path">
+/v1/guide/tfdatasets/feature_spec.qmd
+</td>
+</tr>
+<tr data-index="23" data-listing-file-modified-sort="1654651679837" data-listing-reading-time-sort="12.585" data-listing-title-sort="Feature columns" data-listing-filename-sort="feature_columns.qmd">
+<td class="listing-path">
+/v1/guide/tfdatasets/feature_columns.qmd
+</td>
+</tr>
+<tr data-index="24" data-listing-file-modified-sort="1654651679813" data-listing-reading-time-sort="18.555" data-listing-title-sort="Frequently Asked Questions" data-listing-filename-sort="faq.qmd">
+<td class="listing-path">
+/v1/guide/keras/faq.qmd
+</td>
+</tr>
+<tr data-index="25" data-listing-file-modified-sort="1654651679835" data-listing-reading-time-sort="7.305" data-listing-title-sort="Getting Started with Keras" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/guide/keras/index.qmd
+</td>
+</tr>
+<tr data-index="26" data-listing-file-modified-sort="1654651679896" data-listing-reading-time-sort="3.71" data-listing-title-sort="Google Cloud Storage" data-listing-filename-sort="storage.qmd">
+<td class="listing-path">
+/v1/tools/cloudml/storage.qmd
+</td>
+</tr>
+<tr data-index="27" data-listing-file-modified-sort="1654651679813" data-listing-reading-time-sort="11.045" data-listing-title-sort="Guide to Keras Basics" data-listing-filename-sort="guide_keras.qmd">
+<td class="listing-path">
+/v1/guide/keras/guide_keras.qmd
+</td>
+</tr>
+<tr data-index="28" data-listing-file-modified-sort="1654651679813" data-listing-reading-time-sort="14.87" data-listing-title-sort="Guide to the Functional API" data-listing-filename-sort="functional_api.qmd">
+<td class="listing-path">
+/v1/guide/keras/functional_api.qmd
+</td>
+</tr>
+<tr data-index="29" data-listing-file-modified-sort="1654651679835" data-listing-reading-time-sort="12.65" data-listing-title-sort="Guide to the Sequential Model" data-listing-filename-sort="sequential_model.qmd">
+<td class="listing-path">
+/v1/guide/keras/sequential_model.qmd
+</td>
+</tr>
+<tr data-index="30" data-listing-file-modified-sort="1654651679896" data-listing-reading-time-sort="12.835" data-listing-title-sort="Hyperparameter Tuning" data-listing-filename-sort="tuning.qmd">
+<td class="listing-path">
+/v1/tools/cloudml/tuning.qmd
+</td>
+</tr>
+<tr data-index="31" data-listing-file-modified-sort="1654651679909" data-listing-reading-time-sort="6.47" data-listing-title-sort="Hyperparameter Tuning" data-listing-filename-sort="tuning.qmd">
+<td class="listing-path">
+/v1/tools/tfruns/tuning.qmd
+</td>
+</tr>
+<tr data-index="32" data-listing-file-modified-sort="1654651679896" data-listing-reading-time-sort="5.185" data-listing-title-sort="Hyperparameter Tuning with the HParams Dashboard" data-listing-filename-sort="hparams.qmd">
+<td class="listing-path">
+/v1/tools/tensorboard/hparams.qmd
+</td>
+</tr>
+<tr data-index="33" data-listing-file-modified-sort="1654651679845" data-listing-reading-time-sort="3.515" data-listing-title-sort="Input Functions" data-listing-filename-sort="input_functions.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/input_functions.qmd
+</td>
+</tr>
+<tr data-index="34" data-listing-file-modified-sort="1654651679804" data-listing-reading-time-sort="3.48" data-listing-title-sort="Keras Examples" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/index.qmd
+</td>
+</tr>
+<tr data-index="35" data-listing-file-modified-sort="1654651679847" data-listing-reading-time-sort="4.64" data-listing-title-sort="Key concepts" data-listing-filename-sort="key-concepts.qmd">
+<td class="listing-path">
+/v1/guide/tfhub/key-concepts.qmd
+</td>
+</tr>
+<tr data-index="36" data-listing-file-modified-sort="1654651679892" data-listing-reading-time-sort="1.465" data-listing-title-sort="Learning Resources" data-listing-filename-sort="resources.qmd">
+<td class="listing-path">
+/v1/learn/resources.qmd
+</td>
+</tr>
+<tr data-index="37" data-listing-file-modified-sort="1654651679916" data-listing-reading-time-sort="5.08" data-listing-title-sort="Loading CSV data" data-listing-filename-sort="load_csv.qmd">
+<td class="listing-path">
+/v1/tutorials/beginners/load/load_csv.qmd
+</td>
+</tr>
+<tr data-index="38" data-listing-file-modified-sort="1654651679916" data-listing-reading-time-sort="2.885" data-listing-title-sort="Loading image data" data-listing-filename-sort="load_image.qmd">
+<td class="listing-path">
+/v1/tutorials/beginners/load/load_image.qmd
+</td>
+</tr>
+<tr data-index="39" data-listing-file-modified-sort="1654651679882" data-listing-reading-time-sort="6.905" data-listing-title-sort="Local GPU" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/installation/gpu/local_gpu/index.qmd
+</td>
+</tr>
+<tr data-index="40" data-listing-file-modified-sort="1654651679909" data-listing-reading-time-sort="1.11" data-listing-title-sort="Managing Runs" data-listing-filename-sort="managing.qmd">
+<td class="listing-path">
+/v1/tools/tfruns/managing.qmd
+</td>
+</tr>
+<tr data-index="41" data-listing-file-modified-sort="1654651679799" data-listing-reading-time-sort="0.955" data-listing-title-sort="Overview" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/deploy/index.qmd
+</td>
+</tr>
+<tr data-index="42" data-listing-file-modified-sort="1654651679799" data-listing-reading-time-sort="0.74" data-listing-title-sort="Overview" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/guide/index.qmd
+</td>
+</tr>
+<tr data-index="43" data-listing-file-modified-sort="1654651679847" data-listing-reading-time-sort="1.725" data-listing-title-sort="Overview" data-listing-filename-sort="intro.qmd">
+<td class="listing-path">
+/v1/guide/tfhub/intro.qmd
+</td>
+</tr>
+<tr data-index="44" data-listing-file-modified-sort="1654651679881" data-listing-reading-time-sort="1.725" data-listing-title-sort="Overview" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/installation/gpu/index.qmd
+</td>
+</tr>
+<tr data-index="45" data-listing-file-modified-sort="1654651679896" data-listing-reading-time-sort="0.625" data-listing-title-sort="Overview" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/tools/index.qmd
+</td>
+</tr>
+<tr data-index="46" data-listing-file-modified-sort="1654651679911" data-listing-reading-time-sort="2.985" data-listing-title-sort="Overview" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/tutorials/advanced/index.qmd
+</td>
+</tr>
+<tr data-index="47" data-listing-file-modified-sort="1654651679915" data-listing-reading-time-sort="0.285" data-listing-title-sort="Overview" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/tutorials/beginners/basic-ml/index.qmd
+</td>
+</tr>
+<tr data-index="48" data-listing-file-modified-sort="1654651679916" data-listing-reading-time-sort="2.305" data-listing-title-sort="Overview" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/tutorials/beginners/index.qmd
+</td>
+</tr>
+<tr data-index="49" data-listing-file-modified-sort="1654651679916" data-listing-reading-time-sort="1.005" data-listing-title-sort="Overview" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/tutorials/index.qmd
+</td>
+</tr>
+<tr data-index="50" data-listing-file-modified-sort="1654651679845" data-listing-reading-time-sort="1.89" data-listing-title-sort="Parsing Utilities" data-listing-filename-sort="parsing_spec.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/parsing_spec.qmd
+</td>
+</tr>
+<tr data-index="51" data-listing-file-modified-sort="1654651679882" data-listing-reading-time-sort="2.195" data-listing-title-sort="Quick start" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/installation/index.qmd
+</td>
+</tr>
+<tr data-index="52" data-listing-file-modified-sort="1654651679892" data-listing-reading-time-sort="6.01" data-listing-title-sort="R Interface to Google CloudML" data-listing-filename-sort="getting_started.qmd">
+<td class="listing-path">
+/v1/tools/cloudml/getting_started.qmd
+</td>
+</tr>
+<tr data-index="53" data-listing-file-modified-sort="1654651679841" data-listing-reading-time-sort="15.02" data-listing-title-sort="R interface to TensorFlow Dataset API" data-listing-filename-sort="introduction.qmd">
+<td class="listing-path">
+/v1/guide/tfdatasets/introduction.qmd
+</td>
+</tr>
+<tr data-index="54" data-listing-file-modified-sort="1654651679837" data-listing-reading-time-sort="3.035" data-listing-title-sort="Ragged tensors" data-listing-filename-sort="ragged_tensors.qmd">
+<td class="listing-path">
+/v1/guide/tensorflow/ragged_tensors.qmd
+</td>
+</tr>
+<tr data-index="55" data-listing-file-modified-sort="1654651679845" data-listing-reading-time-sort="4.405" data-listing-title-sort="Run Hooks" data-listing-filename-sort="run_hooks.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/run_hooks.qmd
+</td>
+</tr>
+<tr data-index="56" data-listing-file-modified-sort="1654651679836" data-listing-reading-time-sort="7.545" data-listing-title-sort="Saved Model" data-listing-filename-sort="saved_model.qmd">
+<td class="listing-path">
+/v1/guide/saving/saved_model.qmd
+</td>
+</tr>
+<tr data-index="57" data-listing-file-modified-sort="1654651679835" data-listing-reading-time-sort="9.1" data-listing-title-sort="Saving and serializing models" data-listing-filename-sort="saving_serializing.qmd">
+<td class="listing-path">
+/v1/guide/keras/saving_serializing.qmd
+</td>
+</tr>
+<tr data-index="58" data-listing-date-sort="1473757200000" data-listing-file-modified-sort="1654651679892" data-listing-reading-time-sort="0.005" data-listing-title-sort="Search" data-listing-filename-sort="search.qmd">
+<td class="listing-path">
+/v1/search.qmd
+</td>
+</tr>
+<tr data-index="59" data-listing-file-modified-sort="1654651679898" data-listing-reading-time-sort="3.015" data-listing-title-sort="TensorBoard" data-listing-filename-sort="tensorboard.qmd">
+<td class="listing-path">
+/v1/tools/tensorboard/tensorboard.qmd
+</td>
+</tr>
+<tr data-index="60" data-listing-file-modified-sort="1654651679846" data-listing-reading-time-sort="0.835" data-listing-title-sort="TensorBoard Visualization" data-listing-filename-sort="tensorboard.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/tensorboard.qmd
+</td>
+</tr>
+<tr data-index="61" data-listing-file-modified-sort="1654651679842" data-listing-reading-time-sort="0.435" data-listing-title-sort="TensorFlow Estimator API Examples" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/examples/index.qmd
+</td>
+</tr>
+<tr data-index="62" data-listing-file-modified-sort="1654651679846" data-listing-reading-time-sort="0.46" data-listing-title-sort="TensorFlow Hub Examples" data-listing-filename-sort="index.qmd">
+<td class="listing-path">
+/v1/guide/tfhub/examples/index.qmd
+</td>
+</tr>
+<tr data-index="63" data-listing-file-modified-sort="1654651679847" data-listing-reading-time-sort="2.79" data-listing-title-sort="TensorFlow Hub with Keras" data-listing-filename-sort="hub-with-keras.qmd">
+<td class="listing-path">
+/v1/guide/tfhub/hub-with-keras.qmd
+</td>
+</tr>
+<tr data-index="64" data-listing-file-modified-sort="1654651679846" data-listing-reading-time-sort="22.02" data-listing-title-sort="TensorFlow Layers" data-listing-filename-sort="tensorflow_layers.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/tensorflow_layers.qmd
+</td>
+</tr>
+<tr data-index="65" data-listing-file-modified-sort="1654651679837" data-listing-reading-time-sort="8.34" data-listing-title-sort="TensorFlow tensors" data-listing-filename-sort="tensors.qmd">
+<td class="listing-path">
+/v1/guide/tensorflow/tensors.qmd
+</td>
+</tr>
+<tr data-index="66" data-listing-file-modified-sort="1654651679837" data-listing-reading-time-sort="1.705" data-listing-title-sort="TensorFlow variables" data-listing-filename-sort="variable.qmd">
+<td class="listing-path">
+/v1/guide/tensorflow/variable.qmd
+</td>
+</tr>
+<tr data-index="67" data-listing-file-modified-sort="1654651679910" data-listing-reading-time-sort="2.275" data-listing-title-sort="Tensors and operations" data-listing-filename-sort="tensors-operations.qmd">
+<td class="listing-path">
+/v1/tutorials/advanced/customization/tensors-operations.qmd
+</td>
+</tr>
+<tr data-index="68" data-listing-file-modified-sort="1654651679916" data-listing-reading-time-sort="6.4" data-listing-title-sort="Text Classification" data-listing-filename-sort="tutorial_basic_text_classification.qmd">
+<td class="listing-path">
+/v1/tutorials/beginners/basic-ml/tutorial_basic_text_classification.qmd
+</td>
+</tr>
+<tr data-index="69" data-listing-file-modified-sort="1654651679835" data-listing-reading-time-sort="3.44" data-listing-title-sort="Training Callbacks" data-listing-filename-sort="training_callbacks.qmd">
+<td class="listing-path">
+/v1/guide/keras/training_callbacks.qmd
+</td>
+</tr>
+<tr data-index="70" data-listing-file-modified-sort="1654651679835" data-listing-reading-time-sort="5.9" data-listing-title-sort="Training Visualization" data-listing-filename-sort="training_visualization.qmd">
+<td class="listing-path">
+/v1/guide/keras/training_visualization.qmd
+</td>
+</tr>
+<tr data-index="71" data-listing-file-modified-sort="1654651679896" data-listing-reading-time-sort="9.355" data-listing-title-sort="Training with CloudML" data-listing-filename-sort="training.qmd">
+<td class="listing-path">
+/v1/tools/cloudml/training.qmd
+</td>
+</tr>
+<tr data-index="72" data-listing-file-modified-sort="1654651679911" data-listing-reading-time-sort="3.54" data-listing-title-sort="Transfer learning with TensorFlow Hub" data-listing-filename-sort="transfer-learning-hub.qmd">
+<td class="listing-path">
+/v1/tutorials/advanced/images/transfer-learning-hub.qmd
+</td>
+</tr>
+<tr data-index="73" data-listing-file-modified-sort="1654651679916" data-listing-reading-time-sort="4.57" data-listing-title-sort="Transfer learning with tfhub" data-listing-filename-sort="tutorial_basic_text_classification_with_tfhub.qmd">
+<td class="listing-path">
+/v1/tutorials/beginners/basic-ml/tutorial_basic_text_classification_with_tfhub.qmd
+</td>
+</tr>
+<tr data-index="74" data-listing-file-modified-sort="1654651679916" data-listing-reading-time-sort="10.85" data-listing-title-sort="Tutorial: Overfitting and Underfitting" data-listing-filename-sort="tutorial_overfit_underfit.qmd">
+<td class="listing-path">
+/v1/tutorials/beginners/basic-ml/tutorial_overfit_underfit.qmd
+</td>
+</tr>
+<tr data-index="75" data-listing-file-modified-sort="1654651679916" data-listing-reading-time-sort="6.12" data-listing-title-sort="Tutorial: Save and Restore Models" data-listing-filename-sort="tutorial_save_and_restore.qmd">
+<td class="listing-path">
+/v1/tutorials/beginners/basic-ml/tutorial_save_and_restore.qmd
+</td>
+</tr>
+<tr data-index="76" data-listing-file-modified-sort="1654651679799" data-listing-reading-time-sort="3.615" data-listing-title-sort="Using Pre-Trained Models" data-listing-filename-sort="applications.qmd">
+<td class="listing-path">
+/v1/guide/keras/applications.qmd
+</td>
+</tr>
+<tr data-index="77" data-listing-file-modified-sort="1654651679799" data-listing-reading-time-sort="3.41" data-listing-title-sort="Writing Custom Keras Layers" data-listing-filename-sort="custom_layers.qmd">
+<td class="listing-path">
+/v1/guide/keras/custom_layers.qmd
+</td>
+</tr>
+<tr data-index="78" data-listing-file-modified-sort="1654651679800" data-listing-reading-time-sort="2.735" data-listing-title-sort="Writing Custom Keras Models" data-listing-filename-sort="custom_models.qmd">
+<td class="listing-path">
+/v1/guide/keras/custom_models.qmd
+</td>
+</tr>
+<tr data-index="79" data-listing-file-modified-sort="1654651679800" data-listing-reading-time-sort="0.06" data-listing-title-sort="addition_rnn" data-listing-filename-sort="addition_rnn.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/addition_rnn.qmd
+</td>
+</tr>
+<tr data-index="80" data-listing-file-modified-sort="1654651679800" data-listing-reading-time-sort="0.06" data-listing-title-sort="babi_memnn" data-listing-filename-sort="babi_memnn.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/babi_memnn.qmd
+</td>
+</tr>
+<tr data-index="81" data-listing-file-modified-sort="1654651679800" data-listing-reading-time-sort="0.06" data-listing-title-sort="babi_rnn" data-listing-filename-sort="babi_rnn.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/babi_rnn.qmd
+</td>
+</tr>
+<tr data-index="82" data-listing-file-modified-sort="1654651679846" data-listing-reading-time-sort="0.06" data-listing-title-sort="biggan_image_generation" data-listing-filename-sort="biggan_image_generation.qmd">
+<td class="listing-path">
+/v1/guide/tfhub/examples/biggan_image_generation.qmd
+</td>
+</tr>
+<tr data-index="83" data-listing-file-modified-sort="1654651679800" data-listing-reading-time-sort="0.06" data-listing-title-sort="cifar10_cnn" data-listing-filename-sort="cifar10_cnn.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/cifar10_cnn.qmd
+</td>
+</tr>
+<tr data-index="84" data-listing-file-modified-sort="1654651679800" data-listing-reading-time-sort="0.06" data-listing-title-sort="cifar10_densenet" data-listing-filename-sort="cifar10_densenet.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/cifar10_densenet.qmd
+</td>
+</tr>
+<tr data-index="85" data-listing-file-modified-sort="1654651679801" data-listing-reading-time-sort="0.06" data-listing-title-sort="cifar10_resnet" data-listing-filename-sort="cifar10_resnet.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/cifar10_resnet.qmd
+</td>
+</tr>
+<tr data-index="86" data-listing-file-modified-sort="1654651679801" data-listing-reading-time-sort="0.06" data-listing-title-sort="conv_filter_visualization" data-listing-filename-sort="conv_filter_visualization.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/conv_filter_visualization.qmd
+</td>
+</tr>
+<tr data-index="87" data-listing-file-modified-sort="1654651679801" data-listing-reading-time-sort="0.06" data-listing-title-sort="conv_lstm" data-listing-filename-sort="conv_lstm.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/conv_lstm.qmd
+</td>
+</tr>
+<tr data-index="88" data-listing-file-modified-sort="1654651679842" data-listing-reading-time-sort="0.06" data-listing-title-sort="custom_estimator" data-listing-filename-sort="custom_estimator.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/examples/custom_estimator.qmd
+</td>
+</tr>
+<tr data-index="89" data-listing-file-modified-sort="1654651679802" data-listing-reading-time-sort="0.06" data-listing-title-sort="deep_dream" data-listing-filename-sort="deep_dream.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/deep_dream.qmd
+</td>
+</tr>
+<tr data-index="90" data-listing-file-modified-sort="1654651679802" data-listing-reading-time-sort="0.06" data-listing-title-sort="eager_cvae" data-listing-filename-sort="eager_cvae.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/eager_cvae.qmd
+</td>
+</tr>
+<tr data-index="91" data-listing-file-modified-sort="1654651679802" data-listing-reading-time-sort="0.06" data-listing-title-sort="eager_dcgan" data-listing-filename-sort="eager_dcgan.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/eager_dcgan.qmd
+</td>
+</tr>
+<tr data-index="92" data-listing-file-modified-sort="1654651679803" data-listing-reading-time-sort="0.06" data-listing-title-sort="eager_image_captioning" data-listing-filename-sort="eager_image_captioning.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/eager_image_captioning.qmd
+</td>
+</tr>
+<tr data-index="93" data-listing-file-modified-sort="1654651679803" data-listing-reading-time-sort="0.06" data-listing-title-sort="eager_pix2pix" data-listing-filename-sort="eager_pix2pix.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/eager_pix2pix.qmd
+</td>
+</tr>
+<tr data-index="94" data-listing-file-modified-sort="1654651679803" data-listing-reading-time-sort="0.06" data-listing-title-sort="eager_styletransfer" data-listing-filename-sort="eager_styletransfer.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/eager_styletransfer.qmd
+</td>
+</tr>
+<tr data-index="95" data-listing-file-modified-sort="1654651679846" data-listing-reading-time-sort="0.06" data-listing-title-sort="feature_column" data-listing-filename-sort="feature_column.qmd">
+<td class="listing-path">
+/v1/guide/tfhub/examples/feature_column.qmd
+</td>
+</tr>
+<tr data-index="96" data-listing-file-modified-sort="1654651679803" data-listing-reading-time-sort="0.06" data-listing-title-sort="fine_tuning" data-listing-filename-sort="fine_tuning.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/fine_tuning.qmd
+</td>
+</tr>
+<tr data-index="97" data-listing-file-modified-sort="1654651679846" data-listing-reading-time-sort="0.06" data-listing-title-sort="image_classification" data-listing-filename-sort="image_classification.qmd">
+<td class="listing-path">
+/v1/guide/tfhub/examples/image_classification.qmd
+</td>
+</tr>
+<tr data-index="98" data-listing-file-modified-sort="1654651679803" data-listing-reading-time-sort="0.06" data-listing-title-sort="image_ocr" data-listing-filename-sort="image_ocr.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/image_ocr.qmd
+</td>
+</tr>
+<tr data-index="99" data-listing-file-modified-sort="1654651679803" data-listing-reading-time-sort="0.06" data-listing-title-sort="imdb_bidirectional_lstm" data-listing-filename-sort="imdb_bidirectional_lstm.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/imdb_bidirectional_lstm.qmd
+</td>
+</tr>
+<tr data-index="100" data-listing-file-modified-sort="1654651679804" data-listing-reading-time-sort="0.06" data-listing-title-sort="imdb_cnn" data-listing-filename-sort="imdb_cnn.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/imdb_cnn.qmd
+</td>
+</tr>
+<tr data-index="101" data-listing-file-modified-sort="1654651679804" data-listing-reading-time-sort="0.06" data-listing-title-sort="imdb_cnn_lstm" data-listing-filename-sort="imdb_cnn_lstm.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/imdb_cnn_lstm.qmd
+</td>
+</tr>
+<tr data-index="102" data-listing-file-modified-sort="1654651679804" data-listing-reading-time-sort="0.06" data-listing-title-sort="imdb_fasttext" data-listing-filename-sort="imdb_fasttext.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/imdb_fasttext.qmd
+</td>
+</tr>
+<tr data-index="103" data-listing-file-modified-sort="1654651679804" data-listing-reading-time-sort="0.06" data-listing-title-sort="imdb_lstm" data-listing-filename-sort="imdb_lstm.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/imdb_lstm.qmd
+</td>
+</tr>
+<tr data-index="104" data-listing-file-modified-sort="1654651679842" data-listing-reading-time-sort="0.06" data-listing-title-sort="iris_custom_decay_dnn" data-listing-filename-sort="iris_custom_decay_dnn.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/examples/iris_custom_decay_dnn.qmd
+</td>
+</tr>
+<tr data-index="105" data-listing-file-modified-sort="1654651679842" data-listing-reading-time-sort="0.06" data-listing-title-sort="iris_dnn_classifier" data-listing-filename-sort="iris_dnn_classifier.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/examples/iris_dnn_classifier.qmd
+</td>
+</tr>
+<tr data-index="106" data-listing-file-modified-sort="1654651679805" data-listing-reading-time-sort="0.06" data-listing-title-sort="lstm_benchmark" data-listing-filename-sort="lstm_benchmark.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/lstm_benchmark.qmd
+</td>
+</tr>
+<tr data-index="107" data-listing-file-modified-sort="1654651679805" data-listing-reading-time-sort="0.06" data-listing-title-sort="lstm_seq2seq" data-listing-filename-sort="lstm_seq2seq.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/lstm_seq2seq.qmd
+</td>
+</tr>
+<tr data-index="108" data-listing-file-modified-sort="1654651679805" data-listing-reading-time-sort="0.06" data-listing-title-sort="lstm_stateful" data-listing-filename-sort="lstm_stateful.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/lstm_stateful.qmd
+</td>
+</tr>
+<tr data-index="109" data-listing-file-modified-sort="1654651679805" data-listing-reading-time-sort="0.06" data-listing-title-sort="lstm_text_generation" data-listing-filename-sort="lstm_text_generation.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/lstm_text_generation.qmd
+</td>
+</tr>
+<tr data-index="110" data-listing-file-modified-sort="1654651679805" data-listing-reading-time-sort="0.06" data-listing-title-sort="mmd_cvae" data-listing-filename-sort="mmd_cvae.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mmd_cvae.qmd
+</td>
+</tr>
+<tr data-index="111" data-listing-file-modified-sort="1654651679842" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist" data-listing-filename-sort="mnist.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/examples/mnist.qmd
+</td>
+</tr>
+<tr data-index="112" data-listing-file-modified-sort="1654651679806" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_acgan" data-listing-filename-sort="mnist_acgan.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_acgan.qmd
+</td>
+</tr>
+<tr data-index="113" data-listing-file-modified-sort="1654651679806" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_antirectifier" data-listing-filename-sort="mnist_antirectifier.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_antirectifier.qmd
+</td>
+</tr>
+<tr data-index="114" data-listing-file-modified-sort="1654651679806" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_cnn" data-listing-filename-sort="mnist_cnn.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_cnn.qmd
+</td>
+</tr>
+<tr data-index="115" data-listing-file-modified-sort="1654651679806" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_cnn_embeddings" data-listing-filename-sort="mnist_cnn_embeddings.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_cnn_embeddings.qmd
+</td>
+</tr>
+<tr data-index="116" data-listing-file-modified-sort="1654651679806" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_dataset_api" data-listing-filename-sort="mnist_dataset_api.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_dataset_api.qmd
+</td>
+</tr>
+<tr data-index="117" data-listing-file-modified-sort="1654651679807" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_hierarchical_rnn" data-listing-filename-sort="mnist_hierarchical_rnn.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_hierarchical_rnn.qmd
+</td>
+</tr>
+<tr data-index="118" data-listing-file-modified-sort="1654651679807" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_irnn" data-listing-filename-sort="mnist_irnn.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_irnn.qmd
+</td>
+</tr>
+<tr data-index="119" data-listing-file-modified-sort="1654651679807" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_mlp" data-listing-filename-sort="mnist_mlp.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_mlp.qmd
+</td>
+</tr>
+<tr data-index="120" data-listing-file-modified-sort="1654651679807" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_net2net" data-listing-filename-sort="mnist_net2net.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_net2net.qmd
+</td>
+</tr>
+<tr data-index="121" data-listing-file-modified-sort="1654651679808" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_siamese_graph" data-listing-filename-sort="mnist_siamese_graph.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_siamese_graph.qmd
+</td>
+</tr>
+<tr data-index="122" data-listing-file-modified-sort="1654651679808" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_swwae" data-listing-filename-sort="mnist_swwae.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_swwae.qmd
+</td>
+</tr>
+<tr data-index="123" data-listing-file-modified-sort="1654651679808" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_tfrecord" data-listing-filename-sort="mnist_tfrecord.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_tfrecord.qmd
+</td>
+</tr>
+<tr data-index="124" data-listing-file-modified-sort="1654651679808" data-listing-reading-time-sort="0.06" data-listing-title-sort="mnist_transfer_cnn" data-listing-filename-sort="mnist_transfer_cnn.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/mnist_transfer_cnn.qmd
+</td>
+</tr>
+<tr data-index="125" data-listing-file-modified-sort="1654651679810" data-listing-reading-time-sort="0.06" data-listing-title-sort="neural_style_transfer" data-listing-filename-sort="neural_style_transfer.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/neural_style_transfer.qmd
+</td>
+</tr>
+<tr data-index="126" data-listing-file-modified-sort="1654651679810" data-listing-reading-time-sort="0.06" data-listing-title-sort="nmt_attention" data-listing-filename-sort="nmt_attention.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/nmt_attention.qmd
+</td>
+</tr>
+<tr data-index="127" data-listing-file-modified-sort="1654651679810" data-listing-reading-time-sort="0.06" data-listing-title-sort="nueral_doodle" data-listing-filename-sort="nueral_doodle.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/nueral_doodle.qmd
+</td>
+</tr>
+<tr data-index="128" data-listing-file-modified-sort="1654651679810" data-listing-reading-time-sort="0.06" data-listing-title-sort="pretrained_word_embeddings" data-listing-filename-sort="pretrained_word_embeddings.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/pretrained_word_embeddings.qmd
+</td>
+</tr>
+<tr data-index="129" data-listing-file-modified-sort="1654651679811" data-listing-reading-time-sort="0.06" data-listing-title-sort="quora_siamese_lstm" data-listing-filename-sort="quora_siamese_lstm.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/quora_siamese_lstm.qmd
+</td>
+</tr>
+<tr data-index="130" data-listing-file-modified-sort="1654651679847" data-listing-reading-time-sort="0.06" data-listing-title-sort="recipes" data-listing-filename-sort="recipes.qmd">
+<td class="listing-path">
+/v1/guide/tfhub/examples/recipes.qmd
+</td>
+</tr>
+<tr data-index="131" data-listing-file-modified-sort="1654651679811" data-listing-reading-time-sort="0.06" data-listing-title-sort="reuters_mlp" data-listing-filename-sort="reuters_mlp.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/reuters_mlp.qmd
+</td>
+</tr>
+<tr data-index="132" data-listing-file-modified-sort="1654651679811" data-listing-reading-time-sort="0.06" data-listing-title-sort="reuters_mlp_relu_vs_selu" data-listing-filename-sort="reuters_mlp_relu_vs_selu.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/reuters_mlp_relu_vs_selu.qmd
+</td>
+</tr>
+<tr data-index="133" data-listing-file-modified-sort="1654651679811" data-listing-reading-time-sort="0.06" data-listing-title-sort="stateful_lstm" data-listing-filename-sort="stateful_lstm.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/stateful_lstm.qmd
+</td>
+</tr>
+<tr data-index="134" data-listing-file-modified-sort="1654651679843" data-listing-reading-time-sort="0.06" data-listing-title-sort="tensorflow_layers" data-listing-filename-sort="tensorflow_layers.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/examples/tensorflow_layers.qmd
+</td>
+</tr>
+<tr data-index="135" data-listing-file-modified-sort="1654651679847" data-listing-reading-time-sort="0.06" data-listing-title-sort="text_classification" data-listing-filename-sort="text_classification.qmd">
+<td class="listing-path">
+/v1/guide/tfhub/examples/text_classification.qmd
+</td>
+</tr>
+<tr data-index="136" data-listing-file-modified-sort="1654651679811" data-listing-reading-time-sort="0.06" data-listing-title-sort="text_explanation_lime" data-listing-filename-sort="text_explanation_lime.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/text_explanation_lime.qmd
+</td>
+</tr>
+<tr data-index="137" data-listing-file-modified-sort="1654651679812" data-listing-reading-time-sort="0.06" data-listing-title-sort="tfprob_vae" data-listing-filename-sort="tfprob_vae.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/tfprob_vae.qmd
+</td>
+</tr>
+<tr data-index="138" data-listing-file-modified-sort="1654651679909" data-listing-reading-time-sort="8.13" data-listing-title-sort="tfruns: Track and Visualize Training Runs" data-listing-filename-sort="overview.qmd">
+<td class="listing-path">
+/v1/tools/tfruns/overview.qmd
+</td>
+</tr>
+<tr data-index="139" data-listing-file-modified-sort="1654651679812" data-listing-reading-time-sort="0.06" data-listing-title-sort="unet" data-listing-filename-sort="unet.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/unet.qmd
+</td>
+</tr>
+<tr data-index="140" data-listing-file-modified-sort="1654651679812" data-listing-reading-time-sort="0.06" data-listing-title-sort="unet_linux" data-listing-filename-sort="unet_linux.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/unet_linux.qmd
+</td>
+</tr>
+<tr data-index="141" data-listing-file-modified-sort="1654651679812" data-listing-reading-time-sort="0.06" data-listing-title-sort="variational_autoencoder" data-listing-filename-sort="variational_autoencoder.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/variational_autoencoder.qmd
+</td>
+</tr>
+<tr data-index="142" data-listing-file-modified-sort="1654651679812" data-listing-reading-time-sort="0.06" data-listing-title-sort="variational_autoencoder_deconv" data-listing-filename-sort="variational_autoencoder_deconv.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/variational_autoencoder_deconv.qmd
+</td>
+</tr>
+<tr data-index="143" data-listing-file-modified-sort="1654651679813" data-listing-reading-time-sort="0.06" data-listing-title-sort="vq_vae" data-listing-filename-sort="vq_vae.qmd">
+<td class="listing-path">
+/v1/guide/keras/examples/vq_vae.qmd
+</td>
+</tr>
+<tr data-index="144" data-listing-file-modified-sort="1654651679843" data-listing-reading-time-sort="0.06" data-listing-title-sort="wide_and_deep" data-listing-filename-sort="wide_and_deep.qmd">
+<td class="listing-path">
+/v1/guide/tfestimators/examples/wide_and_deep.qmd
+</td>
+</tr>
+</tbody>
+
+</table>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+<nav id="listing-1-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
+</div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

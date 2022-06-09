@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.377">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>TensorFlow for R - Custom Estimators</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<link href="../../../v1/guide/tfestimators/dataset_api.html" rel="next">
+<link href="../../../v1/guide/tfdatasets/introduction.html" rel="prev">
+<link href="../../../images/favicon/icon.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../images/favicon/icon.png" alt="">
+    <span class="navbar-title">TensorFlow for R</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../install/">Install</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../tutorials/">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../guides/">Guides</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../examples/">Examples</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../deploy/">Deploy</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../tools/">Tools</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../reference/">Reference</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Custom Estimators</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/index.html" class="sidebar-item-text sidebar-link">Guides</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Tensorflow Basics</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/tensorflow/basics.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/tensorflow/tensor.html" class="sidebar-item-text sidebar-link">Tensors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/tensorflow/variable.html" class="sidebar-item-text sidebar-link">Variables</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/tensorflow/autodiff.html" class="sidebar-item-text sidebar-link">Automatic differentiation</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/tensorflow/intro_to_graphs.html" class="sidebar-item-text sidebar-link">Graphs and functions</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Keras</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/index.html" class="sidebar-item-text sidebar-link">Getting Started with Keras</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/sequential_model.html" class="sidebar-item-text sidebar-link">The Sequential model</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/functional_api.html" class="sidebar-item-text sidebar-link">The Functional API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/making_new_layers_and_models_via_subclassing.html" class="sidebar-item-text sidebar-link">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/customizing_what_happens_in_fit.html" class="sidebar-item-text sidebar-link">Customizing what happens in <code>fit()</code></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/preprocessing_layers.html" class="sidebar-item-text sidebar-link">Working with preprocessing layers</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/transfer_learning.html" class="sidebar-item-text sidebar-link">Transfer learning and fine-tuning</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/working_with_rnns.html" class="sidebar-item-text sidebar-link">Working with RNNs</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/writing_your_own_callbacks.html" class="sidebar-item-text sidebar-link">Writing your own callbacks</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/applications.html" class="sidebar-item-text sidebar-link">Using Pre-Trained Models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/custom_models.html" class="sidebar-item-text sidebar-link">Writing Custom Keras Models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/functional_api.html" class="sidebar-item-text sidebar-link">Guide to the Functional API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/sequential_model.html" class="sidebar-item-text sidebar-link">Guide to the Sequential Model</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/training_visualization.html" class="sidebar-item-text sidebar-link">Training Visualization</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/custom_layers.html" class="sidebar-item-text sidebar-link">Writing Custom Keras Layers</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/faq.html" class="sidebar-item-text sidebar-link">Frequently Asked Questions</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/guide_keras.html" class="sidebar-item-text sidebar-link">Guide to Keras Basics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/saving_serializing.html" class="sidebar-item-text sidebar-link">Saving and serializing models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/training_callbacks.html" class="sidebar-item-text sidebar-link">Training Callbacks</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Advanced</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/python_subclasses.html" class="sidebar-item-text sidebar-link">Python Subclasses</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Saving</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/saving/checkpoints.html" class="sidebar-item-text sidebar-link">Checkpoints</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/saving/saved_model.html" class="sidebar-item-text sidebar-link">Saved Model</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Misc</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tensorflow/eager_execution.html" class="sidebar-item-text sidebar-link">Eager execution</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tensorflow/ragged_tensors.html" class="sidebar-item-text sidebar-link">Ragged tensors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tensorflow/tensors.html" class="sidebar-item-text sidebar-link">TensorFlow tensors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tensorflow/variable.html" class="sidebar-item-text sidebar-link">TensorFlow variables</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfdatasets/feature_columns.html" class="sidebar-item-text sidebar-link">Feature columns</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">tfdatasets</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfdatasets/feature_spec.html" class="sidebar-item-text sidebar-link">Feature Spec interface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfdatasets/introduction.html" class="sidebar-item-text sidebar-link">R interface to TensorFlow Dataset API</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">tfestimators</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/creating_estimators.html" class="sidebar-item-text sidebar-link active">Custom Estimators</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/dataset_api.html" class="sidebar-item-text sidebar-link">Dataset API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/estimator_basics.html" class="sidebar-item-text sidebar-link">Estimator Basics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/feature_columns.html" class="sidebar-item-text sidebar-link">Feature Columns</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/input_functions.html" class="sidebar-item-text sidebar-link">Input Functions</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/parsing_spec.html" class="sidebar-item-text sidebar-link">Parsing Utilities</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/run_hooks.html" class="sidebar-item-text sidebar-link">Run Hooks</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/tensorboard.html" class="sidebar-item-text sidebar-link">TensorBoard Visualization</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/tensorflow_layers.html" class="sidebar-item-text sidebar-link">TensorFlow Layers</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">tfhub</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfhub/hub-with-keras.html" class="sidebar-item-text sidebar-link">TensorFlow Hub with Keras</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfhub/intro.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfhub/key-concepts.html" class="sidebar-item-text sidebar-link">Key concepts</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#an-abalone-age-predictor" id="toc-an-abalone-age-predictor" class="nav-link active" data-scroll-target="#an-abalone-age-predictor">An Abalone Age Predictor</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#downloading-and-loading-abalone-csv-data" id="toc-downloading-and-loading-abalone-csv-data" class="nav-link" data-scroll-target="#downloading-and-loading-abalone-csv-data">Downloading and Loading Abalone CSV Data</a></li>
+  <li><a href="#instantiating-an-estimator" id="toc-instantiating-an-estimator" class="nav-link" data-scroll-target="#instantiating-an-estimator">Instantiating an Estimator</a></li>
+  <li><a href="#constructing-modelfn" id="toc-constructing-modelfn" class="nav-link" data-scroll-target="#constructing-modelfn">Constructing the model_fn</a>
+  <ul class="collapse">
+  <li><a href="#configuring-a-neural-network-with-feature_column-and-layers" id="toc-configuring-a-neural-network-with-feature_column-and-layers" class="nav-link" data-scroll-target="#configuring-a-neural-network-with-feature_column-and-layers">Configuring a neural network with feature_column and layers</a></li>
+  <li><a href="#defining-loss" id="toc-defining-loss" class="nav-link" data-scroll-target="#defining-loss">Defining loss for the model</a></li>
+  <li><a href="#defining-the-training-op-for-the-model" id="toc-defining-the-training-op-for-the-model" class="nav-link" data-scroll-target="#defining-the-training-op-for-the-model">Defining the training op for the model</a></li>
+  <li><a href="#the-complete-abalone-model_fn" id="toc-the-complete-abalone-model_fn" class="nav-link" data-scroll-target="#the-complete-abalone-model_fn">The complete abalone model_fn</a></li>
+  </ul></li>
+  <li><a href="#running-the-abalone-model" id="toc-running-the-abalone-model" class="nav-link" data-scroll-target="#running-the-abalone-model">Running the Abalone Model</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/t-kalinowski/tf-site/edit/main/v1/guide/tfestimators/creating_estimators.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/t-kalinowski/tf-site/blob/main/v1/guide/tfestimators/creating_estimators.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/t-kalinowski/tf-site/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Custom Estimators</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p><img src="../images/estimator-apis.png" align="right" width="50%" style="margin-left: 15px;"></p>
+<p>The tfestimators framework makes it easy to construct and build machine learning models via its high-level Estimator API. <code>Estimator</code> offers classes you can instantiate to quickly configure common model types such as regressors and classifiers.</p>
+<p>But what if none of the predefined model types meets your needs? Perhaps you need more granular control over model configuration, such as the ability to customize the loss function used for optimization, or specify different activation functions for each neural network layer. Or maybe you’re implementing a ranking or recommendation system, and neither a classifier nor a regressor is appropriate for generating predictions. The figure on the right illustrates the basic components of an estimator. Users can implement custom behaviors and or architecture inside the <code>model_fn</code> of the estimator.</p>
+<p>This tutorial covers how to create your own <code>Estimator</code> using the building blocks provided in <code>tfestimators</code> package, which will predict the ages of <a href="https://en.wikipedia.org/wiki/Abalone">abalones</a> based on their physical measurements. You’ll learn how to do the following:</p>
+<ul>
+<li>Instantiate an <code>Estimator</code></li>
+<li>Construct a custom model function</li>
+<li>Configure a neural network using <code>tf$feature_column</code> and <code>tf$layers</code></li>
+<li>Choose an appropriate loss function from <code>tf$losses</code></li>
+<li>Define a training op for your model</li>
+<li>Generate and return predictions</li>
+</ul>
+<p>The complete code for this tutorial can be found <a href="examples/creating_estimators_tutorial.R">here</a>.</p>
+<section id="an-abalone-age-predictor" class="level1">
+<h1>An Abalone Age Predictor</h1>
+<p>It’s possible to estimate the age of an <a href="https://en.wikipedia.org/wiki/Abalone">abalone</a> (sea snail) by the number of rings on its shell. However, because this task requires cutting, staining, and viewing the shell under a microscope, it’s desirable to find other measurements that can predict age.</p>
+<p>The <a href="https://archive.ics.uci.edu/ml/datasets/Abalone">Abalone Data Set</a> contains the following <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.names">feature data</a> for abalone:</p>
+<table class="table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Length</td>
+<td>Length of abalone (in longest direction; in mm)</td>
+</tr>
+<tr class="even">
+<td>Diameter</td>
+<td>Diameter of abalone (measurement perpendicular to length; in mm)</td>
+</tr>
+<tr class="odd">
+<td>Height</td>
+<td>Height of abalone (with its meat inside shell; in mm)</td>
+</tr>
+<tr class="even">
+<td>Whole Weight</td>
+<td>Weight of entire abalone (in grams)</td>
+</tr>
+<tr class="odd">
+<td>Shucked Weight</td>
+<td>Weight of abalone meat only (in grams)</td>
+</tr>
+<tr class="even">
+<td>Viscera Weight</td>
+<td>Gut weight of abalone (in grams), after bleeding</td>
+</tr>
+<tr class="odd">
+<td>Shell Weight</td>
+<td>Weight of dried abalone shell (in grams)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<p>This tutorial uses three data sets. <a href="http://download.tensorflow.org/data/abalone_train.csv"><code>abalone_train.csv</code></a> contains labeled training data comprising 3,320 examples. <a href="http://download.tensorflow.org/data/abalone_test.csv"><code>abalone_test.csv</code></a> contains labeled test data for 850 examples. <a href="http://download.tensorflow.org/data/abalone_predict.csv"><code>abalone_predict</code></a> contains 7 examples on which to make predictions.</p>
+<p>The following sections walk through writing the <code>Estimator</code> code step by step; the <a href="https://github.com/tensorflow/tensorflow/blob/r1.3/tensorflow/examples/tutorials/estimators/abalone.py">full, final code is available here</a>.</p>
+</section>
+<section id="downloading-and-loading-abalone-csv-data" class="level1">
+<h1>Downloading and Loading Abalone CSV Data</h1>
+<p>We first write a function that downloads the training, testing, and evaluation data from TensorFlow website if we haven’t downloaded them before.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfestimators)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>maybe_download_abalone <span class="ot">&lt;-</span> <span class="cf">function</span>(train_data_path, test_data_path, predict_data_path, column_names_to_assign) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(train_data_path) <span class="sc">||</span> <span class="sc">!</span><span class="fu">file.exists</span>(test_data_path) <span class="sc">||</span> <span class="sc">!</span><span class="fu">file.exists</span>(predict_data_path)) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Downloading abalone data ..."</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    train_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"http://download.tensorflow.org/data/abalone_train.csv"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    test_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"http://download.tensorflow.org/data/abalone_test.csv"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    predict_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"http://download.tensorflow.org/data/abalone_predict.csv"</span>, <span class="at">header =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">colnames</span>(train_data) <span class="ot">&lt;-</span> column_names_to_assign</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">colnames</span>(test_data) <span class="ot">&lt;-</span> column_names_to_assign</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">colnames</span>(predict_data) <span class="ot">&lt;-</span> column_names_to_assign</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(train_data, train_data_path, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(test_data, test_data_path, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write.csv</span>(predict_data, predict_data_path, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    train_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(train_data_path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    test_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(test_data_path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    predict_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(predict_data_path, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">train_data =</span> train_data, <span class="at">test_data =</span> test_data, <span class="at">predict_data =</span> predict_data))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>COLNAMES <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"length"</span>, <span class="st">"diameter"</span>, <span class="st">"height"</span>, <span class="st">"whole_weight"</span>, <span class="st">"shucked_weight"</span>, <span class="st">"viscera_weight"</span>, <span class="st">"shell_weight"</span>, <span class="st">"num_rings"</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>downloaded_data <span class="ot">&lt;-</span> <span class="fu">maybe_download_abalone</span>(</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="fu">getwd</span>(), <span class="st">"train_abalone.csv"</span>),</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="fu">getwd</span>(), <span class="st">"test_abalone.csv"</span>),</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">file.path</span>(<span class="fu">getwd</span>(), <span class="st">"predict_abalone.csv"</span>),</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  COLNAMES</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> downloaded_data<span class="sc">$</span>train_data</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> downloaded_data<span class="sc">$</span>test_data</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>predict_data <span class="ot">&lt;-</span> downloaded_data<span class="sc">$</span>predict_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, we construct the input function as follows:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>constructed_input_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(dataset) {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">input_fn</span>(dataset, <span class="at">features =</span> <span class="sc">-</span>num_rings, <span class="at">response =</span> num_rings, <span class="at">num_epochs =</span> <span class="cn">NULL</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>train_input_fn <span class="ot">&lt;-</span> <span class="fu">constructed_input_fn</span>(train_data)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>test_input_fn <span class="ot">&lt;-</span> <span class="fu">constructed_input_fn</span>(test_data)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>predict_input_fn <span class="ot">&lt;-</span> <span class="fu">constructed_input_fn</span>(predict_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="instantiating-an-estimator" class="level1">
+<h1>Instantiating an Estimator</h1>
+<p>When defining a model using one of tf.estimator’s provided classes, such as <code>linear_dnn_combined_classifier</code>, you supply all the configuration parameters right in the constructor, e.g.:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>diameter <span class="ot">&lt;-</span> <span class="fu">column_numeric</span>(<span class="st">"diameter"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">column_numeric</span>(<span class="st">"height"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">dnn_linear_combined_classifier</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">linear_feature_columns =</span> <span class="fu">feature_columns</span>(diameter),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dnn_feature_columns =</span> <span class="fu">feature_columns</span>(height),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">dnn_hidden_units =</span> <span class="fu">c</span>(100L, 50L)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You don’t need to write any further code to instruct TensorFlow how to train the model, calculate loss, or return predictions; that logic is already baked into the <code>linear_dnn_combined_classifier</code>.</p>
+<p>By contrast, when you’re creating your own estimator from scratch, the constructor accepts just two high-level parameters for model configuration, <code>model_fn</code> and <code>params</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">estimator</span>(model_fn, <span class="at">params =</span> model_params)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p><code>model_fn</code>: A function object that contains all the aforementioned logic to support training, evaluation, and prediction. You are responsible for implementing that functionality. The next section, <a href="#constructing-modelfn">Constructing the <code>model_fn</code></a> covers creating a model function in detail.</p></li>
+<li><p><code>params</code>: An optional dict of hyperparameters (e.g., learning rate, dropout) that will be passed into the <code>model_fn</code>.</p></li>
+</ul>
+<p>Note: Just like <code>tfestimators</code>’ predefined regressors and classifiers, the <code>estimator</code> initializer also accepts the general configuration arguments <code>model_dir</code> and <code>config</code>.</p>
+<p>For the abalone age predictor, the model will accept one hyperparameter: learning rate. Here, <code>learning_rate</code> is set to <code>0.001</code>, but you can tune this value as needed to achieve the best results during model training.</p>
+<p>The following code creates the list <code>model_params</code> containing the learning rate and instantiates the <code>Estimator</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set model params</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>model_params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">learning_rate =</span> <span class="fl">0.001</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate Estimator</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">estimator</span>(model_fn, <span class="at">params =</span> model_params)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="constructing-modelfn" class="level1">
+<h1>Constructing the model_fn</h1>
+<p>The basic skeleton for an <code>Estimator</code> API model function looks like this:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(features, labels, mode, params, config) {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Logic to do the following:</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1. Configure the model via TensorFlow operations</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 2. Define the loss function for training/evaluation</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 3. Define the training operation/optimizer</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 4. Generate predictions</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 5. Return predictions/loss/train_op/eval_metric_ops in estimator_spec object</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>model_fn</code> must accept three arguments:</p>
+<ul>
+<li><code>features</code>: A dict containing the features passed to the model via <code>input_fn</code>.</li>
+<li><code>labels</code>: A <code>Tensor</code> containing the labels passed to the model via <code>input_fn</code>. Will be empty for <code>predict()</code> calls, as these are the values the model will infer.</li>
+<li><code>mode</code>: One of the following <code>mode_keys()</code> string values indicating the context in which the model_fn was invoked:
+<ul>
+<li><code>"train"</code> The <code>model_fn</code> was invoked in training mode, namely via a <code>train()</code> call.</li>
+<li><code>"eval"</code>. The <code>model_fn</code> was invoked in evaluation mode, namely via an <code>evaluate()</code> call.</li>
+<li><code>"infer"</code>. The <code>model_fn</code> was invoked in predict mode, namely via a <code>predict()</code> call.</li>
+</ul></li>
+</ul>
+<p><code>model_fn</code> may also accept a <code>params</code> argument containing a dict of hyperparameters used for training (as shown in the skeleton above) and a <code>config</code> that represents the configurations used in a model, including GPU percentage, cluster information, etc.</p>
+<p>The body of the function performs the following tasks (described in detail in the sections that follow):</p>
+<ul>
+<li>Configuring the model—here, for the abalone predictor, this will be a neural network.</li>
+<li>Defining the loss function used to calculate how closely the model’s predictions match the target values.</li>
+<li>Defining the training operation that specifies the <code>optimizer</code> algorithm to minimize the loss values calculated by the loss function.</li>
+</ul>
+<p>The <code>model_fn</code> must return an <code>estimator_spec</code> object, which contains the following values:</p>
+<ul>
+<li><p><code>mode</code> (required). The mode in which the model was run. Typically, you will return the <code>mode</code> argument of the <code>model_fn</code> here.</p></li>
+<li><p><code>predictions</code> (required in <code>infer</code> mode). A dict that maps key names of your choice to <code>Tensor</code>s containing the predictions from the model, e.g.:</p></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">results =</span> tensor_of_predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In <code>infer</code> mode, the dict that you return in <code>estimator_spec</code> will then be returned by <code>predict()</code>, so you can construct it in the format in which you’d like to consume it.</p>
+<ul>
+<li><p><code>loss</code> (required in <code>eval</code> and <code>train</code> modes). A <code>Tensor</code> containing a scalar loss value: the output of the model’s loss function (discussed in more depth later in <a href="#defining-loss">Defining loss for the model</a>) calculated over all the input examples. This is used in <code>train</code> mode for error handling and logging, and is automatically included as a metric in <code>eval</code> mode.</p></li>
+<li><p><code>train_op</code> (required only in <code>train</code> mode). An Op that runs one step of training.</p></li>
+<li><p><code>eval_metric_ops</code> (optional). A dict of name/value pairs specifying the metrics that will be calculated when the model runs in <code>eval</code> mode. The name is a label of your choice for the metric, and the value is the result of your metric calculation. The <code>tf$metrics</code> module provides predefined functions for a variety of common metrics. The following <code>eval_metric_ops</code> contains an <code>"accuracy"</code> metric calculated using <code>tf$metrics$accuracy</code>:</p></li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>eval_metric_ops <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">accuracy =</span> tf<span class="sc">$</span>metrics<span class="sc">$</span><span class="fu">accuracy</span>(labels, predictions))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you do not specify <code>eval_metric_ops</code>, only <code>loss</code> will be calculated during evaluation.</p>
+<section id="configuring-a-neural-network-with-feature_column-and-layers" class="level2">
+<h2 class="anchored" data-anchor-id="configuring-a-neural-network-with-feature_column-and-layers">Configuring a neural network with feature_column and layers</h2>
+<p>Constructing a <a href="https://en.wikipedia.org/wiki/Artificial_neural_network">neural network</a> entails creating and connecting the input layer, the hidden layers, and the output layer.</p>
+<p>The input layer is a series of nodes (one for each feature in the model) that will accept the feature data that is passed to the <code>model_fn</code> in the <code>features</code> argument. If <code>features</code> contains an n-dimensional <code>Tensor</code> with all your feature data, then it can serve as the input layer. If <code>features</code> contains a dict of feature columns passed to the model via an input function, you can convert it to an input-layer <code>Tensor</code> with the <code>input_layer</code> function:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>input_layer <span class="ot">&lt;-</span> <span class="fu">input_layer</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">features =</span> features, <span class="at">feature_columns =</span> <span class="fu">c</span>(age, height, weight))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>As shown above, <code>input_layer()</code> takes two required arguments:</p>
+<ul>
+<li><code>features</code>. A mapping from string keys to the <code>Tensors</code> containing the corresponding feature data. This is exactly what is passed to the <code>model_fn</code> in the <code>features</code> argument.</li>
+<li><code>feature_columns</code>. A list of all the <code>FeatureColumns</code> in the model — <code>age</code>, <code>height</code>, and <code>weight</code> in the above example.</li>
+</ul>
+<p>The input layer of the neural network then must be connected to one or more hidden layers via an <a href="https://en.wikipedia.org/wiki/Activation_function">activation function</a> that performs a nonlinear transformation on the data from the previous layer. The last hidden layer is then connected to the output layer, the final layer in the model. <code>tf$layers</code> provides the <code>tf$layers$dense</code> function for constructing fully connected layers. The activation is controlled by the <code>activation</code> argument. Some options to pass to the <code>activation</code> argument are:</p>
+<ul>
+<li><code>tf$nn$relu</code>. The following code creates a layer of <code>units</code> nodes fully connected to the previous layer <code>input_layer</code> with a <a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)">ReLU activation function</a>:</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>hidden_layer <span class="ot">&lt;-</span> tf<span class="sc">$</span>layers<span class="sc">$</span><span class="fu">dense</span>(<span class="at">inputs =</span> input_layer, <span class="at">units =</span> 10L, <span class="at">activation =</span> tf<span class="sc">$</span>nn<span class="sc">$</span>relu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>tf$nn$relu6</code>. The following code creates a layer of <code>units</code> nodes fully connected to the previous layer <code>hidden_layer</code> with a ReLU 6 activation function:</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>second_hidden_layer <span class="ot">&lt;-</span> tf<span class="sc">$</span>layers<span class="sc">$</span><span class="fu">dense</span>(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="at">inputs =</span> hidden_layer, <span class="at">units =</span> 20L, <span class="at">activation =</span> tf<span class="sc">$</span>nn<span class="sc">$</span>relu)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>NULL</code>. The following code creates a layer of <code>units</code> nodes fully connected to the previous layer <code>second_hidden_layer</code> with <em>no</em> activation function, just a linear transformation:</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>output_layer <span class="ot">&lt;-</span> tf<span class="sc">$</span>layers<span class="sc">$</span><span class="fu">dense</span>(<span class="at">inputs =</span> second_hidden_layer,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="at">units =</span> 3L, <span class="at">activation =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Other activation functions are possible, e.g.:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>output_layer <span class="ot">&lt;-</span> tf<span class="sc">$</span>layers<span class="sc">$</span><span class="fu">dense</span>(<span class="at">inputs =</span> second_hidden_layer,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">units =</span> 10L, <span class="at">activation_fn =</span> tf<span class="sc">$</span>sigmoid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The above code creates the neural network layer <code>output_layer</code>, which is fully connected to <code>second_hidden_layer</code> with a sigmoid activation function <code>tf$sigmoid</code>.</p>
+<p>The network contains two hidden layers, each with 10 nodes and a ReLU activation function. The output layer contains no activation function, and is <code>tf$reshape</code> to a one-dimensional tensor to capture the model’s predictions, which are stored in <code>predictions_dict</code>.</p>
+</section>
+<section id="defining-loss" class="level2">
+<h2 class="anchored" data-anchor-id="defining-loss">Defining loss for the model</h2>
+<p>The <code>estimator_spec</code> returned by the <code>model_fn</code> must contain <code>loss</code>: a <code>Tensor</code> representing the loss value, which quantifies how well the model’s predictions reflect the label values during training and evaluation runs. The <code>tf$losses</code> module provides convenience functions for calculating loss using a variety of metrics, including:</p>
+<ul>
+<li><p><code>absolute_difference(labels, predictions)</code>. Calculates loss using the <a href="https://en.wikipedia.org/wiki/Deviation_(statistics)#Unsigned_or_absolute_deviation">absolute-difference formula</a> (also known as L<sub>1</sub> loss).</p></li>
+<li><p><code>log_loss(labels, predictions)</code>. Calculates loss using the <a href="https://en.wikipedia.org/wiki/Loss_functions_for_classification#Logistic_loss">logistic loss forumula</a> (typically used in logistic regression).</p></li>
+<li><p><code>mean_squared_error(labels, predictions)</code>. Calculates loss using the <a href="https://en.wikipedia.org/wiki/Mean_squared_error">mean squared error</a> (MSE; also known as L<sub>2</sub> loss).</p></li>
+</ul>
+<p>The following example adds a definition for <code>loss</code> to the abalone <code>model_fn</code> using <code>mean_squared_error()</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>loss <span class="ot">&lt;-</span> tf<span class="sc">$</span>losses<span class="sc">$</span><span class="fu">mean_squared_error</span>(labels, predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Supplementary metrics for evaluation can be added to an <code>eval_metric_ops</code> dict. The following code defines an <code>rmse</code> metric, which calculates the root mean squared error for the model predictions. Note that the <code>labels</code> tensor is cast to a <code>float64</code> type to match the data type of the <code>predictions</code> tensor, which will contain real values:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>eval_metric_ops <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">rmse =</span> tf<span class="sc">$</span>metrics<span class="sc">$</span><span class="fu">root_mean_squared_error</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">cast</span>(labels, tf<span class="sc">$</span>float64), predictions</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="defining-the-training-op-for-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="defining-the-training-op-for-the-model">Defining the training op for the model</h2>
+<p>The training op defines the optimization algorithm TensorFlow will use when fitting the model to the training data. Typically when training, the goal is to minimize loss. A simple way to create the training op is to instantiate a <code>tf$train$Optimizer</code> subclass and call the <code>minimize</code> method.</p>
+<p>The following code defines a training op for the abalone <code>model_fn</code> using the loss value calculated in <a href="#defining-loss">Defining Loss for the Model</a>, the learning rate passed to the function in <code>params</code>, and the gradient descent optimizer. For <code>global_step</code>, the convenience function <code>tf$train$get_global_step</code> takes care of generating an integer variable:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>optimizer <span class="ot">&lt;-</span> tf<span class="sc">$</span>train<span class="sc">$</span><span class="fu">GradientDescentOptimizer</span>(<span class="at">learning_rate =</span> params<span class="sc">$</span>learning_rate)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>train_op <span class="ot">&lt;-</span> optimizer<span class="sc">$</span><span class="fu">minimize</span>(<span class="at">loss =</span> loss, <span class="at">global_step =</span> tf<span class="sc">$</span>train<span class="sc">$</span><span class="fu">get_global_step</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="the-complete-abalone-model_fn" class="level2">
+<h2 class="anchored" data-anchor-id="the-complete-abalone-model_fn">The complete abalone model_fn</h2>
+<p>Here’s the final, complete <code>model_fn</code> for the abalone age predictor. The following code configures the neural network; defines loss and the training op; and returns a <code>estimator_spec</code> object containing <code>mode</code>, <code>predictions_dict</code>, <code>loss</code>, and <code>train_op</code>:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>model_fn <span class="ot">&lt;-</span> <span class="cf">function</span>(features, labels, mode, params, config) {</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Connect the first hidden layer to input layer</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  first_hidden_layer <span class="ot">&lt;-</span> tf<span class="sc">$</span>layers<span class="sc">$</span><span class="fu">dense</span>(features, 10L, <span class="at">activation =</span> tf<span class="sc">$</span>nn<span class="sc">$</span>relu)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Connect the second hidden layer to first hidden layer with relu</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  second_hidden_layer <span class="ot">&lt;-</span> tf<span class="sc">$</span>layers<span class="sc">$</span><span class="fu">dense</span>(first_hidden_layer, 10L, <span class="at">activation =</span> tf<span class="sc">$</span>nn<span class="sc">$</span>relu)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Connect the output layer to second hidden layer (no activation fn)</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  output_layer <span class="ot">&lt;-</span> tf<span class="sc">$</span>layers<span class="sc">$</span><span class="fu">dense</span>(second_hidden_layer, 1L)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Reshape output layer to 1-dim Tensor to return predictions</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  predictions <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">reshape</span>(output_layer, <span class="fu">list</span>(<span class="sc">-</span>1L))</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  predictions_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">ages =</span> predictions)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate loss using mean squared error</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  loss <span class="ot">&lt;-</span> tf<span class="sc">$</span>losses<span class="sc">$</span><span class="fu">mean_squared_error</span>(labels, predictions)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  eval_metric_ops <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">rmse =</span> tf<span class="sc">$</span>metrics<span class="sc">$</span><span class="fu">root_mean_squared_error</span>(</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    tf<span class="sc">$</span><span class="fu">cast</span>(labels, tf<span class="sc">$</span>float64), predictions</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  optimizer <span class="ot">&lt;-</span> tf<span class="sc">$</span>train<span class="sc">$</span><span class="fu">GradientDescentOptimizer</span>(<span class="at">learning_rate =</span> params<span class="sc">$</span>learning_rate)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  train_op <span class="ot">&lt;-</span> optimizer<span class="sc">$</span><span class="fu">minimize</span>(<span class="at">loss =</span> loss, <span class="at">global_step =</span> tf<span class="sc">$</span>train<span class="sc">$</span><span class="fu">get_global_step</span>())</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">estimator_spec</span>(</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">mode =</span> mode,</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">predictions =</span> predictions_list,</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">loss =</span> loss,</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">train_op =</span> train_op,</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">eval_metric_ops =</span> eval_metric_ops</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>model_params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">learning_rate =</span> <span class="fl">0.001</span>)</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">estimator</span>(model_fn, <span class="at">params =</span> model_params)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="running-the-abalone-model" class="level1">
+<h1>Running the Abalone Model</h1>
+<p>You’ve instantiated an <code>Estimator</code> for the abalone predictor and defined its behavior in <code>model_fn</code>; all that’s left to do is train, evaluate, and make predictions.</p>
+<p>The following code fits the neural network to the training data and evaluates the model performance based on the <code>eval_metric_ops</code> that we have defined:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">train</span>(model, <span class="at">input_fn =</span> train_input_fn, <span class="at">steps =</span> <span class="dv">2</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">evaluate</span>(model, <span class="at">input_fn =</span> test_input_fn, <span class="at">steps =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../v1/guide/tfdatasets/introduction.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">R interface to TensorFlow Dataset API</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../v1/guide/tfestimators/dataset_api.html" class="pagination-link">
+        <span class="nav-page-text">Dataset API</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

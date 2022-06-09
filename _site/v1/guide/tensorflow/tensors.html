@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.377">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>TensorFlow for R - TensorFlow tensors</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="../../../">
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<link href="../../../v1/guide/tensorflow/variable.html" rel="next">
+<link href="../../../v1/guide/tensorflow/ragged_tensors.html" rel="prev">
+<link href="../../../images/favicon/icon.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link class="quarto-color-scheme" href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../../site_libs/bootstrap/bootstrap-dark.min.css">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../images/favicon/icon.png" alt="">
+    <span class="navbar-title">TensorFlow for R</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../install/">Install</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../tutorials/">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../guides/">Guides</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../examples/">Examples</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../deploy/">Deploy</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../tools/">Tools</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../reference/">Reference</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">TensorFlow tensors</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/index.html" class="sidebar-item-text sidebar-link">Guides</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Tensorflow Basics</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/tensorflow/basics.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/tensorflow/tensor.html" class="sidebar-item-text sidebar-link">Tensors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/tensorflow/variable.html" class="sidebar-item-text sidebar-link">Variables</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/tensorflow/autodiff.html" class="sidebar-item-text sidebar-link">Automatic differentiation</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/tensorflow/intro_to_graphs.html" class="sidebar-item-text sidebar-link">Graphs and functions</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Keras</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/index.html" class="sidebar-item-text sidebar-link">Getting Started with Keras</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/sequential_model.html" class="sidebar-item-text sidebar-link">The Sequential model</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/functional_api.html" class="sidebar-item-text sidebar-link">The Functional API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/making_new_layers_and_models_via_subclassing.html" class="sidebar-item-text sidebar-link">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/customizing_what_happens_in_fit.html" class="sidebar-item-text sidebar-link">Customizing what happens in <code>fit()</code></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/preprocessing_layers.html" class="sidebar-item-text sidebar-link">Working with preprocessing layers</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/transfer_learning.html" class="sidebar-item-text sidebar-link">Transfer learning and fine-tuning</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/working_with_rnns.html" class="sidebar-item-text sidebar-link">Working with RNNs</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/writing_your_own_callbacks.html" class="sidebar-item-text sidebar-link">Writing your own callbacks</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/applications.html" class="sidebar-item-text sidebar-link">Using Pre-Trained Models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/custom_models.html" class="sidebar-item-text sidebar-link">Writing Custom Keras Models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/functional_api.html" class="sidebar-item-text sidebar-link">Guide to the Functional API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/sequential_model.html" class="sidebar-item-text sidebar-link">Guide to the Sequential Model</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/training_visualization.html" class="sidebar-item-text sidebar-link">Training Visualization</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/custom_layers.html" class="sidebar-item-text sidebar-link">Writing Custom Keras Layers</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/faq.html" class="sidebar-item-text sidebar-link">Frequently Asked Questions</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/guide_keras.html" class="sidebar-item-text sidebar-link">Guide to Keras Basics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/saving_serializing.html" class="sidebar-item-text sidebar-link">Saving and serializing models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/keras/training_callbacks.html" class="sidebar-item-text sidebar-link">Training Callbacks</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Advanced</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../guides/keras/python_subclasses.html" class="sidebar-item-text sidebar-link">Python Subclasses</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Saving</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/saving/checkpoints.html" class="sidebar-item-text sidebar-link">Checkpoints</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/saving/saved_model.html" class="sidebar-item-text sidebar-link">Saved Model</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Misc</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tensorflow/eager_execution.html" class="sidebar-item-text sidebar-link">Eager execution</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tensorflow/ragged_tensors.html" class="sidebar-item-text sidebar-link">Ragged tensors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tensorflow/tensors.html" class="sidebar-item-text sidebar-link active">TensorFlow tensors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tensorflow/variable.html" class="sidebar-item-text sidebar-link">TensorFlow variables</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfdatasets/feature_columns.html" class="sidebar-item-text sidebar-link">Feature columns</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">tfdatasets</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfdatasets/feature_spec.html" class="sidebar-item-text sidebar-link">Feature Spec interface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfdatasets/introduction.html" class="sidebar-item-text sidebar-link">R interface to TensorFlow Dataset API</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">tfestimators</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/creating_estimators.html" class="sidebar-item-text sidebar-link">Custom Estimators</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/dataset_api.html" class="sidebar-item-text sidebar-link">Dataset API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/estimator_basics.html" class="sidebar-item-text sidebar-link">Estimator Basics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/feature_columns.html" class="sidebar-item-text sidebar-link">Feature Columns</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/input_functions.html" class="sidebar-item-text sidebar-link">Input Functions</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/parsing_spec.html" class="sidebar-item-text sidebar-link">Parsing Utilities</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/run_hooks.html" class="sidebar-item-text sidebar-link">Run Hooks</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/tensorboard.html" class="sidebar-item-text sidebar-link">TensorBoard Visualization</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfestimators/tensorflow_layers.html" class="sidebar-item-text sidebar-link">TensorFlow Layers</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">tfhub</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfhub/hub-with-keras.html" class="sidebar-item-text sidebar-link">TensorFlow Hub with Keras</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfhub/intro.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../v1/guide/tfhub/key-concepts.html" class="sidebar-item-text sidebar-link">Key concepts</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#rank" id="toc-rank" class="nav-link active" data-scroll-target="#rank">Rank</a>
+  <ul class="collapse">
+  <li><a href="#rank-0" id="toc-rank-0" class="nav-link" data-scroll-target="#rank-0">Rank 0</a></li>
+  <li><a href="#rank-1" id="toc-rank-1" class="nav-link" data-scroll-target="#rank-1">Rank 1</a></li>
+  <li><a href="#higher-ranks" id="toc-higher-ranks" class="nav-link" data-scroll-target="#higher-ranks">Higher ranks</a></li>
+  <li><a href="#getting-a-tftensor-objects-rank" id="toc-getting-a-tftensor-objects-rank" class="nav-link" data-scroll-target="#getting-a-tftensor-objects-rank">Getting a <code>tf$Tensor</code> object’s rank</a></li>
+  <li><a href="#referring-to-tftensor-slices" id="toc-referring-to-tftensor-slices" class="nav-link" data-scroll-target="#referring-to-tftensor-slices">Referring to <code>tf$Tensor</code> slices</a></li>
+  </ul></li>
+  <li><a href="#shape" id="toc-shape" class="nav-link" data-scroll-target="#shape">Shape</a>
+  <ul class="collapse">
+  <li><a href="#getting-a-tftensor-objects-shape" id="toc-getting-a-tftensor-objects-shape" class="nav-link" data-scroll-target="#getting-a-tftensor-objects-shape">Getting a <code>tf$Tensor</code> object’s shape</a></li>
+  <li><a href="#changing-the-shape-of-a-tftensor" id="toc-changing-the-shape-of-a-tftensor" class="nav-link" data-scroll-target="#changing-the-shape-of-a-tftensor">Changing the shape of a <code>tf$Tensor</code></a></li>
+  </ul></li>
+  <li><a href="#data-types" id="toc-data-types" class="nav-link" data-scroll-target="#data-types">Data types</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/t-kalinowski/tf-site/edit/main/v1/guide/tensorflow/tensors.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/t-kalinowski/tf-site/blob/main/v1/guide/tensorflow/tensors.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/t-kalinowski/tf-site/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">TensorFlow tensors</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>TensorFlow, as the name indicates, is a framework to define and run computations involving tensors. A <em>tensor</em> is a generalization of vectors and matrices to potentially higher dimensions. Internally, TensorFlow represents tensors as n-dimensional arrays of base datatypes.</p>
+<p>When writing a TensorFlow program, the main object you manipulate and pass around is the <code>tf$Tensor</code>. A <code>tf$Tensor</code> object represents a partially defined computation that will eventually produce a value. TensorFlow programs work by first building a graph of <code>tf$Tensor</code> objects, detailing how each tensor is computed based on the other available tensors and then by running parts of this graph to achieve the desired results.</p>
+<p>A <code>tf$Tensor</code> has the following properties:</p>
+<ul>
+<li>a data type (<code>float32</code>, <code>int32</code>, or <code>string</code>, for example)</li>
+<li>a shape</li>
+</ul>
+<p>Each element in the Tensor has the same data type, and the data type is always known. The shape (that is, the number of dimensions it has and the size of each dimension) might be only partially known. Most operations produce tensors of fully-known shapes if the shapes of their inputs are also fully known, but in some cases it’s only possible to find the shape of a tensor at graph execution time.</p>
+<p>Some types of tensors are special, and these will be covered in other units of the TensorFlow guide. The main ones are:</p>
+<ul>
+<li><code>tf$Variable</code></li>
+<li><code>tf$constant</code></li>
+<li><code>tf$SparseTensor</code></li>
+</ul>
+<p>With the exception of <code>tf.Variable</code>, the value of a tensor is immutable, which means that in the context of a single execution tensors only have a single value. However, evaluating the same tensor twice can return different values; for example that tensor can be the result of reading data from disk, or generating a random number.</p>
+<section id="rank" class="level2">
+<h2 class="anchored" data-anchor-id="rank">Rank</h2>
+<p>The <strong>rank</strong> of a <code>tf$Tensor</code> object is its number of dimensions. Synonyms for rank include <strong>order</strong> or <strong>degree</strong> or <strong>n-dimension</strong>. Note that rank in TensorFlow is not the same as matrix rank in mathematics. As the following table shows, each rank in TensorFlow corresponds to a different mathematical entity:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Rank</th>
+<th>Math entity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Scalar (magnitude only)</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Vector (magnitude and direction)</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Matrix (table of numbers)</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3-Tensor (cube of numbers)</td>
+</tr>
+<tr class="odd">
+<td>n</td>
+<td>n-Tensor (you get the idea)</td>
+</tr>
+</tbody>
+</table>
+<section id="rank-0" class="level3">
+<h3 class="anchored" data-anchor-id="rank-0">Rank 0</h3>
+<p>The following snippet demonstrates creating a few rank 0 variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mammal <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">Variable</span>(<span class="st">"Elephant"</span>, tf<span class="sc">$</span>string)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ignition <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">Variable</span>(<span class="dv">451</span>, tf<span class="sc">$</span>int16)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>floating <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">Variable</span>(<span class="fl">3.14159265359</span>, tf<span class="sc">$</span>float64)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>its_complicated <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">Variable</span>(<span class="fl">12.3</span> <span class="sc">-</span> <span class="fl">4.85</span>i, tf<span class="sc">$</span>complex64)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note: A string is treated as a single object in TensorFlow, not as a sequence of characters. It is possible to have scalar strings, vectors of strings, etc.</p>
+</section>
+<section id="rank-1" class="level3">
+<h3 class="anchored" data-anchor-id="rank-1">Rank 1</h3>
+<p>To create a rank 1 <code>tf.Tensor</code> object, you can pass a list of items as the initial value. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mystr <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">Variable</span>(<span class="fu">c</span>(<span class="st">"Hello"</span>), tf<span class="sc">$</span>string)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cool_numbers <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">Variable</span>(<span class="fu">c</span>(<span class="fl">3.14159</span>, <span class="fl">2.71828</span>), tf<span class="sc">$</span>float32)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>first_primes <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">Variable</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>), tf<span class="sc">$</span>int32)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>its_very_complicated <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">Variable</span>(<span class="fu">c</span>(<span class="fl">12.3</span> <span class="sc">-</span> <span class="fl">4.85</span>i, <span class="fl">7.5</span> <span class="sc">-</span> <span class="fl">6.23</span>i), tf<span class="sc">$</span>complex64)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="higher-ranks" class="level3">
+<h3 class="anchored" data-anchor-id="higher-ranks">Higher ranks</h3>
+<p>A rank 2 <code>tf$Tensor</code> object consists of at least one row and at least one column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mymat <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">Variable</span>(<span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">2</span>),<span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">3</span>)), tf<span class="sc">$</span>int16)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Higher-rank Tensors, similarly, consist of an n-dimensional array. For example, during image processing, many tensors of rank 4 are used, with dimensions corresponding to example-in-batch, image height, image width, and color channel.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_image <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">zeros</span>(<span class="at">shape =</span> <span class="fu">shape</span>(<span class="dv">10</span>, <span class="dv">299</span>, <span class="dv">299</span>, <span class="dv">3</span>)) <span class="co"># batch x height x width x color</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="getting-a-tftensor-objects-rank" class="level3">
+<h3 class="anchored" data-anchor-id="getting-a-tftensor-objects-rank">Getting a <code>tf$Tensor</code> object’s rank</h3>
+<p>To determine the rank of a <code>tf$Tensor</code> object, call the <code>tf$rank</code> method. For example, the following method programmatically determines the rank of the <code>tf$Tensor</code> defined in the previous section:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">rank</span>(my_image)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="referring-to-tftensor-slices" class="level3">
+<h3 class="anchored" data-anchor-id="referring-to-tftensor-slices">Referring to <code>tf$Tensor</code> slices</h3>
+<p>Tensor elements can be extracted either by using functions like <code>tf$gather()</code> and <code>tf$slice()</code>, or by using <code>[</code> syntax.</p>
+<p>Extracting tensor elements with <code>[</code> in R is similar to extracting elements from standard R arrays, albeit with some minor differences in capabilities. In contrast to most <code>tf$</code> functions, <code>[</code> defaults to R style 1-based rather than 0-based indexes. Currently, only numeric indexes in <code>[</code> are supported (no logical or character indexes)</p>
+<p>Extracting works identically to R arrays if the slicing index is missing, supplied as a scalar, or as a sequence (e.g, created by <code>:</code> or <code>seq_len()</code>)</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x[,<span class="dv">1</span>] <span class="er">)</span>      <span class="co"># all rows, first column</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,] <span class="er">)</span>    <span class="co"># first two rows, all columns</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x[,<span class="dv">1</span>, drop <span class="ot">=</span> <span class="cn">FALSE</span>] <span class="er">)</span> <span class="co"># all rows, first column, but preserving the tensor rank</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>[</code> also supports slices with a strided step, which can be specified in traditional R style with <code>seq()</code> or with a python-style second colon. If you are unfamiliar with python-style strided step syntax, see here for a <a href="https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.indexing.html#basic-slicing-and-indexing">quick primer</a></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x[, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="at">by =</span> <span class="dv">2</span>)]  <span class="co"># R style</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span><span class="sc">:</span><span class="dv">2</span>]              <span class="co"># Equivalent python-style strided step </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Missing arguments for python syntax are valid, but they must be supplied as NULL or whole expression must by backticked.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x[, <span class="st">`</span><span class="at">::2</span><span class="st">`</span>] </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>x[, <span class="cn">NULL</span><span class="sc">:</span><span class="cn">NULL</span><span class="sc">:</span><span class="dv">2</span>] </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>x[, <span class="st">`</span><span class="at">2:</span><span class="st">`</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>[</code> also accepts <code>tf$newaxis</code> and <code>all_dims()</code> as arguments</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x[,, tf<span class="sc">$</span>newaxis]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>x[<span class="fu">all_dims</span>(), <span class="dv">1</span>] <span class="co"># all_dims expands to the shape of the tensor</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>An important difference between extracting R arrays and tensorflow tensors with <code>[</code> is how negative numbers are interpreted. For tensorflow tensors, negative numbers are interpreted as selecting elements by counting from tail (e.g, they are interpreted python-style).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x[<span class="sc">-</span><span class="dv">1</span>,]  <span class="co"># the last row</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Tensors are accepted by <code>[</code> as well, but note that tensors suplied to <code>[</code> are not translated from R to python. Meaning that tensors are interpreted as 0-based, and if slicing a range with <code>:</code>, then the returned arrays is exclusive of the upper bound.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x[, tf<span class="sc">$</span><span class="fu">constant</span>(1L)] <span class="co"># second column</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>x[, tf<span class="sc">$</span><span class="fu">constant</span>(0L)<span class="sc">:</span>tf<span class="sc">$</span><span class="fu">constant</span>(2L)] <span class="co"># first two columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you are translating existing python code to R, note that you can set an option to have all <code>[</code> arguments be interpreted pure-python style by setting <code>options(tensorflow.extract.style = "python")</code>. See <code>?`[.tensorflow.tensor`</code> for additional options and details.</p>
+</section>
+</section>
+<section id="shape" class="level2">
+<h2 class="anchored" data-anchor-id="shape">Shape</h2>
+<p>The <strong>shape</strong> of a tensor is the number of elements in each dimension. TensorFlow automatically infers shapes during graph construction. These inferred shapes might have known or unknown rank. If the rank is known, the sizes of each dimension might be known or unknown.</p>
+<p>The TensorFlow documentation uses three notational conventions to describe tensor dimensionality: rank, shape, and dimension number. The following table shows how these relate to one another:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Rank</th>
+<th>Shape</th>
+<th>Dimension number</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>[]</td>
+<td>0-D</td>
+<td>A 0-D tensor. A scalar.</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>[D0]</td>
+<td>1-D</td>
+<td>A 1-D tensor with shape [5].</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>[D0, D1]</td>
+<td>2-D</td>
+<td>A 2-D tensor with shape [3, 4].</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>[D0, D1, D2]</td>
+<td>3-D</td>
+<td>A 3-D tensor with shape [1, 4, 3].</td>
+</tr>
+<tr class="odd">
+<td>n</td>
+<td>[D0, D1, … Dn-1]</td>
+<td>n-D</td>
+<td>A tensor with shape [D0, D1, … Dn-1].</td>
+</tr>
+</tbody>
+</table>
+<p>Shapes can be represented via lists of ints, or with the <code>tf$TensorShape</code>.</p>
+<section id="getting-a-tftensor-objects-shape" class="level3">
+<h3 class="anchored" data-anchor-id="getting-a-tftensor-objects-shape">Getting a <code>tf$Tensor</code> object’s shape</h3>
+<p>There are two ways of accessing the shape of a <code>tf$Tensor</code>. While building the graph, it is often useful to ask what is already known about a tensor’s shape. This can be done by reading the <code>shape</code> property of a <code>tf$Tensor</code> object. This method returns a <code>TensorShape</code> object, which is a convenient way of representing partially-specified shapes (since, when building the graph, not all shapes will be fully known).</p>
+<p>It is also possible to get a <code>tf$Tensor</code> that will represent the fully-defined shape of another <code>tf$Tensor</code> at runtime. This is done by calling the <code>tf$shape</code> operation. This way, you can build a graph that manipulates the shapes of tensors by building other tensors that depend on the dynamic shape of the input <code>tf$Tensor</code>.</p>
+<p>For example, here is how to make a vector of zeros with the same size as the number of columns in a given matrix:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>zeros <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">zeros</span>(my_image<span class="sc">$</span>shape[<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="changing-the-shape-of-a-tftensor" class="level3">
+<h3 class="anchored" data-anchor-id="changing-the-shape-of-a-tftensor">Changing the shape of a <code>tf$Tensor</code></h3>
+<p>The <strong>number of elements</strong> of a tensor is the product of the sizes of all its shapes. The number of elements of a scalar is always <code>1</code>. Since there are often many different shapes that have the same number of elements, it’s often convenient to be able to change the shape of a <code>tf.Tensor</code>, keeping its elements fixed. This can be done with <code>tf.reshape</code>.</p>
+<p>The following examples demonstrate how to reshape tensors:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>rank_three_tensor <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>matrix <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">reshape</span>(rank_three_tensor, <span class="fu">shape</span>(<span class="dv">6</span>, <span class="dv">10</span>))  <span class="co"># Reshape existing content into</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                                 <span class="co"># a 6x10 matrix</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>matrixB <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">reshape</span>(matrix, <span class="fu">shape</span>(<span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>))  <span class="co">#  Reshape existing content into a 3x20</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                                       <span class="co"># matrix. -1 tells reshape to calculate</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                                       <span class="co"># the size of this dimension.</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>matrixAlt <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">reshape</span>(matrixB, <span class="fu">shape</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>))  <span class="co"># Reshape existing content into a</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                                             <span class="co">#4x3x5 tensor</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that the number of elements of the reshaped Tensors has to match the</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># original number of elements. Therefore, the following example generates an</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># error because no possible value for the last dimension will match the number</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># of elements.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="data-types" class="level2">
+<h2 class="anchored" data-anchor-id="data-types">Data types</h2>
+<p>In addition to dimensionality, Tensors have a data type. Refer to the <code>tf$DType</code> page for a complete list of the data types.</p>
+<p>It is not possible to have a <code>tf$Tensor</code> with more than one data type. It is possible, however, to serialize arbitrary data structures as <code>string</code>s and store those in <code>tf$Tensor</code>s.</p>
+<p>It is possible to cast <code>tf$Tensor</code>s from one datatype to another using <code>tf$cast</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cast a constant integer tensor into floating point.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>float_tensor <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">cast</span>(tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">c</span>(1L, 2L, 3L)), <span class="at">dtype=</span>tf<span class="sc">$</span>float32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To inspect a <code>tf$Tensor</code>’s data type use the <code>Tensor.dtype</code> property.</p>
+<p>When creating a <code>tf$Tensor</code> from an R object you may optionally specify the datatype. If you don’t, TensorFlow chooses a datatype that can represent your data. TensorFlow converts R integers to <code>tf$int32</code> and R floating point numbers to <code>tf$float32</code>. Otherwise TensorFlow uses the same rules numpy uses when converting to arrays.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../../v1/guide/tensorflow/ragged_tensors.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Ragged tensors</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../v1/guide/tensorflow/variable.html" class="pagination-link">
+        <span class="nav-page-text">TensorFlow variables</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
