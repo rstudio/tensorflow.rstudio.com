@@ -71,22 +71,29 @@ website:
             - {text: Variables                 ,href: guides/tensorflow/variable.qmd}
             - {text: Automatic differentiation ,href: guides/tensorflow/autodiff.qmd}
             - {text: Graphs and functions      ,href: guides/tensorflow/intro_to_graphs.qmd}
+
+        - section: Keras
+          contents:
+            - guides/keras/sequential_model.qmd
+            - guides/keras/functional_api.qmd
+            - guides/keras/making_new_layers_and_models_via_subclassing.qmd
+            - guides/keras/preprocessing_layers.qmd
+            - guides/keras/customizing_what_happens_in_fit.qmd
+            - guides/keras/working_with_rnns.qmd
+            - guides/keras/writing_your_own_callbacks.qmd
+            - guides/keras/transfer_learning.qmd
+
         - section: TensorFlow in depth
           contents:
-            - text: Tensor Slicing
-              href: guides/tensorflow/tensor_slicing.qmd
+            - guides/tensorflow/tensor_slicing.qmd
+
+
         - section: "---"
         - section: Keras
           contents:
             - v1/guide/keras/index.qmd
-            - guides/keras/sequential_model.qmd
-            - guides/keras/functional_api.qmd
-            - guides/keras/making_new_layers_and_models_via_subclassing.qmd
-            - guides/keras/customizing_what_happens_in_fit.qmd
-            - guides/keras/preprocessing_layers.qmd
-            - guides/keras/transfer_learning.qmd
-            - guides/keras/working_with_rnns.qmd
-            - guides/keras/writing_your_own_callbacks.qmd
+
+
             - v1/guide/keras/applications.qmd
             - v1/guide/keras/custom_models.qmd
             - v1/guide/keras/functional_api.qmd
