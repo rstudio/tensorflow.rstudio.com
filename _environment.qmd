@@ -1,0 +1,27 @@
+---
+format: html
+---
+
+## Environment Details 
+
+::: {.callout-note appearance="simple"  collapse="true"}
+
+### Tensorflow Version
+
+```{r}
+tensorflow::tf_version()
+```
+
+
+:::
+
+::: {.callout-note appearance="simple"  collapse="true"}
+
+### R Environment Information
+
+```{r}
+Sys.info()
+```
+
+
+:::
