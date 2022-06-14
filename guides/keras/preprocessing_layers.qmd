@@ -638,3 +638,5 @@ Instead, pre-compute your vocabulary in advance (you could use Apache
 Beam or TF Transform for this) and store it in a file. Then load the
 vocabulary into the layer at construction time by passing the filepath
 as the `vocabulary` argument.
+
+{{< include ../../_environment.qmd >}}

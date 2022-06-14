@@ -465,3 +465,6 @@ gan %>% fit(dataset %>% dataset_take(100), epochs = 1)
 ```
 
 Happy training!
+
+
+{{< include ../../_environment.qmd >}}

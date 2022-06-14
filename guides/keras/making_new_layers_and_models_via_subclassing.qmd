@@ -973,3 +973,6 @@ keras.
 -   What convenience methods are available when you subclass
     `keras$layers$Layer`: `add_weight()`, `add_loss()`, and
     `add_metric()`
+
+
+{{< include ../../_environment.qmd >}}

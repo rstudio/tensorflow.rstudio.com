@@ -936,3 +936,5 @@ outputs <- inputs %>%
 model <- keras_model(inputs, outputs)
 model(tf$zeros(shape(1, 10, 5)))
 ```
+
+{{< include ../../_environment.qmd >}}

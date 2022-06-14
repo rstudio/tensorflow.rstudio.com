@@ -1240,3 +1240,6 @@ callback_tensorboard(
 
 For more information, see the
 [documentation for the `TensorBoard` callback](https://keras$io/api/callbacks/tensorboard/).
+
+{{< include ../../_environment.qmd >}}
+

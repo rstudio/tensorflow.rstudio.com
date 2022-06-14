@@ -489,3 +489,6 @@ model %>% fit(train_ds, epochs = epochs, validation_data = validation_ds)
 ```
 
 After 10 epochs, fine-tuning gains us a nice improvement here.
+
+
+{{< include ../../_environment.qmd >}}
