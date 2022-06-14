@@ -1,0 +1,564 @@
+---
+title: Introduction to Tensors
+---
+
+##### Copyright 2020 The TensorFlow Authors.
+
+```{r}
+#| cellView: form
+#@title Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+# See the License for the specific language governing permissions and
+# limitations under the License.
+```
+
+```{r}
+library(tensorflow)
+```
+
+Tensors are multi-dimensional arrays with a uniform type (called a
+`dtype`). You can see all supported `dtypes` with `names(tf$dtypes)`.
+
+If you're familiar with R array or
+[NumPy](https://numpy.org/devdocs/user/quickstart.html), tensors are
+(kind of) like R or NumPy arrays.
+
+All tensors are immutable: you can never
+update the contents of a tensor, only create a new one.
+
+## Basics
+
+Let's create some basic tensors.
+
+Here is a "scalar" or "rank-0" tensor . A scalar contains a single
+value, and no "axes".
+
+```{r}
+# This will be an float64 tensor by default; see "dtypes" below.
+rank_0_tensor <- as_tensor(4)
+print(rank_0_tensor)
+```
+
+A "vector" or "rank-1" tensor is like a list of values. A vector has one
+axis:
+
+```{r}
+rank_1_tensor <- as_tensor(c(2, 3, 4))
+print(rank_1_tensor)
+```
+
+A "matrix" or "rank-2" tensor has two axes:
+
+```{r}
+# If you want to be specific, you can set the dtype (see below) at creation time
+rank_2_tensor <- 
+  as_tensor(rbind(c(1, 2), 
+                  c(3, 4), 
+                  c(5, 6)), 
+            dtype=tf$float16)
+print(rank_2_tensor)
+```
+
+| A scalar, shape: `[]`                               | A vector, shape: `[3]`                                                               | A matrix, shape: `[3, 2]`                                                    |
+|------------------|----------------------------|--------------------------|
+| ![A scalar, the number 4](images/tensor/scalar.png) | ![The line with 3 sections, each one containing a number.](images/tensor/vector.png) | ![A 3x2 grid, with each cell containing a number.](images/tensor/matrix.png) |
+
+Tensors may have more axes; here is a tensor with three axes:
+
+```{r}
+# There can be an arbitrary number of
+# axes (sometimes called "dimensions")
+
+rank_3_tensor <- as_tensor(0:29, shape = c(3, 2, 5))
+rank_3_tensor
+```
+
+There are many ways you might visualize a tensor with more than two
+axes.
+
+| A 3-axis tensor, shape: `[3, 2, 5]`                                                                          |
+|------------------------------------------------------------------------|
+|                                                                                                              |
+| ![](images/tensor/3-axis_numpy.png)! ![](images/tensor/3-axis_numpy.png) ![](images/tensor/3-axis_block.png) |
+
+You can convert a tensor to an R array using `as.array()`:
+
+```{r}
+as.array(rank_2_tensor)
+```
+
+Tensors often contain floats and ints, but have many other types,
+including:
+
+-   complex numbers
+-   strings
+
+The base `tf$Tensor` class requires tensors to be "rectangular"---that
+is, along each axis, every element is the same size. However, there are
+specialized types of tensors that can handle different shapes:
+
+-   Ragged tensors (see [RaggedTensor](#ragged_tensors) below)
+-   Sparse tensors (see [SparseTensor](#sparse_tensors) below)
+
+You can do basic math on tensors, including addition, element-wise
+multiplication, and matrix multiplication.
+
+```{r}
+a <- as_tensor(1:4, shape = c(2, 2)) 
+b <- as_tensor(1L, shape = c(2, 2))
+
+a + b # element-wise addition, same as tf$add(a, b)
+a * b # element-wise multiplication, same as tf$multiply(a, b)
+tf$matmul(a, b) # matrix multiplication
+```
+
+Tensors are used in all kinds of operations (ops).
+
+```{r}
+x <- as_tensor(rbind(c(4, 5), c(10, 1)))
+
+# Find the largest value
+
+# Find the largest value
+tf$reduce_max(x) # can also just call max(c)
+
+# Find the index of the largest value
+tf$math$argmax(x) 
+
+tf$nn$softmax(x) # Compute the softmax
+```
+
+## About shapes
+
+Tensors have shapes. Some vocabulary:
+
+-   **Shape**: The length (number of elements) of each of the axes of a
+    tensor.
+-   **Rank**: Number of tensor axes. A scalar has rank 0, a vector has
+    rank 1, a matrix is rank 2.
+-   **Axis** or **Dimension**: A particular dimension of a tensor.
+-   **Size**: The total number of items in the tensor, the product of
+    the shape vector's elements.
+
+Note: Although you may see reference to a "tensor of two dimensions", a
+rank-2 tensor does not usually describe a 2D space.
+
+Tensors and `tf$TensorShape` objects have convenient properties for
+accessing these:
+
+```{r}
+rank_4_tensor <- tf$zeros(shape(3, 2, 4, 5))
+```
+
+| A rank-4 tensor, shape: `[3, 2, 4, 5]`                       |
+|--------------------------------------------------------------|
+| ![A tensor shape is like a vector.](images/tensor/shape.png) |
+
+```{r}
+message("Type of every element: ", rank_4_tensor$dtype)
+message("Number of axes: ", length(dim(rank_4_tensor)))
+message("Shape of tensor: ", dim(rank_4_tensor)) # can also access via rank_4_tensor$shape
+message("Elements along axis 0 of tensor: ", dim(rank_4_tensor)[1])
+message("Elements along the last axis of tensor: ", dim(rank_4_tensor) |> tail(1)) 
+message("Total number of elements (3*2*4*5): ", length(rank_4_tensor)) # can also call tf$size()
+```
+
+While axes are often referred to by their indices, you should always
+keep track of the meaning of each. Often axes are ordered from global to
+local: The batch axis first, followed by spatial dimensions, and
+features for each location last. This way feature vectors are contiguous
+regions of memory.
+
+| Typical axis order                                                                                                     |
+|------------------------------------------------------------------------|
+| ![Keep track of what each axis is. A 4-axis tensor might be: Batch, Width, Height, Features](images/tensor/shape2.png) |
+
+## Indexing
+
+### Single-axis indexing
+
+See `` ?`[.tensorflow.tensor` `` for details
+
+### Multi-axis indexing
+
+Higher rank tensors are indexed by passing multiple indices.
+
+The exact same rules as in the single-axis case apply to each axis
+independently.
+
+Read the [tensor slicing
+guide](https://tensorflow.org/guide/tensor_slicing) to learn how you can
+apply indexing to manipulate individual elements in your tensors.
+
+## Manipulating Shapes
+
+Reshaping a tensor is of great utility.
+
+```{r}
+# Shape returns a `TensorShape` object that shows the size along each axis
+
+x <- as_tensor(1:3, shape = c(1, -1)) 
+x$shape
+```
+
+```{r}
+# You can convert this object into an R vector too
+as.integer(x$shape)
+```
+
+You can reshape a tensor into a new shape. The `tf$reshape` operation is
+fast and cheap as the underlying data does not need to be duplicated.
+
+```{r}
+# You can reshape a tensor to a new shape.
+# Note that you're passing in integers
+
+reshaped <- tf$reshape(x, c(1L, 3L))
+```
+
+```{r}
+x$shape
+reshaped$shape
+```
+
+The data maintains its layout in memory and a new tensor is created,
+with the requested shape, pointing to the same data. TensorFlow uses
+C-style "row-major" memory ordering, where incrementing the rightmost
+index corresponds to a single step in memory.
+
+```{r}
+rank_3_tensor
+```
+
+If you flatten a tensor you can see what order it is laid out in memory.
+
+```{r}
+# A `-1` passed in the `shape` argument says "Whatever fits".
+tf$reshape(rank_3_tensor, c(-1L))
+```
+
+A typical and reasonable use of `tf$reshape` is to combine or split
+adjacent axes (or add/remove `1`s).
+
+For this 3x2x5 tensor, reshaping to (3x2)x5 or 3x(2x5) are both
+reasonable things to do, as the slices do not mix:
+
+```{r}
+tf$reshape(rank_3_tensor, as.integer(c(3*2, 5)))
+tf$reshape(rank_3_tensor, as.integer(c(3L, -1L)))
+```
+
+| Some good reshapes.                                                                                                                  |
+|------------------------------------------------------------------------|
+| ![A 3x2x5 tensor](images/tensor/reshape-before.png) ![3x10](images/tensor/reshape-good1.png) ![6x5](images/tensor/reshape-good2.png) |
+
+https://www.tensorflow.org/guide/images/tensor/reshape-before.png
+https://www.tensorflow.org/guide/
+https://www.tensorflow.org/guide/images/tensor/reshape-good2.png
+
+Reshaping will "work" for any new shape with the same total number of
+elements, but it will not do anything useful if you do not respect the
+order of the axes.
+
+Swapping axes in `tf$reshape` does not work; you need `tf$transpose` for
+that.
+
+```{r}
+# Bad examples: don't do this
+
+# You can't reorder axes with reshape.
+tf$reshape(rank_3_tensor, as.integer(c(2, 3, 5)))
+
+# This is a mess
+tf$reshape(rank_3_tensor, as.integer(c(5, 6)))
+
+# This doesn't work at all
+try(tf$reshape(rank_3_tensor, as.integer(c(7, -1))))
+```
+
+| Some bad reshapes.                                                                                                                                                                                                                                           |
+|------------------------------------------------------------------------|
+| ![You can't reorder axes, use tf\$transpose for that](images/tensor/reshape-bad.png) ![Anything that mixes the slices of data together is probably wrong.](images/tensor/reshape-bad4.png) ![The new shape must fit exactly](images/tensor/reshape-bad2.png) |
+
+You may run across not-fully-specified shapes. Either the shape contains
+a `NULL` (an axis-length is unknown) or the whole shape is `NULL` (the
+rank of the tensor is unknown).
+
+Except for [`tf$RaggedTensor`](#ragged_tensors), such shapes will only
+occur in the context of TensorFlow's symbolic, graph-building APIs:
+
+-   [tf_function](function.qmd)
+-   The [keras functional
+    API](https://www.tensorflow.org/guide/keras/functional).
+
+## More on `DTypes`
+
+To inspect a `tf$Tensor`'s data type use the `Tensor$dtype` property.
+
+When creating a `tf$Tensor` from a Python object you may optionally
+specify the datatype.
+
+If you don't, TensorFlow chooses a datatype that can represent your
+data. TensorFlow converts R integers to `tf$int32` and R floating point
+numbers to `tf$float64`.
+
+You can cast from type to type.
+
+```{r}
+the_f64_tensor <- as_tensor(c(2.2, 3.3, 4.4), dtype = tf$float64)
+the_f16_tensor <- tf$cast(the_f64_tensor, dtype = tf$float16)
+# Now, cast to an uint8 and lose the decimal precision
+
+the_u8_tensor <- tf$cast(the_f16_tensor, dtype = tf$uint8)
+the_u8_tensor
+```
+
+## Broadcasting
+
+Broadcasting is a concept borrowed from the [equivalent feature in
+NumPy](https://numpy.org/doc/stable/user/basics.html). In short, under
+certain conditions, smaller tensors are recycled automatically to fit
+larger tensors when running combined operations on them.
+
+The simplest and most common case is when you attempt to multiply or add
+a tensor to a scalar. In that case, the scalar is broadcast to be the
+same shape as the other argument.
+
+```{r}
+x <- as_tensor(c(1, 2, 3))
+
+y <- as_tensor(2)
+z <- as_tensor(c(2, 2, 2))
+
+# All of these are the same computation
+tf$multiply(x, 2)
+x * y
+x * z
+```
+
+Likewise, axes with length 1 can be stretched out to match the other
+arguments. Both arguments can be stretched in the same computation.
+
+In this case a 3x1 matrix is element-wise multiplied by a 1x4 matrix to
+produce a 3x4 matrix. Note how the leading 1 is optional: The shape of y
+is `[4]`.
+
+```{r}
+# These are the same computations
+(x <- tf$reshape(x, as.integer(c(3, 1))))
+(y <- tf$range(1, 5,  dtype = "float64"))
+
+x * y
+```
+
+| A broadcasted add: a `[3, 1]` times a `[1, 4]` gives a `[3,4]`                                   |
+|------------------------------------------------------------------------|
+| ![Adding a 3x1 matrix to a 4x1 matrix results in a 3x4 matrix](images/tensor/broadcasting.png)\\ |
+
+Here is the same operation without broadcasting:
+
+```{r}
+x_stretch <- as_tensor(rbind(c(1, 1, 1, 1),
+                             c(2, 2, 2, 2),
+                             c(3, 3, 3, 3)))
+
+y_stretch <- as_tensor(rbind(c(1, 2, 3, 4),
+                             c(1, 2, 3, 4),
+                             c(1, 2, 3, 4)))
+
+x_stretch * y_stretch  
+```
+
+Most of the time, broadcasting is both time and space efficient, as the
+broadcast operation never materializes the expanded tensors in memory.
+
+You see what broadcasting looks like using `tf$broadcast_to`.
+
+```{r}
+tf$broadcast_to(as_tensor(c(1, 2, 3)), c(3L, 3L))
+```
+
+Unlike a mathematical op, for example, `broadcast_to` does nothing
+special to save memory. Here, you are materializing the tensor.
+
+It can get even more complicated. [This
+section](https://jakevdp.github.io/PythonDataScienceHandbook/02.05-computation-on-arrays-broadcasting.html)
+of Jake VanderPlas's book *Python Data Science Handbook* shows more
+broadcasting tricks (again in NumPy).
+
+## `tf$convert_to_tensor`
+
+Most ops, like `tf$matmul` and `tf$reshape` take arguments of class
+`tf$Tensor`. However, you'll notice in the above case, objects shaped
+like tensors are also accepted.
+
+Most, but not all, ops call `convert_to_tensor` on non-tensor arguments.
+There is a registry of conversions, and most object classes like NumPy's
+`ndarray`, `TensorShape`, Python lists, and `tf$Variable` will all
+convert automatically.
+
+See `tf$register_tensor_conversion_function` for more details, and if
+you have your own type you'd like to automatically convert to a tensor.
+
+## Ragged Tensors
+
+A tensor with variable numbers of elements along some axis is called
+"ragged". Use `tf$ragged$RaggedTensor` for ragged data.
+
+For example, This cannot be represented as a regular tensor:
+
+| A `tf$RaggedTensor`, shape: `[4, NULL]`                                                    |
+|------------------------------------------------------------------------|
+| ![A 2-axis ragged tensor, each row can have a different length.](images/tensor/ragged.png) |
+
+```{r}
+ragged_list <- list(list(0, 1, 2, 3),
+                    list(4, 5),
+                    list(6, 7, 8),
+                    list(9))
+```
+
+```{r}
+try(tensor <- as_tensor(ragged_list))
+```
+
+Instead create a `tf$RaggedTensor` using `tf$ragged$constant`:
+
+```{r}
+(ragged_tensor <- tf$ragged$constant(ragged_list))
+```
+
+The shape of a `tf$RaggedTensor` will contain some axes with unknown
+lengths:
+
+```{r}
+print(ragged_tensor$shape)
+```
+
+## String tensors
+
+`tf$string` is a `dtype`, which is to say you can represent data as
+strings (variable-length byte arrays) in tensors.
+
+The length of the string is not one of the axes of the tensor. See
+`tf$strings` for functions to manipulate them.
+
+Here is a scalar string tensor:
+
+```{r}
+# Tensors can be strings, too here is a scalar string.
+
+(scalar_string_tensor <- as_tensor("Gray wolf"))
+```
+
+And a vector of strings:
+
+| A vector of strings, shape: `[3,]`                                               |
+|------------------------------------------------------------------------|
+| ![The string length is not one of the tensor's axes.](images/tensor/strings.png) |
+
+```{r}
+tensor_of_strings <- as_tensor(c("Gray wolf",
+                                 "Quick brown fox",
+                                 "Lazy dog"))
+# Note that the shape is (3). The string length is not included.
+
+tensor_of_strings
+```
+
+In the above printout the `b` prefix indicates that `tf$string` dtype is
+not a unicode string, but a byte-string. See the [Unicode
+Tutorial](https://www.tensorflow.org/tutorials/load_data/unicode) for
+more about working with unicode text in TensorFlow.
+
+If you pass unicode characters they are utf-8 encoded.
+
+```{r}
+as_tensor("🥳👍")
+```
+
+Some basic functions with strings can be found in `tf$strings`,
+including `tf$strings$split`.
+
+```{r}
+# You can use split to split a string into a set of tensors
+tf$strings$split(scalar_string_tensor, sep=" ")
+```
+
+```{r}
+# ...and it turns into a `RaggedTensor` if you split up a tensor of strings,
+# as each string might be split into a different number of parts.
+tf$strings$split(tensor_of_strings)
+```
+
+| Three strings split, shape: `[3, NULL]`                                                  |
+|------------------------------------------------------------------------|
+| ![Splitting multiple strings returns a tf\$RaggedTensor](images/tensor/string-split.png) |
+
+And `tf$string$to_number`:
+
+```{r}
+text <- as_tensor("1 10 100")
+tf$strings$to_number(tf$strings$split(text, " "))
+```
+
+Although you can't use `tf$cast` to turn a string tensor into numbers,
+you can convert it into bytes, and then into numbers.
+
+```{r}
+byte_strings <- tf$strings$bytes_split(as_tensor("Duck"))
+byte_ints <- tf$io$decode_raw(as_tensor("Duck"), tf$uint8)
+cat("Byte strings: "); print(byte_strings)
+cat("Bytes: "); print(byte_ints)
+```
+
+```{r}
+# Or split it up as unicode and then decode it
+unicode_bytes <- as_tensor("アヒル 🦆")
+unicode_char_bytes <- tf$strings$unicode_split(unicode_bytes, "UTF-8")
+unicode_values <- tf$strings$unicode_decode(unicode_bytes, "UTF-8")
+
+cat("Unicode bytes: "); unicode_bytes
+cat("Unicode chars: "); unicode_char_bytes
+cat("Unicode values: "); unicode_values
+```
+
+The `tf$string` dtype is used for all raw bytes data in TensorFlow. The
+`tf$io` module contains functions for converting data to and from bytes,
+including decoding images and parsing csv.
+
+## Sparse tensors
+
+Sometimes, your data is sparse, like a very wide embedding space.
+TensorFlow supports `tf$sparse$SparseTensor` and related operations to
+store sparse data efficiently.
+
+| A `tf$SparseTensor`, shape: `[3, 4]`                                            |
+|------------------------------------------------------------------------|
+| ![An 3x4 grid, with values in only two of the cells.](images/tensor/sparse.png) |
+
+```{r}
+# Sparse tensors store values by index in a memory-efficient manner
+sparse_tensor <- tf$sparse$SparseTensor(
+  indices = rbind(c(0L, 0L),
+                  c(1L, 2L)),
+  values = c(1, 2),
+  dense_shape = as.integer(c(3, 4))
+)
+
+sparse_tensor
+
+# You can convert sparse tensors to dense
+tf$sparse$to_dense(sparse_tensor)
+```
+
+{{< include ../../_environment.qmd >}}
+

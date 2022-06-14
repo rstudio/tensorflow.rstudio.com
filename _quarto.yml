@@ -1,0 +1,172 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "**.qmd"
+    - "!v1/**"
+    - "!install/**"
+    - "!examples/**"
+
+  # pre-render: spin-examples.R
+  preview:
+    port: 5555
+    browser: false # true
+
+execute:
+  enabled: true
+  eval: true
+  freeze: auto
+
+
+website:
+  title: TensorFlow for R
+  site-url: https://tensorflow.rstudio.com
+  repo-url: https://github.com/t-kalinowski/tf-site
+  repo-actions: [edit, source, issue]
+  search: true
+  page-navigation: true
+  reader-mode: true
+  favicon: "images/favicon/icon.png"
+  navbar:
+    search: true
+    logo: "images/favicon/icon.png"
+    file: index.qmd
+    left:
+      - {text: Install      ,href: install/}
+      - {text: Tutorials    ,href: tutorials/}
+      - {text: Guides       ,href: guides/}
+      - {text: Examples     ,href: examples/}
+      - {text: Deploy       ,href: deploy/}
+      - {text: Tools        ,href: tools/}
+      - {text: Reference    ,href: reference/}
+      # - {text: v1           ,href: v1/}
+
+
+
+  sidebar:
+
+    - title: "Install"
+      search: true
+      collapse-level: 2
+      style: docked
+      contents:
+        - install/index.qmd
+        - section: GPU
+          contents:
+            - install/gpu/local_gpu/index.qmd
+            - install/gpu/cloud_server_gpu/index.qmd
+            - install/gpu/cloud_desktop_gpu/index.qmd
+
+    - title: "Tutorials"
+      contents:
+        - tutorials/
+
+    - title: "Guides"
+      contents:
+        - guides/index.qmd
+        - section: Tensorflow Basics
+          contents:
+            - {text: Overview                  ,href: guides/tensorflow/basics.qmd}
+            - {text: Tensors                   ,href: guides/tensorflow/tensor.qmd}
+            - {text: Variables                 ,href: guides/tensorflow/variable.qmd}
+            - {text: Automatic differentiation ,href: guides/tensorflow/autodiff.qmd}
+            - {text: Graphs and functions      ,href: guides/tensorflow/intro_to_graphs.qmd}
+
+        - section: Keras
+          contents:
+            - guides/keras/sequential_model.qmd
+            - guides/keras/functional_api.qmd
+            - guides/keras/training_with_built_in_methods.qmd
+            - guides/keras/making_new_layers_and_models_via_subclassing.qmd
+            - guides/keras/preprocessing_layers.qmd
+            - guides/keras/customizing_what_happens_in_fit.qmd
+            - guides/keras/working_with_rnns.qmd
+            - guides/keras/writing_your_own_callbacks.qmd
+            - guides/keras/transfer_learning.qmd
+
+        - section: TensorFlow in depth
+          contents:
+            - guides/tensorflow/tensor_slicing.qmd
+
+
+        - section: "---"
+        - section: Keras
+          contents:
+            - v1/guide/keras/index.qmd
+
+
+            - v1/guide/keras/applications.qmd
+            - v1/guide/keras/custom_models.qmd
+            - v1/guide/keras/functional_api.qmd
+            - v1/guide/keras/sequential_model.qmd
+            - v1/guide/keras/training_visualization.qmd
+            - v1/guide/keras/custom_layers.qmd
+            - v1/guide/keras/faq.qmd
+            - v1/guide/keras/guide_keras.qmd
+            - v1/guide/keras/saving_serializing.qmd
+            - v1/guide/keras/training_callbacks.qmd
+        - section: Advanced
+          contents:
+            - guides/keras/python_subclasses.qmd
+        - section: Saving
+          contents:
+            - v1/guide/saving/checkpoints.qmd
+            - v1/guide/saving/saved_model.qmd
+        - section: Misc
+          contents:
+            - v1/guide/tensorflow/eager_execution.qmd
+            - v1/guide/tensorflow/ragged_tensors.qmd
+            - v1/guide/tensorflow/tensors.qmd
+            - v1/guide/tensorflow/variable.qmd
+            - v1/guide/tfdatasets/feature_columns.qmd
+        - section: tfdatasets
+          contents:
+            - v1/guide/tfdatasets/feature_spec.qmd
+            - v1/guide/tfdatasets/introduction.qmd
+        - section: tfestimators
+          contents:
+            - v1/guide/tfestimators/creating_estimators.qmd
+            - v1/guide/tfestimators/dataset_api.qmd
+            - v1/guide/tfestimators/estimator_basics.qmd
+            - v1/guide/tfestimators/feature_columns.qmd
+            - v1/guide/tfestimators/input_functions.qmd
+            - v1/guide/tfestimators/parsing_spec.qmd
+            - v1/guide/tfestimators/run_hooks.qmd
+            - v1/guide/tfestimators/tensorboard.qmd
+            - v1/guide/tfestimators/tensorflow_layers.qmd
+        - section: tfhub
+          contents:
+            - v1/guide/tfhub/hub-with-keras.qmd
+            - v1/guide/tfhub/intro.qmd
+            - v1/guide/tfhub/key-concepts.qmd
+
+    - title: "Tools"
+      contents:
+        - tools/index.qmd
+        - v1/tools/cloudml/deployment.qmd
+        - v1/tools/cloudml/getting_started.qmd
+        - v1/tools/cloudml/storage.qmd
+        - v1/tools/cloudml/training.qmd
+        - v1/tools/cloudml/tuning.qmd
+        - v1/tools/index.qmd
+        - v1/tools/tensorboard/hparams.qmd
+        - v1/tools/tensorboard/tensorboard.qmd
+        - v1/tools/tfruns/managing.qmd
+        - v1/tools/tfruns/overview.qmd
+        - v1/tools/tfruns/tuning.qmd
+
+    - title: "Reference"
+      search: true
+      contents:
+        - reference/index.qmd
+
+
+
+
+format:
+  html:
+    toc: true
+    code-overflow: wrap
+    theme:
+      light: united
+      dark: darkly
