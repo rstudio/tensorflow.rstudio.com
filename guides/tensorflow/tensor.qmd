@@ -559,3 +559,6 @@ sparse_tensor
 # You can convert sparse tensors to dense
 tf$sparse$to_dense(sparse_tensor)
 ```
+
+{{< include ../../_environment.qmd >}}
+

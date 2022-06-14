@@ -536,3 +536,5 @@ hence the extra tracing.
 You can learn more about `tf_function()` on the API reference page and
 by following the [Better performance with `tf_function`](function.qmd)
 guide.
+
+{{< include ../../_environment.qmd >}}

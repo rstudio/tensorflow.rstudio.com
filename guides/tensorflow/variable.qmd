@@ -220,3 +220,5 @@ For more on distributed training, refer to the
 
 To understand how variables are typically used, see our guide on
 [automatic differentiation](autodiff.qmd).
+
+{{< include ../../_environment.qmd >}}

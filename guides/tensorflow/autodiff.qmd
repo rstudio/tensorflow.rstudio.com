@@ -591,3 +591,6 @@ with(tf$GradientTape() %as% tape, {
 })
 tape$gradient(z, x, unconnected_gradients = tf$UnconnectedGradients$ZERO)
 ```
+
+{{< include ../../_environment.qmd >}}
+

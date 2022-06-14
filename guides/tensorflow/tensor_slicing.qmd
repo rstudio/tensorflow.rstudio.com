@@ -268,3 +268,5 @@ In this guide, you learned how to use the tensor slicing ops available with Tens
 * Check out the slicing ops available with TensorFlow NumPy such as `tf$experimental$numpy$take_along_axis` and `tf$experimental$numpy$take`.
 
 * Also check out the [Tensor guide](https://www.tensorflow.org/guide/tensor) and the [Variable guide](https://www.tensorflow.org/guide/variable).
+
+{{< include ../../_environment.qmd >}}
