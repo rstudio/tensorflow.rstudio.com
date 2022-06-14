@@ -90,8 +90,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../guides/keras/transfer_learning.html" rel="next">
-<link href="../../guides/keras/customizing_what_happens_in_fit.html" rel="prev">
+<link href="../../guides/keras/customizing_what_happens_in_fit.html" rel="next">
+<link href="../../guides/keras/making_new_layers_and_models_via_subclassing.html" rel="prev">
 <link href="../../images/favicon/icon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -236,20 +236,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
     </ul>
   </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Keras</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Keras</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
     </div>
-    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/index.html" class="sidebar-item-text sidebar-link">Getting Started with Keras</a>
-  </div>
-</li>
+    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../guides/keras/sequential_model.html" class="sidebar-item-text sidebar-link">The Sequential model</a>
@@ -262,12 +256,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../guides/keras/making_new_layers_and_models_via_subclassing.html" class="sidebar-item-text sidebar-link">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</a>
+  <a href="../../guides/keras/training_with_built_in_methods.html" class="sidebar-item-text sidebar-link">Training &amp; evaluation with the built-in methods</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../guides/keras/customizing_what_happens_in_fit.html" class="sidebar-item-text sidebar-link">Customizing what happens in <code>fit()</code></a>
+  <a href="../../guides/keras/making_new_layers_and_models_via_subclassing.html" class="sidebar-item-text sidebar-link">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -277,7 +271,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../guides/keras/transfer_learning.html" class="sidebar-item-text sidebar-link">Transfer learning and fine-tuning</a>
+  <a href="../../guides/keras/customizing_what_happens_in_fit.html" class="sidebar-item-text sidebar-link">Customizing what happens in <code>fit()</code></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -292,64 +286,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/applications.html" class="sidebar-item-text sidebar-link">Using Pre-Trained Models</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/custom_models.html" class="sidebar-item-text sidebar-link">Writing Custom Keras Models</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/functional_api.html" class="sidebar-item-text sidebar-link">Guide to the Functional API</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/sequential_model.html" class="sidebar-item-text sidebar-link">Guide to the Sequential Model</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/training_visualization.html" class="sidebar-item-text sidebar-link">Training Visualization</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/custom_layers.html" class="sidebar-item-text sidebar-link">Writing Custom Keras Layers</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/faq.html" class="sidebar-item-text sidebar-link">Frequently Asked Questions</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/guide_keras.html" class="sidebar-item-text sidebar-link">Guide to Keras Basics</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/saving_serializing.html" class="sidebar-item-text sidebar-link">Saving and serializing models</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/keras/training_callbacks.html" class="sidebar-item-text sidebar-link">Training Callbacks</a>
+  <a href="../../guides/keras/transfer_learning.html" class="sidebar-item-text sidebar-link">Transfer learning and fine-tuning</a>
   </div>
 </li>
     </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Advanced</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">TensorFlow in depth</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
     </div>
-    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/tensorflow/tensor_slicing.html" class="sidebar-item-text sidebar-link">Tensor Slicing</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Keras</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Advanced</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../guides/keras/python_subclasses.html" class="sidebar-item-text sidebar-link">Python Subclasses</a>
@@ -359,157 +334,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Saving</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/saving/checkpoints.html" class="sidebar-item-text sidebar-link">Checkpoints</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/saving/saved_model.html" class="sidebar-item-text sidebar-link">Saved Model</a>
-  </div>
-</li>
-    </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Misc</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tensorflow/eager_execution.html" class="sidebar-item-text sidebar-link">Eager execution</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tensorflow/ragged_tensors.html" class="sidebar-item-text sidebar-link">Ragged tensors</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tensorflow/tensors.html" class="sidebar-item-text sidebar-link">TensorFlow tensors</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tensorflow/variable.html" class="sidebar-item-text sidebar-link">TensorFlow variables</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfdatasets/feature_columns.html" class="sidebar-item-text sidebar-link">Feature columns</a>
-  </div>
-</li>
-    </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">tfdatasets</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">Saving</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
     </div>
     <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfdatasets/feature_spec.html" class="sidebar-item-text sidebar-link">Feature Spec interface</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfdatasets/introduction.html" class="sidebar-item-text sidebar-link">R interface to TensorFlow Dataset API</a>
-  </div>
-</li>
     </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">tfestimators</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">Misc</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
     </div>
     <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfestimators/creating_estimators.html" class="sidebar-item-text sidebar-link">Custom Estimators</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfestimators/dataset_api.html" class="sidebar-item-text sidebar-link">Dataset API</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfestimators/estimator_basics.html" class="sidebar-item-text sidebar-link">Estimator Basics</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfestimators/feature_columns.html" class="sidebar-item-text sidebar-link">Feature Columns</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfestimators/input_functions.html" class="sidebar-item-text sidebar-link">Input Functions</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfestimators/parsing_spec.html" class="sidebar-item-text sidebar-link">Parsing Utilities</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfestimators/run_hooks.html" class="sidebar-item-text sidebar-link">Run Hooks</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfestimators/tensorboard.html" class="sidebar-item-text sidebar-link">TensorBoard Visualization</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfestimators/tensorflow_layers.html" class="sidebar-item-text sidebar-link">TensorFlow Layers</a>
-  </div>
-</li>
     </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">tfhub</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">tfdatasets</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
     </div>
     <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfhub/hub-with-keras.html" class="sidebar-item-text sidebar-link">TensorFlow Hub with Keras</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfhub/intro.html" class="sidebar-item-text sidebar-link">Overview</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../v1/guide/tfhub/key-concepts.html" class="sidebar-item-text sidebar-link">Key concepts</a>
-  </div>
-</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">tfestimators</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">tfhub</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-11" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-11" class="collapse list-unstyled sidebar-section depth1 show">  
     </ul>
   </li>
     </ul>
@@ -583,8 +453,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tensorflow' was built under R version 4.1.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="keras-preprocessing" class="level2">
 <h2 class="anchored" data-anchor-id="keras-preprocessing">Keras preprocessing</h2>
@@ -652,45 +525,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Crucially, these layers are <strong>non-trainable</strong>. Their state is not set during training; it must be set <strong>before training</strong>, either by initializing them from a precomputed constant, or by “adapting” them on data.</p>
 <p>You set the state of a preprocessing layer by exposing it to training data, via <code>adapt()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>),</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.9</span>, <span class="fl">1.0</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">1.6</span>, <span class="fl">1.7</span>))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_normalization</span>()</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">adapt</span>(layer, data)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>normalized_data <span class="ot">&lt;-</span> <span class="fu">as.array</span>(<span class="fu">layer</span>(data))</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Features mean: %.2f"</span>, <span class="fu">mean</span>(normalized_data))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Features std: %.2f"</span>, <span class="fu">sd</span>(normalized_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>),</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.9</span>, <span class="fl">1.0</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">1.6</span>, <span class="fl">1.7</span>))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_normalization</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loaded Tensorflow version 2.9.1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adapt</span>(layer, data)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>normalized_data <span class="ot">&lt;-</span> <span class="fu">as.array</span>(<span class="fu">layer</span>(data))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Features mean: %.2f"</span>, <span class="fu">mean</span>(normalized_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Features mean: -0.00"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Features std: %.2f"</span>, <span class="fu">sd</span>(normalized_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Features std: 1.06"</code></pre>
+</div>
 </div>
 <p><code>adapt()</code> takes either an array or a <code>tf_dataset</code>. In the case of <code>layer_string_lookup()</code> and <code>layer_text_vectorization()</code>, you can also pass a character vector:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Congratulations!"</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Today is your day."</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You're off to Great Places!"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You're off and away!"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You have brains in your head."</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You have feet in your shoes."</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You can steer yourself"</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"any direction you choose."</span>,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You're on your own. And you know what you know."</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"And YOU are the one who'll decide where to go."</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">=</span> <span class="fu">layer_text_vectorization</span>()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>layer <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(data)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>vectorized_text <span class="ot">&lt;-</span> <span class="fu">layer</span>(data)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vectorized_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Congratulations!"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Today is your day."</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You're off to Great Places!"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You're off and away!"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You have brains in your head."</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You have feet in your shoes."</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You can steer yourself"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"any direction you choose."</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"You're on your own. And you know what you know."</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"And YOU are the one who'll decide where to go."</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">=</span> <span class="fu">layer_text_vectorization</span>()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>layer <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(data)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>vectorized_text <span class="ot">&lt;-</span> <span class="fu">layer</span>(data)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vectorized_text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tf.Tensor(
+[[31  0  0  0  0  0  0  0  0  0]
+ [15 23  3 30  0  0  0  0  0  0]
+ [ 4  7  6 25 19  0  0  0  0  0]
+ [ 4  7  5 35  0  0  0  0  0  0]
+ [ 2 10 34  9  3 24  0  0  0  0]
+ [ 2 10 27  9  3 18  0  0  0  0]
+ [ 2 33 17 11  0  0  0  0  0  0]
+ [37 28  2 32  0  0  0  0  0  0]
+ [ 4 22  3 20  5  2  8 14  2  8]
+ [ 5  2 36 16 21 12 29 13  6 26]], shape=(10, 10), dtype=int64)</code></pre>
+</div>
 </div>
 <p>In addition, adaptable layers always expose an option to directly set state via constructor arguments or weight assignment. If the intended state values are known at layer construction time, or are calculated outside of the <code>adapt()</code> call, they can be set without relying on the layer’s internal computation. For instance, if external vocabulary files for the <code>layer_text_vectorization()</code>, <code>layer_string_lookup()</code>, or <code>layer_integer_lookup()</code> layers already exist, those can be loaded directly into the lookup tables by passing a path to the vocabulary file in the layer’s constructor arguments.</p>
 <p>Here’s an example where we instantiate a <code>layer_string_lookup()</code> layer with precomputed vocabulary:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>vocab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>),</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">c</span>(<span class="st">"d"</span>, <span class="st">"z"</span>, <span class="st">"b"</span>)))</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_string_lookup</span>(<span class="at">vocabulary=</span>vocab)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>vectorized_data <span class="ot">&lt;-</span> <span class="fu">layer</span>(data)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vectorized_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>vocab <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">c</span>(<span class="st">"d"</span>, <span class="st">"z"</span>, <span class="st">"b"</span>)))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_string_lookup</span>(<span class="at">vocabulary=</span>vocab)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>vectorized_data <span class="ot">&lt;-</span> <span class="fu">layer</span>(data)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(vectorized_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tf.Tensor(
+[[1 3 4]
+ [4 0 2]], shape=(2, 3), dtype=int64)</code></pre>
+</div>
 </div>
 </section>
 <section id="preprocessing-data-before-the-model-or-inside-the-model" class="level2">
@@ -698,26 +598,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are two ways you could be using preprocessing layers:</p>
 <p><strong>Option 1:</strong> Make them part of the model, like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">preprocessing_layer</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rest_of_the_model</span>()</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">preprocessing_layer</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rest_of_the_model</span>()</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With this option, preprocessing will happen on device, synchronously with the rest of the model execution, meaning that it will benefit from GPU acceleration. If you’re training on GPU, this is the best option for the <code>layer_normalization()</code> layer, and for all image preprocessing and data augmentation layers.</p>
 <p><strong>Option 2:</strong> apply it to your <code>tf_dataset</code>, so as to obtain a dataset that yields batches of preprocessed data, like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> ... <span class="co"># define dataset</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="cf">function</span>(x, y) <span class="fu">list</span>(<span class="fu">preprocessing_layer</span>(x), y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> ... <span class="co"># define dataset</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="cf">function</span>(x, y) <span class="fu">list</span>(<span class="fu">preprocessing_layer</span>(x), y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With this option, your preprocessing will happen on CPU, asynchronously, and will be buffered before going into the model. In addition, if you call <code>tfdatasets::dataset_prefetch()</code> on your dataset, the preprocessing will happen efficiently in parallel with training:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="cf">function</span>(x, y) <span class="fu">list</span>(<span class="fu">preprocessing_layer</span>(x), y)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_prefetch</span>()</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(dataset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> dataset <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="cf">function</span>(x, y) <span class="fu">list</span>(<span class="fu">preprocessing_layer</span>(x), y)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_prefetch</span>()</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(dataset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This is the best option for <code>layer_text_vectorization()</code>, and all structured data preprocessing layers. It can also be a good option if you’re training on CPU and you use image preprocessing layers.</p>
 </section>
@@ -727,11 +627,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>When all data preprocessing is part of the model, other people can load and use your model without having to be aware of how each feature is expected to be encoded &amp; normalized. Your inference model will be able to process raw images or raw structured data, and will not require users of the model to be aware of the details of e.g.&nbsp;the tokenization scheme used for text, the indexing scheme used for categorical features, whether image pixel values are normalized to <code>[-1, +1]</code> or to <code>[0, 1]</code>, etc. This is especially powerful if you’re exporting your model to another runtime, such as TensorFlow.js: you won’t have to reimplement your preprocessing pipeline in JavaScript.</p>
 <p>If you initially put your preprocessing layers in your <code>tf_dataset</code> pipeline, you can export an inference model that packages the preprocessing. Simply instantiate a new model that chains your preprocessing layers and your training model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">preprocessing_layer</span>(input) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">training_model</span>()</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>inference_model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">preprocessing_layer</span>(input) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">training_model</span>()</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>inference_model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="preprocessing-during-multi-worker-training" class="level2">
@@ -739,11 +639,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Preprocessing layers are compatible with the <a href="https://www.tensorflow.org/api_docs/python/tf/distribute">tf.distribute</a> API for running training across multiple machines.</p>
 <p>In general, preprocessing layers should be placed inside a <code>strategy$scope()</code> and called either inside or before the model as discussed above.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(strategy<span class="sc">$</span><span class="fu">scope</span>(), {</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape=</span>input_shape)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    preprocessing_layer <span class="ot">&lt;-</span> <span class="fu">layer_hashing</span>(<span class="at">num_bins =</span> <span class="dv">10</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    dense_layer <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">16</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(strategy<span class="sc">$</span><span class="fu">scope</span>(), {</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    inputs <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape=</span>input_shape)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    preprocessing_layer <span class="ot">&lt;-</span> <span class="fu">layer_hashing</span>(<span class="at">num_bins =</span> <span class="dv">10</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    dense_layer <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">16</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For more details, refer to the <a href="https://www.tensorflow.org/tutorials/distribute/input#data_preprocessing">preprocessing section</a> of the distributed input guide.</p>
 </section>
@@ -753,91 +653,100 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="image-data-augmentation-1">Image data augmentation</h3>
 <p>Note that image data augmentation layers are only active during training (similar to the <code>layer_dropout()</code> layer).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data augmentation stage with horizontal flipping, rotations, zooms</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>data_augmentation <span class="ot">&lt;-</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_random_flip</span>(<span class="st">"horizontal"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_random_rotation</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_random_zoom</span>(<span class="fl">0.1</span>)</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Load some data</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">c</span>(x_train, y_train), ...) <span class="sc">%&lt;-%</span> <span class="fu">dataset_cifar10</span>()</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>input_shape <span class="ot">&lt;-</span> <span class="fu">dim</span>(x_train)[<span class="sc">-</span><span class="dv">1</span>] <span class="co"># drop batch dim</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tf_dataset pipeline of augmented images (and their labels)</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> <span class="fu">tensor_slices_dataset</span>(<span class="fu">list</span>(x_train, y_train)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>( <span class="sc">~</span> <span class="fu">list</span>(<span class="fu">data_augmentation</span>(.x), .y)) <span class="co"># see ?purrr::map to learn about ~ notation</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a model and train it on the augmented image data</span></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>resnet <span class="ot">&lt;-</span> <span class="fu">application_resnet50</span>(<span class="at">weights =</span> <span class="cn">NULL</span>,</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>                               <span class="at">input_shape =</span> input_shape,</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>                               <span class="at">classes =</span> classes)</span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_rescaling</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="dv">255</span>) <span class="sc">%&gt;%</span>   <span class="co"># Rescale inputs</span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resnet</span>()</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output) <span class="sc">%&gt;%</span></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"rmsprop"</span>, <span class="at">loss =</span> <span class="st">"sparse_categorical_crossentropy"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset, <span class="at">steps_per_epoch =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data augmentation stage with horizontal flipping, rotations, zooms</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>data_augmentation <span class="ot">&lt;-</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_random_flip</span>(<span class="st">"horizontal"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_random_rotation</span>(<span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_random_zoom</span>(<span class="fl">0.1</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Load some data</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">c</span>(x_train, y_train), ...) <span class="sc">%&lt;-%</span> <span class="fu">dataset_cifar10</span>()</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>input_shape <span class="ot">&lt;-</span> <span class="fu">dim</span>(x_train)[<span class="sc">-</span><span class="dv">1</span>] <span class="co"># drop batch dim</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a tf_dataset pipeline of augmented images (and their labels)</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> <span class="fu">tensor_slices_dataset</span>(<span class="fu">list</span>(x_train, y_train)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>( <span class="sc">~</span> <span class="fu">list</span>(<span class="fu">data_augmentation</span>(.x), .y)) <span class="co"># see ?purrr::map to learn about ~ notation</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a model and train it on the augmented image data</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>resnet <span class="ot">&lt;-</span> <span class="fu">application_resnet50</span>(<span class="at">weights =</span> <span class="cn">NULL</span>,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>                               <span class="at">input_shape =</span> input_shape,</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>                               <span class="at">classes =</span> classes)</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_rescaling</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="dv">255</span>) <span class="sc">%&gt;%</span>   <span class="co"># Rescale inputs</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resnet</span>()</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output) <span class="sc">%&gt;%</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"rmsprop"</span>, <span class="at">loss =</span> <span class="st">"sparse_categorical_crossentropy"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset, <span class="at">steps_per_epoch =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can see a similar setup in action in the example <a href="https://keras.io/examples/vision/image_classification_from_scratch/">image classification from scratch</a>.</p>
 </section>
 <section id="normalizing-numerical-features" class="level3">
 <h3 class="anchored" data-anchor-id="normalizing-numerical-features">Normalizing numerical features</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">c</span>(x_train, y_train), ...) <span class="sc">%&lt;-%</span> <span class="fu">dataset_cifar10</span>()</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>x_train <span class="ot">&lt;-</span> x_train <span class="sc">%&gt;%</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array_reshape</span>(<span class="fu">c</span>(<span class="fu">dim</span>(x_train)[<span class="dv">1</span>], <span class="sc">-</span>1L)) <span class="co"># flatten each case</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>input_shape <span class="ot">&lt;-</span> <span class="fu">dim</span>(x_train)[<span class="sc">-</span><span class="dv">1</span>] <span class="co"># keras layers automatically add the batch dim</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a layer_normalization() layer and set its internal state using the training data</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>normalizer <span class="ot">&lt;-</span> <span class="fu">layer_normalization</span>()</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>normalizer <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(x_train)</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a model that include the normalization layer</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalizer</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(classes, <span class="at">activation =</span> <span class="st">"softmax"</span>)</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output) <span class="sc">%&gt;%</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"adam"</span>,</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">loss =</span> <span class="st">"sparse_categorical_crossentropy"</span>)</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(x_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">c</span>(x_train, y_train), ...) <span class="sc">%&lt;-%</span> <span class="fu">dataset_cifar10</span>()</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>x_train <span class="ot">&lt;-</span> x_train <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array_reshape</span>(<span class="fu">c</span>(<span class="fu">dim</span>(x_train)[<span class="dv">1</span>], <span class="sc">-</span>1L)) <span class="co"># flatten each case</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>input_shape <span class="ot">&lt;-</span> <span class="fu">dim</span>(x_train)[<span class="sc">-</span><span class="dv">1</span>] <span class="co"># keras layers automatically add the batch dim</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a layer_normalization() layer and set its internal state using the training data</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>normalizer <span class="ot">&lt;-</span> <span class="fu">layer_normalization</span>()</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>normalizer <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(x_train)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a model that include the normalization layer</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> input_shape)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">normalizer</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(classes, <span class="at">activation =</span> <span class="st">"softmax"</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output) <span class="sc">%&gt;%</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"adam"</span>,</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">loss =</span> <span class="st">"sparse_categorical_crossentropy"</span>)</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(x_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="encoding-string-categorical-features-via-one-hot-encoding" class="level3">
 <h3 class="anchored" data-anchor-id="encoding-string-categorical-features-via-one-hot-encoding">Encoding string categorical features via one-hot encoding</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some toy data</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"a"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">k_reshape</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)) <span class="co"># reshape into matrix with shape: (6, 1)</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use layer_string_lookup() to build an index of </span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># the feature values and encode output.</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>lookup <span class="ot">&lt;-</span> <span class="fu">layer_string_lookup</span>(<span class="at">output_mode=</span><span class="st">"one_hot"</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>lookup <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(data)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert new test data (which includes unknown feature values)</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">=</span> <span class="fu">as_tensor</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>, <span class="st">""</span>)))</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>encoded_data <span class="ot">=</span> <span class="fu">lookup</span>(test_data)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(encoded_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some toy data</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"a"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">k_reshape</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)) <span class="co"># reshape into matrix with shape: (6, 1)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Use layer_string_lookup() to build an index of </span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># the feature values and encode output.</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>lookup <span class="ot">&lt;-</span> <span class="fu">layer_string_lookup</span>(<span class="at">output_mode=</span><span class="st">"one_hot"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>lookup <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(data)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert new test data (which includes unknown feature values)</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">=</span> <span class="fu">as_tensor</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>, <span class="st">""</span>)))</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>encoded_data <span class="ot">=</span> <span class="fu">lookup</span>(test_data)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(encoded_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tf.Tensor(
+[[0. 0. 0. 1.]
+ [0. 0. 1. 0.]
+ [0. 1. 0. 0.]
+ [1. 0. 0. 0.]
+ [1. 0. 0. 0.]
+ [1. 0. 0. 0.]], shape=(6, 4), dtype=float32)</code></pre>
+</div>
 </div>
 <p>Note that, here, index 0 is reserved for out-of-vocabulary values (values that were not seen during <code>adapt()</code>).</p>
 <p>You can see the <code>layer_string_lookup()</code> in action in the <a href="https://keras.io/examples/structured_data/structured_data_classification_from_scratch/">Structured data classification from scratch</a> example.</p>
@@ -845,18 +754,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="encoding-integer-categorical-features-via-one-hot-encoding" class="level3">
 <h3 class="anchored" data-anchor-id="encoding-integer-categorical-features-via-one-hot-encoding">Encoding integer categorical features via one-hot encoding</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some toy data</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">0</span>)), <span class="st">"int32"</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use layer_integer_lookup() to build an </span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># index of the feature values and encode output.</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>lookup <span class="ot">&lt;-</span> <span class="fu">layer_integer_lookup</span>(<span class="at">output_mode=</span><span class="st">"one_hot"</span>)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>lookup <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(data)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert new test data (which includes unknown feature values)</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">0</span>)), <span class="st">"int32"</span>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>encoded_data <span class="ot">&lt;-</span> <span class="fu">lookup</span>(test_data)</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(encoded_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some toy data</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">0</span>)), <span class="st">"int32"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use layer_integer_lookup() to build an </span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># index of the feature values and encode output.</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>lookup <span class="ot">&lt;-</span> <span class="fu">layer_integer_lookup</span>(<span class="at">output_mode=</span><span class="st">"one_hot"</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>lookup <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(data)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert new test data (which includes unknown feature values)</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">0</span>)), <span class="st">"int32"</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>encoded_data <span class="ot">&lt;-</span> <span class="fu">lookup</span>(test_data)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(encoded_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tf.Tensor(
+[[0. 0. 1. 0. 0.]
+ [0. 0. 1. 0. 0.]
+ [0. 1. 0. 0. 0.]
+ [1. 0. 0. 0. 0.]
+ [1. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 1.]], shape=(6, 5), dtype=float32)</code></pre>
+</div>
 </div>
 <p>Note that index 0 is reserved for missing values (which you should specify as the value 0), and index 1 is reserved for out-of-vocabulary values (values that were not seen during <code>adapt()</code>). You can configure this by using the <code>mask_token</code> and <code>oov_token</code> constructor arguments of <code>layer_integer_lookup()</code>.</p>
 <p>You can see the <code>layer_integer_lookup()</code> in action in the example <a href="https://keras.io/examples/structured_data/structured_data_classification_from_scratch/">structured data classification from scratch</a>.</p>
@@ -865,84 +783,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="applying-the-hashing-trick-to-an-integer-categorical-feature">Applying the hashing trick to an integer categorical feature</h3>
 <p>If you have a categorical feature that can take many different values (on the order of 10e3 or higher), where each value only appears a few times in the data, it becomes impractical and ineffective to index and one-hot encode the feature values. Instead, it can be a good idea to apply the “hashing trick”: hash the values to a vector of fixed size. This keeps the size of the feature space manageable, and removes the need for explicit indexing.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data: 10,000 random integers with values between 0 and 100,000</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">10000</span>, <span class="dv">1</span>), <span class="at">dtype =</span> <span class="st">"int64"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the Hashing layer to hash the values to the range [0, 64]</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>hasher <span class="ot">&lt;-</span> <span class="fu">layer_hashing</span>(<span class="at">num_bins =</span> <span class="dv">64</span>, <span class="at">salt =</span> <span class="dv">1337</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the CategoryEncoding layer to multi-hot encode the hashed values</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>encoder <span class="ot">&lt;-</span> <span class="fu">layer_category_encoding</span>(<span class="at">num_tokens=</span><span class="dv">64</span>, <span class="at">output_mode=</span><span class="st">"multi_hot"</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>encoded_data <span class="ot">&lt;-</span> <span class="fu">encoder</span>(<span class="fu">hasher</span>(data))</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(encoded_data<span class="sc">$</span>shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample data: 10,000 random integers with values between 0 and 100,000</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">k_random_uniform</span>(<span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">10000</span>, <span class="dv">1</span>), <span class="at">dtype =</span> <span class="st">"int64"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the Hashing layer to hash the values to the range [0, 64]</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>hasher <span class="ot">&lt;-</span> <span class="fu">layer_hashing</span>(<span class="at">num_bins =</span> <span class="dv">64</span>, <span class="at">salt =</span> <span class="dv">1337</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the CategoryEncoding layer to multi-hot encode the hashed values</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>encoder <span class="ot">&lt;-</span> <span class="fu">layer_category_encoding</span>(<span class="at">num_tokens=</span><span class="dv">64</span>, <span class="at">output_mode=</span><span class="st">"multi_hot"</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>encoded_data <span class="ot">&lt;-</span> <span class="fu">encoder</span>(<span class="fu">hasher</span>(data))</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(encoded_data<span class="sc">$</span>shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>TensorShape([10000, 64])</code></pre>
+</div>
 </div>
 </section>
 <section id="encoding-text-as-a-sequence-of-token-indices" class="level3">
 <h3 class="anchored" data-anchor-id="encoding-text-as-a-sequence-of-token-indices">Encoding text as a sequence of token indices</h3>
 <p>This is how you should preprocess text to be passed to an <code>Embedding</code> layer.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some text data to adapt the layer</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>adapt_data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The Brain is wider than the Sky"</span>,</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"For put them side by side"</span>,</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The one the other will contain"</span>,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"With ease and You beside"</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a layer_text_vectorization() layer</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>text_vectorizer <span class="ot">&lt;-</span> <span class="fu">layer_text_vectorization</span>(<span class="at">output_mode=</span><span class="st">"int"</span>)</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Index the vocabulary via `adapt()`</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>text_vectorizer <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(adapt_data)</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Try out the layer</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Encoded text:</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.array</span>(<span class="fu">text_vectorizer</span>(<span class="st">"The Brain is deeper than the sea"</span>)))</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="cn">NULL</span>), <span class="at">dtype=</span><span class="st">"int64"</span>)</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_embedding</span>(<span class="at">input_dim =</span> text_vectorizer<span class="sc">$</span><span class="fu">vocabulary_size</span>(),</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>                  <span class="at">output_dim =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_gru</span>(<span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1</span>)</span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a labeled dataset (which includes unknown tokens)</span></span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> <span class="fu">tensor_slices_dataset</span>(<span class="fu">list</span>(</span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"The Brain is deeper than the sea"</span>, <span class="st">"for if they are held Blue to Blue"</span>),</span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(1L, 0L)</span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocess the string inputs, turning them into int sequences</span></span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> train_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="sc">~</span><span class="fu">list</span>(<span class="fu">text_vectorizer</span>(.x), .y))</span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model on the int sequences</span></span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Training model...</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"rmsprop"</span>, <span class="at">loss =</span> <span class="st">"mse"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset)</span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="co"># For inference, you can export a model that accepts strings as input</span></span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="at">dtype=</span><span class="st">"string"</span>)</span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
-<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text_vectorizer</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>()</span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>end_to_end_model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the end-to-end model on test data (which includes unknown tokens)</span></span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Calling end-to-end model on test string...</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>test_output <span class="ot">&lt;-</span> <span class="fu">end_to_end_model</span>(test_data)</span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Model output:"</span>, <span class="fu">as.array</span>(test_output), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tfdatasets)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some text data to adapt the layer</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>adapt_data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The Brain is wider than the Sky"</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"For put them side by side"</span>,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The one the other will contain"</span>,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"With ease and You beside"</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a layer_text_vectorization() layer</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>text_vectorizer <span class="ot">&lt;-</span> <span class="fu">layer_text_vectorization</span>(<span class="at">output_mode=</span><span class="st">"int"</span>)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Index the vocabulary via `adapt()`</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>text_vectorizer <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(adapt_data)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Try out the layer</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Encoded text:</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.array</span>(<span class="fu">text_vectorizer</span>(<span class="st">"The Brain is deeper than the sea"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Encoded text:
+ 2 19 14 1 9 2 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="fu">shape</span>(<span class="cn">NULL</span>), <span class="at">dtype=</span><span class="st">"int64"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_embedding</span>(<span class="at">input_dim =</span> text_vectorizer<span class="sc">$</span><span class="fu">vocabulary_size</span>(),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">output_dim =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_gru</span>(<span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a labeled dataset (which includes unknown tokens)</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> <span class="fu">tensor_slices_dataset</span>(<span class="fu">list</span>(</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"The Brain is deeper than the sea"</span>, <span class="st">"for if they are held Blue to Blue"</span>),</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(1L, 0L)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocess the string inputs, turning them into int sequences</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> train_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="sc">~</span><span class="fu">list</span>(<span class="fu">text_vectorizer</span>(.x), .y))</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model on the int sequences</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Training model...</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Training model...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer =</span> <span class="st">"rmsprop"</span>, <span class="at">loss =</span> <span class="st">"mse"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For inference, you can export a model that accepts strings as input</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="at">dtype=</span><span class="st">"string"</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text_vectorizer</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>()</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>end_to_end_model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the end-to-end model on test data (which includes unknown tokens)</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Calling end-to-end model on test string...</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Calling end-to-end model on test string...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>test_output <span class="ot">&lt;-</span> <span class="fu">end_to_end_model</span>(test_data)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Model output:"</span>, <span class="fu">as.array</span>(test_output), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model output: 0.1284049 </code></pre>
+</div>
 </div>
 <p>You can see the <code>layer_text_vectorization()</code> layer in action, combined with an <code>Embedding</code> mode, in the example <a href="https://keras.io/examples/nlp/text_classification_from_scratch/">text classification from scratch</a>.</p>
 <p>Note that when training such a model, for best performance, you should always use the <code>layer_text_vectorization()</code> layer as part of the input pipeline.</p>
@@ -951,131 +884,160 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="encoding-text-as-a-dense-matrix-of-ngrams-with-multi-hot-encoding">Encoding text as a dense matrix of ngrams with multi-hot encoding</h3>
 <p>This is how you can preprocess text to be passed to a <code>Dense</code> layer.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some text data to adapt the layer</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>adapt_data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The Brain is wider than the Sky"</span>,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"For put them side by side"</span>,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The one the other will contain"</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"With ease and You beside"</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate layer_text_vectorization() with "multi_hot" output_mode</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># and ngrams=2 (index all bigrams)</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>text_vectorizer <span class="ot">=</span> <span class="fu">layer_text_vectorization</span>(<span class="at">output_mode=</span><span class="st">"multi_hot"</span>, <span class="at">ngrams=</span><span class="dv">2</span>)</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Index the bigrams via `adapt()`</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>text_vectorizer <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(adapt_data)</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Try out the layer</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Encoded text:</span><span class="sc">\n</span><span class="st">"</span>, </span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.array</span>(<span class="fu">text_vectorizer</span>(<span class="st">"The Brain is deeper than the sea"</span>)))</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>input <span class="ot">=</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> text_vectorizer<span class="sc">$</span><span class="fu">vocabulary_size</span>(), <span class="at">dtype=</span><span class="st">"int64"</span>)</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1</span>)</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a labeled dataset (which includes unknown tokens)</span></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">=</span> <span class="fu">tensor_slices_dataset</span>(<span class="fu">list</span>(</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"The Brain is deeper than the sea"</span>, <span class="st">"for if they are held Blue to Blue"</span>),</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(1L, 0L)</span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocess the string inputs, turning them into int sequences</span></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> train_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="sc">~</span><span class="fu">list</span>(<span class="fu">text_vectorizer</span>(.x), .y))</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model on the int sequences</span></span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Training model...</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer=</span><span class="st">"rmsprop"</span>, <span class="at">loss=</span><span class="st">"mse"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset)</span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a><span class="co"># For inference, you can export a model that accepts strings as input</span></span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="at">dtype=</span><span class="st">"string"</span>)</span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text_vectorizer</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>()</span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>end_to_end_model <span class="ot">=</span> <span class="fu">keras_model</span>(input, output)</span>
-<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the end-to-end model on test data (which includes unknown tokens)</span></span>
-<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Calling end-to-end model on test string...</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
-<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>test_output <span class="ot">&lt;-</span> <span class="fu">end_to_end_model</span>(test_data)</span>
-<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Model output: "</span>); <span class="fu">print</span>(test_output); <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some text data to adapt the layer</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>adapt_data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The Brain is wider than the Sky"</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"For put them side by side"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The one the other will contain"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"With ease and You beside"</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate layer_text_vectorization() with "multi_hot" output_mode</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co"># and ngrams=2 (index all bigrams)</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>text_vectorizer <span class="ot">=</span> <span class="fu">layer_text_vectorization</span>(<span class="at">output_mode=</span><span class="st">"multi_hot"</span>, <span class="at">ngrams=</span><span class="dv">2</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Index the bigrams via `adapt()`</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>text_vectorizer <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(adapt_data)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Try out the layer</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Encoded text:</span><span class="sc">\n</span><span class="st">"</span>, </span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.array</span>(<span class="fu">text_vectorizer</span>(<span class="st">"The Brain is deeper than the sea"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Encoded text:
+ 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 1 0 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>input <span class="ot">=</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> text_vectorizer<span class="sc">$</span><span class="fu">vocabulary_size</span>(), <span class="at">dtype=</span><span class="st">"int64"</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1</span>)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a labeled dataset (which includes unknown tokens)</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">=</span> <span class="fu">tensor_slices_dataset</span>(<span class="fu">list</span>(</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"The Brain is deeper than the sea"</span>, <span class="st">"for if they are held Blue to Blue"</span>),</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(1L, 0L)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocess the string inputs, turning them into int sequences</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> train_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="sc">~</span><span class="fu">list</span>(<span class="fu">text_vectorizer</span>(.x), .y))</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model on the int sequences</span></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Training model...</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Training model...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer=</span><span class="st">"rmsprop"</span>, <span class="at">loss=</span><span class="st">"mse"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For inference, you can export a model that accepts strings as input</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="at">dtype=</span><span class="st">"string"</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text_vectorizer</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>()</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>end_to_end_model <span class="ot">=</span> <span class="fu">keras_model</span>(input, output)</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the end-to-end model on test data (which includes unknown tokens)</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Calling end-to-end model on test string...</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Calling end-to-end model on test string...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>test_output <span class="ot">&lt;-</span> <span class="fu">end_to_end_model</span>(test_data)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Model output: "</span>); <span class="fu">print</span>(test_output); <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model output: </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tf.Tensor([[-1.2621338]], shape=(1, 1), dtype=float32)</code></pre>
+</div>
 </div>
 </section>
 <section id="encoding-text-as-a-dense-matrix-of-ngrams-with-tf-idf-weighting" class="level3">
 <h3 class="anchored" data-anchor-id="encoding-text-as-a-dense-matrix-of-ngrams-with-tf-idf-weighting">Encoding text as a dense matrix of ngrams with TF-IDF weighting</h3>
 <p>This is an alternative way of preprocessing text before passing it to a <code>layer_dense</code> layer.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some text data to adapt the layer</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>adapt_data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The Brain is wider than the Sky"</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"For put them side by side"</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The one the other will contain"</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"With ease and You beside"</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate layer_text_vectorization() with "tf-idf" output_mode</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (multi-hot with TF-IDF weighting) and ngrams=2 (index all bigrams)</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>text_vectorizer <span class="ot">=</span> <span class="fu">layer_text_vectorization</span>(<span class="at">output_mode=</span><span class="st">"tf-idf"</span>, <span class="at">ngrams=</span><span class="dv">2</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Index the bigrams and learn the TF-IDF weights via `adapt()`</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">device</span>(<span class="st">"CPU"</span>), {</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># A bug that prevents this from running on GPU for now.</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  text_vectorizer <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(adapt_data)</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Try out the layer</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Encoded text:</span><span class="sc">\n</span><span class="st">"</span>, </span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.array</span>(<span class="fu">text_vectorizer</span>(<span class="st">"The Brain is deeper than the sea"</span>)))</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> text_vectorizer<span class="sc">$</span><span class="fu">vocabulary_size</span>(), <span class="at">dtype=</span><span class="st">"int64"</span>)</span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">1</span>)</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a labeled dataset (which includes unknown tokens)</span></span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">=</span> <span class="fu">tensor_slices_dataset</span>(<span class="fu">list</span>(</span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"The Brain is deeper than the sea"</span>, <span class="st">"for if they are held Blue to Blue"</span>),</span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(1L, 0L)</span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocess the string inputs, turning them into int sequences</span></span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> train_dataset <span class="sc">%&gt;%</span></span>
-<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="sc">~</span><span class="fu">list</span>(<span class="fu">text_vectorizer</span>(.x), .y))</span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model on the int sequences</span></span>
-<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Training model..."</span>)</span>
-<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
-<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer=</span><span class="st">"rmsprop"</span>, <span class="at">loss=</span><span class="st">"mse"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset)</span>
-<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="co"># For inference, you can export a model that accepts strings as input</span></span>
-<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="at">dtype=</span><span class="st">"string"</span>)</span>
-<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
-<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text_vectorizer</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>()</span>
-<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>end_to_end_model <span class="ot">=</span> <span class="fu">keras_model</span>(input, output)</span>
-<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the end-to-end model on test data (which includes unknown tokens)</span></span>
-<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Calling end-to-end model on test string...</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
-<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>test_output <span class="ot">&lt;-</span> <span class="fu">end_to_end_model</span>(test_data)</span>
-<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Model output: "</span>); <span class="fu">print</span>(test_output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define some text data to adapt the layer</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>adapt_data <span class="ot">&lt;-</span> <span class="fu">as_tensor</span>(<span class="fu">c</span>(</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The Brain is wider than the Sky"</span>,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"For put them side by side"</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The one the other will contain"</span>,</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"With ease and You beside"</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Instantiate layer_text_vectorization() with "tf-idf" output_mode</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="co"># (multi-hot with TF-IDF weighting) and ngrams=2 (index all bigrams)</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>text_vectorizer <span class="ot">=</span> <span class="fu">layer_text_vectorization</span>(<span class="at">output_mode=</span><span class="st">"tf-idf"</span>, <span class="at">ngrams=</span><span class="dv">2</span>)</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Index the bigrams and learn the TF-IDF weights via `adapt()`</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">device</span>(<span class="st">"CPU"</span>), {</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># A bug that prevents this from running on GPU for now.</span></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>  text_vectorizer <span class="sc">%&gt;%</span> <span class="fu">adapt</span>(adapt_data)</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Try out the layer</span></span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Encoded text:</span><span class="sc">\n</span><span class="st">"</span>, </span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.array</span>(<span class="fu">text_vectorizer</span>(<span class="st">"The Brain is deeper than the sea"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Encoded text:
+ 5.461647 1.694596 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.098612 1.098612 1.098612 0 0 0 0 0 0 0 0 0 1.098612 0 0 0 0 0 0 0 1.098612 1.098612 0 0 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a simple model</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> text_vectorizer<span class="sc">$</span><span class="fu">vocabulary_size</span>(), <span class="at">dtype=</span><span class="st">"int64"</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">1</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(input, output)</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a labeled dataset (which includes unknown tokens)</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">=</span> <span class="fu">tensor_slices_dataset</span>(<span class="fu">list</span>(</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"The Brain is deeper than the sea"</span>, <span class="st">"for if they are held Blue to Blue"</span>),</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(1L, 0L)</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocess the string inputs, turning them into int sequences</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>train_dataset <span class="ot">&lt;-</span> train_dataset <span class="sc">%&gt;%</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_map</span>(<span class="sc">~</span><span class="fu">list</span>(<span class="fu">text_vectorizer</span>(.x), .y))</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Train the model on the int sequences</span></span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Training model..."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Training model...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compile</span>(<span class="at">optimizer=</span><span class="st">"rmsprop"</span>, <span class="at">loss=</span><span class="st">"mse"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(train_dataset)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co"># For inference, you can export a model that accepts strings as input</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">layer_input</span>(<span class="at">shape =</span> <span class="dv">1</span>, <span class="at">dtype=</span><span class="st">"string"</span>)</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> input <span class="sc">%&gt;%</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">text_vectorizer</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>()</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>end_to_end_model <span class="ot">=</span> <span class="fu">keras_model</span>(input, output)</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the end-to-end model on test data (which includes unknown tokens)</span></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Calling end-to-end model on test string...</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Calling end-to-end model on test string...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">constant</span>(<span class="fu">matrix</span>(<span class="st">"The one the other will absorb"</span>))</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>test_output <span class="ot">&lt;-</span> <span class="fu">end_to_end_model</span>(test_data)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Model output: "</span>); <span class="fu">print</span>(test_output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model output: </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tf.Tensor([[-1.0513749]], shape=(1, 1), dtype=float32)</code></pre>
+</div>
 </div>
 </section>
 </section>
@@ -1269,13 +1231,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../guides/keras/customizing_what_happens_in_fit.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Customizing what happens in <code>fit()</code></span>
+      <a href="../../guides/keras/making_new_layers_and_models_via_subclassing.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../guides/keras/transfer_learning.html" class="pagination-link">
-        <span class="nav-page-text">Transfer learning and fine-tuning</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../guides/keras/customizing_what_happens_in_fit.html" class="pagination-link">
+        <span class="nav-page-text">Customizing what happens in <code>fit()</code></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

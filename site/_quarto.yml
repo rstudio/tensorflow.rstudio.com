@@ -3,9 +3,9 @@ project:
   output-dir: ../_site
   render:
     - "**.qmd"
-    # - "!guides"
-    # - "!install"
-    # - "!examples"
+    - "!v1/**"
+    - "!install/**"
+    - "!examples/**"
 
   # pre-render: spin-examples.R
   preview:
@@ -13,8 +13,8 @@ project:
     browser: false # true
 
 execute:
-  enabled: false
-  eval: false
+  enabled: true
+  eval: true
   freeze: auto
 
 

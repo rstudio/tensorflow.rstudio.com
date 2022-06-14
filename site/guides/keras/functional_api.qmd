@@ -356,7 +356,7 @@ title_features <- title_features %>% layer_lstm(128)
 body_features <- body_features %>% layer_lstm(32)
 
 # Merge all available features into a single large vector via concatenation
-x <- layer_concatenate(title_features, body_features, tags_input)
+x <- layer_concatenate(list(title_features, body_features, tags_input))
 
 # Stick a logistic regression for priority prediction on top of the features
 priority_pred <- x %>% layer_dense(1, name = "priority")
