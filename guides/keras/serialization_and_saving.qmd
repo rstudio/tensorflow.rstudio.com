@@ -396,7 +396,7 @@ the [page about `tf$saved_model$load`](https://www.tensorflow.org/api_docs/pytho
 Specifications:
 
 * `get_config` should return a JSON-serializable dictionary in order to be
-compatible with the Keras architecture- and model-saving APIs.
+compatible with the Keras architecture - and model-saving APIs.
 * `from_config(config)` (`classmethod`) should return a new layer or model
 object that is created from the config.
 The default implementation returns `do.call(cls, config)`.
@@ -404,36 +404,43 @@ The default implementation returns `do.call(cls, config)`.
 **Example:**
 
 ```{r}
-class CustomLayer(keras$layers$Layer):
-    initialize <- function(a) {    }
-        self$var <- tf$Variable(a, name = "var_a")
-    call <- function(inputs, training = FALSE) {    }
-        if training:
-            return inputs * self$var
-        else:
-            return inputs
-    get_config <- function() {    }
-        return list("a": self$var$numpy())
-    # There's actually no need to define `from_config` here, since returning
-    # `cls(**config)` is the default behavior.
-    @classmethod
-    from_config <- function(cls, config) {    }
-        return cls(**config)
-layer <- CustomLayer(5)
+custom_layer <- new_layer_class(
+  "custom_layer",
+  initialize = function(a) {
+    self$var <- tf$Variable(a, name = "var_a")
+  },
+  call = function(inputs, training = FALSE) {
+    if(training) {
+      inputs*self$var
+    } else {
+      inputs
+    }
+  },
+  get_config = function() {
+    list("a" = as.array(self$var))
+  }
+)
+
+layer <- custom_layer(a = 5)
 layer$var$assign(2)
+
 serialized_layer <- keras$layers$serialize(layer)
 new_layer <- keras$layers$deserialize(
-    serialized_layer, custom_objects = list("CustomLayer": CustomLayer)
+    serialized_layer, custom_objects = list("custom_layer" = custom_layer)
 )
-```{r}
+```
+
+
 #### Registering the custom object
+
 Keras keeps a note of which class generated the config.
 From the example above, `tf$keras$layers$serialize`
 generates a serialized form of the custom layer:
+
+```{r echo=FALSE}
+dput(serialized_layer)
 ```
 
-list('class_name': 'CustomLayer', 'config': {'a': 2)}
-```{r}
 Keras keeps a master list of all built-in layer, model, optimizer,
 and metric classes, which is used to find the correct class to call `from_config`.
 If the  class can't be found, then an error is raised (`Value Error: Unknown layer`).
@@ -442,429 +449,480 @@ There are a few ways to register custom classes to this list:
 in section above "Defining the config methods")
 2. `tf$keras$utils$custom_object_scope` or `tf$keras$utils$CustomObjectScope`
 3. `tf$keras$utils$register_keras_serializable`
-```
-```{r}
+
 #### Custom layer and function example
-```
-class CustomLayer(keras$layers$Layer):
-    initialize <- function(units = 32, **kwargs) {    }
-        super$initialize(**kwargs)
-        self$units <- units
-    build <- function(input_shape) {    }
-        self$w <- self$add_weight(
-            shape <- (input_shape[-1], self$units),
-            initializer <- "random_normal",
-            trainable <- TRUE,
-        )
-        self$b <- self$add_weight(
-            shape <- (self$units,), initializer = "random_normal", trainable = TRUE
-        )
-    call <- function(inputs) {    }
-        return tf$matmul(inputs, self$w) + self$b
-    get_config <- function() {    }
-        config <- super(CustomLayer, self).get_config()
-        config$update(list("units": self$units))
-        return config
-custom_activation <- function(x) {    }
-    return tf$nn$tanh(x) ** 2
-# Make a model with the CustomLayer and custom_activation
-inputs <- layer_input((32,))
-x <- CustomLayer(32)(inputs)
-outputs <- keras$layers$Activation(custom_activation)(x)
-model <- keras_model(inputs, outputs)
-# Retrieve the config
-config <- model$get_config()
-# At loading time, register the custom objects with a `custom_object_scope`:
-custom_objects <- list("CustomLayer": CustomLayer, "custom_activation": custom_activation)
-with keras$utils$custom_object_scope(custom_objects):
-    new_model <- keras$Model$from_config(config)
+
 ```{r}
+custom_layer <- new_layer_class(
+  "custom_layer",
+  initialize = function(units = 32, ...) {
+    super()$`__init__`(...)
+    self$units <- units
+  },
+  build = function(input_shape) {
+    self$w <- self$add_weight(
+      shape = shape(tail(input_shape, 1), self$units),
+      initializer = "random_normal",
+      trainable = TRUE
+    )
+    self$b <- self$add_weight(
+      shape = shape(self$units),
+      initializer = "random_normal",
+      trainable = TRUE
+    )
+  },
+  call = function(inputs) {
+    tf$matmul(inputs, self$w) + self$b
+  },
+  get_config = function() {
+    config <- super()$get_config()
+    config$units <- self$units
+    config
+  }
+)
+
+custom_activation <- function(x) {
+  tf$nn$tanh(x)^2
+}
+
+# Make a model with the custom_layer and custom_activation
+inputs <- layer_input(shape = shape(32))
+x <- custom_layer(inputs, 32)
+outputs <- layer_activation(x, custom_activation)
+model <- keras_model(inputs, outputs)
+
+# Retrieve the config
+config <- get_config(model)
+
+# At loading time, register the custom objects with a `custom_object_scope`:
+custom_objects <- list(
+  "custom_layer" = custom_layer,
+  "python_function" = custom_activation
+)
+
+with(tf$keras$utils$custom_object_scope(custom_objects), {
+  new_model <- keras$Model$from_config(config)
+})
+```
+    
+
 ### In-memory model cloning
+
 You can also do in-memory cloning of a model via `tf$keras$models$clone_model()`.
 This is equivalent to getting the config then recreating the model from its config
 (so it does not preserve compilation information or layer weights values).
+
 **Example:**
-```
-with keras$utils$custom_object_scope(custom_objects):
-    new_model <- keras$models$clone_model(model)
+
 ```{r}
+with(tf$keras$utils$custom_object_scope(custom_objects), {
+  new_model <- clone_model(model)
+})
+```
+
 ## Saving & loading only the model's weights values
+
 You can choose to only save & load a model's weights. This can be useful if:
 - You only need the model for inference: in this case you won't need to
 restart training, so you don't need the compilation information or optimizer state.
 - You are doing transfer learning: in this case you will be training a new model
 reusing the state of a prior model, so you don't need the compilation
 information of the prior model.
-```
 
-```{r}
 ### APIs for in-memory weight transfer
+
 Weights can be copied between different objects by using `get_weights`
 and `set_weights`:
-* `tf$keras$layers$Layer$get_weights()`: Returns a list of numpy arrays.
-* `tf$keras$layers$Layer$set_weights()`: Sets the model weights to the values
-in the `weights` argument.
+
+* `get_weights()`: Returns a list of arrays.
+* `set_weights()`: Sets the model weights to the values in the `weights` argument.
+
 Examples below.
-***Transfering weights from one layer to another, in memory***
-```
 
-create_layer <- function() {    }
-    layer <- layer_dense(64, activation = "relu", name = "dense_2")
-    layer$build((NULL, 784))
-    return layer
+Transfering weights from one layer to another, in memory
 
-
+```{r}
+create_layer <- function() {
+  layer <- layer_dense(units = 64, activation = "relu", name = "dense_2")
+  layer$build(shape(NULL, 784))
+  layer
+}
+    
 layer_1 <- create_layer()
 layer_2 <- create_layer()
 
 # Copy weights from layer 1 to layer 2
-
-layer_2$set_weights(layer_1$get_weights())
-
-```{r}
-***Transfering weights from one model to another model with a
-compatible architecture, in memory***
+set_weights(layer_2, get_weights(layer_1))
 ```
+
+Transfering weights from one model to another model with a
+compatible architecture, in memory
 
 # Create a simple functional model
 
-inputs <- layer_input(shape = (784,), name = "digits")
-x <- layer_dense(64, activation = "relu", name = "dense_1")(inputs)
-x <- layer_dense(64, activation = "relu", name = "dense_2")(x)
-outputs <- layer_dense(10, name = "predictions")(x)
-functional_model <- keras_model(inputs = inputs, outputs = outputs, name = "3_layer_mlp")
+```{r}
+inputs <- layer_input(shape = 784, name = "digits")
+outputs <- inputs %>% 
+  layer_dense(64, activation = "relu", name = "dense_1") %>% 
+  layer_dense(64, activation = "relu", name = "dense_2") %>% 
+  layer_dense(10, name = "predictions")
+functional_model <- keras_model(
+  inputs = inputs, 
+  outputs = outputs, 
+  name = "3_layer_mlp"
+)
+```
 
 # Define a subclassed model with the same architecture
 
-class SubclassedModel(keras$Model):
-    initialize <- function(output_dim, name = NULL) {    }
-        super$initialize(name = name)
-        self$output_dim <- output_dim
-        self$dense_1 <- layer_dense(64, activation = "relu", name = "dense_1")
-        self$dense_2 <- layer_dense(64, activation = "relu", name = "dense_2")
-        self$dense_3 <- layer_dense(output_dim, name = "predictions")
+```{r}
+subclassed_model <- new_model_class(
+  "subclassed_model",
+  initialize = function(output_dim, name = NULL) {
+    super()$`__init__`(name = name)
+    self$output_dim <- output_dim
+    self$dense_1 <- layer_dense(units = 64, activation = "relu", name = "dense_1")
+    self$dense_2 <- layer_dense(units = 64, activation = "relu", name = "dense_2")
+    self$dense_3 <- layer_dense(units = output_dim, name = "predictions")
+  },
+  call = function(inputs) {
+    inputs %>% 
+      self$dense_1() %>% 
+      self$dense_2() %>% 
+      self$dense_3()
+  },
+  get_config = function() {
+    list(
+      output_dim = self$output_dim,
+      name = self$name
+    )
+  }
+)
 
-    call <- function(inputs) {    }
-        x <- self$dense_1(inputs)
-        x <- self$dense_2(x)
-        x <- self$dense_3(x)
-        return x
-
-    get_config <- function() {    }
-        return list("output_dim": self$output_dim, "name": self$name)
+model <- subclassed_model(output_dim = 10)
 
 
-subclassed_model <- SubclassedModel(10)
 # Call the subclassed model once to create the weights.
-
-subclassed_model(tf$ones((1, 784)))
+model(tf$ones(shape(1, 784)))
 
 # Copy weights from functional_model to subclassed_model.
+set_weights(model, get_weights(functional_model))
 
-subclassed_model$set_weights(functional_model$get_weights())
+length(functional_model$weights) == length(model$weights)
+all.equal(get_weights(functional_model), get_weights(model))
+```
 
-assert length(functional_model$weights) == length(subclassed_model$weights)
-for a, b in zip_lists(functional_model$weights, subclassed_model$weights):
-    np$testing$assert_allclose(a$numpy(), b$numpy())
-
-```{r}
 ***The case of stateless layers***
+
 Because stateless layers do not change the order or number of weights,
 models can have compatible architectures even if there are extra/missing
 stateless layers.
-```
-
-inputs <- layer_input(shape = (784,), name = "digits")
-x <- layer_dense(64, activation = "relu", name = "dense_1")(inputs)
-x <- layer_dense(64, activation = "relu", name = "dense_2")(x)
-outputs <- layer_dense(10, name = "predictions")(x)
-functional_model <- keras_model(inputs = inputs, outputs = outputs, name = "3_layer_mlp")
-
-inputs <- layer_input(shape = (784,), name = "digits")
-x <- layer_dense(64, activation = "relu", name = "dense_1")(inputs)
-x <- layer_dense(64, activation = "relu", name = "dense_2")(x)
-
-# Add a dropout layer, which does not contain any weights.
-
-x <- keras$layers$Dropout(0.5)(x)
-outputs <- layer_dense(10, name = "predictions")(x)
-functional_model_with_dropout <- keras_model(
-    inputs <- inputs, outputs = outputs, name = "3_layer_mlp"
-)
-
-functional_model_with_dropout$set_weights(functional_model$get_weights())
 
 ```{r}
+inputs <- layer_input(shape = shape(784), name = "digits")
+outputs <- inputs %>% 
+  layer_dense(64, activation = "relu", name = "dense_1") %>% 
+  layer_dense(64, activation = "relu", name = "dense_2") %>% 
+  layer_dense(10, name = "predictions")
+functional_model <- keras_model(
+  inputs = inputs, 
+  outputs = outputs, 
+  name = "3_layer_mlp"
+)
+
+inputs <- layer_input(shape = shape(784), name = "digits")
+outputs <- inputs %>% 
+  layer_dense(64, activation = "relu", name = "dense_1") %>% 
+  layer_dense(64, activation = "relu", name = "dense_2") %>% 
+  # Add a dropout layer, which does not contain any weights.
+  layer_dropout(0.5) %>% 
+  layer_dense(10, name = "predictions")
+
+functional_model_with_dropout <- keras_model(
+  inputs = inputs, 
+  outputs = outputs, 
+  name = "3_layer_mlp"
+)
+
+set_weights(functional_model_with_dropout, get_weights(functional_model))
+```
+
 ### APIs for saving weights to disk & loading them back
+
 Weights can be saved to disk by calling `model$save_weights`
 in the following formats:
-* TensorFlow Checkpoint
-* HDF5
-The default format for `model$save_weights` is TensorFlow checkpoint.
-There are two ways to specify the save format:
-1. `save_format` argument: Set the value to `save_format = "tf"` or `save_format = "h5"`.
-2. `path` argument: If the path ends with `.h5` or `.hdf5`,
-then the HDF5 format is used. Other suffixes will result in a TensorFlow
-checkpoint unless `save_format` is set.
-There is also an option of retrieving weights as in-memory numpy arrays.
-Each API has its pros and cons which are detailed below.
-```
+
+* TensorFlow Checkpoint: `save_model_weights_tf()`
+* HDF5: `save_model_weights_hdf5()`
+
+Each format has its pros and cons which are detailed below.
+
+### TF Checkpoint format
+
+**Example:**
 
 ```{r}
-### TF Checkpoint format
-**Example:**
-```
-
 # Runnable example
 
-sequential_model <- keras_model_sequential(
-    [
-        layer_input(shape = (784,), name = "digits"),
-        layer_dense(64, activation = "relu", name = "dense_1"),
-        layer_dense(64, activation = "relu", name = "dense_2"),
-        layer_dense(10, name = "predictions"),
-    ]
-)
-sequential_model$save_weights("ckpt")
-load_status <- sequential_model$load_weights("ckpt")
+sequential_model <- keras_model_sequential(input_shape = shape(784)) %>%
+  layer_dense(64, activation = "relu", name = "dense_1") %>% 
+  layer_dense(64, activation = "relu", name = "dense_2") %>% 
+  layer_dense(10, name = "predictions")
 
-# `assert_consumed` can be used as validation that all variable values have been
+save_model_weights_tf(sequential_model, "ckpt")
+load_model_weights_tf(sequential_model, "ckpt")
+```
 
-# restored from the checkpoint. See `tf$train$Checkpoint$restore` for other
-
-# methods in the Status object.
-
-load_status$assert_consumed()
-
-```{r}
 #### Format details
+
 The TensorFlow Checkpoint format saves and restores the weights using
-object attribute names. For instance, consider the `tf$keras$layers$Dense` layer.
+object attribute names. For instance, consider the `layer_dense` layer.
 The layer contains two weights: `dense$kernel` and `dense$bias`.
 When the layer is saved to the `tf` format, the resulting checkpoint contains the keys
 `"kernel"` and `"bias"` and their corresponding weight values.
 For more information see
 ["Loading mechanics" in the TF Checkpoint guide](https://www.tensorflow.org/guide/checkpoint#loading_mechanics).
 Note that attribute/graph edge is named after **the name used in parent object,
-not the name of the variable**. Consider the `CustomLayer` in the example below.
-The variable `CustomLayer$var` is saved with `"var"` as part of key, not `"var_a"`.
-```
-
-class CustomLayer(keras$layers$Layer):
-    initialize <- function(a) {    }
-        self$var <- tf$Variable(a, name = "var_a")
-
-
-layer <- CustomLayer(5)
-layer_ckpt <- tf$train$Checkpoint(layer = layer).save("custom_layer")
-
-ckpt_reader <- tf$train$load_checkpoint(layer_ckpt)
-
-ckpt_reader$get_variable_to_dtype_map()
+not the name of the variable**. Consider the `custom_layer` in the example below.
+The variable `custom_layer$var` is saved with `"var"` as part of key, not `"var_a"`.
 
 ```{r}
-#### Transfer learning example
-Essentially, as long as two models have the same architecture,
-they are able to share the same checkpoint.
-**Example:**
+custom_layer <- new_layer_class(
+  "custom_layer",
+  initialize = function(a) {
+    self$var <- tf$Variable(a, name = "var_a")
+  }
+)
+
+layer <- custom_layer(a = 5)
+layer_ckpt <- tf$train$Checkpoint(layer = layer)$save("custom_layer")
+ckpt_reader <- tf$train$load_checkpoint(layer_ckpt)
+ckpt_reader$get_variable_to_dtype_map()
 ```
 
-inputs <- layer_input(shape = (784,), name = "digits")
-x <- layer_dense(64, activation = "relu", name = "dense_1")(inputs)
-x <- layer_dense(64, activation = "relu", name = "dense_2")(x)
-outputs <- layer_dense(10, name = "predictions")(x)
-functional_model <- keras_model(inputs = inputs, outputs = outputs, name = "3_layer_mlp")
+#### Transfer learning example
+
+Essentially, as long as two models have the same architecture,
+they are able to share the same checkpoint.
+
+**Example:**
+
+```{r}
+inputs <- layer_input(shape = shape(784), name = "digits")
+outputs <- inputs %>% 
+  layer_dense(64, activation = "relu", name = "dense_1") %>% 
+  layer_dense(64, activation = "relu", name = "dense_2") %>% 
+  layer_dense(10, name = "predictions")
+
+functional_model <- keras_model(
+  inputs = inputs, 
+  outputs = outputs, 
+  name = "3_layer_mlp"
+)
 
 # Extract a portion of the functional model defined in the Setup section.
-
 # The following lines produce a new model that excludes the final output
-
 # layer of the functional model.
 
 pretrained <- keras_model(
-    functional_model$inputs, functional_model$layers[-1].input, name = "pretrained_model"
+    inputs = functional_model$inputs, 
+    outputs = functional_model$layers[[4]]$input, 
+    name = "pretrained_model"
 )
-# Randomly assign "trained" weights.
 
-for w in pretrained$weights:
-    w$assign(tf$random$normal(w$shape))
-pretrained$save_weights("pretrained_ckpt")
-pretrained$summary()
+# Randomly assign "trained" weights.
+for (w in pretrained$weights) {
+  w$assign(tf$random$normal(w$shape))
+}
+    
+save_model_weights_tf(pretrained, "pretrained_ckpt")
+summary(pretrained)
 
 # Assume this is a separate program where only 'pretrained_ckpt' exists.
-
 # Create a new functional model with a different output dimension.
 
-inputs <- layer_input(shape = (784,), name = "digits")
-x <- layer_dense(64, activation = "relu", name = "dense_1")(inputs)
-x <- layer_dense(64, activation = "relu", name = "dense_2")(x)
-outputs <- layer_dense(5, name = "predictions")(x)
+inputs <- layer_input(shape = shape(784), name = "digits")
+outputs <- inputs %>% 
+  layer_dense(64, activation = "relu", name = "dense_1") %>% 
+  layer_dense(64, activation = "relu", name = "dense_2") %>% 
+  layer_dense(5, name = "predictions")
+
 model <- keras_model(inputs = inputs, outputs = outputs, name = "new_model")
 
 # Load the weights from pretrained_ckpt into model.
 
-model$load_weights("pretrained_ckpt")
+load_model_weights_tf(model, "pretrained_ckpt")
 
 # Check that all of the pretrained weights have been loaded.
+all.equal(get_weights(pretrained), head(get_weights(model), 4))
 
-for a, b in zip_lists(pretrained$weights, model$weights):
-    np$testing$assert_allclose(a$numpy(), b$numpy())
-
-print("\n", "-" * 50)
-model$summary()
+summary(model)
 
 # Example 2: Sequential model
-
 # Recreate the pretrained model, and load the saved weights.
+inputs <- layer_input(shape = shape(784), name = "digits")
+outputs <- inputs %>% 
+  layer_dense(64, activation = "relu", name = "dense_1") %>% 
+  layer_dense(64, activation = "relu", name = "dense_2")
 
-inputs <- layer_input(shape = (784,), name = "digits")
-x <- layer_dense(64, activation = "relu", name = "dense_1")(inputs)
-x <- layer_dense(64, activation = "relu", name = "dense_2")(x)
-pretrained_model <- keras_model(inputs = inputs, outputs = x, name = "pretrained")
+pretrained_model <- keras_model(
+  inputs = inputs, 
+  outputs = outputs, 
+  name = "pretrained"
+)
 
 # Sequential example:
+model <- keras_model_sequential() %>% 
+  pretrained_model() %>% 
+  layer_dense(5, name = "predictions")
 
-model <- keras_model_sequential([pretrained_model, layer_dense(5, name = "predictions")])
-model$summary()
+summary(model)
 
-pretrained_model$load_weights("pretrained_ckpt")
+load_model_weights_tf(pretrained_model, "pretrained_ckpt")
+```
 
-# Warning! Calling `model$load_weights('pretrained_ckpt')` won't throw an error,
+Warning! Calling `model$load_weights('pretrained_ckpt')` won't throw an error,
+but will *not* work as expected. If you inspect the weights, you'll see that
+none of the weights will have loaded. `pretrained_model$load_weights()` is the
+correct method to call.
 
-# but will *not* work as expected. If you inspect the weights, you'll see that
-
-# none of the weights will have loaded. `pretrained_model$load_weights()` is the
-
-# correct method to call.
-
-
-```{r}
 It is generally recommended to stick to the same API for building models. If you
 switch between Sequential and Functional, or Functional and subclassed,
 etc., then always rebuild the pre-trained model and load the pre-trained
 weights to that model.
-```
 
-```{r}
+
 The next question is, how can weights be saved and loaded to different models
 if the model architectures are quite different?
 The solution is to use `tf$train$Checkpoint` to save and restore the exact layers/variables.
+
 **Example:**
-```
-
-# Create a subclassed model that essentially uses functional_model's first
-
-# and last layers.
-
-# First, save the weights of functional_model's first and last dense layers.
-
-first_dense <- functional_model$layers[1]
-last_dense <- functional_model$layers[-1]
-ckpt_path <- tf$train$Checkpoint(
-    dense <- first_dense, kernel = last_dense$kernel, bias = last_dense$bias
-).save("ckpt")
-
-# Define the subclassed model.
-
-class ContrivedModel(keras$Model):
-    initialize <- function() {    }
-        super$initialize()
-        self$first_dense <- layer_dense(64)
-        self$kernel <- self$add_variable("kernel", shape = (64, 10))
-        self$bias <- self$add_variable("bias", shape = (10,))
-
-    call <- function(inputs) {    }
-        x <- self$first_dense(inputs)
-        return tf$matmul(x, self$kernel) + self$bias
-
-
-model <- ContrivedModel()
-# Call model on inputs to create the variables of the dense layer.
-
-_ <- model(tf$ones((1, 784)))
-
-# Create a Checkpoint with the same structure as before, and load the weights.
-
-tf$train$Checkpoint(
-    dense <- model$first_dense, kernel = model$kernel, bias = model$bias
-).restore(ckpt_path).assert_consumed()
 
 ```{r}
+# Create a subclassed model that essentially uses functional_model's first
+# and last layers.
+# First, save the weights of functional_model's first and last dense layers.
+first_dense <- functional_model$layers[[2]]
+last_dense <- functional_model$layers[[4]]
+ckpt_path <- tf$train$Checkpoint(
+    dense = first_dense, 
+    kernel = last_dense$kernel, 
+    bias = last_dense$bias
+)$save("ckpt")
+
+# Define the subclassed model.
+contrived_model <- new_model_class(
+  "contrived_model",
+  initialize = function() {
+    super()$`__init__`()
+    self$first_dense <- layer_dense(units = 64)
+    self$kernel <- self$add_weight("kernel", shape = shape(64, 10))
+    self$bias <- self$add_weight("bias", shape = shape(10))
+  },
+  call = function(inputs) {
+    x <- self$first_dense(inputs)
+    tf$matmul(x, self$kernel) + self$bias
+  }
+)
+
+model <- contrived_model()
+# Call model on inputs to create the variables of the dense layer.
+invisible(model(tf$ones(shape(1, 784))))
+
+# Create a Checkpoint with the same structure as before, and load the weights.
+tf$train$Checkpoint(
+    dense = model$first_dense, 
+    kernel = model$kernel, 
+    bias = model$bias
+)$restore(ckpt_path)$assert_consumed()
+```
+
 ### HDF5 format
+
 The HDF5 format contains weights grouped by layer names.
 The weights are lists ordered by concatenating the list of trainable weights
 to the list of non-trainable weights (same as `layer$weights`).
+
 Thus, a model can use a hdf5 checkpoint if it has the same layers and trainable
 statuses as saved in the checkpoint.
+
 **Example:**
-```
-
-# Runnable example
-
-sequential_model <- keras_model_sequential(
-    [
-        layer_input(shape = (784,), name = "digits"),
-        layer_dense(64, activation = "relu", name = "dense_1"),
-        layer_dense(64, activation = "relu", name = "dense_2"),
-        layer_dense(10, name = "predictions"),
-    ]
-)
-sequential_model$save_weights("weights$h5")
-sequential_model$load_weights("weights$h5")
 
 ```{r}
+# Runnable example
+sequential_model <- keras_model_sequential(input_shape = 784) %>% 
+  layer_dense(64, activation = "relu", name = "dense_1") %>% 
+  layer_dense(64, activation = "relu", name = "dense_2") %>% 
+  layer_dense(10, name = "predictions")
+
+save_model_weights_hdf5(sequential_model, "weights.h5")
+load_model_weights_hdf5(sequential_model, "weights.h5")
+```
+
 Note that changing `layer$trainable` may result in a different
 `layer$weights` ordering when the model contains nested layers.
-```
-
-class NestedDenseLayer(keras$layers$Layer):
-    initialize <- function(units, name = NULL) {    }
-        super$initialize(name = name)
-        self$dense_1 <- layer_dense(units, name = "dense_1")
-        self$dense_2 <- layer_dense(units, name = "dense_2")
-
-    call <- function(inputs) {    }
-        return self$dense_2(self$dense_1(inputs))
-
-
-nested_model <- keras_model_sequential([layer_input((784,)), NestedDenseLayer(10, "nested")])
-variable_names <- [v$name for v in nested_model$weights]
-print("variables: list()".format(variable_names))
-
-print("\nChanging trainable status of one of the nested layers...")
-nested_model$get_layer("nested").dense_1$trainable = FALSE
-
-variable_names_2 <- [v$name for v in nested_model$weights]
-print("\nvariables: list()".format(variable_names_2))
-print("variable ordering changed:", variable_names != variable_names_2)
 
 ```{r}
+nested_dense_layer <- new_layer_class(
+  "nested_dense_layer",
+  initialize = function(units, name = NULL) {
+    super()$`__init__`(name = name)
+    self$dense_1 <- layer_dense(units = units, name = "dense_1")
+    self$dense_2 <- layer_dense(units = units, name = "dense_2")
+  },
+  call = function(inputs) {
+    inputs %>% 
+      self$dense_1() %>% 
+      self$dense_2()
+  }
+)
+
+nested_model <- keras_model_sequential(input_shape = 784) %>% 
+  nested_dense_layer(units = 10, name = "nested")
+
+variable_names <- lapply(nested_model$weights, function(x) x$name)
+str(variable_names)
+
+print("\nChanging trainable status of one of the nested layers...")
+layer <- nested_model %>% 
+  get_layer("nested")
+layer$dense_1$trainable <- FALSE
+
+variable_names_2 <- lapply(nested_model$weights, function(x) x$name)
+str(variable_names_2)
+```
+
 #### Transfer learning example
+
 When loading pretrained weights from HDF5, it is recommended to load
 the weights into the original checkpointed model, and then extract
 the desired weights/layers into a new model.
-**Example:**
-```
 
-create_functional_model <- function() {    }
-    inputs <- layer_input(shape = (784,), name = "digits")
-    x <- layer_dense(64, activation = "relu", name = "dense_1")(inputs)
-    x <- layer_dense(64, activation = "relu", name = "dense_2")(x)
-    outputs <- layer_dense(10, name = "predictions")(x)
-    return keras_model(inputs = inputs, outputs = outputs, name = "3_layer_mlp")
+**Example:**
+
+```{r}
+create_functional_model <- function() {
+  inputs <- layer_input(shape = shape(784), name = "digits")
+  outputs <- inputs %>% 
+    layer_dense(64, activation = "relu", name = "dense_1") %>% 
+    layer_dense(64, activation = "relu", name = "dense_2") %>% 
+    layer_dense(10, name = "predictions")
+  keras_model(inputs = inputs, outputs = outputs, name = "3_layer_mlp")
+}
 
 
 functional_model <- create_functional_model()
-functional_model$save_weights("pretrained_weights$h5")
+save_model_weights_hdf5(functional_model, "pretrained_weights.h5")
 
 # In a separate program:
-
 pretrained_model <- create_functional_model()
-pretrained_model$load_weights("pretrained_weights$h5")
+load_model_weights_hdf5(pretrained_model, "pretrained_weights.h5")
 
 # Create a new model by extracting layers from the original model:
-
-extracted_layers <- pretrained_model$layers[:-1]
-extracted_layers$append(layer_dense(5, name = "dense_3"))
+extracted_layers <- pretrained_model$layers[1:3]
+extracted_layers <- c(extracted_layers, layer_dense(units = 5, name = "dense_3"))
 model <- keras_model_sequential(extracted_layers)
-model$summary()
+model
+```
+
+{{< include ../../_environment.qmd >}}
