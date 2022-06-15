@@ -236,7 +236,7 @@ MyModule(tf$Module) %py_class% {
 
 ```{r}
 mod <- MyModule(3)
-mod$multiply(as_tensor(c(1, 2, 3)))
+mod$multiply(as_tensor(c(1, 2, 3), "float32"))
 ```
 
 Save the `Module`:
@@ -255,7 +255,7 @@ JS](https://www.tensorflow.org/js/guide).
 
 ```{r}
 reloaded <- tf$saved_model$load(save_path)
-reloaded$multiply(as_tensor(c(1, 2, 3)))
+reloaded$multiply(as_tensor(c(1, 2, 3), "float32"))
 ```
 
 The `tf$keras$layers$Layer` and `tf$keras$Model` classes build on
@@ -275,7 +275,7 @@ First, create some example data. This generates a cloud of points that
 loosely follows a quadratic curve:
 
 ```{r}
-x <- as_tensor(seq(-2, 2, length.out = 201))
+x <- as_tensor(seq(-2, 2, length.out = 201), "float32")
 
 f <- function(x)
   x^2 + 2*x - 5

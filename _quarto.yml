@@ -78,6 +78,7 @@ website:
             - guides/keras/functional_api.qmd
             - guides/keras/training_with_built_in_methods.qmd
             - guides/keras/making_new_layers_and_models_via_subclassing.qmd
+            - guides/keras/serialization_and_saving.qmd
             - guides/keras/preprocessing_layers.qmd
             - guides/keras/customizing_what_happens_in_fit.qmd
             - guides/keras/working_with_rnns.qmd
