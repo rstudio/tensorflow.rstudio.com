@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.583">
+<meta name="generator" content="quarto-0.9.559">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -264,6 +264,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../guides/keras/serialization_and_saving.html" class="sidebar-item-text sidebar-link">Serialization and saving</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../guides/keras/preprocessing_layers.html" class="sidebar-item-text sidebar-link">Working with preprocessing layers</a>
   </div>
 </li>
@@ -414,6 +419,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#when-is-a-function-tracing" id="toc-when-is-a-function-tracing" class="nav-link" data-scroll-target="#when-is-a-function-tracing">When is a <code>Function</code> tracing?</a></li>
   <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next steps</a></li>
+  <li><a href="#environment-details" id="toc-environment-details" class="nav-link" data-scroll-target="#environment-details">Environment Details</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/t-kalinowski/tf-site/edit/main/guides/tensorflow/intro_to_graphs.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/t-kalinowski/tf-site/blob/main/guides/tensorflow/intro_to_graphs.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/t-kalinowski/tf-site/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -666,17 +672,17 @@ fn(x)
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(y_true <span class="ot">&lt;-</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">uniform</span>(<span class="fu">shape</span>(<span class="dv">5</span>), <span class="at">maxval =</span> 10L, <span class="at">dtype =</span> tf<span class="sc">$</span>int32))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor([9 0 8 7 4], shape=(5), dtype=int32)</code></pre>
+<pre><code>tf.Tensor([3 4 0 5 9], shape=(5), dtype=int32)</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>(y_pred <span class="ot">&lt;-</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">uniform</span>(<span class="fu">shape</span>(<span class="dv">5</span>), <span class="at">maxval =</span> 10L, <span class="at">dtype =</span> tf<span class="sc">$</span>int32))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor([2 7 2 4 8], shape=(5), dtype=int32)</code></pre>
+<pre><code>tf.Tensor([8 5 8 8 0], shape=(5), dtype=int32)</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_MSE</span>(y_true, y_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor(31, shape=(), dtype=int32)</code></pre>
+<pre><code>tf.Tensor(36, shape=(), dtype=int32)</code></pre>
 </div>
 </div>
 <p>To verify that your <code>Function</code>’s graph is doing the same computation as its equivalent Python function, you can make it execute eagerly with <code>tf$config$run_functions_eagerly(TRUE)</code>. This is a switch that <strong>turns off <code>Function</code>’s ability to create and run graphs</strong>, instead executing the code normally.</p>
@@ -686,7 +692,7 @@ fn(x)
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_MSE</span>(y_true, y_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor(31, shape=(), dtype=int32)</code></pre>
+<pre><code>tf.Tensor(36, shape=(), dtype=int32)</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -889,6 +895,66 @@ Note
 <section id="next-steps" class="level2">
 <h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
 <p>You can learn more about <code>tf_function()</code> on the API reference page and by following the <a href="function.qmd">Better performance with <code>tf_function</code></a> guide.</p>
+</section>
+<section id="environment-details" class="level2">
+<h2 class="anchored" data-anchor-id="environment-details">Environment Details</h2>
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tensorflow Version
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>tensorflow<span class="sc">::</span><span class="fu">tf_version</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] '2.9'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+R Environment Information
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                           sysname 
+                                                                                          "Darwin" 
+                                                                                           release 
+                                                                                          "21.4.0" 
+                                                                                           version 
+"Darwin Kernel Version 21.4.0: Mon Feb 21 20:34:37 PST 2022; root:xnu-8020.101.4~2/RELEASE_X86_64" 
+                                                                                          nodename 
+                                                                       "Daniels-MacBook-Pro.local" 
+                                                                                           machine 
+                                                                                          "x86_64" 
+                                                                                             login 
+                                                                                            "root" 
+                                                                                              user 
+                                                                                         "dfalbel" 
+                                                                                    effective_user 
+                                                                                         "dfalbel" </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>

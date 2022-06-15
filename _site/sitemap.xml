@@ -2,94 +2,98 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tensorflow.rstudio.com/deploy/docker.html</loc>
-    <lastmod>2022-06-14T18:02:48.689Z</lastmod>
+    <lastmod>2022-06-15T20:16:52.063Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/deploy/index.html</loc>
-    <lastmod>2022-06-14T18:02:49.092Z</lastmod>
+    <lastmod>2022-06-15T20:16:52.543Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/deploy/plumber.html</loc>
-    <lastmod>2022-06-14T18:02:49.703Z</lastmod>
+    <lastmod>2022-06-15T20:16:53.197Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/deploy/rsconnect.html</loc>
-    <lastmod>2022-06-14T18:02:50.283Z</lastmod>
+    <lastmod>2022-06-15T20:16:53.868Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/deploy/shiny.html</loc>
-    <lastmod>2022-06-14T18:02:50.827Z</lastmod>
+    <lastmod>2022-06-15T20:16:54.435Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/index.html</loc>
-    <lastmod>2022-06-14T18:02:51.167Z</lastmod>
+    <lastmod>2022-06-15T20:16:54.727Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/customizing_what_happens_in_fit.html</loc>
-    <lastmod>2022-06-14T18:02:51.799Z</lastmod>
+    <lastmod>2022-06-15T20:16:55.403Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/functional_api.html</loc>
-    <lastmod>2022-06-14T18:02:52.636Z</lastmod>
+    <lastmod>2022-06-15T20:16:56.307Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/making_new_layers_and_models_via_subclassing.html</loc>
-    <lastmod>2022-06-14T18:02:53.471Z</lastmod>
+    <lastmod>2022-06-15T20:16:57.309Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/preprocessing_layers.html</loc>
-    <lastmod>2022-06-14T18:02:54.250Z</lastmod>
+    <lastmod>2022-06-15T20:16:58.053Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/python_subclasses.html</loc>
-    <lastmod>2022-06-14T18:02:54.821Z</lastmod>
+    <lastmod>2022-06-15T20:16:58.639Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/sequential_model.html</loc>
-    <lastmod>2022-06-14T18:02:55.447Z</lastmod>
+    <lastmod>2022-06-15T20:16:59.274Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/guides/keras/serialization_and_saving.html</loc>
+    <lastmod>2022-06-15T20:17:00.207Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/training_with_built_in_methods.html</loc>
-    <lastmod>2022-06-14T18:02:56.352Z</lastmod>
+    <lastmod>2022-06-15T20:17:01.167Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/transfer_learning.html</loc>
-    <lastmod>2022-06-14T18:02:57.063Z</lastmod>
+    <lastmod>2022-06-15T20:17:01.938Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/working_with_rnns.html</loc>
-    <lastmod>2022-06-14T18:02:57.856Z</lastmod>
+    <lastmod>2022-06-15T20:17:02.742Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/keras/writing_your_own_callbacks.html</loc>
-    <lastmod>2022-06-14T18:02:58.514Z</lastmod>
+    <lastmod>2022-06-15T20:17:03.422Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/autodiff.html</loc>
-    <lastmod>2022-06-14T18:02:59.214Z</lastmod>
+    <lastmod>2022-06-15T20:17:04.237Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/basics.html</loc>
-    <lastmod>2022-06-14T18:02:59.876Z</lastmod>
+    <lastmod>2022-06-15T20:17:05.013Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/intro_to_graphs.html</loc>
-    <lastmod>2022-06-14T18:03:00.670Z</lastmod>
+    <lastmod>2022-06-15T20:17:05.909Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/tensor.html</loc>
-    <lastmod>2022-06-14T18:03:01.565Z</lastmod>
+    <lastmod>2022-06-15T20:17:07.241Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/tensor_slicing.html</loc>
-    <lastmod>2022-06-14T18:03:02.185Z</lastmod>
+    <lastmod>2022-06-15T20:17:07.937Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/guides/tensorflow/variable.html</loc>
-    <lastmod>2022-06-14T18:03:02.750Z</lastmod>
+    <lastmod>2022-06-15T20:17:08.531Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/tutorials-new/quickstart/index.html</loc>
-    <lastmod>2022-06-14T18:03:03.065Z</lastmod>
+    <lastmod>2022-06-15T20:17:08.800Z</lastmod>
   </url>
 </urlset>
