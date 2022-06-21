@@ -34,21 +34,19 @@ website:
     left:
       - {text: Install      ,href: install/}
       - {text: Tutorials    ,href: tutorials/}
-      - {text: Guides       ,href: guides/}
+      - {text: Guides       ,href: guides/index.qmd}
       - {text: Examples     ,href: examples/}
       - {text: Deploy       ,href: deploy/}
       - {text: Tools        ,href: tools/}
       - {text: Reference    ,href: reference/}
       # - {text: v1           ,href: v1/}
 
-
-
   sidebar:
 
     - title: "Install"
-      search: true
+      alignment: left
       collapse-level: 2
-      style: docked
+      style: "docked"
       contents:
         - install/index.qmd
         - section: GPU
@@ -64,6 +62,7 @@ website:
     - title: "Guides"
       contents:
         - guides/index.qmd
+
         - section: Tensorflow Basics
           contents:
             - {text: Overview                  ,href: guides/tensorflow/basics.qmd}
@@ -92,57 +91,6 @@ website:
             - guides/tensorflow/tensor_slicing.qmd
 
 
-        - section: "---"
-        - section: Keras
-          contents:
-            - v1/guide/keras/index.qmd
-
-
-            - v1/guide/keras/applications.qmd
-            - v1/guide/keras/custom_models.qmd
-            - v1/guide/keras/functional_api.qmd
-            - v1/guide/keras/sequential_model.qmd
-            - v1/guide/keras/training_visualization.qmd
-            - v1/guide/keras/custom_layers.qmd
-            - v1/guide/keras/faq.qmd
-            - v1/guide/keras/guide_keras.qmd
-            - v1/guide/keras/saving_serializing.qmd
-            - v1/guide/keras/training_callbacks.qmd
-        - section: Advanced
-          contents:
-            - guides/keras/python_subclasses.qmd
-        - section: Saving
-          contents:
-            - v1/guide/saving/checkpoints.qmd
-            - v1/guide/saving/saved_model.qmd
-        - section: Misc
-          contents:
-            - v1/guide/tensorflow/eager_execution.qmd
-            - v1/guide/tensorflow/ragged_tensors.qmd
-            - v1/guide/tensorflow/tensors.qmd
-            - v1/guide/tensorflow/variable.qmd
-            - v1/guide/tfdatasets/feature_columns.qmd
-        - section: tfdatasets
-          contents:
-            - v1/guide/tfdatasets/feature_spec.qmd
-            - v1/guide/tfdatasets/introduction.qmd
-        - section: tfestimators
-          contents:
-            - v1/guide/tfestimators/creating_estimators.qmd
-            - v1/guide/tfestimators/dataset_api.qmd
-            - v1/guide/tfestimators/estimator_basics.qmd
-            - v1/guide/tfestimators/feature_columns.qmd
-            - v1/guide/tfestimators/input_functions.qmd
-            - v1/guide/tfestimators/parsing_spec.qmd
-            - v1/guide/tfestimators/run_hooks.qmd
-            - v1/guide/tfestimators/tensorboard.qmd
-            - v1/guide/tfestimators/tensorflow_layers.qmd
-        - section: tfhub
-          contents:
-            - v1/guide/tfhub/hub-with-keras.qmd
-            - v1/guide/tfhub/intro.qmd
-            - v1/guide/tfhub/key-concepts.qmd
-
     - title: "Tools"
       contents:
         - tools/index.qmd
@@ -163,13 +111,10 @@ website:
       contents:
         - reference/index.qmd
 
-
-
-
 format:
   html:
     toc: true
     code-overflow: wrap
     theme:
-      light: united
+      light: [united, custom.scss]
       dark: darkly

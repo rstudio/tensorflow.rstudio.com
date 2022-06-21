@@ -1,0 +1,15 @@
+/*-- scss:mixins --*/
+
+/*
+hack to increase the sidebar size.
+it doesn't seem to be currently possible to resize it correctly.
+TODO: this adds extra margin to the mobile view, so we might want
+to revert it.
+*/
+
+$grid-screen-inset-padding: 6em;
+
+/*-- scss:rules --*/
+$font-size-root: 1em;
+
+
