@@ -1,5 +1,33 @@
 ---
 title: Guides
+anchor-sections: false
+search: false
+listing:
+  - id: tensorflow-links
+    type: grid
+    sort-ui: false
+    filter-ui: false
+    fields: [title, description]
+    contents: tensorflow/*.qmd
+  - id: keras-links
+    type: grid
+    sort-ui: false
+    filter-ui: false
+    fields: [title, description]
+    contents: keras/*.qmd
 ---
 
-[link](tensorflow/basics.qmd)
+TensorFlow 2 focuses on simplicity and ease of use, with updates like eager execution, intuitive higher-level APIs, and flexible model building on any platform.
+
+## TensorFlow
+
+::: {#tensorflow-links}
+:::
+
+## Keras
+
+::: {#keras-links}
+:::
+
+
+
