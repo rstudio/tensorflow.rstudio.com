@@ -83,6 +83,7 @@ website:
             - guides/keras/customizing_what_happens_in_fit.qmd
             - guides/keras/writing_a_training_loop_from_scratch.qmd
             - guides/keras/working_with_rnns.qmd
+            - guides/keras/understanding_masking_and_padding.qmd
             - guides/keras/writing_your_own_callbacks.qmd
             - guides/keras/transfer_learning.qmd
 
