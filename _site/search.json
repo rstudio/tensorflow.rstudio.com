@@ -126,13 +126,6 @@
     "text": "Hosting the shiny app\nThis Shiny app can be hosted in any server using the Shiny Server. If you are managing the complete infrastructure, make sure that you have Python and all required Python packages installed in the server.\nIf you are using Shinyapps.io or RStudio Connect the dependencies will be infered when deploying the app. In this case, don’t forget to set the RETICULATE_PYTHON environment variable.\nYou can find more examples of using reticulate in RStudio products here and learn more about Python in RStudio Connect best practices here."
   },
   {
-    "objectID": "guides/index.html",
-    "href": "guides/index.html",
-    "title": "Guides",
-    "section": "",
-    "text": "link"
-  },
-  {
     "objectID": "guides/keras/customizing_what_happens_in_fit.html",
     "href": "guides/keras/customizing_what_happens_in_fit.html",
     "title": "Customizing what happens in fit()",
