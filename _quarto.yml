@@ -14,7 +14,7 @@ project:
 
 execute:
   enabled: true
-  eval: false
+  eval: true
   freeze: auto
 
 
