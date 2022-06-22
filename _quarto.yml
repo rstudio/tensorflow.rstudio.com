@@ -14,7 +14,7 @@ project:
 
 execute:
   enabled: true
-  eval: true
+  eval: false
   freeze: auto
 
 
@@ -57,7 +57,11 @@ website:
 
     - title: "Tutorials"
       contents:
-        - tutorials/
+        - tutorials/index.qmd
+        - section: Quickstart
+          contents:
+            - tutorials/quickstart/beginner.qmd
+            - tutorials/quickstart/advanced.qmd
 
     - title: "Guides"
       contents:

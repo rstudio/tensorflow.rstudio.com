@@ -1,0 +1,36 @@
+---
+title: Tutorials
+anchor-sections: false
+search: false
+listing:
+  - id: beginners
+    type: grid
+    sort-ui: false
+    filter-ui: false
+    fields: [title, description]
+    contents: 
+      - quickstart/beginner.qmd
+  - id: experts
+    type: grid
+    sort-ui: false
+    filter-ui: false
+    fields: [title, description]
+    contents: 
+      - quickstart/advanced.qmd
+---
+
+## For beginers
+
+The best place to start is with the user-friendly Keras sequential API. Build models by plugging together building blocks. After these tutorials, read the [Keras guide](guides/keras/sequential_model.qmd).
+
+::: {#beginners}
+:::
+
+
+## For experts
+
+The Keras functional and subclassing APIs provide a define-by-run interface for customization and advanced research. Build your model, then write the forward and backward pass. Create custom layers, activations, and training loops.
+
+::: {#experts}
+:::
+
