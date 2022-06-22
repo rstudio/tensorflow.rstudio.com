@@ -61,6 +61,9 @@ website:
           contents:
             - tutorials/quickstart/beginner.qmd
             - tutorials/quickstart/advanced.qmd
+        - section: "ML basics with Keras"
+          contents:
+            - tutorials/keras/classification.qmd
 
     - title: "Guides"
       contents:

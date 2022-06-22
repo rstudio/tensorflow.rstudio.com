@@ -17,6 +17,7 @@ listing:
     fields: [title, description]
     contents: 
       - quickstart/advanced.qmd
+      - keras/classification.qmd
 ---
 
 ## For beginers
