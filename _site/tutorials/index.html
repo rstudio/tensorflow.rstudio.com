@@ -92,7 +92,7 @@ ul.task-list{list-style: none;}
     const options = {
       valueNames: ['listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-description"],
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -197,6 +197,21 @@ ul.task-list{list-style: none;}
 </li>
     </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">ML basics with Keras</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../tutorials/keras/classification.html" class="sidebar-item-text sidebar-link">Basic Image Classification</a>
+  </div>
+</li>
+    </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -269,6 +284,20 @@ Advanced
 </h5>
 <div class="card-text listing-description">
 Import TensorFlow into your program. If you haven’t installed TensorFlow yet, go to the installation guide.
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1655920706441" data-listing-reading-time-sort="8.57">
+<a href="../tutorials/keras/classification.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Basic Image Classification
+</h5>
+<div class="card-text listing-description">
+In this guide, we will train a neural network model to classify images of clothing, like sneakers and shirts. It’s fine if you don’t understand all the details, this is a fast-paced overview of a complete Keras program with the details explained as we go.
 </div>
 </div>
 </div>
