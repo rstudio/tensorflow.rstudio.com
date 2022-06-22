@@ -4,7 +4,6 @@ project:
   render:
     - "**.qmd"
     - "!v1/**"
-    - "!install/**"
     - "!examples/**"
 
   # pre-render: spin-examples.R
