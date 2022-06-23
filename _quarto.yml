@@ -64,6 +64,7 @@ website:
         - section: "ML basics with Keras"
           contents:
             - tutorials/keras/classification.qmd
+            - tutorials/keras/text_classification.qmd
 
     - title: "Guides"
       contents:
