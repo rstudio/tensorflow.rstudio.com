@@ -1,0 +1,14 @@
+{
+  "hash": "395e938b4eaef280a754a35a51c850aa",
+  "result": {
+    "markdown": "---\ntitle: mnist_transfer_cnn\ndescription: Transfer learning toy example.\n---\n\nTransfer learning toy example:\n\n1) Train a simple convnet on the MNIST dataset the first 5 digits [0..4].\n2) Freeze convolutional layers and fine-tune dense layers\n   for the classification of digits [5..9].\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras)\n\nnow <- Sys.time()\n\nbatch_size <- 128\nnum_classes <- 5\nepochs <- 5\n\n# input image dimensions\nimg_rows <- 28\nimg_cols <- 28\n\n# number of convolutional filters to use\nfilters <- 32\n\n# size of pooling area for max pooling\npool_size <- 2\n\n# convolution kernel size\nkernel_size <- c(3, 3)\n\n# input shape\ninput_shape <- c(img_rows, img_cols, 1)\n\n# the data, shuffled and split between train and test sets\ndata <- dataset_mnist()\nx_train <- data$train$x\ny_train <- data$train$y\nx_test <- data$test$x\ny_test <- data$test$y\n\n# create two datasets one with digits below 5 and one with 5 and above\nx_train_lt5 <- x_train[y_train < 5]\ny_train_lt5 <- y_train[y_train < 5]\nx_test_lt5 <- x_test[y_test < 5]\ny_test_lt5 <- y_test[y_test < 5]\n\nx_train_gte5 <- x_train[y_train >= 5]\ny_train_gte5 <- y_train[y_train >= 5] - 5\nx_test_gte5 <- x_test[y_test >= 5]\ny_test_gte5 <- y_test[y_test >= 5] - 5\n\n# define two groups of layers: feature (convolutions) and classification (dense)\nfeature_layers <- \n  layer_conv_2d(filters = filters, kernel_size = kernel_size, \n                input_shape = input_shape) %>% \n  layer_activation(activation = 'relu') %>% \n  layer_conv_2d(filters = filters, kernel_size = kernel_size) %>% \n  layer_activation(activation = 'relu') %>% \n  layer_max_pooling_2d(pool_size = pool_size) %>% \n  layer_dropout(rate = 0.25) %>% \n  layer_flatten()\n  \n\n\n# feature_layers = [\n#   Conv2D(filters, kernel_size,\n#          padding='valid',\n#          input_shape=input_shape),\n#   Activation('relu'),\n#   Conv2D(filters, kernel_size),\n#   Activation('relu'),\n#   MaxPooling2D(pool_size=pool_size),\n#   Dropout(0.25),\n#   Flatten(),\n#   ]\n# \n# classification_layers = [\n#   Dense(128),\n#   Activation('relu'),\n#   Dropout(0.5),\n#   Dense(num_classes),\n#   Activation('softmax')\n#   ]\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "hash": "052ab991acb9067d2cdcc90d915a1a5a",
+  "result": {
+    "markdown": "---\ntitle: stateful_lstm\ndescription: Demonstrates how to use stateful RNNs to model long sequences efficiently.\n---\n\nExample script showing how to use stateful RNNs to model long sequences\nefficiently.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras)\n\n# since we are using stateful rnn tsteps can be set to 1\ntsteps <- 1\nbatch_size <- 25\nepochs <- 25\n# number of elements ahead that are used to make the prediction\nlahead <- 1\n\n# Generates an absolute cosine time series with the amplitude exponentially decreasing\n# Arguments:\n#   amp: amplitude of the cosine function\n#   period: period of the cosine function\n#   x0: initial x of the time series\n#   xn: final x of the time series\n#   step: step of the time series discretization\n#   k: exponential rate\ngen_cosine_amp <- function(amp = 100, period = 1000, x0 = 0, xn = 50000, step = 1, k = 0.0001) {\n  n <- (xn-x0) * step\n  cos <- array(data = numeric(n), dim = c(n, 1, 1))\n  for (i in 1:length(cos)) {\n    idx <- x0 + i * step\n    cos[[i, 1, 1]] <- amp * cos(2 * pi * idx / period)\n    cos[[i, 1, 1]] <- cos[[i, 1, 1]] * exp(-k * idx)\n  }\n  cos\n}\n\ncat('Generating Data...\\n')\ncos <- gen_cosine_amp()\ncat('Input shape:', dim(cos), '\\n')\n\nexpected_output <- array(data = numeric(length(cos)), dim = c(length(cos), 1))\nfor (i in 1:(length(cos) - lahead)) {\n  expected_output[[i, 1]] <- mean(cos[(i + 1):(i + lahead)])\n}\n\ncat('Output shape:', dim(expected_output), '\\n')\n\ncat('Creating model:\\n')\nmodel <- keras_model_sequential()\nmodel %>%\n  layer_lstm(units = 50, input_shape = c(tsteps, 1), batch_size = batch_size,\n             return_sequences = TRUE, stateful = TRUE) %>% \n  layer_lstm(units = 50, return_sequences = FALSE, stateful = TRUE) %>% \n  layer_dense(units = 1)\nmodel %>% compile(loss = 'mse', optimizer = 'rmsprop')\n\ncat('Training\\n')\nfor (i in 1:epochs) {\n  model %>% fit(cos, expected_output, batch_size = batch_size,\n                epochs = 1, verbose = 1, shuffle = FALSE)\n            \n  model %>% reset_states()\n}\n\ncat('Predicting\\n')\npredicted_output <- model %>% predict(cos, batch_size = batch_size)\n\ncat('Plotting Results\\n')\nop <- par(mfrow=c(2,1))\nplot(expected_output, xlab = '')\ntitle(\"Expected\")\nplot(predicted_output, xlab = '')\ntitle(\"Predicted\")\npar(op)\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

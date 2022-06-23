@@ -1,0 +1,14 @@
+{
+  "hash": "fb8804feb8465a3f7f12e8930dc9efc9",
+  "result": {
+    "markdown": "---\ntitle: imdb_cnn_lstm\ndescription: Trains a convolutional stack followed by a recurrent stack network on the IMDB sentiment classification task.\n---\n\nTrain a recurrent convolutional network on the IMDB sentiment\nclassification task.\n \nAchieves 0.8498 test accuracy after 2 epochs. 41s/epoch on K520 GPU.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras)\n\n# Parameters --------------------------------------------------------------\n\n# Embedding\nmax_features = 20000\nmaxlen = 100\nembedding_size = 128\n\n# Convolution\nkernel_size = 5\nfilters = 64\npool_size = 4\n\n# LSTM\nlstm_output_size = 70\n\n# Training\nbatch_size = 30\nepochs = 2\n\n# Data Preparation --------------------------------------------------------\n\n# The x data includes integer sequences, each integer is a word\n# The y data includes a set of integer labels (0 or 1)\n# The num_words argument indicates that only the max_fetures most frequent\n# words will be integerized. All other will be ignored.\n# See help(dataset_imdb)\nimdb <- dataset_imdb(num_words = max_features)\n# Keras load all data into a list with the following structure:\nstr(imdb)\n\n# Pad the sequences to the same length\n  # This will convert our dataset into a matrix: each line is a review\n  # and each column a word on the sequence\n# We pad the sequences with 0s to the left\nx_train <- imdb$train$x %>%\n  pad_sequences(maxlen = maxlen)\nx_test <- imdb$test$x %>%\n  pad_sequences(maxlen = maxlen)\n\n# Defining Model ------------------------------------------------------\n\nmodel <- keras_model_sequential()\n\nmodel %>%\n  layer_embedding(max_features, embedding_size, input_length = maxlen) %>%\n  layer_dropout(0.25) %>%\n  layer_conv_1d(\n    filters, \n    kernel_size, \n    padding = \"valid\",\n    activation = \"relu\",\n    strides = 1\n  ) %>%\n  layer_max_pooling_1d(pool_size) %>%\n  layer_lstm(lstm_output_size) %>%\n  layer_dense(1) %>%\n  layer_activation(\"sigmoid\")\n\nmodel %>% compile(\n  loss = \"binary_crossentropy\",\n  optimizer = \"adam\",\n  metrics = \"accuracy\"\n)\n\n# Training ----------------------------------------------------------------\n\nmodel %>% fit(\n  x_train, imdb$train$y,\n  batch_size = batch_size,\n  epochs = epochs,\n  validation_data = list(x_test, imdb$test$y)\n)\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

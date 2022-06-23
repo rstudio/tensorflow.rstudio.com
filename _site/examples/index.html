@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.559">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>TensorFlow for R - Keras Examples</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/favicon/icon.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      page: 30,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
+      searchColumns: ["listing-title","listing-author"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <img src="../images/favicon/icon.png" alt="">
+    <span class="navbar-title">TensorFlow for R</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../install/">Install</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tutorials/">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../guides/index.html">Guides</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../examples/">Examples</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../deploy/">Deploy</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tools/">Tools</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../reference/">Reference</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Keras Examples</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!--
+| Example  | Description   |
+|----------------------|------------------------------------|
+| [addition_rnn](/guide/keras/examples/addition_rnn) | Implementation of sequence to sequence learning for performing addition of two numbers (as strings). |
+| [babi_memnn](/guide/keras/examples/babi_memnn) | Trains a memory network on the bAbI dataset for reading comprehension. |
+| [babi_rnn](/guide/keras/examples/babi_rnn) | Trains a two-branch recurrent network on the bAbI dataset for reading comprehension. |
+| [cifar10_cnn](/guide/keras/examples/cifar10_cnn) | Trains a simple deep CNN on the CIFAR10 small images dataset. |
+| [cifar10_densenet](/guide/keras/examples/cifar10_densenet) | Trains a DenseNet-40-12 on the CIFAR10 small images dataset. |
+| [conv_lstm](/guide/keras/examples/conv_lstm) | Demonstrates the use of a convolutional LSTM network. |
+| [deep_dream](/guide/keras/examples/deep_dream) | Deep Dreams in Keras. |
+| [eager_dcgan](/guide/keras/examples/eager_dcgan) | Generating digits with generative adversarial networks and eager execution. |
+| [eager_image_captioning](/guide/keras/examples/eager_image_captioning) | Generating image captions with Keras and eager execution. |
+| [eager_pix2pix](/guide/keras/examples/eager_pix2pix) | Image-to-image translation with Pix2Pix, using eager execution. |
+| [eager_styletransfer](/guide/keras/examples/eager_styletransfer) | Neural style transfer with eager execution. |
+| [fine_tuning](/guide/keras/examples/fine_tuning) | Fine tuning of a image classification model. |
+| [imdb_bidirectional_lstm](/guide/keras/examples/imdb_bidirectional_lstm) | Trains a Bidirectional LSTM on the IMDB sentiment classification task. |
+| [imdb_cnn](/guide/keras/examples/imdb_cnn) | Demonstrates the use of Convolution1D for text classification. |
+| [imdb_cnn_lstm](/guide/keras/examples/imdb_cnn_lstm) | Trains a convolutional stack followed by a recurrent stack network on the IMDB sentiment classification task. |
+| [imdb_fasttext](/guide/keras/examples/imdb_fasttext) | Trains a FastText model on the IMDB sentiment classification task. |
+| [imdb_lstm](/guide/keras/examples/imdb_lstm) | Trains a LSTM on the IMDB sentiment classification task. |
+| [lstm_text_generation](/guide/keras/examples/lstm_text_generation) | Generates text from Nietzsche's writings. |
+| [lstm_seq2seq](/guide/keras/examples/lstm_seq2seq) | This script demonstrates how to implement a basic character-level sequence-to-sequence model. |
+| [mnist_acgan](/guide/keras/examples/mnist_acgan) | Implementation of AC-GAN (Auxiliary Classifier GAN ) on the MNIST dataset |
+| [mnist_antirectifier](/guide/keras/examples/mnist_antirectifier) | Demonstrates how to write custom layers for Keras |
+| [mnist_cnn](/guide/keras/examples/mnist_cnn) | Trains a simple convnet on the MNIST dataset. |
+| [mnist_cnn_embeddings](/guide/keras/examples/mnist_cnn_embeddings) | Demonstrates how to visualize embeddings in TensorBoard. |
+| [mnist_irnn](/guide/keras/examples/mnist_irnn) | Reproduction of the IRNN experiment with pixel-by-pixel sequential MNIST in "A Simple Way to Initialize Recurrent Networks of Rectified Linear Units" by Le et al. |
+| [mnist_mlp](/guide/keras/examples/mnist_mlp) | Trains a simple deep multi-layer perceptron on the MNIST dataset. |
+| [mnist_hierarchical_rnn](/guide/keras/examples/mnist_hierarchical_rnn) | Trains a Hierarchical RNN (HRNN) to classify MNIST digits. |
+| [mnist_tfrecord](/guide/keras/examples/mnist_tfrecord) | MNIST dataset with TFRecords, the standard TensorFlow data format. |
+| [mnist_transfer_cnn](/guide/keras/examples/mnist_transfer_cnn) | Transfer learning toy example. |
+| [neural_style_transfer](/guide/keras/examples/neural_style_transfer) | Neural style transfer (generating an image with the same “content” as a base image, but with the “style” of a different picture). |
+| [nmt_attention](/guide/keras/examples/nmt_attention) | Neural machine translation with an attention mechanism. |
+| [quora_siamese_lstm](/guide/keras/examples/quora_siamese_lstm) | Classifying duplicate quesitons from Quora using Siamese Recurrent Architecture. |
+| [reuters_mlp](/guide/keras/examples/reuters_mlp) | Trains and evaluatea a simple MLP on the Reuters newswire topic classification task. |
+| [stateful_lstm](/guide/keras/examples/stateful_lstm) | Demonstrates how to use stateful RNNs to model long sequences efficiently. |
+| [text_explanation_lime](/guide/keras/examples/text_explanation_lime) | How to use lime to explain text data. |
+| [variational_autoencoder](/guide/keras/examples/variational_autoencoder) | Demonstrates how to build a variational autoencoder. |
+| [variational_autoencoder_deconv](/guide/keras/examples/variational_autoencoder_deconv) | Demonstrates how to build a variational autoencoder with Keras using deconvolution layers. |
+| [tfprob_vae](/guide/keras/examples/tfprob_vae) | A variational autoencoder using TensorFlow Probability on Kuzushiji-MNIST. |
+| [vq_vae](/guide/keras/examples/vq_vae) | Discrete Representation Learning with VQ-VAE and TensorFlow Probability. | -->
+<!--
+| [cifar10_resnet](cifar10_resnet) | Trains a ResNet on the CIFAR10 dataset. |
+| [conv_filter_visualization](conv_filter_visualization) | Visualization of the filters of VGG16, via gradient ascent in input space. |
+| [image_ocr](image_ocr) | Trains a convolutional stack followed by a recurrent stack and a CTC logloss function to perform optical character recognition (OCR). |
+| [lstm_benchmark](lstm_benchmark) | Compares different LSTM implementations on the IMDB sentiment classification task. |
+| [mnist_dataset_api](mnist_dataset_api) | MNIST classification with TensorFlow's Dataset API. |
+| [mnist_net2net](mnist_net2net) | Reproduction of the Net2Net experiment with MNIST in "Net2Net: Accelerating Learning via Knowledge Transfer". |
+| [mnist_siamese_graph](mnist_siamese_graph) | Trains a Siamese multi-layer perceptron on pairs of digits from the MNIST dataset. |
+| [mnist_swwae](mnist_swwae) | Trains a Stacked What-Where AutoEncoder built on residual blocks on the MNIST dataset. |
+| [neural_doodle](neural_doodle) | Neural doodle. |
+| [reuters_mlp_relu_vs_selu](reuters_mlp_relu_vs_selu) | Compares self-normalizing MLPs with regular MLPs.  |
+| [lstm_stateful](lstm_stateful) | Example script showing how to use a stateful LSTM model
++and how its stateless counterpart performs. |
+-->
+<!--
+
+These examples are complete however don't yet work properly (see inline comments in
+scripts for details) so we aren't listing them.
+
+
+| [pretrained_word_embeddings](pretrained_word_embeddings) | Loads pre-trained word embeddings (GloVe embeddings) into a frozen Keras Embedding layer, and uses it to train a text classification model on the 20 Newsgroup dataset. |
+
+-->
+
+
+
+
+<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+       <option value="" disabled="" selected="" hidden="">Order By</option>
+       <option value="index" data-direction="asc">Default</option>
+         <option value="listing-title-sort" data-direction="asc">
+          Title
+        </option>
+     </select>
+  </div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
+</div>
+
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
+</th>
+<th>
+Description
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-listing-file-modified-sort="1655236642967" data-listing-reading-time-sort="5.495" data-listing-title-sort="addition_rnn" data-listing-filename-sort="addition_rnn.qmd">
+<td class="listing-title">
+<a href="../examples/addition_rnn.html" class="title">addition_rnn</a>
+</td>
+<td class="listing-description">
+Implementation of sequence to sequence learning for performing addition of two numbers (as strings).
+</td>
+</tr>
+<tr data-index="1" data-listing-file-modified-sort="1655236642967" data-listing-reading-time-sort="4.49" data-listing-title-sort="babi_memnn" data-listing-filename-sort="babi_memnn.qmd">
+<td class="listing-title">
+<a href="../examples/babi_memnn.html" class="title">babi_memnn</a>
+</td>
+<td class="listing-description">
+Trains a memory network on the bAbI dataset for reading comprehension.
+</td>
+</tr>
+<tr data-index="2" data-listing-file-modified-sort="1655236642967" data-listing-reading-time-sort="7.61" data-listing-title-sort="babi_rnn" data-listing-filename-sort="babi_rnn.qmd">
+<td class="listing-title">
+<a href="../examples/babi_rnn.html" class="title">babi_rnn</a>
+</td>
+<td class="listing-description">
+Trains a two-branch recurrent network on the bAbI dataset for reading comprehension.
+</td>
+</tr>
+<tr data-index="3" data-listing-file-modified-sort="1655236642968" data-listing-reading-time-sort="2" data-listing-title-sort="cifar10_cnn" data-listing-filename-sort="cifar10_cnn.qmd">
+<td class="listing-title">
+<a href="../examples/cifar10_cnn.html" class="title">cifar10_cnn</a>
+</td>
+<td class="listing-description">
+Trains a simple deep CNN on the CIFAR10 small images dataset.
+</td>
+</tr>
+<tr data-index="4" data-listing-file-modified-sort="1655236642968" data-listing-reading-time-sort="1.74" data-listing-title-sort="cifar10_densenet" data-listing-filename-sort="cifar10_densenet.qmd">
+<td class="listing-title">
+<a href="../examples/cifar10_densenet.html" class="title">cifar10_densenet</a>
+</td>
+<td class="listing-description">
+Trains a DenseNet-40-12 on the CIFAR10 small images dataset.
+</td>
+</tr>
+<tr data-index="5" data-listing-file-modified-sort="1655236642968" data-listing-reading-time-sort="6.02" data-listing-title-sort="conv_lstm" data-listing-filename-sort="conv_lstm.qmd">
+<td class="listing-title">
+<a href="../examples/conv_lstm.html" class="title">conv_lstm</a>
+</td>
+<td class="listing-description">
+Demonstrates the use of a convolutional LSTM network.
+</td>
+</tr>
+<tr data-index="6" data-listing-file-modified-sort="1655236642968" data-listing-reading-time-sort="4.425" data-listing-title-sort="deep_dream" data-listing-filename-sort="deep_dream.qmd">
+<td class="listing-title">
+<a href="../examples/deep_dream.html" class="title">deep_dream</a>
+</td>
+<td class="listing-description">
+Deep Dreams in Keras.
+</td>
+</tr>
+<tr data-index="7" data-listing-file-modified-sort="1655236642968" data-listing-reading-time-sort="8.6" data-listing-title-sort="eager_dcgan" data-listing-filename-sort="eager_dcgan.qmd">
+<td class="listing-title">
+<a href="../examples/eager_dcgan.html" class="title">eager_dcgan</a>
+</td>
+<td class="listing-description">
+Generating digits with generative adversarial networks and eager execution.
+</td>
+</tr>
+<tr data-index="8" data-listing-file-modified-sort="1655236642969" data-listing-reading-time-sort="18.15" data-listing-title-sort="eager_image_captioning" data-listing-filename-sort="eager_image_captioning.qmd">
+<td class="listing-title">
+<a href="../examples/eager_image_captioning.html" class="title">eager_image_captioning</a>
+</td>
+<td class="listing-description">
+Generating image captions with Keras and eager execution.
+</td>
+</tr>
+<tr data-index="9" data-listing-file-modified-sort="1655236642969" data-listing-reading-time-sort="16.685" data-listing-title-sort="eager_pix2pix" data-listing-filename-sort="eager_pix2pix.qmd">
+<td class="listing-title">
+<a href="../examples/eager_pix2pix.html" class="title">eager_pix2pix</a>
+</td>
+<td class="listing-description">
+Image-to-image translation with Pix2Pix, using eager execution.
+</td>
+</tr>
+<tr data-index="10" data-listing-file-modified-sort="1655236642969" data-listing-reading-time-sort="9.09" data-listing-title-sort="eager_styletransfer" data-listing-filename-sort="eager_styletransfer.qmd">
+<td class="listing-title">
+<a href="../examples/eager_styletransfer.html" class="title">eager_styletransfer</a>
+</td>
+<td class="listing-description">
+Neural style transfer with eager execution.
+</td>
+</tr>
+<tr data-index="11" data-listing-file-modified-sort="1655236642969" data-listing-reading-time-sort="2.69" data-listing-title-sort="fine_tuning" data-listing-filename-sort="fine_tuning.qmd">
+<td class="listing-title">
+<a href="../examples/fine_tuning.html" class="title">fine_tuning</a>
+</td>
+<td class="listing-description">
+Fine tuning of a image classification model.
+</td>
+</tr>
+<tr data-index="12" data-listing-file-modified-sort="1655236642969" data-listing-reading-time-sort="1.2" data-listing-title-sort="imdb_bidirectional_lstm" data-listing-filename-sort="imdb_bidirectional_lstm.qmd">
+<td class="listing-title">
+<a href="../examples/imdb_bidirectional_lstm.html" class="title">imdb_bidirectional_lstm</a>
+</td>
+<td class="listing-description">
+Trains a Bidirectional LSTM on the IMDB sentiment classification task.
+</td>
+</tr>
+<tr data-index="13" data-listing-file-modified-sort="1655236642969" data-listing-reading-time-sort="2.03" data-listing-title-sort="imdb_cnn" data-listing-filename-sort="imdb_cnn.qmd">
+<td class="listing-title">
+<a href="../examples/imdb_cnn.html" class="title">imdb_cnn</a>
+</td>
+<td class="listing-description">
+Demonstrates the use of Convolution1D for text classification.
+</td>
+</tr>
+<tr data-index="14" data-listing-file-modified-sort="1655236642970" data-listing-reading-time-sort="1.275" data-listing-title-sort="imdb_cnn_lstm" data-listing-filename-sort="imdb_cnn_lstm.qmd">
+<td class="listing-title">
+<a href="../examples/imdb_cnn_lstm.html" class="title">imdb_cnn_lstm</a>
+</td>
+<td class="listing-description">
+Trains a convolutional stack followed by a recurrent stack network on the IMDB sentiment classification task.
+</td>
+</tr>
+<tr data-index="15" data-listing-file-modified-sort="1655236642970" data-listing-reading-time-sort="2.055" data-listing-title-sort="imdb_fasttext" data-listing-filename-sort="imdb_fasttext.qmd">
+<td class="listing-title">
+<a href="../examples/imdb_fasttext.html" class="title">imdb_fasttext</a>
+</td>
+<td class="listing-description">
+Trains a FastText model on the IMDB sentiment classification task.
+</td>
+</tr>
+<tr data-index="16" data-listing-file-modified-sort="1655236642970" data-listing-reading-time-sort="1.015" data-listing-title-sort="imdb_lstm" data-listing-filename-sort="imdb_lstm.qmd">
+<td class="listing-title">
+<a href="../examples/imdb_lstm.html" class="title">imdb_lstm</a>
+</td>
+<td class="listing-description">
+Trains a LSTM on the IMDB sentiment classification task.
+</td>
+</tr>
+<tr data-index="17" data-listing-file-modified-sort="1655236642971" data-listing-reading-time-sort="6.155" data-listing-title-sort="lstm_seq2seq" data-listing-filename-sort="lstm_seq2seq.qmd">
+<td class="listing-title">
+<a href="../examples/lstm_seq2seq.html" class="title">lstm_seq2seq</a>
+</td>
+<td class="listing-description">
+This script demonstrates how to implement a basic character-level sequence-to-sequence model.
+</td>
+</tr>
+<tr data-index="18" data-listing-file-modified-sort="1655236642971" data-listing-reading-time-sort="2.395" data-listing-title-sort="lstm_text_generation" data-listing-filename-sort="lstm_text_generation.qmd">
+<td class="listing-title">
+<a href="../examples/lstm_text_generation.html" class="title">lstm_text_generation</a>
+</td>
+<td class="listing-description">
+Generates text from Nietzsche’s writings.
+</td>
+</tr>
+<tr data-index="19" data-listing-file-modified-sort="1655236642971" data-listing-reading-time-sort="9.8" data-listing-title-sort="mnist_acgan" data-listing-filename-sort="mnist_acgan.qmd">
+<td class="listing-title">
+<a href="../examples/mnist_acgan.html" class="title">mnist_acgan</a>
+</td>
+<td class="listing-description">
+Implementation of AC-GAN (Auxiliary Classifier GAN ) on the MNIST dataset
+</td>
+</tr>
+<tr data-index="20" data-listing-file-modified-sort="1655236642971" data-listing-reading-time-sort="2.415" data-listing-title-sort="mnist_antirectifier" data-listing-filename-sort="mnist_antirectifier.qmd">
+<td class="listing-title">
+<a href="../examples/mnist_antirectifier.html" class="title">mnist_antirectifier</a>
+</td>
+<td class="listing-description">
+Demonstrates how to write custom layers for Keras
+</td>
+</tr>
+<tr data-index="21" data-listing-file-modified-sort="1655236642971" data-listing-reading-time-sort="1.32" data-listing-title-sort="mnist_cnn" data-listing-filename-sort="mnist_cnn.qmd">
+<td class="listing-title">
+<a href="../examples/mnist_cnn.html" class="title">mnist_cnn</a>
+</td>
+<td class="listing-description">
+Trains a simple convnet on the MNIST dataset.
+</td>
+</tr>
+<tr data-index="22" data-listing-file-modified-sort="1655236642971" data-listing-reading-time-sort="2.29" data-listing-title-sort="mnist_cnn_embeddings" data-listing-filename-sort="mnist_cnn_embeddings.qmd">
+<td class="listing-title">
+<a href="../examples/mnist_cnn_embeddings.html" class="title">mnist_cnn_embeddings</a>
+</td>
+<td class="listing-description">
+Demonstrates how to visualize embeddings in TensorBoard.
+</td>
+</tr>
+<tr data-index="23" data-listing-file-modified-sort="1655236642972" data-listing-reading-time-sort="2.005" data-listing-title-sort="mnist_hierarchical_rnn" data-listing-filename-sort="mnist_hierarchical_rnn.qmd">
+<td class="listing-title">
+<a href="../examples/mnist_hierarchical_rnn.html" class="title">mnist_hierarchical_rnn</a>
+</td>
+<td class="listing-description">
+Trains a Hierarchical RNN (HRNN) to classify MNIST digits.
+</td>
+</tr>
+<tr data-index="24" data-listing-file-modified-sort="1655236642972" data-listing-reading-time-sort="1.61" data-listing-title-sort="mnist_irnn" data-listing-filename-sort="mnist_irnn.qmd">
+<td class="listing-title">
+<a href="../examples/mnist_irnn.html" class="title">mnist_irnn</a>
+</td>
+<td class="listing-description">
+Reproduction of the IRNN experiment with pixel-by-pixel sequential MNIST in “A Simple Way to Initialize Recurrent Networks of Rectified Linear Units” by Le et al.
+</td>
+</tr>
+<tr data-index="25" data-listing-file-modified-sort="1655236642972" data-listing-reading-time-sort="1.015" data-listing-title-sort="mnist_mlp" data-listing-filename-sort="mnist_mlp.qmd">
+<td class="listing-title">
+<a href="../examples/mnist_mlp.html" class="title">mnist_mlp</a>
+</td>
+<td class="listing-description">
+Trains a simple deep multi-layer perceptron on the MNIST dataset.
+</td>
+</tr>
+<tr data-index="26" data-listing-file-modified-sort="1655236642972" data-listing-reading-time-sort="3.79" data-listing-title-sort="mnist_tfrecord" data-listing-filename-sort="mnist_tfrecord.qmd">
+<td class="listing-title">
+<a href="../examples/mnist_tfrecord.html" class="title">mnist_tfrecord</a>
+</td>
+<td class="listing-description">
+MNIST dataset with TFRecords, the standard TensorFlow data format.
+</td>
+</tr>
+<tr data-index="27" data-listing-file-modified-sort="1655236642972" data-listing-reading-time-sort="1.46" data-listing-title-sort="mnist_transfer_cnn" data-listing-filename-sort="mnist_transfer_cnn.qmd">
+<td class="listing-title">
+<a href="../examples/mnist_transfer_cnn.html" class="title">mnist_transfer_cnn</a>
+</td>
+<td class="listing-description">
+Transfer learning toy example.
+</td>
+</tr>
+<tr data-index="28" data-listing-file-modified-sort="1655236642972" data-listing-reading-time-sort="6.205" data-listing-title-sort="neural_style_transfer" data-listing-filename-sort="neural_style_transfer.qmd">
+<td class="listing-title">
+<a href="../examples/neural_style_transfer.html" class="title">neural_style_transfer</a>
+</td>
+<td class="listing-description">
+Neural style transfer (generating an image with the same “content” as a base image, but with the “style” of a different picture).
+</td>
+</tr>
+<tr data-index="29" data-listing-file-modified-sort="1655236642973" data-listing-reading-time-sort="11.405" data-listing-title-sort="nmt_attention" data-listing-filename-sort="nmt_attention.qmd">
+<td class="listing-title">
+<a href="../examples/nmt_attention.html" class="title">nmt_attention</a>
+</td>
+<td class="listing-description">
+Neural machine translation with an attention mechanism.
+</td>
+</tr>
+<tr data-index="30" data-listing-file-modified-sort="1655236642973" data-listing-reading-time-sort="2.335" data-listing-title-sort="quora_siamese_lstm" data-listing-filename-sort="quora_siamese_lstm.qmd">
+<td class="listing-title">
+<a href="../examples/quora_siamese_lstm.html" class="title">quora_siamese_lstm</a>
+</td>
+<td class="listing-description">
+Classifying duplicate quesitons from Quora using Siamese Recurrent Architecture.
+</td>
+</tr>
+<tr data-index="31" data-listing-file-modified-sort="1655236642973" data-listing-reading-time-sort="0.935" data-listing-title-sort="reuters_mlp" data-listing-filename-sort="reuters_mlp.qmd">
+<td class="listing-title">
+<a href="../examples/reuters_mlp.html" class="title">reuters_mlp</a>
+</td>
+<td class="listing-description">
+Trains and evaluatea a simple MLP on the Reuters newswire topic classification task.
+</td>
+</tr>
+<tr data-index="32" data-listing-file-modified-sort="1655236642973" data-listing-reading-time-sort="1.685" data-listing-title-sort="stateful_lstm" data-listing-filename-sort="stateful_lstm.qmd">
+<td class="listing-title">
+<a href="../examples/stateful_lstm.html" class="title">stateful_lstm</a>
+</td>
+<td class="listing-description">
+Demonstrates how to use stateful RNNs to model long sequences efficiently.
+</td>
+</tr>
+<tr data-index="33" data-listing-file-modified-sort="1655236642973" data-listing-reading-time-sort="2.405" data-listing-title-sort="text_explanation_lime" data-listing-filename-sort="text_explanation_lime.qmd">
+<td class="listing-title">
+<a href="../examples/text_explanation_lime.html" class="title">text_explanation_lime</a>
+</td>
+<td class="listing-description">
+How to use lime to explain text data.
+</td>
+</tr>
+<tr data-index="34" data-listing-file-modified-sort="1655236642973" data-listing-reading-time-sort="9.065" data-listing-title-sort="tfprob_vae" data-listing-filename-sort="tfprob_vae.qmd">
+<td class="listing-title">
+<a href="../examples/tfprob_vae.html" class="title">tfprob_vae</a>
+</td>
+<td class="listing-description">
+A variational autoencoder using TensorFlow Probability on Kuzushiji-MNIST.
+</td>
+</tr>
+<tr data-index="35" data-listing-file-modified-sort="1655236642974" data-listing-reading-time-sort="1.85" data-listing-title-sort="variational_autoencoder" data-listing-filename-sort="variational_autoencoder.qmd">
+<td class="listing-title">
+<a href="../examples/variational_autoencoder.html" class="title">variational_autoencoder</a>
+</td>
+<td class="listing-description">
+Demonstrates how to build a variational autoencoder.
+</td>
+</tr>
+<tr data-index="36" data-listing-file-modified-sort="1655236642974" data-listing-reading-time-sort="3.445" data-listing-title-sort="variational_autoencoder_deconv" data-listing-filename-sort="variational_autoencoder_deconv.qmd">
+<td class="listing-title">
+<a href="../examples/variational_autoencoder_deconv.html" class="title">variational_autoencoder_deconv</a>
+</td>
+<td class="listing-description">
+Demonstrates how to build a variational autoencoder with Keras using deconvolution layers.
+</td>
+</tr>
+<tr data-index="37" data-listing-file-modified-sort="1655236642974" data-listing-reading-time-sort="15.355" data-listing-title-sort="vq_vae" data-listing-filename-sort="vq_vae.qmd">
+<td class="listing-title">
+<a href="../examples/vq_vae.html" class="title">vq_vae</a>
+</td>
+<td class="listing-description">
+Discrete Representation Learning with VQ-VAE and TensorFlow Probability.
+</td>
+</tr>
+</tbody>
+
+</table>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
+</div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

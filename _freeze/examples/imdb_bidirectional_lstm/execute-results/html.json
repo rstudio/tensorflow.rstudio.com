@@ -1,0 +1,14 @@
+{
+  "hash": "d64fa341964c3be066343d524b183042",
+  "result": {
+    "markdown": "---\ntitle: imdb_bidirectional_lstm\ndescription: Trains a Bidirectional LSTM on the IMDB sentiment classification task.\n---\n\nTrain a Bidirectional LSTM on the IMDB sentiment classification task.\n\nOutput after 4 epochs on CPU: ~0.8146\nTime per epoch on CPU (Core i7): ~150s.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras)\n\n# Define maximum number of input features\nmax_features <- 20000\n\n# Cut texts after this number of words\n# (among top max_features most common words)\nmaxlen <- 100\n\nbatch_size <- 32\n\n# Load imdb dataset \ncat('Loading data...\\n')\nimdb <- dataset_imdb(num_words = max_features)\n\n# Define training and test sets\nx_train <- imdb$train$x\ny_train <- imdb$train$y\nx_test <- imdb$test$x\ny_test <- imdb$test$y\n\n# Output lengths of testing and training sets\ncat(length(x_train), 'train sequences\\n')\ncat(length(x_test), 'test sequences\\n')\n\ncat('Pad sequences (samples x time)\\n')\n\n# Pad training and test inputs\nx_train <- pad_sequences(x_train, maxlen = maxlen)\nx_test <- pad_sequences(x_test, maxlen = maxlen)\n\n# Output dimensions of training and test inputs\ncat('x_train shape:', dim(x_train), '\\n')\ncat('x_test shape:', dim(x_test), '\\n')\n\n# Initialize model\nmodel <- keras_model_sequential()\nmodel %>%\n  # Creates dense embedding layer; outputs 3D tensor\n  # with shape (batch_size, sequence_length, output_dim)\n  layer_embedding(input_dim = max_features, \n                  output_dim = 128, \n                  input_length = maxlen) %>% \n  bidirectional(layer_lstm(units = 64)) %>%\n  layer_dropout(rate = 0.5) %>% \n  layer_dense(units = 1, activation = 'sigmoid')\n\n# Try using different optimizers and different optimizer configs\nmodel %>% compile(\n  loss = 'binary_crossentropy',\n  optimizer = 'adam',\n  metrics = c('accuracy')\n)\n\n# Train model over four epochs\ncat('Train...\\n')\nmodel %>% fit(\n  x_train, y_train,\n  batch_size = batch_size,\n  epochs = 4,\n  validation_data = list(x_test, y_test)\n)\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

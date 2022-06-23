@@ -1,0 +1,14 @@
+{
+  "hash": "e9d4219a50166a49327f2c848fe48022",
+  "result": {
+    "markdown": "---\ntitle: imdb_lstm\ndescription: Trains a LSTM on the IMDB sentiment classification task.\n---\n\nTrains a LSTM on the IMDB sentiment classification task.\n\nThe dataset is actually too small for LSTM to be of any advantage compared to\nsimpler, much faster methods such as TF-IDF + LogReg.\n\nNotes:\n- RNNs are tricky. Choice of batch size is important, choice of loss and\n  optimizer is critical, etc. Some configurations won't converge.\n- LSTM loss decrease patterns during training can be quite different from\n  what you see with CNNs/MLPs/etc.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras)\n\nmax_features <- 20000\nbatch_size <- 32\n\n# Cut texts after this number of words (among top max_features most common words)\nmaxlen <- 80  \n\ncat('Loading data...\\n')\nimdb <- dataset_imdb(num_words = max_features)\nx_train <- imdb$train$x\ny_train <- imdb$train$y\nx_test <- imdb$test$x\ny_test <- imdb$test$y\n\ncat(length(x_train), 'train sequences\\n')\ncat(length(x_test), 'test sequences\\n')\n\ncat('Pad sequences (samples x time)\\n')\nx_train <- pad_sequences(x_train, maxlen = maxlen)\nx_test <- pad_sequences(x_test, maxlen = maxlen)\ncat('x_train shape:', dim(x_train), '\\n')\ncat('x_test shape:', dim(x_test), '\\n')\n\ncat('Build model...\\n')\nmodel <- keras_model_sequential()\nmodel %>%\n  layer_embedding(input_dim = max_features, output_dim = 128) %>% \n  layer_lstm(units = 64, dropout = 0.2, recurrent_dropout = 0.2) %>% \n  layer_dense(units = 1, activation = 'sigmoid')\n\n# Try using different optimizers and different optimizer configs\nmodel %>% compile(\n  loss = 'binary_crossentropy',\n  optimizer = 'adam',\n  metrics = c('accuracy')\n)\n\ncat('Train...\\n')\nmodel %>% fit(\n  x_train, y_train,\n  batch_size = batch_size,\n  epochs = 15,\n  validation_data = list(x_test, y_test)\n)\n\nscores <- model %>% evaluate(\n  x_test, y_test,\n  batch_size = batch_size\n)\n\ncat('Test score:', scores[[1]])\ncat('Test accuracy', scores[[2]])\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

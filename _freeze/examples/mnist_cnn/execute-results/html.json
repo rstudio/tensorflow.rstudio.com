@@ -1,0 +1,14 @@
+{
+  "hash": "3df8ff7d6299662a541ea320ecb40c35",
+  "result": {
+    "markdown": "---\ntitle: mnist_cnn\ndescription: Trains a simple convnet on the MNIST dataset.\n---\n\nTrains a simple convnet on the MNIST dataset.\n\nGets to 99.25% test accuracy after 12 epochs\n Note: There is still a large margin for parameter tuning\n\n16 seconds per epoch on a GRID K520 GPU.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras)\n\n# Data Preparation -----------------------------------------------------\n\nbatch_size <- 128\nnum_classes <- 10\nepochs <- 12\n\n# Input image dimensions\nimg_rows <- 28\nimg_cols <- 28\n\n# The data, shuffled and split between train and test sets\nmnist <- dataset_mnist()\nx_train <- mnist$train$x\ny_train <- mnist$train$y\nx_test <- mnist$test$x\ny_test <- mnist$test$y\n\n# Redefine  dimension of train/test inputs\nx_train <- array_reshape(x_train, c(nrow(x_train), img_rows, img_cols, 1))\nx_test <- array_reshape(x_test, c(nrow(x_test), img_rows, img_cols, 1))\ninput_shape <- c(img_rows, img_cols, 1)\n\n# Transform RGB values into [0,1] range\nx_train <- x_train / 255\nx_test <- x_test / 255\n\ncat('x_train_shape:', dim(x_train), '\\n')\ncat(nrow(x_train), 'train samples\\n')\ncat(nrow(x_test), 'test samples\\n')\n\n# Convert class vectors to binary class matrices\ny_train <- to_categorical(y_train, num_classes)\ny_test <- to_categorical(y_test, num_classes)\n\n# Define Model -----------------------------------------------------------\n\n# Define model\nmodel <- keras_model_sequential() %>%\n  layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = 'relu',\n                input_shape = input_shape) %>% \n  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = 'relu') %>% \n  layer_max_pooling_2d(pool_size = c(2, 2)) %>% \n  layer_dropout(rate = 0.25) %>% \n  layer_flatten() %>% \n  layer_dense(units = 128, activation = 'relu') %>% \n  layer_dropout(rate = 0.5) %>% \n  layer_dense(units = num_classes, activation = 'softmax')\n\n# Compile model\nmodel %>% compile(\n  loss = loss_categorical_crossentropy,\n  optimizer = optimizer_adadelta(),\n  metrics = c('accuracy')\n)\n\n# Train model\nmodel %>% fit(\n  x_train, y_train,\n  batch_size = batch_size,\n  epochs = epochs,\n  validation_split = 0.2\n)\n\n\n\n\nscores <- model %>% evaluate(\n  x_test, y_test, verbose = 0\n)\n\n# Output metrics\ncat('Test loss:', scores[[1]], '\\n')\ncat('Test accuracy:', scores[[2]], '\\n')\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

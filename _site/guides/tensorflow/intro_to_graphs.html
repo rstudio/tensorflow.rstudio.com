@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>TensorFlow for R - Intro To_graphs</title>
+<title>TensorFlow for R - Introduction to graphs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -176,7 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Intro To_graphs</h1>
+      <h1 class="quarto-secondary-nav-title">Introduction to graphs</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -358,7 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Intro To_graphs</h1>
+<h1 class="title d-none d-lg-block">Introduction to graphs</h1>
 </div>
 
 
@@ -601,17 +601,17 @@ fn(x)
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(y_true <span class="ot">&lt;-</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">uniform</span>(<span class="fu">shape</span>(<span class="dv">5</span>), <span class="at">maxval =</span> 10L, <span class="at">dtype =</span> tf<span class="sc">$</span>int32))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor([3 4 0 5 9], shape=(5), dtype=int32)</code></pre>
+<pre><code>tf.Tensor([3 7 9 5 0], shape=(5), dtype=int32)</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>(y_pred <span class="ot">&lt;-</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">uniform</span>(<span class="fu">shape</span>(<span class="dv">5</span>), <span class="at">maxval =</span> 10L, <span class="at">dtype =</span> tf<span class="sc">$</span>int32))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor([8 5 8 8 0], shape=(5), dtype=int32)</code></pre>
+<pre><code>tf.Tensor([8 3 4 7 4], shape=(5), dtype=int32)</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_MSE</span>(y_true, y_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor(36, shape=(), dtype=int32)</code></pre>
+<pre><code>tf.Tensor(17, shape=(), dtype=int32)</code></pre>
 </div>
 </div>
 <p>To verify that your <code>Function</code>’s graph is doing the same computation as its equivalent Python function, you can make it execute eagerly with <code>tf$config$run_functions_eagerly(TRUE)</code>. This is a switch that <strong>turns off <code>Function</code>’s ability to create and run graphs</strong>, instead executing the code normally.</p>
@@ -621,7 +621,7 @@ fn(x)
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_MSE</span>(y_true, y_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor(36, shape=(), dtype=int32)</code></pre>
+<pre><code>tf.Tensor(17, shape=(), dtype=int32)</code></pre>
 </div>
 </div>
 <div class="cell">
