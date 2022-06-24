@@ -1,0 +1,98 @@
+---
+pagetitle: "TensorFlow for R"
+page-layout: custom
+css: index.css
+---
+
+::: {.hero-banner}
+
+::: {.content-block}
+
+# Welcome to TensorFlow for R
+
+### An end-to-end open source machine learning platform
+
+- Build and train ML models easily using intuitive high-level APIs like Keras with eager execution, which makes for immediate model iteration and easy debugging. 
+- Easily train and deploy models in the cloud, on-prem, in the browser, or on-device no matter what language you use.
+- A simple and flexible architecture to take new ideas from concept to code, to state-of-the-art models, and to publication faster.
+
+::: {.hero-buttons}
+[Get Started](tutorials/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
+[Guide](guides/){#btn-guide .btn-action .btn .btn-info .btn-lg role="button"}
+::: 
+
+:::
+
+:::
+
+::: {.content-block}
+::: {.features .alt-background}
+
+::: {.feature}
+### Install TensorFlow
+
+Install the package or build from source. GPU support for CUDA®-enabled cards.
+
+::: {.learn-more}
+[Learn more »](install/)
+:::
+:::
+
+::: {.feature}
+### Keras
+Keras is a high-level API that's easier for ML beginners, as well as researchers.
+
+::: {.learn-more}
+[Learn more »](guides/keras/sequential_model.qmd)
+:::
+:::
+
+::: {.feature}
+### Machine Learning basics with Keras
+This notebook collection demonstrates basic machine learning tasks using Keras.
+
+::: {.learn-more}
+[Learn more »](tutorials/keras/)
+:::
+:::
+
+::: {.feature}
+### TensorFlow basics
+Learn about the fundamental classes and features that make TensorFlow work.
+
+::: {.learn-more}
+[Learn more »](guides/tensorflow/basics.qmd)
+:::
+:::
+
+::: {.feature}
+### Advanced quickstart
+This "Hello, World!" notebook uses the Keras subclassing API and a custom training loop.
+
+::: {.learn-more}
+[Learn more »](tutorials/quickstart/advanced.qmd)
+:::
+:::
+
+::: {.feature}
+### Data input pipelines
+The tfdatasets interface enables you to build complex input pipelines from simple, reusable pieces.
+
+::: {.learn-more}
+[Learn more »](guides/data/)
+:::
+:::
+
+:::
+:::
+
+
+::: {.get-started }
+::: {.content-block}
+
+### Get started with TensorFlow
+
+[Explore tutorials](tutorials/){.btn-action-primary  .btn-action .btn .btn-success .btn-lg role="button"}
+
+:::
+:::
