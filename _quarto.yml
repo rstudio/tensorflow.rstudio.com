@@ -4,7 +4,7 @@ project:
   render:
     - "**.qmd"
     - "!v1/**"
-    - "!examples/**"
+    - "examples/**"
 
   # pre-render: spin-examples.R
   preview:
@@ -65,6 +65,7 @@ website:
           contents:
             - tutorials/keras/classification.qmd
             - tutorials/keras/text_classification.qmd
+            - tutorials/keras/text_classification_with_hub.qmd
 
     - title: "Guides"
       contents:
