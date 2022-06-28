@@ -88,6 +88,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../tutorials/keras/overfit_and_underfit.html" rel="next">
 <link href="../../tutorials/keras/text_classification_with_hub.html" rel="prev">
 <link href="../../images/favicon/icon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
@@ -240,6 +241,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/keras/regression.html" class="sidebar-item-text sidebar-link active">Regression</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/keras/overfit_and_underfit.html" class="sidebar-item-text sidebar-link">Overfit and underfit</a>
   </div>
 </li>
     </ul>
@@ -1173,7 +1179,7 @@ dnn_horsepower_model.loss            dnn_model.loss
 <li>Mean squared error (MSE) (<code>loss_mean_squared_error()</code>) and mean absolute error (MAE) (<code>loss_mean_absolute_error()</code>) are common loss functions used for regression problems. MAE is less sensitive to outliers. Different loss functions are used for classification problems.</li>
 <li>Similarly, evaluation metrics used for regression differ from classification.</li>
 <li>When numeric input data features have values with different ranges, each feature should be scaled independently to the same range.</li>
-<li>Overfitting is a common problem for DNN models, though it wasn’t a problem for this tutorial. Visit the <a href="overfit_and_underfit.qmd">Overfit and underfit</a> tutorial for more help with this.</li>
+<li>Overfitting is a common problem for DNN models, though it wasn’t a problem for this tutorial. Visit the <a href="../../tutorials/keras/overfit_and_underfit.html">Overfit and underfit</a> tutorial for more help with this.</li>
 </ul>
 
 
@@ -1363,6 +1369,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../tutorials/keras/overfit_and_underfit.html" class="pagination-link">
+        <span class="nav-page-text">Overfit and underfit</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

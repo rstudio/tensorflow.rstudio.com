@@ -67,6 +67,7 @@ website:
             - tutorials/keras/text_classification.qmd
             - tutorials/keras/text_classification_with_hub.qmd
             - tutorials/keras/regression.qmd
+            - tutorials/keras/overfit_and_underfit.qmd
 
     - title: "Guides"
       contents:
