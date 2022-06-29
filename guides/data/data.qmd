@@ -1,0 +1,1437 @@
+---
+title: Build TensorFlow input pipelines
+---
+
+The tfdatasets API enables you to build complex input pipelines from simple,
+reusable pieces. For example, the pipeline for an image model might aggregate
+data from files in a distributed file system, apply random perturbations to each
+image, and merge randomly selected images into a batch for training. The
+pipeline for a text model might involve extracting symbols from raw text data,
+converting them to embedding identifiers with a lookup table, and batching
+together sequences of different lengths. The `tf$data` API makes it possible to
+handle large amounts of data, read from different data formats, and perform
+complex transformations.
+
+The tfdatasets API introduces a TensorFlow Dataset abstraction that represents a
+sequence of elements, in which each element consists of one or more components.
+For example, in an image pipeline, an element might be a single training
+example, with a pair of tensor components representing the image and its label.
+
+There are two distinct ways to create a dataset:
+
+*   A data **source** constructs a `Dataset` from data stored in memory or in
+    one or more files.
+*   A data **transformation** constructs a dataset from one or more
+    `Dataset` objects.
+
+```{r setup}
+library(tensorflow)
+library(tfdatasets)
+library(keras)
+```
+
+## Basic mechanics
+
+To create an input pipeline, you must start with a data *source*. For example,
+to construct a `Dataset` from data in memory, you can use
+`tensors_dataset()` or `tensor_slices_dataset()`.
+Alternatively, if your input data is stored in a file in the recommended
+TFRecord format, you can use `tfrecord_dataset()`.
+
+Once you have a `Dataset` object, you can *transform* it into a new `Dataset` by
+chaining method calls on the `Dataset` object. For example, you can
+apply per-element transformations such as `dataset_map()`, and multi-element
+transformations such as `dataset_batch()`. See the documentation for
+`tfdatasets` for a complete list of transformations.
+
+The `Dataset` object is a iterable. This makes it possible to consume its
+elements using a the `coro::loop`:
+
+```{r}
+dataset <- tensor_slices_dataset(c(8, 3, 0, 8, 2, 1))
+dataset
+```
+
+```{r}
+coro::loop(for(elem in dataset) {
+  print(as.numeric(elem))
+})
+```
+
+Or by explicitly creating a Python iterator using `iter` and consuming its
+elements using `next`:
+
+```{r}
+it <- reticulate::as_iterator(dataset)
+print(reticulate::iter_next(it))
+```
+
+Alternatively, dataset elements can be consumed using the `reduce`
+transformation, which reduces all elements to produce a single result. The
+following example illustrates how to use the `reduce` transformation to compute
+the sum of a dataset of integers.
+
+```{r}
+dataset %>% 
+  dataset_reduce(0, function(state, value) state + value)
+```
+
+### Dataset structure
+
+A dataset produces a sequence of *elements*, where each element is
+the same (nested) structure of *components*. Individual components
+of the structure can be of any type representable by
+`tf$TypeSpec`, including `tf$Tensor`, `tf$sparse$SparseTensor`,
+`tf$RaggedTensor`, `tf$TensorArray`, or `tf$data$Dataset`.
+
+The constructs that can be used to express the (nested)
+structure of elements include `tuple`, `dict`, `NamedTuple`, and
+`OrderedDict`. In particular, `list` is not a valid construct for
+expressing the structure of dataset elements. This is because
+early tfdataset users felt strongly about `list` inputs (e.g. passed
+to `tensors_dataset()`) being automatically packed as
+tensors and `list` outputs (e.g. return values of user-defined
+functions) being coerced into a `tuple`. As a consequence, if you
+would like a `list` input to be treated as a structure, you need
+to convert it into `tuple` and if you would like a `list` output
+to be a single component, then you need to explicitly pack it
+using `tf$stack`.
+
+The `dataset_element_spec` property allows you to inspect the type
+of each element component. The property returns a *nested structure*
+of `tf$TypeSpec` objects, matching the structure of the element,
+which may be a single component, a tuple of components, or a nested
+tuple of components. For example:
+
+```{r}
+dataset1 <- tensor_slices_dataset(tf$random$uniform(shape(4, 10)))
+dataset1$element_spec
+```
+
+```{r}
+dataset2 <- tensor_slices_dataset(reticulate::tuple(
+  tf$random$uniform(shape(4)),
+  tf$random$uniform(shape(4, 100), maxval = 100L, dtype = tf$int32)
+))
+
+dataset2$element_spec
+```
+
+```{r}
+dataset3 <- zip_datasets(dataset1, dataset2)
+dataset3$element_spec
+```
+
+```{r}
+# Dataset containing a sparse tensor.
+sparse <- tf$SparseTensor(
+  indices = list(c(0L,0L), c(1L,2L)), 
+  values = c(1,2),
+  dense_shape = shape(3,4)
+)
+dataset4 <- tensors_dataset(sparse)
+dataset4$element_spec
+```
+
+```{r}
+# Use value_type to see the type of value represented by the element spec
+dataset4$element_spec$value_type
+```
+
+The `Dataset` transformations support datasets of any structure. When using the
+`dataset_map()`, and `dataset_filter()` transformations,
+which apply a function to each element, the element structure determines the
+arguments of the function:
+
+```{r}
+dataset1 <- tensor_slices_dataset(
+    tf$random$uniform(shape(4, 10), minval = 1L, maxval = 10L, dtype = tf$int32))
+dataset1
+```
+
+```{r}
+dataset1 %>% 
+  reticulate::as_iterator() %>% 
+  reticulate::iter_next()
+```
+
+```{r}
+dataset2 <- tensor_slices_dataset(reticulate::tuple(
+  tf$random$uniform(shape(4)),
+  tf$random$uniform(shape(4, 100), maxval = 100L, dtype = tf$int32)
+))
+dataset2
+```
+
+```{r}
+dataset3 <- zip_datasets(dataset1, dataset2)
+dataset3
+```
+
+```{r}
+dataset3 %>% 
+  reticulate::as_iterator() %>% 
+  reticulate::iter_next() %>% 
+  str()
+```
+
+## Reading input data
+
+### Consuming R arrays
+
+See [Loading NumPy arrays](../tutorials/load_data/numpy.qmd) for more examples.
+
+If all of your input data fits in memory, the simplest way to create a `Dataset`
+from them is to convert them to `tf$Tensor` objects and use
+`tensor_slices_dataset()`.
+
+```{r}
+c(train, test) %<-% dataset_fashion_mnist()
+```
+
+```{r}
+train[[1]][] <- train[[1]]/255
+dataset <- tensor_slices_dataset(train)
+dataset
+```
+
+Note: The above code snippet will embed the `features` and `labels` arrays
+in your TensorFlow graph as `tf$constant()` operations. This works well for a
+small dataset, but wastes memory---because the contents of the array will be
+copied multiple times---and can run into the 2GB limit for the `tf$GraphDef`
+protocol buffer.
+
+<!-- ### Consuming Python generators -->
+
+<!-- Another common data source that can easily be ingested as a `tf$data$Dataset` is the python generator. -->
+
+<!-- Caution: While this is a convienient approach it has limited portability and scalibility. It must run in the same python process that created the generator, and is still subject to the Python [GIL](https://en.wikipedia.org/wiki/Global_interpreter_lock). -->
+
+<!-- ```{r} -->
+<!-- count <- function(stop) {    } -->
+<!--   i <- 0 -->
+<!--   while i<stop: -->
+<!--     yield i -->
+<!--     i += 1 -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- for n in count(5): -->
+<!--   print(n) -->
+<!-- ``` -->
+
+<!-- The `dataset_from_generator` constructor converts the python generator to a fully functional `tf$data$Dataset`. -->
+
+<!-- The constructor takes a callable as input, not an iterator. This allows it to restart the generator when it reaches the end. It takes an optional `args` argument, which is passed as the callable's arguments. -->
+
+<!-- The `output_types` argument is required because `tf$data` builds a `tf$Graph` internally, and graph edges require a `tf$dtype`. -->
+
+<!-- ```{r} -->
+<!-- ds_counter <- tf$data$dataset_from_generator(count, args = [25], output_types = tf$int32, output_shapes = (), ) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- for count_batch in ds_counter$repeat().batch(10).take(10): -->
+<!--   print(count_batch$numpy()) -->
+<!-- ``` -->
+
+<!-- The `output_shapes` argument is not *required* but is highly recommended as many TensorFlow operations do not support tensors with an unknown rank. If the length of a particular axis is unknown or variable, set it as `NULL` in the `output_shapes`. -->
+
+<!-- It's also important to note that the `output_shapes` and `output_types` follow the same nesting rules as other dataset methods. -->
+
+<!-- Here is an example generator that demonstrates both aspects, it returns tuples of arrays, where the second array is a vector with unknown length. -->
+
+<!-- ```{r} -->
+<!-- gen_series <- function() {    } -->
+<!--   i <- 0 -->
+<!--   while TRUE: -->
+<!--     size <- np$random$randint(0, 10) -->
+<!--     yield i, np$random$normal(size = (size,)) -->
+<!--     i += 1 -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- for i, series in gen_series(): -->
+<!--   print(i, ":", str(series)) -->
+<!--   if i > 5: -->
+<!--     break -->
+<!-- ``` -->
+
+<!-- The first output is an `int32` the second is a `float32`. -->
+
+<!-- The first item is a scalar, shape `()`, and the second is a vector of unknown length, shape `(NULL,)`  -->
+
+<!-- ```{r} -->
+<!-- ds_series <- tf$data$dataset_from_generator( -->
+<!--     gen_series,  -->
+<!--     output_types <- (tf$int32, tf$float32),  -->
+<!--     output_shapes <- ((), (NULL,))) -->
+
+<!-- ds_series -->
+<!-- ``` -->
+
+<!-- Now it can be used like a regular `tf$data$Dataset`. Note that when batching a dataset with a variable shape, you need to use `dataset_padded_batch`. -->
+
+<!-- ```{r} -->
+<!-- ds_series_batch <- ds_series$shuffle(20).padded_batch(10) -->
+
+<!-- ids, sequence_batch = next(iter(ds_series_batch)) -->
+<!-- print(ids$numpy()) -->
+<!-- print() -->
+<!-- print(sequence_batch$numpy()) -->
+<!-- ``` -->
+
+<!-- For a more realistic example, try wrapping `preprocessing$image$ImageDataGenerator` as a `tf$data$Dataset`. -->
+
+<!-- First download the data: -->
+
+<!-- ```{r} -->
+<!-- flowers <- tf$keras$utils$get_file( -->
+<!--     'flower_photos', -->
+<!--     'https://storage$googleapis.com/download$tensorflow.org/example_images/flower_photos$tgz', -->
+<!--     untar <- TRUE) -->
+<!-- ``` -->
+
+<!-- Create the `image$ImageDataGenerator` -->
+
+<!-- ```{r} -->
+<!-- img_gen <- tf$keras$preprocessing$image$ImageDataGenerator(rescale = 1./255, rotation_range = 20) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- images, labels = next(img_gen$flow_from_directory(flowers)) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- print(images$dtype, images$shape) -->
+<!-- print(labels$dtype, labels$shape) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- ds <- tf$data$dataset_from_generator( -->
+<!--     lambda: img_gen$flow_from_directory(flowers),  -->
+<!--     output_types <- (tf$float32, tf$float32),  -->
+<!--     output_shapes <- ([32,256,256,3], [32,5]) -->
+<!-- ) -->
+
+<!-- ds$element_spec -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- for images, labels in ds$take(1): -->
+<!--   print('images$shape: ', images$shape) -->
+<!--   print('labels$shape: ', labels$shape) -->
+<!-- ``` -->
+
+### Consuming TFRecord data
+
+See [Loading TFRecords](../tutorials/load_data/tfrecord.qmd) for an end-to-end example.
+
+The tfdatasets API supports a variety of file formats so that you can process
+large datasets that do not fit in memory. For example, the TFRecord file format
+is a simple record-oriented binary format that many TensorFlow applications use
+for training data. The `tfrecord_dataset()` class enables you to
+stream over the contents of one or more TFRecord files as part of an input
+pipeline.
+
+Here is an example using the test file from the French Street Name Signs (FSNS).
+
+```{r}
+# Creates a dataset that reads all of the examples from two files.
+fsns_test_file <- get_file(
+  "fsns.tfrec", 
+  "https://storage.googleapis.com/download.tensorflow.org/data/fsns-20160927/testdata/fsns-00000-of-00001"
+)
+```
+
+The `filenames` argument to the `tfrecord_dataset()` initializer can either be a
+string, a list of strings, or a `tf$Tensor` of strings. Therefore if you have
+two sets of files for training and validation purposes, you can create a factory
+method that produces the dataset, taking filenames as an input argument:
+
+```{r}
+dataset <- tfrecord_dataset(filenames = list(fsns_test_file))
+dataset
+```
+
+Many TensorFlow projects use serialized `tf$train$Example` records in their TFRecord files. These need to be decoded before they can be inspected:
+
+
+```{r}
+raw_example <- dataset %>% 
+  reticulate::as_iterator() %>% 
+  reticulate::iter_next()
+parsed <- tf$train$Example$FromString(raw_example$numpy())
+parsed$features$feature['image/text']
+```
+
+### Consuming text data
+
+See [Loading Text](../tutorials/load_data/text.qmd) for an end to end example.
+
+Many datasets are distributed as one or more text files. The
+`text_line_dataset()` provides an easy way to extract lines from one or more
+text files. Given one or more filenames, a `text_line_dataset()` will produce one
+string-valued element per line of those files.
+
+```{r}
+directory_url <- 'https://storage.googleapis.com/download.tensorflow.org/data/illiad/'
+file_names <- c('cowper.txt', 'derby.txt', 'butler.txt')
+
+file_paths <- lapply(file_names, function(file_name) {
+ get_file(file_name, paste0(directory_url, file_name)) 
+})
+```
+
+```{r}
+dataset <- text_line_dataset(file_paths)
+```
+
+Here are the first few lines of the first file:
+
+```{r}
+dataset %>% 
+  dataset_take(5) %>% 
+  coro::collect(5) %>% 
+  str()
+```
+
+To alternate lines between files use `dataset_interleave()`. This makes it easier to shuffle files together. Here are the first, second and third lines from each translation:
+
+```{r}
+files_ds <- tensor_slices_dataset(unlist(file_paths))
+lines_ds <- files_ds %>% 
+  dataset_interleave(text_line_dataset, cycle_length = 3)
+
+lines_ds %>% 
+  coro::collect(9) %>% 
+  str()
+```
+
+By default, a `text_line_dataset()` yields *every* line of each file, which may
+not be desirable, for example, if the file starts with a header line, or contains comments. These lines can be removed using the `dataset_skip()` or
+`dataset_filter()` transformations. Here, you skip the first line, then filter to
+find only survivors.
+
+```{r}
+titanic_file <- get_file(
+  "train.csv", 
+  "https://storage.googleapis.com/tf-datasets/titanic/train.csv"
+)
+titanic_lines <- text_line_dataset(titanic_file)
+```
+
+```{r}
+titanic_lines %>% 
+  coro::collect(10) %>% 
+  str()
+```
+
+```{r}
+survived <- function(line) {
+  tf$not_equal(tf$strings$substr(line, 0L, 1L), "0")
+}
+
+survivors <- titanic_lines %>% 
+  dataset_skip(1) %>% 
+  dataset_filter(survived)
+```
+
+```{r}
+survivors %>% 
+  coro::collect(10) %>% 
+  str()
+```
+
+### Consuming CSV data
+
+See [Loading CSV Files](../tutorials/load_data/csv.qmd), and [Loading Data Frames](../tutorials/load_data/pandas_dataframe.qmd) for more examples. 
+
+The CSV file format is a popular format for storing tabular data in plain text.
+
+For example:
+
+```{r}
+titanic_file <- get_file(
+  "train.csv", 
+  "https://storage.googleapis.com/tf-datasets/titanic/train.csv"
+)
+```
+
+```{r}
+df <- readr::read_csv(titanic_file)
+head(df)
+```
+
+If your data fits in memory the same `tensor_slices_dataset()` method works on lists, allowing this data to be easily imported:
+
+```{r}
+titanic_slices <- tensor_slices_dataset(df)
+
+titanic_slices %>% 
+  reticulate::as_iterator() %>% 
+  reticulate::iter_next() %>% 
+  str()
+```
+
+A more scalable approach is to load from disk as necessary. 
+
+The tfdatasets package provides methods to extract records from one or more CSV files that comply with [RFC 4180](https://tools.ietf.org/html/rfc4180).
+
+The `experimental$make_csv_dataset` function is the high level interface for reading sets of csv files. It supports column type inference and many other features, like batching and shuffling, to make usage simple.
+
+```{r}
+titanic_batches <- tf$data$experimental$make_csv_dataset(
+  titanic_file, 
+  batch_size = 4L,
+  label_name = "survived"
+)
+```
+
+```{r}
+titanic_batches %>% 
+  reticulate::as_iterator() %>% 
+  reticulate::iter_next() %>% 
+  str()
+```
+
+You can use the `select_columns` argument if you only need a subset of columns.
+
+```{r}
+titanic_batches <- tf$data$experimental$make_csv_dataset(
+  titanic_file, 
+  batch_size = 4L,
+  label_name = "survived", 
+  select_columns = c('class', 'fare', 'survived')
+)
+```
+
+```{r}
+titanic_batches %>% 
+  reticulate::as_iterator() %>% 
+  reticulate::iter_next() %>% 
+  str()
+```
+
+There is also a lower-level `tf$experimental$CsvDataset` class which provides finer grained control. It does not support column type inference. Instead you must specify the type of each column. 
+
+```{r}
+titanic_types  = list(tf$int32, tf$string, tf$float32, tf$int32, tf$int32, tf$float32, tf$string, tf$string, tf$string, tf$string)
+dataset <- tf$data$experimental$CsvDataset(titanic_file, titanic_types , header = TRUE)
+
+dataset %>% 
+  reticulate::as_iterator() %>% 
+  reticulate::iter_next() %>% 
+  str()
+```
+
+If some columns are empty, this low-level interface allows you to provide default values instead of column types.
+
+```{r}
+writeLines(con = "missing.csv", text = 
+"1,2,3,4
+,2,3,4
+1,,3,4
+1,2,,4
+1,2,3,
+,,,"
+)
+```
+
+```{r}
+# Creates a dataset that reads all of the records from two CSV files, each with
+# four float columns which may have missing values.
+
+record_defaults <- c(999,999,999,999)
+dataset <- tf$data$experimental$CsvDataset("missing.csv", record_defaults)
+dataset <- dataset %>% 
+  dataset_map(function(...) tf$stack(list(...)))
+dataset
+```
+
+```{r}
+dataset %>% 
+  coro::collect() %>% 
+  str()
+```
+
+By default, a `CsvDataset` yields *every* column of *every* line of the file,
+which may not be desirable, for example if the file starts with a header line
+that should be ignored, or if some columns are not required in the input.
+These lines and fields can be removed with the `header` and `select_cols`
+arguments respectively.
+
+```{r}
+# Creates a dataset that reads all of the records from two CSV files with
+# headers, extracting float data from columns 2 and 4.
+record_defaults <- c(999, 999) # Only provide defaults for the selected columns
+dataset <- tf$data$experimental$CsvDataset(
+  "missing.csv", 
+  record_defaults, 
+  select_cols = c(1L, 3L)
+)
+dataset <- dataset %>% 
+  dataset_map(function(...) tf$stack(list(...)))
+dataset
+```
+
+```{r}
+dataset %>% 
+  coro::collect() %>% 
+  str()
+```
+
+### Consuming sets of files
+
+There are many datasets distributed as a set of files, where each file is an example.
+
+```{r}
+flowers_root <- get_file(
+  'flower_photos',
+  'https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz',
+  untar = TRUE
+)
+```
+
+Note: these images are licensed CC-BY, see LICENSE.txt for details.
+
+The root directory contains a directory for each class:
+
+```{r}
+fs::dir_ls(flowers_root)
+```
+
+The files in each class directory are examples:
+
+```{r}
+list_ds <- file_list_dataset(fs::path(flowers_root, "*", "*"))
+list_ds %>% 
+  dataset_take(5) %>% 
+  coro::collect() %>% 
+  str()
+```
+
+Read the data using the `tf$io$read_file` function and extract the label from the path, returning `(image, label)` pairs:
+
+```{r}
+process_path <- function(file_path) {
+  label <- tf$strings$split(file_path, "/")[-2]
+  list(
+    tf$io$read_file(file_path), 
+    label
+  )
+}
+
+labeled_ds <- list_ds %>% 
+  dataset_map(process_path)
+```
+
+```{r}
+el <- labeled_ds %>% 
+  reticulate::as_iterator() %>% 
+  reticulate::iter_next()
+el[[1]]$shape
+el[[2]]
+```
+
+<!--
+TODO(mrry): Add this section.
+
+### Handling text data with unusual sizes
+
+-->
+
+## Batching dataset elements
+
+
+### Simple batching
+
+
+The simplest form of batching stacks `n` consecutive elements of a dataset into
+a single element. The `dataset_batch()` transformation does exactly this, with
+the same constraints as the `tf$stack()` operator, applied to each component
+of the elements: ie. for each component *i*, all elements must have a tensor
+of the exact same shape.
+
+```{r}
+inc_dataset <- range_dataset(to = 100)
+dec_dataset <- range_dataset(0, -100, -1)
+dataset <- zip_datasets(inc_dataset, dec_dataset)
+
+batched_dataset <- dataset %>% 
+  dataset_batch(4)
+
+batched_dataset %>% 
+  coro::collect(4) %>% 
+  str()
+```
+
+While tfdatasets tries to propagate shape information, the default settings of `dataset_batch` result in an unknown batch size because the last batch may not be full. Note the `NULL`s in the shape:
+
+```{r}
+batched_dataset
+```
+
+Use the `drop_remainder` argument to ignore that last batch, and get full shape propagation:
+
+```{r}
+batched_dataset <- dataset %>% dataset_batch(7, drop_remainder = TRUE)
+batched_dataset
+```
+
+### Batching tensors with padding
+
+
+The above recipe works for tensors that all have the same size. However, many
+models (e.g. sequence models) work with input data that can have varying size
+(e.g. sequences of different lengths). To handle this case, the
+`dataset_padded_batch()` transformation enables you to batch tensors of
+different shape by specifying one or more dimensions in which they may be
+padded.
+
+```{r}
+dataset <- range_dataset(to = 100)
+dataset <- dataset %>% 
+  dataset_map(function(x) tf$fill(list(tf$cast(x, tf$int32)), x)) %>% 
+  dataset_padded_batch(4, padded_shapes = shape(NULL))
+
+dataset %>% 
+  coro::collect(2) %>% 
+  str()
+```
+
+The `dataset_padded_batch()` transformation allows you to set different padding
+for each dimension of each component, and it may be variable-length (signified
+by `NULL` in the example above) or constant-length. It is also possible to
+override the padding value, which defaults to 0.
+
+<!--
+TODO(mrry): Add this section.
+
+### Dense ragged -> tf$SparseTensor
+
+-->
+
+## Training workflows
+
+
+### Processing multiple epochs
+
+
+The tfdatasets API offers two main ways to process multiple epochs of the same
+data.
+
+The simplest way to iterate over a dataset in multiple epochs is to use the
+`dataset_repeat()` transformation. First, create a dataset of titanic data:
+
+```{r}
+titanic_file <- get_file(
+  "train.csv", 
+  "https://storage.googleapis.com/tf-datasets/titanic/train.csv"
+)
+titanic_lines <- text_line_dataset(titanic_file)
+```
+
+```{r}
+plot_batch_sizes <- function(ds) {    
+  batch_sizes <- ds %>% 
+    coro::collect() %>% 
+    sapply(function(x) as.numeric(x$shape[1]))
+  plot(seq_along(batch_sizes), batch_sizes)
+}
+```
+
+Applying the `dataset_repeat()` transformation with no arguments will repeat
+the input indefinitely.
+
+The `dataset_repeat()` transformation concatenates its
+arguments without signaling the end of one epoch and the beginning of the next
+epoch. Because of this a `dataset_batch()` applied after `dataset_repeat()` will yield batches that straddle epoch boundaries:
+
+```{r}
+titanic_batches <- titanic_lines %>% 
+  dataset_repeat(3) %>% 
+  dataset_batch(128)
+plot_batch_sizes(titanic_batches)
+```
+
+If you need clear epoch separation, put `dataset_batch()` before the repeat:
+
+```{r}
+titanic_batches <- titanic_lines %>% 
+  dataset_batch(128) %>% 
+  dataset_repeat(3)
+
+plot_batch_sizes(titanic_batches)
+```
+
+If you would like to perform a custom computation (e.g. to collect statistics) at the end of each epoch then it's simplest to restart the dataset iteration on each epoch:
+
+```{r}
+epochs <- 3
+dataset <- titanic_lines %>% 
+  dataset_batch(128)
+
+for(epoch in seq_len(epochs)) {
+  coro::loop(for(batch in dataset) {
+    print(batch$shape)
+  })
+  cat("End of epoch ", epoch, "\n")
+}
+```
+
+### Randomly shuffling input data
+
+The `dataset_shuffle()` transformation maintains a fixed-size
+buffer and chooses the next element uniformly at random from that buffer.
+
+Note: While large buffer_sizes shuffle more thoroughly, they can take a lot of memory, and significant time to fill. Consider using `dataset_interleave()` across files if this becomes a problem.
+
+Add an index to the dataset so you can see the effect:
+
+```{r}
+lines <- text_line_dataset(titanic_file)
+counter <- tf$data$experimental$Counter()
+
+dataset <- zip_datasets(counter, lines)
+dataset <- dataset %>% 
+  dataset_shuffle(buffer_size = 100) %>% 
+  dataset_batch(20)
+dataset
+```
+
+Since the `buffer_size` is 100, and the batch size is 20, the first batch contains no elements with an index over 120.
+
+```{r}
+line_batch <- coro::collect(dataset, 1)
+line_batch[[1]][[1]]
+```
+
+As with `dataset_batch()` the order relative to `dataset_repeat()` matters.
+
+`dataset_shuffle()` doesn't signal the end of an epoch until the shuffle buffer is empty. So a shuffle placed before a repeat will show every element of one epoch before moving to the next: 
+
+```{r}
+dataset <- zip_datasets(counter, lines)
+shuffled <- dataset %>% 
+  dataset_shuffle(buffer_size = 100) %>% 
+  dataset_batch(10) %>% 
+  dataset_repeat(2)
+
+cat("Here are the item ID's near the epoch boundary:\n")
+shuffled %>% 
+  dataset_skip(60) %>% 
+  dataset_take(5) %>% 
+  dataset_collect() %>% 
+  lapply(function(x) x[[1]])
+```
+
+```{r}
+shuffle_repeat <- shuffled %>% 
+  coro::collect() %>% 
+  sapply(function(x) mean(as.numeric(x[[1]])))
+plot(shuffle_repeat)
+```
+
+But a repeat before a shuffle mixes the epoch boundaries together:
+
+```{r}
+dataset <- zip_datasets(counter, lines)
+shuffled <- dataset %>% 
+  dataset_repeat(2) %>% 
+  dataset_shuffle(buffer_size = 100) %>% 
+  dataset_batch(10)
+
+cat("Here are the item ID's near the epoch boundary:\n")
+shuffled %>% 
+  dataset_skip(55) %>% 
+  dataset_take(15) %>% 
+  coro::collect() %>% 
+  lapply(function(x) x[[1]]) %>% 
+  str()
+```
+
+```{r}
+repeat_shuffle <- shuffled %>% 
+  coro::collect() %>% 
+  sapply(function(x) mean(as.numeric(x[[1]])))
+plot(repeat_shuffle)
+```
+
+## Preprocessing data
+
+
+The `dataset_map(f)` transformation produces a new dataset by applying a given
+function `f` to each element of the input dataset. It is based on the
+[`map()`](https://en.wikipedia.org/wiki/Map_(higher-order_function)) function
+that is commonly applied to lists (and other structures) in functional
+programming languages. The function `f` takes the `tf$Tensor` objects that
+represent a single element in the input, and returns the `tf$Tensor` objects
+that will represent a single element in the new dataset. Its implementation uses
+standard TensorFlow operations to transform one element into another.
+
+This section covers common examples of how to use `dataset_map()`.
+
+### Decoding image data and resizing it
+
+
+<!-- TODO(markdaoust): link to image augmentation when it exists -->
+When training a neural network on real-world image data, it is often necessary
+to convert images of different sizes to a common size, so that they may be
+batched into a fixed size.
+
+Rebuild the flower filenames dataset:
+
+```{r}
+list_ds <- file_list_dataset(file.path(flowers_root, "*", "*"))
+```
+
+Write a function that manipulates the dataset elements.
+
+```{r}
+# Reads an image from a file, decodes it into a dense tensor, and resizes it
+# to a fixed shape.
+
+parse_image <- function(filename) {
+  parts <- tf$strings$split(filename, "/")
+  label <- parts[-2]
+
+  image <- tf$io$read_file(filename)
+  image <- tf$io$decode_jpeg(image)
+  image <- tf$image$convert_image_dtype(image, tf$float32)
+  image <- tf$image$resize(image, shape(128, 128))
+  
+  list(image, label)
+}
+```
+
+Test that it works.
+
+```{r}
+parsed <- list_ds %>% 
+  reticulate::as_iterator() %>% 
+  reticulate::iter_next() %>% 
+  parse_image()
+
+show <- function(parsed, maxcolor=1) {  
+  plot(as.raster(as.array(parsed[[1]]), max = maxcolor))
+  title(as.character(parsed[[2]]))
+}
+
+show(parsed)
+```
+
+Map it over the dataset.
+
+```{r}
+images_ds <- list_ds %>% 
+  dataset_map(parse_image)
+
+images_ds %>% 
+  dataset_take(2) %>% 
+  coro::collect() %>% 
+  lapply(show)
+```
+
+<!-- ### Applying arbitrary Python logic -->
+
+
+<!-- For performance reasons, use TensorFlow operations for -->
+<!-- preprocessing your data whenever possible. However, it is sometimes useful to -->
+<!-- call external Python libraries when parsing your input data. You can use the `tf$py_function()` operation in a `dataset_map()` transformation. -->
+
+<!-- For example, if you want to apply a random rotation, the `tf$image` module only has `tf$image$rot90`, which is not very useful for image augmentation.  -->
+
+<!-- Note: `tensorflow_addons` has a TensorFlow compatible `rotate` in `tensorflow_addons$image$rotate`. -->
+
+<!-- To demonstrate `tf$py_function`, try using the `scipy$ndimage$rotate` function instead: -->
+
+<!-- ```{r} -->
+<!-- import scipy$ndimage as ndimage -->
+
+<!-- random_rotate_image <- function(image) {    } -->
+<!--   image <- ndimage$rotate(image, np$random$uniform(-30, 30), reshape = FALSE) -->
+<!--   return image -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- image, label = next(iter(images_ds)) -->
+<!-- image <- random_rotate_image(image) -->
+<!-- show(image, label) -->
+<!-- ``` -->
+
+<!-- To use this function with `dataset_map` the same caveats apply as with `dataset_from_generator`, you need to describe the return shapes and types when you apply the function: -->
+
+<!-- ```{r} -->
+<!-- tf_random_rotate_image <- function(image, label) {    } -->
+<!--   im_shape <- image$shape -->
+<!--   [image,] <- tf$py_function(random_rotate_image, [image], [tf$float32]) -->
+<!--   image$set_shape(im_shape) -->
+<!--   return image, label -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- rot_ds <- images_ds$map(tf_random_rotate_image) -->
+
+<!-- for image, label in rot_ds$take(2): -->
+<!--   show(image, label) -->
+<!-- ``` -->
+
+### Parsing `tf$Example` protocol buffer messages
+
+
+Many input pipelines extract `tf$train$Example` protocol buffer messages from a
+TFRecord format. Each `tf$train$Example` record contains one or more "features",
+and the input pipeline typically converts these features into tensors.
+
+```{r}
+fsns_test_file <- get_file(
+  "fsns.tfrec", 
+  "https://storage.googleapis.com/download.tensorflow.org/data/fsns-20160927/testdata/fsns-00000-of-00001"
+)
+dataset <- tfrecord_dataset(filenames = fsns_test_file)
+dataset
+```
+
+You can work with `tf$train$Example` protos outside of a `tf$data$Dataset` to understand the data:
+
+```{r}
+raw_example <- dataset %>% reticulate::as_iterator() %>% reticulate::iter_next()
+parsed <- tf$train$Example$FromString(raw_example$numpy())
+
+feature <- parsed$features$feature
+raw_img <- feature['image/encoded']$bytes_list$value[0]
+img <- tf$image$decode_png(raw_img)
+img %>% 
+  as.array() %>% 
+  as.raster(max = 255) %>% 
+  plot()
+```
+
+```{r}
+raw_example <- dataset %>% reticulate::as_iterator() %>% reticulate::iter_next()
+```
+
+```{r}
+tf_parse <- function(eg) {
+  example <- tf$io$parse_example(
+      eg[tf$newaxis], 
+      reticulate::dict(
+        'image/encoded' = tf$io$FixedLenFeature(shape = shape(), dtype = tf$string),
+        'image/text' = tf$io$FixedLenFeature(shape = shape(), dtype = tf$string)
+      )
+  )
+  out <- list(example[['image/encoded']][1], example[['image/text']][1])
+  out[[1]] <- tf$image$decode_png(out[[1]])
+  out
+}
+```
+
+```{r}
+example <- tf_parse(raw_example)
+print(as.character(example[[2]]))
+show(example, maxcolor = 255)
+```
+
+```{r}
+decoded <- dataset %>% 
+  dataset_map(tf_parse)
+decoded
+```
+
+```{r}
+decoded %>% 
+  dataset_batch(10) %>% 
+  coro::collect(1) %>% 
+  str()
+```
+
+### Time series windowing
+
+For an end to end time series example see: [Time series forecasting](../../tutorials/structured_data/time_series.qmd).
+Time series data is often organized with the time axis intact.
+Use a simple `range_dataset()` to demonstrate:
+
+```{r}
+range_ds <- range_dataset(to = 100000)
+```
+
+Typically, models based on this sort of data will want a contiguous time slice. 
+The simplest approach would be to batch the data:
+
+#### Using `batch`
+
+```{r}
+batches <- range_ds %>% 
+  dataset_batch(10, drop_remainder = TRUE)
+
+batches %>% coro::collect(5) %>% str()
+```
+
+Or to make dense predictions one step into the future, you might shift the features and labels by one step relative to each other:
+
+```{r}
+dense_1_step <- function(batch) {
+  # Shift features and labels one step relative to each other.
+  list(batch[NULL:-1], batch[2:NULL])
+}
+  
+predict_dense_1_step <- batches %>% dataset_map(dense_1_step)
+
+predict_dense_1_step %>% 
+  coro::collect(3)
+```
+
+To predict a whole window instead of a fixed offset you can split the batches into two parts:
+
+```{r}
+batches <- range_ds %>% 
+  dataset_batch(15, drop_remainder = TRUE)
+
+label_next_5_steps <- function(batch) {
+ list(
+   batch[NULL:-6],# Inputs: All except the last 5 steps
+   batch[-5:NULL] # Labels: The last 5 steps
+ )   
+}
+
+predict_5_steps <- batches %>% dataset_map(label_next_5_steps)
+
+predict_5_steps %>% coro::collect(3)
+```
+
+To allow some overlap between the features of one batch and the labels of another, use `zip_datasets()`:
+
+```{r}
+feature_length <- 10
+label_length <- 3
+
+features <- range_ds %>% 
+  dataset_batch(feature_length, drop_remainder = TRUE)
+labels <- range_ds %>% 
+  dataset_batch(feature_length) %>% 
+  dataset_skip(1) %>% 
+  dataset_map(function(labels) labels[NULL:label_length])
+
+predicted_steps <- zip_datasets(features, labels)
+coro::collect(predicted_steps, 5)
+```
+
+#### Using `window`
+
+While using `dataset_batch` works, there are situations where you may need finer control. The `dataset_window()` method gives you complete control, but requires some care: it returns a `Dataset` of `Datasets`. See [Dataset structure](#dataset_structure) for details.
+
+```{r}
+window_size <- 5
+windows <- range_ds %>% 
+  dataset_window(window_size, shift = 1)
+coro::collect(windows, 5)
+```
+
+The `dataset_flat_map` method can take a dataset of datasets and flatten it into a single dataset:
+
+```{r}
+windows %>% 
+  dataset_flat_map(function(x) x) %>% 
+  dataset_take(30) %>% 
+  coro::collect()
+```
+
+In nearly all cases, you will want to `.batch` the dataset first:
+
+```{r}
+sub_to_batch <- function(sub) {
+  sub %>% 
+    dataset_batch(window_size, drop_remainder = TRUE)
+}
+
+windows %>% 
+  dataset_flat_map(sub_to_batch) %>% 
+  dataset_take(5) %>% 
+  coro::collect()
+```
+
+Now, you can see that the `shift` argument controls how much each window moves over.
+Putting this together you might write this function:
+
+```{r}
+make_window_dataset <- function(ds, window_size = 5, shift = 1, stride = 1) {
+  windows <- ds %>% 
+    dataset_window(window_size, shift = shift, stride = stride)
+
+  sub_to_batch <- function(sub) {
+    sub %>% 
+      dataset_batch(window_size, drop_remainder = TRUE)
+  }
+  
+  windows %>% 
+    dataset_flat_map(sub_to_batch)
+}
+```
+
+```{r}
+ds <- make_window_dataset(range_ds, window_size = 10, shift = 5, stride = 3)
+coro::collect(ds, 10) %>% 
+  str()
+```
+
+Then it's easy to extract labels, as before:
+
+```{r}
+dense_labels_ds <- ds %>% 
+  dataset_map(dense_1_step)
+
+coro::collect(dense_labels_ds, 1)
+```
+
+### Resampling
+
+
+When working with a dataset that is very class-imbalanced, you may want to resample the dataset. tfdatasets provides two methods to do this. The credit card fraud dataset is a good example of this sort of problem.
+
+Note: See [Imbalanced Data](../tutorials/keras/imbalanced_data.qmd) for a full tutorial.
+
+```{r}
+zip_path <- get_file(
+  origin = 'https://storage.googleapis.com/download.tensorflow.org/data/creditcard.zip',
+  fname = 'creditcard.zip',
+  extract = TRUE
+)
+
+csv_path <- gsub("zip", "csv", zip_path)
+```
+
+```{r}
+creditcard_ds <- tf$data$experimental$make_csv_dataset(
+  csv_path, 
+  batch_size = 1024L, 
+  label_name = "Class",
+  # Set the column types: 30 floats and an int.
+  column_defaults = c(lapply(seq_len(30), function(x) tf$float32), tf$int64)
+)
+```
+
+Now, check the distribution of classes, it is highly skewed:
+
+```{r}
+count <- function(counts, batch) {
+  
+  class_1 <- batch[[2]] == 1
+  class_1 <- tf$cast(class_1, tf$int32)
+
+  class_0 <- batch[[2]] == 0
+  class_0 <- tf$cast(class_0, tf$int32)
+
+  counts[['class_0']] <- counts[['class_0']] + tf$reduce_sum(class_0)
+  counts[['class_1']] <- counts[['class_1']] + tf$reduce_sum(class_1)
+
+  counts
+}
+```
+
+```{r}
+counts <- creditcard_ds %>% 
+  dataset_take(10) %>% 
+  dataset_reduce(
+    initial_state = list('class_0' = 0L, 'class_1' = 0L),
+    reduce_func = count
+  )
+
+counts
+```
+
+A common approach to training with an imbalanced dataset is to balance it. tfdatasets includes a few methods which enable this workflow:
+
+#### Datasets sampling
+
+One approach to resampling a dataset is to use `sample_from_datasets`. This is more applicable when you have a separate `data$Dataset` for each class.
+
+Here, just use filter to generate them from the credit card fraud data:
+
+```{r}
+negative_ds <- creditcard_ds %>% 
+  dataset_unbatch() %>% 
+  dataset_filter(function(features, label) label == 0) %>% 
+  dataset_repeat()
+  
+positive_ds <- creditcard_ds %>% 
+  dataset_unbatch() %>% 
+  dataset_filter(function(features, label) label == 1) %>% 
+  dataset_repeat()
+```
+
+```{r}
+positive_ds %>% 
+  coro::collect(1)
+```
+
+To use `sample_from_datasets` pass the datasets, and the weight for each:
+
+```{r}
+balanced_ds <- list(negative_ds, positive_ds) %>% 
+  sample_from_datasets(c(0.5, 0.5)) %>% 
+  dataset_batch(10)
+```
+
+Now the dataset produces examples of each class with 50/50 probability:
+
+```{r}
+balanced_ds %>% 
+  dataset_map(function(x, y) y) %>% 
+  coro::collect(10) %>% 
+  str()
+```
+
+#### Rejection resampling
+
+One problem with the above `sample_from_datasets` approach is that
+it needs a separate TensorFlow Dataset per class. You could use `dataset_filter`
+to create those two datasets, but that results in all the data being loaded twice.
+
+The `dataset_rejection_resample()` method can be applied to a dataset to rebalance it, while only loading it once. Elements will be dropped from the dataset to achieve balance.
+
+`dataset_rejection_resample()` takes a `class_func` argument. This `class_func` is applied to each dataset element, and is used to determine which class an example belongs to for the purposes of balancing.
+
+The goal here is to balance the lable distribution, and the elements of `creditcard_ds` are already `(features, label)` pairs. So the `class_func` just needs to return those labels:
+
+```{r}
+class_func <- function(features, label) { 
+  label
+}
+```
+
+The resampling method deals with individual examples, so in this case you must `unbatch` the dataset before applying that method.
+
+The method needs a target distribution, and optionally an initial distribution estimate as inputs.
+
+```{r}
+resample_ds <- creditcard_ds %>% 
+  dataset_unbatch() %>% 
+  dataset_rejection_resample(
+    class_func, 
+    target_dist = c(0.5,0.5),
+    initial_dist = prop.table(sapply(counts, as.numeric))
+  ) %>% 
+  dataset_batch(10)
+```
+
+The `dataset_rejection_resample()` method returns `(class, example)` pairs where the `class` is the output of the `class_func`. In this case, the `example` was already a `(feature, label)` pair, so use `map` to drop the extra copy of the labels:
+
+```{r}
+balanced_ds <- resample_ds %>% 
+  dataset_map(function(extra_label, features_and_label) features_and_label)
+```
+
+Now the dataset produces examples of each class with 50/50 probability:
+
+```{r}
+balanced_ds %>% 
+  dataset_map(function(feat, label) label) %>% 
+  coro::collect(10) %>% 
+  str()
+```
+
+## Iterator Checkpointing
+
+
+Tensorflow supports [taking checkpoints](https://www.tensorflow.org/guide/checkpoint) so that when your training process restarts it can restore the latest checkpoint to recover most of its progress. In addition to checkpointing the model variables, you can also checkpoint the progress of the dataset iterator. This could be useful if you have a large dataset and don't want to start the dataset from the beginning on each restart. Note however that iterator checkpoints may be large, since transformations such as `shuffle` and `prefetch` require buffering elements within the iterator. 
+
+To include your iterator in a checkpoint, pass the iterator to the `tf$train$Checkpoint` constructor.
+
+```{r}
+range_ds <- range_dataset(to = 20)
+iterator <- reticulate::as_iterator(range_ds)
+ckpt <- tf$train$Checkpoint(step = tf$Variable(0), iterator = iterator)
+manager <- tf$train$CheckpointManager(ckpt, '/tmp/my_ckpt', max_to_keep = 3)
+
+for (i in 1:5) {
+  print(reticulate::iter_next(iterator))
+}
+
+save_path <- manager$save()
+
+for (i in 1:5) {
+  print(reticulate::iter_next(iterator))
+}
+
+ckpt$restore(manager$latest_checkpoint)
+
+for (i in 1:5) {
+  print(reticulate::iter_next(iterator))
+}
+
+```
+
+Note: It is not possible to checkpoint an iterator which relies on external state such as a `tf$py_function`. Attempting to do so will raise an exception complaining about the external state.
+
+## Using tfdatasets with Keras
+
+
+The Keras API simplifies many aspects of creating and executing machine
+learning models. Its `fit()` and `evaluate()` and `predict()` APIs support datasets as inputs. Here is a quick dataset and model setup:
+
+```{r}
+train, test = tf$keras$datasets$fashion_mnist$load_data()
+
+images, labels = train
+images <- images/255.0
+labels <- labels$astype(np$int32)
+```
+
+```{r}
+fmnist_train_ds <- tf$data$dataset_from_tensor_slices((images, labels))
+fmnist_train_ds <- fmnist_train_ds$shuffle(5000).batch(32)
+
+model <- tf$keras_model_sequential([
+  tf$keras$layers$Flatten(),
+  tf$layer_dense(10)
+])
+
+model %>% compile(optimizer = 'adam',
+              loss <- tf$keras$losses$SparseCategoricalCrossentropy(from_logits = TRUE), 
+              metrics <- ['accuracy'])
+```
+
+ Passing a dataset of `(feature, label)` pairs is all that's needed for `Model$fit` and `Model$evaluate`:
+
+```{r}
+model %>% fit(fmnist_train_ds, epochs = 2)
+```
+
+If you pass an infinite dataset, for example by calling `dataset_repeat()`, you just need to also pass the `steps_per_epoch` argument:
+
+```{r}
+model %>% fit(fmnist_train_ds$repeat(), epochs = 2, steps_per_epoch = 20)
+```
+
+For evaluation you can pass the number of evaluation steps:
+
+```{r}
+loss, accuracy = model %>% evaluate(fmnist_train_ds)
+print("Loss :", loss)
+print("Accuracy :", accuracy)
+```
+
+For long datasets, set the number of steps to evaluate:
+
+```{r}
+loss, accuracy = model %>% evaluate(fmnist_train_ds$repeat(), steps = 10)
+print("Loss :", loss)
+print("Accuracy :", accuracy)
+```
+
+The labels are not required in when calling `Model$predict`. 
+
+```{r}
+predict_ds <- tf$data$dataset_from_tensor_slices(images).batch(32)
+result <- model$predict(predict_ds, steps = 10)
+print(result$shape)
+```
+
+But the labels are ignored if you do pass a dataset containing them:
+
+```{r}
+result <- model$predict(fmnist_train_ds, steps = 10)
+print(result$shape)
+```
+
