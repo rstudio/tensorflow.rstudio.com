@@ -1371,28 +1371,29 @@ The Keras API simplifies many aspects of creating and executing machine
 learning models. Its `fit()` and `evaluate()` and `predict()` APIs support datasets as inputs. Here is a quick dataset and model setup:
 
 ```{r}
-train, test = tf$keras$datasets$fashion_mnist$load_data()
-
-images, labels = train
-images <- images/255.0
-labels <- labels$astype(np$int32)
+c(train, test) %<-% dataset_fashion_mnist()
 ```
 
 ```{r}
-fmnist_train_ds <- tf$data$dataset_from_tensor_slices((images, labels))
-fmnist_train_ds <- fmnist_train_ds$shuffle(5000).batch(32)
+fmnist_train_ds <- train %>% 
+  tensor_slices_dataset() %>% 
+  dataset_map(unname) %>% 
+  dataset_shuffle(5000) %>% 
+  dataset_batch(32)
 
-model <- tf$keras_model_sequential([
-  tf$keras$layers$Flatten(),
-  tf$layer_dense(10)
-])
+model <- keras_model_sequential() %>% 
+  layer_rescaling(scale = 1/255) %>% 
+  layer_flatten() %>% 
+  layer_dense(10)
 
-model %>% compile(optimizer = 'adam',
-              loss <- tf$keras$losses$SparseCategoricalCrossentropy(from_logits = TRUE), 
-              metrics <- ['accuracy'])
+model %>% compile(
+  optimizer = 'adam',
+  loss = loss_sparse_categorical_crossentropy(from_logits = TRUE), 
+  metrics = 'accuracy'
+)
 ```
 
- Passing a dataset of `(feature, label)` pairs is all that's needed for `Model$fit` and `Model$evaluate`:
+ Passing a dataset of `(feature, label)` pairs is all that's needed for `fit()` and `evaluate()`:
 
 ```{r}
 model %>% fit(fmnist_train_ds, epochs = 2)
@@ -1401,37 +1402,42 @@ model %>% fit(fmnist_train_ds, epochs = 2)
 If you pass an infinite dataset, for example by calling `dataset_repeat()`, you just need to also pass the `steps_per_epoch` argument:
 
 ```{r}
-model %>% fit(fmnist_train_ds$repeat(), epochs = 2, steps_per_epoch = 20)
+model %>% fit(
+  fmnist_train_ds %>% dataset_repeat(), 
+  epochs = 2, 
+  steps_per_epoch = 20
+)
 ```
 
 For evaluation you can pass the number of evaluation steps:
 
 ```{r}
-loss, accuracy = model %>% evaluate(fmnist_train_ds)
-print("Loss :", loss)
-print("Accuracy :", accuracy)
+model %>% evaluate(fmnist_train_ds)
 ```
 
 For long datasets, set the number of steps to evaluate:
 
 ```{r}
-loss, accuracy = model %>% evaluate(fmnist_train_ds$repeat(), steps = 10)
-print("Loss :", loss)
-print("Accuracy :", accuracy)
+model %>% evaluate(
+  fmnist_train_ds %>% dataset_repeat(), 
+  steps = 10
+)
 ```
 
 The labels are not required in when calling `Model$predict`. 
 
 ```{r}
-predict_ds <- tf$data$dataset_from_tensor_slices(images).batch(32)
-result <- model$predict(predict_ds, steps = 10)
-print(result$shape)
+predict_ds <- tensor_slices_dataset(train$x) %>% 
+  dataset_batch(32)
+result <- predict(model, predict_ds, steps = 10)
+dim(result)
 ```
 
 But the labels are ignored if you do pass a dataset containing them:
 
 ```{r}
-result <- model$predict(fmnist_train_ds, steps = 10)
-print(result$shape)
+result <- predict(model, fmnist_train_ds, steps = 10)
+dim(result)
 ```
 
+{{< include ../../_environment.qmd >}}

@@ -101,6 +101,10 @@ website:
           contents:
             - guides/tensorflow/tensor_slicing.qmd
 
+        - section: Data input pipelines
+          contents:
+            - guides/data/data.qmd
+
 
     - title: "Tools"
       contents:
