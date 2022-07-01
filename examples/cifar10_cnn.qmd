@@ -1,6 +1,7 @@
 ---
-title: cifar10_cnn
+title: Simple CNN on CIFAR10 dataset
 description: Trains a simple deep CNN on the CIFAR10 small images dataset.
+categories: [image]
 ---
 Train a simple deep CNN on the CIFAR10 small images dataset.
  
@@ -25,8 +26,8 @@ cifar10 <- dataset_cifar10()
 # Feature scale RGB values in test and train inputs  
 x_train <- cifar10$train$x/255
 x_test <- cifar10$test$x/255
-y_train <- to_categorical(cifar10$train$y, num_classes = 10)
-y_test <- to_categorical(cifar10$test$y, num_classes = 10)
+y_train <- cifar10$train$y
+y_test <- cifar10$test$y
 
 
 # Defining Model ----------------------------------------------------------
@@ -69,13 +70,12 @@ model %>%
   layer_dropout(0.5) %>%
 
   # Outputs from dense layer are projected onto 10 unit output layer
-  layer_dense(10) %>%
-  layer_activation("softmax")
+  layer_dense(10)
 
 opt <- optimizer_rmsprop(lr = 0.0001, decay = 1e-6)
 
 model %>% compile(
-  loss = "categorical_crossentropy",
+  loss = "sparse_categorical_crossentropy",
   optimizer = opt,
   metrics = "accuracy"
 )
@@ -104,7 +104,7 @@ if(!data_augmentation){
   
   datagen %>% fit_image_data_generator(x_train)
   
-  model %>% fit_generator(
+  model %>% fit(
     flow_images_from_data(x_train, y_train, datagen, batch_size = batch_size),
     steps_per_epoch = as.integer(50000/batch_size), 
     epochs = epochs, 
