@@ -211,4 +211,4 @@ for (k in 1:15){
 system("convert -delay 40 *.png animation.gif")
 ```
 
-![animation.gif]
+![animation](animation.gif)
