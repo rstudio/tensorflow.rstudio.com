@@ -1,8 +1,11 @@
 ---
-title: babi_memnn
+title: Trains a memory network on the bAbI dataset
 description: Trains a memory network on the bAbI dataset for reading comprehension.
+categories: [nlp]
 ---
+
 Trains a memory network on the bAbI dataset.
+
 
 References:
 
@@ -38,7 +41,7 @@ tokenize_words <- function(x){
 parse_stories <- function(lines, only_supporting = FALSE){
   lines <- lines %>% 
     str_split(" ", n = 2) %>%
-    map_df(~tibble(nid = as.integer(.x[[1]]), line = .x[[2]]))
+    map_dfr(~tibble(nid = as.integer(.x[[1]]), line = .x[[2]]))
   
   lines <- lines %>%
     mutate(
@@ -167,7 +170,7 @@ sequence_encoder_m %>%
 # Embed the input into a sequence of vectors of size query_maxlen
 sequence_encoder_c <- keras_model_sequential()
 sequence_encoder_c %>%
-  layer_embedding(input_dim = vocab_size, output = query_maxlen) %>%
+  layer_embedding(input_dim = vocab_size, output_dim = query_maxlen) %>%
   layer_dropout(rate = 0.3)
 # output: (samples, story_maxlen, query_maxlen)
 
@@ -188,8 +191,9 @@ question_encoded <- question_encoder(question)
 # Compute a 'match' between the first input vector sequence
 # and the question vector sequence
 # shape: `(samples, story_maxlen, query_maxlen)`
+dot <- layer_dot(axes = c(2,2))
 match <- list(sequence_encoded_m, question_encoded) %>%
-  layer_dot(axes = c(2,2)) %>%
+  dot() %>%
   layer_activation("softmax")
 
 # Add the match matrix with the second input vector sequence
