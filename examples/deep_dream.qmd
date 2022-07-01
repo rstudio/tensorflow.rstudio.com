@@ -1,172 +1,216 @@
 ---
-title: deep_dream
-description: Deep Dreams in Keras.
+title: Deep Dream
+authors: 
+  - "[fchollet](https://twitter.com/fchollet)"
+  - "[dfalbel](https://github.com/dfalbel) - R translation"
+date-created: 2016/01/13
+date-last-modified: 2020/05/02
+description: Generating Deep Dreams with Keras.
+categories: [generative]
 ---
 
-```{r }
+## Introduction
+
+"Deep dream" is an image-filtering technique which consists of taking an image
+classification model, and running gradient ascent over an input image to
+try to maximize the activations of specific layers (and sometimes, specific units in
+specific layers) for this input. It produces hallucination-like visuals.
+
+It was first introduced by Alexander Mordvintsev from Google in July 2015.
+
+Process:
+
+- Load the original image.
+- Define a number of processing scales ("octaves"),
+from smallest to largest.
+- Resize the original image to the smallest scale.
+- For every scale, starting with(the smallest (i$e. current one), {    })
+    - Run gradient ascent
+    - Upscale image to the next scale
+    - Reinject the detail that was lost at upscaling time
+- Stop when we are back to the original size.
+To obtain the detail lost during upscaling, we simply
+take the original image, shrink it down, upscale it,
+and compare the result to the (resized) original image.
+
+
+## Setup
+
+```{r}
+library(tensorflow)
 library(keras)
 
+base_image_path <- get_file("sky.jpg", "https://i.imgur.com/aGBdQyK.jpg")
+result_prefix <- "sky_dream"
 
-# Utility functions -------------------------------------------------------
-
-# Util function to open, resize, and format pictures into tensors that Inception V3 can process
-preprocess_image <- function(image_path) {
-  image_load(image_path) %>%
-    image_to_array() %>%
-    array_reshape(dim = c(1, dim(.))) %>%
-    inception_v3_preprocess_input()
-}
-
-# Util function to convert a tensor into a valid image
-deprocess_image <- function(img) {
-  img <- array_reshape(img, dim = c(dim(img)[[2]], dim(img)[[3]], 3))
-  # Undoes preprocessing that was performed by `imagenet_preprocess_input`
-  img <- img / 2
-  img <- img + 0.5
-  img <- img * 255
-  
-  dims <- dim(img)
-  img <- pmax(0, pmin(img, 255))
-  dim(img) <- dims
-  img
-}
-
-resize_img <- function(img, size) {
-  image_array_resize(img, size[[1]], size[[2]])
-}
-
-save_img <- function(img, fname) {
-  img <- deprocess_image(img)
-  image_array_save(img, fname)
-}
-
-
-# Model  ----------------------------------------------
-
-# You won't be training the model, so this command disables all training-specific operations.
-k_set_learning_phase(0)
-
-# Builds the Inception V3 network, without its convolutional base. The model will be loaded with pretrained ImageNet weights.
-model <- application_inception_v3(weights = "imagenet",
-                                  include_top = FALSE)
-
-# Named list mapping layer names to a coefficient quantifying how much the layer's activation contributes to the loss you'll seek to maximize. Note that the layer names are hardcoded in the built-in Inception V3 application. You can list all layer names using `summary(model)`.
-layer_contributions <- list(
-  mixed2 = 0.2,
-  mixed3 = 3,
-  mixed4 = 2,
-  mixed5 = 1.5
+# These are the names of the layers
+# for which we try to maximize activation,
+# as well as their weight in the final loss
+# we try to maximize.
+# You can tweak these setting to obtain new visual effects.
+layer_settings <- list(
+  "mixed4" = 1.0,
+  "mixed5" = 1.5,
+  "mixed6" = 2.0,
+  "mixed7" = 2.5
 )
 
-# You'll define the loss by adding layer contributions to this scalar variable
-loss <- k_variable(0)
-for (layer_name in names(layer_contributions)) {
-  coeff <- layer_contributions[[layer_name]]
-  # Retrieves the layer's output
-  activation <- get_layer(model, layer_name)$output
-  scaling <- k_prod(k_cast(k_shape(activation), "float32"))
-  # Retrieves the layer's output
-  loss <- loss + (coeff * k_sum(k_square(activation)) / scaling)
+# Playing with these hyperparameters will also allow you to achieve new effects
+
+step <- 0.01  # Gradient ascent step size
+num_octave <- 3  # Number of scales at which to run gradient ascent
+octave_scale <- 1.4  # Size ratio between scales
+iterations <- 20  # Number of ascent steps per scale
+max_loss <- 15.0
+```
+
+This is our base image:
+```{r}
+plot_image <- function(img) {
+  img %>%   
+    as.raster(max = 255) %>% 
+    plot()
 }
 
-# Retrieves the layer's output
-dream <- model$input
+base_image_path %>% 
+  image_load() %>% 
+  image_to_array() %>% 
+  plot_image()
+```
 
-# Computes the gradients of the dream with regard to the loss
-grads <- k_gradients(loss, dream)[[1]]
+Let's set up some image preprocessing/deprocessing utilities:
 
-# Normalizes the gradients (important trick)
-grads <- grads / k_maximum(k_mean(k_abs(grads)), 1e-7)
-
-outputs <- list(loss, grads)
-
-# Sets up a Keras function to retrieve the value of the loss and gradients, given an input image
-fetch_loss_and_grads <- k_function(list(dream), outputs)
-
-eval_loss_and_grads <- function(x) {
-  outs <- fetch_loss_and_grads(list(x))
-  loss_value <- outs[[1]]
-  grad_values <- outs[[2]]
-  list(loss_value, grad_values)
+```{r}
+preprocess_image <- function(image_path) {
+  # Util function to open, resize and format pictures
+  # into appropriate arrays.
+  img <- image_path %>% 
+    image_load() %>% 
+    image_to_array()
+  dim(img) <- c(1, dim(img))
+  inception_v3_preprocess_input(img)
 }
 
-
-# Run gradient ascent -----------------------------------------------------
-
-# This function runs gradient ascent for a number of iterations.
-gradient_ascent <-
-  function(x, iterations, step, max_loss = NULL) {
-    for (i in 1:iterations) {
-      c(loss_value, grad_values) %<-% eval_loss_and_grads(x)
-      if (!is.null(max_loss) && loss_value > max_loss)
-        break
-      cat("...Loss value at", i, ":", loss_value, "\n")
-      x <- x + (step * grad_values)
-    }
-    x
-  }
-
-# Playing with these hyperparameters will let you achieve new effects.
-# Gradient ascent step size
-step <- 0.01
-# Number of scales at which to run gradient ascent
-num_octave <- 3
-# Size ratio between scales
-octave_scale <- 1.4
-# Number of ascent steps to run at each scale
-iterations <- 20
-# If the loss grows larger than 10, we will interrupt the gradient-ascent process to avoid ugly artifacts.
-max_loss <- 10
-
-# Fill this with the path to the image you want to use.
-base_image_path <- "/tmp/mypic.jpg"
-
-# Loads the base image into an array
-img <-
-  preprocess_image(base_image_path)
-
-# Prepares a list of shape tuples defining the different scales at which to run gradient ascent
-original_shape <- dim(img)[-1]
-successive_shapes <-
-  list(original_shape)
-for (i in 1:num_octave) {
-  shape <- as.integer(original_shape / (octave_scale ^ i))
-  successive_shapes[[length(successive_shapes) + 1]] <-
-    shape
-}
-# Reverses the list of shapes so they're in increasing order
-successive_shapes <-
-  rev(successive_shapes)
-
-original_img <- img
-#  Resizes the array of the image to the smallest scale
-shrunk_original_img <-
-  resize_img(img, successive_shapes[[1]])
-
-for (shape in successive_shapes) {
-  cat("Processing image shape", shape, "\n")
-  # Scales up the dream image
-  img <- resize_img(img, shape)
-  # Runs gradient ascent, altering the dream
-  img <- gradient_ascent(img,
-                         iterations = iterations,
-                         step = step,
-                         max_loss = max_loss)
-  # Scales up the smaller version of the original image: it will be pixellated
-  upscaled_shrunk_original_img <-
-    resize_img(shrunk_original_img, shape)
-  # Computes the high-quality version of the original image at this size
-  same_size_original <-
-    resize_img(original_img, shape)
-  # The difference between the two is the detail that was lost when scaling up
-  lost_detail <-
-    same_size_original - upscaled_shrunk_original_img
-  # Reinjects lost detail into the dream
-  img <- img + lost_detail
-  shrunk_original_img <-
-    resize_img(original_img, shape)
-  save_img(img, fname = sprintf("dream_at_scale_%s.png",
-                                paste(shape, collapse = "x")))
+deprocess_image <- function(x) {
+  dim(x) <- dim(x)[-1]
+  # Undo inception v3 preprocessing
+  x <- x/2.0
+  x <- x + 0.5
+  x <- x*255.0
+  x[] <- raster::clamp(as.numeric(x), 0, 255)
+  x
 }
 ```
 
+## Compute the Deep Dream loss
+
+
+First, build a feature extraction model to retrieve the activations of our target layers
+given an input image.
+
+```{r}
+# Build an InceptionV3 model loaded with pre-trained ImageNet weights
+model <- application_inception_v3(weights = "imagenet", include_top = FALSE)
+
+# Get the symbolic outputs of each "key" layer (we gave them unique names).
+outputs_dict <- purrr::imap(layer_settings, function(v, name) {
+  layer <- get_layer(model, name)
+  layer$output
+})
+
+# Set up a model that returns the activation values for every target layer
+# (as a dict)
+
+feature_extractor <- keras_model(inputs = model$inputs, outputs = outputs_dict)
+```
+
+The actual loss computation is very simple:
+
+```{r}
+compute_loss <- function(input_image) {
+  features <- feature_extractor(input_image)
+  # Initialize the loss
+  loss <- tf$zeros(shape = shape())
+  
+  layer_settings %>% 
+    purrr::imap(function(coeff, name) {
+      activation <- features[[name]]
+      scaling <- tf$reduce_prod(tf$cast(tf$shape(activation), "float32"))
+      # We avoid border artifacts by only involving non-border pixels in the loss.
+      coeff * tf$reduce_sum(tf$square(activation[, 3:-2, 3:-2, ])) / scaling
+    }) %>% 
+    purrr::reduce(tf$add)
+}
+```
+
+## Set up the gradient ascent loop for one octave
+
+```{r}
+gradient_ascent_step <- tf_function(function(img, learning_rate) {
+  with(tf$GradientTape() %as% tape, {    
+    tape$watch(img)
+    loss <- compute_loss(img)
+  })
+  
+  # Compute gradients.
+  grads <- tape$gradient(loss, img)
+  # Normalize gradients.
+  grads <- grads/tf$maximum(tf$reduce_mean(tf$abs(grads)), 1e-6)
+  img <- img + learning_rate * grads
+  list(loss, img)
+})
+
+
+gradient_ascent_loop <- function(img, iterations, learning_rate, max_loss = NULL) {
+  for (i in seq_len(iterations)) {
+    c(loss, img) %<-% gradient_ascent_step(img, learning_rate)
+    if (!is.null(max_loss) && as.logical(loss > max_loss)) {
+      break
+    }
+    cat("... Loss value at step ", i, ": ", as.numeric(loss), "\n")
+  }
+  img
+}
+```
+
+## Run the training loop, iterating over different octaves
+
+```{r}
+original_img <- preprocess_image(base_image_path)
+original_shape <- dim(original_img)[2:3]
+
+successive_shapes <- list(original_shape)
+for (i in seq_len(num_octave - 1)) {
+  shape <- as.integer(original_shape / octave_scale^i)
+  successive_shapes[[i+1]] <- shape
+}
+successive_shapes <- rev(successive_shapes)
+
+shrunk_original_img <- tf$image$resize(original_img, successive_shapes[[1]])
+img <- tf$identity(original_img)  # Make a copy
+for (i in seq_along(successive_shapes)) {
+  shape <- successive_shapes[[i]]
+  
+  cat("Processing octave ", i, "with shape:", shape, "\n")
+  
+  img <- tf$image$resize(img, shape)
+  img <- gradient_ascent_loop(
+    img, iterations = iterations, learning_rate = step, max_loss = max_loss
+  )
+  upscaled_shrunk_original_img <- tf$image$resize(shrunk_original_img, shape)
+  same_size_original <- tf$image$resize(original_img, shape)
+  lost_detail <- same_size_original - upscaled_shrunk_original_img
+  
+  img <- img + lost_detail
+  shrunk_original_img <- tf$image$resize(original_img, shape)
+}
+```
+
+Display the result.
+
+```{r}
+img %>% 
+  as.array() %>% 
+  deprocess_image() %>% 
+  plot_image()
+```

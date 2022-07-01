@@ -3,11 +3,11 @@
     "listing": "/examples/index.html",
     "items": [
       "/examples/conv_lstm.html",
+      "/examples/deep_dream.html",
       "/examples/addition_rnn.html",
       "/examples/cifar10_cnn.html",
       "/examples/babi_memnn.html",
       "/examples/babi_rnn.html",
-      "/examples/deep_dream.html",
       "/examples/eager_dcgan.html",
       "/examples/eager_image_captioning.html",
       "/examples/eager_pix2pix.html",
