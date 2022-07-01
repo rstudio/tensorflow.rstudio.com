@@ -8,14 +8,17 @@ Train a simple deep CNN on the CIFAR10 small images dataset.
 It gets down to 0.65 test logloss in 25 epochs, and down to 0.55 after 50 epochs,
 though it is still underfitting at that point.
 
+If doing data augmentation you may try increasing the number of filters in convolutions
+and in dense layers.
+
 ```{r }
 library(keras)
 
 # Parameters --------------------------------------------------------------
 
 batch_size <- 32
-epochs <- 200
-data_augmentation <- TRUE
+epochs <- 50
+data_augmentation <- FALSE
 
 
 # Data Preparation --------------------------------------------------------
@@ -35,18 +38,27 @@ y_test <- cifar10$test$y
 # Initialize sequential model
 model <- keras_model_sequential()
 
-model %>%
- 
+
+if (data_augmentation) {
+  data_augmentation = keras_model_sequential() %>% 
+    layer_random_flip("horizontal") %>% 
+    layer_random_rotation(0.2)
+  
+  model <- model %>% 
+    data_augmentation()
+}
+
+model <- model %>%
   # Start with hidden 2D convolutional layer being fed 32x32 pixel images
   layer_conv_2d(
-    filter = 32, kernel_size = c(3,3), padding = "same", 
+    filter = 16, kernel_size = c(3,3), padding = "same", 
     input_shape = c(32, 32, 3)
   ) %>%
-  layer_activation("relu") %>%
+  layer_activation_leaky_relu(0.1) %>% 
 
   # Second hidden layer
   layer_conv_2d(filter = 32, kernel_size = c(3,3)) %>%
-  layer_activation("relu") %>%
+  layer_activation_leaky_relu(0.1) %>% 
 
   # Use max pooling
   layer_max_pooling_2d(pool_size = c(2,2)) %>%
@@ -54,9 +66,9 @@ model %>%
   
   # 2 additional hidden 2D convolutional layers
   layer_conv_2d(filter = 32, kernel_size = c(3,3), padding = "same") %>%
-  layer_activation("relu") %>%
-  layer_conv_2d(filter = 32, kernel_size = c(3,3)) %>%
-  layer_activation("relu") %>%
+  layer_activation_leaky_relu(0.1) %>% 
+  layer_conv_2d(filter = 64, kernel_size = c(3,3)) %>%
+  layer_activation_leaky_relu(0.1) %>% 
 
   # Use max pooling once more
   layer_max_pooling_2d(pool_size = c(2,2)) %>%
@@ -65,52 +77,36 @@ model %>%
   # Flatten max filtered output into feature vector 
   # and feed into dense layer
   layer_flatten() %>%
-  layer_dense(512) %>%
-  layer_activation("relu") %>%
+  layer_dense(256) %>%
+  layer_activation_leaky_relu(0.1) %>% 
   layer_dropout(0.5) %>%
 
   # Outputs from dense layer are projected onto 10 unit output layer
   layer_dense(10)
 
-opt <- optimizer_rmsprop(lr = 0.0001, decay = 1e-6)
+opt <- optimizer_adamax(learning_rate = learning_rate_schedule_exponential_decay(
+  initial_learning_rate = 5e-3, 
+  decay_rate = 0.96, 
+  decay_steps = 1500, 
+  staircase = TRUE
+))
 
 model %>% compile(
-  loss = "sparse_categorical_crossentropy",
+  loss = loss_sparse_categorical_crossentropy(from_logits = TRUE),
   optimizer = opt,
   metrics = "accuracy"
 )
 
 
 # Training ----------------------------------------------------------------
+model %>% fit(
+  x_train, y_train,
+  batch_size = batch_size,
+  epochs = epochs,
+  validation_data = list(x_test, y_test),
+  shuffle = TRUE
+)
 
-if(!data_augmentation){
-  
-  model %>% fit(
-    x_train, y_train,
-    batch_size = batch_size,
-    epochs = epochs,
-    validation_data = list(x_test, y_test),
-    shuffle = TRUE
-  )
-  
-} else {
-  
-  datagen <- image_data_generator(
-    rotation_range = 20,
-    width_shift_range = 0.2,
-    height_shift_range = 0.2,
-    horizontal_flip = TRUE
-  )
-  
-  datagen %>% fit_image_data_generator(x_train)
-  
-  model %>% fit(
-    flow_images_from_data(x_train, y_train, datagen, batch_size = batch_size),
-    steps_per_epoch = as.integer(50000/batch_size), 
-    epochs = epochs, 
-    validation_data = list(x_test, y_test)
-  )
-  
-}
+model %>% evaluate(x_test, y_test)
 ```
 
