@@ -1,6 +1,7 @@
 ---
-title: conv_lstm
+title: Convolutional LSTM network
 description: Demonstrates the use of a convolutional LSTM network.
+categories: [cv]
 ---
 
 ```{r }
@@ -205,7 +206,9 @@ for (k in 1:15){
   }
 } 
 
+
 # Can also create a gif by running
 system("convert -delay 40 *.png animation.gif")
 ```
 
+![animation.gif]

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tensorflow.rstudio.com/examples/cifar10_cnn.html</loc>
-    <lastmod>2022-07-01T13:46:19.377Z</lastmod>
+    <lastmod>2022-07-01T14:39:26.709Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/cifar10_densenet.html</loc>
@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/conv_lstm.html</loc>
-    <lastmod>2022-07-01T13:46:20.301Z</lastmod>
+    <lastmod>2022-07-01T14:54:52.327Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/deep_dream.html</loc>
@@ -58,7 +58,7 @@
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/index.html</loc>
-    <lastmod>2022-07-01T13:46:25.421Z</lastmod>
+    <lastmod>2022-07-01T14:54:52.779Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/lstm_seq2seq.html</loc>
@@ -230,7 +230,7 @@
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/index.html</loc>
-    <lastmod>2022-07-01T13:46:48.373Z</lastmod>
+    <lastmod>2022-07-01T13:48:30.856Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/install/custom.html</loc>
@@ -291,5 +291,9 @@
   <url>
     <loc>https://tensorflow.rstudio.com/tutorials/quickstart/beginner.html</loc>
     <lastmod>2022-07-01T13:46:55.141Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/examples/babi_rnn.html</loc>
+    <lastmod>2022-07-01T13:48:43.964Z</lastmod>
   </url>
 </urlset>
