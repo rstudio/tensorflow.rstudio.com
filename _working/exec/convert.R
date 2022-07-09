@@ -179,7 +179,7 @@ convert <- function(path) {
 }
 
 # path <- "keras/guides/sequential_model.py"
-path <- "guides/data/data.ipynb"
+path <- "examples/dcgan_overriding_train_step.py"
 convert(path)
 
 # tutobook_file <- "keras/guides/customizing_what_happens_in_fit.py"
