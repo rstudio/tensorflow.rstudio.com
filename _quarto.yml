@@ -5,6 +5,7 @@ project:
     - "**.qmd"
     - "!v1/**"
     - "examples/**"
+    - "!examples/_check/**"
 
   # pre-render: spin-examples.R
   preview:
