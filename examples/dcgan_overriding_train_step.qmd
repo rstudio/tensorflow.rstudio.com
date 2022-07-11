@@ -1,10 +1,8 @@
 ---
 title: DCGAN to generate face images
-authros: 
+authors: 
   - "[fchollet](https://twitter.com/fchollet)"
   - "[dfalbel](https://github.com/dfalbel) - R translation"
-date-created: 2019/04/29
-date-last-modified: 2021/01/01
 description: A simple DCGAN trained using `fit()` by overriding `train_step` on CelebA images.
 categories: [generative]
 editor_options: 
