@@ -30,7 +30,7 @@
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/babi_rnn.html</loc>
-    <lastmod>2022-07-11T13:23:58.115Z</lastmod>
+    <lastmod>2022-07-11T18:51:14.575Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/cifar10_cnn.html</loc>
@@ -38,11 +38,11 @@
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/conv_lstm.html</loc>
-    <lastmod>2022-07-11T13:23:58.987Z</lastmod>
+    <lastmod>2022-07-11T18:51:41.419Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/dcgan_overriding_train_step.html</loc>
-    <lastmod>2022-07-11T13:23:59.647Z</lastmod>
+    <lastmod>2022-07-11T18:58:23.326Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/deep_dream.html</loc>
@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/eager_image_captioning.html</loc>
-    <lastmod>2022-07-11T13:24:00.631Z</lastmod>
+    <lastmod>2022-07-11T18:48:26.571Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/eager_pix2pix.html</loc>
@@ -66,7 +66,7 @@
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/image_captioning.html</loc>
-    <lastmod>2022-07-11T13:24:02.607Z</lastmod>
+    <lastmod>2022-07-11T18:51:27.000Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/imdb_bidirectional_lstm.html</loc>
@@ -90,7 +90,7 @@
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/index.html</loc>
-    <lastmod>2022-07-11T13:24:08.107Z</lastmod>
+    <lastmod>2022-07-11T18:54:34.097Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/examples/lstm_seq2seq.html</loc>
@@ -262,7 +262,7 @@
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/index.html</loc>
-    <lastmod>2022-07-11T13:24:31.395Z</lastmod>
+    <lastmod>2022-07-11T18:54:32.249Z</lastmod>
   </url>
   <url>
     <loc>https://tensorflow.rstudio.com/install/custom.html</loc>
@@ -323,5 +323,9 @@
   <url>
     <loc>https://tensorflow.rstudio.com/tutorials/quickstart/beginner.html</loc>
     <lastmod>2022-07-11T13:24:38.191Z</lastmod>
+  </url>
+  <url>
+    <loc>https://tensorflow.rstudio.com/tutorials/keras/save_and_load.html</loc>
+    <lastmod>2022-07-11T18:48:27.379Z</lastmod>
   </url>
 </urlset>
