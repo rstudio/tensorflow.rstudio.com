@@ -6,6 +6,7 @@ project:
     - "!v1/**"
     - "examples/**"
     - "!examples/_check/**"
+    - "packages/**/**.md"
 
   # pre-render: spin-examples.R
   preview:
@@ -36,9 +37,18 @@ website:
       - {text: Tutorials    ,href: tutorials/}
       - {text: Guides       ,href: guides/index.qmd}
       - {text: Examples     ,href: examples/}
-      - {text: Deploy       ,href: deploy/}
-      - {text: Tools        ,href: tools/}
-      - {text: Reference    ,href: reference/}
+      - text: Reference
+        menu:
+          - text: "TensorFlow"
+            href: "packages/tensorflow/latest/reference/index.html"
+          - text: "Keras"
+            href: "packages/keras/latest/reference/index.html"
+          - text: "tfdatasets"
+            href: "packages/tfdatasets/latest/reference/index.html"
+          - text: "tfautograph"
+            href: "packages/tfautograph/latest/reference/index.html"
+          - text: "tfhub"
+            href: "packages/tfhub/latest/reference/index.html"
       # - {text: v1           ,href: v1/}
 
   sidebar:
@@ -106,26 +116,6 @@ website:
           contents:
             - guides/data/data.qmd
 
-
-    - title: "Tools"
-      contents:
-        - tools/index.qmd
-        - v1/tools/cloudml/deployment.qmd
-        - v1/tools/cloudml/getting_started.qmd
-        - v1/tools/cloudml/storage.qmd
-        - v1/tools/cloudml/training.qmd
-        - v1/tools/cloudml/tuning.qmd
-        - v1/tools/index.qmd
-        - v1/tools/tensorboard/hparams.qmd
-        - v1/tools/tensorboard/tensorboard.qmd
-        - v1/tools/tfruns/managing.qmd
-        - v1/tools/tfruns/overview.qmd
-        - v1/tools/tfruns/tuning.qmd
-
-    - title: "Reference"
-      search: true
-      contents:
-        - reference/index.qmd
 
 format:
   html:
