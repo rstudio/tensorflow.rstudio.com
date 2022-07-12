@@ -1,0 +1,59 @@
+# initializer_random_uniform
+
+
+Initializer that generates tensors with a uniform distribution.
+
+
+
+
+## Description
+
+Initializer that generates tensors with a uniform distribution.
+
+
+
+
+
+## Usage
+```r
+initializer_random_uniform(minval = -0.05, maxval = 0.05, seed = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+minval | Lower bound of the range of random values to generate.
+maxval | Upper bound of the range of random values to generate. Defaults to 1 for float types.
+seed | seed
+
+
+
+
+
+
+
+## See Also
+
+Other initializers: 
+`initializer_constant()`,
+`initializer_glorot_normal()`,
+`initializer_glorot_uniform()`,
+`initializer_he_normal()`,
+`initializer_he_uniform()`,
+`initializer_identity()`,
+`initializer_lecun_normal()`,
+`initializer_lecun_uniform()`,
+`initializer_ones()`,
+`initializer_orthogonal()`,
+`initializer_random_normal()`,
+`initializer_truncated_normal()`,
+`initializer_variance_scaling()`,
+`initializer_zeros()`
+
+
+

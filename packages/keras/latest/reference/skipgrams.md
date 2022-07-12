@@ -1,0 +1,99 @@
+# skipgrams
+
+
+Generates skipgram word pairs.
+
+
+
+
+## Description
+
+Generates skipgram word pairs.
+
+
+
+
+
+## Usage
+```r
+skipgrams(
+  sequence,
+  vocabulary_size,
+  window_size = 4,
+  negative_samples = 1,
+  shuffle = TRUE,
+  categorical = FALSE,
+  sampling_table = NULL,
+  seed = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+sequence | A word sequence (sentence), encoded as a list of word indices (integers). If using a ``sampling_table``, word indices are expected to match the rank of the words in a reference dataset (e.g. 10 would encode the 10-th most frequently occuring token). Note that index 0 is expected to be a non-word and will be skipped.
+vocabulary_size | Int, maximum possible word index + 1
+window_size | Int, size of sampling windows (technically half-window). The window of a word ``w_i`` will be [i-window_size, i+window_size+1]
+negative_samples | float >= 0. 0 for no negative (i.e. random) samples. 1 for same number as positive samples.
+shuffle | whether to shuffle the word couples before returning them.
+categorical | bool. if ``FALSE``, labels will be integers (eg. [0, 1, 1 .. ]), if ``TRUE`` labels will be categorical eg. [[1,0],[0,1],[0,1] .. ]
+sampling_table | 1D array of size ``vocabulary_size`` where the entry i encodes the probabibily to sample a word of rank i.
+seed | Random seed
+
+
+
+
+## Details
+
+This function transforms a list of word indexes (lists of integers)
+into lists of words of the form:
+
+
+*  (word, word in the same window), with label 1 (positive samples).
+
+*  (word, random word from the vocabulary), with label 0 (negative samples).
+
+
+Read more about Skipgram in this gnomic paper by Mikolov et al.:
+https://arxiv.org/pdf/1301.3781v3.pdfEfficient Estimation of Word Representations in Vector Space
+
+
+
+
+
+## Value
+
+List of ``couples``, ``labels`` where:
+
+
+*  `couples` is a list of 2-element integer vectors: [word_index, other_word_index].
+
+*  `labels` is an integer vector of 0 and 1, where 1 indicates that `other_word_index`
+was found in the same window as `word_index`, and 0 indicates that `other_word_index`
+was random.
+
+*  if `categorical` is set to `TRUE`, the labels are categorical, ie. 1 becomes [0,1],
+and 0 becomes [1, 0].
+
+
+
+
+
+
+
+## See Also
+
+Other text preprocessing: 
+`make_sampling_table()`,
+`pad_sequences()`,
+`text_hashing_trick()`,
+`text_one_hot()`,
+`text_to_word_sequence()`
+
+
+

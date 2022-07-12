@@ -1,0 +1,38 @@
+# bake.step_pretrained_text_embedding
+
+
+Bake method for step_pretrained_text_embedding
+
+
+
+
+## Description
+
+Bake method for step_pretrained_text_embedding
+
+
+
+
+
+## Usage
+```r
+bake.step_pretrained_text_embedding(object, new_data, ...)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | object
+new_data | new data to apply transformations
+... | One or more selector functions to choose variables.
+
+
+
+
+
+

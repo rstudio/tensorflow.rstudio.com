@@ -1,0 +1,72 @@
+# with_dataset
+
+
+Execute code that traverses a dataset
+
+
+
+
+## Description
+
+Execute code that traverses a dataset
+
+
+
+
+
+## Usage
+```r
+with_dataset(expr)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+expr | Expression to execute
+
+
+
+
+## Details
+
+When a dataset iterator reaches the end, an out of range runtime error
+will occur. You can catch and ignore the error when it occurs by wrapping
+your iteration code in a call to ``with_dataset()`` (see the example
+below for an illustration).
+
+
+
+
+
+
+## Examples
+
+```r
+
+library(tfdatasets)
+dataset <- text_line_dataset("mtcars.csv", record_spec = mtcars_spec) %>%
+  dataset_prepare(x = c(mpg, disp), y = cyl) %>%
+  dataset_batch(128) %>%
+  dataset_repeat(10)
+
+iter <- make_iterator_one_shot(dataset)
+next_batch <- iterator_get_next(iter)
+
+with_dataset({
+  while(TRUE) {
+    batch <- sess$run(next_batch)
+    # use batch$x and batch$y tensors
+  }
+})
+
+```
+
+
+
+
+

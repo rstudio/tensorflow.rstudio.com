@@ -1,0 +1,53 @@
+# dataset_cifar10
+
+
+CIFAR10 small image classification
+
+
+
+
+## Description
+
+Dataset of 50,000 32x32 color training images, labeled over 10 categories,
+and 10,000 test images.
+
+
+
+
+
+## Usage
+```r
+dataset_cifar10()
+```
+
+
+
+
+
+## Value
+
+Lists of training and test data: train$x, train$y, test$x, test$y.
+
+The ``x`` data is an array of RGB image data with shape (num_samples, 3, 32,
+32).
+
+The ``y`` data is an array of category labels (integers in range 0-9) with
+shape (num_samples).
+
+
+
+
+
+
+## See Also
+
+Other datasets: 
+`dataset_boston_housing()`,
+`dataset_cifar100()`,
+`dataset_fashion_mnist()`,
+`dataset_imdb()`,
+`dataset_mnist()`,
+`dataset_reuters()`
+
+
+

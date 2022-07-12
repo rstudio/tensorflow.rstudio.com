@@ -1,0 +1,84 @@
+# dataset_batch
+
+
+Combines consecutive elements of this dataset into batches.
+
+
+
+
+## Description
+
+The components of the resulting element will have an additional outer
+dimension, which will be ``batch_size`` (or ``N %% batch_size`` for the last
+element if ``batch_size`` does not divide the number of input elements ``N``
+evenly and ``drop_remainder`` is ``FALSE``). If your program depends on the
+batches having the same outer dimension, you should set the ``drop_remainder``
+argument to ``TRUE`` to prevent the smaller batch from being produced.
+
+
+
+
+
+## Usage
+```r
+dataset_batch(
+  dataset,
+  batch_size,
+  drop_remainder = FALSE,
+  num_parallel_calls = NULL,
+  deterministic = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | A dataset
+batch_size | An integer, representing the number of consecutive elements of this dataset to combine in a single batch.
+drop_remainder | (Optional.) A boolean, representing whether the last batch should be dropped in the case it has fewer than ``batch_size`` elements; the default behavior is not to drop the smaller batch.
+num_parallel_calls | (Optional.) A scalar integer, representing the number of batches to compute asynchronously in parallel. If not specified, batches will be computed sequentially. If the value ``tf$data$AUTOTUNE`` is used, then the number of parallel calls is set dynamically based on available resources.
+deterministic | (Optional.) When ``num_parallel_calls`` is specified, if this boolean is specified (``TRUE`` or ``FALSE``), it controls the order in which the transformation produces elements. If set to ``FALSE``, the transformation is allowed to yield elements out of order to trade determinism for performance. If not specified, the ``tf.data.Options.experimental_deterministic`` option (``TRUE`` by default) controls the behavior. See ``dataset_options()`` for how to set dataset options.
+
+
+
+
+
+## Value
+
+A dataset
+
+
+
+
+
+
+## See Also
+
+Other dataset methods: 
+`dataset_cache()`,
+`dataset_collect()`,
+`dataset_concatenate()`,
+`dataset_decode_delim()`,
+`dataset_filter()`,
+`dataset_interleave()`,
+`dataset_map_and_batch()`,
+`dataset_map()`,
+`dataset_padded_batch()`,
+`dataset_prefetch_to_device()`,
+`dataset_prefetch()`,
+`dataset_reduce()`,
+`dataset_repeat()`,
+`dataset_shuffle_and_repeat()`,
+`dataset_shuffle()`,
+`dataset_skip()`,
+`dataset_take_while()`,
+`dataset_take()`,
+`dataset_window()`
+
+
+

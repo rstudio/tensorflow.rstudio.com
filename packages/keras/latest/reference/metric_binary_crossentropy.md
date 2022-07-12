@@ -1,0 +1,118 @@
+# metric_binary_crossentropy
+
+
+Computes the crossentropy metric between the labels and predictions
+
+
+
+
+## Description
+
+Computes the crossentropy metric between the labels and predictions
+
+
+
+
+
+## Usage
+```r
+metric_binary_crossentropy(
+  y_true,
+  y_pred,
+  from_logits = FALSE,
+  label_smoothing = 0,
+  axis = -1L,
+  ...,
+  name = "binary_crossentropy",
+  dtype = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+y_true | Tensor of true targets.
+y_pred | Tensor of predicted targets.
+from_logits | (Optional) Whether output is expected to be a logits tensor. By default, we consider that output encodes a probability distribution.
+label_smoothing | (Optional) Float in [0, 1]. When > 0, label values are smoothed, meaning the confidence on label values are relaxed. e.g. ``label_smoothing = 0.2`` means that we will use a value of ``0.1`` for label ``0`` and ``0.9`` for label ``1``".
+axis | (Optional) (1-based) Defaults to -1. The dimension along which the metric is computed.
+... | Passed on to the underlying metric. Used for forwards and backwards compatibility.
+name | (Optional) string name of the metric instance.
+dtype | (Optional) data type of the metric result.
+
+
+
+
+## Details
+
+This is the crossentropy metric class to be used when there are only two
+label classes (0 and 1).
+
+
+
+
+
+## Value
+
+If ``y_true`` and ``y_pred`` are missing, a (subclassed) ``Metric``
+instance is returned. The ``Metric`` object can be passed directly to
+``compile(metrics = )`` or used as a standalone object. See ``?Metric`` for
+example usage.
+
+Alternatively, if called with ``y_true`` and ``y_pred`` arguments, then the
+computed case-wise values for the mini-batch are returned directly.
+
+
+
+
+
+
+## See Also
+
+Other metrics: 
+`custom_metric()`,
+`metric_accuracy()`,
+`metric_auc()`,
+`metric_binary_accuracy()`,
+`metric_categorical_accuracy()`,
+`metric_categorical_crossentropy()`,
+`metric_categorical_hinge()`,
+`metric_cosine_similarity()`,
+`metric_false_negatives()`,
+`metric_false_positives()`,
+`metric_hinge()`,
+`metric_kullback_leibler_divergence()`,
+`metric_logcosh_error()`,
+`metric_mean_absolute_error()`,
+`metric_mean_absolute_percentage_error()`,
+`metric_mean_iou()`,
+`metric_mean_relative_error()`,
+`metric_mean_squared_error()`,
+`metric_mean_squared_logarithmic_error()`,
+`metric_mean_tensor()`,
+`metric_mean_wrapper()`,
+`metric_mean()`,
+`metric_poisson()`,
+`metric_precision_at_recall()`,
+`metric_precision()`,
+`metric_recall_at_precision()`,
+`metric_recall()`,
+`metric_root_mean_squared_error()`,
+`metric_sensitivity_at_specificity()`,
+`metric_sparse_categorical_accuracy()`,
+`metric_sparse_categorical_crossentropy()`,
+`metric_sparse_top_k_categorical_accuracy()`,
+`metric_specificity_at_sensitivity()`,
+`metric_squared_hinge()`,
+`metric_sum()`,
+`metric_top_k_categorical_accuracy()`,
+`metric_true_negatives()`,
+`metric_true_positives()`
+
+
+

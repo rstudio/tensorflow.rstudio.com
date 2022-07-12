@@ -1,0 +1,55 @@
+# input_fn.tf_dataset
+
+
+Construct a tfestimators input function from a dataset
+
+
+
+
+## Description
+
+Construct a tfestimators input function from a dataset
+
+
+
+
+
+## Usage
+```r
+input_fn.tf_dataset(dataset, features, response = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | A dataset
+features | The names of feature variables to be used.
+response | The name of the response variable.
+
+
+
+
+## Details
+
+Creating an input_fn from a dataset requires that the dataset
+consist of a set of named output tensors (e.g. like the dataset
+produced by the `tfrecord_dataset()` or `text_line_dataset()` function).
+
+
+
+
+
+## Value
+
+An input_fn suitable for use with tfestimators train,
+evaluate, and predict methods
+
+
+
+
+

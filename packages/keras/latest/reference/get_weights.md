@@ -1,0 +1,59 @@
+# get_weights
+
+
+Layer/Model weights as R arrays
+
+
+
+
+## Description
+
+Layer/Model weights as R arrays
+
+
+
+
+
+## Usage
+```r
+get_weights(object, trainable = NA)
+
+set_weights(object, weights)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | Layer or model object
+trainable | if ``NA`` (the default), all weights are returned. If TRUE, 
+weights | Weights as R array
+
+
+
+
+
+
+
+## See Also
+
+Other model persistence: 
+`model_to_json()`,
+`model_to_yaml()`,
+`save_model_hdf5()`,
+`save_model_tf()`,
+`save_model_weights_hdf5()`,
+`serialize_model()`
+
+Other layer methods: 
+`count_params()`,
+`get_config()`,
+`get_input_at()`,
+`reset_states()`
+
+
+

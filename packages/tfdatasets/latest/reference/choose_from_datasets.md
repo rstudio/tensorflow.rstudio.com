@@ -1,0 +1,65 @@
+# choose_from_datasets
+
+
+Creates a dataset that deterministically chooses elements from datasets.
+
+
+
+
+## Description
+
+Creates a dataset that deterministically chooses elements from datasets.
+
+
+
+
+
+## Usage
+```r
+choose_from_datasets(datasets, choice_dataset, stop_on_empty_dataset = TRUE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+datasets | A non-empty list of tf.data.Dataset objects with compatible structure.
+choice_dataset | A ``tf.data.Dataset`` of scalar ``tf.int64`` tensors between ``0`` and ``length(datasets) - 1``.
+stop_on_empty_dataset | If ``TRUE``, selection stops if it encounters an empty dataset. If ``FALSE``, it skips empty datasets. It is recommended to set it to ``TRUE``. Otherwise, the selected elements start off as the user intends, but may change as input datasets become empty. This can be difficult to detect since the dataset starts off looking correct. Defaults to ``TRUE``.
+
+
+
+
+
+## Value
+
+Returns a dataset that interleaves elements from datasets according
+to the values of choice_dataset.
+
+
+
+
+
+## Examples
+
+```r
+
+datasets <- list(tensors_dataset("foo") %>% dataset_repeat(),
+                 tensors_dataset("bar") %>% dataset_repeat(),
+                 tensors_dataset("baz") %>% dataset_repeat())
+
+# Define a dataset containing `[0, 1, 2, 0, 1, 2, 0, 1, 2]`.
+choice_dataset <- range_dataset(0, 3) %>% dataset_repeat(3)
+result <- choose_from_datasets(datasets, choice_dataset)
+result %>% as_array_iterator() %>% iterate(function(s) s$decode()) %>% print()
+# [1] "foo" "bar" "baz" "foo" "bar" "baz" "foo" "bar" "baz"
+
+```
+
+
+
+

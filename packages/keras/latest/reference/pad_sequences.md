@@ -1,0 +1,86 @@
+# pad_sequences
+
+
+Pads sequences to the same length
+
+
+
+
+## Description
+
+Pads sequences to the same length
+
+
+
+
+
+## Usage
+```r
+pad_sequences(
+  sequences,
+  maxlen = NULL,
+  dtype = "int32",
+  padding = "pre",
+  truncating = "pre",
+  value = 0
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+sequences | List of lists where each element is a sequence
+maxlen | int, maximum length of all sequences
+dtype | type of the output sequences
+padding | 'pre' or 'post', pad either before or after each sequence.
+truncating | 'pre' or 'post', remove values from sequences larger than maxlen either in the beginning or in the end of the sequence
+value | float, padding value
+
+
+
+
+## Details
+
+This function transforms a list of ``num_samples`` sequences (lists
+of integers) into a matrix of shape (num_samples, num_timesteps).
+``num_timesteps`` is either the ``maxlen`` argument if provided, or the length
+of the longest sequence otherwise.
+
+Sequences that are shorter than ``num_timesteps`` are padded with ``value`` at
+the end.
+
+Sequences longer than ``num_timesteps`` are truncated so that they fit the
+desired length. The position where padding or truncation happens is
+determined by the arguments ``padding`` and ``truncating``, respectively.
+
+Pre-padding is the default.
+
+
+
+
+
+## Value
+
+Matrix with dimensions (number_of_sequences, maxlen)
+
+
+
+
+
+
+## See Also
+
+Other text preprocessing: 
+`make_sampling_table()`,
+`skipgrams()`,
+`text_hashing_trick()`,
+`text_one_hot()`,
+`text_to_word_sequence()`
+
+
+

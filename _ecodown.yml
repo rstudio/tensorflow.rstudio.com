@@ -1,0 +1,31 @@
+site:
+  clone_convert:
+    reference_examples: FALSE
+    packages:
+      - repo_url: https://github.com/rstudio/tensorflow
+        quarto_sub_folder: packages/tensorflow
+        version_folder: latest
+        convert_readme: FALSE
+        convert_articles: FALSE
+      - repo_url: https://github.com/rstudio/keras
+        quarto_sub_folder: packages/keras
+        version_folder: latest
+        convert_readme: FALSE
+        convert_articles: FALSE
+      - repo_url: https://github.com/rstudio/tfdatasets
+        quarto_sub_folder: packages/tfdatasets
+        version_folder: latest
+        convert_readme: FALSE
+        convert_articles: FALSE
+      - repo_url: https://github.com/t-kalinowski/tfautograph
+        quarto_sub_folder: packages/tfautograph
+        version_folder: latest
+        convert_readme: FALSE
+        convert_articles: FALSE
+      - repo_url: https://github.com/rstudio/tfhub
+        quarto_sub_folder: packages/tfhub
+        version_folder: latest
+        convert_readme: FALSE
+        convert_articles: FALSE
+  autolink:
+    run: FALSE

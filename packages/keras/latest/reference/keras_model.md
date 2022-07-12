@@ -1,0 +1,89 @@
+# keras_model
+
+
+Keras Model
+
+
+
+
+## Description
+
+A model is a directed acyclic graph of layers.
+
+
+
+
+
+## Usage
+```r
+keras_model(inputs, outputs = NULL, ...)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+inputs | Input layer
+outputs | Output layer
+... | Any additional arguments
+
+
+
+
+
+
+## Examples
+
+```r
+
+library(keras)
+
+# input layer
+inputs <- layer_input(shape = c(784))
+
+# outputs compose input + dense layers
+predictions <- inputs %>%
+  layer_dense(units = 64, activation = 'relu') %>%
+  layer_dense(units = 64, activation = 'relu') %>%
+  layer_dense(units = 10, activation = 'softmax')
+
+# create and compile model
+model <- keras_model(inputs = inputs, outputs = predictions)
+model %>% compile(
+  optimizer = 'rmsprop',
+  loss = 'categorical_crossentropy',
+  metrics = c('accuracy')
+)
+
+```
+
+
+
+
+
+## See Also
+
+Other model functions: 
+`compile.keras.engine.training.Model()`,
+`evaluate.keras.engine.training.Model()`,
+`evaluate_generator()`,
+`fit.keras.engine.training.Model()`,
+`fit_generator()`,
+`get_config()`,
+`get_layer()`,
+`keras_model_sequential()`,
+`multi_gpu_model()`,
+`pop_layer()`,
+`predict.keras.engine.training.Model()`,
+`predict_generator()`,
+`predict_on_batch()`,
+`predict_proba()`,
+`summary.keras.engine.training.Model()`,
+`train_on_batch()`
+
+
+

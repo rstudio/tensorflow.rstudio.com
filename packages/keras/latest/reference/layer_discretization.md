@@ -1,0 +1,98 @@
+# layer_discretization
+
+
+A preprocessing layer which buckets continuous features by ranges.
+
+
+
+
+## Description
+
+A preprocessing layer which buckets continuous features by ranges.
+
+
+
+
+
+## Usage
+```r
+layer_discretization(
+  object,
+  bin_boundaries = NULL,
+  num_bins = NULL,
+  epsilon = 0.01,
+  ...
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
+bin_boundaries | A list of bin boundaries. The leftmost and rightmost bins will always extend to ``-Inf`` and ``Inf``, so ``bin_boundaries = c(0., 1., 2.)`` generates bins (-Inf, 0.), [0., 1.), [1., 2.), and [2., +Inf). If this option is set, ``adapt`` should not be called.
+num_bins | The integer number of bins to compute. If this option is set, ``adapt`` should be called to learn the bin boundaries.
+epsilon | Error tolerance, typically a small fraction close to zero (e.g. 0.01). Higher values of epsilon increase the quantile approximation, and hence result in more unequal buckets, but could improve performance and resource consumption.
+... | standard layer arguments.
+
+
+
+
+## Details
+
+This layer will place each element of its input data into one of several
+contiguous ranges and output an integer index indicating which range each
+element was placed in.
+
+Input shape:
+Any ``tf.Tensor`` or ``tf.RaggedTensor`` of dimension 2 or higher.
+
+Output shape:
+Same as input shape.
+
+
+
+
+
+
+
+## See Also
+
+
+
+*  adapt()
+
+*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/Discretization
+
+*  https://keras.io/api/layers/preprocessing_layers/numerical/discretization
+
+
+Other numerical features preprocessing layers: 
+`layer_normalization()`
+
+Other preprocessing layers: 
+`layer_category_encoding()`,
+`layer_center_crop()`,
+`layer_hashing()`,
+`layer_integer_lookup()`,
+`layer_normalization()`,
+`layer_random_brightness()`,
+`layer_random_contrast()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_rotation()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`,
+`layer_rescaling()`,
+`layer_resizing()`,
+`layer_string_lookup()`,
+`layer_text_vectorization()`
+
+
+

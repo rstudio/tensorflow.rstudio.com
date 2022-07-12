@@ -1,0 +1,98 @@
+# layer_rescaling
+
+
+Multiply inputs by ``scale`` and adds ``offset``
+
+
+
+
+## Description
+
+Multiply inputs by ``scale`` and adds ``offset``
+
+
+
+
+
+## Usage
+```r
+layer_rescaling(object, scale, offset = 0, ...)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
+scale | Float, the scale to apply to the inputs.
+offset | Float, the offset to apply to the inputs.
+... | standard layer arguments.
+
+
+
+
+## Details
+
+For instance:
+
+
+*  To rescale an input in the [0, 255] range
+to be in the [0, 1] range, you would pass `scale=1./255`.
+
+*  To rescale an input in the [0, 255] range to be in the [-1, 1] range,
+you would pass scale = 1/127.5, offset = -1.
+
+
+The rescaling is applied both during training and inference.
+
+Input shape:
+Arbitrary.
+
+Output shape:
+Same as input.
+
+
+
+
+
+
+
+## See Also
+
+
+
+*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/Rescaling
+
+*  https://keras.io/api/layers/preprocessing_layers/image_preprocessing/rescaling
+
+
+Other image preprocessing layers: 
+`layer_center_crop()`,
+`layer_resizing()`
+
+Other preprocessing layers: 
+`layer_category_encoding()`,
+`layer_center_crop()`,
+`layer_discretization()`,
+`layer_hashing()`,
+`layer_integer_lookup()`,
+`layer_normalization()`,
+`layer_random_brightness()`,
+`layer_random_contrast()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_rotation()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`,
+`layer_resizing()`,
+`layer_string_lookup()`,
+`layer_text_vectorization()`
+
+
+

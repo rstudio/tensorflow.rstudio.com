@@ -1,0 +1,72 @@
+# tfe_enable_eager_execution
+
+
+(Deprecated) Enables, for the rest of the lifetime of this program, eager execution.
+
+
+
+
+## Description
+
+This function is no longer needed since Tensorflow 2.0, when eager execution became the default.
+
+
+
+
+
+## Usage
+```r
+tfe_enable_eager_execution(
+  config = NULL,
+  device_policy = c("explicit", "warn", "silent")
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+config | (Optional) A ``tf$ConfigProto()`` protocol buffer with configuration options for the Context. Note that a lot of these options may be currently unimplemented or irrelevant when eager execution is enabled.
+device_policy | (Optional) What policy to use when trying to run an operation on a device with inputs which are not on that device. Valid values: "explicit": raises an error if the placement is not correct. "warn": copies the tensors which are not on the right device but raises a warning. "silent": silently copies the tensors. This might hide performance problems.
+
+
+
+
+## Details
+
+If not called immediately on startup risks creating breakage and bugs.
+
+After eager execution is enabled, operations are executed as they are
+defined and tensors hold concrete values, and can be accessed as R matrices
+or arrays with `as.matrix()`, `as.array()`, `as.double()`, etc.
+
+
+
+
+
+
+## Examples
+
+```r
+
+
+# load tensorflow and enable eager execution
+library(tensorflow)
+tfe_enable_eager_execution()
+
+# create a random 10x10 matrix
+x <- tf$random$normal(shape(10, 10))
+
+# use it in R via as.matrix()
+heatmap(as.matrix(x))
+
+```
+
+
+
+
+

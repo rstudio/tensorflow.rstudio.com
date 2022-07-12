@@ -1,0 +1,52 @@
+# to_categorical
+
+
+Converts a class vector (integers) to binary class matrix.
+
+
+
+
+## Description
+
+Converts a class vector (integers) to binary class matrix.
+
+
+
+
+
+## Usage
+```r
+to_categorical(y, num_classes = NULL, dtype = "float32")
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+y | Class vector to be converted into a matrix (integers from 0 to num_classes).
+num_classes | Total number of classes.
+dtype | The data type expected by the input, as a string
+
+
+
+
+## Details
+
+E.g. for use with `loss_categorical_crossentropy()`.
+
+
+
+
+
+## Value
+
+A binary matrix representation of the input.
+
+
+
+
+

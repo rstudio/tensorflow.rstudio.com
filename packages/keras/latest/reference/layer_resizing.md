@@ -1,0 +1,92 @@
+# layer_resizing
+
+
+Image resizing layer
+
+
+
+
+## Description
+
+Image resizing layer
+
+
+
+
+
+## Usage
+```r
+layer_resizing(
+  object,
+  height,
+  width,
+  interpolation = "bilinear",
+  crop_to_aspect_ratio = FALSE,
+  ...
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
+height | Integer, the height of the output shape.
+width | Integer, the width of the output shape.
+interpolation | String, the interpolation method. Defaults to ``"bilinear"``. Supports ``"bilinear"``, ``"nearest"``, ``"bicubic"``, ``"area"``, ``"lanczos3"``, ``"lanczos5"``, ``"gaussian"``, and ``"mitchellcubic"``.
+crop_to_aspect_ratio | If TRUE, resize the images without aspect ratio distortion. When the original aspect ratio differs from the target aspect ratio, the output image will be cropped so as to return the largest possible window in the image (of size (height, width)) that matches the target aspect ratio. By default (``crop_to_aspect_ratio = FALSE``), aspect ratio may not be preserved.
+... | standard layer arguments.
+
+
+
+
+## Details
+
+Resize the batched image input to target height and width. The input should
+be a 4D (batched) or 3D (unbatched) tensor in ``"channels_last"`` format.
+
+
+
+
+
+
+
+## See Also
+
+
+
+*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/Resizing
+
+*  https://keras.io/api/layers/preprocessing_layers/image_preprocessing/resizing
+
+
+Other image preprocessing layers: 
+`layer_center_crop()`,
+`layer_rescaling()`
+
+Other preprocessing layers: 
+`layer_category_encoding()`,
+`layer_center_crop()`,
+`layer_discretization()`,
+`layer_hashing()`,
+`layer_integer_lookup()`,
+`layer_normalization()`,
+`layer_random_brightness()`,
+`layer_random_contrast()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_rotation()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`,
+`layer_rescaling()`,
+`layer_string_lookup()`,
+`layer_text_vectorization()`
+
+
+

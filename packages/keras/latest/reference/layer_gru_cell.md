@@ -1,0 +1,110 @@
+# layer_gru_cell
+
+
+Cell class for the GRU layer
+
+
+
+
+## Description
+
+Cell class for the GRU layer
+
+
+
+
+
+## Usage
+```r
+layer_gru_cell(
+  units,
+  activation = "tanh",
+  recurrent_activation = "sigmoid",
+  use_bias = TRUE,
+  kernel_initializer = "glorot_uniform",
+  recurrent_initializer = "orthogonal",
+  bias_initializer = "zeros",
+  kernel_regularizer = NULL,
+  recurrent_regularizer = NULL,
+  bias_regularizer = NULL,
+  kernel_constraint = NULL,
+  recurrent_constraint = NULL,
+  bias_constraint = NULL,
+  dropout = 0,
+  recurrent_dropout = 0,
+  reset_after = TRUE,
+  ...
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+units | Positive integer, dimensionality of the output space.
+activation | Activation function to use. Default: hyperbolic tangent (``tanh``). If you pass ``NULL``, no activation is applied (ie. "linear" activation: ``a(x) = x``).
+recurrent_activation | Activation function to use for the recurrent step. Default: sigmoid (``sigmoid``). If you pass ``NULL``, no activation is applied (ie. "linear" activation: ``a(x) = x``).
+use_bias | Boolean, (default ``TRUE``), whether the layer uses a bias vector.
+kernel_initializer | Initializer for the ``kernel`` weights matrix, used for the linear transformation of the inputs. Default: ``glorot_uniform``.
+recurrent_initializer | Initializer for the ``recurrent_kernel`` weights matrix, used for the linear transformation of the recurrent state. Default: ``orthogonal``.
+bias_initializer | Initializer for the bias vector. Default: ``zeros``.
+kernel_regularizer | Regularizer function applied to the ``kernel`` weights matrix. Default: ``NULL``.
+recurrent_regularizer | Regularizer function applied to the ``recurrent_kernel`` weights matrix. Default: ``NULL``.
+bias_regularizer | Regularizer function applied to the bias vector. Default: ``NULL``.
+kernel_constraint | Constraint function applied to the ``kernel`` weights matrix. Default: ``NULL``.
+recurrent_constraint | Constraint function applied to the ``recurrent_kernel`` weights matrix. Default: ``NULL``.
+bias_constraint | Constraint function applied to the bias vector. Default: ``NULL``.
+dropout | Float between 0 and 1. Fraction of the units to drop for the linear transformation of the inputs. Default: 0.
+recurrent_dropout | Float between 0 and 1. Fraction of the units to drop for the linear transformation of the recurrent state. Default: 0.
+reset_after | GRU convention (whether to apply reset gate after or before matrix multiplication). FALSE = "before", TRUE = "after" (default and CuDNN compatible).
+... | standard layer arguments.
+
+
+
+
+## Details
+
+See https://www.tensorflow.org/guide/keras/rnnthe Keras RNN API guide
+for details about the usage of RNN API.
+
+This class processes one step within the whole time sequence input, whereas
+``tf.keras.layer.GRU`` processes the whole sequence.
+
+For example:
+
+html<div class="sourceCode r">inputs <- k_random_uniform(c(32, 10, 8))
+output <- inputs %>% layer_rnn(layer_gru_cell(4))
+output$shape  # TensorShape([32, 4])
+
+rnn <- layer_rnn(cell = layer_gru_cell(4),
+                 return_sequence = TRUE,
+                 return_state = TRUE)
+c(whole_sequence_output, final_state) %<-% rnn(inputs)
+whole_sequence_output$shape # TensorShape([32, 10, 4])
+final_state$shape           # TensorShape([32, 4])
+html</div>
+
+
+
+
+
+
+
+## See Also
+
+
+
+*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/GRUCell
+
+
+Other RNN cell layers: 
+`layer_lstm_cell()`,
+`layer_simple_rnn_cell()`,
+`layer_stacked_rnn_cells()`
+
+
+

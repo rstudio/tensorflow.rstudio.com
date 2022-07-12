@@ -1,0 +1,42 @@
+# metric_cosine_proximity
+
+
+(Deprecated) metric_cosine_proximity
+
+
+
+
+## Description
+
+``metric_cosine_proximity()`` is deprecated and will be removed in a future
+version. Please update your code to use ``metric_cosine_similarity()`` if
+possible. If you need the actual function and not a Metric object, (e.g,
+because you are using the intermediate computed values in a custom training
+loop before reduction), please use ``loss_cosine_similarity()`` or
+``tensorflow::tf$compat$v1$keras$metrics$cosine_proximity()``
+
+
+
+
+
+## Usage
+```r
+metric_cosine_proximity(y_true, y_pred)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+y_true | Tensor of true targets.
+y_pred | Tensor of predicted targets.
+
+
+
+
+
+

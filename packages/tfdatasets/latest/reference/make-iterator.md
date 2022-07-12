@@ -1,0 +1,72 @@
+# make-iterator
+
+
+Creates an iterator for enumerating the elements of this dataset.
+
+
+
+
+## Description
+
+Creates an iterator for enumerating the elements of this dataset.
+
+
+
+
+
+## Usage
+```r
+make_iterator_one_shot(dataset)
+
+make_iterator_initializable(dataset, shared_name = NULL)
+
+make_iterator_from_structure(
+  output_types,
+  output_shapes = NULL,
+  shared_name = NULL
+)
+
+make_iterator_from_string_handle(
+  string_handle,
+  output_types,
+  output_shapes = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | A dataset
+shared_name | (Optional) If non-empty, the returned iterator will be shared under the given name across multiple sessions that share the same devices (e.g. when using a remote server).
+output_types | A nested structure of tf$DType objects corresponding to each component of an element of this iterator.
+output_shapes | (Optional) A nested structure of tf$TensorShape objects corresponding to each component of an element of this dataset. If omitted, each component will have an unconstrainted shape.
+string_handle | A scalar tensor of type string that evaluates to a handle produced by the `iterator_string_handle()` method.
+
+
+
+
+
+## Value
+
+An Iterator over the elements of this dataset.
+
+
+
+
+
+
+## See Also
+
+Other iterator functions: 
+`iterator_get_next()`,
+`iterator_initializer()`,
+`iterator_make_initializer()`,
+`iterator_string_handle()`
+
+
+

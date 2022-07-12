@@ -1,0 +1,67 @@
+# dataset_boston_housing
+
+
+Boston housing price regression dataset
+
+
+
+
+## Description
+
+Dataset taken from the StatLib library which is maintained at Carnegie Mellon
+University.
+
+
+
+
+
+## Usage
+```r
+dataset_boston_housing(
+  path = "boston_housing.npz",
+  test_split = 0.2,
+  seed = 113L
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+path | Path where to cache the dataset locally (relative to ~/.keras/datasets).
+test_split | fraction of the data to reserve as test set.
+seed | Random seed for shuffling the data before computing the test split.
+
+
+
+
+
+## Value
+
+Lists of training and test data: train$x, train$y, test$x, test$y.
+
+Samples contain 13 attributes of houses at different locations around
+the Boston suburbs in the late 1970s. Targets are the median values of the
+houses at a location (in k$).
+
+
+
+
+
+
+## See Also
+
+Other datasets: 
+`dataset_cifar100()`,
+`dataset_cifar10()`,
+`dataset_fashion_mnist()`,
+`dataset_imdb()`,
+`dataset_mnist()`,
+`dataset_reuters()`
+
+
+

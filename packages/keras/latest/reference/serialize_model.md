@@ -1,0 +1,65 @@
+# serialize_model
+
+
+Serialize a model to an R object
+
+
+
+
+## Description
+
+Model objects are external references to Keras objects which cannot be saved
+and restored across R sessions. The ``serialize_model()`` and
+``unserialize_model()`` functions provide facilities to convert Keras models to
+R objects for persistence within R data files.
+
+
+
+
+
+## Usage
+```r
+serialize_model(model, include_optimizer = TRUE)
+
+unserialize_model(model, custom_objects = NULL, compile = TRUE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+model | Keras model or R "raw" object containing serialized Keras model.
+include_optimizer | If ``TRUE``, save optimizer's state.
+custom_objects | Mapping class names (or function names) of custom (non-Keras) objects to class/functions (for example, custom metrics or custom loss functions). This mapping can be done with the dict() function of reticulate.
+compile | Whether to compile the model after loading.
+
+
+
+
+
+## Value
+
+``serialize_model()`` returns an R "raw" object containing an hdf5
+version of the Keras model. ``unserialize_model()`` returns a Keras model.
+
+
+
+
+
+
+## See Also
+
+Other model persistence: 
+`get_weights()`,
+`model_to_json()`,
+`model_to_yaml()`,
+`save_model_hdf5()`,
+`save_model_tf()`,
+`save_model_weights_hdf5()`
+
+
+

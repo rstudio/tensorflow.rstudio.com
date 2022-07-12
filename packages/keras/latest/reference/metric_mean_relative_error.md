@@ -1,0 +1,118 @@
+# metric_mean_relative_error
+
+
+Computes the mean relative error by normalizing with the given values
+
+
+
+
+## Description
+
+Computes the mean relative error by normalizing with the given values
+
+
+
+
+
+## Usage
+```r
+metric_mean_relative_error(..., normalizer, name = NULL, dtype = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+... | Passed on to the underlying metric. Used for forwards and backwards compatibility.
+normalizer | The normalizer values with same shape as predictions.
+name | (Optional) string name of the metric instance.
+dtype | (Optional) data type of the metric result.
+
+
+
+
+## Details
+
+This metric creates two local variables, ``total`` and ``count`` that are used to
+compute the mean relative error. This is weighted by ``sample_weight``, and
+it is ultimately returned as ``mean_relative_error``:
+an idempotent operation that simply divides ``total`` by ``count``.
+
+If ``sample_weight`` is ``NULL``, weights default to 1.
+Use ``sample_weight`` of 0 to mask values.
+
+html<div class="sourceCode">metric = mean(|y_pred - y_true| / normalizer)
+html</div>
+
+For example:
+
+html<div class="sourceCode">m = metric_mean_relative_error(normalizer=c(1, 3, 2, 3))
+m$update_state(c(1, 3, 2, 3), c(2, 4, 6, 8))
+ # result     = mean(c(1, 1, 4, 5) / c(1, 3, 2, 3)) = mean(c(1, 1/3, 2, 5/3))
+ #            = 5/4 = 1.25
+m$result()
+html</div>
+
+
+
+
+
+## Value
+
+A (subclassed) ``Metric`` instance that can be passed directly to
+``compile(metrics = )``, or used as a standalone object. See ``?Metric`` for
+example usage.
+
+
+
+
+
+
+## See Also
+
+Other metrics: 
+`custom_metric()`,
+`metric_accuracy()`,
+`metric_auc()`,
+`metric_binary_accuracy()`,
+`metric_binary_crossentropy()`,
+`metric_categorical_accuracy()`,
+`metric_categorical_crossentropy()`,
+`metric_categorical_hinge()`,
+`metric_cosine_similarity()`,
+`metric_false_negatives()`,
+`metric_false_positives()`,
+`metric_hinge()`,
+`metric_kullback_leibler_divergence()`,
+`metric_logcosh_error()`,
+`metric_mean_absolute_error()`,
+`metric_mean_absolute_percentage_error()`,
+`metric_mean_iou()`,
+`metric_mean_squared_error()`,
+`metric_mean_squared_logarithmic_error()`,
+`metric_mean_tensor()`,
+`metric_mean_wrapper()`,
+`metric_mean()`,
+`metric_poisson()`,
+`metric_precision_at_recall()`,
+`metric_precision()`,
+`metric_recall_at_precision()`,
+`metric_recall()`,
+`metric_root_mean_squared_error()`,
+`metric_sensitivity_at_specificity()`,
+`metric_sparse_categorical_accuracy()`,
+`metric_sparse_categorical_crossentropy()`,
+`metric_sparse_top_k_categorical_accuracy()`,
+`metric_specificity_at_sensitivity()`,
+`metric_squared_hinge()`,
+`metric_sum()`,
+`metric_top_k_categorical_accuracy()`,
+`metric_true_negatives()`,
+`metric_true_positives()`
+
+
+

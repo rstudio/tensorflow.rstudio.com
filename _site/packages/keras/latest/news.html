@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.559">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>TensorFlow for R – news</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon/icon.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme">
+<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../images/favicon/icon.png" alt="">
+    <span class="navbar-title">TensorFlow for R</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../install/">Install</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../tutorials/">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../guides/index.html">Guides</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../examples/">Examples</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../deploy/">Deploy</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../tools/">Tools</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../reference/">Reference</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#keras-development-version" id="toc-keras-development-version" class="nav-link active" data-scroll-target="#keras-development-version">keras (development version)</a></li>
+  <li><a href="#keras-2.9.0" id="toc-keras-2.9.0" class="nav-link" data-scroll-target="#keras-2.9.0">keras 2.9.0</a></li>
+  <li><a href="#keras-2.8.0" id="toc-keras-2.8.0" class="nav-link" data-scroll-target="#keras-2.8.0">keras 2.8.0</a></li>
+  <li><a href="#keras-2.7.0" id="toc-keras-2.7.0" class="nav-link" data-scroll-target="#keras-2.7.0">keras 2.7.0</a></li>
+  <li><a href="#keras-2.6.1" id="toc-keras-2.6.1" class="nav-link" data-scroll-target="#keras-2.6.1">keras 2.6.1</a></li>
+  <li><a href="#keras-2.6.0" id="toc-keras-2.6.0" class="nav-link" data-scroll-target="#keras-2.6.0">keras 2.6.0</a></li>
+  <li><a href="#keras-2.4.0" id="toc-keras-2.4.0" class="nav-link" data-scroll-target="#keras-2.4.0">keras 2.4.0</a></li>
+  <li><a href="#keras-2.2.3.0-cran" id="toc-keras-2.2.3.0-cran" class="nav-link" data-scroll-target="#keras-2.2.3.0-cran">Keras 2.2.3.0 (CRAN)</a></li>
+  <li><a href="#keras-2.2.5.0-cran" id="toc-keras-2.2.5.0-cran" class="nav-link" data-scroll-target="#keras-2.2.5.0-cran">Keras 2.2.5.0 (CRAN)</a>
+  <ul class="collapse">
+  <li><a href="#keras-2.2.4.1-cran" id="toc-keras-2.2.4.1-cran" class="nav-link" data-scroll-target="#keras-2.2.4.1-cran">Keras 2.2.4.1 (CRAN)</a></li>
+  </ul></li>
+  <li><a href="#keras-2.2.4-cran" id="toc-keras-2.2.4-cran" class="nav-link" data-scroll-target="#keras-2.2.4-cran">Keras 2.2.4 (CRAN)</a></li>
+  <li><a href="#keras-2.2.0" id="toc-keras-2.2.0" class="nav-link" data-scroll-target="#keras-2.2.0">Keras 2.2.0</a>
+  <ul class="collapse">
+  <li><a href="#keras-2.1.6" id="toc-keras-2.1.6" class="nav-link" data-scroll-target="#keras-2.1.6">Keras 2.1.6</a></li>
+  <li><a href="#keras-2.1.5" id="toc-keras-2.1.5" class="nav-link" data-scroll-target="#keras-2.1.5">Keras 2.1.5</a></li>
+  <li><a href="#keras-2.1.4" id="toc-keras-2.1.4" class="nav-link" data-scroll-target="#keras-2.1.4">Keras 2.1.4</a></li>
+  <li><a href="#keras-2.1.3" id="toc-keras-2.1.3" class="nav-link" data-scroll-target="#keras-2.1.3">Keras 2.1.3</a></li>
+  </ul></li>
+  <li><a href="#keras-2.1.2" id="toc-keras-2.1.2" class="nav-link" data-scroll-target="#keras-2.1.2">Keras 2.1.2</a></li>
+  <li><a href="#keras-2.0.9" id="toc-keras-2.0.9" class="nav-link" data-scroll-target="#keras-2.0.9">keras 2.0.9</a></li>
+  <li><a href="#keras-2.0.8" id="toc-keras-2.0.8" class="nav-link" data-scroll-target="#keras-2.0.8">keras 2.0.8</a>
+  <ul class="collapse">
+  <li><a href="#keras-2.0.6" id="toc-keras-2.0.6" class="nav-link" data-scroll-target="#keras-2.0.6">keras 2.0.6</a></li>
+  </ul></li>
+  <li><a href="#keras-2.0.5" id="toc-keras-2.0.5" class="nav-link" data-scroll-target="#keras-2.0.5">keras 2.0.5</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/t-kalinowski/tf-site/edit/main/packages/keras/latest/news.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/t-kalinowski/tf-site/blob/main/packages/keras/latest/news.md" class="toc-action">View source</a></p><p><a href="https://github.com/t-kalinowski/tf-site/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="keras-development-version" class="level1">
+<h1>keras (development version)</h1>
+<ul>
+<li><p>Fixed issue where <code>input_shape</code> supplied to custom layers defined with <code>new_layer_class()</code><br>
+would result in an error (#1338)</p></li>
+<li><p>New <code>callback_backup_and_restore()</code>, for resuming an interrupted <code>fit()</code> call.</p></li>
+<li><p>The merging family of layers (<code>layer_add</code>, <code>layer_concatenate</code>, etc.) gain the ability to accept layers in <code>...</code>, allowing for easier composition of residual blocks with the pipe <code>%&gt;%</code>. e.g.&nbsp;something like this now works:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>block_1_output <span class="ot">&lt;-</span> ...</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>block_2_output <span class="ot">&lt;-</span> block_1_output <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">64</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_add</span>(block_1_output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p><code>model$get_config()</code> method now returns an R object that can be safely serialized to rds.</p></li>
+</ul>
+</section>
+<section id="keras-2.9.0" class="level1">
+<h1>keras 2.9.0</h1>
+<ul>
+<li><p>New functions for constructing custom keras subclasses:</p>
+<ul>
+<li><code>new_model_class()</code></li>
+<li><code>new_layer_class()</code></li>
+<li><code>new_callback_class()</code></li>
+<li><code>new_metric_class()</code></li>
+<li><code>new_loss_class()</code></li>
+<li><code>new_learning_rate_schedule_class()</code>.</li>
+</ul>
+<p>Also provided is <code>mark_active()</code>, a decorator for indicating a class method should be an active binding (i.e., decorated with Python’s <code>@property</code>). <code>mark_active()</code> can be used in the <code>new_*_class</code> family of class constructors as well as <code>%py_class%</code>.</p></li>
+<li><p><code>r_to_py()</code> method for R6 classes and <code>%py_class%</code> gain support for <code>private</code> fields and methods. Any R objects stored in <code>private</code> will only be available to methods, and will not be converted to Python.</p></li>
+<li><p>New family of functions for controlling optimizer learning rates during training:</p>
+<ul>
+<li><code>learning_rate_schedule_cosine_decay()</code></li>
+<li><code>learning_rate_schedule_cosine_decay_restarts()</code></li>
+<li><code>learning_rate_schedule_exponential_decay()</code></li>
+<li><code>learning_rate_schedule_inverse_time_decay()</code></li>
+<li><code>learning_rate_schedule_piecewise_constant_decay()</code></li>
+<li><code>learning_rate_schedule_polynomial_decay()</code></li>
+</ul>
+<p>Also, a function for constructing custom learning rate schedules: <code>new_learning_rate_schedule_class()</code>.</p></li>
+<li><p>New L2 unit normilization layer: <code>layer_unit_normalization()</code>.</p></li>
+<li><p>New <code>regularizer_orthogonal</code>, a regularizer that encourages orthogonality between the rows (or columns) or a weight matrix.</p></li>
+<li><p>New <code>zip_lists()</code> function for transposing lists, optionally matching by name.</p></li>
+<li><p>New <code>plot()</code> S3 method for models.</p></li>
+<li><p><code>pydot</code> is now included in the packages installed by <code>install_keras()</code>.</p></li>
+<li><p>The <code>png</code> package is now listed under Suggests.</p></li>
+<li><p>The <code>%&lt;&gt;%</code> assignment pipe from magrittr is exported.</p></li>
+<li><p><code>format()</code> method for keras models (and derivative methods <code>print()</code>, <code>summary()</code>, <code>str()</code>, and <code>py_str()</code>):</p>
+<ul>
+<li>gain a new arg <code>compact</code>. If <code>TRUE</code> (the default) white-space only lines are stripped out of <code>model.summary()</code>.</li>
+<li>If any layers are marked non-trainable or frozen, the model summary now includes a “Trainable” column, indicating if a layer is frozen.</li>
+</ul></li>
+<li><p><code>freeze_weights()</code> and <code>unfreeze_weights()</code>:</p>
+<ul>
+<li>gain a flexible <code>which</code> argument that can accept layer names (as character strings), an integer vector, a boolean vector, or a function that returns a boolean when called with a layer. (see updated examples in <code>?freeze_weights</code></li>
+<li><code>from</code> and <code>to</code> arguments gain the ability to accept negative integers, to specify layers counting from the end of the layers list.</li>
+</ul></li>
+<li><p><code>get_weights()</code> gains a <code>trainable</code> argument that can accept <code>TRUE</code> or <code>FALSE</code>, allowing for returning only the unfrozen or frozen weights, respectively.</p></li>
+<li><p><code>timeseries_dataset_from_array()</code>:</p>
+<ul>
+<li>R arrays are now cast to the floatx dtype (“float32” by default)</li>
+<li><code>start_index</code> and <code>end_index</code> now are 1-based.</li>
+</ul></li>
+<li><p><code>image_dataset_from_directory()</code> gains a <code>crop_to_aspect_ratio</code> argument which can be used to prevent distorting images when resizing to a new aspect ratio.</p></li>
+<li><p><code>Layer</code> is deprecated, superseded by <code>new_layer_class()</code>.</p></li>
+<li><p><code>load_model_tf()</code> argument <code>custom_objects</code> gains the ability to accept an unnamed list (e.g, of objects returned by <code>new_layer_class()</code> or similar). Appropriate names for the supplied objects are automatically inferred.</p></li>
+<li><p>Fixed an issue where negative values less than -1 supplied to <code>axis</code> arguments were selecting the wrong axis.</p></li>
+<li><p><code>get_layer()</code> gains the ability to accept negative values for the <code>index</code> argument.</p></li>
+<li><p>Fixed warning from <code>create_layer_wrapper()</code> when the custom layer didn’t have an overridden <code>initialize</code> or <code>__init__</code> method.</p></li>
+<li><p>Backend functions:</p>
+<ul>
+<li>k_clip() <code>min_value</code> and <code>max_value</code> gain default values of <code>NULL</code>, can be omitted. <code>NULL</code> is taken as -Inf or Inf, respectively.</li>
+<li>k_squeeze(): <code>axis</code> argument can be omitted, in which case all axes of size 1 are dropped.</li>
+<li>k_tile(): <code>n</code> argument can now be supplied as a tensor.</li>
+<li>New function <code>k_unstack()</code>.</li>
+</ul></li>
+<li><p>KerasTensor objects (e.g, returned by <code>layer_input()</code>) now inherit S3 methods for <code>"tensorflow.tensor"</code>.</p></li>
+<li><p><code>plot.keras_training_history()</code> no longer issues message <code>`geom_smooth()` using formula 'y ~ x'</code> when <code>method = "ggplot2"</code>.</p></li>
+<li><p><code>print</code> and related methods for models (<code>format</code>, <code>summary</code>) now accept a <code>width</code> argument.</p></li>
+<li><p><code>evaluate()</code>, <code>fit()</code>, and <code>predict()</code> methods for keras Models now default to <code>verbose = "auto"</code>, with verbosity adjusted appropriately based on calls to <code>keras$utils$disable_interactive_logging()</code>, and contexts like <code>ParameterServerStrategy</code>.</p></li>
+<li><p><code>install_keras()</code> now accepts <code>version = "release-cpu"</code> as a valid specification.</p></li>
+</ul>
+</section>
+<section id="keras-2.8.0" class="level1">
+<h1>keras 2.8.0</h1>
+<ul>
+<li><p>Breaking change: The semantics of passing a named list to <code>keras_model()</code> have changed.</p>
+<p>Previously, <code>keras_model()</code> would <code>unname()</code> supplied <code>inputs</code> and <code>outputs</code>. Then, if a named list was passed to subsequent <code>fit()</code>/<code>evaluate()</code>/<code>call()</code>/<code>predict()</code> invocations, matching of <code>x</code> and <code>y</code> was done to the model’s input and outpt <code>tensor$name</code>’s. Now, matching is done to <code>names()</code> of <code>inputs</code> and/or <code>outputs</code> supplied to <code>keras_model()</code>. Call <code>unname()</code> on <code>inputs</code> and <code>outputs</code> to restore the old behavior, e.g.: <code>keras_model(unname(inputs), unname(outputs))</code></p>
+<p><code>keras_model()</code> can now accept a named list for multi-input and/or multi-output models. The named list is converted to a <code>dict</code> in python. (Requires Tensorflow &gt;= 2.4, Python &gt;= 3.7).</p>
+<p>If <code>inputs</code> is a named list:</p>
+<ul>
+<li><code>call()</code>, <code>fit()</code>, <code>evaluate()</code>, and <code>predict()</code> methods can also accept a named list for <code>x</code>, with names matching to the names of <code>inputs</code> when the model was constructed. Positional matching of <code>x</code> is still also supported (requires python 3.7+).</li>
+</ul>
+<p>If <code>outputs</code> is a named list:</p>
+<ul>
+<li><code>fit()</code> and <code>evaluate()</code> methods can <em>only</em> accept a named list for <code>y</code>, with names matching to the names of <code>outputs</code> when the model was constructed.</li>
+</ul></li>
+<li><p>New layer <code>layer_depthwise_conv_1d()</code>.</p></li>
+<li><p>Models gain <code>format()</code> and <code>print()</code> S3 methods for compatibility with the latest reticulate. Both are powered by <code>model$summary()</code>.</p></li>
+<li><p><code>summary()</code> method for Models gains arguments <code>expand_nested</code> and <code>show_trainable</code>, both default to <code>FALSE</code>.</p></li>
+<li><p><code>keras_model_custom()</code> is soft deprecated. Please define custom models by subclassing <code>keras$Model</code> directly using <code>%py_class%</code> or <code>R6::R6Class()</code>.</p></li>
+<li><p>Fixed warning issued by <code>k_random_binomial()</code>.</p></li>
+<li><p>Fixed error raised when <code>k_random_binomial()</code> was passed a non-floating dtype.</p></li>
+<li><p>Added <code>k_random_bernouli()</code> as an alias for <code>k_random_binomial()</code>.</p></li>
+<li><p><code>image_load()</code> gains a <code>color_mode</code> argument.</p></li>
+<li><p>Fixed issue where <code>create_layer_wrapper()</code> would not include arguments with a <code>NULL</code> default value in the returned wrapper.</p></li>
+<li><p>Fixed issue in <code>r_to_py.R6ClassGenerator</code> (and <code>%py_class%</code>) where single-expression <code>initialize</code> functions defined without <code>{</code> would error.</p></li>
+<li><p>Deprecated functions are no longer included in the package documentation index.</p></li>
+</ul>
+</section>
+<section id="keras-2.7.0" class="level1">
+<h1>keras 2.7.0</h1>
+<ul>
+<li><p>Default Tensorflow + Keras version is now 2.7.</p></li>
+<li><p>New API for constructing RNN (Recurrent Neural Network) layers. This is a flexible interface that complements the existing RNN layers. It is primarily intended for advanced / research applications, e.g, prototyping novel architectures. It allows you to compose a RNN with a custom “cell”, a Keras layer that processes one step of a sequence. New symbols:</p>
+<ul>
+<li><code>layer_rnn()</code>, which can compose with builtin cells:</li>
+<li><code>layer_gru_cell()</code></li>
+<li><code>layer_lstm_cell()</code></li>
+<li><code>layer_simple_rnn_cell()</code></li>
+<li><code>layer_stacked_rnn_cells()</code> To learn more, including how to make a custom cell layer, see the new vignette: “Working with RNNs”.</li>
+</ul></li>
+<li><p>New dataset functions:</p>
+<ul>
+<li><code>text_dataset_from_directory()</code></li>
+<li><code>timeseries_dataset_from_array()</code></li>
+</ul></li>
+<li><p>New layers:</p>
+<ul>
+<li><code>layer_additive_attention()</code></li>
+<li><code>layer_conv_lstm_1d()</code></li>
+<li><code>layer_conv_lstm_3d()</code></li>
+</ul></li>
+<li><p><code>layer_cudnn_gru()</code> and <code>layer_cudnn_lstm()</code> are deprecated. <code>layer_gru()</code> and <code>layer_lstm()</code> will automatically use CuDNN if it is available.</p></li>
+<li><p><code>layer_lstm()</code> and <code>layer_gru()</code>: default value for <code>recurrent_activation</code> changed from <code>"hard_sigmoid"</code> to <code>"sigmoid"</code>.</p></li>
+<li><p><code>layer_gru()</code>: default value <code>reset_after</code> changed from <code>FALSE</code> to <code>TRUE</code></p></li>
+<li><p>New vignette: “Transfer learning and fine-tuning”.</p></li>
+<li><p>New applications:</p>
+<ul>
+<li>MobileNet V3: <code>application_mobilenet_v3_large()</code>, <code>application_mobilenet_v3_small()</code></li>
+<li>ResNet: <code>application_resnet101()</code>, <code>application_resnet152()</code>, <code>resnet_preprocess_input()</code></li>
+<li>ResNet V2:<code>application_resnet50_v2()</code>, <code>application_resnet101_v2()</code>, <code>application_resnet152_v2()</code> and <code>resnet_v2_preprocess_input()</code></li>
+<li>EfficientNet: <code>application_efficientnet_b{0,1,2,3,4,5,6,7}()</code></li>
+</ul></li>
+<li><p>Many existing <code>application_*()</code>’s gain argument <code>classifier_activation</code>, with default <code>'softmax'</code>. Affected: <code>application_{xception, inception_resnet_v2, inception_v3, mobilenet, vgg16, vgg19}()</code></p></li>
+<li><p>New function <code>%&lt;-active%</code>, a ergonomic wrapper around <code>makeActiveBinding()</code> for constructing Python <code>@property</code> decorated methods in <code>%py_class%</code>.</p></li>
+<li><p><code>bidirectional()</code> sequence processing layer wrapper gains a <code>backwards_layer</code> arguments.</p></li>
+<li><p>Global pooling layers <code>layer_global_{max,average}_pooling_{1,2,3}d()</code> gain a <code>keepdims</code> argument with default value <code>FALSE</code>.</p></li>
+<li><p>Signatures for layer functions are in the process of being simplified. Standard layer arguments are moving to <code>...</code> where appropriate (and will need to be provided as named arguments). Standard layer arguments include: <code>input_shape</code>, <code>batch_input_shape</code>, <code>batch_size</code>, <code>dtype</code>, <code>name</code>, <code>trainable</code>, <code>weights</code>. Layers updated: <code>layer_global_{max,average}_pooling_{1,2,3}d()</code>, <code>time_distributed()</code>, <code>bidirectional()</code>, <code>layer_gru()</code>, <code>layer_lstm()</code>, <code>layer_simple_rnn()</code></p></li>
+<li><p>All the backend function with a shape argument <code>k_*(shape =)</code> that now accept a a mix of integer tensors and R numerics in the supplied list.</p></li>
+<li><p>All layer functions now accept <code>NA</code> as a synonym for <code>NULL</code> in arguments that specify shape as a vector of dimension values, e.g., <code>input_shape</code>, <code>batch_input_shape</code>.</p></li>
+<li><p><code>k_random_uniform()</code> now automatically casts <code>minval</code> and <code>maxval</code> to the output dtype.</p></li>
+<li><p><code>install_keras()</code> gains arg with default <code>pip_ignore_installed = TRUE</code>.</p></li>
+</ul>
+</section>
+<section id="keras-2.6.1" class="level1">
+<h1>keras 2.6.1</h1>
+<ul>
+<li><p>New family of <em>preprocessing</em> layers. These are the spiritual successor to the <code>tfdatasets::step_*</code> family of data transformers (to be deprecated in a future release). Added a new vignette: “Working with Preprocessing Layers”. New functions:</p>
+<p>Image preprocessing:</p>
+<ul>
+<li><code>layer_resizing()</code></li>
+<li><code>layer_rescaling()</code></li>
+<li><code>layer_center_crop()</code></li>
+</ul>
+<p>Image augmentation:</p>
+<ul>
+<li><code>layer_random_crop()</code></li>
+<li><code>layer_random_flip()</code></li>
+<li><code>layer_random_translation()</code></li>
+<li><code>layer_random_rotation()</code></li>
+<li><code>layer_random_zoom()</code></li>
+<li><code>layer_random_contrast()</code></li>
+<li><code>layer_random_height()</code></li>
+<li><code>layer_random_width()</code></li>
+</ul>
+<p>Categorical features preprocessing:</p>
+<ul>
+<li><code>layer_category_encoding()</code></li>
+<li><code>layer_hashing()</code></li>
+<li><code>layer_integer_lookup()</code></li>
+<li><code>layer_string_lookup()</code></li>
+</ul>
+<p>Numerical features preprocessing:</p>
+<ul>
+<li><code>layer_normalization()</code></li>
+<li><code>layer_discretization()</code></li>
+</ul>
+<p>These join the previous set of text preprocessing functions, each of which have some minor changes:</p>
+<ul>
+<li><code>layer_text_vectorization()</code> (changed arguments)</li>
+<li><code>get_vocabulary()</code></li>
+<li><code>set_vocabulary()</code></li>
+<li><code>adapt()</code></li>
+</ul></li>
+<li><p><code>adapt()</code> changes:</p>
+<ul>
+<li>Now accepts all <em>features preprocessing</em> layers, previously only <code>layer_text_vectorization()</code> instances were valid.</li>
+<li><code>reset_state</code> argument is removed. It only ever accepted the default value of <code>TRUE</code>.</li>
+<li>New arguments <code>batch_size</code> and <code>steps</code>.</li>
+<li>Now returns the adapted layer invisibly for composability with <code>%&gt;%</code> (previously returned <code>NULL</code>)</li>
+</ul></li>
+<li><p><code>get_vocabulary()</code> gains a <code>include_special_tokens</code> argument.</p></li>
+<li><p><code>set_vocabulary()</code>:</p>
+<ul>
+<li>Now returns the adapted layer invisibly for composability with <code>%&gt;%</code> (previously returned <code>NULL</code>)</li>
+<li>Signature simplified. Deprecated arguments (<code>df_data</code> <code>oov_df_value</code>) are now subsumed in <code>...</code>.</li>
+</ul></li>
+<li><p><code>layer_text_vectorization()</code>:</p>
+<ul>
+<li>valid values for argument <code>output_mode</code> change: <code>"binary"</code> is renamed to <code>"multi_hot"</code> and <code>"tf-idf"</code> is renamed to <code>"tf_idf"</code> (backwards compatibility is preserved).</li>
+<li>Fixed an issue where valid values of <code>output_mode = "int"</code> would incorrectly return a ragged tensor output shape.</li>
+</ul></li>
+<li><p>Existing layer instances gain the ability to be added to sequential models via a call. E.g.:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">10</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Functions in the <em>merging layer</em> family gain the ability to return a layer instance if the first argument <code>inputs</code> is missing. (affected: <code>layer_concatenate()</code>, <code>layer_add()</code>, <code>layer_subtract()</code>, <code>layer_multiply()</code>, <code>layer_average()</code>, <code>layer_maximum()</code>, <code>layer_minimum()</code> , <code>layer_dot()</code>)</p></li>
+<li><p><code>%py_class%</code> gains the ability to delay initializing the Python session until first use. It is now safe to implement and export <code>%py_class%</code> objects in an R package.</p></li>
+<li><p>Fixed an issue in <code>layer_input()</code> where passing a tensorflow <code>DType</code> objects to argument <code>dtype</code> would throw an error.</p></li>
+<li><p>Fixed an issue in <code>compile()</code> where passing an R function via an in-line call would result in an error from subsequent <code>fit()</code> calls. (e.g., <code>compile(loss = function(y_true, y_pred) my_loss(y_true, y_pred))</code> now succeeds)</p></li>
+<li><p><code>clone_model()</code> gains a <code>clone_function</code> argument that allows you to customize each layer as it is cloned.</p></li>
+<li><p>Bumped minimum R version to 3.4. Expanded CI to test on all supported R version. Fixed regression that prevented package installation on R &lt;= 3.4</p></li>
+</ul>
+</section>
+<section id="keras-2.6.0" class="level1">
+<h1>keras 2.6.0</h1>
+<p>Breaking changes (Tensorflow 2.6): - Note: The following breaking changes are specific to Tensorflow version 2.6.0. However, the keras R package maintains compatibility with multiple versions of Tensorflow/Keras. You can upgrade the R package and still preserve the previous behavior by installing a specific version of Tensorflow: <code>keras::install_keras(tensorflow="2.4.0")</code></p>
+<ul>
+<li><code>predict_proba()</code> and <code>predict_classes()</code> were removed.</li>
+<li><code>model_to_yaml()</code> and <code>model_from_yaml()</code> were removed.</li>
+<li>default changed: <code>layer_text_vectorization(pad_to_max_tokens=FALSE)</code></li>
+<li><code>set_vocabulary()</code> arguments <code>df_data</code> and <code>oov_df_value</code> are removed. They are replaced by the new argument <code>idf_weights</code>.</li>
+</ul>
+<p>New Features:</p>
+<ul>
+<li><p>Default Tensorflow/Keras version is now 2.6</p></li>
+<li><p>Introduced <code>%py_class%</code>, an R-language constructor for Python classes.</p></li>
+<li><p>New vignettes:</p>
+<ul>
+<li>Subclassing Python classes: How to use <code>%py_class%</code>.</li>
+<li>Making new layers and models via subclassing.</li>
+<li>Customizing what happens in fit (example of how to define a model, like a GAN, with a custom train step).</li>
+<li>Writing your own callbacks.</li>
+</ul></li>
+<li><p>The <code>keras</code> Python module is exported</p></li>
+<li><p>Major changes to the underlying handling of custom R6 layer classes.</p>
+<ul>
+<li>A new <code>r_to_py()</code> method is provided for <code>R6ClassGenerator</code> objects.</li>
+<li>R6 custom layers can now inherit directly from Python layer classes or other R6 custom layer classes.</li>
+<li>Custom R6 layers can now be instantiated directly after conversion of the class generator with <code>r_to_py()</code>, without going through <code>create_layer()</code>.</li>
+<li><code>KerasLayer</code> is deprecated (new classes should inherit directly from <code>keras$layers$Layer</code>).</li>
+<li><code>KerasWrapper</code> is deprecated (new classes should inherit directly from <code>keras$layers$Wrapper</code>).</li>
+<li><code>create_wrapper()</code> is deprecated (no longer needed, use <code>create_layer()</code> directly).</li>
+<li>All layer class methods provided as R functions now have a <code>super</code> in scope that resolves to the Python super class object.</li>
+<li>Methods of <code>super</code> can be accessed in the 3 common ways:
+<ul>
+<li>(Python 3 style): <code>super()$"__init__"()</code></li>
+<li>(Python 2 style): <code>super(ClassName, self)$"__init__"()</code></li>
+<li>(R6 style): <code>super$initialize()</code></li>
+</ul></li>
+<li>User defined custom classes that inherit from a Python type are responsible for calling <code>super()$`__init__`(...)</code> if appropriate.</li>
+<li>Custom layers can now properly handle masks (#1225)
+<ul>
+<li><code>supports_masking = TRUE</code> attribute is now supported</li>
+<li><code>compute_mask()</code> user defined method is now supported</li>
+</ul></li>
+<li><code>call()</code> methods now support a <code>training</code> argument, as well as any additional arbitrary user-defined arguments</li>
+</ul></li>
+<li><p><code>Layer()</code> custom layer constructor is now lazy about initializing the Python session and safe to use on the top level of an R package (#1229).</p></li>
+<li><p>New function <code>create_layer_wrapper()</code> that can create a composing R function wrapper around a custom layer class.</p></li>
+<li><p>Refactored <code>install_keras()</code> (along with <code>tensorflow::install_tensorflow()</code>). Installation should be more reliable for more users now. If you encounter installation issues, please file an issue: https://github.com/rstudio/keras/issues/new</p>
+<ul>
+<li><p>Potentially breaking change: numeric versions supplied without a patchlevel now automatically pull the latest patch release. (e.g.&nbsp;<code>install_keras(tensorflow="2.4")</code> will install tensorflow version “2.4.2”. Previously it would install “2.4.0”)</p></li>
+<li><p>pandas is now a default extra packages installed by <code>install_keras()</code></p></li>
+<li><p>pyyaml is no longer a installed by default if the Tensorflow version &gt;= 2.6.</p></li>
+</ul></li>
+<li><p>Loss functions:</p>
+<ul>
+<li><p>All the loss functions gain the ability to return a callable (a <code>keras$losses$Loss</code> instance) if <code>y_true</code> and <code>y_pred</code> arguments are missing.</p></li>
+<li><p>New builtin loss functions:</p>
+<ul>
+<li><code>loss_huber()</code></li>
+<li><code>loss_kl_divergence()</code></li>
+</ul></li>
+</ul></li>
+<li><p>Metric functions:</p>
+<ul>
+<li><p>All the metric functions gain the ability to return a <code>keras$metrics$Metric</code> instance if called without <code>y_true</code> and <code>y_pred</code></p></li>
+<li><p>Each metric function is now documented separately, with a common <code>?Metric</code> topic demonstrating example usage.</p></li>
+<li><p>New built-in metrics:</p>
+<ul>
+<li><code>metric_true_negatives()</code></li>
+<li><code>metric_true_positives()</code></li>
+<li><code>metric_false_negatives()</code></li>
+<li><code>metric_false_positives()</code></li>
+<li><code>metric_specificity_at_sensitivity()</code></li>
+<li><code>metric_sensitivity_at_specificity()</code></li>
+<li><code>metric_precision()</code></li>
+<li><code>metric_precision_at_recall()</code></li>
+<li><code>metric_sum()</code></li>
+<li><code>metric_recall()</code></li>
+<li><code>metric_recall_at_precision()</code></li>
+<li><code>metric_root_mean_squared_error()</code></li>
+<li><code>metric_sparse_categorical_accuracy()</code></li>
+<li><code>metric_mean_tensor()</code></li>
+<li><code>metric_mean_wrapper()</code></li>
+<li><code>metric_mean_iou()</code></li>
+<li><code>metric_mean_relative_error()</code></li>
+<li><code>metric_logcosh_error()</code></li>
+<li><code>metric_mean()</code></li>
+<li><code>metric_cosine_similarity()</code></li>
+<li><code>metric_categorical_hinge()</code></li>
+<li><code>metric_accuracy()</code></li>
+<li><code>metric_auc()</code></li>
+</ul></li>
+</ul></li>
+<li><p><code>keras_model_sequential()</code> gains the ability to accept arguments that define the input layer like <code>input_shape</code> and <code>dtype</code>. See <code>?keras_model_sequential</code> for details and examples.</p></li>
+<li><p>Many layers gained new arguments, coming to parity with the interface available in the latest Python version:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>layer name</th>
+<th>new argument</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>layer_gru</code></td>
+<td><code>time_major</code></td>
+</tr>
+<tr class="even">
+<td><code>layer_lstm</code></td>
+<td><code>time_major</code></td>
+</tr>
+<tr class="odd">
+<td><code>layer_max_pooling_1d</code></td>
+<td><code>data_format</code></td>
+</tr>
+<tr class="even">
+<td><code>layer_conv_lstm_2d</code></td>
+<td><code>return_state</code></td>
+</tr>
+<tr class="odd">
+<td><code>layer_depthwise_conv_2d</code></td>
+<td><code>dilation_rate</code></td>
+</tr>
+<tr class="even">
+<td><code>layer_conv_3d_transpose</code></td>
+<td><code>dilation_rate</code></td>
+</tr>
+<tr class="odd">
+<td><code>layer_conv_1d</code></td>
+<td><code>groups</code></td>
+</tr>
+<tr class="even">
+<td><code>layer_conv_2d</code></td>
+<td><code>groups</code></td>
+</tr>
+<tr class="odd">
+<td><code>layer_conv_3d</code></td>
+<td><code>groups</code></td>
+</tr>
+<tr class="even">
+<td><code>layer_locally_connected_1d</code></td>
+<td><code>implementation</code></td>
+</tr>
+<tr class="odd">
+<td><code>layer_locally_connected_2d</code></td>
+<td><code>implementation</code></td>
+</tr>
+<tr class="even">
+<td><code>layer_text_vectorization</code></td>
+<td><code>vocabulary</code></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>The <code>compile()</code> method for keras models has been updated:</p>
+<ul>
+<li><code>optimizer</code> is now an optional argument. It defaults to <code>"rmsprop"</code> for regular keras models. Custom models can specify their own default optimizer.</li>
+<li><code>loss</code> is now an optional argument.</li>
+<li>New optional arguments: <code>run_eagerly</code>, <code>steps_per_execution</code>.</li>
+<li><code>target_tensors</code> and <code>sample_weight_mode</code> must now be supplied as named arguments.</li>
+</ul></li>
+<li><p>Added activation functions swish and gelu. (#1226)</p></li>
+<li><p><code>set_vocabulary()</code> gains a <code>idf_weights</code> argument.</p></li>
+<li><p>All optimizer had argument <code>lr</code> renamed to <code>learning_rate</code>. (backwards compatibility is preserved, an R warning is now issued).</p></li>
+<li><p>The glue package was added to Imports</p></li>
+<li><p>Refactored automated tests to closer match the default installation procedure and compute environment of most user.</p></li>
+<li><p>Expanded CI test coverage to include R devel, oldrel and 3.6.</p></li>
+</ul>
+</section>
+<section id="keras-2.4.0" class="level1">
+<h1>keras 2.4.0</h1>
+<ul>
+<li>Use compat module when using <code>set_session</code> and <code>get_session</code>. (#1046)</li>
+<li>Allows passing other arguments to <code>keras_model</code> eg <code>name</code>. (#1045)</li>
+<li>Fixed bug when serializing models with the plaidml backends.(#1084)</li>
+<li>Install keras no longer tries to install scipy because it’s already installed by tensorflow (#1081)</li>
+<li>Fixed bug with <code>layer_text_vectorization</code> with TensorFlow &gt;= 2.3 (#1131)</li>
+<li>Handle renamed argument <code>text</code> to <code>input_text</code> in <code>text_one_hot</code> (#1133)</li>
+<li>Added TensorFlow 2.3 to the CI (#1102)</li>
+<li>Fix C stack error when using Image Data Generators and Time Series generators with TensorFlow &lt;= 2.0.1 (#1135)</li>
+<li>Fixed warning raised in the initial epoch (<span class="citation" data-cites="gsteinbu">@gsteinbu</span> #1130)</li>
+<li>Consistent result when using <code>text_hashing_trick</code> with missing values (<span class="citation" data-cites="topepo">@topepo</span> #1048)</li>
+<li>Added a custom error message for <code>k_logsumexp</code> as it was removed from Keras (#1137)</li>
+<li>Fixed bug when printing models that are not built yet. (#1138)</li>
+<li>Fix drop_duplicates DeprecationWarning with tf 2.3 (<span class="citation" data-cites="gsteinbu">@gsteinbu</span> #1139 #1141)</li>
+<li>Fixed bug when plotting the model history if the model used an early stopping callback (#1140)</li>
+<li><code>install_keras</code> now installs a fixed version of h5py, because newer versions are backward incompatible. (#1142)</li>
+<li>Simplify testing utilities by using a <code>helper-*</code> file. (#1173)</li>
+<li>Deprecated <code>hdf5_matrix</code> if using TF &gt;= 2.4 (#1175)</li>
+<li>Fixed TensorFlow nightly installation on CI (#1176)</li>
+<li>Support for TensorFlow v2.4: just small fixes for custom classes. (#1177)</li>
+<li>Added <code>untar</code> argument to <code>get_file</code> as it seems to be slightly different from <code>extract</code> (#1179)</li>
+<li>Warn when not using the tensorflow implementation of Keras (#1181)</li>
+<li>Added <code>layer_layer_normalization</code> (#1183)</li>
+<li>Added <code>layer_multihead_attention</code> (#1184)</li>
+<li>Added <code>image_dataset_from_directory</code> (#1185)</li>
+<li>Fixed bug when using a custom layer with a time distributed adverb. (#1188)</li>
+<li>Added the <code>ragged</code> argument to <code>layer_input</code>. (#1193)</li>
+<li>Fixed <code>*_generator</code> deadlocks with recent versions of TensorFlow (#1197)</li>
+</ul>
+</section>
+<section id="keras-2.2.3.0-cran" class="level1">
+<h1>Keras 2.2.3.0 (CRAN)</h1>
+<ul>
+<li>Added <code>layer_attention</code> (#1000) by <span class="citation" data-cites="atroiano">@atroiano</span>.</li>
+<li>Fixed issue regarding the KerasMetricsCallback with TF v2.2 (#1020)</li>
+</ul>
+</section>
+<section id="keras-2.2.5.0-cran" class="level1">
+<h1>Keras 2.2.5.0 (CRAN)</h1>
+<ul>
+<li><p>Added <code>layer_dense_features</code>.</p></li>
+<li><p>Added <code>on_test_*</code>, <code>on_test_batch_*</code>, <code>on_predict_*</code> and <code>on_predict_*</code> to callback options.</p></li>
+<li><p>Search for the right optimizers and initializers on TensorFlow 2.0</p></li>
+<li><p>Fixed bug in function generators when using models with multiple inputs. (#740)</p></li>
+<li><p>Added <code>export_savedmodel</code> support for TensorFlow 2.0 (#773)</p></li>
+<li><p>Fixed bug when using <code>metric_</code> functions. (#804)</p></li>
+<li><p>Allow users to pass additional arguments to <code>install_keras</code> (#808)</p></li>
+<li><p>Enabled calling Keras models with R arrays. (#806)</p></li>
+<li><p>Allow passing <code>data.frames</code> as inputs to Keras models. (#822)</p></li>
+<li><p>Fixed bug when passing a fixed validation set to <code>fit_generator</code> (#837)</p></li>
+<li><p>Fixed bug when passing a TensorFlow dataset to <code>fit</code> within a <code>tf$distribute</code> scope. (#856)</p></li>
+<li><p><code>install_keras</code> will now install Keras dependencies (#856). It won’t re-install TensorFlow if it’s already installed.</p></li>
+<li><p>Fixed deprecation messages showed with TensorFlow v1.14.</p></li>
+<li><p>Largely reduced tests verbosity.</p></li>
+</ul>
+<section id="keras-2.2.4.1-cran" class="level2">
+<h2 class="anchored" data-anchor-id="keras-2.2.4.1-cran">Keras 2.2.4.1 (CRAN)</h2>
+<ul>
+<li><p>Use <code>tf.keras</code> as default implementation module.</p></li>
+<li><p>Added AppVeyor to test on Windows.</p></li>
+<li><p>Added <code>flow_images_from_dataframe</code> function (#658).</p></li>
+<li><p>Allow for unknown <code>input_shape</code> in <code>application_*</code> functions.</p></li>
+<li><p>Added <code>save_model_tf</code> and <code>load_model_tf</code> to save/load models in the TensorFlow’s SavedModel format.</p></li>
+</ul>
+</section>
+</section>
+<section id="keras-2.2.4-cran" class="level1">
+<h1>Keras 2.2.4 (CRAN)</h1>
+<ul>
+<li><p>Improve handling of <code>timeseries_generator()</code> in calls to <code>fit_generator()</code></p></li>
+<li><p>Add support for <code>input_shape</code> argument to <code>layer_dropout()</code></p></li>
+<li><p>Improve error message for data frames passed to <code>fit()</code>, etc.</p></li>
+<li><p>Use 1-based axis indices for <code>k_gather()</code></p></li>
+<li><p>Added <code>version</code> parameter to <code>install_keras()</code> for installing alternate/older versions</p></li>
+<li><p>Added <code>activation_exponential()</code> function.</p></li>
+<li><p>Added <code>threshold</code> parameter to <code>activation_relu()</code></p></li>
+<li><p>Added <code>restore_best_weights</code> parameter to <code>callback_model_checkpoint()</code></p></li>
+<li><p>Added <code>update_freq</code> parameter to <code>callback_tensorboard()</code></p></li>
+<li><p>Added <code>negative_slope</code> and <code>threshold</code> parameters to <code>layer_activation_relu()</code></p></li>
+<li><p>Added <code>output_padding</code> and <code>dilation_rate</code> parameters to <code>layer_conv_2d_transpose()</code></p></li>
+<li><p>Added <code>output_padding</code> argument to <code>layer_conv_3d_transpose()</code></p></li>
+<li><p>Added <code>data_format</code> argument to <code>layer_separable_conv_1d()</code>, <code>layer_average_pooling_1d()</code>, <code>layer_global_max_pooling_1d()</code>, and <code>layer_global_average_pooling_1d()</code></p></li>
+<li><p>Added <code>interpolation</code> argument to <code>layer_upsampling_1d()</code> and <code>layer_upsampling_2d()</code></p></li>
+<li><p>Added <code>dtype</code> argument to <code>to_categorical()</code></p></li>
+<li><p>Added <code>layer_activation_selu()</code> function.</p></li>
+<li><p>Added <code>KerasWrapper</code> class and corresponding <code>create_wrapper</code> function.</p></li>
+</ul>
+</section>
+<section id="keras-2.2.0" class="level1">
+<h1>Keras 2.2.0</h1>
+<ul>
+<li><p>Fix issue with serializing models that have constraint arguments</p></li>
+<li><p>Fix issue with <code>k_tile</code> that needs an integer vector instead of a list as the <code>n</code> argument.</p></li>
+<li><p>Fix issue with user-supplied <code>output_shape</code> in <code>layer_lambda()</code> not being supplied to tensorflow backends</p></li>
+<li><p>Filter out metrics that were created for callbacks (e.g.&nbsp;<code>lr</code>)</p></li>
+<li><p>Added <code>application_mobilenet_v2()</code> pre-trained model</p></li>
+<li><p>Added <code>sample_weight</code> parameter to <code>flow_images_from_data()</code></p></li>
+<li><p>Use native Keras implementation (rather than SciPy) for <code>image_array_save()</code></p></li>
+<li><p>Default <code>layer_flatten()</code> <code>data_format</code> argument to <code>NULL</code> (which defaults to global Keras config).</p></li>
+<li><p>Add <code>baseline</code> argument to <code>callback_early_stopping()</code> (stop training if a given baseline isn’t reached).</p></li>
+<li><p>Add <code>data_format</code> argument to <code>layer_conv_1d()</code>.</p></li>
+<li><p>Add <code>layer_activation_relu()</code>, making the ReLU activation easier to configure while retaining easy serialization capabilities.</p></li>
+<li><p>Add <code>axis = -1</code> argument in backend crossentropy functions specifying the class prediction axis in the input tensor.</p></li>
+<li><p>Handle symbolic tensors and TF datasets in calls to <code>fit()</code>, <code>evaluate()</code>, and <code>predict()</code></p></li>
+<li><p>Add <code>embeddings_data</code> argument to <code>callback_tensorboard()</code></p></li>
+<li><p>Support for defining custom Keras models (i.e.&nbsp;custom <code>call()</code> logic for forward pass)</p></li>
+<li><p>Handle named list of model output names in <code>metrics</code> argument of <code>compile()</code></p></li>
+<li><p>New <code>custom_metric()</code> function for defining custom metrics in R</p></li>
+<li><p>Provide typed wrapper for categorical custom metrics</p></li>
+<li><p>Provide access to Python layer within R custom layers</p></li>
+<li><p>Don’t convert custom layer output shape to tuple when shape is a list or tuple of other shapes</p></li>
+<li><p>Re-export <code>shape()</code> function from tensorflow package</p></li>
+<li><p>Re-export <code>tuple()</code> function from reticulate package</p></li>
+<li><p>Indexes for <code>get_layer()</code> are now 1-based (for consistency w/ <code>freeze_weights()</code>)</p></li>
+<li><p>Accept named list for <code>sample_weight</code> argument to <code>fit()</code></p></li>
+</ul>
+<section id="keras-2.1.6" class="level2">
+<h2 class="anchored" data-anchor-id="keras-2.1.6">Keras 2.1.6</h2>
+<ul>
+<li><p>Fix issue with single-element vectors passed to text preprocessing functions</p></li>
+<li><p>Compatibility with TensorFlow v1.7 Keras implementation</p></li>
+<li><p>Support <code>workers</code> parameter for native Keras generators (e.g.&nbsp;<code>flow_images_from_directory()</code>)</p></li>
+<li><p>Accept tensor as argument to <code>k_pow()</code></p></li>
+<li><p>In <code>callback_reduce_lr_on_plateau()</code>, rename <code>epsilon</code> argument to <code>min_delta</code> (backwards-compatible).</p></li>
+<li><p>Add <code>axis</code> parameter to <code>k_softmax()</code></p></li>
+<li><p>Add <code>send_as_json</code> parameter to <code>callback_remote_monitor()</code></p></li>
+<li><p>Add <code>data_format</code> method to <code>layer_flatten()</code></p></li>
+<li><p>In <code>multi_gpu_model()</code>, add arguments <code>cpu_merge</code> and <code>cpu_relocation</code> (controlling whether to force the template model’s weights to be on CPU, and whether to operate merge operations on CPU or GPU).</p></li>
+<li><p>Record correct loss name for tfruns when custom functions are provided for <code>loss</code></p></li>
+</ul>
+</section>
+<section id="keras-2.1.5" class="level2">
+<h2 class="anchored" data-anchor-id="keras-2.1.5">Keras 2.1.5</h2>
+<ul>
+<li><p>Support for custom constraints from R</p></li>
+<li><p>Added <code>timeseries_generator()</code> utility function</p></li>
+<li><p>New layer <code>layer_depthwise_conv_2d()</code></p></li>
+<li><p>Added <code>brightness_range</code> and <code>validation_split</code> arguments to [image_data_generator()].</p></li>
+</ul>
+</section>
+<section id="keras-2.1.4" class="level2">
+<h2 class="anchored" data-anchor-id="keras-2.1.4">Keras 2.1.4</h2>
+<ul>
+<li><p>Added support for <code>remove_learning_phase</code> in <code>export_savedmodel()</code> to avoid removing learning phase.</p></li>
+<li><p>Normalize validation data to Keras array in <code>fit()</code> and <code>fit_generator()</code></p></li>
+<li><p>Ensure that custom layers return a tuple from <code>compute_output_shape()</code></p></li>
+<li><p>Added Nasnet and Densenet pre-trained models</p></li>
+<li><p>New layers <code>layer_activation_softmax()</code> and <code>layer_separable_conv_1d()</code></p></li>
+<li><p>Added <code>amsgrad</code> parameter to <code>optimizer_adam()</code></p></li>
+<li><p>Fix incompatibility with Progbar.update() method in Keras 2.1.4</p></li>
+</ul>
+</section>
+<section id="keras-2.1.3" class="level2">
+<h2 class="anchored" data-anchor-id="keras-2.1.3">Keras 2.1.3</h2>
+<ul>
+<li><p>Models saved via <code>export_savedmodel()</code> that make use of learning phases can now be exported without having to manually reload the original model.</p></li>
+<li><p>Ensure that models saved via <code>export_savedmodel()</code> can be served from CloudML</p></li>
+<li><p>Run image data generators with R preprocessing functions on the main thread</p></li>
+<li><p>Return R list from <code>texts_to_sequences()</code></p></li>
+<li><p>Various fixes for <code>use_implementation()</code> function</p></li>
+</ul>
+</section>
+</section>
+<section id="keras-2.1.2" class="level1">
+<h1>Keras 2.1.2</h1>
+<ul>
+<li><p>Added <code>theme_bw</code> option to plot method for training history</p></li>
+<li><p>Support TF Dataset objects as generators for <code>fit_generator()</code>, etc.</p></li>
+<li><p>Added <code>use_implementation()</code> and <code>use_backend()</code> functions as alternative to setting <code>KERAS_IMPLEMENATION</code> and <code>KERAS_BACKEND</code> environment variables.</p></li>
+<li><p>Added R wrappers for Keras backend functions (e.g.&nbsp;<code>k_variable()</code>, <code>k_dot()</code>, etc.)</p></li>
+<li><p>Use 1-based axis for <code>normalize</code> function.</p></li>
+<li><p>Fix issue with printing training history after early stopping.</p></li>
+<li><p>Experimental support for using the PlaidML backend.</p></li>
+<li><p>Correct handling for R functions specified in <code>custom_objects</code></p></li>
+<li><p>Added <code>with_custom_object_scope()</code> function.</p></li>
+<li><p>Automatically provide name to loss function during compile (enables save/load of models with custom loss function)</p></li>
+<li><p>Provide global <code>keras.fit_verbose</code> option (defaults to 1)</p></li>
+</ul>
+</section>
+<section id="keras-2.0.9" class="level1">
+<h1>keras 2.0.9</h1>
+<ul>
+<li><p>Added <code>multi_gpu_model()</code> function.</p></li>
+<li><p>Automatically call <code>keras_array()</code> on the results of generator functions.</p></li>
+<li><p>Ensure that <code>steps_per_epoch</code> is passed as an integer</p></li>
+<li><p>Import <code>evaluate()</code> generic from tensorflow package</p></li>
+<li><p>Handle <code>NULL</code> when converting R arrays to Keras friendly arrays</p></li>
+<li><p>Added <code>dataset_imbd_word_index()</code> function</p></li>
+<li><p>Ensure that <code>sample_weight</code> is passed to <code>fit()</code> as an array.</p></li>
+<li><p>Accept single function as <code>metrics</code> argument to <code>compile()</code></p></li>
+<li><p>Automatically cast <code>input_shape</code> argument to applications to integer</p></li>
+<li><p>Allow Keras models to be composable within model pipelines</p></li>
+<li><p>Added <code>freeze_weights()</code> and <code>unfreeze_weights()</code> functions.</p></li>
+<li><p>Implement <code>export_savedmodel()</code> generic from TensorFlow package</p></li>
+<li><p>Convert R arrays to row-major before image preprocessing</p></li>
+<li><p>Use <code>tensorflow.keras</code> for tensorflow implementation (TF v1.4)</p></li>
+<li><p>Added <code>application_inception_resnet_v2()</code> pre-trained model</p></li>
+<li><p>Added <code>dataset_fashion_mnist()</code> dataset</p></li>
+<li><p>Added <code>layer_cudnn_gru()</code> and <code>layer_cudnn_lstm()</code> (faster recurrent layers backed by <a href="https://developer.nvidia.com/cudnn">CuDNN</a>)</p></li>
+<li><p>Added <code>layer_minimum()</code> function</p></li>
+<li><p>Added <code>interpolation</code> parameter to <code>image_load()</code> function</p></li>
+<li><p>Add <code>save_text_tokenizer()</code> and <code>load_text_tokenizer()</code> functions.</p></li>
+<li><p>Fix for progress bar output in Keras &gt;= 2.0.9</p></li>
+<li><p>Remove deprecated <code>implementation</code> argument from recurrent layers</p></li>
+<li><p>Support for passing generators for validation data in <code>fit_generator()</code></p></li>
+<li><p>Accept single integer arguments for kernel sizes</p></li>
+<li><p>Add standard layer arguments to <code>layer_flatten()</code> and <code>layer_separable_conv_2d()</code></p></li>
+<li><p>Added <code>image_array_resize()</code> and <code>image_array_save()</code> for 3D image arrays.</p></li>
+<li><p>Allow custom layers and lambda layers to accept list parameters.</p></li>
+<li><p>Expose <code>add_loss()</code> function for custom layers</p></li>
+</ul>
+</section>
+<section id="keras-2.0.8" class="level1">
+<h1>keras 2.0.8</h1>
+<ul>
+<li><p>Add <code>use_session_with_seed()</code> function that establishes a random seed for the Keras session. Note that this should not be used when training time is paramount, as it disables GPU computation and CPU parallelism by default for more deterministic computations.</p></li>
+<li><p>Fix for plotting training history with early stopping callback (thanks to <span class="citation" data-cites="JamesAllingham">@JamesAllingham</span>).</p></li>
+<li><p>Return R training history object from <code>fit_generator()</code></p></li>
+<li><p>Rename <code>to_numpy_array()</code> function to <code>keras_array()</code> reflecting automatic use of Keras default backend float type and “C” ordering.</p></li>
+<li><p>Add standard layer arguments (e.g.&nbsp;<code>name</code>, <code>trainable</code>, etc.) to merge layers</p></li>
+<li><p>Better support for training models from data tensors in TensorFlow (e.g.&nbsp;Datasets, TFRecords). Add a related example script.</p></li>
+<li><p>Add <code>clone_model()</code> function, enabling to construct a new model, given an existing model to use as a template. Works even in a TensorFlow graph different from that of the original model.</p></li>
+<li><p>Add <code>target_tensors</code> argument in <code>compile()</code>, enabling to use custom tensors or placeholders as model targets.</p></li>
+<li><p>Add <code>steps_per_epoch</code> argument in <code>fit()</code>, enabling to train a model from data tensors in a way that is consistent with training from arrays. Similarly, add <code>steps</code> argument in <code>predict()</code> and <code>evaluate()</code>.</p></li>
+<li><p>Add <code>layer_subtract()</code> layer function.</p></li>
+<li><p>Add <code>weighted_metrics</code> argument in compile to specify metric functions meant to take into account <code>sample_weight</code> or <code>class_weight</code>.</p></li>
+<li><p>Enable stateful RNNs with CNTK.</p></li>
+</ul>
+<section id="keras-2.0.6" class="level2">
+<h2 class="anchored" data-anchor-id="keras-2.0.6">keras 2.0.6</h2>
+<ul>
+<li><p><code>install_keras()</code> function which installs both TensorFlow and Keras</p></li>
+<li><p>Use keras package as default implementation rather than tf.contrib.keras</p></li>
+<li><p>Training metrics plotted in realtime within the RStudio Viewer during fit</p></li>
+<li><p><code>serialize_model()</code> and <code>unserialize_model()</code> functions for saving Keras models as ‘raw’ R objects.</p></li>
+<li><p>Automatically convert 64-bit R floats to backend default float type</p></li>
+<li><p>Ensure that arrays passed to generator functions are normalized to C-order</p></li>
+<li><p><code>to_numpy_array()</code> utility function for custom generators (enables custom generators to yield C-ordered arrays of the correct float type)</p></li>
+<li><p>Added <code>batch_size</code> and <code>write_grads</code> arguments to <code>callback_tensorboard()</code></p></li>
+<li><p>Added <code>return_state</code> argument to recurrent layers.</p></li>
+<li><p>Don’t re-export <code>install_tensorflow()</code> and <code>tf_config()</code> from tensorflow package.</p></li>
+<li><p><code>is_keras_available()</code> function to probe whether the Keras Python package is available in the current environment.</p></li>
+<li><p><code>as.data.frame()</code> S3 method for Keras training history</p></li>
+<li><p>Remove names from <code>keras_model()</code> inputs</p></li>
+<li><p>Return result of <code>evaluate()</code> as named list</p></li>
+<li><p>Write run metrics and evaluation data to tfruns</p></li>
+<li><p>Provide hint to use r-tensorflow environment when importing keras</p></li>
+</ul>
+</section>
+</section>
+<section id="keras-2.0.5" class="level1">
+<h1>keras 2.0.5</h1>
+<ul>
+<li>Initial CRAN release</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

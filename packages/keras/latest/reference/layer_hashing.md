@@ -1,0 +1,149 @@
+# layer_hashing
+
+
+A preprocessing layer which hashes and bins categorical features.
+
+
+
+
+## Description
+
+A preprocessing layer which hashes and bins categorical features.
+
+
+
+
+
+## Usage
+```r
+layer_hashing(object, num_bins, mask_value = NULL, salt = NULL, ...)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
+num_bins | Number of hash bins. Note that this includes the ``mask_value`` bin, so the effective number of bins is ``(num_bins - 1)`` if ``mask_value`` is set.
+mask_value | A value that represents masked inputs, which are mapped to index 0. Defaults to NULL, meaning no mask term will be added and the hashing will start at index 0.
+salt | A single unsigned integer or NULL. If passed, the hash function used will be SipHash64, with these values used as an additional input (known as a "salt" in cryptography). These should be non-zero. Defaults to ``NULL`` (in that case, the FarmHash64 hash function is used). It also supports list of 2 unsigned integer numbers, see reference paper for details.
+... | standard layer arguments.
+
+
+
+
+## Details
+
+This layer transforms single or multiple categorical inputs to hashed output.
+It converts a sequence of int or string to a sequence of int. The stable hash
+function uses tensorflow::ops::Fingerprint to produce the same output
+consistently across all platforms.
+
+This layer uses https://github.com/google/farmhashFarmHash64 by default,
+which provides a consistent hashed output across different platforms and is
+stable across invocations, regardless of device and context, by mixing the
+input bits thoroughly.
+
+If you want to obfuscate the hashed output, you can also pass a random ``salt``
+argument in the constructor. In that case, the layer will use the
+https://github.com/google/highwayhashSipHash64 hash function, with
+the ``salt`` value serving as additional input to the hash function.
+
+Example (FarmHash64)
+
+html<div class="sourceCode r">layer <- layer_hashing(num_bins=3)
+inp <- matrix(c('A', 'B', 'C', 'D', 'E'))
+layer(inp)
+# <tf.Tensor: shape=(5, 1), dtype=int64, numpy=
+#   array([[1],
+#          [0],
+#          [1],
+#          [1],
+#          [2]])>
+html</div>
+
+Example (FarmHash64) with a mask value
+
+html<div class="sourceCode r">layer <- layer_hashing(num_bins=3, mask_value='')
+inp <- matrix(c('A', 'B', 'C', 'D', 'E'))
+layer(inp)
+# <tf.Tensor: shape=(5, 1), dtype=int64, numpy=
+#   array([[1],
+#          [1],
+#          [0],
+#          [2],
+#          [2]])>
+html</div>
+
+Example (SipHash64)
+
+html<div class="sourceCode r">layer <- layer_hashing(num_bins=3, salt=c(133, 137))
+inp <- matrix(c('A', 'B', 'C', 'D', 'E'))
+layer(inp)
+# <tf.Tensor: shape=(5, 1), dtype=int64, numpy=
+#   array([[1],
+#          [2],
+#          [1],
+#          [0],
+#          [2]])>
+html</div>
+
+Example (Siphash64 with a single integer, same as salt=[133, 133])
+
+html<div class="sourceCode r">layer <- layer_hashing(num_bins=3, salt=133)
+inp <- matrix(c('A', 'B', 'C', 'D', 'E'))
+layer(inp)
+# <tf.Tensor: shape=(5, 1), dtype=int64, numpy=
+#   array([[0],
+#          [0],
+#          [2],
+#          [1],
+#          [0]])>
+html</div>
+
+
+
+
+
+
+
+## See Also
+
+
+
+*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/Hashing
+
+*  https://keras.io/api/layers/preprocessing_layers/categorical/hashing/
+
+
+Other categorical features preprocessing layers: 
+`layer_category_encoding()`,
+`layer_integer_lookup()`,
+`layer_string_lookup()`
+
+Other preprocessing layers: 
+`layer_category_encoding()`,
+`layer_center_crop()`,
+`layer_discretization()`,
+`layer_integer_lookup()`,
+`layer_normalization()`,
+`layer_random_brightness()`,
+`layer_random_contrast()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_rotation()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`,
+`layer_rescaling()`,
+`layer_resizing()`,
+`layer_string_lookup()`,
+`layer_text_vectorization()`
+
+
+

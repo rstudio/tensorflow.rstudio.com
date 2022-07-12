@@ -1,0 +1,62 @@
+# tf_assert
+
+
+tf_assert
+
+
+
+
+## Description
+
+A thin wrapper around ``tf$Assert()`` that automatically constructs an
+informative error message (passed on to ``data`` argument), which includes the
+expression passed to ``condition``, the values of the symbols found in the
+expression, as well as the full R call stack at the time the ``tf$Assert()``
+node is created.
+
+
+
+
+
+## Usage
+```r
+tf_assert(
+  condition,
+  ...,
+  expr = substitute(condition),
+  summarize = NULL,
+  name = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+condition | A boolean tensor
+... | Additional elements passed on to ``data``. (e.g, an informative error message as a string, additional tensor values that might be useful to have in the error message, etc.)
+expr | A language object, provided in case ``condition`` is already computed prior to the call
+summarize | Print this many entries of each tensor.
+name | A name for this operation (optional).
+
+
+
+
+
+
+## Examples
+
+```r
+
+x <- tf$constant(-1)
+try(tf_assert(x > 0, "oopsies! x must be greater than 0"))
+
+```
+
+
+
+

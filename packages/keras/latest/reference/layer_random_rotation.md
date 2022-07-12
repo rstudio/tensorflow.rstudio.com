@@ -1,0 +1,109 @@
+# layer_random_rotation
+
+
+Randomly rotate each image
+
+
+
+
+## Description
+
+Randomly rotate each image
+
+
+
+
+
+## Usage
+```r
+layer_random_rotation(
+  object,
+  factor,
+  fill_mode = "reflect",
+  interpolation = "bilinear",
+  seed = NULL,
+  fill_value = 0,
+  ...
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
+factor | a float represented as fraction of 2 Pi, or a list of size 2 representing lower and upper bound for rotating clockwise and counter-clockwise. A positive values means rotating counter clock-wise, while a negative value means clock-wise. When represented as a single float, this value is used for both the upper and lower bound. For instance, ``factor = c(-0.2, 0.3)`` results in an output rotation by a random amount in the range [-20% * 2pi, 30% * 2pi]. ``factor = 0.2`` results in an output rotating by a random amount in the range [-20% * 2pi, 20% * 2pi].
+fill_mode | Points outside the boundaries of the input are filled according to the given mode (one of {"constant", "reflect", "wrap", "nearest"}).   *  reflect: (d c b a | a b c d | d c b a) The input is extended by reflecting about the edge of the last pixel.  *  constant: (k k k k | a b c d | k k k k) The input is extended by filling all values beyond the edge with the same constant value k = 0.  *  wrap: (a b c d | a b c d | a b c d) The input is extended by wrapping around to the opposite edge.  *  nearest: (a a a a | a b c d | d d d d) The input is extended by the nearest pixel.
+interpolation | Interpolation mode. Supported values: ``"nearest"``, ``"bilinear"``.
+seed | Integer. Used to create a random seed.
+fill_value | a float represents the value to be filled outside the boundaries when ``fill_mode="constant"``.
+... | standard layer arguments.
+
+
+
+
+## Details
+
+By default, random rotations are only applied during training.
+At inference time, the layer does nothing. If you need to apply random
+rotations at inference time, set ``training`` to TRUE when calling the layer.
+
+Input shape:
+3D (unbatched) or 4D (batched) tensor with shape:
+(..., height, width, channels), in ``"channels_last"`` format
+
+Output shape:
+3D (unbatched) or 4D (batched) tensor with shape:
+(..., height, width, channels), in ``"channels_last"`` format
+
+
+
+
+
+
+
+## See Also
+
+
+
+*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/RandomRotation
+
+*  https://keras.io/api/layers/preprocessing_layers/
+
+
+Other image augmentation layers: 
+`layer_random_brightness()`,
+`layer_random_contrast()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`
+
+Other preprocessing layers: 
+`layer_category_encoding()`,
+`layer_center_crop()`,
+`layer_discretization()`,
+`layer_hashing()`,
+`layer_integer_lookup()`,
+`layer_normalization()`,
+`layer_random_brightness()`,
+`layer_random_contrast()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`,
+`layer_rescaling()`,
+`layer_resizing()`,
+`layer_string_lookup()`,
+`layer_text_vectorization()`
+
+
+

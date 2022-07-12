@@ -1,0 +1,55 @@
+# sequential_model_input_layer
+
+
+sequential_model_input_layer
+
+
+
+
+## Description
+
+sequential_model_input_layer
+
+
+
+
+
+## Usage
+```r
+sequential_model_input_layer(
+  input_shape = NULL,
+  batch_size = NULL,
+  dtype = NULL,
+  input_tensor = NULL,
+  sparse = NULL,
+  name = NULL,
+  ragged = NULL,
+  type_spec = NULL,
+  ...,
+  input_layer_name = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+input_shape | an integer vector of dimensions (not including the batch axis), or a ``tf$TensorShape`` instance (also not including the batch axis).
+batch_size | Optional input batch size (integer or NULL).
+dtype | Optional datatype of the input. When not provided, the Keras default float type will be used.
+input_tensor | Optional tensor to use as layer input. If set, the layer will use the ``tf$TypeSpec`` of this tensor rather than creating a new placeholder tensor.
+sparse | Boolean, whether the placeholder created is meant to be sparse. Default to ``FALSE``.
+ragged | Boolean, whether the placeholder created is meant to be ragged. In this case, values of 'NULL' in the 'shape' argument represent ragged dimensions. For more information about ``RaggedTensors``, see this https://www.tensorflow.org/guide/ragged_tensorguide. Default to ``FALSE``.
+type_spec | A ``tf$TypeSpec`` object to create Input from. This ``tf$TypeSpec`` represents the entire batch. When provided, all other args except name must be ``NULL``.
+... | additional arguments passed on to ``keras$layers$InputLayer``.
+input_layer_name, name | Optional name of the input layer (string).
+
+
+
+
+
+

@@ -1,0 +1,77 @@
+# flow_images_from_data
+
+
+Generates batches of augmented/normalized data from image data and labels
+
+
+
+
+## Description
+
+Generates batches of augmented/normalized data from image data and labels
+
+
+
+
+
+## Usage
+```r
+flow_images_from_data(
+  x,
+  y = NULL,
+  generator = image_data_generator(),
+  batch_size = 32,
+  shuffle = TRUE,
+  sample_weight = NULL,
+  seed = NULL,
+  save_to_dir = NULL,
+  save_prefix = "",
+  save_format = "png",
+  subset = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+x | data. Should have rank 4. In case of grayscale data, the channels axis should have value 1, and in case of RGB data, it should have value 3.
+y | labels (can be ``NULL`` if no labels are required)
+generator | Image data generator to use for augmenting/normalizing image data.
+batch_size | int (default: ``32``).
+shuffle | boolean (defaut: ``TRUE``).
+sample_weight | Sample weights.
+seed | int (default: ``NULL``).
+save_to_dir | ``NULL`` or str (default: ``NULL``). This allows you to optionally specify a directory to which to save the augmented pictures being generated (useful for visualizing what you are doing).
+save_prefix | str (default: ''). Prefix to use for filenames of saved pictures (only relevant if ``save_to_dir`` is set).
+save_format | one of "png", "jpeg" (only relevant if save_to_dir is set). Default: "png".
+subset | Subset of data (``"training"`` or ``"validation"``) if ``validation_split`` is set in `image_data_generator()`.
+
+
+
+
+## Details
+
+Yields batches indefinitely, in an infinite loop.
+
+
+
+
+
+
+
+## See Also
+
+Other image preprocessing: 
+`fit_image_data_generator()`,
+`flow_images_from_dataframe()`,
+`flow_images_from_directory()`,
+`image_load()`,
+`image_to_array()`
+
+
+

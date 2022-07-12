@@ -1,0 +1,53 @@
+# fit_image_data_generator
+
+
+Fit image data generator internal statistics to some sample data.
+
+
+
+
+## Description
+
+Required for ``featurewise_center``, ``featurewise_std_normalization``
+and ``zca_whitening``.
+
+
+
+
+
+## Usage
+```r
+fit_image_data_generator(object, x, augment = FALSE, rounds = 1, seed = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | `image_data_generator()`
+x | array, the data to fit on (should have rank 4). In case of grayscale data, the channels axis should have value 1, and in case of RGB data, it should have value 3.
+augment | Whether to fit on randomly augmented samples
+rounds | If ``augment``, how many augmentation passes to do over the data
+seed | random seed.
+
+
+
+
+
+
+
+## See Also
+
+Other image preprocessing: 
+`flow_images_from_dataframe()`,
+`flow_images_from_data()`,
+`flow_images_from_directory()`,
+`image_load()`,
+`image_to_array()`
+
+
+

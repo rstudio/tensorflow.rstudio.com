@@ -1,0 +1,88 @@
+# save_text_tokenizer
+
+
+Save a text tokenizer to an external file
+
+
+
+
+## Description
+
+Enables persistence of text tokenizers alongside saved models.
+
+
+
+
+
+## Usage
+```r
+save_text_tokenizer(object, filename)
+
+load_text_tokenizer(filename)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | Text tokenizer fit with `fit_text_tokenizer()`
+filename | File to save/load
+
+
+
+
+## Details
+
+You should always use the same text tokenizer for training and
+prediction. In many cases however prediction will occur in another
+session with a version of the model loaded via `load_model_hdf5()`.
+
+In this case you need to save the text tokenizer object after training
+and then reload it prior to prediction.
+
+
+
+
+
+
+## Examples
+
+```r
+
+
+# vectorize texts then save for use in prediction
+tokenizer <- text_tokenizer(num_words = 10000) %>%
+fit_text_tokenizer(tokenizer, texts)
+save_text_tokenizer(tokenizer, "tokenizer")
+
+# (train model, etc.)
+
+# ...later in another session
+tokenizer <- load_text_tokenizer("tokenizer")
+
+# (use tokenizer to preprocess data for prediction)
+
+
+```
+
+
+
+
+
+
+## See Also
+
+Other text tokenization: 
+`fit_text_tokenizer()`,
+`sequences_to_matrix()`,
+`text_tokenizer()`,
+`texts_to_matrix()`,
+`texts_to_sequences_generator()`,
+`texts_to_sequences()`
+
+
+

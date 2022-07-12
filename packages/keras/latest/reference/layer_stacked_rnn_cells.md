@@ -1,0 +1,52 @@
+# layer_stacked_rnn_cells
+
+
+Wrapper allowing a stack of RNN cells to behave as a single cell
+
+
+
+
+## Description
+
+Used to implement efficient stacked RNNs.
+
+
+
+
+
+## Usage
+```r
+layer_stacked_rnn_cells(cells, ...)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+cells | List of RNN cell instances.
+... | standard layer arguments.
+
+
+
+
+
+
+
+## See Also
+
+
+
+*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/StackedRNNCells
+
+
+Other RNN cell layers: 
+`layer_gru_cell()`,
+`layer_lstm_cell()`,
+`layer_simple_rnn_cell()`
+
+
+

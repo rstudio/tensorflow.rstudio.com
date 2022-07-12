@@ -1,0 +1,59 @@
+# pop_layer
+
+
+Remove the last layer in a model
+
+
+
+
+## Description
+
+Remove the last layer in a model
+
+
+
+
+
+## Usage
+```r
+pop_layer(object)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | Keras model object
+
+
+
+
+
+
+
+## See Also
+
+Other model functions: 
+`compile.keras.engine.training.Model()`,
+`evaluate.keras.engine.training.Model()`,
+`evaluate_generator()`,
+`fit.keras.engine.training.Model()`,
+`fit_generator()`,
+`get_config()`,
+`get_layer()`,
+`keras_model_sequential()`,
+`keras_model()`,
+`multi_gpu_model()`,
+`predict.keras.engine.training.Model()`,
+`predict_generator()`,
+`predict_on_batch()`,
+`predict_proba()`,
+`summary.keras.engine.training.Model()`,
+`train_on_batch()`
+
+
+

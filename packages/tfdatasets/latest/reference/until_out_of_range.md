@@ -1,0 +1,71 @@
+# until_out_of_range
+
+
+Execute code that traverses a dataset until an out of range condition occurs
+
+
+
+
+## Description
+
+Execute code that traverses a dataset until an out of range condition occurs
+
+
+
+
+
+## Usage
+```r
+until_out_of_range(expr)
+
+out_of_range_handler(e)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+expr | Expression to execute (will be executed multiple times until the condition occurs)
+e | Error object
+
+
+
+
+## Details
+
+When a dataset iterator reaches the end, an out of range runtime error
+will occur. This function will catch and ignore the error when it occurs.
+
+
+
+
+
+
+## Examples
+
+```r
+
+library(tfdatasets)
+dataset <- text_line_dataset("mtcars.csv", record_spec = mtcars_spec) %>%
+  dataset_batch(128) %>%
+  dataset_repeat(10) %>%
+  dataset_prepare(x = c(mpg, disp), y = cyl)
+
+iter <- make_iterator_one_shot(dataset)
+next_batch <- iterator_get_next(iter)
+
+until_out_of_range({
+  batch <- sess$run(next_batch)
+  # use batch$x and batch$y tensors
+})
+
+```
+
+
+
+
+
