@@ -20,7 +20,51 @@ tensorflow::tf_version()
 ### R Environment Information
 
 ```{r}
-Sys.info()
+sessionInfo()
+```
+
+::: {.callout-note appearance="simple"  collapse="true"}
+
+### Python Environment Information
+
+```{r}
+reticulate::py_config()
+reticulate:::pip_freeze(reticulate::py_exe())
+```
+
+### System Information
+
+```{r, echo = FALSE, results='asis'}
+pretty_proc_time <- function(type = "elapsed") {
+  pt <- proc.time()[[type]]
+  duration <- list(weeks = 0, days = 0, hours = 0, minutes = 0, seconds = 0)
+  if (duration$weeks <- (pt %/% 604800)) # 7d * 24h * 60m * 60x
+    pt <- pt %% 604800
+  if (duration$days <- (pt %/% 86400)) 
+    pt <- pt %% 86400
+  if (duration$hours <- (pt %/% 3600)) 
+    pt <- pt %% 3600
+  if (duration$minutes <- (pt %/% 60))
+    pt <- pt %% 60
+  duration$seconds <- pt
+  
+  for (unit in names(duration)) {
+    if (!duration[[unit]])
+      duration[[unit]] <- NULL
+    else
+      break
+  }
+  
+  out <- sprintf("%i %s", as.integer(duration), names(duration))
+  paste(unlist(c(paste(out[-length(out)], collapse = ", "),
+                 out[length(out)])), collapse = " and ")
+}
+system("nvidia-smi")
+cat("TF Devices: ")
+str(tensorflow::tf$config$list_physical_devices(), 
+    no.list=TRUE, comp.str = "- ")
+cat("CPU cores:", parallel::detectCores(), "\n")
+cat(sprintf("Page render time: %s\n", pretty_proc_time()))
 ```
 
 
