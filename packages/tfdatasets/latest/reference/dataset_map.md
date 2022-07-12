@@ -1,0 +1,71 @@
+# dataset_map
+
+
+Map a function across a dataset.
+
+
+
+
+## Description
+
+Map a function across a dataset.
+
+
+
+
+
+## Usage
+```r
+dataset_map(dataset, map_func, num_parallel_calls = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | A dataset
+map_func | A function mapping a nested structure of tensors (having shapes and types defined by `output_shapes()` and `output_types()` to another nested structure of tensors. It also supports ``purrr`` style lambda functions powered by `rlang::as_function()`.
+num_parallel_calls | (Optional) An integer, representing the number of elements to process in parallel If not specified, elements will be processed sequentially.
+
+
+
+
+
+## Value
+
+A dataset
+
+
+
+
+
+
+## See Also
+
+Other dataset methods: 
+`dataset_batch()`,
+`dataset_cache()`,
+`dataset_collect()`,
+`dataset_concatenate()`,
+`dataset_decode_delim()`,
+`dataset_filter()`,
+`dataset_interleave()`,
+`dataset_map_and_batch()`,
+`dataset_padded_batch()`,
+`dataset_prefetch_to_device()`,
+`dataset_prefetch()`,
+`dataset_reduce()`,
+`dataset_repeat()`,
+`dataset_shuffle_and_repeat()`,
+`dataset_shuffle()`,
+`dataset_skip()`,
+`dataset_take_while()`,
+`dataset_take()`,
+`dataset_window()`
+
+
+

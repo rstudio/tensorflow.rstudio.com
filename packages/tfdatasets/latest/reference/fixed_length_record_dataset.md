@@ -1,0 +1,53 @@
+# fixed_length_record_dataset
+
+
+A dataset of fixed-length records from one or more binary files.
+
+
+
+
+## Description
+
+A dataset of fixed-length records from one or more binary files.
+
+
+
+
+
+## Usage
+```r
+fixed_length_record_dataset(
+  filenames,
+  record_bytes,
+  header_bytes = NULL,
+  footer_bytes = NULL,
+  buffer_size = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+filenames | A string tensor containing one or more filenames.
+record_bytes | An integer representing the number of bytes in each record.
+header_bytes | (Optional) An integer scalar representing the number of bytes to skip at the start of a file.
+footer_bytes | (Optional) A integer scalar representing the number of bytes to ignore at the end of a file.
+buffer_size | (Optional) A integer scalar representing the number of bytes to buffer when reading.
+
+
+
+
+
+## Value
+
+A dataset
+
+
+
+
+

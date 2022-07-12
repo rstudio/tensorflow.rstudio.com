@@ -1,0 +1,65 @@
+# save_model_tf
+
+
+Save/Load models using SavedModel format
+
+
+
+
+## Description
+
+Save/Load models using SavedModel format
+
+
+
+
+
+## Usage
+```r
+save_model_tf(
+  object,
+  filepath,
+  overwrite = TRUE,
+  include_optimizer = TRUE,
+  signatures = NULL,
+  options = NULL
+)
+
+load_model_tf(filepath, custom_objects = NULL, compile = TRUE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | Model object to save
+filepath | File path
+overwrite | Overwrite existing file if necessary
+include_optimizer | If ``TRUE``, save optimizer's state.
+signatures | Signatures to save with the SavedModel. Please see the signatures argument in ``tf$saved_model$save`` for details.
+options | Optional ``tf$saved_model$SaveOptions`` object that specifies options for saving to SavedModel
+custom_objects | Mapping class names (or function names) of custom (non-Keras) objects to class/functions (for example, custom metrics or custom loss functions). This mapping can be done with the dict() function of reticulate.
+compile | Whether to compile the model after loading.
+
+
+
+
+
+
+
+## See Also
+
+Other model persistence: 
+`get_weights()`,
+`model_to_json()`,
+`model_to_yaml()`,
+`save_model_hdf5()`,
+`save_model_weights_hdf5()`,
+`serialize_model()`
+
+
+

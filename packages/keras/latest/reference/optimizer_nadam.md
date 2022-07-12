@@ -1,0 +1,77 @@
+# optimizer_nadam
+
+
+Nesterov Adam optimizer
+
+
+
+
+## Description
+
+Much like Adam is essentially RMSprop with momentum, Nadam is Adam RMSprop
+with Nesterov momentum.
+
+
+
+
+
+## Usage
+```r
+optimizer_nadam(
+  learning_rate = 0.002,
+  beta_1 = 0.9,
+  beta_2 = 0.999,
+  epsilon = NULL,
+  schedule_decay = 0.004,
+  clipnorm = NULL,
+  clipvalue = NULL,
+  ...
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+learning_rate | float >= 0. Learning rate.
+beta_1 | The exponential decay rate for the 1st moment estimates. float, 0 < beta < 1. Generally close to 1.
+beta_2 | The exponential decay rate for the 2nd moment estimates. float, 0 < beta < 1. Generally close to 1.
+epsilon | float >= 0. Fuzz factor. If ``NULL``, defaults to ``k_epsilon()``.
+schedule_decay | Schedule deacy.
+clipnorm | Gradients will be clipped when their L2 norm exceeds this value.
+clipvalue | Gradients will be clipped when their absolute value exceeds this value.
+... | Unused, present only for backwards compatability
+
+
+
+
+## Details
+
+Default parameters follow those provided in the paper. It is
+recommended to leave the parameters of this optimizer at their default
+values.
+
+
+
+
+
+
+
+## See Also
+
+https://www.cs.toronto.edu/~fritz/absps/momentum.pdfOn the importance of initialization and momentum in deep learning.
+
+Other optimizers: 
+`optimizer_adadelta()`,
+`optimizer_adagrad()`,
+`optimizer_adamax()`,
+`optimizer_adam()`,
+`optimizer_rmsprop()`,
+`optimizer_sgd()`
+
+
+

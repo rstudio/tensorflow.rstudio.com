@@ -1,0 +1,104 @@
+# dataset_filter
+
+
+Filter a dataset by a predicate
+
+
+
+
+## Description
+
+Filter a dataset by a predicate
+
+
+
+
+
+## Usage
+```r
+dataset_filter(dataset, predicate)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | A dataset
+predicate | A function mapping a nested structure of tensors (having shapes and types defined by `output_shapes()` and `output_types()` to a scalar ``tf$bool`` tensor.
+
+
+
+
+## Details
+
+Note that the functions used inside the predicate must be
+tensor operations (e.g. ``tf$not_equal``, ``tf$less``, etc.). R
+generic methods for relational operators (e.g. ``<``, ``>``, ``<=``,
+etc.) and logical operators (e.g. ``!``, ``&``, ``|``, etc.) are
+provided so you can use shorthand syntax for most common
+comparisions (this is illustrated by the example below).
+
+
+
+
+
+## Value
+
+A dataset composed of records that matched the predicate.
+
+
+
+
+
+## Examples
+
+```r
+
+
+dataset <- text_line_dataset("mtcars.csv", record_spec = mtcars_spec) %>%
+  dataset_filter(function(record) {
+    record$mpg >= 20
+})
+
+dataset <- text_line_dataset("mtcars.csv", record_spec = mtcars_spec) %>%
+  dataset_filter(function(record) {
+    record$mpg >= 20 & record$cyl >= 6L
+  })
+
+
+```
+
+
+
+
+
+
+## See Also
+
+Other dataset methods: 
+`dataset_batch()`,
+`dataset_cache()`,
+`dataset_collect()`,
+`dataset_concatenate()`,
+`dataset_decode_delim()`,
+`dataset_interleave()`,
+`dataset_map_and_batch()`,
+`dataset_map()`,
+`dataset_padded_batch()`,
+`dataset_prefetch_to_device()`,
+`dataset_prefetch()`,
+`dataset_reduce()`,
+`dataset_repeat()`,
+`dataset_shuffle_and_repeat()`,
+`dataset_shuffle()`,
+`dataset_skip()`,
+`dataset_take_while()`,
+`dataset_take()`,
+`dataset_window()`
+
+
+

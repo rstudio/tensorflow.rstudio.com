@@ -1,0 +1,64 @@
+# tf_cond
+
+
+tf.cond
+
+
+
+
+## Description
+
+This is a minimal wrapper around ``tf$cond()`` that allows you to supply
+``true_fn`` and ``false_fn`` as lambda functions defined using the tilde ``~``.
+
+
+
+
+
+## Usage
+```r
+tf_cond(pred, true_fn, false_fn, name = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+pred | R logical or a tensor.
+true_fn, false_fn | a ``~`` function, a function, or something coercible to a function via ``as.function``
+name | a string, passed on to ``tf.cond()``
+
+
+
+
+
+## Value
+
+if cond is a tensor, then the result of ``tf.cond()``. Otherwise, if
+``pred`` is an ``EagerTensor`` or an R logical, then the result of either
+``true_fn()`` or ``false_fn()``
+
+
+
+
+
+## Examples
+
+```r
+
+## square if positive
+# using tf$cond directly:
+raw <- function(x) tf$cond(x > 0, function() x * x, function() x)
+
+# using tf_cond() wrapper
+tilde <- function(x) tf_cond(x > 0, ~ x * x, ~ x)
+
+```
+
+
+
+

@@ -1,0 +1,81 @@
+# predict.keras.engine.training.Model
+
+
+Generate predictions from a Keras model
+
+
+
+
+## Description
+
+Generates output predictions for the input samples, processing the samples in
+a batched way.
+
+
+
+
+
+## Usage
+
+predictkeras.engine.training.Model(
+  object,
+  x,
+  batch_size = NULL,
+  verbose = "auto",
+  steps = NULL,
+  callbacks = NULL,
+  ...
+)
+
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | Keras model
+x | Input data (vector, matrix, or array). You can also pass a ``tfdataset`` or a generator returning a list with (inputs, targets) or (inputs, targets, sample_weights).
+batch_size | Integer. If unspecified, it will default to 32.
+verbose | Verbosity mode, 0, 1, 2, or "auto". "auto" defaults to 1 for for most cases and defaults to ``verbose=2`` when used with ParameterServerStrategy or with interactive logging disabled.
+steps | Total number of steps (batches of samples) before declaring the evaluation round finished. Ignored with the default value of ``NULL``.
+callbacks | List of callbacks to apply during prediction.
+... | Unused
+
+
+
+
+
+## Value
+
+vector, matrix, or array of predictions
+
+
+
+
+
+
+## See Also
+
+Other model functions: 
+`compile.keras.engine.training.Model()`,
+`evaluate.keras.engine.training.Model()`,
+`evaluate_generator()`,
+`fit.keras.engine.training.Model()`,
+`fit_generator()`,
+`get_config()`,
+`get_layer()`,
+`keras_model_sequential()`,
+`keras_model()`,
+`multi_gpu_model()`,
+`pop_layer()`,
+`predict_generator()`,
+`predict_on_batch()`,
+`predict_proba()`,
+`summary.keras.engine.training.Model()`,
+`train_on_batch()`
+
+
+

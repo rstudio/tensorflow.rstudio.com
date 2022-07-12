@@ -1,0 +1,53 @@
+# keras_model_custom
+
+
+(Deprecated) Create a Keras custom model
+
+
+
+
+## Description
+
+``keras_model_custom()`` is soft-deprecated. Please define custom models by
+subclassing ``keras$Model`` directly using `%py_class%` or `R6::R6Class()`.
+
+
+
+
+
+## Usage
+```r
+keras_model_custom(model_fn, name = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+model_fn | Function that returns an R custom model
+name | Optional name for model
+
+
+
+
+## Details
+
+For documentation on using custom models, see
+https://keras.rstudio.com/articles/custom_models.html.
+
+
+
+
+
+## Value
+
+A Keras model
+
+
+
+
+

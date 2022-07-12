@@ -1,0 +1,91 @@
+# save_model_weights_hdf5
+
+
+Save/Load model weights using HDF5 files
+
+
+
+
+## Description
+
+Save/Load model weights using HDF5 files
+
+
+
+
+
+## Usage
+```r
+save_model_weights_hdf5(object, filepath, overwrite = TRUE)
+
+load_model_weights_hdf5(
+  object,
+  filepath,
+  by_name = FALSE,
+  skip_mismatch = FALSE,
+  reshape = FALSE
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | Model object to save/load
+filepath | Path to the file
+overwrite | Whether to silently overwrite any existing file at the target location
+by_name | Whether to load weights by name or by topological order.
+skip_mismatch | Logical, whether to skip loading of layers where there is a mismatch in the number of weights, or a mismatch in the shape of the weight (only valid when ``by_name = FALSE``).
+reshape | Reshape weights to fit the layer when the correct number of values are present but the shape does not match.
+
+
+
+
+## Details
+
+The weight file has:
+
+
+*  `layer_names` (attribute), a list of strings (ordered names of model layers).
+
+*  For every layer, a `group` named `layer.name`
+
+*  For every such layer group, a group attribute `weight_names`, a list of strings
+(ordered names of weights tensor of the layer).
+
+*  For every weight in the layer, a dataset storing the weight value, named after
+the weight tensor.
+
+
+For ``load_model_weights()``, if ``by_name`` is ``FALSE`` (default) weights are
+loaded based on the network's topology, meaning the architecture should be
+the same as when the weights were saved. Note that layers that don't have
+weights are not taken into account in the topological ordering, so adding
+or removing layers is fine as long as they don't have weights.
+
+If ``by_name`` is ``TRUE``, weights are loaded into layers only if they share
+the same name. This is useful for fine-tuning or transfer-learning models
+where some of the layers have changed.
+
+
+
+
+
+
+
+## See Also
+
+Other model persistence: 
+`get_weights()`,
+`model_to_json()`,
+`model_to_yaml()`,
+`save_model_hdf5()`,
+`save_model_tf()`,
+`serialize_model()`
+
+
+

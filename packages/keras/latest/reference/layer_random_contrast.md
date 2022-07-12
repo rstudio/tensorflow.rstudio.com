@@ -1,0 +1,101 @@
+# layer_random_contrast
+
+
+Adjust the contrast of an image or images by a random factor
+
+
+
+
+## Description
+
+Adjust the contrast of an image or images by a random factor
+
+
+
+
+
+## Usage
+```r
+layer_random_contrast(object, factor, seed = NULL, ...)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
+factor | a positive float represented as fraction of value, or a list of size 2 representing lower and upper bound. When represented as a single float, lower = upper. The contrast factor will be randomly picked between [1.0 - lower, 1.0 + upper].
+seed | Integer. Used to create a random seed.
+... | standard layer arguments.
+
+
+
+
+## Details
+
+Contrast is adjusted independently for each channel of each image during
+training.
+
+For each channel, this layer computes the mean of the image pixels in the
+channel and then adjusts each component ``x`` of each pixel to
+``(x - mean) * contrast_factor + mean``.
+
+Input shape:
+3D (unbatched) or 4D (batched) tensor with shape:
+(..., height, width, channels), in ``"channels_last"`` format.
+
+Output shape:
+3D (unbatched) or 4D (batched) tensor with shape:
+(..., height, width, channels), in ``"channels_last"`` format.
+
+
+
+
+
+
+
+## See Also
+
+
+
+*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/RandomContrast
+
+*  https://keras.io/api/layers/preprocessing_layers/
+
+
+Other image augmentation layers: 
+`layer_random_brightness()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_rotation()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`
+
+Other preprocessing layers: 
+`layer_category_encoding()`,
+`layer_center_crop()`,
+`layer_discretization()`,
+`layer_hashing()`,
+`layer_integer_lookup()`,
+`layer_normalization()`,
+`layer_random_brightness()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_rotation()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`,
+`layer_rescaling()`,
+`layer_resizing()`,
+`layer_string_lookup()`,
+`layer_text_vectorization()`
+
+
+

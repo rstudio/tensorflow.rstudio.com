@@ -1,0 +1,87 @@
+# use_session_with_seed
+
+
+Use a session with a random seed
+
+
+
+
+## Description
+
+Set various random seeds required to ensure reproducible results. The
+provided ``seed`` value will establish a new random seed for R, Python, NumPy,
+and TensorFlow. GPU computations and CPU parallelism will also be disabled by
+default.
+
+
+
+
+
+## Usage
+```r
+use_session_with_seed(
+  seed,
+  disable_gpu = TRUE,
+  disable_parallel_cpu = TRUE,
+  quiet = FALSE
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+seed | A single value, interpreted as an integer
+disable_gpu | ``TRUE`` to disable GPU execution (see Parallelism below).
+disable_parallel_cpu | ``TRUE`` to disable CPU parallelism (see Parallelism below).
+quiet | ``TRUE`` to suppress printing of messages.
+
+
+
+
+## Details
+
+This function must be called at the very top of your script (i.e.
+immediately after ``library(tensorflow)``, ``library(keras)``, etc.). Any
+existing TensorFlow session is torn down via ``tf$reset_default_graph()``.
+
+This function takes all measures known to promote reproducible results from
+TensorFlow sessions, however it's possible that various individual
+TensorFlow features or dependent libraries escape its effects. If you
+encounter non-reproducible results please investigate the possible sources
+of the problem, contributions via pull request are very welcome!
+
+Packages which need to be notified before and after the seed is set
+can register for the "tensorflow.on_before_use_session" and
+"tensorflow.on_use_session" hooks (see `setHook()`) for additional
+details on hooks).
+
+
+
+
+
+## Value
+
+TensorFlow session object, invisibly
+
+
+
+
+
+## Examples
+
+```r
+
+library(tensorflow)
+use_session_with_seed(42)
+
+```
+
+
+
+
+

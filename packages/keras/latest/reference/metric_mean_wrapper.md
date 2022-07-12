@@ -1,0 +1,113 @@
+# metric_mean_wrapper
+
+
+Wraps a stateless metric function with the Mean metric
+
+
+
+
+## Description
+
+Wraps a stateless metric function with the Mean metric
+
+
+
+
+
+## Usage
+```r
+metric_mean_wrapper(..., fn, name = NULL, dtype = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+... | named arguments to pass on to ``fn``.
+fn | The metric function to wrap, with signature ``fn(y_true, y_pred, ...)``.
+name | (Optional) string name of the metric instance.
+dtype | (Optional) data type of the metric result.
+
+
+
+
+## Details
+
+You could use this class to quickly build a mean metric from a function. The
+function needs to have the signature ``fn(y_true, y_pred)`` and return a
+per-sample loss array. ``MeanMetricWrapper$result()`` will return
+the average metric value across all samples seen so far.
+
+For example:
+
+html<div class="sourceCode r">accuracy <- function(y_true, y_pred)
+  k_cast(y_true == y_pred, 'float32')
+
+accuracy_metric <- metric_mean_wrapper(fn = accuracy)
+
+model %>% compile(..., metrics=accuracy_metric)
+html</div>
+
+
+
+
+
+## Value
+
+A (subclassed) ``Metric`` instance that can be passed directly to
+``compile(metrics = )``, or used as a standalone object. See ``?Metric`` for
+example usage.
+
+
+
+
+
+
+## See Also
+
+Other metrics: 
+`custom_metric()`,
+`metric_accuracy()`,
+`metric_auc()`,
+`metric_binary_accuracy()`,
+`metric_binary_crossentropy()`,
+`metric_categorical_accuracy()`,
+`metric_categorical_crossentropy()`,
+`metric_categorical_hinge()`,
+`metric_cosine_similarity()`,
+`metric_false_negatives()`,
+`metric_false_positives()`,
+`metric_hinge()`,
+`metric_kullback_leibler_divergence()`,
+`metric_logcosh_error()`,
+`metric_mean_absolute_error()`,
+`metric_mean_absolute_percentage_error()`,
+`metric_mean_iou()`,
+`metric_mean_relative_error()`,
+`metric_mean_squared_error()`,
+`metric_mean_squared_logarithmic_error()`,
+`metric_mean_tensor()`,
+`metric_mean()`,
+`metric_poisson()`,
+`metric_precision_at_recall()`,
+`metric_precision()`,
+`metric_recall_at_precision()`,
+`metric_recall()`,
+`metric_root_mean_squared_error()`,
+`metric_sensitivity_at_specificity()`,
+`metric_sparse_categorical_accuracy()`,
+`metric_sparse_categorical_crossentropy()`,
+`metric_sparse_top_k_categorical_accuracy()`,
+`metric_specificity_at_sensitivity()`,
+`metric_squared_hinge()`,
+`metric_sum()`,
+`metric_top_k_categorical_accuracy()`,
+`metric_true_negatives()`,
+`metric_true_positives()`
+
+
+

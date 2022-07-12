@@ -1,0 +1,62 @@
+# view_function_graph
+
+
+Visualizes the generated graph
+
+
+
+
+## Description
+
+Visualizes the generated graph
+
+
+
+
+
+## Usage
+```r
+view_function_graph(
+  fn,
+  args,
+  ...,
+  name = deparse(substitute(fn)),
+  profiler = FALSE,
+  concrete_fn = do.call(fn$get_concrete_fn, args),
+  graph = concrete_fn$graph
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+fn | TensorFlow function (returned from ``tf.function()``)
+args | arguments passed to ``fun``
+... | other arguments passed to `tensorflow::tensorboard()`
+name | string, provided to tensorboard
+profiler | logical, passed on to ``tf.compat.v2.summary.trace_on()`` (only used in eager mode)
+concrete_fn | a ``ConcreteFunction`` (only used in graph mode, ignored with a warning if executing eagerly)
+graph | a tensorflow graph (only used in graph mode, ignored with a warning if executing eagerly)
+
+
+
+
+
+
+## Examples
+
+```r
+
+fn <- tf_function(function(x) autograph(if(x > 0) x * x else x))
+view_function_graph(fn, list(tf$constant(5)))
+
+```
+
+
+
+

@@ -1,0 +1,80 @@
+# evaluate_generator
+
+
+(Deprecated) Evaluates the model on a data generator.
+
+
+
+
+## Description
+
+The generator should return the same kind of data as accepted by
+``test_on_batch()``.
+
+
+
+
+
+## Usage
+```r
+evaluate_generator(
+  object,
+  generator,
+  steps,
+  max_queue_size = 10,
+  workers = 1,
+  callbacks = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | Model object to evaluate
+generator | Generator yielding lists (inputs, targets) or (inputs, targets, sample_weights)
+steps | Total number of steps (batches of samples) to yield from ``generator`` before stopping.
+max_queue_size | Maximum size for the generator queue. If unspecified, ``max_queue_size`` will default to 10.
+workers | Maximum number of threads to use for parallel processing. Note that parallel processing will only be performed for native Keras generators (e.g. ``flow_images_from_directory()``) as R based generators must run on the main thread.
+callbacks | List of callbacks to apply during evaluation.
+
+
+
+
+
+## Value
+
+Named list of model test loss (or losses for models with multiple outputs)
+and model metrics.
+
+
+
+
+
+
+## See Also
+
+Other model functions: 
+`compile.keras.engine.training.Model()`,
+`evaluate.keras.engine.training.Model()`,
+`fit.keras.engine.training.Model()`,
+`fit_generator()`,
+`get_config()`,
+`get_layer()`,
+`keras_model_sequential()`,
+`keras_model()`,
+`multi_gpu_model()`,
+`pop_layer()`,
+`predict.keras.engine.training.Model()`,
+`predict_generator()`,
+`predict_on_batch()`,
+`predict_proba()`,
+`summary.keras.engine.training.Model()`,
+`train_on_batch()`
+
+
+

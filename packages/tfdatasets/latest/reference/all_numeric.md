@@ -1,0 +1,37 @@
+# all_numeric
+
+
+Speciy all numeric variables.
+
+
+
+
+## Description
+
+Find all the variables with the following types:
+"float16", "float32", "float64", "int16", "int32", "int64",
+"half", "double".
+
+
+
+
+
+## Usage
+```r
+all_numeric()
+```
+
+
+
+
+
+
+
+## See Also
+
+Other Selectors: 
+`all_nominal()`,
+`has_type()`
+
+
+

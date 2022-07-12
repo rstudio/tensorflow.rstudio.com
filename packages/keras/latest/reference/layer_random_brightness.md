@@ -1,0 +1,103 @@
+# layer_random_brightness
+
+
+A preprocessing layer which randomly adjusts brightness during training
+
+
+
+
+## Description
+
+A preprocessing layer which randomly adjusts brightness during training
+
+
+
+
+
+## Usage
+```r
+layer_random_brightness(
+  object,
+  factor,
+  value_range = c(0, 255),
+  seed = NULL,
+  ...
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
+factor | Float or a list of 2 floats between -1.0 and 1.0. The factor is used to determine the lower bound and upper bound of the brightness adjustment. A float value will be chosen randomly between the limits. When -1.0 is chosen, the output image will be black, and when 1.0 is chosen, the image will be fully white. When only one float is provided, eg, 0.2, then -0.2 will be used for lower bound and 0.2 will be used for upper bound.
+value_range | Optional list of 2 floats for the lower and upper limit of the values of the input data. Defaults to [0.0, 255.0]. Can be changed to e.g. [0.0, 1.0] if the image input has been scaled before this layer. The brightness adjustment will be scaled to this range, and the output values will be clipped to this range.
+seed | optional integer, for fixed RNG behavior.
+... | standard layer arguments.
+
+
+
+
+## Details
+
+This layer will randomly increase/reduce the brightness for the input RGB
+images. At inference time, the output will be identical to the input.
+Call the layer with ``training=TRUE`` to adjust the brightness of the input.
+
+Note that different brightness adjustment factors
+will be apply to each the images in the batch.
+
+For an overview and full list of preprocessing layers, see the preprocessing
+https://www.tensorflow.org/guide/keras/preprocessing_layersguide.
+
+
+
+
+
+
+
+## See Also
+
+
+
+*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/RandomBrightness
+
+*  https://keras.io/api/layers
+
+
+Other image augmentation layers: 
+`layer_random_contrast()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_rotation()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`
+
+Other preprocessing layers: 
+`layer_category_encoding()`,
+`layer_center_crop()`,
+`layer_discretization()`,
+`layer_hashing()`,
+`layer_integer_lookup()`,
+`layer_normalization()`,
+`layer_random_contrast()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_rotation()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`,
+`layer_rescaling()`,
+`layer_resizing()`,
+`layer_string_lookup()`,
+`layer_text_vectorization()`
+
+
+

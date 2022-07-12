@@ -1,0 +1,117 @@
+# layer_conv_1d
+
+
+1D convolution layer (e.g. temporal convolution).
+
+
+
+
+## Description
+
+This layer creates a convolution kernel that is convolved with the layer
+input over a single spatial (or temporal) dimension to produce a tensor of
+outputs. If ``use_bias`` is TRUE, a bias vector is created and added to the
+outputs. Finally, if ``activation`` is not ``NULL``, it is applied to the outputs
+as well. When using this layer as the first layer in a model, provide an
+``input_shape`` argument (list of integers or ``NULL ``, e.g. (10, 128) for
+sequences of 10 vectors of 128-dimensional vectors, or (NULL, 128) for
+variable-length sequences of 128-dimensional vectors.
+
+
+
+
+
+## Usage
+```r
+layer_conv_1d(
+  object,
+  filters,
+  kernel_size,
+  strides = 1L,
+  padding = "valid",
+  data_format = "channels_last",
+  dilation_rate = 1L,
+  groups = 1L,
+  activation = NULL,
+  use_bias = TRUE,
+  kernel_initializer = "glorot_uniform",
+  bias_initializer = "zeros",
+  kernel_regularizer = NULL,
+  bias_regularizer = NULL,
+  activity_regularizer = NULL,
+  kernel_constraint = NULL,
+  bias_constraint = NULL,
+  input_shape = NULL,
+  batch_input_shape = NULL,
+  batch_size = NULL,
+  dtype = NULL,
+  name = NULL,
+  trainable = NULL,
+  weights = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
+filters | Integer, the dimensionality of the output space (i.e. the number of output filters in the convolution).
+kernel_size | An integer or list of a single integer, specifying the length of the 1D convolution window.
+strides | An integer or list of a single integer, specifying the stride length of the convolution. Specifying any stride value != 1 is incompatible with specifying any ``dilation_rate`` value != 1.
+padding | One of ``"valid"``, ``"causal"`` or ``"same"`` (case-insensitive). ``"valid"`` means "no padding". ``"same"`` results in padding the input such that the output has the same length as the original input. ``"causal"`` results in causal (dilated) convolutions, e.g. ``output[t]`` does not depend on input[t+1:]. Useful when modeling temporal data where the model should not violate the temporal order. See https://arxiv.org/abs/1609.03499WaveNet: A Generative Model for Raw Audio, section 2.1.
+data_format | A string, one of ``"channels_last"`` (default) or ``"channels_first"``. The ordering of the dimensions in the inputs. ``"channels_last"`` corresponds to inputs with shape (batch, length, channels) (default format for temporal data in Keras) while ``"channels_first"`` corresponds to inputs with shape (batch, channels, length).
+dilation_rate | an integer or list of a single integer, specifying the dilation rate to use for dilated convolution. Currently, specifying any ``dilation_rate`` value != 1 is incompatible with specifying any ``strides`` value != 1.
+groups | A positive integer specifying the number of groups in which the input is split along the channel axis. Each group is convolved separately with ``filters / groups`` filters. The output is the concatenation of all the groups results along the channel axis. Input channels and ``filters`` must both be divisible by ``groups``.
+activation | Activation function to use. If you don't specify anything, no activation is applied (ie. "linear" activation: ``a(x) = x``).
+use_bias | Boolean, whether the layer uses a bias vector.
+kernel_initializer | Initializer for the ``kernel`` weights matrix.
+bias_initializer | Initializer for the bias vector.
+kernel_regularizer | Regularizer function applied to the ``kernel`` weights matrix.
+bias_regularizer | Regularizer function applied to the bias vector.
+activity_regularizer | Regularizer function applied to the output of the layer (its "activation")..
+kernel_constraint | Constraint function applied to the kernel matrix.
+bias_constraint | Constraint function applied to the bias vector.
+input_shape | Dimensionality of the input (integer) not including the samples axis. This argument is required when using this layer as the first layer in a model.
+batch_input_shape | Shapes, including the batch size. For instance, ``batch_input_shape=c(10, 32)`` indicates that the expected input will be batches of 10 32-dimensional vectors. ``batch_input_shape=list(NULL, 32)`` indicates batches of an arbitrary number of 32-dimensional vectors.
+batch_size | Fixed batch size for layer
+dtype | The data type expected by the input, as a string (``float32``, ``float64``, ``int32``...)
+name | An optional name string for the layer. Should be unique in a model (do not reuse the same name twice). It will be autogenerated if it isn't provided.
+trainable | Whether the layer weights will be updated during training.
+weights | Initial weights for layer.
+
+
+
+
+
+
+
+## See Also
+
+Other convolutional layers: 
+`layer_conv_1d_transpose()`,
+`layer_conv_2d_transpose()`,
+`layer_conv_2d()`,
+`layer_conv_3d_transpose()`,
+`layer_conv_3d()`,
+`layer_conv_lstm_2d()`,
+`layer_cropping_1d()`,
+`layer_cropping_2d()`,
+`layer_cropping_3d()`,
+`layer_depthwise_conv_1d()`,
+`layer_depthwise_conv_2d()`,
+`layer_separable_conv_1d()`,
+`layer_separable_conv_2d()`,
+`layer_upsampling_1d()`,
+`layer_upsampling_2d()`,
+`layer_upsampling_3d()`,
+`layer_zero_padding_1d()`,
+`layer_zero_padding_2d()`,
+`layer_zero_padding_3d()`
+
+
+

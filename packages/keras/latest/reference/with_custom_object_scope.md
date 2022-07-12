@@ -1,0 +1,87 @@
+# with_custom_object_scope
+
+
+Provide a scope with mappings of names to custom objects
+
+
+
+
+## Description
+
+Provide a scope with mappings of names to custom objects
+
+
+
+
+
+## Usage
+```r
+with_custom_object_scope(objects, expr)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+objects | Named list of objects
+expr | Expression to evaluate
+
+
+
+
+## Details
+
+There are many elements of Keras models that can be customized with
+user objects (e.g. losses, metrics, regularizers, etc.). When
+loading saved models that use these functions you typically
+need to explicitily map names to user objects via the ``custom_objects``
+parmaeter.
+
+The ``with_custom_object_scope()`` function provides an alternative that
+lets you create a named alias for a user object that applies to an entire
+block of code, and is automatically recognized when loading saved models.
+
+
+
+
+
+
+## Examples
+
+```r
+
+# define custom metric
+metric_top_3_categorical_accuracy <-
+  custom_metric("top_3_categorical_accuracy", function(y_true, y_pred) {
+    metric_top_k_categorical_accuracy(y_true, y_pred, k = 3)
+  })
+
+with_custom_object_scope(c(top_k_acc = sparse_top_k_cat_acc), {
+
+  # ...define model...
+
+  # compile model (refer to "top_k_acc" by name)
+  model %>% compile(
+    loss = "binary_crossentropy",
+    optimizer = optimizer_nadam(),
+    metrics = c("top_k_acc")
+  )
+
+  # save the model
+  save_model_hdf5("my_model.h5")
+
+  # loading the model within the custom object scope doesn't
+  # require explicitly providing the custom_object
+  load_model_hdf5("my_model.h5")
+})
+
+```
+
+
+
+
+

@@ -1,0 +1,70 @@
+# dataset_skip
+
+
+Creates a dataset that skips count elements from this dataset
+
+
+
+
+## Description
+
+Creates a dataset that skips count elements from this dataset
+
+
+
+
+
+## Usage
+```r
+dataset_skip(dataset, count)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | A dataset
+count | An integer, representing the number of elements of this dataset that should be skipped to form the new dataset. If count is greater than the size of this dataset, the new dataset will contain no elements. If count is -1, skips the entire dataset.
+
+
+
+
+
+## Value
+
+A dataset
+
+
+
+
+
+
+## See Also
+
+Other dataset methods: 
+`dataset_batch()`,
+`dataset_cache()`,
+`dataset_collect()`,
+`dataset_concatenate()`,
+`dataset_decode_delim()`,
+`dataset_filter()`,
+`dataset_interleave()`,
+`dataset_map_and_batch()`,
+`dataset_map()`,
+`dataset_padded_batch()`,
+`dataset_prefetch_to_device()`,
+`dataset_prefetch()`,
+`dataset_reduce()`,
+`dataset_repeat()`,
+`dataset_shuffle_and_repeat()`,
+`dataset_shuffle()`,
+`dataset_take_while()`,
+`dataset_take()`,
+`dataset_window()`
+
+
+

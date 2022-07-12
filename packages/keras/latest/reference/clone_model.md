@@ -1,0 +1,40 @@
+# clone_model
+
+
+Clone a model instance.
+
+
+
+
+## Description
+
+Model cloning is similar to calling a model on new inputs, except that it
+creates new layers (and thus new weights) instead of sharing the weights of
+the existing layers.
+
+
+
+
+
+## Usage
+```r
+clone_model(model, input_tensors = NULL, clone_function = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+model | Instance of Keras model (could be a functional model or a Sequential model).
+input_tensors | Optional list of input tensors to build the model upon. If not provided, placeholders will be created.
+clone_function | Callable to be used to clone each layer in the target model (except ``InputLayer`` instances). It takes as argument the layer instance to be cloned, and returns the corresponding layer instance to be used in the model copy. If unspecified, this callable defaults to the following serialization/deserialization function:  ``function(layer) layer$`__class__`$from_config(layer$get_config())``  By passing a custom callable, you can customize your copy of the model, e.g. by wrapping certain layers of interest (you might want to replace all LSTM instances with equivalent ``Bidirectional(LSTM(...))`` instances, for example).
+
+
+
+
+
+

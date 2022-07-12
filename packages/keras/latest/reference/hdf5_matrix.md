@@ -1,0 +1,57 @@
+# hdf5_matrix
+
+
+Representation of HDF5 dataset to be used instead of an R array
+
+
+
+
+## Description
+
+Representation of HDF5 dataset to be used instead of an R array
+
+
+
+
+
+## Usage
+```r
+hdf5_matrix(datapath, dataset, start = 0, end = NULL, normalizer = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+datapath | string, path to a HDF5 file
+dataset | string, name of the HDF5 dataset in the file specified in datapath
+start | int, start of desired slice of the specified dataset
+end | int, end of desired slice of the specified dataset
+normalizer | function to be called on data when retrieved
+
+
+
+
+## Details
+
+Providing ``start`` and ``end`` allows use of a slice of the dataset.
+
+Optionally, a normalizer function (or lambda) can be given. This will
+be called on every slice of data retrieved.
+
+
+
+
+
+## Value
+
+An array-like HDF5 dataset.
+
+
+
+
+

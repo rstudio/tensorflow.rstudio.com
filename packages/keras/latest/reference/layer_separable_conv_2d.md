@@ -1,0 +1,122 @@
+# layer_separable_conv_2d
+
+
+Separable 2D convolution.
+
+
+
+
+## Description
+
+Separable convolutions consist in first performing a depthwise spatial
+convolution (which acts on each input channel separately) followed by a
+pointwise convolution which mixes together the resulting output channels. The
+``depth_multiplier`` argument controls how many output channels are generated
+per input channel in the depthwise step. Intuitively, separable convolutions
+can be understood as a way to factorize a convolution kernel into two smaller
+kernels, or as an extreme version of an Inception block.
+
+
+
+
+
+## Usage
+```r
+layer_separable_conv_2d(
+  object,
+  filters,
+  kernel_size,
+  strides = c(1, 1),
+  padding = "valid",
+  data_format = NULL,
+  dilation_rate = 1,
+  depth_multiplier = 1,
+  activation = NULL,
+  use_bias = TRUE,
+  depthwise_initializer = "glorot_uniform",
+  pointwise_initializer = "glorot_uniform",
+  bias_initializer = "zeros",
+  depthwise_regularizer = NULL,
+  pointwise_regularizer = NULL,
+  bias_regularizer = NULL,
+  activity_regularizer = NULL,
+  depthwise_constraint = NULL,
+  pointwise_constraint = NULL,
+  bias_constraint = NULL,
+  input_shape = NULL,
+  batch_input_shape = NULL,
+  batch_size = NULL,
+  dtype = NULL,
+  name = NULL,
+  trainable = NULL,
+  weights = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
+filters | Integer, the dimensionality of the output space (i.e. the number of output filters in the convolution).
+kernel_size | An integer or list of 2 integers, specifying the width and height of the 2D convolution window. Can be a single integer to specify the same value for all spatial dimensions.
+strides | An integer or list of 2 integers, specifying the strides of the convolution along the width and height. Can be a single integer to specify the same value for all spatial dimensions. Specifying any stride value != 1 is incompatible with specifying any ``dilation_rate`` value != 1.
+padding | one of ``"valid"`` or ``"same"`` (case-insensitive).
+data_format | A string, one of ``channels_last`` (default) or ``channels_first``. The ordering of the dimensions in the inputs. ``channels_last`` corresponds to inputs with shape (batch, height, width, channels) while ``channels_first`` corresponds to inputs with shape (batch, channels, height, width). It defaults to the ``image_data_format`` value found in your Keras config file at ~/.keras/keras.json. If you never set it, then it will be "channels_last".
+dilation_rate | an integer or list of 2 integers, specifying the dilation rate to use for dilated convolution. Can be a single integer to specify the same value for all spatial dimensions. Currently, specifying any ``dilation_rate`` value != 1 is incompatible with specifying any stride value != 1.
+depth_multiplier | The number of depthwise convolution output channels for each input channel. The total number of depthwise convolution output channels will be equal to ``filters_in * depth_multiplier``.
+activation | Activation function to use. If you don't specify anything, no activation is applied (ie. "linear" activation: ``a(x) = x``).
+use_bias | Boolean, whether the layer uses a bias vector.
+depthwise_initializer | Initializer for the depthwise kernel matrix.
+pointwise_initializer | Initializer for the pointwise kernel matrix.
+bias_initializer | Initializer for the bias vector.
+depthwise_regularizer | Regularizer function applied to the depthwise kernel matrix.
+pointwise_regularizer | Regularizer function applied to the pointwise kernel matrix.
+bias_regularizer | Regularizer function applied to the bias vector.
+activity_regularizer | Regularizer function applied to the output of the layer (its "activation")..
+depthwise_constraint | Constraint function applied to the depthwise kernel matrix.
+pointwise_constraint | Constraint function applied to the pointwise kernel matrix.
+bias_constraint | Constraint function applied to the bias vector.
+input_shape | Dimensionality of the input (integer) not including the samples axis. This argument is required when using this layer as the first layer in a model.
+batch_input_shape | Shapes, including the batch size. For instance, ``batch_input_shape=c(10, 32)`` indicates that the expected input will be batches of 10 32-dimensional vectors. ``batch_input_shape=list(NULL, 32)`` indicates batches of an arbitrary number of 32-dimensional vectors.
+batch_size | Fixed batch size for layer
+dtype | The data type expected by the input, as a string (``float32``, ``float64``, ``int32``...)
+name | An optional name string for the layer. Should be unique in a model (do not reuse the same name twice). It will be autogenerated if it isn't provided.
+trainable | Whether the layer weights will be updated during training.
+weights | Initial weights for layer.
+
+
+
+
+
+
+
+## See Also
+
+Other convolutional layers: 
+`layer_conv_1d_transpose()`,
+`layer_conv_1d()`,
+`layer_conv_2d_transpose()`,
+`layer_conv_2d()`,
+`layer_conv_3d_transpose()`,
+`layer_conv_3d()`,
+`layer_conv_lstm_2d()`,
+`layer_cropping_1d()`,
+`layer_cropping_2d()`,
+`layer_cropping_3d()`,
+`layer_depthwise_conv_1d()`,
+`layer_depthwise_conv_2d()`,
+`layer_separable_conv_1d()`,
+`layer_upsampling_1d()`,
+`layer_upsampling_2d()`,
+`layer_upsampling_3d()`,
+`layer_zero_padding_1d()`,
+`layer_zero_padding_2d()`,
+`layer_zero_padding_3d()`
+
+
+

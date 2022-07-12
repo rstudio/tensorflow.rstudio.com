@@ -1,0 +1,38 @@
+# tf_config
+
+
+TensorFlow configuration information
+
+
+
+
+## Description
+
+TensorFlow configuration information
+
+
+
+
+
+## Usage
+```r
+tf_config()
+
+tf_version()
+```
+
+
+
+
+
+## Value
+
+List with information on the current configuration of TensorFlow.
+You can determine whether TensorFlow was found using the ``available``
+member (other members vary depending on whether ``available`` is ``TRUE``
+or ``FALSE``)
+
+
+
+
+

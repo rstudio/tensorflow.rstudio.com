@@ -1,0 +1,56 @@
+# iterator_get_next
+
+
+Get next element from iterator
+
+
+
+
+## Description
+
+Returns a nested list of tensors that when evaluated will yield
+the next element(s) in the dataset.
+
+
+
+
+
+## Usage
+```r
+iterator_get_next(iterator, name = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+iterator | An iterator
+name | (Optional) A name for the created operation.
+
+
+
+
+
+## Value
+
+A nested list of tensors
+
+
+
+
+
+
+## See Also
+
+Other iterator functions: 
+`iterator_initializer()`,
+`iterator_make_initializer()`,
+`iterator_string_handle()`,
+`make-iterator`
+
+
+

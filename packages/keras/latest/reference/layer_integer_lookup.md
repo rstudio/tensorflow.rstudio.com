@@ -1,0 +1,128 @@
+# layer_integer_lookup
+
+
+A preprocessing layer which maps integer features to contiguous ranges.
+
+
+
+
+## Description
+
+A preprocessing layer which maps integer features to contiguous ranges.
+
+
+
+
+
+## Usage
+```r
+layer_integer_lookup(
+  object,
+  max_tokens = NULL,
+  num_oov_indices = 1L,
+  mask_token = NULL,
+  oov_token = -1L,
+  vocabulary = NULL,
+  invert = FALSE,
+  output_mode = "int",
+  sparse = FALSE,
+  pad_to_max_tokens = FALSE,
+  ...
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
+max_tokens | The maximum size of the vocabulary for this layer. If ``NULL``, there is no cap on the size of the vocabulary. Note that this size includes the OOV and mask tokens. Default to ``NULL.``
+num_oov_indices | The number of out-of-vocabulary tokens to use. If this value is more than 1, OOV inputs are modulated to determine their OOV value. If this value is 0, OOV inputs will cause an error when calling the layer. Defaults to 1.
+mask_token | An integer token that represents masked inputs. When ``output_mode`` is ``"int"``, the token is included in vocabulary and mapped to index 0. In other output modes, the token will not appear in the vocabulary and instances of the mask token in the input will be dropped. If set to ``NULL``, no mask term will be added. Defaults to ``NULL``.
+oov_token | Only used when ``invert`` is ``TRUE.`` The token to return for OOV indices. Defaults to -1.
+vocabulary | Optional. Either an array of integers or a string path to a text file. If passing an array, can pass a list, list, 1D numpy array, or 1D tensor containing the integer vocabulary terms. If passing a file path, the file should contain one line per term in the vocabulary. If this argument is set, there is no need to ``adapt`` the layer.
+invert | Only valid when ``output_mode`` is ``"int"``. If ``TRUE``, this layer will map indices to vocabulary items instead of mapping vocabulary items to indices. Default to ``FALSE``.
+output_mode | Specification for the output of the layer. Defaults to ``"int"``. Values can be ``"int"``, ``"one_hot"``, ``"multi_hot"``, ``"count"``, or ``"tf_idf"`` configuring the layer as follows:   *  `"int"`: Return the vocabulary indices of the input tokens.  *  `"one_hot"`: Encodes each individual element in the input into an array the same size as the vocabulary, containing a 1 at the element index. If the last dimension is size 1, will encode on that dimension. If the last dimension is not size 1, will append a new dimension for the encoded output.  *  `"multi_hot"`: Encodes each sample in the input into a single array the same size as the vocabulary, containing a 1 for each vocabulary term present in the sample. Treats the last dimension as the sample dimension, if input shape is (..., sample_length), output shape will be (..., num_tokens).  *  `"count"`: As `"multi_hot"`, but the int array contains a count of the number of times the token at that index appeared in the sample.  *  `"tf_idf"`: As `"multi_hot"`, but the TF-IDF algorithm is applied to find the value in each token slot. For `"int"` output, any shape of input and output is supported. For all other output modes, currently only output up to rank 2 is supported.
+sparse | Boolean. Only applicable when ``output_mode`` is ``"multi_hot"``, ``"count"``, or ``"tf_idf"``. If ``TRUE``, returns a ``SparseTensor`` instead of a dense ``Tensor``. Defaults to ``FALSE``.
+pad_to_max_tokens | Only applicable when ``output_mode`` is ``"multi_hot"``, ``"count"``, or ``"tf_idf"``. If TRUE, the output will have its feature axis padded to ``max_tokens`` even if the number of unique tokens in the vocabulary is less than max_tokens, resulting in a tensor of shape [batch_size, max_tokens] regardless of vocabulary size. Defaults to ``FALSE``.
+... | standard layer arguments.
+
+
+
+
+## Details
+
+This layer maps a set of arbitrary integer input tokens into indexed
+integer output via a table-based vocabulary lookup. The layer's output indices
+will be contiguously arranged up to the maximum vocab size, even if the input
+tokens are non-continguous or unbounded. The layer supports multiple options
+for encoding the output via ``output_mode``, and has optional support for
+out-of-vocabulary (OOV) tokens and masking.
+
+The vocabulary for the layer can be supplied on construction or learned via
+``adapt()``. During ``adapt()``, the layer will analyze a data set, determine the
+frequency of individual integer tokens, and create a vocabulary from them. If
+the vocabulary is capped in size, the most frequent tokens will be used to
+create the vocabulary and all others will be treated as OOV.
+
+There are two possible output modes for the layer.
+When ``output_mode`` is ``"int"``,
+input integers are converted to their index in the vocabulary (an integer).
+When ``output_mode`` is ``"multi_hot"``, ``"count"``, or ``"tf_idf"``, input integers
+are encoded into an array where each dimension corresponds to an element in
+the vocabulary.
+
+The vocabulary for the layer must be either supplied on construction or
+learned via ``adapt()``. During ``adapt()``, the layer will analyze a data set,
+determine the frequency of individual integer tokens, and create a vocabulary
+from them. If the vocabulary is capped in size, the most frequent tokens will
+be used to create the vocabulary and all others will be treated as OOV.
+
+
+
+
+
+
+
+## See Also
+
+
+
+*  adapt()
+
+*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/IntegerLookup
+
+*  https://keras.io/api/layers/preprocessing_layers/categorical/integer_lookup
+
+
+Other categorical features preprocessing layers: 
+`layer_category_encoding()`,
+`layer_hashing()`,
+`layer_string_lookup()`
+
+Other preprocessing layers: 
+`layer_category_encoding()`,
+`layer_center_crop()`,
+`layer_discretization()`,
+`layer_hashing()`,
+`layer_normalization()`,
+`layer_random_brightness()`,
+`layer_random_contrast()`,
+`layer_random_crop()`,
+`layer_random_flip()`,
+`layer_random_height()`,
+`layer_random_rotation()`,
+`layer_random_translation()`,
+`layer_random_width()`,
+`layer_random_zoom()`,
+`layer_rescaling()`,
+`layer_resizing()`,
+`layer_string_lookup()`,
+`layer_text_vectorization()`
+
+
+

@@ -1,0 +1,38 @@
+# generator_next
+
+
+Retrieve the next item from a generator
+
+
+
+
+## Description
+
+Use to retrieve items from generators (e.g. `image_data_generator()`). Will return
+either the next item or ``NULL`` if there are no more items.
+
+
+
+
+
+## Usage
+```r
+generator_next(generator, completed = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+generator | Generator
+completed | Sentinel value to return from ``generator_next()`` if the iteration completes (defaults to ``NULL`` but can be any R value you specify).
+
+
+
+
+
+

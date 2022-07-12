@@ -1,0 +1,54 @@
+# callback_csv_logger
+
+
+Callback that streams epoch results to a csv file
+
+
+
+
+## Description
+
+Supports all values that can be represented as a string
+
+
+
+
+
+## Usage
+```r
+callback_csv_logger(filename, separator = ",", append = FALSE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+filename | filename of the csv file, e.g. 'run/log.csv'.
+separator | string used to separate elements in the csv file.
+append | ``TRUE``: append if file exists (useful for continuing training). ``FALSE``: overwrite existing file,
+
+
+
+
+
+
+
+## See Also
+
+Other callbacks: 
+`callback_early_stopping()`,
+`callback_lambda()`,
+`callback_learning_rate_scheduler()`,
+`callback_model_checkpoint()`,
+`callback_progbar_logger()`,
+`callback_reduce_lr_on_plateau()`,
+`callback_remote_monitor()`,
+`callback_tensorboard()`,
+`callback_terminate_on_naan()`
+
+
+

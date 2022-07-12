@@ -1,0 +1,46 @@
+# dataset_shard
+
+
+Creates a dataset that includes only 1 / num_shards of this dataset.
+
+
+
+
+## Description
+
+This dataset operator is very useful when running distributed training, as it
+allows each worker to read a unique subset.
+
+
+
+
+
+## Usage
+```r
+dataset_shard(dataset, num_shards, index)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | A dataset
+num_shards | A integer representing the number of shards operating in parallel.
+index | A integer, representing the worker index.
+
+
+
+
+
+## Value
+
+A dataset
+
+
+
+
+

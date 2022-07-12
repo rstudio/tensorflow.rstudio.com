@@ -1,0 +1,45 @@
+# normalize
+
+
+Normalize a matrix or nd-array
+
+
+
+
+## Description
+
+Normalize a matrix or nd-array
+
+
+
+
+
+## Usage
+```r
+normalize(x, axis = -1, order = 2)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+x | Matrix or array to normalize
+axis | Axis along which to normalize. Axis indexes are 1-based (pass -1 to select the last axis).
+order | Normalization order (e.g. 2 for L2 norm)
+
+
+
+
+
+## Value
+
+A normalized copy of the array.
+
+
+
+
+

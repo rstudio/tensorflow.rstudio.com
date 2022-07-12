@@ -1,0 +1,51 @@
+# texts_to_sequences
+
+
+Transform each text in texts in a sequence of integers.
+
+
+
+
+## Description
+
+Only top "num_words" most frequent words will be taken into account.
+Only words known by the tokenizer will be taken into account.
+
+
+
+
+
+## Usage
+```r
+texts_to_sequences(tokenizer, texts)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+tokenizer | Tokenizer
+texts | Vector/list of texts (strings).
+
+
+
+
+
+
+
+## See Also
+
+Other text tokenization: 
+`fit_text_tokenizer()`,
+`save_text_tokenizer()`,
+`sequences_to_matrix()`,
+`text_tokenizer()`,
+`texts_to_matrix()`,
+`texts_to_sequences_generator()`
+
+
+

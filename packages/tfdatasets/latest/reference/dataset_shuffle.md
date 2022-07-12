@@ -1,0 +1,77 @@
+# dataset_shuffle
+
+
+Randomly shuffles the elements of this dataset.
+
+
+
+
+## Description
+
+Randomly shuffles the elements of this dataset.
+
+
+
+
+
+## Usage
+```r
+dataset_shuffle(
+  dataset,
+  buffer_size,
+  seed = NULL,
+  reshuffle_each_iteration = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | A dataset
+buffer_size | An integer, representing the number of elements from this dataset from which the new dataset will sample.
+seed | (Optional) An integer, representing the random seed that will be used to create the distribution.
+reshuffle_each_iteration | (Optional) A boolean, which if true indicates that the dataset should be pseudorandomly reshuffled each time it is iterated over. (Defaults to ``TRUE``). Not used if TF version < 1.15
+
+
+
+
+
+## Value
+
+A dataset
+
+
+
+
+
+
+## See Also
+
+Other dataset methods: 
+`dataset_batch()`,
+`dataset_cache()`,
+`dataset_collect()`,
+`dataset_concatenate()`,
+`dataset_decode_delim()`,
+`dataset_filter()`,
+`dataset_interleave()`,
+`dataset_map_and_batch()`,
+`dataset_map()`,
+`dataset_padded_batch()`,
+`dataset_prefetch_to_device()`,
+`dataset_prefetch()`,
+`dataset_reduce()`,
+`dataset_repeat()`,
+`dataset_shuffle_and_repeat()`,
+`dataset_skip()`,
+`dataset_take_while()`,
+`dataset_take()`,
+`dataset_window()`
+
+
+

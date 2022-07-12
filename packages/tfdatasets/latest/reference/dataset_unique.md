@@ -1,0 +1,60 @@
+# dataset_unique
+
+
+A transformation that discards duplicate elements of a Dataset.
+
+
+
+
+## Description
+
+Use this transformation to produce a dataset that contains one instance of
+each unique element in the input (See example).
+
+
+
+
+
+## Usage
+```r
+dataset_unique(dataset, name = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | A tf.Dataset.
+name | (Optional.) A name for the tf.data operation.
+
+
+
+
+
+## Value
+
+A tf.Dataset
+
+
+
+
+
+## Examples
+
+```r
+
+c(0, 37, 2, 37, 2, 1) %>% as_tensor("int32") %>%
+  tensor_slices_dataset() %>%
+  dataset_unique() %>%
+  as_array_iterator() %>% iterate() %>% sort()
+# [1]  0  1  2 37
+
+```
+
+
+
+

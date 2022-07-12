@@ -1,0 +1,58 @@
+# dataset_mnist
+
+
+MNIST database of handwritten digits
+
+
+
+
+## Description
+
+Dataset of 60,000 28x28 grayscale images of the 10 digits, along with a test set of 10,000 images.
+
+
+
+
+
+## Usage
+```r
+dataset_mnist(path = "mnist.npz")
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+path | Path where to cache the dataset locally (relative to ~/.keras/datasets).
+
+
+
+
+
+## Value
+
+Lists of training and test data: train$x, train$y, test$x, test$y, where
+``x`` is an array of grayscale image data with shape (num_samples, 28, 28) and ``y``
+is an array of digit labels (integers in range 0-9) with shape (num_samples).
+
+
+
+
+
+
+## See Also
+
+Other datasets: 
+`dataset_boston_housing()`,
+`dataset_cifar100()`,
+`dataset_cifar10()`,
+`dataset_fashion_mnist()`,
+`dataset_imdb()`,
+`dataset_reuters()`
+
+
+

@@ -1,0 +1,50 @@
+# plot.keras_training_history
+
+
+Plot training history
+
+
+
+
+## Description
+
+Plots metrics recorded during training.
+
+
+
+
+
+## Usage
+
+plotkeras_training_history(
+  x,
+  y,
+  metrics = NULL,
+  method = c("auto", "ggplot2", "base"),
+  smooth = getOption("keras.plot.history.smooth", TRUE),
+  theme_bw = getOption("keras.plot.history.theme_bw", FALSE),
+  ...
+)
+
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+x | Training history object returned from ``fit.keras.engine.training.Model()``.
+y | Unused.
+metrics | One or more metrics to plot (e.g. ``c('loss', 'accuracy')``). Defaults to plotting all captured metrics.
+method | Method to use for plotting. The default "auto" will use ggplot2 if available, and otherwise will use base graphics.
+smooth | Whether a loess smooth should be added to the plot, only available for the ``ggplot2`` method. If the number of epochs is smaller than ten, it is forced to false.
+theme_bw | Use ``ggplot2::theme_bw()`` to plot the history in black and white.
+... | Additional parameters to pass to the `plot()` method.
+
+
+
+
+
+

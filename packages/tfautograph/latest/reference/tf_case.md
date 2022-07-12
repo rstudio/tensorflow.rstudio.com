@@ -1,0 +1,79 @@
+# tf_case
+
+
+tf.case
+
+
+
+
+## Description
+
+This is a minimal wrapper around ``tf.case()`` that allows you to supply the
+``pred_fn_pairs`` using the ``~``.
+
+
+
+
+
+## Usage
+```r
+tf_case(
+  ...,
+  pred_fn_pairs = list(...),
+  default = NULL,
+  exclusive = FALSE,
+  name = "case"
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+..., pred_fn_pairs | a list ``pred_fn_pairs`` supplied with the ``~`` like so: ``pred ~ fn_body``
+default | a function, optionally specified with the ``~``, (or something coercible to a function via ``as.function()``)
+exclusive | bool, whether to evaluate all ``preds`` and ensure only one is true. If ``FALSE`` (the default), then the ``preds`` are evaluated in the order supplied until the first ``TRUE`` value is encountered (effectively, acting as an if()... else if() ... else if() ... chain)
+name | a string, passed on to ``tf.case()``
+
+
+
+
+
+## Value
+
+The result from ``tf$case()``
+
+
+
+
+
+## Examples
+
+```r
+
+fizz_buzz_one <- function(x) {
+  tf_case(
+    x %% 15 == 0 ~ "FizzBuzz",
+    x %%  5 == 0 ~ "Buzz",
+    x %%  3 == 0 ~ "Fizz",
+    default = ~ tf$as_string(x, precision = 0L)
+  )
+}
+
+fn <- tf_function(autograph(function(n) {
+  for(e in tf$range(n))
+    tf$print(fizz_buzz_one(e))
+}))
+
+x <- tf$constant(16)
+fn(x)
+
+```
+
+
+
+

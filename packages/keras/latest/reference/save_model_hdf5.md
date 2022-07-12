@@ -1,0 +1,82 @@
+# save_model_hdf5
+
+
+Save/Load models using HDF5 files
+
+
+
+
+## Description
+
+Save/Load models using HDF5 files
+
+
+
+
+
+## Usage
+```r
+save_model_hdf5(object, filepath, overwrite = TRUE, include_optimizer = TRUE)
+
+load_model_hdf5(filepath, custom_objects = NULL, compile = TRUE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | Model object to save
+filepath | File path
+overwrite | Overwrite existing file if necessary
+include_optimizer | If ``TRUE``, save optimizer's state.
+custom_objects | Mapping class names (or function names) of custom (non-Keras) objects to class/functions (for example, custom metrics or custom loss functions). This mapping can be done with the dict() function of reticulate.
+compile | Whether to compile the model after loading.
+
+
+
+
+## Details
+
+The following components of the model are saved:
+
+
+*  The model architecture, allowing to re-instantiate the model.
+
+*  The model weights.
+
+*  The state of the optimizer, allowing to resume training exactly where you
+left off.
+This allows you to save the entirety of the state of a model
+in a single file.
+
+
+Saved models can be reinstantiated via ``load_model_hdf5()``. The model returned by
+``load_model_hdf5()`` is a compiled model ready to be used (unless the saved model
+was never compiled in the first place or ``compile = FALSE`` is specified).
+
+As an alternative to providing the ``custom_objects`` argument, you can
+execute the definition and persistence of your model using the
+`with_custom_object_scope()` function.
+
+
+
+
+
+
+
+## See Also
+
+Other model persistence: 
+`get_weights()`,
+`model_to_json()`,
+`model_to_yaml()`,
+`save_model_tf()`,
+`save_model_weights_hdf5()`,
+`serialize_model()`
+
+
+

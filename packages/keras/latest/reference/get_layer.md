@@ -1,0 +1,70 @@
+# get_layer
+
+
+Retrieves a layer based on either its name (unique) or index.
+
+
+
+
+## Description
+
+Indices are based on order of horizontal graph traversal (bottom-up) and are
+1-based. If ``name`` and ``index`` are both provided, ``index`` will take
+precedence.
+
+
+
+
+
+## Usage
+```r
+get_layer(object, name = NULL, index = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+object | Keras model object
+name | String, name of layer.
+index | Integer, index of layer (1-based). Also valid are negative values, which count from the end of model.
+
+
+
+
+
+## Value
+
+A layer instance.
+
+
+
+
+
+
+## See Also
+
+Other model functions: 
+`compile.keras.engine.training.Model()`,
+`evaluate.keras.engine.training.Model()`,
+`evaluate_generator()`,
+`fit.keras.engine.training.Model()`,
+`fit_generator()`,
+`get_config()`,
+`keras_model_sequential()`,
+`keras_model()`,
+`multi_gpu_model()`,
+`pop_layer()`,
+`predict.keras.engine.training.Model()`,
+`predict_generator()`,
+`predict_on_batch()`,
+`predict_proba()`,
+`summary.keras.engine.training.Model()`,
+`train_on_batch()`
+
+
+

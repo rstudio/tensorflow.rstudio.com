@@ -1,0 +1,66 @@
+# dataset_decode_delim
+
+
+Transform a dataset with delimted text lines into a dataset with named
+columns
+
+
+
+
+## Description
+
+Transform a dataset with delimted text lines into a dataset with named
+columns
+
+
+
+
+
+## Usage
+```r
+dataset_decode_delim(dataset, record_spec, parallel_records = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | Dataset containing delimited text lines (e.g. a CSV)
+record_spec | Specification of column names and types (see `delim_record_spec()`).
+parallel_records | (Optional) An integer, representing the number of records to decode in parallel. If not specified, records will be processed sequentially.
+
+
+
+
+
+
+
+## See Also
+
+Other dataset methods: 
+`dataset_batch()`,
+`dataset_cache()`,
+`dataset_collect()`,
+`dataset_concatenate()`,
+`dataset_filter()`,
+`dataset_interleave()`,
+`dataset_map_and_batch()`,
+`dataset_map()`,
+`dataset_padded_batch()`,
+`dataset_prefetch_to_device()`,
+`dataset_prefetch()`,
+`dataset_reduce()`,
+`dataset_repeat()`,
+`dataset_shuffle_and_repeat()`,
+`dataset_shuffle()`,
+`dataset_skip()`,
+`dataset_take_while()`,
+`dataset_take()`,
+`dataset_window()`
+
+
+

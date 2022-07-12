@@ -1,0 +1,125 @@
+# metric_precision
+
+
+Computes the precision of the predictions with respect to the labels
+
+
+
+
+## Description
+
+Computes the precision of the predictions with respect to the labels
+
+
+
+
+
+## Usage
+```r
+metric_precision(
+  ...,
+  thresholds = NULL,
+  top_k = NULL,
+  class_id = NULL,
+  name = NULL,
+  dtype = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+... | Passed on to the underlying metric. Used for forwards and backwards compatibility.
+thresholds | (Optional) A float value or a list of float threshold values in [0, 1]. A threshold is compared with prediction values to determine the truth value of predictions (i.e., above the threshold is ``true``, below is ``false``). One metric value is generated for each threshold value. If neither thresholds nor top_k are set, the default is to calculate precision with ``thresholds=0.5``.
+top_k | (Optional) Unset by default. An int value specifying the top-k predictions to consider when calculating precision.
+class_id | (Optional) Integer class ID for which we want binary metrics. This must be in the half-open interval [0, num_classes), where ``num_classes`` is the last dimension of predictions.
+name | (Optional) string name of the metric instance.
+dtype | (Optional) data type of the metric result.
+
+
+
+
+## Details
+
+The metric creates two local variables, ``true_positives`` and
+``false_positives`` that are used to compute the precision. This value is
+ultimately returned as ``precision``, an idempotent operation that simply
+divides ``true_positives`` by the sum of ``true_positives`` and
+``false_positives``.
+
+If ``sample_weight`` is ``NULL``, weights default to 1. Use ``sample_weight`` of 0
+to mask values.
+
+If ``top_k`` is set, we'll calculate precision as how often on average a class
+among the top-k classes with the highest predicted values of a batch entry is
+correct and can be found in the label for that entry.
+
+If ``class_id`` is specified, we calculate precision by considering only the
+entries in the batch for which ``class_id`` is above the threshold and/or in
+the top-k highest predictions, and computing the fraction of them for which
+``class_id`` is indeed a correct label.
+
+
+
+
+
+## Value
+
+A (subclassed) ``Metric`` instance that can be passed directly to
+``compile(metrics = )``, or used as a standalone object. See ``?Metric`` for
+example usage.
+
+
+
+
+
+
+## See Also
+
+Other metrics: 
+`custom_metric()`,
+`metric_accuracy()`,
+`metric_auc()`,
+`metric_binary_accuracy()`,
+`metric_binary_crossentropy()`,
+`metric_categorical_accuracy()`,
+`metric_categorical_crossentropy()`,
+`metric_categorical_hinge()`,
+`metric_cosine_similarity()`,
+`metric_false_negatives()`,
+`metric_false_positives()`,
+`metric_hinge()`,
+`metric_kullback_leibler_divergence()`,
+`metric_logcosh_error()`,
+`metric_mean_absolute_error()`,
+`metric_mean_absolute_percentage_error()`,
+`metric_mean_iou()`,
+`metric_mean_relative_error()`,
+`metric_mean_squared_error()`,
+`metric_mean_squared_logarithmic_error()`,
+`metric_mean_tensor()`,
+`metric_mean_wrapper()`,
+`metric_mean()`,
+`metric_poisson()`,
+`metric_precision_at_recall()`,
+`metric_recall_at_precision()`,
+`metric_recall()`,
+`metric_root_mean_squared_error()`,
+`metric_sensitivity_at_specificity()`,
+`metric_sparse_categorical_accuracy()`,
+`metric_sparse_categorical_crossentropy()`,
+`metric_sparse_top_k_categorical_accuracy()`,
+`metric_specificity_at_sensitivity()`,
+`metric_squared_hinge()`,
+`metric_sum()`,
+`metric_top_k_categorical_accuracy()`,
+`metric_true_negatives()`,
+`metric_true_positives()`
+
+
+

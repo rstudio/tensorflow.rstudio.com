@@ -1,0 +1,75 @@
+# text_tokenizer
+
+
+Text tokenization utility
+
+
+
+
+## Description
+
+Vectorize a text corpus, by turning each text into either a sequence of
+integers (each integer being the index of a token in a dictionary) or into a
+vector where the coefficient for each token could be binary, based on word
+count, based on tf-idf...
+
+
+
+
+
+## Usage
+```r
+text_tokenizer(
+  num_words = NULL,
+  filters = "!\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n",
+  lower = TRUE,
+  split = " ",
+  char_level = FALSE,
+  oov_token = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+num_words | the maximum number of words to keep, based on word frequency. Only the most common ``num_words`` words will be kept.
+filters | a string where each element is a character that will be filtered from the texts. The default is all punctuation, plus tabs and line breaks, minus the ' character.
+lower | boolean. Whether to convert the texts to lowercase.
+split | character or string to use for token splitting.
+char_level | if ``TRUE``, every character will be treated as a token
+oov_token | ``NULL`` or string If given, it will be added to `word_index`` and used to replace out-of-vocabulary words during text_to_sequence calls.
+
+
+
+
+## Details
+
+By default, all punctuation is removed, turning the texts into
+space-separated sequences of words (words maybe include the ' character).
+These sequences are then split into lists of tokens. They will then be
+indexed or vectorized. ``0`` is a reserved index that won't be assigned to any
+word.
+
+
+
+
+
+
+
+## See Also
+
+Other text tokenization: 
+`fit_text_tokenizer()`,
+`save_text_tokenizer()`,
+`sequences_to_matrix()`,
+`texts_to_matrix()`,
+`texts_to_sequences_generator()`,
+`texts_to_sequences()`
+
+
+

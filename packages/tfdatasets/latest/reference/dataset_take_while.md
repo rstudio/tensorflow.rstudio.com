@@ -1,0 +1,90 @@
+# dataset_take_while
+
+
+A transformation that stops dataset iteration based on a predicate.
+
+
+
+
+## Description
+
+A transformation that stops dataset iteration based on a predicate.
+
+
+
+
+
+## Usage
+```r
+dataset_take_while(dataset, predicate, name = NULL)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+dataset | A TF dataset
+predicate | A function that maps a nested structure of tensors (having shapes and types defined by ``self$output_shapes`` and ``self$output_types``) to a scalar ``tf.bool`` tensor.
+name | (Optional.) A name for the tf.data operation.
+
+
+
+
+## Details
+
+Example usage:
+
+html<div class="sourceCode r"> range_dataset(from = 0, to = 10) %>%
+   dataset_take_while( ~ .x < 5) %>%
+   as_array_iterator() %>%
+   iterate(simplify = FALSE) %>% str()
+ #> List of 5
+ #> $ : num 0
+ #> $ : num 1
+ #> $ : num 2
+ #> $ : num 3
+ #> $ : num 4
+html</div>
+
+
+
+
+
+## Value
+
+A TF Dataset
+
+
+
+
+
+
+## See Also
+
+Other dataset methods: 
+`dataset_batch()`,
+`dataset_cache()`,
+`dataset_collect()`,
+`dataset_concatenate()`,
+`dataset_decode_delim()`,
+`dataset_filter()`,
+`dataset_interleave()`,
+`dataset_map_and_batch()`,
+`dataset_map()`,
+`dataset_padded_batch()`,
+`dataset_prefetch_to_device()`,
+`dataset_prefetch()`,
+`dataset_reduce()`,
+`dataset_repeat()`,
+`dataset_shuffle_and_repeat()`,
+`dataset_shuffle()`,
+`dataset_skip()`,
+`dataset_take()`,
+`dataset_window()`
+
+
+

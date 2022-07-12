@@ -1,0 +1,57 @@
+# read_files
+
+
+Read a dataset from a set of files
+
+
+
+
+## Description
+
+Read files into a dataset, optionally processing them in parallel.
+
+
+
+
+
+## Usage
+```r
+read_files(
+  files,
+  reader,
+  ...,
+  parallel_files = 1,
+  parallel_interleave = 1,
+  num_shards = NULL,
+  shard_index = NULL
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+files | List of filenames or glob pattern for files (e.g. "*.csv")
+reader | Function that maps a file into a dataset (e.g. `text_line_dataset()` or `tfrecord_dataset()`).
+... | Additional arguments to pass to ``reader`` function
+parallel_files | An integer, number of files to process in parallel
+parallel_interleave | An integer, number of consecutive records to produce from each file before cycling to another file.
+num_shards | An integer representing the number of shards operating in parallel.
+shard_index | An integer, representing the worker index. Shared indexes are 0 based so for e.g. 8 shards valid indexes would be 0-7.
+
+
+
+
+
+## Value
+
+A dataset
+
+
+
+
+

@@ -1,0 +1,46 @@
+# has_type
+
+
+Identify the type of the variable.
+
+
+
+
+## Description
+
+Can only be used inside the steps specifications to find
+variables by type.
+
+
+
+
+
+## Usage
+```r
+has_type(match = "float32")
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+match | A list of types to match.
+
+
+
+
+
+
+
+## See Also
+
+Other Selectors: 
+`all_nominal()`,
+`all_numeric()`
+
+
+
