@@ -8,7 +8,7 @@ format: html
 ### Tensorflow Version
 
 ```{r}
-tensorflow::tf_version()
+tensorflow::tf_config()
 ```
 :::
 
@@ -24,7 +24,6 @@ sessionInfo()
 ### Python Environment Information
 
 ```{r}
-reticulate::py_config()
 system2(reticulate::py_exe(), c("-m pip freeze"), stdout = TRUE) |> writeLines()
 ```
 :::
