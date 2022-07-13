@@ -1,8 +1,10 @@
 ---
-title: "Keras Examples"
+title: "Examples"
 listing:
   contents: "*.qmd"
   type: table
+  categories: true
+  filter-ui: true
   fields:
     - title
     - description

@@ -8,8 +8,10 @@ listing:
     sort-ui: false
     filter-ui: false
     fields: [title, description]
+    sort: id
     contents: 
       - quickstart/beginner.qmd
+      - keras/classification.qmd
   - id: experts
     type: grid
     sort-ui: false
@@ -17,12 +19,11 @@ listing:
     fields: [title, description]
     contents: 
       - quickstart/advanced.qmd
-      - keras/classification.qmd
 ---
 
 ## For beginers
 
-The best place to start is with the user-friendly Keras sequential API. Build models by plugging together building blocks. After these tutorials, read the [Keras guide](guides/keras/sequential_model.qmd).
+The best place to start is with the user-friendly Keras sequential API. Build models by plugging together building blocks. After these tutorials, read the [Keras guide](../guides/keras/sequential_model.html).
 
 ::: {#beginners}
 :::

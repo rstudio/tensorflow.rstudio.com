@@ -18,7 +18,8 @@ css: index.css
 
 ::: {.hero-buttons}
 [Get Started](tutorials/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
-[Guide](guides/){#btn-guide .btn-action .btn .btn-info .btn-lg role="button"}
+[Guide](guides/){.btn-action .btn .btn-success .btn-lg role="button"}
+[Examples](examples/){.btn-action .btn .btn-success .btn-lg role="button"}
 ::: 
 
 :::

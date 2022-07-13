@@ -121,6 +121,4 @@ format:
   html:
     toc: true
     code-overflow: wrap
-    theme:
-      light: [united, custom.scss]
-      dark: darkly
+    theme: custom.scss
