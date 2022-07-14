@@ -12,9 +12,8 @@ envname <- "r-tensorflow-site"
 
 if("--fresh" %in% commandArgs(TRUE)) {
   reticulate:::rm_all_reticulate_state()
-  # reticulate::miniconda_uninstall()
   # unlink("~/.pyenv", recursive = TRUE)
-  # unlink(file.path(reticulate::virtualenv_root(), envname), recursive = TRUE)
+  unlink(file.path(reticulate::virtualenv_root(), envname), recursive = TRUE)
 }
 
 python <- reticulate::install_python(force = "--fresh" %in% commandArgs(TRUE))
