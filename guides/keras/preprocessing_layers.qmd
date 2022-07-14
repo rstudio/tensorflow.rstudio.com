@@ -2,6 +2,8 @@
 title: Working with preprocessing layers
 author: Francois Chollet, Mark Omernick, Tomasz Kalinowski
 description: Overview of how to leverage preprocessing layers to create end-to-end models.
+aliases:
+  - ../../articles/new-guides/preprocessing_layers.html
 ---
 
 ```{r}

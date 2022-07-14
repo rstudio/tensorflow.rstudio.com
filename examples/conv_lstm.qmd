@@ -2,6 +2,8 @@
 title: Convolutional LSTM network
 description: Demonstrates the use of a convolutional LSTM network.
 categories: [cv]
+aliases:
+  - ../guide/keras/examples/conv_lstm/index.html
 ---
 
 ```{r }

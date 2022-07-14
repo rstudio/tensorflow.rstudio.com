@@ -1,7 +1,8 @@
 ---
 title: "Overfit and underfit"
 aliases: 
-  - ../beginners/basic-ml/tutorial_overfit_underfit.qmd
+  - ../beginners/basic-ml/tutorial_overfit_underfit/index.html
+  - ../../articles/tutorial_overfit_underfit.html
 ---
 
 As always, the code in this example will use the Keras API, which you can learn more about in the TensorFlow [Keras guide](guides/keras).

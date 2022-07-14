@@ -2,6 +2,8 @@
 title: Trains a two-branch recurrent network on the bAbI dataset
 description: Trains a two-branch recurrent network on the bAbI dataset for reading comprehension.
 categories: [nlp]
+aliases:
+  - ../guide/keras/examples/babi_rnn/index.html
 ---
 
 Trains two recurrent neural networks based upon a story and a question.

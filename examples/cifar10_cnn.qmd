@@ -2,6 +2,8 @@
 title: Simple CNN on CIFAR10 dataset
 description: Trains a simple deep CNN on the CIFAR10 small images dataset.
 categories: [cv]
+aliases:
+  - ../guide/keras/examples/cifar10_cnn/index.html
 ---
 Train a simple deep CNN on the CIFAR10 small images dataset.
  

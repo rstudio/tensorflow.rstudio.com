@@ -8,6 +8,8 @@ listing:
   fields:
     - title
     - description
+aliases:
+  - ../guide/keras/examples/index.html
 ---
 <!--
 | Example  | Description   |

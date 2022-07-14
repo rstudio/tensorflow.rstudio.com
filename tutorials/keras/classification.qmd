@@ -3,8 +3,10 @@ title: "Basic Image Classification"
 description: "This notebook collection demonstrates basic machine learning tasks using Keras."
 id: 2
 aliases: 
-  - ../beginners/basic-ml.qmd
-  - ../beginners/basic-ml/tutorial_basic_classification.qmd
+  - ../beginners/basic-ml/index.html
+  - ../beginners/basic-ml/tutorial_basic_classification/index.html
+  - ../../articles/getting_started.html
+  - ../../articles/tutorial_basic_classification.html
 ---
 
 In this guide, we will train a neural network model to classify images of clothing, like sneakers and shirts. It's fine if you don't understand all the details, this is a fast-paced overview of a complete Keras program with the details explained as we go. 

@@ -2,6 +2,8 @@
 title: Sequence to sequence learning for performing number addition
 description: Implementation of sequence to sequence learning for performing addition of two numbers (as strings).
 categories: [nlp]
+aliases:
+  - ../guide/keras/examples/addition_rnn/index.html
 ---
 
 An implementation of sequence to sequence learning for performing addition

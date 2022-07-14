@@ -2,6 +2,8 @@
 title: Trains a memory network on the bAbI dataset
 description: Trains a memory network on the bAbI dataset for reading comprehension.
 categories: [nlp]
+aliases:
+  - ../guide/keras/examples/babi_memnn/index.html
 ---
 
 Trains a memory network on the bAbI dataset.
