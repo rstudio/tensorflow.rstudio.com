@@ -21,14 +21,27 @@
 }
 }
 
+.hero-cover {
+  background: white;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(0 32%, 100% 40%, 100% 100%, 0 100%);
+}
+
 .hero-banner {
   position: relative;
   display: flex;
   justify-content: center;
+  background: rgb(227,45,91);
+  background: linear-gradient(#E83E18 0%, #FFFFFF 90%, #FFFFFF 100%);
 }
+
+
 
 .hero-banner h1 {
   font-size: 2.5rem;
+  color: white;
 }
 
 
@@ -84,6 +97,7 @@
 .hero-banner h3 {
   margin-top: 1.3rem;
   margin-bottom: 1.3rem;
+  color: white;
 }
 
 .hero-banner h4 {
@@ -133,7 +147,6 @@
 }
 
 .hello-quarto-banner h1 {
-  margin-right: 40px;
 }
 
 .hello-quarto-banner ul {

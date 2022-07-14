@@ -6,11 +6,17 @@ css: index.css
 
 ::: {.hero-banner}
 
-::: {.content-block}
+::: {.hero-cover}
+:::
 
+::: {.content-block}
 # Welcome to TensorFlow for R
 
 ### An end-to-end open source machine learning platform
+
+<br> 
+<br> 
+<br>
 
 - Build and train ML models easily using intuitive high-level APIs like Keras with eager execution, which makes for immediate model iteration and easy debugging. 
 - Easily train and deploy models in the cloud, on-prem, in the browser, or on-device no matter what language you use.
@@ -20,13 +26,14 @@ css: index.css
 [Get Started](tutorials/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
 [Guide](guides/){.btn-action .btn .btn-success .btn-lg role="button"}
 [Examples](examples/){.btn-action .btn .btn-success .btn-lg role="button"}
-::: 
-
 :::
 
 :::
+:::
+
 
 ::: {.content-block}
+
 ::: {.features .alt-background}
 
 ::: {.feature}
