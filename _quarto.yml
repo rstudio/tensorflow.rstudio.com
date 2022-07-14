@@ -18,7 +18,6 @@ execute:
   eval: true
   freeze: auto
 
-
 website:
   title: TensorFlow for R
   site-url: https://tensorflow.rstudio.com
@@ -34,10 +33,10 @@ website:
     background: "#E83E18"
     file: index.qmd
     left:
-      - {text: Install      ,href: install/}
-      - {text: Tutorials    ,href: tutorials/}
-      - {text: Guides       ,href: guides/index.qmd}
-      - {text: Examples     ,href: examples/}
+      - { text: Install, href: install/ }
+      - { text: Tutorials, href: tutorials/ }
+      - { text: Guides, href: guides/index.qmd }
+      - { text: Examples, href: examples/ }
       - text: Reference
         menu:
           - text: "TensorFlow"
@@ -53,7 +52,6 @@ website:
       # - {text: v1           ,href: v1/}
 
   sidebar:
-
     - title: "Install"
       alignment: left
       collapse-level: 2
@@ -88,11 +86,17 @@ website:
 
         - section: Tensorflow Basics
           contents:
-            - {text: Overview                  ,href: guides/tensorflow/basics.qmd}
-            - {text: Tensors                   ,href: guides/tensorflow/tensor.qmd}
-            - {text: Variables                 ,href: guides/tensorflow/variable.qmd}
-            - {text: Automatic differentiation ,href: guides/tensorflow/autodiff.qmd}
-            - {text: Graphs and functions      ,href: guides/tensorflow/intro_to_graphs.qmd}
+            - { text: Overview, href: guides/tensorflow/basics.qmd }
+            - { text: Tensors, href: guides/tensorflow/tensor.qmd }
+            - { text: Variables, href: guides/tensorflow/variable.qmd }
+            - {
+                text: Automatic differentiation,
+                href: guides/tensorflow/autodiff.qmd,
+              }
+            - {
+                text: Graphs and functions,
+                href: guides/tensorflow/intro_to_graphs.qmd,
+              }
 
         - section: Keras
           contents:
@@ -117,6 +121,12 @@ website:
           contents:
             - guides/data/data.qmd
 
+        - section: Deployment
+          contents:
+            - guides/deploy/index.qmd
+            - guides/deploy/plumber.qmd
+            - guides/deploy/shiny.qmd
+            - guides/deploy/docker.qmd
 
 format:
   html:

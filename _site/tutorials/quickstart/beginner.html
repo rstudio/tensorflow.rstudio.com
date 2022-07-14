@@ -361,12 +361,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, x_train[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,,])</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            [,1]      [,2]      [,3]       [,4]      [,5]        [,6]
-[1,] -0.45212924 -1.000679 1.0063702 -0.2813853 0.3640309 -0.03176719
-[2,] -0.03669837 -1.229428 0.5544991 -0.1326344 0.9059005 -0.55074894
-            [,7]        [,8]      [,9]      [,10]
-[1,] -0.01737098 0.002265602 0.4170726 -1.0100819
-[2,]  0.46314085 0.023755193 0.2630941 -0.4941591</code></pre>
+<pre><code>             [,1]       [,2]       [,3]       [,4]       [,5]      [,6]
+[1,] -0.005407125 0.80882549 -0.2325605 -0.1544301 -0.6472741 0.6266558
+[2,] -0.290611625 0.06450716  0.1402041 -0.1379433  0.0617898 0.5705588
+          [,7]       [,8]       [,9]       [,10]
+[1,] -0.542796  0.1547296 -0.1692535  0.01014616
+[2,] -0.862651 -0.1120777  0.5996791 -0.13866948</code></pre>
 </div>
 </div>
 <p>The <code>tf$nn$softmax</code> function converts these logits to <em>probabilities</em> for each class:</p>
@@ -374,10 +374,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">softmax</span>(predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[[0.05908425 0.0341381  0.25403292 0.07008497 0.13363666 0.08995652
-  0.09126092 0.09307069 0.14091633 0.03381863]
- [0.08420331 0.02554661 0.15208381 0.07650058 0.21611985 0.05035932
-  0.13880548 0.08945072 0.113639   0.05329132]], shape=(2, 10), dtype=float64)</code></pre>
+[[0.09135692 0.20623302 0.07279307 0.0787085  0.04808196 0.17188694
+  0.05337728 0.107223   0.07755037 0.09278893]
+ [0.07003794 0.09989862 0.10775421 0.0815899  0.09962753 0.16570475
+  0.03952754 0.0837278  0.17060105 0.08153067]], shape=(2, 10), dtype=float64)</code></pre>
 </div>
 </div>
 <p>Note: It is possible to bake the <code>tf$nn$softmax</code> function into the activation function for the last layer of the network. While this can make the model output more directly interpretable, this approach is discouraged as it’s impossible to provide an exact and numerically stable loss calculation for all models when using a softmax output.</p>
@@ -389,7 +389,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_fn</span>(y_train[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor(2.44147489276956, shape=(), dtype=float64)</code></pre>
+<pre><code>tf.Tensor(2.2098182524781778, shape=(), dtype=float64)</code></pre>
 </div>
 </div>
 <p>Before you start training, configure and compile the model using Keras <code>compile()</code>. Set the <a href="https://www.tensorflow.org/api_docs/python/tf/keras/optimizers"><code>optimizer</code></a> class to <code>adam</code>, set the <code>loss</code> to the <code>loss_fn</code> function you defined earlier, and specify a metric to be evaluated for the model by setting the <code>metrics</code> parameter to <code>accuracy</code>.</p>
@@ -412,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">evaluate</span>(x_test,  y_test, <span class="at">verbose =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      loss   accuracy 
-0.07559286 0.97729999 </code></pre>
+0.07454524 0.97780001 </code></pre>
 </div>
 </div>
 <p>The image classifier is now trained to ~98% accuracy on this dataset. To learn more, read the <a href="https://www.tensorflow.org/tutorials/">TensorFlow tutorials</a>.</p>
@@ -426,21 +426,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">probability_model</span>(x_test[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[[5.05482731e-08 8.55492899e-10 7.38288236e-06 1.35267692e-04
-  8.05116390e-12 9.75205694e-09 1.18561099e-13 9.99837637e-01
-  1.85414120e-08 1.96653928e-05]
- [2.48872567e-08 5.27670607e-04 9.99467313e-01 4.85750343e-06
-  2.65540202e-19 1.64506261e-07 3.60757682e-08 1.13698737e-13
-  3.73362452e-09 6.57828216e-14]
- [1.00679961e-06 9.97797489e-01 4.69215098e-04 2.04522312e-05
-  5.64250649e-06 8.54686732e-06 2.22352446e-05 1.26194709e-03
-  4.13237256e-04 1.98122635e-07]
- [9.99778807e-01 8.29056990e-10 6.43533203e-05 8.32866021e-07
-  8.36042034e-07 4.16911098e-06 1.18370135e-05 7.52744018e-05
-  2.53316585e-08 6.39040591e-05]
- [2.04403341e-06 2.65768829e-09 1.00898387e-06 1.76633197e-08
-  9.97162521e-01 5.69798431e-08 3.26826154e-07 1.59583331e-04
-  4.31128592e-06 2.67019332e-03]], shape=(5, 10), dtype=float32)</code></pre>
+[[4.05479632e-08 1.73773032e-08 2.18481673e-05 9.58797827e-05
+  1.11527679e-11 2.02425099e-07 2.35730841e-13 9.99872446e-01
+  1.02023535e-07 9.41532016e-06]
+ [1.92279814e-09 8.86837879e-05 9.99908805e-01 2.05702781e-06
+  2.60472033e-15 3.98176383e-07 2.18548450e-08 1.08183632e-14
+  1.88291693e-08 3.28701672e-14]
+ [1.03269670e-07 9.98717308e-01 6.90574379e-05 6.68750147e-07
+  4.28112195e-04 1.60920524e-06 1.87604383e-05 7.44227029e-04
+  1.84569762e-05 1.61371577e-06]
+ [9.99908328e-01 4.88764718e-09 5.88496659e-05 7.35151957e-08
+  4.60112375e-07 2.54983865e-06 1.02281035e-06 5.94604307e-06
+  9.53733661e-08 2.26521151e-05]
+ [8.42172358e-06 2.65670569e-10 1.11103111e-06 2.07198370e-09
+  9.95561123e-01 8.79307436e-08 8.52617802e-07 1.30166125e-04
+  1.03068798e-08 4.29806812e-03]], shape=(5, 10), dtype=float32)</code></pre>
 </div>
 </div>
 </section>
