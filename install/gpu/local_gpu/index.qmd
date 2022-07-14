@@ -1,6 +1,6 @@
 ---
 title: "Local GPU"
-output: 
+output:
   html_document:
     toc_depth: 3
     toc_float:
@@ -19,6 +19,10 @@ aliases:
   - /tools/installation_gpu.html
   - /tools/local_gpu
   - /tools/local_gpu.html
+editor_options:
+  markdown:
+    wrap: 72
+    canonical: true
 ---
 
 ```{r setup, include=FALSE}
@@ -27,16 +31,47 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 
 ## Overview
 
-TensorFlow can be configured to run on either CPUs or GPUs. By default,
-TensorFlow will use a GPU if it is available and the appropriate drivers
-are installed, and otherwise fallback to using the CPU only.
+TensorFlow can be configured to run on either CPUs or GPUs. The default
+build of TensorFlow will use a GPU if it is available and the
+appropriate drivers are installed, and otherwise fallback to using the
+CPU only.
 
 The prerequisites for the GPU version of TensorFlow on each platform are
 covered below. Note that on all platforms you must be running an NVIDIA®
 GPU with CUDA® Compute Capability 3.5 or higher. See the list of
 [CUDA-enabled GPU cards](https://developer.nvidia.com/cuda-gpus).
 
-## Prerequisties
+To enable TensorFlow to use a local GPU, you can install the following:
+
+-   [CUDA
+    11.2](https://developer.nvidia.com/cuda-11.2.2-download-archive)
+-   [cuDNN 8.1](https://developer.nvidia.com/rdp/cudnn-archive)
+
+for other platforms consult the links:
+
+### Linux
+
+The specifics of installing required software differ by Linux version so
+please review the NVIDIA® documentation carefully to ensure you install
+everything correctly.
+
+The following section provides as example of the installation commands
+you might use on Ubuntu 20.04.
+
+#### Ubuntu 20.04
+
+To install the required NVIDIA components on Ubuntu 20.04, you can run
+the following at the terminal:
+
+``` bash
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+sudo apt-get update
+sudo apt-get -y install cuda-11-2 libcudnn8=8.1.1.33-1+cuda11.2
+sudo apt-mark hold libcudnn8
+```
 
 ### Windows
 
@@ -56,42 +91,33 @@ Note that the documentation on installation of the last component
 download the zip file containing cuDNN you need to extract the zip file
 and add the location where you extracted it to your system PATH.
 
-### Ubuntu
+### macOS
 
-The specifics of installing required software differ by Linux version so
-please review the NVIDIA® documentation carefully to ensure you install
-everything correctly.
+TensorFlow does not support usage of GPUs on Intel Macs. For Arm Macs
+however, Apple provides a custom build of TensorFlow that can take
+advantage of the GPU. `install_tensorflow()` will detect if it is being
+run on an Arm Mac and automatically install the appropriate Python
+packages (`tensorflow-macos` and `tensorflow-metal`).
 
-The following section provides as example of the installation commands
-you might use on Ubuntu 20.04.
+Conda is the only supported installation method on Arm Macs.
+Additionally, x86_64 builds of R running under Rosetta are not
+supported; an Arm64 build of R is required.
 
-#### Ubuntu 20.04 Example
+You can test if you have an Arm build of R like this:
 
-First, install
-[CUDA 11.2](https://developer.nvidia.com/cuda-11.2.2-download-archive) and [cuDNN 8.1](https://developer.nvidia.com/rdp/cudnn-archive). The
-instructions for Ubuntu 20.04 are reproduced here, for other platforms
-consult the links:
-
-``` bash
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
-sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-sudo apt-get update
-sudo apt-get -y install cuda-11-2 libcudnn8=8.1.1.33-1+cuda11.2
-sudo apt-mark hold libcudnn8
+```{r}
+R.version$arch
 ```
 
+If this returns `"aarch64"`, you're using the correct build of R. If
+instead it returns `"x86_64"`, then you need to install a different
+build of R. You can install an Arm build of R by navigating to
+<https://cloud.r-project.org/bin/macosx/> and selecting the appropriate
+package (e.g., "R-4.2.1-arm64.pkg") or using an installation manager
+like [rig](https://github.com/r-lib/rig) and running `rig add release`.
 
-
-### Mac OS X
-
-Tensorflow does not support GPUs on Intel Macs. Apple however provides a
-separate build of Tensorflow that works on Arm Macs like the M1.
-`install_tensorflow()` will detect if it is being run on an Arm Mac and
-install the appropriate Python packages (`tensorflow-macos` and
-`tensorflow-metal`). Note that on M1 Macs, conda is the only supported
-installation method. You can easily install a conda Python like this:
+You can configure reticulate to use a conda Python using reticulate like
+this:
 
 ```{r}
 reticulate::install_miniconda()
@@ -99,5 +125,27 @@ tensorflow::install_tensorflow()
 ```
 
 Note that `install_miniconda()` automatically creates a conda
-environment named `r-reticulate`, that is the default environment used
-by reticulate.
+environment named `r-reticulate`, that becomes the default environment
+used by reticulate.
+
+### Test
+
+You can test if TensorFlow can use a local GPU by running the following:
+
+```{r}
+library(tensorflow)
+tf$config$list_physical_devices("GPU")
+```
+
+If you see a list like this:
+
+``` text
+[[1]]
+PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+```
+
+Then that means TensorFlow is configured properly. If instead you see an
+empty `list()`, then TensorFlow is not using a GPU.
+
+For support with installation, open a [Github
+issue](https://github.com/rstudio/tensorflow/issues/new?assignees=&labels=Installation&template=installation-issue.md&title=Installation+Issue)

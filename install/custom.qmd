@@ -6,67 +6,98 @@ title: "Custom Installation"
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-The `install_tensorflow()` function is provided as a convenient way to get started, but is not required. If you have an existing installation of TensorFlow or just prefer your own custom installation that's fine too.
+The `install_tensorflow()` function is provided as a convenient way to
+get started, but is not required. If you have an existing installation
+of TensorFlow or just prefer your own custom installation that's fine
+too.
 
-The full instructions for installing TensorFlow on various platforms are here: <https://www.tensorflow.org/install/>. After installing, please refer to the sections below on locating TensorFlow and meeting additional dependencies to ensure that the tensorflow for R package functions correctly with your installation.
+The full instructions for installing TensorFlow on various platforms are
+here: <https://www.tensorflow.org/install/>. After installing, please
+refer to the sections below on locating TensorFlow and meeting
+additional dependencies to ensure that the tensorflow for R package
+functions correctly with your installation.
 
 ### Locating TensorFlow
 
-Once you've installed TensorFlow you need to ensure that the tensorflow for R package can find your installation. The package scans the system for various versions of Python, and also scans available virtual environments and conda environments, so in many cases things will just work without additional effort.
+Once you've installed TensorFlow you need to ensure that the tensorflow
+for R package can find your installation. The package scans the system
+for various versions of Python, and also scans available virtual
+environments and conda environments, so in many cases things will just
+work without additional effort.
 
-If the version of TensorFlow you installed is not found automatically, then you can use the following techniques to ensure that TensorFlow is located.
+If the version of TensorFlow you installed is not found automatically,
+then you can use the following techniques to ensure that TensorFlow is
+located.
 
-Specify the `RETICULATE_PYTHON` environment variable to force probing within a specific Python installation. For example:
+Specify the `RETICULATE_PYTHON` environment variable to force probing
+within a specific Python installation. For example:
 
 ```{r}
-library(tensorflow)
 Sys.setenv(RETICULATE_PYTHON="/usr/local/bin/python")
+library(tensorflow)
 ```
 
-You could also add the `RETICULATE_PYTHON` environment variable to your `.RProfile`.
+You could also add the `RETICULATE_PYTHON` environment variable to your
+`.RProfile` or `.REnviron`.
 
 Alternatively, call the `use_python` family of configuration functions:
 
-
-| Function  | Description |
-|----------------|------------------------------------------------------------------|
-| `use_python()` | Specify the path a specific Python binary. |
+| Function           | Description                                           |
+|-----------------|-------------------------------------------------------|
+| `use_python()`     | Specify the path a specific Python binary.            |
 | `use_virtualenv()` | Specify the directory containing a Python virtualenv. |
-| `use_condaenv()` | Specify the name of a conda environment. |
-
+| `use_condaenv()`   | Specify the name of a conda environment.              |
 
 For example:
 
 ```{r}
 library(tensorflow)
-use_python("/usr/local/bin/python")
-use_virtualenv("~/myenv")
-use_condaenv("myenv")
+use_virtualenv("my_env")
 ```
 
-Note that you can include multiple calls to the `use_` functions and all provided locations will be tried in the order they were specified.
 
-You can also use the `required` argument from the `use_*` functions. In this case
-TensorFlow will only be searched at the specified location.
 
+Note that if you use the argument `required = FALSE`, you can include multiple calls to the `use_` functions and all
+provided locations will be tried in the order they were specified. For example:
 ```{r}
 library(tensorflow)
-use_virtualenv("my_env", required = TRUE)
+use_python("/usr/local/bin/python", required = FALSE)
+use_virtualenv("~/myenv", required = TRUE)
+use_condaenv("myenv", required = TRUE)
 ```
+
+
 
 
 ### Additional Dependencies
 
-There are some components of TensorFlow (e.g. the [Keras](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/python/keras) library) which have dependencies on additional Python packages. The `install_tensorflow()` function installs these dependencies automatically, however if you do a custom installation you should be sure to install them manually.
+There are some components of TensorFlow (e.g. the
+[Keras](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/python/keras)
+library) which have dependencies on additional Python packages. The
+`install_keras()` function installs these dependencies
+automatically, however if you do a custom installation you should be
+sure to install them manually.
 
 You can install the additional dependencies with the following command:
 
-```bash
-pip install h5py pyyaml requests Pillow scipy
+
+```{r, eval = TRUE, results = 'asis', echo = FALSE}
+cat(sep = "", "
+``` bash
+pip install ", paste(keras:::default_extra_packages(), collapse = " "), "
+```")
 ```
+
 
 ## Supported Platforms
 
-Note that binary installations of TensorFlow are provided for Windows, OS X, and Ubuntu 16.04 or higher. It's possible that binary installations will work on other Linux variants but Ubuntu is the only platform tested and supported.
+Note that binary installations of TensorFlow are provided for Windows,
+OS X, and Ubuntu 16.04 or higher. It's possible that binary
+installations will work on other Linux variants but Ubuntu is the only
+platform tested and supported.
 
-In particular, if you are running on RedHat or CentOS you will need to [install from source](https://www.tensorflow.org/install/source) then follow the instructions in the [Custom Installation] section to ensure that your installation of TensorFlow can be used with the tensorflow R package.
+In particular, if you are running on RedHat or CentOS you may need to
+[install from source](https://www.tensorflow.org/install/source) then
+follow the instructions in the Custom Installation section to ensure
+that your installation of TensorFlow can be used with the tensorflow R
+package.
