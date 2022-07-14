@@ -2,6 +2,8 @@
 title: Beginner
 description: "This 'Hello, World!' example shows the Keras Sequential API and `fit`."
 id: 1
+aliases:
+  - ../beginners.qmd
 ---
 
 # TensorFlow 2 quickstart for beginners

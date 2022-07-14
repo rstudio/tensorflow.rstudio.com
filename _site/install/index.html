@@ -265,14 +265,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>Prior to using the <strong>tensorflow</strong> R package you need to install a version of TensorFlow on your system. Below we describe how to install TensorFlow as well the various options available for customizing your installation.</p>
-<p>Note that this article principally covers the use of the R <code>install_tensorflow()</code> function, which provides an easy to use wrapper for the various steps required to install TensorFlow.</p>
-<p>You can also choose to install TensorFlow manually (as described at <a href="https://www.tensorflow.org/install/" class="uri">https://www.tensorflow.org/install/</a>). In that case the <a href="../installation/custom">Custom Installation</a> section covers how to arrange for the tensorflow R package to use the version you installed.</p>
+<p>Prior to using the <strong>tensorflow</strong> R package you need to install a version of Python and TensorFlow on your system. Below we describe how to install to do this as well the various options available for customizing your installation.</p>
+<p>Note that this article principally covers the use of the R <code>install_tensorflow()</code> function, which provides an easy to use wrapper for the various steps required to install TensorFlow. You can also choose to install TensorFlow manually (as described at <a href="https://www.tensorflow.org/install/" class="uri">https://www.tensorflow.org/install/</a>). In that case the <a href="../installation/custom">Custom Installation</a> section covers how to arrange for the tensorflow R package to use the version you installed.</p>
 <p>TensorFlow is tested and supported on the following 64-bit systems:</p>
 <ul>
-<li>Ubuntu 16.04 or later</li>
-<li>Windows 7 or later</li>
-<li>macOS 10.12.6 (Sierra) or later (no GPU support)</li>
+<li>Ubuntu 20.04 or later</li>
+<li>Windows 10 or later</li>
+<li>macOS 11 (Big Sur) or later (Intel or M1)</li>
 </ul>
 <section id="installation" class="level2">
 <h2 class="anchored" data-anchor-id="installation">Installation</h2>
@@ -280,26 +279,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tensorflow"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Next, configure R (reticulate) with a Python installation it can use, like this:</p>
+<p>Next, configure R with a Python installation it can use, like this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>path_to_python <span class="ot">&lt;-</span> <span class="fu">install_python</span>()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">virtualenv_create</span>(<span class="st">"r-reticulate"</span>, <span class="at">python =</span> path_to_python)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Note that if you already have Python installed, you don’t need to call <code>install_python()</code> and instead can just supply an absolute path to the Python executable.</p>
 <p>Then, use the <code>install_tensorflow()</code> function to install TensorFlow.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">envname =</span> <span class="st">"r-reticulate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>You can also use <code>keras::install_keras()</code>, which installes Tensorflow, in addition to some commonly used packages like “scipy” and “tensorflow-datasets”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"keras"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install_keras</span>(<span class="at">envname =</span> <span class="st">"r-reticulate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>You can confirm that the installation succeeded with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">constant</span>(<span class="st">"Hello Tensorflow"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error in reticulate::use_virtualenv("r-tensorflow-site", required = TRUE) : 
+  Directory ~/.virtualenvs/r-tensorflow-site is not a Python virtualenv</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">constant</span>(<span class="st">"Hello Tensorflow!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loaded Tensorflow version 2.9.1</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor(b'Hello Tensorflow', shape=(), dtype=string)</code></pre>
+<pre><code>tf.Tensor(b'Hello Tensorflow!', shape=(), dtype=string)</code></pre>
 </div>
 </div>
 <p>This will provide you with a default installation of TensorFlow suitable for use with the tensorflow R package. Read on if you want to learn about additional installation options, including installing a version of TensorFlow that takes advantage of Nvidia GPUs if you have the correct CUDA libraries installed.</p>
@@ -310,8 +320,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>These are the available methods and their behavior:</p>
 <table class="table">
 <colgroup>
-<col style="width: 19%">
-<col style="width: 80%">
+<col style="width: 23%">
+<col style="width: 76%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -332,29 +342,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>conda</td>
 <td>Install into an Anaconda Python environment named <code>r-reticulate</code></td>
 </tr>
-<tr class="even">
-<td>system</td>
-<td>Install into the system Python environment</td>
-</tr>
 </tbody>
 </table>
-<p><code>install_tensorflow</code> is a wrapper around <code>reticulate::py_install</code>. Please refer to <a href="https://rstudio.github.io/reticulate/articles/python_packages.html">‘Installing Python Packages’</a> for more information.</p>
+<p>Note that <code>install_tensorflow()</code> will intentionally not install into a system Python installation (e.g., <code>/usr/bin/python</code>).</p>
+<p><code>install_tensorflow()</code> is a wrapper around <code>reticulate::py_install</code>. Please refer to <a href="https://rstudio.github.io/reticulate/articles/python_packages.html">‘Installing Python Packages’</a> for more information.</p>
 </section>
 <section id="alternate-versions" class="level2">
 <h2 class="anchored" data-anchor-id="alternate-versions">Alternate Versions</h2>
 <p>By default, <code>install_tensorflow()</code> install the latest release version of TensorFlow. You can override this behavior by specifying the <code>version</code> parameter. For example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">version =</span> <span class="st">"2.7"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">version =</span> <span class="st">"2.7"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that you can provide a full <code>major.minor.patch</code> version specification, or just a <code>major.minor</code> specification, in which case the latest patch is automatically selected.</p>
+<p>The default tensorflow package is GPU capable. However, if you will not be using a GPU, you can install the smaller cpu-only package like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">version =</span> <span class="st">"cpu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>You can install the nightly build of TensorFlow (CPU or GPU version) with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">version =</span> <span class="st">"nightly"</span>)      <span class="co"># cpu+gpu version</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">version =</span> <span class="st">"nightly-cpu"</span>)  <span class="co"># cpu version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">version =</span> <span class="st">"nightly"</span>)      <span class="co"># cpu+gpu version</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">version =</span> <span class="st">"nightly-cpu"</span>)  <span class="co"># cpu version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can install any other build of TensorFlow by specifying a URL to a TensorFlow binary. For example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">version =</span> <span class="st">"https://files.pythonhosted.org/packages/c2/c1/a035e377cf5a5b90eff27f096448fa5c5a90cbcf13b7eb0673df888f2c2d/tf_nightly-1.12.0.dev20180918-cp36-cp36m-manylinux1_x86_64.whl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">version =</span> <span class="st">"https://files.pythonhosted.org/packages/c2/c1/a035e377cf5a5b90eff27f096448fa5c5a90cbcf13b7eb0673df888f2c2d/tf_nightly-1.12.0.dev20180918-cp36-cp36m-manylinux1_x86_64.whl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
