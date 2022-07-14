@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.559">
+<meta name="generator" content="quarto-99.9.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -98,7 +98,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -154,11 +154,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="../packages/tensorflow/latest/reference/index.html">
- <span class="dropdown-text">TensorFlow</span></a>
+ <span class="dropdown-text">tensorlow</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../packages/keras/latest/reference/index.html">
- <span class="dropdown-text">Keras</span></a>
+ <span class="dropdown-text">keras</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../packages/tfdatasets/latest/reference/index.html">
@@ -301,7 +301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">image_to_array</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_image</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="deep_dream_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="deep_dream_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Let’s set up some image preprocessing/deprocessing utilities:</p>
@@ -433,68 +433,68 @@ See: ?`[.tensorflow.tensor` for details.
 To turn off this warning, set `options(tensorflow.extract.warn_negatives_pythonic = FALSE)`</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>... Loss value at step  1 :  0.5014445 
-... Loss value at step  2 :  0.7033256 
-... Loss value at step  3 :  0.9973832 
-... Loss value at step  4 :  1.341042 
-... Loss value at step  5 :  1.693359 
-... Loss value at step  6 :  2.03979 
-... Loss value at step  7 :  2.387946 
-... Loss value at step  8 :  2.715209 
-... Loss value at step  9 :  3.03404 
-... Loss value at step  10 :  3.378432 
-... Loss value at step  11 :  3.713022 
-... Loss value at step  12 :  4.024627 
-... Loss value at step  13 :  4.329374 
-... Loss value at step  14 :  4.628398 
-... Loss value at step  15 :  4.914916 
-... Loss value at step  16 :  5.191645 
-... Loss value at step  17 :  5.453531 
-... Loss value at step  18 :  5.751193 
-... Loss value at step  19 :  6.031643 
-... Loss value at step  20 :  6.28981 
+<pre><code>... Loss value at step  1 :  0.5014444 
+... Loss value at step  2 :  0.7033239 
+... Loss value at step  3 :  0.9975789 
+... Loss value at step  4 :  1.339841 
+... Loss value at step  5 :  1.69038 
+... Loss value at step  6 :  2.055832 
+... Loss value at step  7 :  2.368303 
+... Loss value at step  8 :  2.700009 
+... Loss value at step  9 :  3.018286 
+... Loss value at step  10 :  3.355762 
+... Loss value at step  11 :  3.659731 
+... Loss value at step  12 :  3.970093 
+... Loss value at step  13 :  4.239055 
+... Loss value at step  14 :  4.570164 
+... Loss value at step  15 :  4.875012 
+... Loss value at step  16 :  5.180275 
+... Loss value at step  17 :  5.479495 
+... Loss value at step  18 :  5.700634 
+... Loss value at step  19 :  6.022943 
+... Loss value at step  20 :  6.264833 
 Processing octave  2 with shape: 457 685 
-... Loss value at step  1 :  1.214938 
-... Loss value at step  2 :  1.944987 
-... Loss value at step  3 :  2.545274 
-... Loss value at step  4 :  3.015953 
-... Loss value at step  5 :  3.477545 
-... Loss value at step  6 :  3.915648 
-... Loss value at step  7 :  4.317786 
-... Loss value at step  8 :  4.721938 
-... Loss value at step  9 :  5.106613 
-... Loss value at step  10 :  5.479532 
-... Loss value at step  11 :  5.876842 
-... Loss value at step  12 :  6.188484 
-... Loss value at step  13 :  6.564732 
-... Loss value at step  14 :  6.862813 
-... Loss value at step  15 :  7.20891 
-... Loss value at step  16 :  7.54597 
-... Loss value at step  17 :  7.828108 
-... Loss value at step  18 :  8.182717 
-... Loss value at step  19 :  8.480966 
-... Loss value at step  20 :  8.817674 
+... Loss value at step  1 :  1.214347 
+... Loss value at step  2 :  1.962548 
+... Loss value at step  3 :  2.586394 
+... Loss value at step  4 :  3.085848 
+... Loss value at step  5 :  3.57484 
+... Loss value at step  6 :  4.002796 
+... Loss value at step  7 :  4.40269 
+... Loss value at step  8 :  4.807469 
+... Loss value at step  9 :  5.220548 
+... Loss value at step  10 :  5.58031 
+... Loss value at step  11 :  5.953027 
+... Loss value at step  12 :  6.311125 
+... Loss value at step  13 :  6.666377 
+... Loss value at step  14 :  7.01564 
+... Loss value at step  15 :  7.373053 
+... Loss value at step  16 :  7.687048 
+... Loss value at step  17 :  8.022481 
+... Loss value at step  18 :  8.353153 
+... Loss value at step  19 :  8.676409 
+... Loss value at step  20 :  8.996731 
 Processing octave  3 with shape: 640 960 
-... Loss value at step  1 :  1.346328 
-... Loss value at step  2 :  2.127061 
-... Loss value at step  3 :  2.76038 
-... Loss value at step  4 :  3.279132 
-... Loss value at step  5 :  3.785562 
-... Loss value at step  6 :  4.262078 
-... Loss value at step  7 :  4.723996 
-... Loss value at step  8 :  5.128141 
-... Loss value at step  9 :  5.526906 
-... Loss value at step  10 :  5.915565 
-... Loss value at step  11 :  6.307329 
-... Loss value at step  12 :  6.672551 
-... Loss value at step  13 :  7.040999 
-... Loss value at step  14 :  7.306005 
-... Loss value at step  15 :  7.659632 
-... Loss value at step  16 :  7.972069 
-... Loss value at step  17 :  8.320035 
-... Loss value at step  18 :  8.578279 
-... Loss value at step  19 :  8.917708 
-... Loss value at step  20 :  9.189703 </code></pre>
+... Loss value at step  1 :  1.34736 
+... Loss value at step  2 :  2.137553 
+... Loss value at step  3 :  2.785597 
+... Loss value at step  4 :  3.325019 
+... Loss value at step  5 :  3.836637 
+... Loss value at step  6 :  4.312602 
+... Loss value at step  7 :  4.782893 
+... Loss value at step  8 :  5.230842 
+... Loss value at step  9 :  5.646795 
+... Loss value at step  10 :  6.066389 
+... Loss value at step  11 :  6.450614 
+... Loss value at step  12 :  6.861366 
+... Loss value at step  13 :  7.217497 
+... Loss value at step  14 :  7.596985 
+... Loss value at step  15 :  7.9565 
+... Loss value at step  16 :  8.316831 
+... Loss value at step  17 :  8.604964 
+... Loss value at step  18 :  8.966898 
+... Loss value at step  19 :  9.21804 
+... Loss value at step  20 :  9.593339 </code></pre>
 </div>
 </div>
 <p>Display the result.</p>
@@ -504,7 +504,7 @@ Processing octave  3 with shape: 640 960
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">deprocess_image</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_image</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="deep_dream_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="deep_dream_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
@@ -514,6 +514,21 @@ Processing octave  3 with shape: 640 960
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    toggleBodyColorMode(window.document.querySelector("link#quarto-bootstrap"));
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

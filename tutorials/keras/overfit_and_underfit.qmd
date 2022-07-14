@@ -1,6 +1,6 @@
 ---
 title: "Overfit and underfit"
-aliases: 
+aliases:
   - ../beginners/basic-ml/tutorial_overfit_underfit/index.html
   - ../../articles/tutorial_overfit_underfit.html
 ---
@@ -42,9 +42,8 @@ The goal of this tutorial is not to do particle physics, so don't dwell on the d
 
 ```{r}
 gz <- get_file(
-  'HIGGS.csv.gz', 
-  'http://mlphysics.ics.uci.edu/data/higgs/HIGGS.csv.gz',
-  cache_dir = "higgs"
+  'HIGGS.csv.gz',
+  'http://mlphysics.ics.uci.edu/data/higgs/HIGGS.csv.gz'
 )
 ```
 
@@ -57,7 +56,7 @@ The `tf$data$experimental$CsvDataset` class can be used to read csv records dire
 ```{r}
 ds <- tf$data$experimental$CsvDataset(
   gz,
-  lapply(seq_len(FEATURES + 1), function(x) tf$float32), 
+  lapply(seq_len(FEATURES + 1), function(x) tf$float32),
   compression_type = "GZIP"
 )
 ```
@@ -78,8 +77,8 @@ TensorFlow is most efficient when operating on large batches of data.
 So, instead of repacking each row individually make a new `tf$data$Dataset` that takes batches of 10,000 examples, applies the `pack_row` function to each batch, and then splits the batches back up into individual records:
 
 ```{r}
-packed_ds <- ds %>% 
-  dataset_batch(10000) %>% 
+packed_ds <- ds %>%
+  dataset_batch(10000) %>%
   dataset_map(pack_row)
 packed_ds <- packed_ds$unbatch()
 ```
@@ -89,10 +88,10 @@ Inspect some of the records from this new `packed_ds`.
 The features are not perfectly normalized, but this is sufficient for this tutorial.
 
 ```{r}
-batch <- packed_ds %>% 
-  dataset_batch(1000) %>% 
-  dataset_take(1) %>% 
-  reticulate::as_iterator() %>% 
+batch <- packed_ds %>%
+  dataset_batch(1000) %>%
+  dataset_take(1) %>%
+  reticulate::as_iterator() %>%
   reticulate::iter_next()
 str(batch)
 ```
@@ -112,12 +111,12 @@ The `dataset_skip()` and `dataset_take()` methods make this easy.
 At the same time, use the `dataset_cache()` method to ensure that the loader doesn't need to re-read the data from the file on each epoch:
 
 ```{r}
-validate_ds <- packed_ds %>% 
-  dataset_take(N_VALIDATION) %>% 
+validate_ds <- packed_ds %>%
+  dataset_take(N_VALIDATION) %>%
   dataset_cache()
-train_ds <- packed_ds %>% 
-  dataset_skip(N_VALIDATION) %>% 
-  dataset_take(N_TRAIN) %>% 
+train_ds <- packed_ds %>%
+  dataset_skip(N_VALIDATION) %>%
+  dataset_take(N_TRAIN) %>%
   dataset_cache()
 ```
 
@@ -129,9 +128,9 @@ These datasets return individual examples. Use the `dataset_batch()` method to c
 
 ```{r}
 validate_ds <- validate_ds %>% dataset_batch(BATCH_SIZE)
-train_ds <- train_ds %>% 
-  dataset_shuffle(BUFFER_SIZE) %>% 
-  dataset_repeat() %>% 
+train_ds <- train_ds %>%
+  dataset_shuffle(BUFFER_SIZE) %>%
+  dataset_repeat() %>%
   dataset_batch(BATCH_SIZE)
 ```
 
@@ -173,7 +172,7 @@ The code above sets a `learning_rate_schedule_inverse_time_decay()` to hyperboli
 ```{r}
 step <- seq(1, 100000)
 lr <- lr_schedule(step)
-data.frame(step = as.numeric(step), lr = as.numeric(lr)) %>% 
+data.frame(step = as.numeric(step), lr = as.numeric(lr)) %>%
   ggplot(aes(x = step, y = lr)) +
   geom_line()
 ```
@@ -202,7 +201,7 @@ compile_and_fit <- function(model, name, optimizer = NULL, max_epochs = 10000) {
   if (is.null(optimizer)) {
     optimizer <- get_optimizer()
   }
-  
+
   model %>% compile(
     optimizer = optimizer,
     loss = loss_binary_crossentropy(from_logits = TRUE),
@@ -211,7 +210,7 @@ compile_and_fit <- function(model, name, optimizer = NULL, max_epochs = 10000) {
       "accuracy"
     )
   )
-  
+
   summary(model)
 
   history <- model %>% fit(
@@ -222,7 +221,7 @@ compile_and_fit <- function(model, name, optimizer = NULL, max_epochs = 10000) {
     callbacks = get_callbacks(name),
     verbose = 0
   )
-  
+
   history
 }
 ```
@@ -232,8 +231,8 @@ compile_and_fit <- function(model, name, optimizer = NULL, max_epochs = 10000) {
 Start by training a model:
 
 ```{r}
-tiny_model <- keras_model_sequential() %>% 
-  layer_dense(16, activation = "elu", input_shape = shape(FEATURES)) %>% 
+tiny_model <- keras_model_sequential() %>%
+  layer_dense(16, activation = "elu", input_shape = shape(FEATURES)) %>%
   layer_dense(1)
 ```
 
@@ -248,7 +247,7 @@ size_histories[['Tiny']] <- compile_and_fit(tiny_model, 'sizes/Tiny')
 Now check how the model did:
 
 ```{r}
-size_histories[["Tiny"]] %>% 
+size_histories[["Tiny"]] %>%
   plot() +
   coord_cartesian(xlim = c(0, 5000))
 ```
@@ -259,10 +258,10 @@ To check if you can beat the performance of the small model, progressively train
 Try two hidden layers with 16 units each:
 
 ```{r}
-small_model <- keras_model_sequential() %>% 
+small_model <- keras_model_sequential() %>%
   # `input_shape` is only required here so that `.summary` works.
-  layer_dense(16, activation = 'elu', input_shape = shape(FEATURES)) %>% 
-  layer_dense(16, activation = 'elu') %>% 
+  layer_dense(16, activation = 'elu', input_shape = shape(FEATURES)) %>%
+  layer_dense(16, activation = 'elu') %>%
   layer_dense(1)
 ```
 
@@ -276,10 +275,10 @@ size_histories[['Small']] <- compile_and_fit(small_model, 'sizes/Small')
 Now try three hidden layers with 64 units each:
 
 ```{r}
-medium_model <- keras_model_sequential() %>% 
-  layer_dense(64, activation = 'elu', input_shape = shape(FEATURES)) %>% 
-  layer_dense(64, activation = 'elu') %>% 
-  layer_dense(64, activation = 'elu') %>% 
+medium_model <- keras_model_sequential() %>%
+  layer_dense(64, activation = 'elu', input_shape = shape(FEATURES)) %>%
+  layer_dense(64, activation = 'elu') %>%
+  layer_dense(64, activation = 'elu') %>%
   layer_dense(1)
 ```
 
@@ -295,11 +294,11 @@ size_histories[['Medium']] <- compile_and_fit(medium_model, "sizes/Medium")
 As an exercise, you can create an even larger model and check how quickly it begins overfitting. Next, add to this benchmark a network that has much more capacity, far more than the problem would warrant:
 
 ```{r}
-large_model <- keras_model_sequential() %>% 
-  layer_dense(512, activation = 'elu', input_shape = shape(FEATURES)) %>% 
-  layer_dense(512, activation = 'elu') %>% 
-  layer_dense(512, activation = 'elu') %>% 
-  layer_dense(512, activation = 'elu') %>% 
+large_model <- keras_model_sequential() %>%
+  layer_dense(512, activation = 'elu', input_shape = shape(FEATURES)) %>%
+  layer_dense(512, activation = 'elu') %>%
+  layer_dense(512, activation = 'elu') %>%
+  layer_dense(512, activation = 'elu') %>%
   layer_dense(1)
 ```
 
@@ -328,13 +327,13 @@ This is apparent if you plot and compare the validation metrics to the training 
 ```{r, warning=FALSE}
 library(dplyr)
 plot_histories <- function(histories) {
-  histories %>% 
-    purrr::map_dfr(as.data.frame, .id = "model") %>% 
-    filter(metric == "binary_crossentropy") %>% 
+  histories %>%
+    purrr::map_dfr(as.data.frame, .id = "model") %>%
+    filter(metric == "binary_crossentropy") %>%
     ggplot(aes(x = epoch, y = value, color = model, linetype = data)) +
     geom_smooth(se = FALSE) +
     coord_cartesian(ylim = c(0.5, 0.7)) +
-    scale_x_log10()  
+    scale_x_log10()
 }
 plot_histories(size_histories)
 ```
@@ -389,16 +388,16 @@ L1 regularization pushes weights towards exactly zero, encouraging a sparse mode
 In `tf$keras`, weight regularization is added by passing weight regularizer instances to layers as keyword arguments. Add L2 weight regularization:
 
 ```{r}
-l2_model <- keras_model_sequential() %>% 
+l2_model <- keras_model_sequential() %>%
   layer_dense(512, activation = 'elu',
               kernel_regularizer = regularizer_l2(0.001),
-              input_shape <- shape(FEATURES)) %>% 
+              input_shape <- shape(FEATURES)) %>%
   layer_dense(512, activation = 'elu',
-              kernel_regularizer = regularizer_l2(0.001)) %>% 
+              kernel_regularizer = regularizer_l2(0.001)) %>%
   layer_dense(512, activation = 'elu',
-              kernel_regularizer = regularizer_l2(0.001)) %>% 
+              kernel_regularizer = regularizer_l2(0.001)) %>%
   layer_dense(512, activation = 'elu',
-              kernel_regularizer = regularizer_l2(0.001)) %>% 
+              kernel_regularizer = regularizer_l2(0.001)) %>%
   layer_dense(1)
 
 regularizer_histories[['l2']] <- compile_and_fit(l2_model, "regularizers/l2")
@@ -446,15 +445,15 @@ In Keras, you can introduce dropout in a network via the `tf$keras$layers$Dropou
 Add two dropout layers to your network to check how well they do at reducing overfitting:
 
 ```{r}
-dropout_model <- keras_model_sequential() %>% 
-  layer_dense(512, activation = 'elu', input_shape = shape(FEATURES)) %>% 
-  layer_dropout(0.5) %>% 
-  layer_dense(512, activation = 'elu') %>% 
-  layer_dropout(0.5) %>% 
-  layer_dense(512, activation = 'elu') %>% 
-  layer_dropout(0.5) %>% 
-  layer_dense(512, activation = 'elu') %>% 
-  layer_dropout(0.5) %>% 
+dropout_model <- keras_model_sequential() %>%
+  layer_dense(512, activation = 'elu', input_shape = shape(FEATURES)) %>%
+  layer_dropout(0.5) %>%
+  layer_dense(512, activation = 'elu') %>%
+  layer_dropout(0.5) %>%
+  layer_dense(512, activation = 'elu') %>%
+  layer_dropout(0.5) %>%
+  layer_dense(512, activation = 'elu') %>%
+  layer_dropout(0.5) %>%
   layer_dense(1)
 
 regularizer_histories[['dropout']] <- compile_and_fit(dropout_model, "regularizers/dropout")
@@ -472,19 +471,19 @@ Next try them both, together, and see if that does better.
 
 
 ```{r}
-combined_model <- keras_model_sequential() %>% 
+combined_model <- keras_model_sequential() %>%
   layer_dense(512, kernel_regularizer = regularizer_l2(0.0001),
-              activation = 'elu', input_shape = shape(FEATURES)) %>% 
-  layer_dropout(0.5) %>% 
+              activation = 'elu', input_shape = shape(FEATURES)) %>%
+  layer_dropout(0.5) %>%
   layer_dense(512, kernel_regularizer = regularizer_l2(0.0001),
-              activation = 'elu') %>% 
-  layer_dropout(0.5) %>% 
+              activation = 'elu') %>%
+  layer_dropout(0.5) %>%
   layer_dense(512, kernel_regularizer = regularizer_l2(0.0001),
-              activation = 'elu') %>% 
-  layer_dropout(0.5) %>% 
+              activation = 'elu') %>%
+  layer_dropout(0.5) %>%
   layer_dense(512, kernel_regularizer = regularizer_l2(0.0001),
-              activation = 'elu') %>% 
-  layer_dropout(0.5) %>% 
+              activation = 'elu') %>%
+  layer_dropout(0.5) %>%
   layer_dense(1)
 
 regularizer_histories[['combined']] <- compile_and_fit(combined_model, "regularizers/combined")

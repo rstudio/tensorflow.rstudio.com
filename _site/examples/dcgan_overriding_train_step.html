@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.559">
+<meta name="generator" content="quarto-99.9.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -98,7 +98,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -154,11 +154,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="../packages/tensorflow/latest/reference/index.html">
- <span class="dropdown-text">TensorFlow</span></a>
+ <span class="dropdown-text">tensorlow</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../packages/keras/latest/reference/index.html">
- <span class="dropdown-text">Keras</span></a>
+ <span class="dropdown-text">keras</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../packages/tfdatasets/latest/reference/index.html">
@@ -244,22 +244,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stop</span>(<span class="st">"STOP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="prepare-celeba-data" class="level2">
 <h2 class="anchored" data-anchor-id="prepare-celeba-data">Prepare CelebA data</h2>
 <p>We’ll use face images from the CelebA dataset, resized to 64x64.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="st">"celeba_gan/data.zip"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span>fs<span class="sc">::</span><span class="fu">dir_exists</span>(<span class="st">"celeba_gan"</span>)) {</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  fs<span class="sc">::</span><span class="fu">dir_create</span>(<span class="st">"celeba_gan"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="st">"https://drive.google.com/uc?id=1O7m1010EJjLE5QxLZiM9Fpjs7Oj6e684"</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  reticulate<span class="sc">::</span><span class="fu">import</span>(<span class="st">"gdown"</span>)<span class="sc">$</span><span class="fu">download</span>(url, output, <span class="at">quiet=</span><span class="cn">TRUE</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unzip</span>(output, <span class="at">exdir =</span> fs<span class="sc">::</span><span class="fu">path_dir</span>(output))</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>dataset_path <span class="ot">&lt;-</span> fs<span class="sc">::</span><span class="fu">path</span>(fs<span class="sc">::</span><span class="fu">path_dir</span>(output), <span class="st">"img_align_celeba"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dataset_path <span class="ot">&lt;-</span> fs<span class="sc">::</span><span class="fu">path</span>(<span class="st">"~/datasets/celeba_gan"</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># output &lt;- "celeba_gan/"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span>fs<span class="sc">::</span><span class="fu">dir_exists</span>(dataset_path)) {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  fs<span class="sc">::</span><span class="fu">dir_create</span>(fs<span class="sc">::</span><span class="fu">path_dir</span>(dataset_path))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="st">"https://drive.google.com/uc?id=1O7m1010EJjLE5QxLZiM9Fpjs7Oj6e684"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  reticulate<span class="sc">::</span><span class="fu">import</span>(<span class="st">"gdown"</span>)<span class="sc">$</span><span class="fu">download</span>(url, output, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unzip</span>(output, <span class="at">exdir =</span> fs<span class="sc">::</span><span class="fu">path_dir</span>(output))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>dataset_path <span class="ot">&lt;-</span> fs<span class="sc">::</span><span class="fu">path</span>(fs<span class="sc">::</span><span class="fu">path_dir</span>(output), <span class="st">"img_align_celeba"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a dataset from our folder:</p>
 <div class="cell">
@@ -268,726 +270,199 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">image_size =</span> <span class="fu">c</span>(<span class="dv">64</span>, <span class="dv">64</span>),</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">label_mode =</span> <span class="cn">NULL</span>, </span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_size =</span> <span class="dv">32</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loaded Tensorflow version 2.9.1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> dataset<span class="sc">$</span><span class="fu">apply</span>(tf<span class="sc">$</span>data<span class="sc">$</span>experimental<span class="sc">$</span><span class="fu">ignore_errors</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_warning=</span><span class="cn">FALSE</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> dataset<span class="sc">$</span><span class="fu">apply</span>(tf<span class="sc">$</span>data<span class="sc">$</span>experimental<span class="sc">$</span><span class="fu">ignore_errors</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">log_warning=</span><span class="cn">FALSE</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s display a sample image:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  reticulate<span class="sc">::</span><span class="fu">as_iterator</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  reticulate<span class="sc">::</span><span class="fu">iter_next</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.array</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  {.[<span class="dv">1</span>,,,]} <span class="sc">%&gt;%</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.raster</span>(<span class="at">max =</span> <span class="dv">255</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="dcgan_overriding_train_step_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  reticulate<span class="sc">::</span><span class="fu">as_iterator</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  reticulate<span class="sc">::</span><span class="fu">iter_next</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.array</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  {.[<span class="dv">1</span>,,,]} <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.raster</span>(<span class="at">max =</span> <span class="dv">255</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="create-the-discriminator" class="level2">
 <h2 class="anchored" data-anchor-id="create-the-discriminator">Create the discriminator</h2>
 <p>It maps a 64x64 image to a binary classification score.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>discriminator <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">name =</span> <span class="st">"discriminator"</span>, <span class="at">input_shape =</span> <span class="fu">shape</span>(<span class="dv">64</span>, <span class="dv">64</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">64</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">128</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">128</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_flatten</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(<span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1</span>, <span class="at">activation =</span> <span class="st">"sigmoid"</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(discriminator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Model: "discriminator"
-________________________________________________________________________________
- Layer (type)                       Output Shape                    Param #     
-================================================================================
- conv2d_2 (Conv2D)                  (None, 32, 32, 64)              3136        
- leaky_re_lu_2 (LeakyReLU)          (None, 32, 32, 64)              0           
- conv2d_1 (Conv2D)                  (None, 16, 16, 128)             131200      
- leaky_re_lu_1 (LeakyReLU)          (None, 16, 16, 128)             0           
- conv2d (Conv2D)                    (None, 8, 8, 128)               262272      
- leaky_re_lu (LeakyReLU)            (None, 8, 8, 128)               0           
- flatten (Flatten)                  (None, 8192)                    0           
- dropout (Dropout)                  (None, 8192)                    0           
- dense (Dense)                      (None, 1)                       8193        
-================================================================================
-Total params: 404,801
-Trainable params: 404,801
-Non-trainable params: 0
-________________________________________________________________________________</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>discriminator <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">name =</span> <span class="st">"discriminator"</span>, <span class="at">input_shape =</span> <span class="fu">shape</span>(<span class="dv">64</span>, <span class="dv">64</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">64</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">128</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">128</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_flatten</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(<span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1</span>, <span class="at">activation =</span> <span class="st">"sigmoid"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(discriminator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="create-the-generator" class="level2">
 <h2 class="anchored" data-anchor-id="create-the-generator">Create the generator</h2>
 <p>It mirrors the discriminator, replacing <code>conv_2d</code> layers with <code>conv_2d_transpose</code> layers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>latent_dim <span class="ot">&lt;-</span> 128L</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>generator <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">shape</span>(latent_dim), <span class="at">name =</span> <span class="st">"generator"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">8</span> <span class="sc">*</span> <span class="dv">8</span> <span class="sc">*</span> <span class="dv">128</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_reshape</span>(<span class="fu">shape</span>(<span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">128</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d_transpose</span>(<span class="dv">128</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d_transpose</span>(<span class="dv">256</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d_transpose</span>(<span class="dv">512</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">3</span>, <span class="at">kernel_size =</span> <span class="dv">5</span>, <span class="at">padding =</span> <span class="st">"same"</span>, <span class="at">activation =</span> <span class="st">"sigmoid"</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(generator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Model: "generator"
-________________________________________________________________________________
- Layer (type)                       Output Shape                    Param #     
-================================================================================
- dense_1 (Dense)                    (None, 8192)                    1056768     
- reshape (Reshape)                  (None, 8, 8, 128)               0           
- conv2d_transpose_2 (Conv2DTranspos  (None, 16, 16, 128)            262272      
- e)                                                                             
- leaky_re_lu_5 (LeakyReLU)          (None, 16, 16, 128)             0           
- conv2d_transpose_1 (Conv2DTranspos  (None, 32, 32, 256)            524544      
- e)                                                                             
- leaky_re_lu_4 (LeakyReLU)          (None, 32, 32, 256)             0           
- conv2d_transpose (Conv2DTranspose)  (None, 64, 64, 512)            2097664     
- leaky_re_lu_3 (LeakyReLU)          (None, 64, 64, 512)             0           
- conv2d_3 (Conv2D)                  (None, 64, 64, 3)               38403       
-================================================================================
-Total params: 3,979,651
-Trainable params: 3,979,651
-Non-trainable params: 0
-________________________________________________________________________________</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>latent_dim <span class="ot">&lt;-</span> 128L</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>generator <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">shape</span>(latent_dim), <span class="at">name =</span> <span class="st">"generator"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">8</span> <span class="sc">*</span> <span class="dv">8</span> <span class="sc">*</span> <span class="dv">128</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_reshape</span>(<span class="fu">shape</span>(<span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">128</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d_transpose</span>(<span class="dv">128</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d_transpose</span>(<span class="dv">256</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d_transpose</span>(<span class="dv">512</span>, <span class="at">kernel_size =</span> <span class="dv">4</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">padding =</span> <span class="st">"same"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_leaky_relu</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">3</span>, <span class="at">kernel_size =</span> <span class="dv">5</span>, <span class="at">padding =</span> <span class="st">"same"</span>, <span class="at">activation =</span> <span class="st">"sigmoid"</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(generator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="override-train_step" class="level2">
 <h2 class="anchored" data-anchor-id="override-train_step">Override <code>train_step</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gan <span class="ot">&lt;-</span> <span class="fu">new_model_class</span>(</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gan"</span>,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">initialize =</span> <span class="cf">function</span>(discriminator, generator, latent_dim) {</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">super</span>()<span class="sc">$</span><span class="st">`</span><span class="at">__init__</span><span class="st">`</span>()</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>discriminator <span class="ot">&lt;-</span> discriminator</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>generator <span class="ot">&lt;-</span> generator</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>latent_dim <span class="ot">&lt;-</span> latent_dim</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>rescale <span class="ot">&lt;-</span> <span class="fu">layer_rescaling</span>(<span class="at">scale =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">255</span>)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  },</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">compile =</span> <span class="cf">function</span>(d_optimizer, g_optimizer, loss_fn) {</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">super</span>()<span class="sc">$</span><span class="fu">compile</span>()</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>d_optimizer <span class="ot">&lt;-</span> d_optimizer</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>g_optimizer <span class="ot">&lt;-</span> g_optimizer</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>loss_fn <span class="ot">&lt;-</span> loss_fn</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>d_loss_metric <span class="ot">&lt;-</span> tf<span class="sc">$</span>keras<span class="sc">$</span>metrics<span class="sc">$</span><span class="fu">Mean</span>(<span class="at">name =</span> <span class="st">"d_loss"</span>)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>g_loss_metric <span class="ot">&lt;-</span> keras<span class="sc">$</span>metrics<span class="sc">$</span><span class="fu">Mean</span>(<span class="at">name =</span> <span class="st">"g_loss"</span>)</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  },</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">mark_active</span>(<span class="cf">function</span>() {</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(self<span class="sc">$</span>d_loss_metric, self<span class="sc">$</span>g_loss_metric)</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  }),</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">train_step =</span> <span class="cf">function</span>(real_images) {</span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    real_images <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">rescale</span>(real_images)</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sample random points in the latent space</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    batch_size <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">shape</span>(real_images)[<span class="dv">1</span>]</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    random_latent_vectors <span class="ot">&lt;-</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">normal</span>(</span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> reticulate<span class="sc">::</span><span class="fu">tuple</span>(batch_size, self<span class="sc">$</span>latent_dim)</span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Decode them to fake images</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    generated_images <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">generator</span>(random_latent_vectors)</span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine them with real images</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    combined_images <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">concat</span>(<span class="fu">list</span>(generated_images, real_images), <span class="at">axis =</span> 0L)</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assemble labels discriminating real from fake images</span></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    labels <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">concat</span>(</span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(</span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>        tf<span class="sc">$</span><span class="fu">ones</span>(reticulate<span class="sc">::</span><span class="fu">tuple</span>(batch_size, 1L)), </span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>        tf<span class="sc">$</span><span class="fu">zeros</span>(reticulate<span class="sc">::</span><span class="fu">tuple</span>(batch_size, 1L))</span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>      ), </span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis =</span> 0L</span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add random noise to the labels - important trick!</span></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>    labels <span class="ot">&lt;-</span> labels <span class="sc">+</span> <span class="fl">0.05</span> <span class="sc">*</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">uniform</span>(tf<span class="sc">$</span><span class="fu">shape</span>(labels))</span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Train the discriminator</span></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">GradientTape</span>() <span class="sc">%as%</span> tape, {   </span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>      predictions <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">discriminator</span>(combined_images)</span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>      d_loss <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">loss_fn</span>(labels, predictions)</span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>    grads <span class="ot">&lt;-</span> tape<span class="sc">$</span><span class="fu">gradient</span>(d_loss, self<span class="sc">$</span>discriminator<span class="sc">$</span>trainable_weights)</span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>d_optimizer<span class="sc">$</span><span class="fu">apply_gradients</span>(</span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>      <span class="fu">zip_lists</span>(grads, self<span class="sc">$</span>discriminator<span class="sc">$</span>trainable_weights)</span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sample random points in the latent space</span></span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>    random_latent_vectors <span class="ot">&lt;-</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">normal</span>(</span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> reticulate<span class="sc">::</span><span class="fu">tuple</span>(batch_size, self<span class="sc">$</span>latent_dim)</span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assemble labels that say "all real images"</span></span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>    misleading_labels <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">zeros</span>(reticulate<span class="sc">::</span><span class="fu">tuple</span>(batch_size, 1L))</span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Train the generator (note that we should *not* update the weights</span></span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>    <span class="co"># of the discriminator)!</span></span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">GradientTape</span>() <span class="sc">%as%</span> tape, {   </span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>      predictions <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">discriminator</span>(self<span class="sc">$</span><span class="fu">generator</span>(random_latent_vectors))</span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>      g_loss <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">loss_fn</span>(misleading_labels, predictions)</span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>    grads <span class="ot">&lt;-</span> tape<span class="sc">$</span><span class="fu">gradient</span>(g_loss, self<span class="sc">$</span>generator<span class="sc">$</span>trainable_weights)</span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>g_optimizer<span class="sc">$</span><span class="fu">apply_gradients</span>(<span class="fu">zip_lists</span>(grads, self<span class="sc">$</span>generator<span class="sc">$</span>trainable_weights))</span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Update metrics</span></span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>d_loss_metric<span class="sc">$</span><span class="fu">update_state</span>(d_loss)</span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>g_loss_metric<span class="sc">$</span><span class="fu">update_state</span>(g_loss)</span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>      <span class="st">"d_loss"</span> <span class="ot">=</span> self<span class="sc">$</span>d_loss_metric<span class="sc">$</span><span class="fu">result</span>(),</span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a>      <span class="st">"g_loss"</span> <span class="ot">=</span> self<span class="sc">$</span>g_loss_metric<span class="sc">$</span><span class="fu">result</span>()</span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gan <span class="ot">&lt;-</span> <span class="fu">new_model_class</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gan"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">initialize =</span> <span class="cf">function</span>(discriminator, generator, latent_dim) {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">super</span>()<span class="sc">$</span><span class="st">`</span><span class="at">__init__</span><span class="st">`</span>()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>discriminator <span class="ot">&lt;-</span> discriminator</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>generator <span class="ot">&lt;-</span> generator</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>latent_dim <span class="ot">&lt;-</span> latent_dim</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>rescale <span class="ot">&lt;-</span> <span class="fu">layer_rescaling</span>(<span class="at">scale =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">255</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">compile =</span> <span class="cf">function</span>(d_optimizer, g_optimizer, loss_fn) {</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">super</span>()<span class="sc">$</span><span class="fu">compile</span>()</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>d_optimizer <span class="ot">&lt;-</span> d_optimizer</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>g_optimizer <span class="ot">&lt;-</span> g_optimizer</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>loss_fn <span class="ot">&lt;-</span> loss_fn</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>d_loss_metric <span class="ot">&lt;-</span> tf<span class="sc">$</span>keras<span class="sc">$</span>metrics<span class="sc">$</span><span class="fu">Mean</span>(<span class="at">name =</span> <span class="st">"d_loss"</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>g_loss_metric <span class="ot">&lt;-</span> keras<span class="sc">$</span>metrics<span class="sc">$</span><span class="fu">Mean</span>(<span class="at">name =</span> <span class="st">"g_loss"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">mark_active</span>(<span class="cf">function</span>() {</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(self<span class="sc">$</span>d_loss_metric, self<span class="sc">$</span>g_loss_metric)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  }),</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">train_step =</span> <span class="cf">function</span>(real_images) {</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    real_images <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">rescale</span>(real_images)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sample random points in the latent space</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    batch_size <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">shape</span>(real_images)[<span class="dv">1</span>]</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    random_latent_vectors <span class="ot">&lt;-</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">normal</span>(</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> reticulate<span class="sc">::</span><span class="fu">tuple</span>(batch_size, self<span class="sc">$</span>latent_dim)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Decode them to fake images</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    generated_images <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">generator</span>(random_latent_vectors)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine them with real images</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    combined_images <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">concat</span>(<span class="fu">list</span>(generated_images, real_images), <span class="at">axis =</span> 0L)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assemble labels discriminating real from fake images</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    labels <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">concat</span>(</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        tf<span class="sc">$</span><span class="fu">ones</span>(reticulate<span class="sc">::</span><span class="fu">tuple</span>(batch_size, 1L)), </span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        tf<span class="sc">$</span><span class="fu">zeros</span>(reticulate<span class="sc">::</span><span class="fu">tuple</span>(batch_size, 1L))</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>      ), </span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis =</span> 0L</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add random noise to the labels - important trick!</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    labels <span class="ot">&lt;-</span> labels <span class="sc">+</span> <span class="fl">0.05</span> <span class="sc">*</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">uniform</span>(tf<span class="sc">$</span><span class="fu">shape</span>(labels))</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Train the discriminator</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">GradientTape</span>() <span class="sc">%as%</span> tape, {   </span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>      predictions <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">discriminator</span>(combined_images)</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>      d_loss <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">loss_fn</span>(labels, predictions)</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    grads <span class="ot">&lt;-</span> tape<span class="sc">$</span><span class="fu">gradient</span>(d_loss, self<span class="sc">$</span>discriminator<span class="sc">$</span>trainable_weights)</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>d_optimizer<span class="sc">$</span><span class="fu">apply_gradients</span>(</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>      <span class="fu">zip_lists</span>(grads, self<span class="sc">$</span>discriminator<span class="sc">$</span>trainable_weights)</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sample random points in the latent space</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>    random_latent_vectors <span class="ot">&lt;-</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">normal</span>(</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>      <span class="at">shape =</span> reticulate<span class="sc">::</span><span class="fu">tuple</span>(batch_size, self<span class="sc">$</span>latent_dim)</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assemble labels that say "all real images"</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>    misleading_labels <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">zeros</span>(reticulate<span class="sc">::</span><span class="fu">tuple</span>(batch_size, 1L))</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Train the generator (note that we should *not* update the weights</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>    <span class="co"># of the discriminator)!</span></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>    <span class="fu">with</span>(tf<span class="sc">$</span><span class="fu">GradientTape</span>() <span class="sc">%as%</span> tape, {   </span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>      predictions <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">discriminator</span>(self<span class="sc">$</span><span class="fu">generator</span>(random_latent_vectors))</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>      g_loss <span class="ot">&lt;-</span> self<span class="sc">$</span><span class="fu">loss_fn</span>(misleading_labels, predictions)</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>    grads <span class="ot">&lt;-</span> tape<span class="sc">$</span><span class="fu">gradient</span>(g_loss, self<span class="sc">$</span>generator<span class="sc">$</span>trainable_weights)</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>g_optimizer<span class="sc">$</span><span class="fu">apply_gradients</span>(<span class="fu">zip_lists</span>(grads, self<span class="sc">$</span>generator<span class="sc">$</span>trainable_weights))</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Update metrics</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>d_loss_metric<span class="sc">$</span><span class="fu">update_state</span>(d_loss)</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>g_loss_metric<span class="sc">$</span><span class="fu">update_state</span>(g_loss)</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>      <span class="st">"d_loss"</span> <span class="ot">=</span> self<span class="sc">$</span>d_loss_metric<span class="sc">$</span><span class="fu">result</span>(),</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>      <span class="st">"g_loss"</span> <span class="ot">=</span> self<span class="sc">$</span>g_loss_metric<span class="sc">$</span><span class="fu">result</span>()</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="create-a-callback-that-periodically-saves-generated-images" class="level2">
 <h2 class="anchored" data-anchor-id="create-a-callback-that-periodically-saves-generated-images">Create a callback that periodically saves generated images</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>gan_monitor <span class="ot">&lt;-</span> <span class="fu">new_callback_class</span>(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gan_monitor"</span>,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">initialize =</span> <span class="cf">function</span>(<span class="at">num_img =</span> <span class="dv">3</span>, <span class="at">latent_dim =</span> 128L) {</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>num_img <span class="ot">&lt;-</span> num_img</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>latent_dim <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(latent_dim)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>fs<span class="sc">::</span><span class="fu">dir_exists</span>(<span class="st">"dcgan"</span>)) fs<span class="sc">::</span><span class="fu">dir_create</span>(<span class="st">"dcgan"</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  },</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">on_epoch_end =</span> <span class="cf">function</span>(epoch, logs) {</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    random_latent_vectors <span class="ot">&lt;-</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">normal</span>(<span class="at">shape =</span> <span class="fu">shape</span>(self<span class="sc">$</span>num_img, self<span class="sc">$</span>latent_dim))</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    generated_images <span class="ot">&lt;-</span> self<span class="sc">$</span>model<span class="sc">$</span><span class="fu">generator</span>(random_latent_vectors)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    generated_images <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">clip_by_value</span>(generated_images <span class="sc">*</span> <span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">255</span>)</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    generated_images <span class="ot">&lt;-</span> <span class="fu">as.array</span>(generated_images)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(self<span class="sc">$</span>num_img)) {</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">image_array_save</span>(</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        generated_images[i,,,], </span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sprintf</span>(<span class="st">"dcgan/generated_img_%03d_%d.png"</span>, epoch, i),</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">scale =</span> <span class="cn">FALSE</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gan_monitor <span class="ot">&lt;-</span> <span class="fu">new_callback_class</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gan_monitor"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">initialize =</span> <span class="cf">function</span>(<span class="at">num_img =</span> <span class="dv">3</span>, <span class="at">latent_dim =</span> 128L) {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>num_img <span class="ot">&lt;-</span> num_img</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    self<span class="sc">$</span>latent_dim <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(latent_dim)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="sc">!</span>fs<span class="sc">::</span><span class="fu">dir_exists</span>(<span class="st">"dcgan"</span>)) fs<span class="sc">::</span><span class="fu">dir_create</span>(<span class="st">"dcgan"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  },</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">on_epoch_end =</span> <span class="cf">function</span>(epoch, logs) {</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    random_latent_vectors <span class="ot">&lt;-</span> tf<span class="sc">$</span>random<span class="sc">$</span><span class="fu">normal</span>(<span class="at">shape =</span> <span class="fu">shape</span>(self<span class="sc">$</span>num_img, self<span class="sc">$</span>latent_dim))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    generated_images <span class="ot">&lt;-</span> self<span class="sc">$</span>model<span class="sc">$</span><span class="fu">generator</span>(random_latent_vectors)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    generated_images <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">clip_by_value</span>(generated_images <span class="sc">*</span> <span class="dv">255</span>, <span class="dv">0</span>, <span class="dv">255</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    generated_images <span class="ot">&lt;-</span> <span class="fu">as.array</span>(generated_images)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(self<span class="sc">$</span>num_img)) {</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">image_array_save</span>(</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        generated_images[i,,,], </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">sprintf</span>(<span class="st">"dcgan/generated_img_%03d_%d.png"</span>, epoch, i),</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">scale =</span> <span class="cn">FALSE</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="train-the-end-to-end-model" class="level2">
 <h2 class="anchored" data-anchor-id="train-the-end-to-end-model">Train the end-to-end model</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>epochs <span class="ot">&lt;-</span> <span class="dv">15</span>  <span class="co"># In practice, use ~100 epochs</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>gan <span class="ot">&lt;-</span> <span class="fu">gan</span>(<span class="at">discriminator =</span> discriminator, <span class="at">generator =</span> generator, <span class="at">latent_dim =</span> latent_dim)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>gan <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">d_optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-4</span>),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g_optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-4</span>),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss_fn =</span> <span class="fu">loss_binary_crossentropy</span>(),</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>gan <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  dataset, </span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> epochs, </span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">callbacks =</span> <span class="fu">list</span>(</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gan_monitor</span>(<span class="at">num_img =</span> <span class="dv">10</span>, <span class="at">latent_dim =</span> latent_dim)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>epochs <span class="ot">&lt;-</span> <span class="dv">15</span>  <span class="co"># In practice, use ~100 epochs</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>gan <span class="ot">&lt;-</span> <span class="fu">gan</span>(<span class="at">discriminator =</span> discriminator, <span class="at">generator =</span> generator, <span class="at">latent_dim =</span> latent_dim)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>gan <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">d_optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-4</span>),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">g_optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="at">learning_rate =</span> <span class="fl">1e-4</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss_fn =</span> <span class="fu">loss_binary_crossentropy</span>(),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>gan <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  dataset, </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> epochs, </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">callbacks =</span> <span class="fu">list</span>(</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gan_monitor</span>(<span class="at">num_img =</span> <span class="dv">10</span>, <span class="at">latent_dim =</span> latent_dim)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Some of the last generated images around epoch 15 - each row is an epoch. (results keep improving after that):</p>
 <div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">14</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">sprintf</span>(<span class="st">"dcgan/generated_img_%03d_%d.png"</span>, grid[[<span class="dv">2</span>]], grid[[<span class="dv">1</span>]]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">14</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">sprintf</span>(<span class="st">"dcgan/generated_img_%03d_%d.png"</span>, grid[[<span class="dv">2</span>]], grid[[<span class="dv">1</span>]]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_000_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_000_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_000_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_000_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_000_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_000_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_000_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_000_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_000_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_000_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_001_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_001_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_001_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_001_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_001_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_001_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_001_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_001_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_001_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_001_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_002_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_002_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_002_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_002_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_002_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_002_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_002_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_002_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_002_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_002_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_003_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_003_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_003_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_003_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_003_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_003_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_003_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_003_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_003_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_003_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_004_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_004_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_004_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_004_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_004_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_004_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_004_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_004_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_004_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_004_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_005_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_005_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_005_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_005_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_005_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_005_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_005_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_005_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_005_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_005_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_006_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_006_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_006_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_006_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_006_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_006_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_006_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_006_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_006_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_006_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_007_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_007_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_007_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_007_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_007_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_007_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_007_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_007_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_007_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_007_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_008_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_008_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_008_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_008_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_008_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_008_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_008_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_008_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_008_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_008_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_009_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_009_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_009_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_009_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_009_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_009_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_009_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_009_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_009_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_009_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_010_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_010_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_010_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_010_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_010_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_010_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_010_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_010_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_010_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_010_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_011_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_011_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_011_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_011_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_011_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_011_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_011_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_011_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_011_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_011_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_012_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_012_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_012_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_012_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_012_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_012_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_012_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_012_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_012_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_012_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_013_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_013_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_013_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_013_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_013_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_013_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_013_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_013_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_013_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_013_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_014_1.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_014_2.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_014_3.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_014_4.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_014_5.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_014_6.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_014_7.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_014_8.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_014_9.png" class="img-fluid" width="32"></p>
-</div>
-<div class="cell-output-display quarto-layout-cell" style="flex-basis: 10.0%;justify-content: center;">
-<p><img src="dcgan/generated_img_014_10.png" class="img-fluid" width="32"></p>
-</div>
-</div>
+
 </div>
 </div>
 
@@ -997,6 +472,21 @@ ________________________________________________________________________________
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    toggleBodyColorMode(window.document.querySelector("link#quarto-bootstrap"));
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

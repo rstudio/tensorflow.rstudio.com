@@ -5,6 +5,8 @@ authors:
   - "[dfalbel](https://github.com/dfalbel) - R translation"
 description: A simple DCGAN trained using `fit()` by overriding `train_step` on CelebA images.
 categories: [generative]
+execute:
+  eval: false
 editor_options: 
   chunk_output_type: inline
 aliases:
@@ -16,6 +18,7 @@ aliases:
 ```{r setup}
 library(tensorflow)
 library(keras)
+stop("STOP")
 ```
 
 ## Prepare CelebA data
@@ -23,11 +26,12 @@ library(keras)
 We'll use face images from the CelebA dataset, resized to 64x64.
 
 ```{r}
-output <- "celeba_gan/data.zip"
-if (!fs::dir_exists("celeba_gan")) {
-  fs::dir_create("celeba_gan")
+dataset_path <- fs::path("~/datasets/celeba_gan") 
+# output <- "celeba_gan/"
+if (!fs::dir_exists(dataset_path)) {
+  fs::dir_create(fs::path_dir(dataset_path))
   url <- "https://drive.google.com/uc?id=1O7m1010EJjLE5QxLZiM9Fpjs7Oj6e684"
-  reticulate::import("gdown")$download(url, output, quiet=TRUE)
+  reticulate::import("gdown")$download(url, output, quiet = TRUE)
   unzip(output, exdir = fs::path_dir(output))
 }
 
@@ -80,7 +84,8 @@ summary(discriminator)
 
 ## Create the generator
 
-It mirrors the discriminator, replacing `conv_2d` layers with `conv_2d_transpose` layers.
+It mirrors the discriminator, replacing `conv_2d` layers with
+`conv_2d_transpose` layers.
 
 ```{r}
 latent_dim <- 128L
@@ -215,7 +220,7 @@ gan_monitor <- new_callback_class(
 
 ## Train the end-to-end model
 
-```{r, eval = TRUE}
+```{r}
 epochs <- 15  # In practice, use ~100 epochs
 
 gan <- gan(discriminator = discriminator, generator = generator, latent_dim = latent_dim)
@@ -234,8 +239,8 @@ gan %>% fit(
 )
 ```
 
-Some of the last generated images around epoch 15 - each row is an epoch.
-(results keep improving after that):
+Some of the last generated images around epoch 15 - each row is an
+epoch. (results keep improving after that):
 
 ```{r}
 #| layout-ncol: 10

@@ -4,14 +4,14 @@ project:
   render:
     - "**.qmd"
     - "!v1/**"
-    - "!examples/**"
+    - "examples/**"
     - "!examples/_check/**"
     - "packages/**/**.md"
 
   # pre-render: spin-examples.R
   preview:
     port: 5555
-    browser: false # true
+    browser: false
 
 execute:
   enabled: true
@@ -33,10 +33,10 @@ website:
     background: "#E83E18"
     file: index.qmd
     left:
-      - { text: Install    , href: install/ }
-      - { text: Tutorials  , href: tutorials/ }
-      - { text: Guides     , href: guides/index.qmd }
-      - { text: Examples   , href: examples/ }
+      - { text: Install    ,href: install/ }
+      - { text: Tutorials  ,href: tutorials/ }
+      - { text: Guides     ,href: guides/index.qmd }
+      - { text: Examples   ,href: examples/ }
       - text: Reference
         menu:
           - text: "tensorlow"
