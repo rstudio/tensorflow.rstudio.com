@@ -58,11 +58,12 @@ website:
       style: "docked"
       contents:
         - install/index.qmd
+        - install/custom.qmd
         - section: GPU
+          href: install/gpu/index.qmd
           contents:
-            - install/gpu/local_gpu/index.qmd
+            - install/gpu/local_gpu.qmd
             - install/gpu/cloud_server_gpu/index.qmd
-            - install/gpu/cloud_desktop_gpu/index.qmd
 
     - title: "Tutorials"
       contents:
