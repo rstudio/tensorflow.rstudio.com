@@ -15,6 +15,7 @@
   {
     "listing": "/guides/index.html",
     "items": [
+      "/guides/tensorflow/autograph.html",
       "/guides/tensorflow/tensor.html",
       "/guides/tensorflow/variable.html",
       "/guides/tensorflow/autodiff.html",

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.559">
+<meta name="generator" content="quarto-99.9.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -100,7 +100,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -156,11 +156,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="../../packages/tensorflow/latest/reference/index.html">
- <span class="dropdown-text">TensorFlow</span></a>
+ <span class="dropdown-text">tensorlow</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../packages/keras/latest/reference/index.html">
- <span class="dropdown-text">Keras</span></a>
+ <span class="dropdown-text">keras</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../packages/tfdatasets/latest/reference/index.html">
@@ -261,11 +261,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../tutorials/keras/overfit_and_underfit.html" class="sidebar-item-text sidebar-link">Overfit and underfit</a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/keras/save_and_load.html" class="sidebar-item-text sidebar-link">Save and load</a>
-  </div>
-</li>
     </ul>
   </li>
     </ul>
@@ -325,12 +320,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="set-up-tensorflow">Set up TensorFlow</h2>
 <p>Import TensorFlow into your program to get started:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Error in reticulate::use_virtualenv("r-tensorflow-site", required = TRUE) : 
-  Directory ~/.virtualenvs/r-tensorflow-site is not a Python virtualenv</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>See the <a href="./install/">installation guide</a> to learn how to correctly install TensorFlow for R.</p>
 </section>
@@ -338,109 +329,104 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="load-a-dataset">Load a dataset</h2>
 <p>Load and prepare the <a href="http://yann.lecun.com/exdb/mnist/">MNIST dataset</a>. Convert the sample data from integers to floating-point numbers:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">c</span>(x_train, y_train), <span class="fu">c</span>(x_test, y_test)) <span class="sc">%&lt;-%</span> keras<span class="sc">::</span><span class="fu">dataset_mnist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="fu">c</span>(x_train, y_train), <span class="fu">c</span>(x_test, y_test)) <span class="sc">%&lt;-%</span> keras<span class="sc">::</span><span class="fu">dataset_mnist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loaded Tensorflow version 2.9.1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x_train[] <span class="ot">&lt;-</span> x_train <span class="sc">/</span> <span class="dv">255</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x_test[] <span class="ot">&lt;-</span>  x_test <span class="sc">/</span> <span class="dv">255</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x_train[] <span class="ot">&lt;-</span> x_train <span class="sc">/</span> <span class="dv">255</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x_test[] <span class="ot">&lt;-</span>  x_test <span class="sc">/</span> <span class="dv">255</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="build-a-machine-learning-model" class="level2">
 <h2 class="anchored" data-anchor-id="build-a-machine-learning-model">Build a machine learning model</h2>
 <p>Build a sequential model by stacking layers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">28</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_flatten</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">128</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(<span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">28</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_flatten</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">128</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dropout</span>(<span class="fl">0.2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For each example, the model returns a vector of <a href="https://developers$google.com/machine-learning/glossary#logits">logits</a> or <a href="https://developers$google.com/machine-learning/glossary#log-odds">log-odds</a> scores, one for each class.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, x_train[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,,])</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, x_train[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,,])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>             [,1]       [,2]       [,3]       [,4]       [,5]      [,6]
-[1,] -0.005407125 0.80882549 -0.2325605 -0.1544301 -0.6472741 0.6266558
-[2,] -0.290611625 0.06450716  0.1402041 -0.1379433  0.0617898 0.5705588
-          [,7]       [,8]       [,9]       [,10]
-[1,] -0.542796  0.1547296 -0.1692535  0.01014616
-[2,] -0.862651 -0.1120777  0.5996791 -0.13866948</code></pre>
+<pre><code>          [,1]       [,2]      [,3]       [,4]       [,5]        [,6]
+[1,] 0.6221945 -0.5319414 0.0798531 -0.8029271 0.07287111 -0.09669821
+[2,] 0.8548990 -0.3678911 0.2530528 -0.6325704 0.45710886 -0.24010459
+          [,7]       [,8]      [,9]     [,10]
+[1,] 0.3659740 -0.2773618 0.3847161 0.5830340
+[2,] 0.2250348 -0.1645848 0.1113097 0.7624712</code></pre>
 </div>
 </div>
 <p>The <code>tf$nn$softmax</code> function converts these logits to <em>probabilities</em> for each class:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">softmax</span>(predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span>nn<span class="sc">$</span><span class="fu">softmax</span>(predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[[0.09135692 0.20623302 0.07279307 0.0787085  0.04808196 0.17188694
-  0.05337728 0.107223   0.07755037 0.09278893]
- [0.07003794 0.09989862 0.10775421 0.0815899  0.09962753 0.16570475
-  0.03952754 0.0837278  0.17060105 0.08153067]], shape=(2, 10), dtype=float64)</code></pre>
+[[0.16305878 0.05141731 0.09479999 0.03921225 0.0941404  0.07945716
+  0.12620281 0.06632417 0.12859042 0.15679672]
+ [0.18673939 0.05497749 0.10229571 0.04219259 0.12545208 0.0624715
+  0.09946937 0.06737205 0.08877674 0.1702531 ]], shape=(2, 10), dtype=float64)</code></pre>
 </div>
 </div>
 <p>Note: It is possible to bake the <code>tf$nn$softmax</code> function into the activation function for the last layer of the network. While this can make the model output more directly interpretable, this approach is discouraged as it’s impossible to provide an exact and numerically stable loss calculation for all models when using a softmax output.</p>
 <p>Define a loss function for training using <code>loss_sparse_categorical_crossentropy()</code>, which takes a vector of logits and a <code>TRUE</code> index and returns a scalar loss for each example.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_sparse_categorical_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>loss_fn <span class="ot">&lt;-</span> <span class="fu">loss_sparse_categorical_crossentropy</span>(<span class="at">from_logits =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This loss is equal to the negative log probability of the true class: The loss is zero if the model is sure of the correct class. This untrained model gives probabilities close to random (1/10 for each class), so the initial loss should be close to <code>-tf$math$log(1/10) ~= 2.3</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_fn</span>(y_train[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_fn</span>(y_train[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor(2.2098182524781778, shape=(), dtype=float64)</code></pre>
+<pre><code>tf.Tensor(2.105289274412225, shape=(), dtype=float64)</code></pre>
 </div>
 </div>
 <p>Before you start training, configure and compile the model using Keras <code>compile()</code>. Set the <a href="https://www.tensorflow.org/api_docs/python/tf/keras/optimizers"><code>optimizer</code></a> class to <code>adam</code>, set the <code>loss</code> to the <code>loss_fn</code> function you defined earlier, and specify a metric to be evaluated for the model by setting the <code>metrics</code> parameter to <code>accuracy</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="st">"adam"</span>,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> loss_fn,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="st">"accuracy"</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">optimizer =</span> <span class="st">"adam"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss =</span> loss_fn,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="st">"accuracy"</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="train-and-evaluate-your-model" class="level2">
 <h2 class="anchored" data-anchor-id="train-and-evaluate-your-model">Train and evaluate your model</h2>
 <p>Use the <code>fit()</code> method to adjust your model parameters and minimize the loss:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(x_train, y_train, <span class="at">epochs =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(x_train, y_train, <span class="at">epochs =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>evaluate()</code> method checks the models performance, usually on a <a href="https://developers$google.com/machine-learning/glossary#validation-set">Validation-set</a> or <a href="https://developers$google.com/machine-learning/glossary#test-set">Test-set</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">evaluate</span>(x_test,  y_test, <span class="at">verbose =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">evaluate</span>(x_test,  y_test, <span class="at">verbose =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      loss   accuracy 
-0.07454524 0.97780001 </code></pre>
+0.07580402 0.97670001 </code></pre>
 </div>
 </div>
 <p>The image classifier is now trained to ~98% accuracy on this dataset. To learn more, read the <a href="https://www.tensorflow.org/tutorials/">TensorFlow tutorials</a>.</p>
 <p>If you want your model to return a probability, you can wrap the trained model, and attach the softmax to it:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>probability_model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_softmax</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>probability_model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">model</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_activation_softmax</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">probability_model</span>(x_test[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">probability_model</span>(x_test[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,,])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[[4.05479632e-08 1.73773032e-08 2.18481673e-05 9.58797827e-05
-  1.11527679e-11 2.02425099e-07 2.35730841e-13 9.99872446e-01
-  1.02023535e-07 9.41532016e-06]
- [1.92279814e-09 8.86837879e-05 9.99908805e-01 2.05702781e-06
-  2.60472033e-15 3.98176383e-07 2.18548450e-08 1.08183632e-14
-  1.88291693e-08 3.28701672e-14]
- [1.03269670e-07 9.98717308e-01 6.90574379e-05 6.68750147e-07
-  4.28112195e-04 1.60920524e-06 1.87604383e-05 7.44227029e-04
-  1.84569762e-05 1.61371577e-06]
- [9.99908328e-01 4.88764718e-09 5.88496659e-05 7.35151957e-08
-  4.60112375e-07 2.54983865e-06 1.02281035e-06 5.94604307e-06
-  9.53733661e-08 2.26521151e-05]
- [8.42172358e-06 2.65670569e-10 1.11103111e-06 2.07198370e-09
-  9.95561123e-01 8.79307436e-08 8.52617802e-07 1.30166125e-04
-  1.03068798e-08 4.29806812e-03]], shape=(5, 10), dtype=float32)</code></pre>
+[[1.2140022e-07 6.7455566e-08 4.5445704e-06 1.7587343e-04 2.5310472e-11
+  4.6031161e-08 1.4377765e-16 9.9981719e-01 9.7988618e-07 1.3288175e-06]
+ [3.3460981e-10 1.0437425e-05 9.9998295e-01 2.1190197e-06 5.2449953e-15
+  3.0546829e-07 6.4090466e-10 5.7350780e-11 4.0629402e-06 6.3909557e-14]
+ [2.0905263e-08 9.9978346e-01 1.4756441e-05 3.5630052e-07 4.3899608e-06
+  4.7629104e-07 9.9138720e-07 1.8911550e-04 6.3717007e-06 5.4235919e-08]
+ [9.9999070e-01 3.8821179e-11 6.9240141e-06 6.0681799e-08 1.0288644e-08
+  6.3122292e-07 1.6721994e-07 1.1895982e-06 5.1084648e-09 1.9710990e-07]
+ [1.2654429e-05 8.2288039e-08 3.4481236e-05 3.4490859e-06 9.8769927e-01
+  2.4268343e-06 9.5701826e-06 3.9002298e-05 7.9106867e-05 1.2119845e-02]], shape=(5, 10), dtype=float32)</code></pre>
 </div>
 </div>
 </section>
@@ -456,6 +442,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    toggleBodyColorMode(window.document.querySelector("link#quarto-bootstrap"));
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

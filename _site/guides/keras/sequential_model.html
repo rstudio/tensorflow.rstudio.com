@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.559">
+<meta name="generator" content="quarto-99.9.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -100,7 +100,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -326,6 +326,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../guides/tensorflow/tensor_slicing.html" class="sidebar-item-text sidebar-link">Tensor Slicing</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/tensorflow/autograph.html" class="sidebar-item-text sidebar-link">Autograph</a>
+  </div>
+</li>
     </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -339,6 +344,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../guides/data/data.html" class="sidebar-item-text sidebar-link">Build TensorFlow input pipelines</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Deployment</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/index.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/plumber.html" class="sidebar-item-text sidebar-link">Plumber API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/shiny.html" class="sidebar-item-text sidebar-link">Deploying a Shiny app with a TensorFlow model</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/docker.html" class="sidebar-item-text sidebar-link">TensorFlow serving</a>
   </div>
 </li>
     </ul>
@@ -362,10 +397,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#transfer-learning-with-a-sequential-model" id="toc-transfer-learning-with-a-sequential-model" class="nav-link" data-scroll-target="#transfer-learning-with-a-sequential-model">Transfer learning with a Sequential model</a></li>
   <li><a href="#load-a-convolutional-base-with-pre-trained-weights" id="toc-load-a-convolutional-base-with-pre-trained-weights" class="nav-link" data-scroll-target="#load-a-convolutional-base-with-pre-trained-weights">Load a convolutional base with pre-trained weights</a>
   <ul class="collapse">
-  <li><a href="#environment-details" id="toc-environment-details" class="nav-link" data-scroll-target="#environment-details">Environment Details</a>
-  <ul class="collapse">
-  <li><a href="#r-environment-information" id="toc-r-environment-information" class="nav-link" data-scroll-target="#r-environment-information">R Environment Information</a></li>
-  </ul></li>
+  <li><a href="#environment-details" id="toc-environment-details" class="nav-link" data-scroll-target="#environment-details">Environment Details</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/t-kalinowski/tf-site/edit/main/guides/keras/sequential_model.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/t-kalinowski/tf-site/blob/main/guides/keras/sequential_model.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/t-kalinowski/tf-site/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -397,12 +429,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Error in reticulate::use_virtualenv("r-tensorflow-site", required = TRUE) : 
-  Directory ~/.virtualenvs/r-tensorflow-site is not a Python virtualenv</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="when-to-use-a-sequential-model" class="level2">
@@ -410,28 +438,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A <code>Sequential</code> model is appropriate for <strong>a plain stack of layers</strong> where each layer has <strong>exactly one input tensor and one output tensor</strong>.</p>
 <p>Schematically, the following <code>Sequential</code> model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define Sequential model with 3 layers</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer1"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer2"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">4</span>, <span class="at">name =</span> <span class="st">"layer3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define Sequential model with 3 layers</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer1"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer2"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">4</span>, <span class="at">name =</span> <span class="st">"layer3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loaded Tensorflow version 2.9.1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call model on a test input</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">model</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call model on a test input</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">model</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>is equivalent to this function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create 3 layers</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>layer1 <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer1"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>layer2 <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer2"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>layer3 <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">4</span>, <span class="at">name =</span> <span class="st">"layer3"</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Call layers on a test input</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">layer3</span>(<span class="fu">layer2</span>(<span class="fu">layer1</span>(x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create 3 layers</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>layer1 <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer1"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>layer2 <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer2"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>layer3 <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">4</span>, <span class="at">name =</span> <span class="st">"layer3"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Call layers on a test input</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">layer3</span>(<span class="fu">layer2</span>(<span class="fu">layer1</span>(x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A Sequential model is <strong>not appropriate</strong> when:</p>
 <ul>
@@ -445,71 +473,71 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="creating-a-sequential-model">Creating a Sequential model</h2>
 <p>You can create a Sequential model by piping a model through a series layers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Its layers are accessible via the <code>layers</code> attribute:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>layers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>layers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-&lt;keras.layers.core.dense.Dense object at 0x7f9d0df43820&gt;
+&lt;keras.layers.core.dense.Dense object at 0x7fbbd02d7d00&gt;
 
 [[2]]
-&lt;keras.layers.core.dense.Dense object at 0x7f9d0ded8d00&gt;
+&lt;keras.layers.core.dense.Dense object at 0x7fbbd4479ee0&gt;
 
 [[3]]
-&lt;keras.layers.core.dense.Dense object at 0x7f9d0df11a90&gt;</code></pre>
+&lt;keras.layers.core.dense.Dense object at 0x7fbbd4411a60&gt;</code></pre>
 </div>
 </div>
 <p>You can also create a Sequential model incrementally:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>()</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note that there’s also a corresponding <code>pop()</code> method to remove layers: a Sequential model behaves very much like a stack of layers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">pop_layer</span>()</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(model<span class="sc">$</span>layers)  <span class="co"># 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">pop_layer</span>()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(model<span class="sc">$</span>layers)  <span class="co"># 2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
 </div>
 <p>Also note that the Sequential constructor accepts a <code>name</code> argument, just like any layer or model in Keras. This is useful to annotate TensorBoard graphs with semantically meaningful names.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">name =</span> <span class="st">"my_sequential"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer1"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer2"</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">4</span>, <span class="at">name =</span> <span class="st">"layer3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">name =</span> <span class="st">"my_sequential"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer1"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"layer2"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">4</span>, <span class="at">name =</span> <span class="st">"layer3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="specifying-the-input-shape-in-advance" class="level2">
 <h2 class="anchored" data-anchor-id="specifying-the-input-shape-in-advance">Specifying the input shape in advance</h2>
 <p>Generally, all layers in Keras need to know the shape of their inputs in order to be able to create their weights. So when you create a layer like this, initially, it has no weights:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">3</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>layer<span class="sc">$</span>weights  <span class="co"># Empty</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>layer <span class="ot">&lt;-</span> <span class="fu">layer_dense</span>(<span class="at">units =</span> <span class="dv">3</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>layer<span class="sc">$</span>weights  <span class="co"># Empty</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>list()</code></pre>
 </div>
 </div>
 <p>It creates its weights the first time it is called on an input, since the shape of the weights depends on the shape of the inputs:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call layer on a test input</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">4</span>))</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">layer</span>(x)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>layer<span class="sc">$</span>weights  <span class="co"># Now it has weights, of shape (4, 3) and (3,)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call layer on a test input</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">4</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">layer</span>(x)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>layer<span class="sc">$</span>weights  <span class="co"># Now it has weights, of shape (4, 3) and (3,)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 &lt;tf.Variable 'dense_6/kernel:0' shape=(4, 3) dtype=float32, numpy=
-array([[ 0.5611099 ,  0.28887486,  0.16154385],
-       [ 0.6592573 , -0.09965378,  0.7208358 ],
-       [-0.3989585 , -0.8135034 , -0.9171356 ],
-       [-0.77588034, -0.01154035,  0.01568812]], dtype=float32)&gt;
+array([[ 0.06395423, -0.14237106, -0.62638205],
+       [-0.5884756 ,  0.46201825,  0.75721586],
+       [ 0.91452694,  0.8030274 , -0.8158957 ],
+       [ 0.20228338, -0.33104193, -0.1134184 ]], dtype=float32)&gt;
 
 [[2]]
 &lt;tf.Variable 'dense_6/bias:0' shape=(3,) dtype=float32, numpy=array([0., 0., 0.], dtype=float32)&gt;</code></pre>
@@ -517,35 +545,35 @@ array([[ 0.5611099 ,  0.28887486,  0.16154385],
 </div>
 <p>Naturally, this also applies to Sequential models. When you instantiate a Sequential model without an input shape, it isn’t “built”: it has no weights (and calling <code>model$weights</code> results in an error stating just this). The weights are created when the model first sees some input data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">layer_dense</span>(<span class="dv">4</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># No weights at this stage!</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># At this point, you can't do this:</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(model<span class="sc">$</span>weights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">layer_dense</span>(<span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">layer_dense</span>(<span class="dv">4</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># No weights at this stage!</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># At this point, you can't do this:</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">try</span>(model<span class="sc">$</span>weights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Error in py_get_attr_impl(x, name, silent) : 
   ValueError: Weights for model sequential_3 have not yet been created. Weights are created when the Model is first called on inputs or `build()` is called with an `input_shape`.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The model summary is also not available:</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The model summary is also not available:</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Model: &lt;no summary available, model was not built&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the model on a test input</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">4</span>))</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">model</span>(x)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Number of weights after calling the model:"</span>, <span class="fu">length</span>(model<span class="sc">$</span>weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)  <span class="co"># 6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Call the model on a test input</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">4</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">model</span>(x)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Number of weights after calling the model:"</span>, <span class="fu">length</span>(model<span class="sc">$</span>weights), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)  <span class="co"># 6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Number of weights after calling the model: 6 </code></pre>
 </div>
 </div>
 <p>Once a model is “built”, you can call its <code>summary()</code> method to display its contents (the <code>summary()</code> method is also called by the default <code>print()</code> method:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Model: "sequential_3"
 ____________________________________________________________________________
@@ -563,10 +591,10 @@ ____________________________________________________________________________</co
 </div>
 <p>However, it can be very useful when building a Sequential model incrementally to be able to display the summary of the model so far, including the current output shape. In this case, you should start your model by passing an <code>input_shape</code> argument to your model, so that it knows its input shape from the start:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">4</span>))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">4</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Model: "sequential_4"
 ____________________________________________________________________________
@@ -587,16 +615,16 @@ ____________________________________________________________________________</co
 <h2 class="anchored" data-anchor-id="a-common-debugging-workflow-summary">A common debugging workflow: <code>%&gt;%</code> + <code>summary()</code></h2>
 <p>When building a new Sequential architecture, it’s useful to incrementally stack layers and print model summaries. For instance, this enables you to monitor how a stack of <code>Conv2D</code> and <code>MaxPooling2D</code> layers is downsampling image feature maps:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">250</span>, <span class="dv">3</span>)) <span class="co"># 250x250 RGB images</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">5</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="dv">3</span>) </span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Can you guess what the current output shape is at this point? Probably not.</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's just print it:</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">250</span>, <span class="dv">3</span>)) <span class="co"># 250x250 RGB images</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">5</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="dv">3</span>) </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Can you guess what the current output shape is at this point? Probably not.</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's just print it:</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Model: "sequential_5"
 ____________________________________________________________________________
@@ -611,17 +639,17 @@ Trainable params: 11,680
 Non-trainable params: 0
 ____________________________________________________________________________</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The answer was: (40, 40, 32), so we can keep downsampling...</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="dv">2</span>) </span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co"># And now?</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The answer was: (40, 40, 32), so we can keep downsampling...</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_max_pooling_2d</span>(<span class="dv">2</span>) </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># And now?</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Model: "sequential_5"
 ____________________________________________________________________________
@@ -642,11 +670,11 @@ Trainable params: 48,672
 Non-trainable params: 0
 ____________________________________________________________________________</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now that we have 4x4 feature maps, time to apply global max pooling.</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_global_max_pooling_2d</span>()</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Finally, we add a classification layer.</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now that we have 4x4 feature maps, time to apply global max pooling.</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_global_max_pooling_2d</span>()</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Finally, we add a classification layer.</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Very practical, right?</p>
 </section>
@@ -663,38 +691,38 @@ ____________________________________________________________________________</co
 <h2 class="anchored" data-anchor-id="feature-extraction-with-a-sequential-model">Feature extraction with a Sequential model</h2>
 <p>Once a Sequential model has been built, it behaves like a <a href="../../guides/functional_api/">Functional API model</a>. This means that every layer has an <code>input</code> and <code>output</code> attribute. These attributes can be used to do neat things, like quickly creating a model that extracts the outputs of all intermediate layers in a Sequential model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>initial_model <span class="ot">&lt;-</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">250</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">5</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>feature_extractor <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">inputs =</span> initial_model<span class="sc">$</span>inputs,</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">outputs =</span> <span class="fu">lapply</span>(initial_model<span class="sc">$</span>layers, \(layer) layer<span class="sc">$</span>output)</span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Call feature extractor on test input.</span></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">250</span>, <span class="dv">250</span>, <span class="dv">3</span>))</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> <span class="fu">feature_extractor</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>initial_model <span class="ot">&lt;-</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">250</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">5</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>feature_extractor <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">inputs =</span> initial_model<span class="sc">$</span>inputs,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">outputs =</span> <span class="fu">lapply</span>(initial_model<span class="sc">$</span>layers, \(layer) layer<span class="sc">$</span>output)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Call feature extractor on test input.</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">250</span>, <span class="dv">250</span>, <span class="dv">3</span>))</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> <span class="fu">feature_extractor</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here’s a similar example that only extract features from one layer:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>initial_model <span class="ot">&lt;-</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">250</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">5</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"my_intermediate_layer"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>feature_extractor <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">inputs =</span> initial_model<span class="sc">$</span>inputs,</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">outputs =</span>  <span class="fu">get_layer</span>(initial_model, <span class="at">name =</span> <span class="st">"my_intermediate_layer"</span>)<span class="sc">$</span>output</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Call feature extractor on test input.</span></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">250</span>, <span class="dv">250</span>, <span class="dv">3</span>))</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> <span class="fu">feature_extractor</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>initial_model <span class="ot">&lt;-</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">250</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">5</span>, <span class="at">strides =</span> <span class="dv">2</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>, <span class="at">name =</span> <span class="st">"my_intermediate_layer"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_conv_2d</span>(<span class="dv">32</span>, <span class="dv">3</span>, <span class="at">activation =</span> <span class="st">"relu"</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>feature_extractor <span class="ot">&lt;-</span> <span class="fu">keras_model</span>(</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">inputs =</span> initial_model<span class="sc">$</span>inputs,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">outputs =</span>  <span class="fu">get_layer</span>(initial_model, <span class="at">name =</span> <span class="st">"my_intermediate_layer"</span>)<span class="sc">$</span>output</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Call feature extractor on test input.</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> tf<span class="sc">$</span><span class="fu">ones</span>(<span class="fu">shape</span>(<span class="dv">1</span>, <span class="dv">250</span>, <span class="dv">250</span>, <span class="dv">3</span>))</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> <span class="fu">feature_extractor</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="transfer-learning-with-a-sequential-model" class="level2">
@@ -703,47 +731,47 @@ ____________________________________________________________________________</co
 <p>Here are two common transfer learning blueprint involving Sequential models.</p>
 <p>First, let’s say that you have a Sequential model, and you want to freeze all layers except the last one. In this case, you would simply iterate over <code>model$layers</code> and set <code>layer$trainable = FALSE</code> on each layer, except the last one. Like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">784</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">32</span>, <span class="at">activation =</span> <span class="st">'relu'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">32</span>, <span class="at">activation =</span> <span class="st">'relu'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">32</span>, <span class="at">activation =</span> <span class="st">'relu'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Presumably you would want to first load pre-trained weights.</span></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span><span class="fu">load_weights</span>(...)</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Freeze all layers except the last one.</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (layer <span class="cf">in</span> <span class="fu">head</span>(model<span class="sc">$</span>layers, <span class="sc">-</span><span class="dv">1</span>))</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>  layer<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="co"># can also just call: freeze_weights(model, to = -2)</span></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Recompile and train (this will only update the weights of the last layer).</span></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(...)</span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>(<span class="at">input_shape =</span> <span class="fu">c</span>(<span class="dv">784</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">32</span>, <span class="at">activation =</span> <span class="st">'relu'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">32</span>, <span class="at">activation =</span> <span class="st">'relu'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">32</span>, <span class="at">activation =</span> <span class="st">'relu'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">10</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Presumably you would want to first load pre-trained weights.</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span><span class="fu">load_weights</span>(...)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Freeze all layers except the last one.</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (layer <span class="cf">in</span> <span class="fu">head</span>(model<span class="sc">$</span>layers, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  layer<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co"># can also just call: freeze_weights(model, to = -2)</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Recompile and train (this will only update the weights of the last layer).</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(...)</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Another common blueprint is to use a Sequential model to stack a pre-trained model and some freshly initialized classification layers. Like this:</p>
 </section>
 <section id="load-a-convolutional-base-with-pre-trained-weights" class="level1">
 <h1>Load a convolutional base with pre-trained weights</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>base_model <span class="ot">&lt;-</span> <span class="fu">application_xception</span>(</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">weights =</span> <span class="st">'imagenet'</span>,</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">include_top =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pooling =</span> <span class="st">'avg'</span>)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Freeze the base model</span></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>base_model<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a Sequential model to add a trainable classifier on top</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">base_model</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1000</span>)</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Compile &amp; train</span></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(...)</span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>base_model <span class="ot">&lt;-</span> <span class="fu">application_xception</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">weights =</span> <span class="st">'imagenet'</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">include_top =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pooling =</span> <span class="st">'avg'</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Freeze the base model</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>base_model<span class="sc">$</span>trainable <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use a Sequential model to add a trainable classifier on top</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">base_model</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_dense</span>(<span class="dv">1000</span>)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Compile &amp; train</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">compile</span>(...)</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you do transfer learning, you will probably find yourself frequently using these two patterns.</p>
 <p>That’s about all you need to know about Sequential models!</p>
@@ -767,46 +795,13 @@ Tensorflow Version
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>tensorflow<span class="sc">::</span><span class="fu">tf_version</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>tensorflow<span class="sc">::</span><span class="fu">tf_config</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] '2.9'</code></pre>
+<pre><code>TensorFlow v2.9.1 (~/.virtualenvs/r-tensorflow-site/lib/python3.9/site-packages/tensorflow)
+Python v3.9 (~/.virtualenvs/r-tensorflow-site/bin/python)</code></pre>
 </div>
 </div>
 </div>
-</div>
-</div>
-<p>::: {.callout-note appearance=“simple” collapse=“true”}</p>
-<section id="r-environment-information" class="level3">
-<h3 class="anchored" data-anchor-id="r-environment-information">R Environment Information</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>R version 4.1.0 Patched (2021-05-18 r80324)
-Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur 10.16
-
-Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
-
-locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-
-attached base packages:
-[1] stats     graphics  grDevices utils     datasets  methods   base     
-
-other attached packages:
-[1] keras_2.9.0.9000      tensorflow_2.9.0.9000
-
-loaded via a namespace (and not attached):
- [1] Rcpp_1.0.9        rstudioapi_0.13   knitr_1.39        whisker_0.4      
- [5] magrittr_2.0.3    lattice_0.20-44   R6_2.5.1          rlang_1.0.4      
- [9] fastmap_1.1.0     stringr_1.4.0     tools_4.1.0       grid_4.1.0       
-[13] xfun_0.31         png_0.1-7         cli_3.3.0         htmltools_0.5.2  
-[17] tfruns_1.5.0      yaml_2.3.5        digest_0.6.29     Matrix_1.3-3     
-[21] base64enc_0.1-3   htmlwidgets_1.5.3 zeallot_0.1.0     evaluate_0.15    
-[25] rmarkdown_2.14    stringi_1.7.8     compiler_4.1.0    generics_0.1.2   
-[29] reticulate_1.25   jsonlite_1.8.0   </code></pre>
 </div>
 </div>
 <div class="callout-note callout callout-style-simple callout-captioned">
@@ -815,301 +810,199 @@ loaded via a namespace (and not attached):
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Python Environment Information
+R Environment Information
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">py_config</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>python:         /Users/dfalbel/Library/r-miniconda/envs/r-reticulate/bin/python
-libpython:      /Users/dfalbel/Library/r-miniconda/envs/r-reticulate/lib/libpython3.8.dylib
-pythonhome:     /Users/dfalbel/Library/r-miniconda/envs/r-reticulate:/Users/dfalbel/Library/r-miniconda/envs/r-reticulate
-version:        3.8.13 | packaged by conda-forge | (default, Mar 25 2022, 06:05:47)  [Clang 12.0.1 ]
-numpy:          /Users/dfalbel/Library/r-miniconda/envs/r-reticulate/lib/python3.8/site-packages/numpy
-numpy_version:  1.22.4
-tensorflow:     /Users/dfalbel/Library/r-miniconda/envs/r-reticulate/lib/python3.8/site-packages/tensorflow
+<pre><code>R version 4.2.1 (2022-06-23)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 20.04.4 LTS
 
-NOTE: Python version was forced by RETICULATE_PYTHON</code></pre>
+Matrix products: default
+BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/libmkl_rt.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] keras_2.9.0.9000      tensorflow_2.9.0.9000
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.9           knitr_1.39           whisker_0.4         
+ [4] magrittr_2.0.3       here_1.0.1           lattice_0.20-45     
+ [7] R6_2.5.1             rlang_1.0.4          fastmap_1.1.0       
+[10] stringr_1.4.0        tools_4.2.1          grid_4.2.1          
+[13] xfun_0.31            png_0.1-7            cli_3.3.0           
+[16] htmltools_0.5.2      tfruns_1.5.0         rprojroot_2.0.3     
+[19] yaml_2.3.5           digest_0.6.29        Matrix_1.4-1        
+[22] base64enc_0.1-3      htmlwidgets_1.5.4    zeallot_0.1.0       
+[25] evaluate_0.15        rmarkdown_2.14       stringi_1.7.8       
+[28] compiler_4.2.1       generics_0.1.3       reticulate_1.25-9000
+[31] jsonlite_1.8.0      </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">:::</span><span class="fu">pip_freeze</span>(reticulate<span class="sc">::</span><span class="fu">py_exe</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Python Environment Information
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system2</span>(reticulate<span class="sc">::</span><span class="fu">py_exe</span>(), <span class="fu">c</span>(<span class="st">"-m pip freeze"</span>), <span class="at">stdout =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">writeLines</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                          package
-1                         absl-py
-2                        appnope 
-3                      asttokens 
-4                      astunparse
-5                       backcall 
-6  backports.functools-lru-cache 
-7                      cachetools
-8                         certifi
-9              charset-normalizer
-10                       debugpy 
-11                     decorator 
-12                           dill
-13                   entrypoints 
-14                          etils
-15                     executing 
-16                    flatbuffers
-17                           gast
-18                    google-auth
-19           google-auth-oauthlib
-20                   google-pasta
-21       googleapis-common-protos
-22                         grpcio
-23                           h5py
-24                           idna
-25             importlib-metadata
-26            importlib-resources
-27                     ipykernel 
-28                       ipython 
-29                          jedi 
-30                jupyter-client 
-31                  jupyter-core 
-32                          keras
-33            Keras-Preprocessing
-34                       libclang
-35                       Markdown
-36             matplotlib-inline 
-37                  nest-asyncio 
-38                         numpy 
-39                       oauthlib
-40                     opt-einsum
-41                     packaging 
-42                         parso 
-43                       pexpect 
-44                   pickleshare 
-45                         Pillow
-46                        promise
-47                prompt-toolkit 
-48                       protobuf
-49                        psutil 
-50                    ptyprocess 
-51                     pure-eval 
-52                         pyasn1
-53                 pyasn1-modules
-54                         pydot 
-55                      Pygments 
-56                     pyparsing 
-57               python-dateutil 
-58                         pyzmq 
-59                       requests
-60              requests-oauthlib
-61                            rsa
-62                         scipy 
-63                           six 
-64                    stack-data 
-65                    tensorboard
-66        tensorboard-data-server
-67         tensorboard-plugin-wit
-68                     tensorflow
-69            tensorflow-datasets
-70           tensorflow-estimator
-71                 tensorflow-hub
-72   tensorflow-io-gcs-filesystem
-73            tensorflow-metadata
-74                      termcolor
-75                           toml
-76                       tornado 
-77                           tqdm
-78                     traitlets 
-79              typing_extensions
-80                        urllib3
-81                       wcwidth 
-82                       Werkzeug
-83                          wrapt
-84                           zipp
-                                                                                                                       version
-1                                                                                                                        1.1.0
-2                                                 file:///home/conda/feedstock_root/build_artifacts/appnope_1649077682618/work
-3                                               file:///home/conda/feedstock_root/build_artifacts/asttokens_1618968359944/work
-4                                                                                                                        1.6.3
-5                                                file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
-6                           file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
-7                                                                                                                        5.2.0
-8                                                                                                                  2022.5.18.1
-9                                                                                                                       2.0.12
-10                                                        file:///Users/runner/miniforge3/conda-bld/debugpy_1649586603968/work
-11                                              file:///home/conda/feedstock_root/build_artifacts/decorator_1641555617451/work
-12                                                                                                                     0.3.5.1
-13                                            file:///home/conda/feedstock_root/build_artifacts/entrypoints_1643888246732/work
-14                                                                                                                       0.6.0
-15                                              file:///home/conda/feedstock_root/build_artifacts/executing_1646044401614/work
-16                                                                                                                        1.12
-17                                                                                                                       0.4.0
-18                                                                                                                       2.7.0
-19                                                                                                                       0.4.6
-20                                                                                                                       0.2.0
-21                                                                                                                      1.56.2
-22                                                                                                                      1.46.3
-23                                                                                                                       3.7.0
-24                                                                                                                         3.3
-25                                                                                                                      4.11.4
-26                                                                                                                       5.7.1
-27                                                      file:///Users/runner/miniforge3/conda-bld/ipykernel_1654565231778/work
-28                                                        file:///Users/runner/miniforge3/conda-bld/ipython_1653755011383/work
-29                                                           file:///Users/runner/miniforge3/conda-bld/jedi_1649067146773/work
-30                                         file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1654730843242/work
-31                                                   file:///Users/runner/miniforge3/conda-bld/jupyter_core_1652365306989/work
-32                                                                                                                       2.9.0
-33                                                                                                                       1.1.2
-34                                                                                                                      14.0.1
-35                                                                                                                       3.3.7
-36                                      file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1631080358261/work
-37                                           file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1648959695634/work
-38                                                          file:///Users/runner/miniforge3/conda-bld/numpy_1653325830837/work
-39                                                                                                                       3.2.0
-40                                                                                                                       3.3.0
-41                                              file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
-42                                                  file:///home/conda/feedstock_root/build_artifacts/parso_1638334955874/work
-43                                                file:///home/conda/feedstock_root/build_artifacts/pexpect_1602535608087/work
-44                                            file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
-45                                                                                                                       9.1.1
-46                                                                                                                         2.3
-47                                         file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1649130487073/work
-48                                                                                                                      3.19.4
-49                                                         file:///Users/runner/miniforge3/conda-bld/psutil_1653089386834/work
-50  file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1609419310487/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
-51                                              file:///home/conda/feedstock_root/build_artifacts/pure_eval_1642875951954/work
-52                                                                                                                       0.4.8
-53                                                                                                                       0.2.8
-54                                                          file:///Users/runner/miniforge3/conda-bld/pydot_1636047909408/work
-55                                               file:///home/conda/feedstock_root/build_artifacts/pygments_1650904496387/work
-56                                              file:///home/conda/feedstock_root/build_artifacts/pyparsing_1652235407899/work
-57                                        file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
-58                                                          file:///Users/runner/miniforge3/conda-bld/pyzmq_1654181479158/work
-59                                                                                                                      2.28.0
-60                                                                                                                       1.3.1
-61                                                                                                                         4.8
-62                                                          file:///Users/runner/miniforge3/conda-bld/scipy_1653074091860/work
-63                                                    file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
-64                                             file:///home/conda/feedstock_root/build_artifacts/stack_data_1644872665635/work
-65                                                                                                                       2.9.1
-66                                                                                                                       0.6.1
-67                                                                                                                       1.8.1
-68                                                                                                                       2.9.1
-69                                                                                                                       4.6.0
-70                                                                                                                       2.9.0
-71                                                                                                                      0.12.0
-72                                                                                                                      0.26.0
-73                                                                                                                       1.8.0
-74                                                                                                                       1.1.0
-75                                                                                                                      0.10.2
-76                                                        file:///Users/runner/miniforge3/conda-bld/tornado_1648827543297/work
-77                                                                                                                      4.64.0
-78                                              file:///home/conda/feedstock_root/build_artifacts/traitlets_1654067514780/work
-79                                                                                                                       4.2.0
-80                                                                                                                      1.26.9
-81                                                file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
-82                                                                                                                       2.1.2
-83                                                                                                                      1.14.1
-84                                                                                                                       3.8.0
-                                                                                                                               requirement
-1                                                                                                                           absl-py==1.1.0
-2                                                   appnope @ file:///home/conda/feedstock_root/build_artifacts/appnope_1649077682618/work
-3                                               asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1618968359944/work
-4                                                                                                                        astunparse==1.6.3
-5                                                 backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
-6       backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1618230623929/work
-7                                                                                                                        cachetools==5.2.0
-8                                                                                                                     certifi==2022.5.18.1
-9                                                                                                               charset-normalizer==2.0.12
-10                                                          debugpy @ file:///Users/runner/miniforge3/conda-bld/debugpy_1649586603968/work
-11                                              decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1641555617451/work
-12                                                                                                                           dill==0.3.5.1
-13                                          entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1643888246732/work
-14                                                                                                                            etils==0.6.0
-15                                              executing @ file:///home/conda/feedstock_root/build_artifacts/executing_1646044401614/work
-16                                                                                                                       flatbuffers==1.12
-17                                                                                                                             gast==0.4.0
-18                                                                                                                      google-auth==2.7.0
-19                                                                                                             google-auth-oauthlib==0.4.6
-20                                                                                                                     google-pasta==0.2.0
-21                                                                                                        googleapis-common-protos==1.56.2
-22                                                                                                                          grpcio==1.46.3
-23                                                                                                                             h5py==3.7.0
-24                                                                                                                               idna==3.3
-25                                                                                                              importlib-metadata==4.11.4
-26                                                                                                              importlib-resources==5.7.1
-27                                                      ipykernel @ file:///Users/runner/miniforge3/conda-bld/ipykernel_1654565231778/work
-28                                                          ipython @ file:///Users/runner/miniforge3/conda-bld/ipython_1653755011383/work
-29                                                                jedi @ file:///Users/runner/miniforge3/conda-bld/jedi_1649067146773/work
-30                                    jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_client_1654730843242/work
-31                                                jupyter-core @ file:///Users/runner/miniforge3/conda-bld/jupyter_core_1652365306989/work
-32                                                                                                                            keras==2.9.0
-33                                                                                                              Keras-Preprocessing==1.1.2
-34                                                                                                                        libclang==14.0.1
-35                                                                                                                         Markdown==3.3.7
-36                              matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1631080358261/work
-37                                        nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1648959695634/work
-38                                                              numpy @ file:///Users/runner/miniforge3/conda-bld/numpy_1653325830837/work
-39                                                                                                                         oauthlib==3.2.0
-40                                                                                                                       opt-einsum==3.3.0
-41                                              packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1637239678211/work
-42                                                      parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1638334955874/work
-43                                                  pexpect @ file:///home/conda/feedstock_root/build_artifacts/pexpect_1602535608087/work
-44                                          pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
-45                                                                                                                           Pillow==9.1.1
-46                                                                                                                            promise==2.3
-47                                    prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1649130487073/work
-48                                                                                                                        protobuf==3.19.4
-49                                                            psutil @ file:///Users/runner/miniforge3/conda-bld/psutil_1653089386834/work
-50 ptyprocess @ file:///home/conda/feedstock_root/build_artifacts/ptyprocess_1609419310487/work/dist/ptyprocess-0.7.0-py2.py3-none-any.whl
-51                                              pure-eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_1642875951954/work
-52                                                                                                                           pyasn1==0.4.8
-53                                                                                                                   pyasn1-modules==0.2.8
-54                                                              pydot @ file:///Users/runner/miniforge3/conda-bld/pydot_1636047909408/work
-55                                                Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1650904496387/work
-56                                              pyparsing @ file:///home/conda/feedstock_root/build_artifacts/pyparsing_1652235407899/work
-57                                  python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/python-dateutil_1626286286081/work
-58                                                              pyzmq @ file:///Users/runner/miniforge3/conda-bld/pyzmq_1654181479158/work
-59                                                                                                                        requests==2.28.0
-60                                                                                                                requests-oauthlib==1.3.1
-61                                                                                                                                rsa==4.8
-62                                                              scipy @ file:///Users/runner/miniforge3/conda-bld/scipy_1653074091860/work
-63                                                          six @ file:///home/conda/feedstock_root/build_artifacts/six_1620240208055/work
-64                                            stack-data @ file:///home/conda/feedstock_root/build_artifacts/stack_data_1644872665635/work
-65                                                                                                                      tensorboard==2.9.1
-66                                                                                                          tensorboard-data-server==0.6.1
-67                                                                                                           tensorboard-plugin-wit==1.8.1
-68                                                                                                                       tensorflow==2.9.1
-69                                                                                                              tensorflow-datasets==4.6.0
-70                                                                                                             tensorflow-estimator==2.9.0
-71                                                                                                                  tensorflow-hub==0.12.0
-72                                                                                                    tensorflow-io-gcs-filesystem==0.26.0
-73                                                                                                              tensorflow-metadata==1.8.0
-74                                                                                                                        termcolor==1.1.0
-75                                                                                                                            toml==0.10.2
-76                                                          tornado @ file:///Users/runner/miniforge3/conda-bld/tornado_1648827543297/work
-77                                                                                                                            tqdm==4.64.0
-78                                              traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1654067514780/work
-79                                                                                                                typing_extensions==4.2.0
-80                                                                                                                         urllib3==1.26.9
-81                                                  wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
-82                                                                                                                         Werkzeug==2.1.2
-83                                                                                                                           wrapt==1.14.1
-84                                                                                                                             zipp==3.8.0</code></pre>
+<pre><code>absl-py==1.1.0
+asttokens==2.0.5
+astunparse==1.6.3
+backcall==0.2.0
+cachetools==5.2.0
+certifi==2022.6.15
+charset-normalizer==2.1.0
+decorator==5.1.1
+dill==0.3.5.1
+etils==0.6.0
+executing==0.8.3
+flatbuffers==1.12
+gast==0.4.0
+google-auth==2.9.0
+google-auth-oauthlib==0.4.6
+google-pasta==0.2.0
+googleapis-common-protos==1.56.4
+grpcio==1.47.0
+h5py==3.7.0
+idna==3.3
+importlib-metadata==4.12.0
+importlib-resources==5.8.0
+ipython==8.4.0
+jedi==0.18.1
+keras==2.9.0
+Keras-Preprocessing==1.1.2
+keras-tuner==1.1.2
+kt-legacy==1.0.4
+libclang==14.0.1
+Markdown==3.3.7
+matplotlib-inline==0.1.3
+numpy==1.23.1
+oauthlib==3.2.0
+opt-einsum==3.3.0
+packaging==21.3
+pandas==1.4.3
+parso==0.8.3
+pexpect==4.8.0
+pickleshare==0.7.5
+Pillow==9.2.0
+promise==2.3
+prompt-toolkit==3.0.30
+protobuf==3.19.4
+ptyprocess==0.7.0
+pure-eval==0.2.2
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
+pydot==1.4.2
+Pygments==2.12.0
+pyparsing==3.0.9
+python-dateutil==2.8.2
+pytz==2022.1
+PyYAML==6.0
+requests==2.28.1
+requests-oauthlib==1.3.1
+rsa==4.8
+scipy==1.8.1
+six==1.16.0
+stack-data==0.3.0
+tensorboard==2.9.1
+tensorboard-data-server==0.6.1
+tensorboard-plugin-wit==1.8.1
+tensorflow==2.9.1
+tensorflow-datasets==4.6.0
+tensorflow-estimator==2.9.0
+tensorflow-hub==0.12.0
+tensorflow-io-gcs-filesystem==0.26.0
+tensorflow-metadata==1.9.0
+termcolor==1.1.0
+toml==0.10.2
+tqdm==4.64.0
+traitlets==5.3.0
+typing_extensions==4.3.0
+urllib3==1.26.10
+wcwidth==0.2.5
+Werkzeug==2.1.2
+wrapt==1.14.1
+zipp==3.8.1</code></pre>
 </div>
 </div>
-<section id="system-information" class="level3">
-<h3 class="anchored" data-anchor-id="system-information">System Information</h3>
-<pre><code>Warning in system("nvidia-smi"): error in running command</code></pre>
-<p>TF Devices: - :PhysicalDevice(name=‘/physical_device:CPU:0’, device_type=‘CPU’) CPU cores: 8 Page render time: and 9 seconds</p>
-</section>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Additional Information
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>TF Devices:
+-  PhysicalDevice(name='/physical_device:CPU:0', device_type='CPU') 
+-  PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU') 
+CPU cores: 12 
+Date rendered: 2022-07-14 
+Page render time: 5 seconds</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 
 
-</section>
 </section>
 </section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    toggleBodyColorMode(window.document.querySelector("link#quarto-bootstrap"));
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

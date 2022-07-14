@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.559">
+<meta name="generator" content="quarto-99.9.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -100,7 +100,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -326,6 +326,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../guides/tensorflow/tensor_slicing.html" class="sidebar-item-text sidebar-link">Tensor Slicing</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/tensorflow/autograph.html" class="sidebar-item-text sidebar-link">Autograph</a>
+  </div>
+</li>
     </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -339,6 +344,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../guides/data/data.html" class="sidebar-item-text sidebar-link">Build TensorFlow input pipelines</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Deployment</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/index.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/plumber.html" class="sidebar-item-text sidebar-link">Plumber API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/shiny.html" class="sidebar-item-text sidebar-link">Deploying a Shiny app with a TensorFlow model</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/docker.html" class="sidebar-item-text sidebar-link">TensorFlow serving</a>
   </div>
 </li>
     </ul>
@@ -772,7 +807,7 @@ ____________________________________________________________________________</co
 <pre><code>Predicted result is: 3, target result is: 5</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="working_with_rnns_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+<p><img src="working_with_rnns_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -904,9 +939,10 @@ Tensorflow Version
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tensorflow<span class="sc">::</span><span class="fu">tf_version</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tensorflow<span class="sc">::</span><span class="fu">tf_config</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] '2.9'</code></pre>
+<pre><code>TensorFlow v2.9.1 (~/.virtualenvs/r-tensorflow-site/lib/python3.9/site-packages/tensorflow)
+Python v3.9 (~/.virtualenvs/r-tensorflow-site/bin/python)</code></pre>
 </div>
 </div>
 </div>
@@ -925,24 +961,164 @@ R Environment Information
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                                                                                           sysname 
-                                                                                          "Darwin" 
-                                                                                           release 
-                                                                                          "21.4.0" 
-                                                                                           version 
-"Darwin Kernel Version 21.4.0: Mon Feb 21 20:34:37 PST 2022; root:xnu-8020.101.4~2/RELEASE_X86_64" 
-                                                                                          nodename 
-                                                                       "Daniels-MacBook-Pro.local" 
-                                                                                           machine 
-                                                                                          "x86_64" 
-                                                                                             login 
-                                                                                            "root" 
-                                                                                              user 
-                                                                                         "dfalbel" 
-                                                                                    effective_user 
-                                                                                         "dfalbel" </code></pre>
+<pre><code>R version 4.2.1 (2022-06-23)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 20.04.4 LTS
+
+Matrix products: default
+BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/libmkl_rt.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] keras_2.9.0.9000      tensorflow_2.9.0.9000
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.9           knitr_1.39           whisker_0.4         
+ [4] magrittr_2.0.3       here_1.0.1           lattice_0.20-45     
+ [7] R6_2.5.1             rlang_1.0.4          fastmap_1.1.0       
+[10] stringr_1.4.0        tools_4.2.1          grid_4.2.1          
+[13] xfun_0.31            png_0.1-7            cli_3.3.0           
+[16] htmltools_0.5.2      tfruns_1.5.0         rprojroot_2.0.3     
+[19] yaml_2.3.5           digest_0.6.29        Matrix_1.4-1        
+[22] base64enc_0.1-3      htmlwidgets_1.5.4    zeallot_0.1.0       
+[25] evaluate_0.15        rmarkdown_2.14       stringi_1.7.8       
+[28] compiler_4.2.1       generics_0.1.3       reticulate_1.25-9000
+[31] jsonlite_1.8.0      </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Python Environment Information
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system2</span>(reticulate<span class="sc">::</span><span class="fu">py_exe</span>(), <span class="fu">c</span>(<span class="st">"-m pip freeze"</span>), <span class="at">stdout =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">writeLines</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>absl-py==1.1.0
+asttokens==2.0.5
+astunparse==1.6.3
+backcall==0.2.0
+cachetools==5.2.0
+certifi==2022.6.15
+charset-normalizer==2.1.0
+decorator==5.1.1
+dill==0.3.5.1
+etils==0.6.0
+executing==0.8.3
+flatbuffers==1.12
+gast==0.4.0
+google-auth==2.9.0
+google-auth-oauthlib==0.4.6
+google-pasta==0.2.0
+googleapis-common-protos==1.56.4
+grpcio==1.47.0
+h5py==3.7.0
+idna==3.3
+importlib-metadata==4.12.0
+importlib-resources==5.8.0
+ipython==8.4.0
+jedi==0.18.1
+keras==2.9.0
+Keras-Preprocessing==1.1.2
+keras-tuner==1.1.2
+kt-legacy==1.0.4
+libclang==14.0.1
+Markdown==3.3.7
+matplotlib-inline==0.1.3
+numpy==1.23.1
+oauthlib==3.2.0
+opt-einsum==3.3.0
+packaging==21.3
+pandas==1.4.3
+parso==0.8.3
+pexpect==4.8.0
+pickleshare==0.7.5
+Pillow==9.2.0
+promise==2.3
+prompt-toolkit==3.0.30
+protobuf==3.19.4
+ptyprocess==0.7.0
+pure-eval==0.2.2
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
+pydot==1.4.2
+Pygments==2.12.0
+pyparsing==3.0.9
+python-dateutil==2.8.2
+pytz==2022.1
+PyYAML==6.0
+requests==2.28.1
+requests-oauthlib==1.3.1
+rsa==4.8
+scipy==1.8.1
+six==1.16.0
+stack-data==0.3.0
+tensorboard==2.9.1
+tensorboard-data-server==0.6.1
+tensorboard-plugin-wit==1.8.1
+tensorflow==2.9.1
+tensorflow-datasets==4.6.0
+tensorflow-estimator==2.9.0
+tensorflow-hub==0.12.0
+tensorflow-io-gcs-filesystem==0.26.0
+tensorflow-metadata==1.9.0
+termcolor==1.1.0
+toml==0.10.2
+tqdm==4.64.0
+traitlets==5.3.0
+typing_extensions==4.3.0
+urllib3==1.26.10
+wcwidth==0.2.5
+Werkzeug==2.1.2
+wrapt==1.14.1
+zipp==3.8.1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Additional Information
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>TF Devices:
+-  PhysicalDevice(name='/physical_device:CPU:0', device_type='CPU') 
+-  PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU') 
+CPU cores: 12 
+Date rendered: 2022-07-14 
+Page render time: 29 seconds</code></pre>
 </div>
 </div>
 </div>
@@ -955,6 +1131,21 @@ R Environment Information
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    toggleBodyColorMode(window.document.querySelector("link#quarto-bootstrap"));
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {

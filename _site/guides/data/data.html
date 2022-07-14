@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.559">
+<meta name="generator" content="quarto-99.9.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -88,7 +88,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../guides/tensorflow/tensor_slicing.html" rel="prev">
+<link href="../../guides/deploy/index.html" rel="next">
+<link href="../../guides/tensorflow/autograph.html" rel="prev">
 <link href="../../images/favicon/icon.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -98,7 +99,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -324,6 +325,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../guides/tensorflow/tensor_slicing.html" class="sidebar-item-text sidebar-link">Tensor Slicing</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/tensorflow/autograph.html" class="sidebar-item-text sidebar-link">Autograph</a>
+  </div>
+</li>
     </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -337,6 +343,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../guides/data/data.html" class="sidebar-item-text sidebar-link active">Build TensorFlow input pipelines</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Deployment</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/index.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/plumber.html" class="sidebar-item-text sidebar-link">Plumber API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/shiny.html" class="sidebar-item-text sidebar-link">Deploying a Shiny app with a TensorFlow model</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../guides/deploy/docker.html" class="sidebar-item-text sidebar-link">TensorFlow serving</a>
   </div>
 </li>
     </ul>
@@ -536,7 +572,7 @@ TensorSpec(shape=(100,), dtype=tf.int32, name=None)</code></pre>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  reticulate<span class="sc">::</span><span class="fu">as_iterator</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  reticulate<span class="sc">::</span><span class="fu">iter_next</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor([1 1 9 7 2 3 3 2 8 3], shape=(10), dtype=int32)</code></pre>
+<pre><code>tf.Tensor([6 9 4 8 3 5 4 6 7 8], shape=(10), dtype=int32)</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -563,9 +599,9 @@ TensorSpec(shape=(100,), dtype=tf.int32, name=None)</code></pre>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 2
- $ :&lt;tf.Tensor: shape=(10), dtype=int32, numpy=array([1, 1, 9, 7, 2, 3, 3, 2, 8, 3], dtype=int32)&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int32, numpy=array([6, 9, 4, 8, 3, 5, 4, 6, 7, 8], dtype=int32)&gt;
  $ :List of 2
-  ..$ :&lt;tf.Tensor: shape=(), dtype=float32, numpy=0.33178997&gt;
+  ..$ :&lt;tf.Tensor: shape=(), dtype=float32, numpy=0.71575093&gt;
   ..$ :&lt;tf.Tensor: shape=(100), dtype=int32, numpy=…&gt;</code></pre>
 </div>
 </div>
@@ -893,10 +929,10 @@ dbl (5): survived, age, n_siblings_spouses, parch, fare
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 2
- $ :OrderedDict([('sex', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=array([b'male', b'female', b'male', b'male'], dtype=object)&gt;), ('age', &lt;tf.Tensor: shape=(4,), dtype=float32, numpy=array([56., 28., 28., 40.], dtype=float32)&gt;), ('n_siblings_spouses', &lt;tf.Tensor: shape=(4,), dtype=int32, numpy=array([0, 0, 0, 0], dtype=int32)&gt;), ('parch', &lt;tf.Tensor: shape=(4,), dtype=int32, numpy=array([0, 0, 0, 0], dtype=int32)&gt;), ('fare', &lt;tf.Tensor: shape=(4,), dtype=float32, numpy=array([26.55, 33.  ,  0.  ,  0.  ], dtype=float32)&gt;), ('class', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=array([b'First', b'Second', b'Second', b'First'], dtype=object)&gt;), ('deck', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=array([b'unknown', b'unknown', b'unknown', b'B'], dtype=object)&gt;), ('embark_town', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=
-array([b'Southampton', b'Southampton', b'Southampton', b'Southampton'],
-      dtype=object)&gt;), ('alone', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=array([b'y', b'y', b'y', b'y'], dtype=object)&gt;)])
- $ :&lt;tf.Tensor: shape=(4), dtype=int32, numpy=array([0, 1, 0, 0], dtype=int32)&gt;</code></pre>
+ $ :OrderedDict([('sex', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=array([b'female', b'female', b'female', b'male'], dtype=object)&gt;), ('age', &lt;tf.Tensor: shape=(4,), dtype=float32, numpy=array([63., 11., 17., 45.], dtype=float32)&gt;), ('n_siblings_spouses', &lt;tf.Tensor: shape=(4,), dtype=int32, numpy=array([0, 4, 1, 0], dtype=int32)&gt;), ('parch', &lt;tf.Tensor: shape=(4,), dtype=int32, numpy=array([0, 2, 0, 0], dtype=int32)&gt;), ('fare', &lt;tf.Tensor: shape=(4,), dtype=float32, numpy=array([  9.5875,  31.275 , 108.9   ,   6.975 ], dtype=float32)&gt;), ('class', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=array([b'Third', b'Third', b'First', b'Third'], dtype=object)&gt;), ('deck', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=array([b'unknown', b'unknown', b'C', b'unknown'], dtype=object)&gt;), ('embark_town', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=
+array([b'Southampton', b'Southampton', b'Cherbourg', b'Southampton'],
+      dtype=object)&gt;), ('alone', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=array([b'y', b'n', b'n', b'y'], dtype=object)&gt;)])
+ $ :&lt;tf.Tensor: shape=(4), dtype=int32, numpy=array([1, 0, 1, 0], dtype=int32)&gt;</code></pre>
 </div>
 </div>
 <p>You can use the <code>select_columns</code> argument if you only need a subset of columns.</p>
@@ -915,8 +951,8 @@ array([b'Southampton', b'Southampton', b'Southampton', b'Southampton'],
 <span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 2
- $ :OrderedDict([('fare', &lt;tf.Tensor: shape=(4,), dtype=float32, numpy=array([69.55  , 51.8625,  7.225 , 16.1   ], dtype=float32)&gt;), ('class', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=array([b'Third', b'First', b'Third', b'Third'], dtype=object)&gt;)])
- $ :&lt;tf.Tensor: shape=(4), dtype=int32, numpy=array([0, 1, 0, 0], dtype=int32)&gt;</code></pre>
+ $ :OrderedDict([('fare', &lt;tf.Tensor: shape=(4,), dtype=float32, numpy=array([27.    ,  9.5   ,  7.0542, 49.5   ], dtype=float32)&gt;), ('class', &lt;tf.Tensor: shape=(4,), dtype=string, numpy=array([b'Second', b'Third', b'Third', b'First'], dtype=object)&gt;)])
+ $ :&lt;tf.Tensor: shape=(4), dtype=int32, numpy=array([0, 0, 0, 1], dtype=int32)&gt;</code></pre>
 </div>
 </div>
 <p>There is also a lower-level <code>tf$experimental$CsvDataset</code> class which provides finer grained control. It does not support column type inference. Instead you must specify the type of each column.</p>
@@ -1026,12 +1062,12 @@ array([b'Southampton', b'Southampton', b'Southampton', b'Southampton'],
 <div class="cell">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_ls</span>(flowers_root)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>/Users/dfalbel/.keras/datasets/flower_photos/LICENSE.txt
-/Users/dfalbel/.keras/datasets/flower_photos/daisy
-/Users/dfalbel/.keras/datasets/flower_photos/dandelion
-/Users/dfalbel/.keras/datasets/flower_photos/roses
-/Users/dfalbel/.keras/datasets/flower_photos/sunflowers
-/Users/dfalbel/.keras/datasets/flower_photos/tulips</code></pre>
+<pre><code>/home/tomasz/.keras/datasets/flower_photos/LICENSE.txt
+/home/tomasz/.keras/datasets/flower_photos/daisy
+/home/tomasz/.keras/datasets/flower_photos/dandelion
+/home/tomasz/.keras/datasets/flower_photos/roses
+/home/tomasz/.keras/datasets/flower_photos/sunflowers
+/home/tomasz/.keras/datasets/flower_photos/tulips</code></pre>
 </div>
 </div>
 <p>The files in each class directory are examples:</p>
@@ -1043,11 +1079,11 @@ array([b'Southampton', b'Southampton', b'Southampton', b'Southampton'],
 <span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 5
- $ :&lt;tf.Tensor: shape=(), dtype=string, numpy=b'/Users/dfalbel/.keras/datasets/flower_photos/roses/15738649506_2b4c2fd933_m.jpg'&gt;
- $ :&lt;tf.Tensor: shape=(), dtype=string, numpy=b'/Users/dfalbel/.keras/datasets/flower_photos/tulips/14487712670_aebe715525_m.jpg'&gt;
- $ :&lt;tf.Tensor: shape=(), dtype=string, numpy=b'/Users/dfalbel/.keras/datasets/flower_photos/dandelion/18001393975_2a6acaabd8.jpg'&gt;
- $ :&lt;tf.Tensor: shape=(), dtype=string, numpy=b'/Users/dfalbel/.keras/datasets/flower_photos/dandelion/15644450971_6a28298454_n.jpg'&gt;
- $ :&lt;tf.Tensor: shape=(), dtype=string, numpy=b'/Users/dfalbel/.keras/datasets/flower_photos/tulips/18270448366_d5676dec64_z.jpg'&gt;</code></pre>
+ $ :&lt;tf.Tensor: shape=(), dtype=string, numpy=b'/home/tomasz/.keras/datasets/flower_photos/sunflowers/4933822052_2dfef02517.jpg'&gt;
+ $ :&lt;tf.Tensor: shape=(), dtype=string, numpy=b'/home/tomasz/.keras/datasets/flower_photos/dandelion/14200639491_2a4611916d_n.jpg'&gt;
+ $ :&lt;tf.Tensor: shape=(), dtype=string, numpy=b'/home/tomasz/.keras/datasets/flower_photos/tulips/3457017604_90e4de7480_m.jpg'&gt;
+ $ :&lt;tf.Tensor: shape=(), dtype=string, numpy=b'/home/tomasz/.keras/datasets/flower_photos/sunflowers/20621698991_dcb323911d.jpg'&gt;
+ $ :&lt;tf.Tensor: shape=(), dtype=string, numpy=b'/home/tomasz/.keras/datasets/flower_photos/sunflowers/3832945398_96509d192b.jpg'&gt;</code></pre>
 </div>
 </div>
 <p>Read the data using the <code>tf$io$read_file</code> function and extract the label from the path, returning <code>(image, label)</code> pairs:</p>
@@ -1078,7 +1114,7 @@ To turn off this warning, set `options(tensorflow.extract.warn_negatives_pythoni
 </div>
 <div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>el[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor(b'dandelion', shape=(), dtype=string)</code></pre>
+<pre><code>tf.Tensor(b'tulips', shape=(), dtype=string)</code></pre>
 </div>
 </div>
 <!--
@@ -1193,7 +1229,7 @@ TODO(mrry): Add this section.
 <span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dataset_batch</span>(<span class="dv">128</span>)</span>
 <span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_batch_sizes</span>(titanic_batches)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-104-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>If you need clear epoch separation, put <code>dataset_batch()</code> before the repeat:</p>
@@ -1204,7 +1240,7 @@ TODO(mrry): Add this section.
 <span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_batch_sizes</span>(titanic_batches)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-106-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>If you would like to perform a custom computation (e.g.&nbsp;to collect statistics) at the end of each epoch then it’s simplest to restart the dataset iteration on each epoch:</p>
@@ -1265,8 +1301,8 @@ End of epoch  3 </code></pre>
 <span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>line_batch[[<span class="dv">1</span>]][[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[ 85  99  61  25  78 102  81  11  32  49   0   6  39  87  36  33  44  70
-  56  24], shape=(20), dtype=int64)</code></pre>
+[ 72  85  88  50   7  95  90  60  94  97  23 105 101  99  74  51  15  14
+  92  19], shape=(20), dtype=int64)</code></pre>
 </div>
 </div>
 <p>As with <code>dataset_batch()</code> the order relative to <code>dataset_repeat()</code> matters.</p>
@@ -1289,19 +1325,19 @@ End of epoch  3 </code></pre>
 <span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="cf">function</span>(x) x[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-tf.Tensor([617 498 594 517 576 611 497 603 580 595], shape=(10), dtype=int64)
+tf.Tensor([508 520 570 337 511 420 386 579 523 325], shape=(10), dtype=int64)
 
 [[2]]
-tf.Tensor([499 555 556 453 441 599 346 604 531 622], shape=(10), dtype=int64)
+tf.Tensor([329 603 550 624 300 516 605 567 606 622], shape=(10), dtype=int64)
 
 [[3]]
-tf.Tensor([621 424 312 536 614 554 501 533], shape=(8), dtype=int64)
+tf.Tensor([620 321 465 394 574 587 621 565], shape=(8), dtype=int64)
 
 [[4]]
-tf.Tensor([ 8 71 81 39 73 63 30 97 56  0], shape=(10), dtype=int64)
+tf.Tensor([31 17 54 24 64 73 42  6 82 62], shape=(10), dtype=int64)
 
 [[5]]
-tf.Tensor([ 49   1 102 104  19  18  89  47 114   6], shape=(10), dtype=int64)</code></pre>
+tf.Tensor([ 88  95  83  70 100  29  84  23  52   8], shape=(10), dtype=int64)</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -1310,7 +1346,7 @@ tf.Tensor([ 49   1 102 104  19  18  89  47 114   6], shape=(10), dtype=int64)</c
 <span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(<span class="cf">function</span>(x) <span class="fu">mean</span>(<span class="fu">as.numeric</span>(x[[<span class="dv">1</span>]])))</span>
 <span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(shuffle_repeat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-116-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>But a repeat before a shuffle mixes the epoch boundaries together:</p>
@@ -1333,14 +1369,14 @@ tf.Tensor([ 49   1 102 104  19  18  89  47 114   6], shape=(10), dtype=int64)</c
 <span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 15
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([603, 615, 590, 135, 485, 621, 475, 624, 575, 584])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([ 14, 552, 497,  11, 614, 548,  37,  18, 535,  28])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([544, 474, 607, 576, 609,  24, 580, 578, 512,  44])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([538, 599,  40,  51,  47, 554,  50, 564, 509,  29])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([ 61,  59, 561, 522, 534,  33,  36, 581,  17, 533])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([  3, 625, 583, 525,  42,  73, 553, 300,  57, 311])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([559,  70,  46, 460,  75, 573,  22,  85, 600, 598])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([ 43,  71,  90,   7, 570, 602,  67,  35,  27,  10])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([605,  19, 618, 568, 466, 451, 393,  23, 371, 616])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([491, 624,  16, 574, 626,  33,   9,  22,  20, 581])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([591, 368, 572,  32, 520,   4,   1, 336, 577, 420])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([518, 452, 428,  21, 464,  50,  56, 387, 535,  60])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([234, 607,  25,  63,  62, 502,  13, 470,  18, 602])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([601,  37, 621,  54,  67, 493,  55,  17, 576,  64])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([293,  77,  70,  78, 397,  10, 547, 549,  43,  74])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([ 39, 627, 623, 521, 613, 611,  48, 237, 615,  59])&gt;
   [list output truncated]</code></pre>
 </div>
 </div>
@@ -1350,7 +1386,7 @@ tf.Tensor([ 49   1 102 104  19  18  89  47 114   6], shape=(10), dtype=int64)</c
 <span id="cb114-3"><a href="#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(<span class="cf">function</span>(x) <span class="fu">mean</span>(<span class="fu">as.numeric</span>(x[[<span class="dv">1</span>]])))</span>
 <span id="cb114-4"><a href="#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(repeat_shuffle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-120-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-60-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -1398,7 +1434,7 @@ tf.Tensor([ 49   1 102 104  19  18  89  47 114   6], shape=(10), dtype=int64)</c
 <span id="cb117-10"><a href="#cb117-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb117-11"><a href="#cb117-11" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(parsed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-126-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-63-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Map it over the dataset.</p>
@@ -1411,10 +1447,10 @@ tf.Tensor([ 49   1 102 104  19  18  89  47 114   6], shape=(10), dtype=int64)</c
 <span id="cb118-6"><a href="#cb118-6" aria-hidden="true" tabindex="-1"></a>  coro<span class="sc">::</span><span class="fu">collect</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb118-7"><a href="#cb118-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(show)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-128-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-64-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-128-2.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-64-2.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
@@ -1483,7 +1519,7 @@ NULL</code></pre>
 <span id="cb122-9"><a href="#cb122-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.raster</span>(<span class="at">max =</span> <span class="dv">255</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb122-10"><a href="#cb122-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-132-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-66-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
@@ -1511,7 +1547,7 @@ NULL</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(example, <span class="at">maxcolor =</span> <span class="dv">255</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="data_files/figure-html/unnamed-chunk-138-1.png" class="img-fluid" width="672"></p>
+<p><img src="data_files/figure-html/unnamed-chunk-69-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
@@ -1939,10 +1975,10 @@ tf.Tensor([ 3  6  9 12 15 18 21 24 27], shape=(9), dtype=int64)</code></pre>
 <span id="cb155-8"><a href="#cb155-8" aria-hidden="true" tabindex="-1"></a>counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$class_0
-tf.Tensor(10196, shape=(), dtype=int32)
+tf.Tensor(10199, shape=(), dtype=int32)
 
 $class_1
-tf.Tensor(44, shape=(), dtype=int32)</code></pre>
+tf.Tensor(41, shape=(), dtype=int32)</code></pre>
 </div>
 </div>
 <p>A common approach to training with an imbalanced dataset is to balance it. tfdatasets includes a few methods which enable this workflow:</p>
@@ -1987,14 +2023,14 @@ tf.Tensor(1, shape=(), dtype=int64)</code></pre>
 <span id="cb161-4"><a href="#cb161-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 10
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 1, 0, 0, 0, 1, 0, 1, 1])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 0, 1, 1, 0, 1, 0, 0, 0])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 0, 0, 1, 0, 0, 0, 0, 0])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 1, 1, 0, 1, 1, 0, 1, 1, 1])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 1, 1, 1, 1, 0, 0, 1, 1])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 1, 1, 0, 0, 0, 1, 0, 1, 0])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 0, 1, 1, 0, 0, 0, 1, 1])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 1, 0, 1, 1, 1, 1, 0, 1, 0])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 1, 1, 1, 1, 0, 0, 0, 0, 0])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 0, 1, 1, 0, 1, 1, 0, 0])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 1, 0, 1, 1, 0, 0, 1, 1, 1])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 1, 1, 1, 0, 1, 0, 1, 0])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 1, 0, 1, 0, 0, 0, 1, 1])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 0, 0, 1, 0, 1, 1, 1, 1])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 1, 1, 1, 0, 1, 0, 0, 1, 0])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 1, 1, 0, 1, 1, 1, 0, 0, 1])&gt;
   [list output truncated]</code></pre>
 </div>
 </div>
@@ -2035,14 +2071,14 @@ tf.Tensor(1, shape=(), dtype=int64)</code></pre>
 <span id="cb166-4"><a href="#cb166-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 10
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 1, 0, 1, 0, 1, 1, 1, 1, 1])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 0, 0, 1, 0, 0, 1, 1, 1])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 0, 1, 1, 0, 1, 1, 0, 0, 1])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 0, 1, 0, 0, 1, 0, 1, 1, 0])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 0, 0, 0, 1, 0, 1, 1, 1, 0])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 1, 0, 0, 1, 0, 1, 1, 0, 1])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 0, 1, 1, 1, 0, 1, 1, 0, 0])&gt;
- $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 1, 1, 1, 0, 1, 0, 0, 0, 0])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 1, 1, 1, 0, 0, 1, 0, 0, 1])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 1, 1, 0, 0, 0, 1, 1, 0, 0])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 1, 0, 1, 0, 0, 1, 0, 1, 0])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 1, 0, 0, 1, 1, 0, 0, 0, 1])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 0, 1, 0, 1, 0, 1, 1, 0, 1])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 0, 1, 1, 0, 1, 1, 1, 0, 0])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([0, 0, 1, 0, 0, 1, 1, 1, 1, 0])&gt;
+ $ :&lt;tf.Tensor: shape=(10), dtype=int64, numpy=array([1, 1, 0, 0, 1, 1, 0, 0, 1, 1])&gt;
   [list output truncated]</code></pre>
 </div>
 </div>
@@ -2083,7 +2119,7 @@ tf.Tensor(9, shape=(), dtype=int64)</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb172"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a>ckpt<span class="sc">$</span><span class="fu">restore</span>(manager<span class="sc">$</span>latest_checkpoint)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;tensorflow.python.training.tracking.util.CheckpointLoadStatus object at 0x7fb91205afd0&gt;</code></pre>
+<pre><code>&lt;tensorflow.python.training.tracking.util.CheckpointLoadStatus object at 0x7f8820547160&gt;</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb174"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
 <span id="cb174-2"><a href="#cb174-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(reticulate<span class="sc">::</span><span class="fu">iter_next</span>(iterator))</span>
@@ -2139,7 +2175,7 @@ tf.Tensor(9, shape=(), dtype=int64)</code></pre>
 <div class="sourceCode cell-code" id="cb180"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a>model <span class="sc">%&gt;%</span> <span class="fu">evaluate</span>(fmnist_train_ds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     loss  accuracy 
-0.4346840 0.8509333 </code></pre>
+0.4434612 0.8461167 </code></pre>
 </div>
 </div>
 <p>For long datasets, set the number of steps to evaluate:</p>
@@ -2149,8 +2185,8 @@ tf.Tensor(9, shape=(), dtype=int64)</code></pre>
 <span id="cb182-3"><a href="#cb182-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">steps =</span> <span class="dv">10</span></span>
 <span id="cb182-4"><a href="#cb182-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     loss  accuracy 
-0.3874657 0.8562500 </code></pre>
+<pre><code>    loss accuracy 
+0.452028 0.856250 </code></pre>
 </div>
 </div>
 <p>The labels are not required in when calling <code>Model$predict</code>.</p>
@@ -2187,9 +2223,10 @@ Tensorflow Version
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb188"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb188-1"><a href="#cb188-1" aria-hidden="true" tabindex="-1"></a>tensorflow<span class="sc">::</span><span class="fu">tf_version</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb188"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb188-1"><a href="#cb188-1" aria-hidden="true" tabindex="-1"></a>tensorflow<span class="sc">::</span><span class="fu">tf_config</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] '2.9'</code></pre>
+<pre><code>TensorFlow v2.9.1 (~/.virtualenvs/r-tensorflow-site/lib/python3.9/site-packages/tensorflow)
+Python v3.9 (~/.virtualenvs/r-tensorflow-site/bin/python)</code></pre>
 </div>
 </div>
 </div>
@@ -2208,24 +2245,171 @@ R Environment Information
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb190"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb190-1"><a href="#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb190"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb190-1"><a href="#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                                                                                           sysname 
-                                                                                          "Darwin" 
-                                                                                           release 
-                                                                                          "21.4.0" 
-                                                                                           version 
-"Darwin Kernel Version 21.4.0: Mon Feb 21 20:34:37 PST 2022; root:xnu-8020.101.4~2/RELEASE_X86_64" 
-                                                                                          nodename 
-                                                                                     "Daniels-MBP" 
-                                                                                           machine 
-                                                                                          "x86_64" 
-                                                                                             login 
-                                                                                            "root" 
-                                                                                              user 
-                                                                                         "dfalbel" 
-                                                                                    effective_user 
-                                                                                         "dfalbel" </code></pre>
+<pre><code>R version 4.2.1 (2022-06-23)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 20.04.4 LTS
+
+Matrix products: default
+BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/libmkl_rt.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] keras_2.9.0.9000      tfdatasets_2.9.0.9000 tensorflow_2.9.0.9000
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.9           pillar_1.7.0         compiler_4.2.1      
+ [4] base64enc_0.1-3      tools_4.2.1          bit_4.0.4           
+ [7] zeallot_0.1.0        digest_0.6.29        tibble_3.1.7        
+[10] lifecycle_1.0.1      jsonlite_1.8.0       evaluate_0.15       
+[13] lattice_0.20-45      pkgconfig_2.0.3      png_0.1-7           
+[16] rlang_1.0.4          Matrix_1.4-1         cli_3.3.0           
+[19] parallel_4.2.1       yaml_2.3.5           xfun_0.31           
+[22] coro_1.0.2.9000      fastmap_1.1.0        stringr_1.4.0       
+[25] knitr_1.39           fs_1.5.2             hms_1.1.1           
+[28] generics_0.1.3       htmlwidgets_1.5.4    vctrs_0.4.1         
+[31] bit64_4.0.5          rprojroot_2.0.3      grid_4.2.1          
+[34] tidyselect_1.1.2     reticulate_1.25-9000 glue_1.6.2          
+[37] here_1.0.1           R6_2.5.1             fansi_1.0.3         
+[40] vroom_1.5.7          rmarkdown_2.14       tzdb_0.3.0          
+[43] purrr_0.3.4          readr_2.1.2          magrittr_2.0.3      
+[46] whisker_0.4          ellipsis_0.3.2       tfruns_1.5.0        
+[49] htmltools_0.5.2      utf8_1.2.2           stringi_1.7.8       
+[52] crayon_1.5.1        </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Python Environment Information
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb192"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb192-1"><a href="#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system2</span>(reticulate<span class="sc">::</span><span class="fu">py_exe</span>(), <span class="fu">c</span>(<span class="st">"-m pip freeze"</span>), <span class="at">stdout =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">writeLines</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>absl-py==1.1.0
+asttokens==2.0.5
+astunparse==1.6.3
+backcall==0.2.0
+cachetools==5.2.0
+certifi==2022.6.15
+charset-normalizer==2.1.0
+decorator==5.1.1
+dill==0.3.5.1
+etils==0.6.0
+executing==0.8.3
+flatbuffers==1.12
+gast==0.4.0
+google-auth==2.9.0
+google-auth-oauthlib==0.4.6
+google-pasta==0.2.0
+googleapis-common-protos==1.56.4
+grpcio==1.47.0
+h5py==3.7.0
+idna==3.3
+importlib-metadata==4.12.0
+importlib-resources==5.8.0
+ipython==8.4.0
+jedi==0.18.1
+keras==2.9.0
+Keras-Preprocessing==1.1.2
+keras-tuner==1.1.2
+kt-legacy==1.0.4
+libclang==14.0.1
+Markdown==3.3.7
+matplotlib-inline==0.1.3
+numpy==1.23.1
+oauthlib==3.2.0
+opt-einsum==3.3.0
+packaging==21.3
+pandas==1.4.3
+parso==0.8.3
+pexpect==4.8.0
+pickleshare==0.7.5
+Pillow==9.2.0
+promise==2.3
+prompt-toolkit==3.0.30
+protobuf==3.19.4
+ptyprocess==0.7.0
+pure-eval==0.2.2
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
+pydot==1.4.2
+Pygments==2.12.0
+pyparsing==3.0.9
+python-dateutil==2.8.2
+pytz==2022.1
+PyYAML==6.0
+requests==2.28.1
+requests-oauthlib==1.3.1
+rsa==4.8
+scipy==1.8.1
+six==1.16.0
+stack-data==0.3.0
+tensorboard==2.9.1
+tensorboard-data-server==0.6.1
+tensorboard-plugin-wit==1.8.1
+tensorflow==2.9.1
+tensorflow-datasets==4.6.0
+tensorflow-estimator==2.9.0
+tensorflow-hub==0.12.0
+tensorflow-io-gcs-filesystem==0.26.0
+tensorflow-metadata==1.9.0
+termcolor==1.1.0
+toml==0.10.2
+tqdm==4.64.0
+traitlets==5.3.0
+typing_extensions==4.3.0
+urllib3==1.26.10
+wcwidth==0.2.5
+Werkzeug==2.1.2
+wrapt==1.14.1
+zipp==3.8.1</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout-note callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Additional Information
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>TF Devices:
+-  PhysicalDevice(name='/physical_device:CPU:0', device_type='CPU') 
+-  PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU') 
+CPU cores: 12 
+Date rendered: 2022-07-14 
+Page render time: 21 seconds</code></pre>
 </div>
 </div>
 </div>
@@ -2238,6 +2422,21 @@ R Environment Information
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    toggleBodyColorMode(window.document.querySelector("link#quarto-bootstrap"));
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -2317,11 +2516,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../guides/tensorflow/tensor_slicing.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Tensor Slicing</span>
+      <a href="../../guides/tensorflow/autograph.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Autograph</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../guides/deploy/index.html" class="pagination-link">
+        <span class="nav-page-text">Overview</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
