@@ -7,6 +7,8 @@ description: A simple DCGAN trained using `fit()` by overriding `train_step` on 
 categories: [generative]
 editor_options: 
   chunk_output_type: inline
+aliases:
+  - ../guide/keras/examples/eager_dcgan/index.html
 ---
 
 ## Setup

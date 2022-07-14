@@ -1,7 +1,7 @@
 ---
 title: Text Classification with Hub
 aliases:
-  - ../beginners/basic-ml/tutorial_basic_text_classification_with_tfhub.qmd
+  - ../beginners/basic-ml/tutorial_basic_text_classification_with_tfhub/index.html
 ---
 
 This notebook classifies movie reviews as *positive* or *negative* using the text of the review. This is an example of *binary*—or two-class—classification, an important and widely applicable kind of machine learning problem.

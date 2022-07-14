@@ -88,7 +88,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../install/gpu/cloud_desktop_gpu/index.html" rel="next">
 <link href="../../../install/gpu/local_gpu/index.html" rel="prev">
 <link href="../../../images/favicon/icon.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
@@ -225,11 +224,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../../install/gpu/cloud_server_gpu/index.html" class="sidebar-item-text sidebar-link active">Cloud Server GPUs</a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../install/gpu/cloud_desktop_gpu/index.html" class="sidebar-item-text sidebar-link">Cloud Desktop GPUs</a>
-  </div>
-</li>
     </ul>
   </li>
     </ul>
@@ -283,10 +277,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="launching-the-server">Launching the Server</h3>
 <p>There are AMIs on the Amazon Cloud Marketplace for both the open-source and Professional versions of RStudio Server. You can find them here:</p>
 <ul>
-<li><p>Open Source: <a href="https://aws.amazon.com/marketplace/pp/B0785SXYB2" class="uri">https://aws.amazon.com/marketplace/pp/B0785SXYB2</a></p></li>
-<li><p>Professional: <a href="https://aws.amazon.com/marketplace/pp/B07B8G3FZP" class="uri">https://aws.amazon.com/marketplace/pp/B07B8G3FZP</a></p></li>
+<li><p><a href="https://aws.amazon.com/marketplace/pp/prodview-gpjb3cd2aemaw">Open Source</a></p></li>
+<li><p><a href="https://aws.amazon.com/marketplace/pp/prodview-xnae5eufa3nkw">Professional</a></p></li>
 </ul>
-<p>You should launch these AMIs on the <code>p2.xlarge</code> instance type. This type includes a single GPU whereas other GPU-based images include up to 16 GPUs (however they are commensurately much more expensive). Note that you may need to select a different region than your default to be able to launch <code>p2.xlarge</code> instances (for example, selecting “US East (Ohio)” rather than “US East (N Virginia)”).</p>
+<p>You should launch these AMIs on the <code>p2.xlarge</code> instance type. This type includes a single GPU whereas other GPU-based images include up to 16 GPUs (however they are commensurately much more expensive).</p>
 <p><img src="images/aws-launch.png" class="illustration img-fluid"></p>
 </section>
 <section id="accessing-the-server" class="level3">
@@ -299,7 +293,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Login with user id “rstudio-user” and password the instance ID of your AWS server (for example “i-0a8ea329c18892dfa”, your specific ID is available via the EC2 dashboard).</p>
 <p>Then, use the RStudio Terminal to change the default password using the <code>passwd</code> utility:</p>
 <p><img src="images/aws-passwd.png" class="illustration img-fluid"></p>
-<p>Your EC2 deep learning instance is now ready to use (the tensorflow, tfestimators, and keras R packages along with their pre-requisites, including the GPU version of TensorFlow, are installed as part of the image).</p>
+<p>Your EC2 deep learning instance is now ready to use (the tensorflow and keras R packages along with their pre-requisites, including the GPU version of TensorFlow, are installed as part of the image).</p>
 <p>See the sections below for discussion of various ways in which you can make your EC2 instance more secure.</p>
 </section>
 <section id="limiting-inbound-traffic" class="level3">
@@ -337,7 +331,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>Please login as the user "ubuntu" rather than the user "root".</code></pre>
 <p>In that case be sure that you use <code>ubuntu@my-ec2-server-address</code> rather than <code>root@my-ec2-server-address</code>.</p>
 <p>Execute the following commands to configure RStudio Server to only accept local connections:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Configure RStudio to only allow local connections </span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Configure RStudio to only allow local connections</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> /bin/bash <span class="at">-c</span> <span class="st">"echo 'www-address=127.0.0.1' &gt;&gt; /etc/rstudio/rserver.conf"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Restart RStudio with new settings</span></span>
@@ -442,9 +436,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../install/gpu/cloud_desktop_gpu/index.html" class="pagination-link">
-        <span class="nav-page-text">Cloud Desktop GPUs</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

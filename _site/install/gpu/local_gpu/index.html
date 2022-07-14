@@ -225,11 +225,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="../../../install/gpu/cloud_server_gpu/index.html" class="sidebar-item-text sidebar-link">Cloud Server GPUs</a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../install/gpu/cloud_desktop_gpu/index.html" class="sidebar-item-text sidebar-link">Cloud Desktop GPUs</a>
-  </div>
-</li>
     </ul>
   </li>
     </ul>
@@ -241,12 +236,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#prerequisties" id="toc-prerequisties" class="nav-link" data-scroll-target="#prerequisties">Prerequisties</a>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
+  <li><a href="#linux" id="toc-linux" class="nav-link" data-scroll-target="#linux">Linux</a></li>
   <li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows">Windows</a></li>
-  <li><a href="#ubuntu" id="toc-ubuntu" class="nav-link" data-scroll-target="#ubuntu">Ubuntu</a></li>
-  <li><a href="#mac-os-x" id="toc-mac-os-x" class="nav-link" data-scroll-target="#mac-os-x">Mac OS X</a></li>
+  <li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos">macOS</a></li>
+  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test">Test</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/t-kalinowski/tf-site/edit/main/install/gpu/local_gpu/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/t-kalinowski/tf-site/blob/main/install/gpu/local_gpu/index.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/t-kalinowski/tf-site/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -272,26 +267,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>TensorFlow can be configured to run on either CPUs or GPUs. By default, TensorFlow will use a GPU if it is available and the appropriate drivers are installed, and otherwise fallback to using the CPU only.</p>
+<p>TensorFlow can be configured to run on either CPUs or GPUs. The default build of TensorFlow will use a GPU if it is available and the appropriate drivers are installed, and otherwise fallback to using the CPU only.</p>
 <p>The prerequisites for the GPU version of TensorFlow on each platform are covered below. Note that on all platforms you must be running an NVIDIA® GPU with CUDA® Compute Capability 3.5 or higher. See the list of <a href="https://developer.nvidia.com/cuda-gpus">CUDA-enabled GPU cards</a>.</p>
-</section>
-<section id="prerequisties" class="level2">
-<h2 class="anchored" data-anchor-id="prerequisties">Prerequisties</h2>
-<section id="windows" class="level3">
-<h3 class="anchored" data-anchor-id="windows">Windows</h3>
-<p>This article describes how to detect whether your graphics card uses an NVIDIA® GPU:</p>
-<p><a href="http://nvidia.custhelp.com/app/answers/detail/a_id/2040/~/identifying-the-graphics-card-model-and-device-id-in-a-pc" class="uri">http://nvidia.custhelp.com/app/answers/detail/a_id/2040/~/identifying-the-graphics-card-model-and-device-id-in-a-pc</a></p>
-<p>Once you’ve confirmed that you have an NVIDIA® GPU, the following article describes how to install required software components including the CUDA Toolkit v11.2 and cuDNN 8.1:</p>
-<p><a href="https://www.tensorflow.org/install/gpu#hardware_requirements" class="uri">https://www.tensorflow.org/install/gpu#hardware_requirements</a></p>
-<p>Note that the documentation on installation of the last component (cuDNN) is a bit sparse. Once you join the NVIDIA® developer program and download the zip file containing cuDNN you need to extract the zip file and add the location where you extracted it to your system PATH.</p>
-</section>
-<section id="ubuntu" class="level3">
-<h3 class="anchored" data-anchor-id="ubuntu">Ubuntu</h3>
+<p>To enable TensorFlow to use a local GPU, you can install the following:</p>
+<ul>
+<li><a href="https://developer.nvidia.com/cuda-11.2.2-download-archive">CUDA 11.2</a></li>
+<li><a href="https://developer.nvidia.com/rdp/cudnn-archive">cuDNN 8.1</a></li>
+</ul>
+<p>for other platforms consult the links:</p>
+<section id="linux" class="level3">
+<h3 class="anchored" data-anchor-id="linux">Linux</h3>
 <p>The specifics of installing required software differ by Linux version so please review the NVIDIA® documentation carefully to ensure you install everything correctly.</p>
 <p>The following section provides as example of the installation commands you might use on Ubuntu 20.04.</p>
-<section id="ubuntu-20.04-example" class="level4">
-<h4 class="anchored" data-anchor-id="ubuntu-20.04-example">Ubuntu 20.04 Example</h4>
-<p>First, install <a href="https://developer.nvidia.com/cuda-11.2.2-download-archive">CUDA 11.2</a> and <a href="https://developer.nvidia.com/rdp/cudnn-archive">cuDNN 8.1</a>. The instructions for Ubuntu 20.04 are reproduced here, for other platforms consult the links:</p>
+<section id="ubuntu-20.04" class="level4">
+<h4 class="anchored" data-anchor-id="ubuntu-20.04">Ubuntu 20.04</h4>
+<p>To install the required NVIDIA components on Ubuntu 20.04, you can run the following at the terminal:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-key adv <span class="at">--fetch-keys</span> https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub</span>
@@ -301,14 +291,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-mark hold libcudnn8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="mac-os-x" class="level3">
-<h3 class="anchored" data-anchor-id="mac-os-x">Mac OS X</h3>
-<p>Tensorflow does not support GPUs on Intel Macs. Apple however provides a separate build of Tensorflow that works on Arm Macs like the M1. <code>install_tensorflow()</code> will detect if it is being run on an Arm Mac and install the appropriate Python packages (<code>tensorflow-macos</code> and <code>tensorflow-metal</code>). Note that on M1 Macs, conda is the only supported installation method. You can easily install a conda Python like this:</p>
+<section id="windows" class="level3">
+<h3 class="anchored" data-anchor-id="windows">Windows</h3>
+<p>This article describes how to detect whether your graphics card uses an NVIDIA® GPU:</p>
+<p><a href="http://nvidia.custhelp.com/app/answers/detail/a_id/2040/~/identifying-the-graphics-card-model-and-device-id-in-a-pc" class="uri">http://nvidia.custhelp.com/app/answers/detail/a_id/2040/~/identifying-the-graphics-card-model-and-device-id-in-a-pc</a></p>
+<p>Once you’ve confirmed that you have an NVIDIA® GPU, the following article describes how to install required software components including the CUDA Toolkit v11.2 and cuDNN 8.1:</p>
+<p><a href="https://www.tensorflow.org/install/gpu#hardware_requirements" class="uri">https://www.tensorflow.org/install/gpu#hardware_requirements</a></p>
+<p>Note that the documentation on installation of the last component (cuDNN) is a bit sparse. Once you join the NVIDIA® developer program and download the zip file containing cuDNN you need to extract the zip file and add the location where you extracted it to your system PATH.</p>
+</section>
+<section id="macos" class="level3">
+<h3 class="anchored" data-anchor-id="macos">macOS</h3>
+<p>TensorFlow does not support usage of GPUs on Intel Macs. For Arm Macs however, Apple provides a custom build of TensorFlow that can take advantage of the GPU. <code>install_tensorflow()</code> will detect if it is being run on an Arm Mac and automatically install the appropriate Python packages (<code>tensorflow-macos</code> and <code>tensorflow-metal</code>).</p>
+<p>Conda is the only supported installation method on Arm Macs. Additionally, x86_64 builds of R running under Rosetta are not supported; an Arm64 build of R is required.</p>
+<p>You can test if you have an Arm build of R like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">install_miniconda</span>()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tensorflow<span class="sc">::</span><span class="fu">install_tensorflow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>R.version<span class="sc">$</span>arch</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that <code>install_miniconda()</code> automatically creates a conda environment named <code>r-reticulate</code>, that is the default environment used by reticulate.</p>
+<p>If this returns <code>"aarch64"</code>, you’re using the correct build of R. If instead it returns <code>"x86_64"</code>, then you need to install a different build of R. You can install an Arm build of R by navigating to <a href="https://cloud.r-project.org/bin/macosx/" class="uri">https://cloud.r-project.org/bin/macosx/</a> and selecting the appropriate package (e.g., “R-4.2.1-arm64.pkg”) or using an installation manager like <a href="https://github.com/r-lib/rig">rig</a> and running <code>rig add release</code>.</p>
+<p>You can configure reticulate to use a conda Python using reticulate like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">install_miniconda</span>()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tensorflow<span class="sc">::</span><span class="fu">install_tensorflow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that <code>install_miniconda()</code> automatically creates a conda environment named <code>r-reticulate</code>, that becomes the default environment used by reticulate.</p>
+</section>
+<section id="test" class="level3">
+<h3 class="anchored" data-anchor-id="test">Test</h3>
+<p>You can test if TensorFlow can use a local GPU by running the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span>config<span class="sc">$</span><span class="fu">list_physical_devices</span>(<span class="st">"GPU"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you see a list like this:</p>
+<pre class="text"><code>[[1]]
+PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')</code></pre>
+<p>Then that means TensorFlow is configured properly. If instead you see an empty <code>list()</code>, then TensorFlow is not using a GPU.</p>
+<p>For support with installation, open a <a href="https://github.com/rstudio/tensorflow/issues/new?assignees=&amp;labels=Installation&amp;template=installation-issue.md&amp;title=Installation+Issue">Github issue</a></p>
 
 
 </section>

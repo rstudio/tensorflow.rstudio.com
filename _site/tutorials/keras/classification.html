@@ -557,7 +557,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Test loss:'</span>, score[<span class="st">"loss"</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test loss: 0.3504261 </code></pre>
+<pre><code>Test loss: 0.374816 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Test accuracy:'</span>, score[<span class="st">"acc"</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -576,9 +576,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>predictions[<span class="dv">1</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.0000047085869 0.0000001454795 0.0000011415185 0.0000016535852
- [5] 0.0000084582016 0.0116209536791 0.0000306908732 0.1333010792732
- [9] 0.0007113508182 0.8543198108673</code></pre>
+<pre><code> [1] 0.000002374742508 0.000000001048298 0.000001017671366 0.000001695752417
+ [5] 0.000002096122671 0.041234213858843 0.000024804288842 0.046245750039816
+ [9] 0.000061740312958 0.912426233291626</code></pre>
 </div>
 </div>
 <p>A prediction is an array of 10 numbers. These describe the “confidence” of the model that the image corresponds to each of the 10 different articles of clothing. We can see which label has the highest confidence value:</p>
@@ -634,12 +634,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span> <span class="fu">predict</span>(img)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>               [,1]            [,2]           [,3]           [,4]
-[1,] 0.000004708587 0.0000001454792 0.000001141517 0.000001653585
-               [,5]       [,6]          [,7]      [,8]         [,9]
-[1,] 0.000008458202 0.01162093 0.00003069084 0.1333011 0.0007113498
+<pre><code>               [,1]              [,2]           [,3]          [,4]
+[1,] 0.000002374741 0.000000001048298 0.000001017671 0.00000169575
+               [,5]       [,6]          [,7]       [,8]          [,9]
+[1,] 0.000002096121 0.04123412 0.00002480427 0.04624566 0.00006174021
          [,10]
-[1,] 0.8543198</code></pre>
+[1,] 0.9124265</code></pre>
 </div>
 </div>
 <p><code>predict</code> returns a list of lists, one for each image in the batch of data. Grab the predictions for our (only) image in the batch:</p>

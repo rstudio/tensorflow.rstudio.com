@@ -4,6 +4,8 @@ authors:
   - "[A_K_Nain](https://twitter.com/A_K_Nain)"
   - "[dfalbel](https://github.com/dfalbel) - R translation"
 description: Implement an image captioning model using a CNN and a Transformer.
+aliases:
+  - ../guide/keras/examples/eager_image_captioning/index.html
 ---
 
 ## Setup

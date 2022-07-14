@@ -228,15 +228,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If the version of TensorFlow you installed is not found automatically, then you can use the following techniques to ensure that TensorFlow is located.</p>
 <p>Specify the <code>RETICULATE_PYTHON</code> environment variable to force probing within a specific Python installation. For example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">RETICULATE_PYTHON=</span><span class="st">"/usr/local/bin/python"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">RETICULATE_PYTHON=</span><span class="st">"/usr/local/bin/python"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You could also add the <code>RETICULATE_PYTHON</code> environment variable to your <code>.RProfile</code>.</p>
+<p>You could also add the <code>RETICULATE_PYTHON</code> environment variable to your <code>.RProfile</code> or <code>.REnviron</code>.</p>
 <p>Alternatively, call the <code>use_python</code> family of configuration functions:</p>
 <table class="table">
 <colgroup>
-<col style="width: 19%">
-<col style="width: 80%">
+<col style="width: 23%">
+<col style="width: 76%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -262,27 +262,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/usr/local/bin/python"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"~/myenv"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">use_condaenv</span>(<span class="st">"myenv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"my_env"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that you can include multiple calls to the <code>use_</code> functions and all provided locations will be tried in the order they were specified.</p>
-<p>You can also use the <code>required</code> argument from the <code>use_*</code> functions. In this case TensorFlow will only be searched at the specified location.</p>
+<p>Note that if you use the argument <code>required = FALSE</code>, you can include multiple calls to the <code>use_</code> functions and all provided locations will be tried in the order they were specified. For example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"my_env"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/usr/local/bin/python"</span>, <span class="at">required =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"~/myenv"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">use_condaenv</span>(<span class="st">"myenv"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="additional-dependencies" class="level3">
 <h3 class="anchored" data-anchor-id="additional-dependencies">Additional Dependencies</h3>
-<p>There are some components of TensorFlow (e.g.&nbsp;the <a href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/python/keras">Keras</a> library) which have dependencies on additional Python packages. The <code>install_tensorflow()</code> function installs these dependencies automatically, however if you do a custom installation you should be sure to install them manually.</p>
+<p>There are some components of TensorFlow (e.g.&nbsp;the <a href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/python/keras">Keras</a> library) which have dependencies on additional Python packages. The <code>install_keras()</code> function installs these dependencies automatically, however if you do a custom installation you should be sure to install them manually.</p>
 <p>You can install the additional dependencies with the following command:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install h5py pyyaml requests Pillow scipy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Error in reticulate::use_virtualenv(“r-tensorflow-site”, required = TRUE) : Directory ~/.virtualenvs/r-tensorflow-site is not a Python virtualenv</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install tensorflow-hub scipy requests Pillow h5py pandas pydot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="supported-platforms" class="level2">
 <h2 class="anchored" data-anchor-id="supported-platforms">Supported Platforms</h2>
 <p>Note that binary installations of TensorFlow are provided for Windows, OS X, and Ubuntu 16.04 or higher. It’s possible that binary installations will work on other Linux variants but Ubuntu is the only platform tested and supported.</p>
-<p>In particular, if you are running on RedHat or CentOS you will need to <a href="https://www.tensorflow.org/install/source">install from source</a> then follow the instructions in the [Custom Installation] section to ensure that your installation of TensorFlow can be used with the tensorflow R package.</p>
+<p>In particular, if you are running on RedHat or CentOS you may need to <a href="https://www.tensorflow.org/install/source">install from source</a> then follow the instructions in the Custom Installation section to ensure that your installation of TensorFlow can be used with the tensorflow R package.</p>
 
 
 </section>
