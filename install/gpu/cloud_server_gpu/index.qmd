@@ -1,6 +1,6 @@
 ---
 title: "Cloud Server GPUs"
-output: 
+output:
   html_document:
     toc_depth: 3
     toc_float:
@@ -27,23 +27,23 @@ Cloud server instances with GPUs are available from services like Amazon EC2 and
 
 ## Amazon EC2
 
-RStudio has AWS Marketplace offerings that are designed to provide stable, secure, and high performance execution environments for deep learning applications running on Amazon EC2. The tensorflow, tfestimators, and keras R packages (along with their pre-requisites, including the GPU version of TensorFlow) are installed as part of the image. 
+RStudio has AWS Marketplace offerings that are designed to provide stable, secure, and high performance execution environments for deep learning applications running on Amazon EC2. The tensorflow, tfestimators, and keras R packages (along with their pre-requisites, including the GPU version of TensorFlow) are installed as part of the image.
 
 ### Launching the Server
 
 There are AMIs on the Amazon Cloud Marketplace for both the open-source and Professional versions of RStudio Server. You can find them here:
 
-* Open Source: <https://aws.amazon.com/marketplace/pp/B0785SXYB2>
+* [Open Source](https://aws.amazon.com/marketplace/pp/prodview-gpjb3cd2aemaw)
 
-* Professional: <https://aws.amazon.com/marketplace/pp/B07B8G3FZP>
+* [Professional](https://aws.amazon.com/marketplace/pp/prodview-xnae5eufa3nkw)
 
-You should launch these AMIs on the `p2.xlarge` instance type. This type includes a single GPU whereas other GPU-based images include up to 16 GPUs (however they are commensurately much more expensive). Note that you may need to select a different region than your default to be able to launch `p2.xlarge` instances (for example, selecting "US East (Ohio)" rather than "US East (N Virginia)"). 
+You should launch these AMIs on the `p2.xlarge` instance type. This type includes a single GPU whereas other GPU-based images include up to 16 GPUs (however they are commensurately much more expensive). 
 
 ![](images/aws-launch.png){.illustration}
 
 ### Accessing the Server
 
-After you've launched the server you can access an instance of [RStudio Server](https://www.rstudio.com/products/rstudio/download-server/) running on port 8787. For example: 
+After you've launched the server you can access an instance of [RStudio Server](https://www.rstudio.com/products/rstudio/download-server/) running on port 8787. For example:
 
 <http://ec2-18-217-204-43.us-east-2.compute.amazonaws.com:8787>
 
@@ -53,19 +53,19 @@ The first time you access the server you will be presented with a login screen:
 
 ![](images/aws-login.png){.illustration}
 
-Login with user id "rstudio-user" and password the instance ID of your AWS server (for example "i-0a8ea329c18892dfa", your specific ID is available via the EC2 dashboard). 
+Login with user id "rstudio-user" and password the instance ID of your AWS server (for example "i-0a8ea329c18892dfa", your specific ID is available via the EC2 dashboard).
 
 Then, use the RStudio Terminal to change the default password using the `passwd` utility:
 
 ![](images/aws-passwd.png){.illustration}
 
-Your EC2 deep learning instance is now ready to use (the tensorflow, tfestimators, and keras R packages along with their pre-requisites, including the GPU version of TensorFlow, are installed as part of the image). 
+Your EC2 deep learning instance is now ready to use (the tensorflow and keras R packages along with their pre-requisites, including the GPU version of TensorFlow, are installed as part of the image).
 
 See the sections below for discussion of various ways in which you can make your EC2 instance more secure.
 
 ### Limiting Inbound Traffic
 
-The EC2 instance is by default configured to allow access to SSH and HTTP traffic from all IP addresses on the internet, whereas it would be more desirable to restrict this to IP addresses that you know you will access the server from (this can however be challenging if you plan on accessing the server from a variety of public networks). 
+The EC2 instance is by default configured to allow access to SSH and HTTP traffic from all IP addresses on the internet, whereas it would be more desirable to restrict this to IP addresses that you know you will access the server from (this can however be challenging if you plan on accessing the server from a variety of public networks).
 
 You can see these settings in the [Security Group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html) of your EC2 instance:
 
@@ -120,7 +120,7 @@ In that case be sure that you use `ubuntu@my-ec2-server-address` rather than `ro
 Execute the following commands to configure RStudio Server to only accept local connections:
 
 ```bash
-# Configure RStudio to only allow local connections 
+# Configure RStudio to only allow local connections
 sudo /bin/bash -c "echo 'www-address=127.0.0.1' >> /etc/rstudio/rserver.conf"
 
 # Restart RStudio with new settings
@@ -138,29 +138,3 @@ ssh -N -L 8787:localhost:8787 -i my-security-key.pem ubuntu@my-ec2-server-addres
 (where `my-security-key.pem` and `my-ec2-server-address` are specific to your server configuration).
 
 Once the SSH connection is established, RStudio Server will be available at <http://localhost:8787/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
