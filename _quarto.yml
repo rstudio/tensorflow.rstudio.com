@@ -113,6 +113,7 @@ website:
         - section: TensorFlow in depth
           contents:
             - guides/tensorflow/tensor_slicing.qmd
+            - {text: Autograph, href: guides/tensorflow/autograph.qmd}
 
         - section: Data input pipelines
           contents:
