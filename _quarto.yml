@@ -39,7 +39,7 @@ website:
       - { text: Examples   ,href: examples/ }
       - text: Reference
         menu:
-          - text: "tensorlow"
+          - text: "tensorflow"
             href: "reference/tensorflow/index.html"
           - text: "keras"
             href: "reference/keras/index.html"
