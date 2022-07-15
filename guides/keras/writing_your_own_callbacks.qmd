@@ -1,8 +1,8 @@
 ---
 title: Writing your own callbacks
-author: Rick Chao, Francois Chollet, Tomasz Kalinowski
+# author: Rick Chao, Francois Chollet, Tomasz Kalinowski
 description: > 
-  Guide to writing new Keras callbacks for customizing the behavior during model
+  Guide to writing Keras callbacks for customizing the behavior during model
   training, evaluation, or inference.
 aliases:
   - ../../articles/new-guides/writing_your_own_callbacks.html
@@ -22,16 +22,11 @@ In this guide, you will learn what a Keras callback is, what it can do,
 and how you can build your own. We provide a few demos of simple
 callback applications to get you started.
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(comment = NA, eval = FALSE)
-```
-
 ## Setup
 
 ```{R}
 library(tensorflow)
 library(keras)
-envir::import_from(magrittr, `%<>%`)
 envir::import_from(dplyr, last)
 
 tf_version()
@@ -139,7 +134,9 @@ Now, define a simple custom callback that logs:
 show <- function(msg, logs) {
   cat(glue::glue(msg, .envir = parent.frame()),
       "got logs: ", sep = "; ")
-  str(logs); cat("\n")
+  logs %>% 
+    lapply(signif, digits = 3) %>% 
+    dput(control = "niceNames")
 }
 
 CustomCallback(keras$callbacks$Callback) %py_class% {
@@ -220,10 +217,11 @@ res <- model %>%
           callbacks = list(CustomCallback()))
 ```
 
-### Usage of `logs` dict
+### Usage of `logs`
 
-The `logs` dict contains the loss value, and all the metrics at the end
-of a batch or epoch. Example includes the loss and mean absolute error.
+The `logs` named list contains the loss value, and all the metrics at
+the end of a batch or epoch. Example includes the loss and mean absolute
+error.
 
 ```{r}
 LossAndErrorPrintingCallback(keras$callbacks$Callback) %py_class% {
@@ -408,11 +406,11 @@ CustomLearningRateScheduler(keras$callbacks$Callback) %py_class% {
 
 
 LR_SCHEDULE <- tibble::tribble(~ start_epoch, ~ learning_rate,
-                               0, .1,
-                               3, 0.05,
-                               6, 0.01,
-                               9, 0.005,
-                               12, 0.001)
+                                           0,           0.1  ,
+                                           3,           0.05 ,
+                                           6,           0.01 ,
+                                           9,           0.005,
+                                          12,           0.001)
 
 
 lr_schedule <- function(epoch, learning_rate) {
@@ -447,3 +445,4 @@ CSV, saving the model, visualizing metrics in TensorBoard, and a lot
 more!
 
 {{< include ../../_environment.qmd >}}
+
