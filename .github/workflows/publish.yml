@@ -8,7 +8,7 @@ name: Quarto Publish
 jobs:
   build-deploy:
     env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
