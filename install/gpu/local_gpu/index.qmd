@@ -47,8 +47,6 @@ To enable TensorFlow to use a local GPU, you can install the following:
     11.2](https://developer.nvidia.com/cuda-11.2.2-download-archive)
 -   [cuDNN 8.1](https://developer.nvidia.com/rdp/cudnn-archive)
 
-for other platforms consult the links:
-
 ### Linux
 
 The specifics of installing required software differ by Linux version so

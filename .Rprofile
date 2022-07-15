@@ -2,13 +2,6 @@
 if(file.exists("~/.Rprofile"))
   sys.source("~/.Rprofile")
 
-if(is.na(Sys.getenv("CUDA_VISIBLE_DEVICES", NA)) &&
-   Sys.info()[["sysname"]] == "Linux" &&
-   system("hostname", intern = TRUE) == "horse")
-{
-  Sys.setenv(CUDA_VISIBLE_DEVICES = if (interactive()) 1 else 0)
-}
-
 set.seed(123456)
 
 options(
@@ -36,11 +29,9 @@ setHook(packageEvent("reticulate", "onLoad"),
           try(reticulate::use_virtualenv("r-tensorflow-site", required = TRUE))
         })
 
-# setHook("reticulate::tensorflow::load", function() {
-#   # suppressPackageStartupMessages(loadNamespace("tensorflow"))
-#
-#   msg <- capture.output(print(tensorflow::tf_config()))
-#   writeLines(msg, "./.tf_config")
-#   system(paste("echo", shQuote(paste0(collapse = "\n", msg)), "1>&2"))
-# })
-
+if(is.na(Sys.getenv("CUDA_VISIBLE_DEVICES", NA)) &&
+   Sys.info()[["sysname"]] == "Linux" &&
+   system("hostname", intern = TRUE) == "horse")
+{
+  Sys.setenv(CUDA_VISIBLE_DEVICES = if (interactive()) 1 else 0)
+}
