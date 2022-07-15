@@ -27,10 +27,17 @@ website:
   page-navigation: true
   reader-mode: true
   favicon: "images/favicon/icon.png"
+  page-footer:
+    left: |
+      Proudly supported by
+      [![](https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-flat.svg){fig-alt="RStudio" width=65px}](https://www.rstudio.com)
+    right:
+      - icon: github
+        href: https://github.com/rstudio/tensorflow
+        aria-label: GitHub repository
   navbar:
     search: true
     logo: "images/favicon/icon.png"
-    background: "#E83E18"
     file: index.qmd
     left:
       - { text: Install, href: install/ }
@@ -136,5 +143,5 @@ format:
     toc: true
     code-overflow: wrap
     theme:
-      light: [custom.scss]
+      light: [flatly, light.scss, custom.scss]
       dark: [darkly, dark.scss, custom.scss]
