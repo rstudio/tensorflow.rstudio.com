@@ -33,22 +33,17 @@ website:
     background: "#E83E18"
     file: index.qmd
     left:
-      - { text: Install    ,href: install/ }
+      - { text: Install    ,href: install/   }
       - { text: Tutorials  ,href: tutorials/ }
-      - { text: Guides     ,href: guides/ }
-      - { text: Examples   ,href: examples/ }
+      - { text: Guides     ,href: guides/    }
+      - { text: Examples   ,href: examples/  }
       - text: Reference
         menu:
-          - text: "tensorlow"
-            href: "reference/tensorflow/index.html"
-          - text: "keras"
-            href: "reference/keras/index.html"
-          - text: "tfdatasets"
-            href: "reference/tfdatasets/index.html"
-          - text: "tfautograph"
-            href: "reference/tfautograph/index.html"
-          - text: "tfhub"
-            href: "reference/tfhub/index.html"
+          - { text: "tensorlow"   ,href: "reference/tensorflow/index.html"  }
+          - { text: "keras"       ,href: "reference/keras/index.html"       }
+          - { text: "tfdatasets"  ,href: "reference/tfdatasets/index.html"  }
+          - { text: "tfautograph" ,href: "reference/tfautograph/index.html" }
+          - { text: "tfhub"       ,href: "reference/tfhub/index.html"       }
 
   sidebar:
     - title: "Install"
@@ -90,8 +85,8 @@ website:
             - { text: Overview                   ,href: guides/tensorflow/basics.qmd }
             - { text: Tensors                    ,href: guides/tensorflow/tensor.qmd }
             - { text: Variables                  ,href: guides/tensorflow/variable.qmd }
-            - { text: Automatic differentiation  ,href: guides/tensorflow/autodiff.qmd}
-            - { text: Graphs and functions       ,href: guides/tensorflow/intro_to_graphs.qmd}
+            - { text: Automatic differentiation  ,href: guides/tensorflow/autodiff.qmd }
+            - { text: Graphs and functions       ,href: guides/tensorflow/intro_to_graphs.qmd }
 
         - section: Keras
           contents:

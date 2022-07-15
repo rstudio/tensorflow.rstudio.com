@@ -12,6 +12,7 @@ dir_create("reference")
 
 try(ecodown::ecodown_build(verbosity = "verbose"))
 
+
 dir_ls("reference/") |>
   fs::path_file() |>
   lapply(function(pkg) {
@@ -19,4 +20,11 @@ dir_ls("reference/") |>
               glue("reference/_{pkg}"))
     dir_delete(glue("reference/{pkg}"))
     file_move(glue("reference/_{pkg}"), glue("reference/{pkg}"))
-  })
+    index_pth <- glue("reference/{pkg}/index.md")
+    index <- readLines(index_pth)
+
+    index <- sub(glue("/reference/{pkg}/latest/reference/"),
+                 glue("/reference/{pkg}/"),
+                 index)
+    writeLines(index, index_pth)
+  }) | invisible()
