@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Complete guide to writing custom layer and model classes.">
 
-<title>TensorFlow for R - Writing Layer and Model objects from scratch.</title>
+<title>TensorFlow for R - Making custom layer and model objects.</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,7 +146,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="../../tutorials/">Tutorials</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../guides/index.html" aria-current="page">Guides</a>
+    <a class="nav-link" href="../../guides/">Guides</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../examples/">Examples</a>
@@ -155,11 +156,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="../../packages/tensorflow/latest/reference/index.html">
- <span class="dropdown-text">TensorFlow</span></a>
+ <span class="dropdown-text">tensorlow</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../packages/keras/latest/reference/index.html">
- <span class="dropdown-text">Keras</span></a>
+ <span class="dropdown-text">keras</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../packages/tfdatasets/latest/reference/index.html">
@@ -189,7 +190,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</h1>
+      <h1 class="quarto-secondary-nav-title">Making custom layer and model objects.</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -267,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../guides/keras/making_new_layers_and_models_via_subclassing.html" class="sidebar-item-text sidebar-link active">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</a>
+  <a href="../../guides/keras/making_new_layers_and_models_via_subclassing.html" class="sidebar-item-text sidebar-link active">Making custom layer and model objects.</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -410,9 +411,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Writing <code>Layer</code> and <code>Model</code> objects from scratch.</h1>
+<h1 class="title d-none d-lg-block">Making custom layer and model objects.</h1>
 </div>
 
+<div>
+  <div class="description">
+    <p>Complete guide to writing custom layer and model classes.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -480,8 +486,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[[-0.09999786 -0.02908288 -0.05487682 -0.0409178 ]
- [-0.09999786 -0.02908288 -0.05487682 -0.0409178 ]], shape=(2, 4), dtype=float32)</code></pre>
+[[-0.03053002 -0.07195096 -0.00141319 -0.10916732]
+ [-0.03053002 -0.07195096 -0.00141319 -0.10916732]], shape=(2, 4), dtype=float32)</code></pre>
 </div>
 </div>
 <p><code>Linear</code> behaves similarly to a layer present in the Python interface to keras (e.g., <code>keras$layers$Dense</code>).</p>
@@ -498,8 +504,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">model</span>(<span class="fu">k_ones</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[[-0.04411485 -0.06728095 -0.00709317  0.06583137]
- [-0.04411485 -0.06728095 -0.00709317  0.06583137]], shape=(2, 4), dtype=float32)</code></pre>
+[[-0.01855829  0.07946707 -0.05800742  0.09529158]
+ [-0.01855829  0.07946707 -0.05800742  0.09529158]], shape=(2, 4), dtype=float32)</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -515,9 +521,9 @@ Non-trainable params: 0
 ____________________________________________________________________________</code></pre>
 </div>
 </div>
-<p>Because the pattern above is so common, there is a convenience function that combines the steps of subclassing <code>keras$layers$Layer</code> and calling <code>create_layer_wrapper</code> on the output: the <code>Layer</code> function. The <code>layer_linear</code> defined below is identical to the <code>layer_linear</code> defined above.</p>
+<p>Because the pattern above is so common, there is a convenience function that combines the steps of subclassing <code>keras$layers$Layer</code> and calling <code>create_layer_wrapper</code> on the output: the <code>new_layer_class()</code> function. The <code>layer_linear()</code> defined below is identical to the <code>layer_linear()</code> defined above.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>layer_linear <span class="ot">&lt;-</span> <span class="fu">Layer</span>(</span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>layer_linear <span class="ot">&lt;-</span> <span class="fu">new_layer_class</span>(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Linear"</span>,</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">initialize =</span>  <span class="cf">function</span>(<span class="at">units =</span> <span class="dv">32</span>, <span class="at">input_dim =</span> <span class="dv">32</span>) {</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    super<span class="sc">$</span><span class="fu">initialize</span>()</span>
@@ -536,7 +542,7 @@ ____________________________________________________________________________</co
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  }</span>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For the remainder of this vignette we’ll be using the <code>%py_class%</code> constructor. However, in your own code feel free to use <code>create_layer_wrapper</code> and/or <code>Layer</code> if you prefer.</p>
+<p>For the remainder of this vignette we’ll be using the <code>%py_class%</code> constructor. However, in your own code feel free to use <code>create_layer_wrapper()</code> or <code>new_layer_class()</code> if you prefer.</p>
 <p>Note that the weights <code>w</code> and <code>b</code> are automatically tracked by the layer upon being set as layer attributes:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all.equal</span>(</span>
@@ -573,8 +579,8 @@ ____________________________________________________________________________</co
 <span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tf.Tensor(
-[[-0.07366694 -0.0244798   0.1523444   0.01568342]
- [-0.07366694 -0.0244798   0.1523444   0.01568342]], shape=(2, 4), dtype=float32)</code></pre>
+[[-0.06778388  0.16056764  0.0522132  -0.12545973]
+ [-0.06778388  0.16056764  0.0522132  -0.12545973]], shape=(2, 4), dtype=float32)</code></pre>
 </div>
 </div>
 </section>
@@ -784,7 +790,7 @@ ____________________________________________________________________________</co
 <span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(layer<span class="sc">$</span>losses)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-tf.Tensor(0.0022422129, shape=(), dtype=float32)</code></pre>
+tf.Tensor(0.0022689179, shape=(), dtype=float32)</code></pre>
 </div>
 </div>
 <p>These losses are meant to be taken into account when writing training loops, like this:</p>
@@ -1207,25 +1213,25 @@ tf.Tensor(0.0022422129, shape=(), dtype=float32)</code></pre>
 <span id="cb57-57"><a href="#cb57-57" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Start of epoch 1
-step 100: mean loss = 0.1241
-step 200: mean loss = 0.0982
-step 300: mean loss = 0.0885
-step 400: mean loss = 0.0837
-step 500: mean loss = 0.0805
-step 600: mean loss = 0.0784
-step 700: mean loss = 0.0769
-step 800: mean loss = 0.0757
-step 900: mean loss = 0.0747
+step 100: mean loss = 0.1270
+step 200: mean loss = 0.0998
+step 300: mean loss = 0.0895
+step 400: mean loss = 0.0845
+step 500: mean loss = 0.0811
+step 600: mean loss = 0.0789
+step 700: mean loss = 0.0773
+step 800: mean loss = 0.0761
+step 900: mean loss = 0.0751
 Start of epoch 2
-step 100: mean loss = 0.0738
-step 200: mean loss = 0.0733
-step 300: mean loss = 0.0729
-step 400: mean loss = 0.0725
-step 500: mean loss = 0.0722
-step 600: mean loss = 0.0719
-step 700: mean loss = 0.0716
-step 800: mean loss = 0.0714
-step 900: mean loss = 0.0711</code></pre>
+step 100: mean loss = 0.0741
+step 200: mean loss = 0.0736
+step 300: mean loss = 0.0731
+step 400: mean loss = 0.0728
+step 500: mean loss = 0.0724
+step 600: mean loss = 0.0721
+step 700: mean loss = 0.0718
+step 800: mean loss = 0.0716
+step 900: mean loss = 0.0713</code></pre>
 </div>
 </div>
 <p>Note that since the VAE is subclassing <code>Model</code>, it features built-in training loops. So you could also have trained it like this:</p>
@@ -1278,7 +1284,7 @@ step 900: mean loss = 0.0711</code></pre>
 </section>
 <section id="defining-custom-layers-and-models-in-an-r-package" class="level2">
 <h2 class="anchored" data-anchor-id="defining-custom-layers-and-models-in-an-r-package">Defining custom layers and models in an R package</h2>
-<p>Unfortunately you can’t use anything that creates references to Python objects, at the top-level of an R package.</p>
+<p>Unfortunately you can’t create references to Python objects at the top-level of an R package.</p>
 <p>Here is why: when you build an R package, all the R files in the <code>R/</code> directory get sourced in an R environment (the package namespace), and then that environment is saved as part of the package bundle. Loading the package means restoring the saved R environment. This means that the R code only gets sourced once, at build time. If you create references to external objects (e.g., Python objects) at package build time, they will be NULL pointers when the package is loaded, because the external objects they pointed to at build time no longer exist at load time.</p>
 <p>The solution is to delay creating references to Python objects until run time. Fortunately, <code>%py_class%</code>, <code>Layer()</code>, and <code>create_layer_wrapper(R6Class(...))</code> are all lazy about initializing the Python reference, so they are safe to define and export in an R package.</p>
 <p>If you’re writing an R package that uses keras and reticulate, <a href="https://rstudio.github.io/reticulate/articles/package.html">this article</a> might be helpful to read over.</p>
@@ -1390,6 +1396,7 @@ Python Environment Information
 asttokens==2.0.5
 astunparse==1.6.3
 backcall==0.2.0
+beautifulsoup4==4.11.1
 cachetools==5.2.0
 certifi==2022.6.15
 charset-normalizer==2.1.0
@@ -1397,8 +1404,10 @@ decorator==5.1.1
 dill==0.3.5.1
 etils==0.6.0
 executing==0.8.3
+filelock==3.7.1
 flatbuffers==1.12
 gast==0.4.0
+gdown==4.5.1
 google-auth==2.9.0
 google-auth-oauthlib==0.4.6
 google-pasta==0.2.0
@@ -1436,6 +1445,7 @@ pyasn1-modules==0.2.8
 pydot==1.4.2
 Pygments==2.12.0
 pyparsing==3.0.9
+PySocks==1.7.1
 python-dateutil==2.8.2
 pytz==2022.1
 PyYAML==6.0
@@ -1444,6 +1454,7 @@ requests-oauthlib==1.3.1
 rsa==4.8
 scipy==1.8.1
 six==1.16.0
+soupsieve==2.3.2.post1
 stack-data==0.3.0
 tensorboard==2.9.1
 tensorboard-data-server==0.6.1

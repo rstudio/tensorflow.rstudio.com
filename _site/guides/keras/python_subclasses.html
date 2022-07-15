@@ -143,7 +143,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="../../tutorials/">Tutorials</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../guides/index.html">Guides</a>
+    <a class="nav-link" href="../../guides/">Guides</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../examples/">Examples</a>
@@ -153,11 +153,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="../../packages/tensorflow/latest/reference/index.html">
- <span class="dropdown-text">TensorFlow</span></a>
+ <span class="dropdown-text">tensorlow</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../packages/keras/latest/reference/index.html">
- <span class="dropdown-text">Keras</span></a>
+ <span class="dropdown-text">keras</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../packages/tfdatasets/latest/reference/index.html">
@@ -278,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">super</span>()<span class="sc">$</span><span class="st">`</span><span class="at">__init__</span><span class="st">`</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>When subclassing Keras base classes, it is generally your responsibility to call <code>super$initialize()</code> if you are masking a superclass initializer by providing your own <code>initialize</code> method.</p></li>
-<li><p>Passing <code>convert=FALSE</code> to <code>r_to_py()</code> will mean that all R methods will receive Python objects as arguments, and are expected to return Python objects. This allows for some features not available with <code>convert=TRUE</code>, namely, modifying some Python objects, like dictionaries or lists, in-place.</p></li>
+<li><p>Passing <code>convert = FALSE</code> to <code>r_to_py()</code> will mean that all R methods will receive Python objects as arguments, and are expected to return Python objects. This allows for some features not available with <code>convert=TRUE</code>, namely, modifying some Python objects, like dictionaries or lists, in-place.</p></li>
 <li><p>Active bindings (methods supplied to <code>R6Class(active=...)</code>) are converted to Python <code>@property</code>-decorated methods.</p></li>
 <li><p>R6 classes with private methods or attributes are not supported.</p></li>
 <li><p>The argument supplied to <code>inherit</code> can be:</p>
@@ -489,6 +489,7 @@ Python Environment Information
 asttokens==2.0.5
 astunparse==1.6.3
 backcall==0.2.0
+beautifulsoup4==4.11.1
 cachetools==5.2.0
 certifi==2022.6.15
 charset-normalizer==2.1.0
@@ -496,8 +497,10 @@ decorator==5.1.1
 dill==0.3.5.1
 etils==0.6.0
 executing==0.8.3
+filelock==3.7.1
 flatbuffers==1.12
 gast==0.4.0
+gdown==4.5.1
 google-auth==2.9.0
 google-auth-oauthlib==0.4.6
 google-pasta==0.2.0
@@ -535,6 +538,7 @@ pyasn1-modules==0.2.8
 pydot==1.4.2
 Pygments==2.12.0
 pyparsing==3.0.9
+PySocks==1.7.1
 python-dateutil==2.8.2
 pytz==2022.1
 PyYAML==6.0
@@ -543,6 +547,7 @@ requests-oauthlib==1.3.1
 rsa==4.8
 scipy==1.8.1
 six==1.16.0
+soupsieve==2.3.2.post1
 stack-data==0.3.0
 tensorboard==2.9.1
 tensorboard-data-server==0.6.1

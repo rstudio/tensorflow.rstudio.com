@@ -1,5 +1,7 @@
 ---
-title: "Writing `Layer` and `Model` objects from scratch."
+title: "Making custom layer and model objects."
+description: >
+  Complete guide to writing custom layer and model classes.
 aliases:
   - ../../tutorials/advanced/customization/custom-layers/index.html
   - ../../articles/new-guides/making_new_layers_and_models_via_subclassing.html
@@ -96,12 +98,12 @@ model
 
 Because the pattern above is so common, there is a convenience function
 that combines the steps of subclassing `keras$layers$Layer` and calling
-`create_layer_wrapper` on the output: the `Layer` function. The
-`layer_linear` defined below is identical to the `layer_linear` defined
+`create_layer_wrapper` on the output: the `new_layer_class()` function. The
+`layer_linear()` defined below is identical to the `layer_linear()` defined
 above.
 
 ```{r}
-layer_linear <- Layer(
+layer_linear <- new_layer_class(
   "Linear",
   initialize =  function(units = 32, input_dim = 32) {
     super$initialize()
@@ -123,7 +125,7 @@ layer_linear <- Layer(
 
 For the remainder of this vignette we'll be using the `%py_class%`
 constructor. However, in your own code feel free to use
-`create_layer_wrapper` and/or `Layer` if you prefer.
+`create_layer_wrapper()` or `new_layer_class()` if you prefer.
 
 Note that the weights `w` and `b` are automatically tracked by the layer
 upon being set as layer attributes:
@@ -945,8 +947,8 @@ guide](/guides/functional_api/).
 
 ## Defining custom layers and models in an R package
 
-Unfortunately you can't use anything that creates references to Python
-objects, at the top-level of an R package.
+Unfortunately you can't create references to Python
+objects at the top-level of an R package.
 
 Here is why: when you build an R package, all the R files in the `R/`
 directory get sourced in an R environment (the package namespace), and

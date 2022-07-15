@@ -111,15 +111,15 @@ website:
         - section: TensorFlow in depth
           contents:
             - guides/tensorflow/tensor_slicing.qmd
-            - { text: Autograph, href: guides/tensorflow/autograph.qmd }
+            - { text: Autograph, href: guides/tfautograph/index.qmd }
 
         - section: Data input pipelines
           contents:
-            - guides/data/data.qmd
+            - guides/tfdatasets/index.qmd
 
         - section: Deployment
+          href: guides/deploy/index.qmd
           contents:
-            - guides/deploy/index.qmd
             - guides/deploy/plumber.qmd
             - guides/deploy/shiny.qmd
             - guides/deploy/docker.qmd
