@@ -12,8 +12,8 @@ dir_create("reference")
 
 try(ecodown::ecodown_build(verbosity = "verbose"))
 
-dir_ls("reference/") %>%
-  fs::path_file() %>%
+dir_ls("reference/") |>
+  fs::path_file() |>
   lapply(function(pkg) {
     file_move(glue("reference/{pkg}/latest/reference"),
               glue("reference/_{pkg}"))
