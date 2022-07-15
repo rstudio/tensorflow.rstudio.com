@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-99.9.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>TensorFlow for R – news</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon/icon.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../images/favicon/icon.png" alt="">
+    <span class="navbar-title">TensorFlow for R</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../install/">Install</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../tutorials/">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../guides/">Guides</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../examples/">Examples</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-reference" role="button" data-bs-toggle="dropdown" aria-expanded="false">Reference</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
+        <li>
+    <a class="dropdown-item" href="../../../packages/tensorflow/latest/reference/index.html">
+ <span class="dropdown-text">tensorlow</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../packages/keras/latest/reference/index.html">
+ <span class="dropdown-text">keras</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../packages/tfdatasets/latest/reference/index.html">
+ <span class="dropdown-text">tfdatasets</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../packages/tfautograph/latest/reference/index.html">
+ <span class="dropdown-text">tfautograph</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../packages/tfhub/latest/reference/index.html">
+ <span class="dropdown-text">tfhub</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#tensorflow-2.9.0" id="toc-tensorflow-2.9.0" class="nav-link active" data-scroll-target="#tensorflow-2.9.0">tensorflow 2.9.0</a></li>
+  <li><a href="#tensorflow-2.8.0" id="toc-tensorflow-2.8.0" class="nav-link" data-scroll-target="#tensorflow-2.8.0">tensorflow 2.8.0</a></li>
+  <li><a href="#tensorflow-2.7.0" id="toc-tensorflow-2.7.0" class="nav-link" data-scroll-target="#tensorflow-2.7.0">tensorflow 2.7.0</a></li>
+  <li><a href="#tensorflow-2.6.0" id="toc-tensorflow-2.6.0" class="nav-link" data-scroll-target="#tensorflow-2.6.0">tensorflow 2.6.0</a></li>
+  <li><a href="#tensorflow-2.5.0" id="toc-tensorflow-2.5.0" class="nav-link" data-scroll-target="#tensorflow-2.5.0">tensorflow 2.5.0</a></li>
+  <li><a href="#tensorflow-2.4.0" id="toc-tensorflow-2.4.0" class="nav-link" data-scroll-target="#tensorflow-2.4.0">tensorflow 2.4.0</a></li>
+  <li><a href="#tensorflow-2.2.0-cran" id="toc-tensorflow-2.2.0-cran" class="nav-link" data-scroll-target="#tensorflow-2.2.0-cran">TensorFlow 2.2.0 (CRAN)</a></li>
+  <li><a href="#tensorflow-2.0.0-cran" id="toc-tensorflow-2.0.0-cran" class="nav-link" data-scroll-target="#tensorflow-2.0.0-cran">TensorFlow 2.0.0 (CRAN)</a></li>
+  <li><a href="#tensorflow-1.14.1-cran" id="toc-tensorflow-1.14.1-cran" class="nav-link" data-scroll-target="#tensorflow-1.14.1-cran">TensorFlow 1.14.1 (CRAN)</a></li>
+  <li><a href="#tensorflow-1.13.1-cran" id="toc-tensorflow-1.13.1-cran" class="nav-link" data-scroll-target="#tensorflow-1.13.1-cran">TensorFlow 1.13.1 (CRAN)</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/t-kalinowski/tf-site/edit/main/reference/tensorflow/latest/news.md" class="toc-action">Edit this page</a></p><p><a href="https://github.com/t-kalinowski/tf-site/blob/main/reference/tensorflow/latest/news.md" class="toc-action">View source</a></p><p><a href="https://github.com/t-kalinowski/tf-site/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="tensorflow-2.9.0" class="level1">
+<h1>tensorflow 2.9.0</h1>
+<ul>
+<li><p>Generic method updates:</p>
+<ul>
+<li>New methods: all(), any(), sum(), prod(), min(), max(), mean(), range(), cbind(), rbind(), t(), aperm(), sort(), as.vector(), as.character(), as.raster(), is.infinite(), is.finite(), is.nan()</li>
+<li><code>^</code> will now invoke <code>tf.square()</code> or <code>tf.sqrt()</code> directly when appropriate</li>
+<li><code>|</code>, <code>&amp;</code>, and <code>!</code> now cast arguments to ‘bool’ dtype.</li>
+<li><code>print()</code> now shows 1d shapes without a trailing commas.</li>
+<li><code>str()</code> method for tensors now returns only a single compact line; <code>str()</code> on a list of tensors now does something sensible.</li>
+</ul></li>
+<li><p><code>install_tensorflow()</code> now install TensorFlow 2.9 by default.</p></li>
+<li><p><code>install_tensorflow()</code> no longer requires conda on Windows, now works in a regular venv.</p></li>
+<li><p>Comparing two partially-defined <code>TensorShape</code> now returns TRUE if each dimension matches. e.g.: <code>shape(NA, 4) == shape(NA, 4)</code> now returns TRUE, previously FALSE.</p></li>
+<li><p>Tensors with dtype ‘string’ now convert to R character vectors by methods <code>as.array()</code> and <code>as.matrix()</code>. (previously they converted to python.builtin.bytes, or an R list of python.builtin.bytes objects)</p></li>
+<li><p><code>as_tensor()</code>:</p>
+<ul>
+<li>atomic R integer vectors now convert to ‘int32’, not ‘int64’</li>
+<li>casting between integer and floating dtypes is now done via <code>tf$dtypes$saturate_cast()</code> instead of <code>tf$cast()</code>.</li>
+<li><code>shape</code> argument now accepts a tensor.</li>
+<li>fixed issue where expanding a scalar tensor to an nd-array with <code>shape</code> provided as a tensor would raise an error.</li>
+</ul></li>
+<li><p><code>tf.SparseTensor</code> objects now inherit from <code>"tensorflow.tensor"</code>.</p></li>
+</ul>
+</section>
+<section id="tensorflow-2.8.0" class="level1">
+<h1>tensorflow 2.8.0</h1>
+<ul>
+<li><p>Updated default Tensorflow version installed by <code>install_tensorflow()</code> to 2.8.</p></li>
+<li><p><code>as_tensor()</code> gains a <code>shape</code> argument, can be used to fill or reshape tensors. Scalars can be recycled to a tensor of arbitrary <code>shape</code>, otherwise supplied objects are reshaped using row-major (C-style) semantics.</p></li>
+<li><p><code>install_tensorflow()</code> now provides experimental support for Arm Macs, with the following restrictions:</p>
+<ul>
+<li>“conda” is the only supported installation method.</li>
+<li>requests for non-default or older tensorflow versions are not supported.</li>
+</ul></li>
+<li><p><code>install_tensorflow()</code> default conda_python_version changes from 3.7 to NULL.</p></li>
+<li><p><code>tf.TensorShape()</code>’s gain <code>format()</code> and <code>print()</code> S3 methods.</p></li>
+<li><p><code>[</code> method for slicing tensors now accepts <code>NA</code> as a synonym for a missing or <code>NULL</code> spec. For example <code>x[NA:3]</code> is now valid, equivalent to <code>x[:3]</code> in Python.</p></li>
+</ul>
+</section>
+<section id="tensorflow-2.7.0" class="level1">
+<h1>tensorflow 2.7.0</h1>
+<ul>
+<li><p>Default Tensorflow version installed by <code>install_tensorflow()</code> updated to 2.7</p></li>
+<li><p>Breaking changes:</p>
+<ul>
+<li><code>shape()</code> now returns a <code>tf.TensorShape()</code> object (Previously an R-list of <code>NULL</code>s or integers).</li>
+<li><code>[</code> method for <code>tf.TensorShape()</code> objects also now returns a <code>tf.TensorShape()</code>. Use <code>[[</code>, <code>as.numeric</code>, <code>as.integer</code>, and/or <code>as.list</code> to convert to R objects.</li>
+<li><code>length()</code> method for <code>tensorflow.tensor</code> now returns <code>NA_integer_</code> for tensors with not fully defined shapes. (previously a zero length integer vector).</li>
+<li><code>dim()</code> method for <code>tensorflow.tensor</code> now returns an R integer vector with <code>NA</code> for dimensions that are undefined. (previously an R list with <code>NULL</code> for undefined dimension)</li>
+</ul></li>
+<li><p>New S3 generics for <code>tf.TensorShape()</code>’s: <code>c</code>, <code>length</code>, <code>[&lt;-</code>, <code>[[&lt;-</code>, <code>merge</code>, <code>==</code>, <code>!=</code>, <code>as_tensor()</code>, <code>as.list</code>, <code>as.integer</code>, <code>as.numeric</code>, <code>as.double</code>, <code>py_str</code> (joining previous generics <code>[</code> and <code>[[</code>). See <code>?shape</code> for extended examples.</p></li>
+<li><p>Ops S3 generics for <code>tensorflow.tensor</code>s that take two arguments now automatically cast a supplied non-tensor to the dtype of the supplied tensor that triggered the S3 dispatch. Casting is done via <code>as_tensor()</code>. e.g., this now works: <code>as_tensor(5L) - 2     # now returns tf.Tensor(3, shape=(), dtype=int32)</code> previously it would raise an error: <code>TypeError: `x` and `y` must have the same dtype, got tf.int32 != tf.float32</code> Generics that now do autocasting: +, -, *, /, %/%, %%, ^, &amp;, |, ==, !=, &lt;, &lt;=, &gt;, &gt;=</p></li>
+<li><p><code>install_tensorflow()</code>: new argument with default <code>pip_ignore_installed = TRUE</code>. This ensures that all Tensorflow dependencies like Numpy are installed by pip rather than conda.</p></li>
+<li><p>A message with the Tensorflow version is now shown when the python module is loaded, e.g: “Loaded Tensorflow version 2.6.0”</p></li>
+</ul>
+</section>
+<section id="tensorflow-2.6.0" class="level1">
+<h1>tensorflow 2.6.0</h1>
+<ul>
+<li><p>Updated default Tensorflow version to 2.6.</p></li>
+<li><p>Changed default in <code>tf_function()</code> to <code>autograph=TRUE</code>.</p></li>
+<li><p>Added S3 generic <code>as_tensor()</code>.</p></li>
+<li><p>tfautograph added to Imports</p></li>
+<li><p>jsonlite removed from Imports, tfestimators removed from Suggests</p></li>
+<li><p>Refactored <code>install_tensorflow()</code>.</p>
+<ul>
+<li>Potentially breaking change: numeric versions supplied without a patchlevel now automatically pull the latest patch release. (e.g.&nbsp;<code>install_tensorflow(version="2.4")</code> will install <code>"2.4.2"</code>. Previously it would install “2.4.0”)</li>
+</ul></li>
+<li><p>Removed “Config/reticulate” declaration from DESCRIPTION.</p>
+<ul>
+<li>Setting <code>RETICULATE_AUTOCONFIGURE=FALSE</code> environment variable when using non-default tensorflow installations (e.g., ‘tensorflow-cpu’) no longer required.</li>
+<li>Users will have to call <code>install_tensorflow()</code> for automatic installation.</li>
+</ul></li>
+<li><p>Refactored automated tests to closer match the default installation procedure and compute environment of most user.</p></li>
+<li><p>Expanded CI test coverage to include R devel, oldrel and 3.6.</p></li>
+<li><p>Fixed an issue where extra packages with version constraints like <code>install_tensorflow(extra_packages = "Pillow&lt;8.3")</code> were not quoted properly.</p></li>
+<li><p>Fixed an issue where valid tensor-like objects supplied to <code>log(x, base)</code>, <code>cospi()</code>, <code>tanpi()</code>, and <code>sinpi()</code> would raise an error.</p></li>
+</ul>
+</section>
+<section id="tensorflow-2.5.0" class="level1">
+<h1>tensorflow 2.5.0</h1>
+<ul>
+<li>Updated default Tensorflow version to 2.5.</li>
+<li>Added support for additional arguments in <code>tf_function()</code> (e.g., <code>jit_compile</code>)</li>
+<li>Added support for <code>expm1</code> S3 generic.</li>
+<li><code>tfe_enable_eager_execution</code> is deprecated. Eager mode has been the default since TF version 2.0.</li>
+<li>Improved error message in <code>tf_config()</code> on unsuccessful installation.</li>
+</ul>
+</section>
+<section id="tensorflow-2.4.0" class="level1">
+<h1>tensorflow 2.4.0</h1>
+<ul>
+<li>Fixed error with <code>use_session_with_seed</code> (#428)</li>
+<li>Added a new <code>set_random_seed</code> function that makes more sense for TensorFlow &gt;= 2.0 (#442)</li>
+<li>Updated the default version of TensorFlow to 2.4 as well as the default Python to 3.7 (#454)</li>
+</ul>
+</section>
+<section id="tensorflow-2.2.0-cran" class="level1">
+<h1>TensorFlow 2.2.0 (CRAN)</h1>
+<ul>
+<li><p>Bugfix with <code>all_dims</code> (#398)</p></li>
+<li><p>Indexing for TensorShape &amp; <code>py_to_r</code> conversion (#379, #388)</p></li>
+</ul>
+</section>
+<section id="tensorflow-2.0.0-cran" class="level1">
+<h1>TensorFlow 2.0.0 (CRAN)</h1>
+<ul>
+<li><p>Upgraded default installed version to 2.0.0.</p></li>
+<li><p>Tensorboard log directory path fixes (#360).</p></li>
+<li><p>Allow for <code>v1</code> and <code>v2</code> compat (#358).</p></li>
+<li><p><code>install_tensorflow</code> now does not installs <code>tfprobability</code>, <code>tfhub</code> and other related packages.</p></li>
+</ul>
+</section>
+<section id="tensorflow-1.14.1-cran" class="level1">
+<h1>TensorFlow 1.14.1 (CRAN)</h1>
+<ul>
+<li><p>Upgraded default installed version to 1.14.0</p></li>
+<li><p>Refactored the <code>install_tensorflow</code> code delegating to <code>reticulate</code> (#333, #341): We completely delegate to installation to <code>reticulate::py_install</code>, the main difference is that now the default environment name to install is <code>r-reticulate</code> and not <code>r-tensorflow</code>.</p></li>
+</ul>
+</section>
+<section id="tensorflow-1.13.1-cran" class="level1">
+<h1>TensorFlow 1.13.1 (CRAN)</h1>
+<ul>
+<li><p>added option to silence TF CPP info output</p></li>
+<li><p><code>tf_gpu_configured</code> function to check if GPU was correctly</p></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

@@ -144,7 +144,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="../tutorials/">Tutorials</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../guides/index.html">Guides</a>
+    <a class="nav-link" href="../guides/">Guides</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../examples/">Examples</a>
@@ -526,7 +526,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   const toggleBodyColorPrimary = () => {
-    toggleBodyColorMode(window.document.querySelector("link#quarto-bootstrap"));
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
   }
   toggleBodyColorPrimary();  
   const icon = "";
