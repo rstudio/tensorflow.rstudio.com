@@ -6,7 +6,7 @@ project:
     - "!v1/**"
     - "examples/**"
     - "!examples/_check/**"
-    - "packages/**/**.md"
+    - "reference/**/**.md"
 
   # pre-render: spin-examples.R
   preview:
@@ -40,15 +40,15 @@ website:
       - text: Reference
         menu:
           - text: "tensorlow"
-            href: "packages/tensorflow/latest/reference/index.html"
+            href: "reference/tensorflow/index.html"
           - text: "keras"
-            href: "packages/keras/latest/reference/index.html"
+            href: "reference/keras/index.html"
           - text: "tfdatasets"
-            href: "packages/tfdatasets/latest/reference/index.html"
+            href: "reference/tfdatasets/index.html"
           - text: "tfautograph"
-            href: "packages/tfautograph/latest/reference/index.html"
+            href: "reference/tfautograph/index.html"
           - text: "tfhub"
-            href: "packages/tfhub/latest/reference/index.html"
+            href: "reference/tfhub/index.html"
 
   sidebar:
     - title: "Install"
