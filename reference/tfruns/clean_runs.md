@@ -1,0 +1,78 @@
+# clean_runs
+
+
+Clean run directories
+
+
+
+
+## Description
+
+Remove run directories from the filesystem.
+
+
+
+
+
+## Usage
+```r
+clean_runs(
+  runs = ls_runs(runs_dir = runs_dir),
+  runs_dir = getOption("tfruns.runs_dir", "runs"),
+  confirm = interactive()
+)
+
+purge_runs(
+  runs_dir = getOption("tfruns.runs_dir", "runs"),
+  confirm = interactive()
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+runs | Runs to clean. Can be specified as a data frame (as returned by `ls_runs()`) or as a character vector of run directories.
+runs_dir | Directory containing runs. Defaults to "runs" beneath the current working directory (or to the value of the ``tfruns.runs_dir`` R option if specified).
+confirm | ``TRUE`` to confirm before performing operation
+
+
+
+
+## Details
+
+The ``clean_runs()`` function moves the specified runs (by default,
+all runs) into an "archive" subdirectory of the "runs" directory.
+
+The ``purge_runs()`` function permanently deletes the "archive"
+subdirectory.
+
+
+
+
+
+
+## Examples
+
+```r
+
+clean_runs(ls_runs(completed == FALSE))
+
+```
+
+
+
+
+
+
+## See Also
+
+Other run management: 
+`copy_run()`
+
+
+

@@ -44,6 +44,7 @@ website:
           - { text: "tfdatasets", href: "reference/tfdatasets/index.html" }
           - { text: "tfautograph", href: "reference/tfautograph/index.html" }
           - { text: "tfhub", href: "reference/tfhub/index.html" }
+          - { text: "tfruns", href: "reference/tfruns/index.html" }
 
   sidebar:
     - title: "Install"
@@ -116,6 +117,12 @@ website:
         - section: Data input pipelines
           contents:
             - guides/tfdatasets/index.qmd
+
+        - section: Training runs
+          contents:
+            - guides/tfruns/overview.qmd
+            - guides/tfruns/managing.qmd
+            - guides/tfruns/tuning.qmd
 
         - section: Deployment
           href: guides/deploy/index.qmd

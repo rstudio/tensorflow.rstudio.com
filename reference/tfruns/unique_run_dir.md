@@ -1,0 +1,48 @@
+# unique_run_dir
+
+
+Create a unique run directory
+
+
+
+
+## Description
+
+Create a new uniquely named run directory within the specified ``runs_dir``.
+
+
+
+
+
+## Usage
+```r
+unique_run_dir(
+  runs_dir = getOption("tfruns.runs_dir", "runs"),
+  seconds_scale = 0
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+runs_dir | Directory containing runs. Defaults to "runs" beneath the current working directory (or to the value of the ``tfruns.runs_dir`` R option if specified).
+seconds_scale | Decimal scale for the seconds component of the timestamp. Defaults to 0 which results in only the rounded seconds value being used in the timestamp. Specify larger numbers to include a decimal component (useful if you need to create many unique run directories at the same time).
+
+
+
+
+## Details
+
+The directory name will be a timestamp (in GMT time). If a duplicate name is
+generated then the function will wait long enough to return a unique one.
+
+
+
+
+
+

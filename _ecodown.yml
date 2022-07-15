@@ -27,5 +27,10 @@ site:
         version_folder: latest
         convert_readme: FALSE
         convert_articles: FALSE
+      - repo_url: https://github.com/rstudio/tfruns
+        quarto_sub_folder: reference/tfruns
+        version_folder: latest
+        convert_readme: FALSE
+        convert_articles: FALSE
   autolink:
     run: FALSE

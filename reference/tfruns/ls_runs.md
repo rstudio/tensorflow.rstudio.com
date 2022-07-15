@@ -1,0 +1,64 @@
+# ls_runs
+
+
+List or view training runs
+
+
+
+
+## Description
+
+List or view training runs
+
+
+
+
+
+## Usage
+```r
+ls_runs(
+  subset = NULL,
+  order = "start",
+  decreasing = TRUE,
+  latest_n = NULL,
+  runs_dir = getOption("tfruns.runs_dir", "runs")
+)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+subset | Logical expression indicating rows to keep (missing values are taken as false). See `subset()`.
+order | Columns to order by (defaults to run start time)
+decreasing | ``TRUE`` to use decreasing order (e.g. list most recent runs first)
+latest_n | Limit query to the ``latest_n`` most recent runs
+runs_dir | Directory containing runs. Defaults to "runs" beneath the current working directory (or to the value of the ``tfruns.runs_dir`` R option if specified).
+
+
+
+
+## Details
+
+When printing the results of ``ls_runs()``, only ``run_dir``,
+``metric_loss``, ``metric_val_loss``,  and any columns specified in ``order`` will
+be printed.
+
+To view all fields, use ``View(ls_runs())``.
+
+
+
+
+
+## Value
+
+Data frame with training runs
+
+
+
+
+

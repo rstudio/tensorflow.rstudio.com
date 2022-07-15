@@ -1,0 +1,44 @@
+# view_run
+
+
+View a training run
+
+
+
+
+## Description
+
+View metrics and other attributes of a training run.
+
+
+
+
+
+## Usage
+```r
+view_run(run_dir = latest_run(), viewer = getOption("tfruns.viewer"))
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+run_dir | Training run directory or data frame returned from `ls_runs()`.
+viewer | Viewer to display training run information within (default to an internal page viewer if available, otherwise to the R session default web browser).
+
+
+
+
+
+
+
+## See Also
+
+`ls_runs()`, `run_info()`
+
+
+
