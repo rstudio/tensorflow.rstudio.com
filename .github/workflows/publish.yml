@@ -7,6 +7,8 @@ name: Quarto Publish
 
 jobs:
   build-deploy:
+    env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -17,7 +19,5 @@ jobs:
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           target: gh-pages
