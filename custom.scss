@@ -10,6 +10,29 @@ to revert it.
 $grid-screen-inset-padding: 6em;
 
 /*-- scss:rules --*/
+
 $font-size-root: 1em;
 
+.hero-banner {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient($navbar-bg 0%, $body-bg 90%, $body-bg 100%);
+}
 
+.hero-banner h1 {
+  color: white;
+}
+
+.features {
+  background-color: $body-bg;
+}
+
+.hero-cover {
+  background: $body-bg;
+}
+
+.feature p:first-of-type {
+  color: $body-color;
+  filter: brightness(85%);
+}
