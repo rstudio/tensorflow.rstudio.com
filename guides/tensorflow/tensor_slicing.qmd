@@ -1,5 +1,7 @@
 ---
 title: Tensor Slicing
+description: > 
+  Advanced guide for working with sub-sections (slices) of Tensors.
 ---
 
 ```{r}
@@ -19,16 +21,29 @@ title: Tensor Slicing
 
 # Introduction to tensor slicing
 
-When working on ML applications such as object detection and NLP, it is sometimes necessary to work with sub-sections (slices) of tensors. For example, if your model architecture includes routing, where one layer might control which training example gets routed to the next layer. In this case, you could use tensor slicing ops to split the tensors up and put them back together in the right order.
+When working on ML applications such as object detection and NLP, it is
+sometimes necessary to work with sub-sections (slices) of tensors. For
+example, if your model architecture includes routing, where one layer
+might control which training example gets routed to the next layer. In
+this case, you could use tensor slicing ops to split the tensors up and
+put them back together in the right order.
 
-In NLP applications, you can use tensor slicing to perform word masking while training. For example, you can generate training data from a list of sentences by choosing a word index to mask in each sentence, taking the word out as a label, and then replacing the chosen word with a mask token.  
+In NLP applications, you can use tensor slicing to perform word masking
+while training. For example, you can generate training data from a list
+of sentences by choosing a word index to mask in each sentence, taking
+the word out as a label, and then replacing the chosen word with a mask
+token.
 
 In this guide, you will learn how to use the TensorFlow APIs to:
 
-* Extract slices from a tensor
-* Insert data at specific indices in a tensor
+-   Extract slices from a tensor
+-   Insert data at specific indices in a tensor
 
-This guide assumes familiarity with tensor indexing. Read the indexing sections of the [Tensor](https://www.tensorflow.org/guide/tensor#indexing) and [TensorFlow NumPy](https://www.tensorflow.org/guide/tf_numpy#indexing) guides before getting started with this guide.
+This guide assumes familiarity with tensor indexing. Read the indexing
+sections of the
+[Tensor](https://www.tensorflow.org/guide/tensor#indexing) and
+[TensorFlow NumPy](https://www.tensorflow.org/guide/tf_numpy#indexing)
+guides before getting started with this guide.
 
 ## Setup
 
@@ -47,12 +62,12 @@ t1[1:3]
 
 ![](images/tf_slicing/slice_1d_1.png)
 
-:::{.callout-note}
-Unlike base R's `[` operator, TensorFlow's `[` uses negative indexes for selecting
-starting from the end. 
+::: callout-note
+Unlike base R's `[` operator, TensorFlow's `[` uses negative indexes for
+selecting starting from the end.
 
-`NULL` can be used instead of the last dimension or first, depending if it appears
-before or after the `:`.
+`NULL` can be used instead of the last dimension or first, depending if
+it appears before or after the `:`.
 :::
 
 ```{r}
@@ -74,13 +89,13 @@ t2[NULL:-1, 2:3]
 
 ![](images/tf_slicing/slice_2d_1.png)
 
-:::{.callout-note}
-`tf$slice` can be used instead of the `[` operator. However, not that when using
-functions directly from the `tf` module, dimensions and indexes will start from 0,
-unlike in R.
+::: callout-note
+`tf$slice` can be used instead of the `[` operator. However, not that
+when using functions directly from the `tf` module, dimensions and
+indexes will start from 0, unlike in R.
 
-You also need to make sure that indexes are passed to TensorFlow with the integer type,
-for example using the `L` suffix notation.
+You also need to make sure that indexes are passed to TensorFlow with
+the integer type, for example using the `L` suffix notation.
 :::
 
 You can use `tf$slice` on higher dimensional tensors as well.
@@ -94,9 +109,11 @@ tf$slice(
 )
 ```
 
-You can also use `tf$strided_slice` to extract slices of tensors by 'striding' over the tensor dimensions.
+You can also use `tf$strided_slice` to extract slices of tensors by
+'striding' over the tensor dimensions.
 
-Use `tf$gather` to extract specific indices from a single axis of a tensor.
+Use `tf$gather` to extract specific indices from a single axis of a
+tensor.
 
 ```{r}
 tf$gather(t1, indices = c(0L, 3L, 6L))
@@ -113,7 +130,9 @@ tf$gather(alphabet, indices = c(2L, 0L, 19L, 18L))
 
 ![](images/tf_slicing/gather_1.png)
 
-To extract slices from multiple axes of a tensor, use `tf$gather_nd`. This is useful when you want to gather the elements of a matrix as opposed to just its rows or columns.
+To extract slices from multiple axes of a tensor, use `tf$gather_nd`.
+This is useful when you want to gather the elements of a matrix as
+opposed to just its rows or columns.
 
 ```{r}
 t4 <- as_tensor(rbind(c(0, 5),
@@ -152,7 +171,9 @@ tf$gather_nd(
 
 ## Insert data into tensors
 
-Use `tf$scatter_nd` to insert data at specific slices/indices of a tensor. Note that the tensor into which you insert values is zero-initialized.
+Use `tf$scatter_nd` to insert data at specific slices/indices of a
+tensor. Note that the tensor into which you insert values is
+zero-initialized.
 
 ```{r}
 t6 <- as_tensor(list(10L))
@@ -166,9 +187,12 @@ tf$scatter_nd(
 )
 ```
 
-Methods like `tf$scatter_nd` which require zero-initialized tensors are similar to sparse tensor initializers. You can use `tf$gather_nd` and `tf$scatter_nd` to mimic the behavior of sparse tensor ops.
+Methods like `tf$scatter_nd` which require zero-initialized tensors are
+similar to sparse tensor initializers. You can use `tf$gather_nd` and
+`tf$scatter_nd` to mimic the behavior of sparse tensor ops.
 
-Consider an example where you construct a sparse tensor using these two methods in conjunction.
+Consider an example where you construct a sparse tensor using these two
+methods in conjunction.
 
 ```{r}
 # Gather values from one tensor by specifying indices
@@ -205,7 +229,8 @@ t10 <- tf$sparse$to_dense(t9)
 t10
 ```
 
-To insert data into a tensor with pre-existing values, use `tf$tensor_scatter_nd_add`.
+To insert data into a tensor with pre-existing values, use
+`tf$tensor_scatter_nd_add`.
 
 ```{r}
 t11 <- as_tensor(rbind(c(2, 7, 0),
@@ -221,7 +246,8 @@ t12 <- tf$tensor_scatter_nd_add(
 t12
 ```
 
-Similarly, use `tf$tensor_scatter_nd_sub` to subtract values from a tensor with pre-existing values.
+Similarly, use `tf$tensor_scatter_nd_sub` to subtract values from a
+tensor with pre-existing values.
 
 ```{r}
 # Convert the tensor into an identity matrix
@@ -234,7 +260,8 @@ t13 <- tf$tensor_scatter_nd_sub(
 print(t13)
 ```
 
-Use `tf$tensor_scatter_nd_min` to copy element-wise minimum values from one tensor to another.
+Use `tf$tensor_scatter_nd_min` to copy element-wise minimum values from
+one tensor to another.
 
 ```{r}
 t14 <- as_tensor(rbind(c(-2, -7, 0),
@@ -249,7 +276,8 @@ t15 <- tf$tensor_scatter_nd_min(
 t15
 ```
 
-Similarly, use `tf$tensor_scatter_nd_max` to copy element-wise maximum values from one tensor to another.
+Similarly, use `tf$tensor_scatter_nd_max` to copy element-wise maximum
+values from one tensor to another.
 
 ```{r}
 t16 <- tf$tensor_scatter_nd_max(
@@ -262,11 +290,16 @@ t16
 
 ## Further reading and resources
 
+In this guide, you learned how to use the tensor slicing ops available
+with TensorFlow to exert finer control over the elements in your
+tensors.
 
-In this guide, you learned how to use the tensor slicing ops available with TensorFlow to exert finer control over the elements in your tensors.
+-   Check out the slicing ops available with TensorFlow NumPy such as
+    `tf$experimental$numpy$take_along_axis` and
+    `tf$experimental$numpy$take`.
 
-* Check out the slicing ops available with TensorFlow NumPy such as `tf$experimental$numpy$take_along_axis` and `tf$experimental$numpy$take`.
-
-* Also check out the [Tensor guide](https://www.tensorflow.org/guide/tensor) and the [Variable guide](https://www.tensorflow.org/guide/variable).
+-   Also check out the [Tensor
+    guide](https://www.tensorflow.org/guide/tensor) and the [Variable
+    guide](https://www.tensorflow.org/guide/variable).
 
 {{< include ../../_environment.qmd >}}

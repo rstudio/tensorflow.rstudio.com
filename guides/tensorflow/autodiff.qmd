@@ -1,5 +1,9 @@
 ---
 title: Introduction to gradients and automatic differentiation
+description: > 
+  Learn how to compute gradients with automatic
+  differentiation in TensorFlow, the capability that powers machine
+  learning algorithms such as backpropagation.
 aliases:
   - ../../tutorials/advanced/customization/autodiff/index.html
 ---
@@ -579,4 +583,3 @@ tape$gradient(z, x, unconnected_gradients = tf$UnconnectedGradients$ZERO)
 ```
 
 {{< include ../../_environment.qmd >}}
-

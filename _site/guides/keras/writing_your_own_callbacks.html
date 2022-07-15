@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Rick Chao, Francois Chollet, Tomasz Kalinowski">
+<meta name="description" content="Guide to writing new Keras callbacks for customizing the behavior during model training, evaluation, or inference.">
 
 <title>TensorFlow for R - Writing your own callbacks</title>
 <style>
@@ -146,7 +147,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="../../tutorials/">Tutorials</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../guides/index.html" aria-current="page">Guides</a>
+    <a class="nav-link" href="../../guides/">Guides</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../examples/">Examples</a>
@@ -156,11 +157,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="../../packages/tensorflow/latest/reference/index.html">
- <span class="dropdown-text">TensorFlow</span></a>
+ <span class="dropdown-text">tensorlow</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../packages/keras/latest/reference/index.html">
- <span class="dropdown-text">Keras</span></a>
+ <span class="dropdown-text">keras</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../packages/tfdatasets/latest/reference/index.html">
@@ -419,6 +420,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title d-none d-lg-block">Writing your own callbacks</h1>
 </div>
 
+<div>
+  <div class="description">
+    <p>Guide to writing new Keras callbacks for customizing the behavior during model training, evaluation, or inference.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -467,34 +473,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="an-overview-of-callback-methods">An overview of callback methods</h2>
 <section id="global-methods" class="level3">
 <h3 class="anchored" data-anchor-id="global-methods">Global methods</h3>
-<section id="on_traintestpredict_beginself-logsnone" class="level4">
-<h4 class="anchored" data-anchor-id="on_traintestpredict_beginself-logsnone"><code>on_(train|test|predict)_begin(self, logs=None)</code></h4>
+<section id="on_traintestpredict_beginlogs-null" class="level4">
+<h4 class="anchored" data-anchor-id="on_traintestpredict_beginlogs-null"><code>on_(train|test|predict)_begin(logs = NULL)</code></h4>
 <p>Called at the beginning of <code>fit</code>/<code>evaluate</code>/<code>predict</code>.</p>
 </section>
-<section id="on_traintestpredict_endself-logsnone" class="level4">
-<h4 class="anchored" data-anchor-id="on_traintestpredict_endself-logsnone"><code>on_(train|test|predict)_end(self, logs=None)</code></h4>
+<section id="on_traintestpredict_endlogs-null" class="level4">
+<h4 class="anchored" data-anchor-id="on_traintestpredict_endlogs-null"><code>on_(train|test|predict)_end(logs = NULL)</code></h4>
 <p>Called at the end of <code>fit</code>/<code>evaluate</code>/<code>predict</code>.</p>
 </section>
 </section>
 <section id="batch-level-methods-for-trainingtestingpredicting" class="level3">
 <h3 class="anchored" data-anchor-id="batch-level-methods-for-trainingtestingpredicting">Batch-level methods for training/testing/predicting</h3>
-<section id="on_traintestpredict_batch_beginself-batch-logsnone" class="level4">
-<h4 class="anchored" data-anchor-id="on_traintestpredict_batch_beginself-batch-logsnone"><code>on_(train|test|predict)_batch_begin(self, batch, logs=None)</code></h4>
+<section id="on_traintestpredict_batch_beginlogs-null" class="level4">
+<h4 class="anchored" data-anchor-id="on_traintestpredict_batch_beginlogs-null"><code>on_(train|test|predict)_batch_begin(logs = NULL)</code></h4>
 <p>Called right before processing a batch during training/testing/predicting.</p>
 </section>
-<section id="on_traintestpredict_batch_endself-batch-logsnone" class="level4">
-<h4 class="anchored" data-anchor-id="on_traintestpredict_batch_endself-batch-logsnone"><code>on_(train|test|predict)_batch_end(self, batch, logs=None)</code></h4>
+<section id="on_traintestpredict_batch_endbatch-logs-null" class="level4">
+<h4 class="anchored" data-anchor-id="on_traintestpredict_batch_endbatch-logs-null"><code>on_(train|test|predict)_batch_end(batch, logs = NULL)</code></h4>
 <p>Called at the end of training/testing/predicting a batch. Within this method, <code>logs</code> is a dict containing the metrics results.</p>
 </section>
 </section>
 <section id="epoch-level-methods-training-only" class="level3">
 <h3 class="anchored" data-anchor-id="epoch-level-methods-training-only">Epoch-level methods (training only)</h3>
-<section id="on_epoch_beginself-epoch-logsnone" class="level4">
-<h4 class="anchored" data-anchor-id="on_epoch_beginself-epoch-logsnone"><code>on_epoch_begin(self, epoch, logs=None)</code></h4>
+<section id="on_epoch_beginepoch-logs-null" class="level4">
+<h4 class="anchored" data-anchor-id="on_epoch_beginepoch-logs-null"><code>on_epoch_begin(epoch, logs = NULL)</code></h4>
 <p>Called at the beginning of an epoch during training.</p>
 </section>
-<section id="on_epoch_endself-epoch-logsnone" class="level4">
-<h4 class="anchored" data-anchor-id="on_epoch_endself-epoch-logsnone"><code>on_epoch_end(self, epoch, logs=None)</code></h4>
+<section id="on_epoch_endepoch-logs-null" class="level4">
+<h4 class="anchored" data-anchor-id="on_epoch_endepoch-logs-null"><code>on_epoch_end(epoch, logs = NULL)</code></h4>
 <p>Called at the end of an epoch during training.</p>
 </section>
 </section>
@@ -528,9 +534,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>mnist<span class="sc">$</span>test<span class="sc">$</span>x  <span class="ot">&lt;-</span> <span class="fu">flatten_and_rescale</span>(mnist<span class="sc">$</span>test<span class="sc">$</span>x)</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># limit to 500 samples</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>mnist<span class="sc">$</span>train<span class="sc">$</span>x <span class="ot">&lt;-</span> mnist<span class="sc">$</span>train<span class="sc">$</span>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>,]</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>mnist<span class="sc">$</span>train<span class="sc">$</span>x <span class="ot">&lt;-</span> mnist<span class="sc">$</span>train<span class="sc">$</span>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, ]</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>mnist<span class="sc">$</span>train<span class="sc">$</span>y <span class="ot">&lt;-</span> mnist<span class="sc">$</span>train<span class="sc">$</span>y[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>]</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>mnist<span class="sc">$</span>test<span class="sc">$</span>x  <span class="ot">&lt;-</span> mnist<span class="sc">$</span>test<span class="sc">$</span>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>,]</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>mnist<span class="sc">$</span>test<span class="sc">$</span>x  <span class="ot">&lt;-</span> mnist<span class="sc">$</span>test<span class="sc">$</span>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, ]</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>mnist<span class="sc">$</span>test<span class="sc">$</span>y  <span class="ot">&lt;-</span> mnist<span class="sc">$</span>test<span class="sc">$</span>y[<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, define a simple custom callback that logs:</p>

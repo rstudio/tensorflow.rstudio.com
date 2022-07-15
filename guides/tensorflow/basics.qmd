@@ -1,8 +1,10 @@
 ---
 title: Tensorflow Basics
+description: >
+  Start here for a quick overview of *TensorFlow basics*.
 ---
 
-##### Copyright 2020 The TensorFlow Authors.
+##### Copyright 2022 The TensorFlow Authors.
 
 This guide provides a quick overview of *TensorFlow basics*. Each
 section of this doc is an overview of a larger topic---you can find
@@ -12,7 +14,7 @@ TensorFlow is an end-to-end platform for machine learning. It supports
 the following:
 
 -   Multidimensional-array based numeric computation (similar to
-    [Numpy](https://numpy.org)
+    [Numpy](https://numpy.org) or `base::array()` in R.
 
 -   GPU and distributed processing
 

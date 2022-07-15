@@ -1,5 +1,8 @@
 ---
 title: "Getting Started with tfautograph"
+description: >
+  Learn how you can use R control flow expressions like `if`, `while` and 
+  `for` with TensorFlow, in both eager and graph modes.
 ---
 
 ```{r, include = FALSE}

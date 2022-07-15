@@ -1,5 +1,7 @@
 ---
-title: Introduction to graphs
+title: Introduction to graphs and `tf_function()`
+description: >
+  Go beneath the surface and learn about TensorFlow Graphs.
 ---
 
 ##### Copyright 2020 The TensorFlow Authors.
@@ -18,7 +20,7 @@ title: Introduction to graphs
 # limitations under the License.
 ```
 
-# Introduction to graphs and tf_function
+# Introduction to graphs and `tf_function()`
 
 ## Overview
 

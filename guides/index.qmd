@@ -8,16 +8,52 @@ listing:
     sort-ui: false
     filter-ui: false
     fields: [title, description]
-    contents: tensorflow/*.qmd
+    sort: '' # don't sort
+    contents: 
+      - tensorflow/basics.qmd
+      - tensorflow/tensor.qmd
+      - tensorflow/autodiff.qmd
+      - tensorflow/intro_to_graphs.qmd
+      - tensorflow/tensor_slicing.qmd
+      # - variable.qmd
+      - autograph.qmd
   - id: keras-links
     type: grid
     sort-ui: false
     filter-ui: false
     fields: [title, description]
-    contents: keras/*.qmd
+    sort: '' # don't sort
+    contents:
+      - keras/sequential_model.qmd
+      - keras/functional_api.qmd
+      - keras/training_with_built_in_methods.qmd
+      - keras/making_new_layers_and_models_via_subclassing.qmd
+      - keras/serialization_and_saving.qmd
+      - keras/preprocessing_layers.qmd
+      - keras/customizing_what_happens_in_fit.qmd
+      - keras/writing_a_training_loop_from_scratch.qmd
+      - keras/working_with_rnns.qmd
+      - keras/understanding_masking_and_padding.qmd
+      - keras/writing_your_own_callbacks.qmd
+      - keras/transfer_learning.qmd
 ---
 
-TensorFlow 2 focuses on simplicity and ease of use, with updates like eager execution, intuitive higher-level APIs, and flexible model building on any platform.
+TensorFlow 2 is an end-to-end, open-source machine learning platform.
+You can think of it as an infrastructure layer for [differentiable
+programming](https://en.wikipedia.org/wiki/Differentiable_programming).
+It combines four key abilities:
+
+-   Efficiently executing low-level tensor operations on CPU, GPU, or
+    TPU.
+-   Computing the gradient of arbitrary differentiable expressions.
+-   Scaling computation to many devices, such as clusters of hundreds of
+    GPUs.
+-   Exporting programs ("graphs") to external runtimes such as servers,
+    browsers, mobile and embedded devices.
+
+TensorFlow 2 focuses on simplicity and ease of use, with features like
+eager execution, intuitive higher-level APIs, and flexible model
+building on any platform.
 
 ## TensorFlow
 
@@ -26,8 +62,14 @@ TensorFlow 2 focuses on simplicity and ease of use, with updates like eager exec
 
 ## Keras
 
+Keras is the high-level API of TensorFlow 2: an approachable,
+highly-productive interface for solving machine learning problems, with
+a focus on modern deep learning. It provides essential abstractions and
+building blocks for developing and shipping machine learning solutions
+with high iteration velocity.
+
+Keras empowers engineers and researchers to take full advantage of the
+scalability and cross-platform capabilities of TensorFlow 2.
+
 ::: {#keras-links}
 :::
-
-
-

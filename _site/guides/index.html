@@ -140,7 +140,7 @@ ul.task-list{list-style: none;}
     <a class="nav-link" href="../tutorials/">Tutorials</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../guides/index.html" aria-current="page">Guides</a>
+    <a class="nav-link" href="../guides/">Guides</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../examples/">Examples</a>
@@ -150,11 +150,11 @@ ul.task-list{list-style: none;}
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="../packages/tensorflow/latest/reference/index.html">
- <span class="dropdown-text">TensorFlow</span></a>
+ <span class="dropdown-text">tensorlow</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../packages/keras/latest/reference/index.html">
- <span class="dropdown-text">Keras</span></a>
+ <span class="dropdown-text">keras</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../packages/tfdatasets/latest/reference/index.html">
@@ -405,96 +405,19 @@ ul.task-list{list-style: none;}
 
 </header>
 
-<p>TensorFlow 2 focuses on simplicity and ease of use, with updates like eager execution, intuitive higher-level APIs, and flexible model building on any platform.</p>
+<p>TensorFlow 2 is an end-to-end, open-source machine learning platform. You can think of it as an infrastructure layer for <a href="https://en.wikipedia.org/wiki/Differentiable_programming">differentiable programming</a>. It combines four key abilities:</p>
+<ul>
+<li>Efficiently executing low-level tensor operations on CPU, GPU, or TPU.</li>
+<li>Computing the gradient of arbitrary differentiable expressions.</li>
+<li>Scaling computation to many devices, such as clusters of hundreds of GPUs.</li>
+<li>Exporting programs (“graphs”) to external runtimes such as servers, browsers, mobile and embedded devices.</li>
+</ul>
+<p>TensorFlow 2 focuses on simplicity and ease of use, with features like eager execution, intuitive higher-level APIs, and flexible model building on any platform.</p>
 <section id="tensorflow" class="level2">
 <h2 data-anchor-id="tensorflow">TensorFlow</h2>
 <div id="listing-tensorflow-links" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1657831561525" data-listing-reading-time-sort="9.26">
-<a href="../guides/tensorflow/autograph.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Getting Started with tfautograph
-</h5>
-<div class="card-text listing-description">
-The R function <code>tfautograph::autograph()</code> helps you write TensorFlow code using R control flow. It allows you to use tensors in R control flow expressions like <code>if</code>, <code>while</code>, and <code>for</code>, which can automatically be translated to build a tensorflow graph (hence the name, <strong>auto</strong> <strong>graph</strong>).
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="15.995">
-<a href="../guides/tensorflow/tensor.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Introduction to Tensors
-</h5>
-<div class="card-text listing-description">
-Tensors are multi-dimensional arrays with a uniform type (called a <code>dtype</code>). You can see all supported <code>dtypes</code> with <code>names(tf$dtypes)</code>.
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="3.99">
-<a href="../guides/tensorflow/variable.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Introduction to Variables
-</h5>
-<div class="card-text listing-description">
-A TensorFlow <strong>variable</strong> is the recommended way to represent shared, persistent state your program manipulates. This guide covers how to create, update, and manage instances of <code>tf$Variable</code> in TensorFlow.
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="3" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="10.47">
-<a href="../guides/tensorflow/autodiff.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Introduction to gradients and automatic differentiation
-</h5>
-<div class="card-text listing-description">
-Automatic differentiation is useful for implementing machine learning algorithms such as backpropagation for training neural networks.
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="4" data-listing-file-modified-sort="1657811201852" data-listing-reading-time-sort="11.78">
-<a href="../guides/tensorflow/intro_to_graphs.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Introduction to graphs
-</h5>
-<div class="card-text listing-description">
-This guide goes beneath the surface of TensorFlow and Keras to demonstrate how TensorFlow works. If you instead want to immediately get started with Keras, check out the collection of Keras guides.
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="5" data-listing-file-modified-sort="1657811201856" data-listing-reading-time-sort="5.975">
-<a href="../guides/tensorflow/tensor_slicing.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Tensor Slicing
-</h5>
-<div class="card-text listing-description">
-When working on ML applications such as object detection and NLP, it is sometimes necessary to work with sub-sections (slices) of tensors. For example, if your model architecture includes routing, where one layer might control which training example gets routed to the next layer. In this case, you could use tensor slicing ops to split the tensors up and put them back together in the right order.
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="6" data-listing-file-modified-sort="1657811201848" data-listing-reading-time-sort="6.9">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1657844139207" data-listing-reading-time-sort="6.92">
 <a href="../guides/tensorflow/basics.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -502,7 +425,77 @@ When working on ML applications such as object detection and NLP, it is sometime
 Tensorflow Basics
 </h5>
 <div class="card-text listing-description">
-This guide provides a quick overview of <em>TensorFlow basics</em>. Each section of this doc is an overview of a larger topic—you can find links to full guides at the end of each section.
+<p>Start here for a quick overview of <em>TensorFlow basics</em>.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1657843577571" data-listing-reading-time-sort="16.005">
+<a href="../guides/tensorflow/tensor.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Introduction to Tensors
+</h5>
+<div class="card-text listing-description">
+<p>Learn about Tensors, the multi-dimensional arrays used by TensorFlow.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1657844404274" data-listing-reading-time-sort="10.47">
+<a href="../guides/tensorflow/autodiff.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Introduction to gradients and automatic differentiation
+</h5>
+<div class="card-text listing-description">
+<p>Learn how to compute gradients with automatic differentiation in TensorFlow, the capability that powers machine learning algorithms such as backpropagation.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="3" data-listing-file-modified-sort="1657843983950" data-listing-reading-time-sort="11.78">
+<a href="../guides/tensorflow/intro_to_graphs.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Introduction to graphs and <code>tf_function()</code>
+</h5>
+<div class="card-text listing-description">
+<p>Go beneath the surface and learn about TensorFlow Graphs.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="4" data-listing-file-modified-sort="1657844040289" data-listing-reading-time-sort="5.93">
+<a href="../guides/tensorflow/tensor_slicing.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Tensor Slicing
+</h5>
+<div class="card-text listing-description">
+<p>Advanced guide for working with sub-sections (slices) of Tensors.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="5" data-listing-file-modified-sort="1657843796974" data-listing-reading-time-sort="9.26">
+<a href="../guides/tensorflow/autograph.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Getting Started with tfautograph
+</h5>
+<div class="card-text listing-description">
+<p>Learn how you can use R control flow expressions like <code>if</code>, <code>while</code> and <code>for</code> with TensorFlow, in both eager and graph modes.</p>
 </div>
 </div>
 </div>
@@ -516,65 +509,11 @@ No matching items
 </section>
 <section id="keras" class="level2">
 <h2 data-anchor-id="keras">Keras</h2>
+<p>Keras is the high-level API of TensorFlow 2: an approachable, highly-productive interface for solving machine learning problems, with a focus on modern deep learning. It provides essential abstractions and building blocks for developing and shipping machine learning solutions with high iteration velocity.</p>
+<p>Keras empowers engineers and researchers to take full advantage of the scalability and cross-platform capabilities of TensorFlow 2.</p>
 <div id="listing-keras-links" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="13.655">
-<a href="../guides/keras/customizing_what_happens_in_fit.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Customizing what happens in <code>fit()</code>
-</h5>
-<div class="card-text listing-description">
-When you’re doing supervised learning, you can use <code>fit()</code> and everything works smoothly.
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1657811201808" data-listing-reading-time-sort="6.04">
-<a href="../guides/keras/python_subclasses.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Python Subclasses
-</h5>
-<div class="card-text listing-description">
-When using keras, a desire to create Python-based subclasses can arise in a number of ways. For example, when you want to:
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="18.765">
-<a href="../guides/keras/serialization_and_saving.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Serialization and saving
-</h5>
-<div class="card-text listing-description">
-Complete guide to saving &amp; serializing models.
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="3" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="21.445">
-<a href="../guides/keras/functional_api.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-The Functional API
-</h5>
-<div class="card-text listing-description">
-Complete guide to the functional API.
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="4" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="6.89">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="6.89">
 <a href="../guides/keras/sequential_model.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -588,7 +527,21 @@ Complete guide to the Sequential model.
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="5" data-listing-file-modified-sort="1657811201816" data-listing-reading-time-sort="28.745">
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="21.445">
+<a href="../guides/keras/functional_api.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+The Functional API
+</h5>
+<div class="card-text listing-description">
+Complete guide to the functional API.
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-listing-file-modified-sort="1657811201816" data-listing-reading-time-sort="28.745">
 <a href="../guides/keras/training_with_built_in_methods.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -602,29 +555,71 @@ Complete guide to training &amp; evaluation with <code>fit()</code> and <code>ev
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="6" data-listing-file-modified-sort="1657811201820" data-listing-reading-time-sort="15.2">
-<a href="../guides/keras/transfer_learning.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="3" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="22.515">
+<a href="../guides/keras/making_new_layers_and_models_via_subclassing.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Transfer learning and fine-tuning
+Writing <code>Layer</code> and <code>Model</code> objects from scratch.
 </h5>
 <div class="card-text listing-description">
-<strong>Transfer learning</strong> consists of taking features learned on one problem, and leveraging them on a new, similar problem. For instance, features from a model that has learned to identify racoons may be useful to kick-start a model meant to identify skunks.
+One of the central abstractions in Keras is the <code>Layer</code> class. A layer encapsulates both a state (the layer’s “weights”) and a transformation from inputs to outputs (a “call”, the layer’s forward pass).
 </div>
 </div>
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="7" data-listing-file-modified-sort="1657811201824" data-listing-reading-time-sort="8.76">
-<a href="../guides/keras/understanding_masking_and_padding.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="4" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="18.765">
+<a href="../guides/keras/serialization_and_saving.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Understanding masking &amp; padding
+Serialization and saving
 </h5>
 <div class="card-text listing-description">
-Complete guide to using mask-aware sequence layers in Keras.
+Complete guide to saving &amp; serializing models.
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="5" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="13.55">
+<a href="../guides/keras/preprocessing_layers.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Working with preprocessing layers
+</h5>
+<div class="card-text listing-description">
+Overview of how to leverage preprocessing layers to create end-to-end models.
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="6" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="13.655">
+<a href="../guides/keras/customizing_what_happens_in_fit.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Customizing what happens in <code>fit()</code>
+</h5>
+<div class="card-text listing-description">
+When you’re doing supervised learning, you can use <code>fit()</code> and everything works smoothly.
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="7" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="10.43">
+<a href="../guides/keras/writing_a_training_loop_from_scratch.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Writing a training loop from scratch
+</h5>
+<div class="card-text listing-description">
+Complete guide to writing low-level training &amp; evaluation loops.
 </div>
 </div>
 </div>
@@ -644,49 +639,21 @@ Recurrent neural networks (RNN) are a class of neural networks that is powerful 
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="9" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="13.55">
-<a href="../guides/keras/preprocessing_layers.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="9" data-listing-file-modified-sort="1657811201824" data-listing-reading-time-sort="8.76">
+<a href="../guides/keras/understanding_masking_and_padding.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Working with preprocessing layers
+Understanding masking &amp; padding
 </h5>
 <div class="card-text listing-description">
-Overview of how to leverage preprocessing layers to create end-to-end models.
+Complete guide to using mask-aware sequence layers in Keras.
 </div>
 </div>
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="10" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="22.515">
-<a href="../guides/keras/making_new_layers_and_models_via_subclassing.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Writing <code>Layer</code> and <code>Model</code> objects from scratch.
-</h5>
-<div class="card-text listing-description">
-One of the central abstractions in Keras is the <code>Layer</code> class. A layer encapsulates both a state (the layer’s “weights”) and a transformation from inputs to outputs (a “call”, the layer’s forward pass).
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="11" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="10.43">
-<a href="../guides/keras/writing_a_training_loop_from_scratch.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Writing a training loop from scratch
-</h5>
-<div class="card-text listing-description">
-Complete guide to writing low-level training &amp; evaluation loops.
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="12" data-listing-file-modified-sort="1657831661487" data-listing-reading-time-sort="10.295">
+<div class="g-col-1" data-index="10" data-listing-file-modified-sort="1657844999998" data-listing-reading-time-sort="10.25">
 <a href="../guides/keras/writing_your_own_callbacks.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="card-body post-contents">
@@ -694,7 +661,21 @@ Complete guide to writing low-level training &amp; evaluation loops.
 Writing your own callbacks
 </h5>
 <div class="card-text listing-description">
-A callback is a powerful tool to customize the behavior of a Keras model during training, evaluation, or inference. Examples include <code>callback_tensorboard()</code> to visualize training progress and results with TensorBoard, or <code>callback_model_checkpoint()</code> to periodically save your model during training.
+<p>Guide to writing new Keras callbacks for customizing the behavior during model training, evaluation, or inference.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="11" data-listing-file-modified-sort="1657811201820" data-listing-reading-time-sort="15.2">
+<a href="../guides/keras/transfer_learning.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Transfer learning and fine-tuning
+</h5>
+<div class="card-text listing-description">
+<strong>Transfer learning</strong> consists of taking features learned on one problem, and leveraging them on a new, similar problem. For instance, features from a model that has learned to identify racoons may be useful to kick-start a model meant to identify skunks.
 </div>
 </div>
 </div>

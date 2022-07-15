@@ -15,26 +15,24 @@
   {
     "listing": "/guides/index.html",
     "items": [
-      "/guides/tensorflow/autograph.html",
+      "/guides/tensorflow/basics.html",
       "/guides/tensorflow/tensor.html",
-      "/guides/tensorflow/variable.html",
       "/guides/tensorflow/autodiff.html",
       "/guides/tensorflow/intro_to_graphs.html",
       "/guides/tensorflow/tensor_slicing.html",
-      "/guides/tensorflow/basics.html",
-      "/guides/keras/customizing_what_happens_in_fit.html",
-      "/guides/keras/python_subclasses.html",
-      "/guides/keras/serialization_and_saving.html",
-      "/guides/keras/functional_api.html",
+      "/guides/tensorflow/autograph.html",
       "/guides/keras/sequential_model.html",
+      "/guides/keras/functional_api.html",
       "/guides/keras/training_with_built_in_methods.html",
-      "/guides/keras/transfer_learning.html",
-      "/guides/keras/understanding_masking_and_padding.html",
-      "/guides/keras/working_with_rnns.html",
-      "/guides/keras/preprocessing_layers.html",
       "/guides/keras/making_new_layers_and_models_via_subclassing.html",
+      "/guides/keras/serialization_and_saving.html",
+      "/guides/keras/preprocessing_layers.html",
+      "/guides/keras/customizing_what_happens_in_fit.html",
       "/guides/keras/writing_a_training_loop_from_scratch.html",
-      "/guides/keras/writing_your_own_callbacks.html"
+      "/guides/keras/working_with_rnns.html",
+      "/guides/keras/understanding_masking_and_padding.html",
+      "/guides/keras/writing_your_own_callbacks.html",
+      "/guides/keras/transfer_learning.html"
     ]
   },
   {

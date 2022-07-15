@@ -35,7 +35,7 @@ website:
     left:
       - { text: Install    ,href: install/ }
       - { text: Tutorials  ,href: tutorials/ }
-      - { text: Guides     ,href: guides/index.qmd }
+      - { text: Guides     ,href: guides/ }
       - { text: Examples   ,href: examples/ }
       - text: Reference
         menu:

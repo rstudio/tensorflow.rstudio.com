@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Learn how to compute gradients with automatic differentiation in TensorFlow, the capability that powers machine learning algorithms such as backpropagation.">
 
 <title>TensorFlow for R - Introduction to gradients and automatic differentiation</title>
 <style>
@@ -145,7 +146,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="nav-link" href="../../tutorials/">Tutorials</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../guides/index.html" aria-current="page">Guides</a>
+    <a class="nav-link" href="../../guides/">Guides</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../examples/">Examples</a>
@@ -155,11 +156,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <ul class="dropdown-menu" aria-labelledby="nav-menu-reference">    
         <li>
     <a class="dropdown-item" href="../../packages/tensorflow/latest/reference/index.html">
- <span class="dropdown-text">TensorFlow</span></a>
+ <span class="dropdown-text">tensorlow</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../packages/keras/latest/reference/index.html">
- <span class="dropdown-text">Keras</span></a>
+ <span class="dropdown-text">keras</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../../packages/tfdatasets/latest/reference/index.html">
@@ -417,6 +418,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1 class="title d-none d-lg-block">Introduction to gradients and automatic differentiation</h1>
 </div>
 
+<div>
+  <div class="description">
+    <p>Learn how to compute gradients with automatic differentiation in TensorFlow, the capability that powers machine learning algorithms such as backpropagation.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -501,7 +507,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>grad <span class="ot">&lt;-</span> tape<span class="sc">$</span><span class="fu">gradient</span>(loss, my_vars)</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>grad<span class="sc">$</span>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>tf.Tensor([3.9869454  0.14966404], shape=(2), dtype=float32)</code></pre>
+<pre><code>tf.Tensor([2.8620672 6.408707 ], shape=(2), dtype=float32)</code></pre>
 </div>
 </div>
 </section>
@@ -1024,6 +1030,7 @@ Python Environment Information
 asttokens==2.0.5
 astunparse==1.6.3
 backcall==0.2.0
+beautifulsoup4==4.11.1
 cachetools==5.2.0
 certifi==2022.6.15
 charset-normalizer==2.1.0
@@ -1031,8 +1038,10 @@ decorator==5.1.1
 dill==0.3.5.1
 etils==0.6.0
 executing==0.8.3
+filelock==3.7.1
 flatbuffers==1.12
 gast==0.4.0
+gdown==4.5.1
 google-auth==2.9.0
 google-auth-oauthlib==0.4.6
 google-pasta==0.2.0
@@ -1070,6 +1079,7 @@ pyasn1-modules==0.2.8
 pydot==1.4.2
 Pygments==2.12.0
 pyparsing==3.0.9
+PySocks==1.7.1
 python-dateutil==2.8.2
 pytz==2022.1
 PyYAML==6.0
@@ -1078,6 +1088,7 @@ requests-oauthlib==1.3.1
 rsa==4.8
 scipy==1.8.1
 six==1.16.0
+soupsieve==2.3.2.post1
 stack-data==0.3.0
 tensorboard==2.9.1
 tensorboard-data-server==0.6.1
