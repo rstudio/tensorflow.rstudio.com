@@ -20,8 +20,10 @@ execute:
 
 website:
   title: TensorFlow for R
-  site-url: https://tensorflow.rstudio.com
-  repo-url: https://github.com/t-kalinowski/tf-site
+  site-url: https://t-kalinowski.github.io/tensorflow.rstudio.com/
+  repo-url: https://github.com/t-kalinowski/tensorflow.rstudio.com
+  # Uncomment when we move to tensorflow.rstudio.com
+  # google-analytics: "UA-20375833-3"
   repo-actions: [edit, source, issue]
   search: true
   page-navigation: true
