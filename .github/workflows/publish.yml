@@ -1,5 +1,4 @@
 on:
-  workflow_dispatch:
   push:
     branches: main
 
@@ -8,8 +7,6 @@ name: Quarto Publish
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -19,7 +16,6 @@ jobs:
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          target: gh-pages
+          target: netlify
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
