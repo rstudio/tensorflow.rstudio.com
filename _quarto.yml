@@ -46,14 +46,7 @@ website:
       - { text: Tutorials, href: tutorials/ }
       - { text: Guides, href: guides/ }
       - { text: Examples, href: examples/ }
-      - text: Reference
-        menu:
-          - { text: "tensorlow", href: "reference/tensorflow/index.html" }
-          - { text: "keras", href: "reference/keras/index.html" }
-          - { text: "tfdatasets", href: "reference/tfdatasets/index.html" }
-          - { text: "tfautograph", href: "reference/tfautograph/index.html" }
-          - { text: "tfhub", href: "reference/tfhub/index.html" }
-          - { text: "tfruns", href: "reference/tfruns/index.html" }
+      - { text: Reference, href: reference/ }
 
   sidebar:
     - title: "Install"
@@ -84,6 +77,21 @@ website:
             - tutorials/keras/regression.qmd
             - tutorials/keras/overfit_and_underfit.qmd
             # - tutorials/keras/save_and_load.qmd
+
+
+
+    - title: "Reference"
+      contents:
+        - reference/index.qmd
+        - text: Packages
+        - text: -----
+        - { section: "tensorflow", href: "reference/tensorflow/index.qmd" }
+        - { text: "keras", href: "reference/keras/index.qmd" }
+        - { text: "tfdatasets", href: "reference/tfdatasets/index.qmd" }
+        - { text: "tfautograph", href: "reference/tfautograph/index.qmd" }
+        - { text: "tfhub", href: "reference/tfhub/index.qmd" }
+        - { text: "tfruns", href: "reference/tfruns/index.qmd" }
+
 
     - title: "Guides"
       contents:
