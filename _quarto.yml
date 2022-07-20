@@ -107,6 +107,7 @@ website:
 
         - section: Keras
           contents:
+            - guides/keras/basics.qmd
             - guides/keras/sequential_model.qmd
             - guides/keras/functional_api.qmd
             - guides/keras/training_with_built_in_methods.qmd
