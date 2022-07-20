@@ -3,107 +3,85 @@ pagetitle: "TensorFlow for R"
 page-layout: custom
 editor:
   markdown:
+    wrap: sentence
     canonical: false
 css: css/index.css
 ---
 
-::: {.hero-banner}
-
-::: {.hero-cover}
+::: hero-banner
+::: hero-cover
+<!-- This draws the polygon overlay that clips the top banner gradient -->
 :::
 
-::: {.content-block}
+::: content-block
 # Welcome to TensorFlow for R
 
 ### An end-to-end open source machine learning platform
 
-<br> 
-<br> 
-<br>
+<br> <br> <br>
 
-- Build and train ML models easily using intuitive high-level APIs like Keras with eager execution, which makes for immediate model iteration and easy debugging. 
-- Easily train and deploy models in the cloud, on-prem, in the browser, or on-device no matter what language you use.
-- A simple and flexible architecture to take new ideas from concept to code, to state-of-the-art models, and to publication faster.
+-   Build and train deep learning models easily with high-level API's like Keras and TF Datasets.
+-   Iterate rapidly and debug easily with eager execution.
+-   Scale computations to accelerators like GPUs, TPUs, and clusters with graph execution.
+-   Deploy models to the cloud, on-prem, in the browser, or on-device.
+-   A comprehensive ecosystem of tools, libraries and community resources that lets beginners quickly get started, researchers push the state-of-the-art in ML, and engineers easily build and deploy ML powered applications.
 
-::: {.hero-buttons}
-[Get Started](tutorials/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
-[Guide](guides/){.btn-action .btn .btn-success .btn-lg role="button"}
-[Examples](examples/){.btn-action .btn .btn-success .btn-lg role="button"}
+::: hero-buttons
+[Install](install/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"} [Get Started](tutorials/){.btn-action .btn .btn-success .btn-lg role="button"}
+
+<!-- hero-buttons -->
 :::
 
+<!-- content-block (welcome to R) -->
 :::
+
+<!-- hero-banner -->
 :::
 
-
-::: {.content-block}
-
+::: content-block
 ::: {.features .alt-background}
+::: feature
+### [Tutorials](tutorials/)
 
-::: {.feature}
-### Install TensorFlow
-
-Install the package or build from source. GPU support for CUDA®-enabled cards.
-
-::: {.learn-more}
-[Learn more »](install/)
-:::
+Tutorials teach how to use Tensorflow with complete, end-to-end examples.
+<!-- feature -->
 :::
 
-::: {.feature}
-### Keras
-Keras is a high-level API that's easier for ML beginners, as well as researchers.
+::: feature
+### [Guides](guides/)
 
-::: {.learn-more}
-[Learn more »](guides/keras/sequential_model.qmd)
-:::
+Guides explain the concepts and components of TensorFlow and Keras.
 :::
 
-::: {.feature}
-### Machine Learning basics with Keras
-This notebook collection demonstrates basic machine learning tasks using Keras.
+::: feature
+### [Examples](examples/)
 
-::: {.learn-more}
-[Learn more »](tutorials/keras/)
-:::
+Examples demonstrate focused applications of deep learning workflows.
 :::
 
-::: {.feature}
-### TensorFlow basics
-Learn about the fundamental classes and features that make TensorFlow work.
-
-::: {.learn-more}
-[Learn more »](guides/tensorflow/basics.qmd)
-:::
+<!-- features -->
 :::
 
-::: {.feature}
-### Advanced quickstart
-This "Hello, World!" notebook uses the Keras subclassing API and a custom training loop.
-
-::: {.learn-more}
-[Learn more »](tutorials/quickstart/advanced.qmd)
-:::
+<!-- content-block -->
 :::
 
-::: {.feature}
-### Data input pipelines
-The tfdatasets interface enables you to build complex input pipelines from simple, reusable pieces.
+::: content-block
+::: {layout-ncol="2"}
 
-::: {.learn-more}
-[Learn more »](guides/data/)
+[![](images/DLwR2e-cover.jpg){style="width:75%;"}](http://rstd.io/dlwr-2e)
+
+::: {}
+### Learn More
+
+The *Deep Learning with R* book shows you how to get started with Tensorflow and Keras in R, even if you have no background in mathematics or data science.
+The book covers:
+
+-   Deep learning from first principles
+-   Image classification and image segmentation
+-   Time series forecasting
+-   Text classification and machine translation
+-   Text generation, neural style transfer, and image generation
 :::
-:::
-
-:::
-:::
-
-
-::: {.get-started }
-::: {.content-block}
-
-### Get started with TensorFlow
-
-[Explore tutorials](tutorials/){.btn-action-primary  .btn-action .btn .btn-success .btn-lg role="button"}
 
 :::
 :::

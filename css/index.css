@@ -24,7 +24,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  clip-path: polygon(0 32%, 100% 40%, 100% 100%, 0 100%);
+  clip-path: polygon(0 26%, 100% 34%, 100% 100%, 0 100%);
 }
 
 .hero-banner h1 {
@@ -71,7 +71,7 @@
 }
 
 .hero-banner .content-block {
-  max-width: 600px;
+  max-width: 640px;
   z-index: 2;
 }
 
