@@ -59,7 +59,7 @@ description: {descs[[pkg]]}
 
 writeLines(
 r"----(---
-title: Function reference
+title: Reference
 listing:
   type: grid
   sort: ""

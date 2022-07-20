@@ -82,15 +82,15 @@ website:
 
     - title: "Reference"
       contents:
-        - reference/index.qmd
-        - text: Packages
-        - text: -----
-        - { section: "tensorflow", href: "reference/tensorflow/index.qmd" }
-        - { text: "keras", href: "reference/keras/index.qmd" }
-        - { text: "tfdatasets", href: "reference/tfdatasets/index.qmd" }
-        - { text: "tfautograph", href: "reference/tfautograph/index.qmd" }
-        - { text: "tfhub", href: "reference/tfhub/index.qmd" }
-        - { text: "tfruns", href: "reference/tfruns/index.qmd" }
+        - section: R packages
+          contents:
+            - reference/tensorflow/index.qmd
+            - reference/keras/index.qmd
+            - reference/tfdatasets/index.qmd
+            - reference/tfautograph/index.qmd
+            - reference/tfhub/index.qmd
+            - reference/tfruns/index.qmd
+            - reference/cloudml/index.qmd
 
 
     - title: "Guides"
@@ -151,5 +151,5 @@ format:
     code-overflow: wrap
     mainfont: Lato
     theme:
-      light: [flatly, css/light.scss, css/custom.scss]
-      dark: [darkly, css/dark.scss, css/custom.scss]
+      light: [flatly, _css/light.scss, _css/custom.scss]
+      dark: [darkly, _css/dark.scss, _css/custom.scss]

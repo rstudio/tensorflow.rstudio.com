@@ -5,7 +5,7 @@ editor:
   markdown:
     wrap: sentence
     canonical: false
-css: css/index.css
+css: _css/index.css
 ---
 
 ::: hero-banner

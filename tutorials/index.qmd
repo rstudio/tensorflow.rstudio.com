@@ -9,7 +9,7 @@ listing:
     filter-ui: false
     fields: [title, description]
     sort: id
-    contents: 
+    contents:
       - quickstart/beginner.qmd
       - keras/classification.qmd
   - id: experts
@@ -17,11 +17,11 @@ listing:
     sort-ui: false
     filter-ui: false
     fields: [title, description]
-    contents: 
+    contents:
       - quickstart/advanced.qmd
 ---
 
-## For beginers
+## For beginners
 
 The best place to start is with the user-friendly Keras sequential API. Build models by plugging together building blocks. After these tutorials, read the [Keras guide](../guides/keras/sequential_model.html).
 
@@ -35,4 +35,3 @@ The Keras functional and subclassing APIs provide a define-by-run interface for 
 
 ::: {#experts}
 :::
-
