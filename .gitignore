@@ -6,3 +6,8 @@
 .DS_Store
 fruits360
 /_site/
+
+# Local Netlify folder
+.netlify
+
+404.html
