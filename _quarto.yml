@@ -102,14 +102,8 @@ website:
             - { text: Overview, href: guides/tensorflow/basics.qmd }
             - { text: Tensors, href: guides/tensorflow/tensor.qmd }
             - { text: Variables, href: guides/tensorflow/variable.qmd }
-            - {
-                text: Automatic differentiation,
-                href: guides/tensorflow/autodiff.qmd,
-              }
-            - {
-                text: Graphs and functions,
-                href: guides/tensorflow/intro_to_graphs.qmd,
-              }
+            - { text: Automatic differentiation, href: guides/tensorflow/autodiff.qmd }
+            - { text: Graphs and functions, href: guides/tensorflow/intro_to_graphs.qmd }
 
         - section: Keras
           contents:
@@ -135,11 +129,12 @@ website:
           contents:
             - guides/tfdatasets/index.qmd
 
-        - section: Training runs
+        - section: Track Experiments
           contents:
-            - guides/tfruns/overview.qmd
+            - guides/tfruns/index.qmd
             - guides/tfruns/managing.qmd
             - guides/tfruns/tuning.qmd
+            - guides/tensorboard/index.qmd
 
         - section: Deployment
           href: guides/deploy/index.qmd
