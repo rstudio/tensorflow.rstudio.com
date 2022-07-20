@@ -1,7 +1,10 @@
 ---
 pagetitle: "TensorFlow for R"
 page-layout: custom
-css: index.css
+editor:
+  markdown:
+    canonical: false
+css: css/index.css
 ---
 
 ::: {.hero-banner}

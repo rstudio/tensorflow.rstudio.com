@@ -143,11 +143,12 @@ website:
             - guides/deploy/shiny.qmd
             - guides/deploy/docker.qmd
 
+
 format:
   html:
     toc: true
     code-overflow: wrap
     mainfont: Lato
     theme:
-      light: [flatly, light.scss, custom.scss]
-      dark: [darkly, dark.scss, custom.scss]
+      light: [flatly, css/light.scss, css/custom.scss]
+      dark: [darkly, css/dark.scss, css/custom.scss]
