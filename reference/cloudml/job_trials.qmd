@@ -1,0 +1,45 @@
+# job_trials
+
+
+Current trials of a job
+
+
+
+
+## Description
+
+Get the hyperparameter trials for job, as an  data frame
+
+
+
+
+
+## Usage
+```r
+job_trials(x)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+x | Job name or job object.
+
+
+
+
+
+
+
+## See Also
+
+Other job management functions: `job_cancel`,
+  `job_collect`, `job_list`,
+  `job_status`, `job_stream_logs`
+
+
+

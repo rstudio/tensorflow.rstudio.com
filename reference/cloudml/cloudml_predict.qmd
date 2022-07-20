@@ -1,0 +1,51 @@
+# cloudml_predict
+
+
+Perform Prediction over a CloudML Model.
+
+
+
+
+## Description
+
+Perform online prediction over a CloudML model, usually, created using
+`cloudml_deploy()`
+
+
+
+
+
+## Usage
+```r
+cloudml_predict(instances, name, version = paste0(name, "_1"),
+  verbose = FALSE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+instances | A list of instances to be predicted. While predicting a single instance, list wrapping this single instance is still expected.
+name | The name for this model (required)
+version | The version for this model. Versions start with a letter and contain only letters, numbers and underscores. Defaults to name_1
+verbose | Should additional information be reported?
+
+
+
+
+
+
+
+## See Also
+
+`cloudml_deploy()`
+
+Other CloudML functions: `cloudml_deploy`,
+  `cloudml_train`
+
+
+

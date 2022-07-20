@@ -1,0 +1,68 @@
+# gs_data_dir
+
+
+Google storage bucket path that syncs to local storage when not
+running on CloudML.
+
+
+
+
+## Description
+
+Refer to data within a Google Storage bucket. When running on CloudML
+the bucket will be read from directly. Otherwise, the bucket will be
+automatically synchronized to a local directory.
+
+
+
+
+
+## Usage
+```r
+gs_data_dir(url, local_dir = "gs", force_sync = FALSE, echo = TRUE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+url | Google Storage bucket URL (e.g. ``gs://<your-bucket>``).
+local_dir | Local directory to synchonize Google Storage bucket(s) to.
+force_sync | Force local synchonization even if the data directory already exists.
+echo | Echo command output to console.
+
+
+
+
+## Details
+
+This function is suitable for use in TensorFlow APIs that accept
+gs:// URLs (e.g. TensorFlow datasets). However, many package functions
+accept only local filesystem paths as input (rather than
+gs:// URLs). For these cases you can the `gs_data_dir_local()` function,
+which will always synchronize gs:// buckets to the local filesystem and
+provide a local path interface to their contents.
+
+
+
+
+
+## Value
+
+Path to contents of data directory.
+
+
+
+
+
+
+## See Also
+
+`gs_data_dir_local()`
+
+
+

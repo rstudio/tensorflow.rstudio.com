@@ -1,0 +1,66 @@
+# gs_data_dir_local
+
+
+Get a local path to the contents of Google Storage bucket
+
+
+
+
+## Description
+
+Provides a local filesystem interface to Google Storage buckets. Many
+package functions accept only local filesystem paths as input (rather than
+gs:// URLs). For these cases the ``gcloud_path()`` function will synchronize
+gs:// buckets to the local filesystem and provide a local path interface
+to their contents.
+
+
+
+
+
+## Usage
+```r
+gs_data_dir_local(url, local_dir = "gs", echo = FALSE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+url | Google Storage bucket URL (e.g. ``gs://<your-bucket>``).
+local_dir | Local directory to synchonize Google Storage bucket(s) to.
+echo | Echo command output to console.
+
+
+
+
+## Details
+
+If you pass a local path as the ``url`` it will be returned
+unmodified. This allows you to for example use a training flag for the
+location of data which points to a local directory during
+development and a Google Cloud bucket during cloud training.
+
+
+
+
+
+## Value
+
+Local path to contents of bucket.
+
+
+
+
+
+
+## See Also
+
+`gs_data_dir()`
+
+
+

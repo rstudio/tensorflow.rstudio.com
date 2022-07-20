@@ -1,0 +1,45 @@
+# job_cancel
+
+
+Cancel a job
+
+
+
+
+## Description
+
+Cancel a job.
+
+
+
+
+
+## Usage
+```r
+job_cancel(job = "latest")
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+job | Job name or job object. Pass "latest" to indicate the most recently submitted job.
+
+
+
+
+
+
+
+## See Also
+
+Other job management functions: `job_collect`,
+  `job_list`, `job_status`,
+  `job_stream_logs`, `job_trials`
+
+
+

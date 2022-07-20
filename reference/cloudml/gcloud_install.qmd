@@ -1,0 +1,57 @@
+# gcloud_install
+
+
+Install the Google Cloud SDK
+
+
+
+
+## Description
+
+Installs the Google Cloud SDK which enables CloudML operations.
+
+
+
+
+
+## Usage
+```r
+gcloud_install(update = TRUE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+update | Attempt to update an existing installation.
+
+
+
+
+
+
+## Examples
+
+```r
+
+library(cloudml)
+gcloud_install()
+
+```
+
+
+
+
+
+
+## See Also
+
+Other Google Cloud SDK functions: `gcloud_init`,
+  `gcloud_terminal`
+
+
+

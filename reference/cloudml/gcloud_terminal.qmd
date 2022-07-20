@@ -1,0 +1,52 @@
+# gcloud_terminal
+
+
+Create an RStudio terminal with access to the Google Cloud SDK
+
+
+
+
+## Description
+
+Create an RStudio terminal with access to the Google Cloud SDK
+
+
+
+
+
+## Usage
+```r
+gcloud_terminal(command = NULL, clear = FALSE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+command | Command to send to terminal
+clear | Clear terminal buffer
+
+
+
+
+
+## Value
+
+Terminal id (invisibly)
+
+
+
+
+
+
+## See Also
+
+Other Google Cloud SDK functions: `gcloud_init`,
+  `gcloud_install`
+
+
+

@@ -1,0 +1,50 @@
+# gcloud_exec
+
+
+Executes a Google Cloud Command
+
+
+
+
+## Description
+
+Executes a Google Cloud command with the given parameters.
+
+
+
+
+
+## Usage
+```r
+gcloud_exec(..., args = NULL, echo = TRUE, dry_run = FALSE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+... | Parameters to use specified based on position.
+args | Parameters to use specified as a list.
+echo | Echo command output to console.
+dry_run | Echo but not execute the command?
+
+
+
+
+
+
+## Examples
+
+```r
+
+gcloud_exec("help", "info")
+
+```
+
+
+
+

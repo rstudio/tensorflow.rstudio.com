@@ -1,0 +1,34 @@
+# gcloud_init
+
+
+Initialize the Google Cloud SDK
+
+
+
+
+## Description
+
+Initialize the Google Cloud SDK
+
+
+
+
+
+## Usage
+```r
+gcloud_init()
+```
+
+
+
+
+
+
+
+## See Also
+
+Other Google Cloud SDK functions: `gcloud_install`,
+  `gcloud_terminal`
+
+
+

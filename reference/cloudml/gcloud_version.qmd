@@ -1,0 +1,33 @@
+# gcloud_version
+
+
+Gcloud version
+
+
+
+
+## Description
+
+Get version of Google Cloud SDK components.
+
+
+
+
+
+## Usage
+```r
+gcloud_version()
+```
+
+
+
+
+
+## Value
+
+a list with the version of each component.
+
+
+
+
+

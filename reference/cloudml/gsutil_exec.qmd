@@ -1,0 +1,38 @@
+# gsutil_exec
+
+
+Executes a Google Utils Command
+
+
+
+
+## Description
+
+Executes a Google Utils command with the given parameters.
+
+
+
+
+
+## Usage
+```r
+gsutil_exec(..., args = NULL, echo = FALSE)
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+... | Parameters to use specified based on position.
+args | Parameters to use specified as a list.
+echo | Echo command output to console.
+
+
+
+
+
+

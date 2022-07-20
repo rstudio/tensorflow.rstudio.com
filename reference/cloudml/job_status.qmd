@@ -1,0 +1,45 @@
+# job_status
+
+
+Current status of a job
+
+
+
+
+## Description
+
+Get the status of a job, as an  list.
+
+
+
+
+
+## Usage
+```r
+job_status(job = "latest")
+```
+
+
+
+
+## Arguments
+
+
+Argument      |Description
+------------- |----------------
+job | Job name or job object. Pass "latest" to indicate the most recently submitted job.
+
+
+
+
+
+
+
+## See Also
+
+Other job management functions: `job_cancel`,
+  `job_collect`, `job_list`,
+  `job_stream_logs`, `job_trials`
+
+
+
