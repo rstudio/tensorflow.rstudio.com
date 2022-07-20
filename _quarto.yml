@@ -13,10 +13,13 @@ project:
     port: 5555
     browser: false
 
+
 execute:
   enabled: true
   eval: true
   freeze: auto
+
+
 
 website:
   title: TensorFlow for R
@@ -57,10 +60,10 @@ website:
         - install/index.qmd
         - install/custom.qmd
         - section: GPU
-          href: install/gpu/index.qmd
+          href: install/gpu.qmd
           contents:
-            - install/gpu/local_gpu/index.qmd
-            - install/gpu/cloud_server_gpu/index.qmd
+            - install/local_gpu.qmd
+            - install/cloud_server_gpu.qmd
 
     - title: "Tutorials"
       contents:

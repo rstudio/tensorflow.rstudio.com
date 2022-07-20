@@ -3,7 +3,6 @@ pagetitle: "TensorFlow for R"
 page-layout: custom
 editor:
   markdown:
-    wrap: sentence
     canonical: false
 css: _css/index.css
 ---

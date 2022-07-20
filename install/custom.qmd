@@ -40,10 +40,11 @@ library(tensorflow)
 You could also add the `RETICULATE_PYTHON` environment variable to your
 `.RProfile` or `.REnviron`.
 
-Alternatively, call the `use_python` family of configuration functions:
+Alternatively, call the `use_python()` family of configuration
+functions:
 
 | Function           | Description                                           |
-|-----------------|-------------------------------------------------------|
+|--------------------|-------------------------------------------------------|
 | `use_python()`     | Specify the path a specific Python binary.            |
 | `use_virtualenv()` | Specify the directory containing a Python virtualenv. |
 | `use_condaenv()`   | Specify the name of a conda environment.              |
@@ -55,10 +56,10 @@ library(tensorflow)
 use_virtualenv("my_env")
 ```
 
+Note that if you use the argument `required = FALSE`, you can include
+multiple calls to the `use_` functions and all provided locations will
+be tried in the order they were specified. For example:
 
-
-Note that if you use the argument `required = FALSE`, you can include multiple calls to the `use_` functions and all
-provided locations will be tried in the order they were specified. For example:
 ```{r}
 library(tensorflow)
 use_python("/usr/local/bin/python", required = FALSE)
@@ -66,28 +67,22 @@ use_virtualenv("~/myenv", required = TRUE)
 use_condaenv("myenv", required = TRUE)
 ```
 
-
-
-
 ### Additional Dependencies
 
 There are some components of TensorFlow (e.g. the
 [Keras](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/python/keras)
 library) which have dependencies on additional Python packages. The
-`install_keras()` function installs these dependencies
-automatically, however if you do a custom installation you should be
-sure to install them manually.
+`install_keras()` function installs these dependencies automatically,
+however if you do a custom installation you should be sure to install
+them manually.
 
 You can install the additional dependencies with the following command:
 
-
 ```{r, eval = TRUE, results = 'asis', echo = FALSE}
-cat(sep = "", "
-``` bash
-pip install ", paste(keras:::default_extra_packages(), collapse = " "), "
-```")
+cat(sep = "", "\n``` bash
+pip install ", paste(keras:::default_extra_packages(), collapse = " "), 
+"\n```")
 ```
-
 
 ## Supported Platforms
 
