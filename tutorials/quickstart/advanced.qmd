@@ -1,11 +1,15 @@
 ---
 title: Advanced
-description: "This 'Hello, World!' notebook uses the Keras subclassing API and a custom training loop."
+description: 'This "Hello, World!" uses the Keras subclassing API and a custom training loop.'
 aliases:
   - ../avanced/index.html
 ---
 
 # TensorFlow 2 quickstart for experts
+
+The Keras functional and subclassing APIs provide a define-by-run interface for customization and advanced research.
+Build your model, then write the forward and backward pass.
+Create custom layers, activations, and training loops.
 
 Import TensorFlow into your program.
 If you haven't installed TensorFlow yet, go to the [installation guide](/install/).

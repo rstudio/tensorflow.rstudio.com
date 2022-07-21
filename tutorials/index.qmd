@@ -3,35 +3,50 @@ title: Tutorials
 anchor-sections: false
 search: false
 listing:
-  - id: beginners
+  - id: quickstart
     type: grid
     sort-ui: false
     filter-ui: false
     fields: [title, description]
-    sort: id
+    sort: ''
     contents:
       - quickstart/beginner.qmd
-      - keras/classification.qmd
-  - id: experts
+      - quickstart/advanced.qmd
+
+  - id: keras
     type: grid
     sort-ui: false
     filter-ui: false
-    fields: [title, description]
+    fields: [title,  description]
+    sort: ''
     contents:
-      - quickstart/advanced.qmd
+      - keras/classification.qmd
+      - keras/text_classification.qmd
+      - keras/regression.qmd
+      - keras/overfit_and_underfit.qmd 
+      - keras/save_and_load.qmd
+      - keras/text_classification_with_hub.qmd
+
+  # - id: dataloading
+  #   type: grid
+  #   sort-ui: false
+  #   filter-ui: false
+  #   fields: [title, description]
+  #   contents:
+  #     - tfdatasets/csv.qmd 
+aliases:
+  - ../beginners/basic-ml/index.html
 ---
 
-## For beginners
+The best place to start is with the user-friendly Keras API. Build models by plugging together building blocks.
+These "Hello World" examples show Keras in action.
 
-The best place to start is with the user-friendly Keras sequential API. Build models by plugging together building blocks. After these tutorials, read the [Keras guide](../guides/keras/sequential_model.html).
+## Quickstart
 
-::: {#beginners}
+::: {#quickstart}
 :::
 
+## Keras
 
-## For experts
-
-The Keras functional and subclassing APIs provide a define-by-run interface for customization and advanced research. Build your model, then write the forward and backward pass. Create custom layers, activations, and training loops.
-
-::: {#experts}
+::: {#keras}
 :::
