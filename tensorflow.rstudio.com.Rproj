@@ -15,7 +15,6 @@ LaTeX: pdfLaTeX
 AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
 
-MarkdownWrap: Column
-MarkdownWrapAtColumn: 72
+MarkdownWrap: Sentence
 MarkdownReferences: Section
 MarkdownCanonical: Yes
