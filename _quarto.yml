@@ -148,6 +148,7 @@ website:
             - guides/deploy/plumber.qmd
             - guides/deploy/shiny.qmd
             - guides/deploy/docker.qmd
+            - guides/deploy/rsconnect.qmd
 
 
 format:
