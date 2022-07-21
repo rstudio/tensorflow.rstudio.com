@@ -3,16 +3,20 @@ title: Reference
 listing:
   type: grid
   sort: ""
+  fields: [title, description]
+  sort: '' # don't sort
   contents:
-    - "tensorflow/index.qmd"
-    - "keras/index.qmd"
-    - "tfdatasets/index.qmd"
-    - "tfautograph/index.qmd"
-    - "tfruns/index.qmd"
-    - "tfhub/index.qmd"
-    - "cloudml/index.qmd"
+    - tensorflow/index.qmd
+    - keras/index.qmd
+    - tfdatasets/index.qmd
+    - tfautograph/index.qmd
+    - tfruns/index.qmd
+    - tfhub/index.qmd
+    - cloudml/index.qmd
+    - tfhub/index.qmd
+    - title: tfprobability
+      description: A library for statistical computation and probabilistic modeling built on top of TensorFlow.
+      href: https://rstudio.github.io/tfprobability/index.html
 ---
 
 # R packages
-
-

@@ -37,5 +37,10 @@ site:
         version_folder: latest
         convert_readme: FALSE
         convert_articles: FALSE
+      - repo_url: https://github.com/rstudio/tfhub
+        quarto_sub_folder: reference/tfhub
+        version_folder: latest
+        convert_readme: FALSE
+        convert_articles: FALSE
   autolink:
     run: FALSE

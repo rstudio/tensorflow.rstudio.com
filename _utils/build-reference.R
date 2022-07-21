@@ -28,7 +28,8 @@ descs <- list(
   tfautograph = "Tools for translating R code to Tensorflow Graphs",
   tfruns = "Track and visualize training runs and experiments",
   tfhub = "Access pre-trained models ready for fine-tuning and deployment",
-  cloudml = "R interface to Google CloudML"
+  cloudml = "R interface to Google CloudML",
+  tfhub = "R interface to TensorFlow Hub, a library for reusable machine learning modules"
 )
 
 dir_ls("reference/") |>
@@ -63,14 +64,20 @@ title: Reference
 listing:
   type: grid
   sort: ""
+  fields: [title, description]
+  sort: '' # don't sort
   contents:
-    - "tensorflow/index.qmd"
-    - "keras/index.qmd"
-    - "tfdatasets/index.qmd"
-    - "tfautograph/index.qmd"
-    - "tfruns/index.qmd"
-    - "tfhub/index.qmd"
-    - "cloudml/index.qmd"
+    - tensorflow/index.qmd
+    - keras/index.qmd
+    - tfdatasets/index.qmd
+    - tfautograph/index.qmd
+    - tfruns/index.qmd
+    - tfhub/index.qmd
+    - cloudml/index.qmd
+    - tfhub/index.qmd
+    - title: tfprobability
+      description: A library for statistical computation and probabilistic modeling built on top of TensorFlow.
+      href: https://rstudio.github.io/tfprobability/index.html
 ---
 
 # R packages

@@ -96,6 +96,9 @@ website:
             - reference/tfhub/index.qmd
             - reference/tfruns/index.qmd
             - reference/cloudml/index.qmd
+            - reference/tfhub/index.qmd
+            - text: tfprobability
+              href: "https://rstudio.github.io/tfprobability/index.html"
 
 
     - title: "Guides"
