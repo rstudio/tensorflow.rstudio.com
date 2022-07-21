@@ -7,8 +7,8 @@ aliases:
 
 # TensorFlow 2 quickstart for experts
 
-Import TensorFlow into your program. If you haven't installed TensorFlow yet, go
-to the [installation guide](/install).
+Import TensorFlow into your program.
+If you haven't installed TensorFlow yet, go to the [installation guide](/install/).
 
 ```{r}
 library(tensorflow)
@@ -16,31 +16,24 @@ library(tfdatasets)
 library(keras)
 ```
 
-Load and prepare the [MNIST dataset](http://yann$lecun.com/exdb/mnist/).
+Load and prepare the [MNIST dataset](http://yann.lecun.com/exdb/mnist/).
 
 ```{r}
 c(c(x_train, y_train), c(x_test, y_test)) %<-% keras::dataset_mnist()
-x_train[] <- x_train / 255
-x_test[] <-  x_test / 255 
+x_train %<>% { . / 255 }
+x_test  %<>% { . / 255 }
 ```
 
-Use TensorFlow datasets to batch and shuffle the dataset:
+Use TensorFlow Datasets to batch and shuffle the dataset:
 
 ```{r}
-expand_and_cast <- function(x, y) {
-  list(
-    tf$cast(tf$expand_dims(x, axis = 2L), tf$float32),
-    y
-  )
-}
-
-
-train_ds <- list(x_train, y_train) %>% 
-  tensor_slices_dataset() %>% 
-  dataset_shuffle(10000) %>% 
+train_ds <- list(x_train, y_train) %>%
+  tensor_slices_dataset() %>%
+  dataset_shuffle(10000) %>%
   dataset_batch(32)
 
-test_ds <- tensor_slices_dataset(list(x_test, y_test)) %>% 
+test_ds <- list(x_test, y_test) %>%
+  tensor_slices_dataset() %>%
   dataset_batch(32)
 ```
 
@@ -48,20 +41,21 @@ Build the a model using the Keras [model subclassing API](https://www.tensorflow
 
 ```{r}
 my_model <- new_model_class(
-  "my_model",
-  initialize = function() {
-    super()$`__init__`()
-    self$conv1 <- layer_conv_2d(filters = 32, kernel_size = 3, activation = 'relu')
+  classname = "MyModel",
+  initialize = function(...) {
+    super$initialize()
+    self$conv1 <- layer_conv_2d(filters = 32, kernel_size = 3,
+                                activation = 'relu')
     self$flatten <- layer_flatten()
     self$d1 <- layer_dense(units = 128, activation = 'relu')
     self$d2 <- layer_dense(units = 10)
   },
   call = function(inputs) {
-    inputs %>% 
-      tf$expand_dims(3L) %>% 
-      self$conv1() %>% 
-      self$flatten() %>% 
-      self$d1() %>% 
+    inputs %>%
+      tf$expand_dims(3L) %>%
+      self$conv1() %>%
+      self$flatten() %>%
+      self$d1() %>%
       self$d2()
   }
 )
@@ -70,14 +64,15 @@ my_model <- new_model_class(
 model <- my_model()
 ```
 
-Choose an optimizer and loss function for training: 
+Choose an optimizer and loss function for training:
 
 ```{r}
 loss_object <- loss_sparse_categorical_crossentropy(from_logits = TRUE)
 optimizer <- optimizer_adam()
 ```
 
-Select metrics to measure the loss and the accuracy of the model. These metrics accumulate the values over epochs and then print the overall result.
+Select metrics to measure the loss and the accuracy of the model.
+These metrics accumulate the values over epochs and then print the overall result.
 
 ```{r}
 train_loss <- metric_mean(name = "train_loss")
@@ -87,7 +82,7 @@ test_loss <- metric_mean(name = "test_loss")
 test_accuracy <- metric_sparse_categorical_accuracy(name = "test_accuracy")
 ```
 
-Use `tf$GradientTape` to train the model:
+Use `tf$GradientTape()` to train the model:
 
 ```{r}
 train_step <- function(images, labels) {
@@ -101,12 +96,12 @@ train_step <- function(images, labels) {
   optimizer$apply_gradients(zip_lists(gradients, model$trainable_variables))
   train_loss(loss)
   train_accuracy(labels, predictions)
-  1
 }
 
-train <- tfautograph::autograph(function(train_ds) {
+train <- tf_function(function(train_ds) {
   for (batch in train_ds) {
-    train_step(batch[[1]], batch[[2]])
+    c(images, labels) %<-% batch
+    train_step(images, labels)
   }
 })
 ```
@@ -122,29 +117,37 @@ test_step <- function(images, labels) {
   test_loss(t_loss)
   test_accuracy(labels, predictions)
 }
-test <- tfautograph::autograph(function(test_ds) {
+
+test <- tf_function(function(test_ds) {
   for (batch in test_ds) {
-    test_step(batch[[1]], batch[[2]])
+    c(images, labels) %<-% batch
+    test_step(images, labels)
   }
 })
+```
+
+```{r}
+reset_metrics <- function() {
+  for (metric in list(train_loss, train_accuracy,
+                       test_loss, test_accuracy))
+    metric$reset_states()
+}
 ```
 
 ```{r}
 EPOCHS <- 1
 for (epoch in seq_len(EPOCHS)) {
   # Reset the metrics at the start of the next epoch
-  train_loss$reset_states()
-  train_accuracy$reset_states()
-  test_loss$reset_states()
-  test_accuracy$reset_states()
+  reset_metrics()
   train(train_ds)
   test(test_ds)
   cat(sprintf('Epoch %d', epoch), "\n")
-  cat(sprintf('Loss: %f', as.numeric(train_loss$result())), "\n")
+  cat(sprintf('Loss: %f', train_loss$result()), "\n")
   cat(sprintf('Accuracy: %f', train_accuracy$result() * 100), "\n")
   cat(sprintf('Test Loss: %f', test_loss$result()), "\n")
   cat(sprintf('Test Accuracy: %f', test_accuracy$result() * 100), "\n")
 }
 ```
 
-The image classifier is now trained to ~98% accuracy on this dataset. To learn more, read the [TensorFlow tutorials](/tutorials).
+The image classifier is now trained to \~98% accuracy on this dataset.
+To learn more, read the [TensorFlow tutorials](/tutorials/).

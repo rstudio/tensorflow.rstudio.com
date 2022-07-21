@@ -12,10 +12,10 @@ aliases:
 
 This short introduction uses [Keras](https://www.tensorflow.org/guide/keras/overview) to:
 
-1. Load a prebuilt dataset.
-1. Build a neural network machine learning model that classifies images.
-2. Train this neural network.
-3. Evaluate the accuracy of the model.
+1.  Load a prebuilt dataset.
+2.  Build a neural network machine learning model that classifies images.
+3.  Train this neural network.
+4.  Evaluate the accuracy of the model.
 
 ## Set up TensorFlow
 
@@ -26,16 +26,17 @@ library(tensorflow)
 library(keras)
 ```
 
-See the [installation guide](./install/) to learn how to correctly install TensorFlow for R.
+See the [installation guide](/install/) to learn how to correctly install TensorFlow for R.
 
 ## Load a dataset
 
-Load and prepare the [MNIST dataset](http://yann.lecun.com/exdb/mnist/). Convert the sample data from integers to floating-point numbers:
+Load and prepare the [MNIST dataset](http://yann.lecun.com/exdb/mnist/).
+Convert the sample data from integers to floating-point numbers:
 
 ```{r}
 c(c(x_train, y_train), c(x_test, y_test)) %<-% keras::dataset_mnist()
-x_train[] <- x_train / 255
-x_test[] <-  x_test / 255 
+x_train <- x_train / 255
+x_test <-  x_test / 255
 ```
 
 ## Build a machine learning model
@@ -43,47 +44,44 @@ x_test[] <-  x_test / 255
 Build a sequential model by stacking layers.
 
 ```{r}
-model <- keras_model_sequential(input_shape = c(28, 28)) %>% 
-  layer_flatten() %>% 
-  layer_dense(128, activation = "relu") %>% 
-  layer_dropout(0.2) %>% 
+model <- keras_model_sequential(input_shape = c(28, 28)) %>%
+  layer_flatten() %>%
+  layer_dense(128, activation = "relu") %>%
+  layer_dropout(0.2) %>%
   layer_dense(10)
 ```
 
 For each example, the model returns a vector of [logits](https://developers$google.com/machine-learning/glossary#logits) or [log-odds](https://developers$google.com/machine-learning/glossary#log-odds) scores, one for each class.
 
 ```{r}
-predictions <- predict(model, x_train[1:2,,])
+predictions <- predict(model, x_train[1:2, , ])
 predictions
 ```
 
-The `tf$nn$softmax` function converts these logits to *probabilities* for each class: 
+The `tf$nn$softmax` function converts these logits to *probabilities* for each class:
 
 ```{r}
 tf$nn$softmax(predictions)
 ```
 
-Note: It is possible to bake the `tf$nn$softmax` function into the activation function for the last layer of the network. While this can make the model output more directly interpretable, this approach is discouraged as it's impossible to provide an exact and numerically stable loss calculation for all models when using a softmax output. 
+Note: It is possible to bake the `tf$nn$softmax` function into the activation function for the last layer of the network.
+While this can make the model output more directly interpretable, this approach is discouraged as it's impossible to provide an exact and numerically stable loss calculation for all models when using a softmax output.
 
-Define a loss function for training using `loss_sparse_categorical_crossentropy()`, 
-which takes a vector of logits and a `TRUE` index and returns a scalar loss for 
-each example.
+Define a loss function for training using `loss_sparse_categorical_crossentropy()`, which takes a vector of logits and an integer index of which are `TRUE` and returns a scalar loss for each example.
 
 ```{r}
 loss_fn <- loss_sparse_categorical_crossentropy(from_logits = TRUE)
 ```
 
 This loss is equal to the negative log probability of the true class: The loss is zero if the model is sure of the correct class.
-This untrained model gives probabilities close to random (1/10 for each class), so the initial loss should be close to `-tf$math$log(1/10) ~= 2.3`.
+This untrained model gives probabilities close to random (1/10 for each class), so the initial loss should be close to `-log(1/10) ~= 2.3`.
 
 ```{r}
 loss_fn(y_train[1:2], predictions)
 ```
 
-Before you start training, configure and compile the model using Keras `compile()`. 
-Set the [`optimizer`](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers) class 
-to `adam`, set the `loss` to the `loss_fn` function you defined earlier, and specify 
-a metric to be evaluated for the model by setting the `metrics` parameter to `accuracy`.
+Before you start training, configure and compile the model using Keras `compile()`.
+Set the [`optimizer`](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers) class to `"adam"`, set the `loss` to the `loss_fn` function you defined earlier, and specify a metric to be evaluated for the model by setting the `metrics` parameter to `"accuracy"`.
 
 ```{r}
 model %>% compile(
@@ -95,7 +93,7 @@ model %>% compile(
 
 ## Train and evaluate your model
 
-Use the `fit()` method to adjust your model parameters and minimize the loss: 
+Use the `fit()` method to adjust your model parameters and minimize the loss:
 
 ```{r}
 model %>% fit(x_train, y_train, epochs = 5)
@@ -107,22 +105,27 @@ The `evaluate()` method checks the models performance, usually on a [Validation-
 model %>% evaluate(x_test,  y_test, verbose = 2)
 ```
 
-The image classifier is now trained to ~98% accuracy on this dataset. To learn more, read the [TensorFlow tutorials](https://www.tensorflow.org/tutorials/).
+The image classifier is now trained to \~98% accuracy on this dataset.
+To learn more, read the [TensorFlow tutorials](https://www.tensorflow.org/tutorials/).
 
-If you want your model to return a probability, you can wrap the trained model, and attach the softmax to it:
+If you want your model to return which class had the highest probability, you can reuse the trained model to define a new sequential model that also calls softmax and argmax:
 
 ```{r}
-probability_model <- keras_model_sequential() %>% 
-  model() %>% 
-  layer_activation_softmax()
+probability_model <- keras_model_sequential() %>%
+  model() %>%
+  layer_activation_softmax() %>%
+  layer_lambda(tf$argmax)
 ```
 
 ```{r}
-probability_model(x_test[1:5,,])
+probability_model(x_test[1:5, , ])
 ```
 
 ## Conclusion
 
-Congratulations! You have trained a machine learning model using a prebuilt dataset using the [Keras](https://www.tensorflow.org/guide/keras/overview) API.
+Congratulations!
+You have trained a machine learning model using a prebuilt dataset using the [Keras](https://www.tensorflow.org/guide/keras/overview) API.
 
-For more examples of using Keras, check out the [tutorials](https://www.tensorflow.org/tutorials/keras/). To learn more about building models with Keras, read the [guides](https://www.tensorflow.org/guide/keras). If you want learn more about loading and preparing data, see the tutorials on [image data loading](https://www.tensorflow.org/tutorials/load_data/images) or [CSV data loading](https://www.tensorflow.org/tutorials/load_data/csv).
+For more examples of using Keras, check out the [tutorials](https://www.tensorflow.org/tutorials/keras/).
+To learn more about building models with Keras, read the [guides](https://www.tensorflow.org/guide/keras).
+If you want learn more about loading and preparing data, see the tutorials on [image data loading](https://www.tensorflow.org/tutorials/load_data/images) or [CSV data loading](https://www.tensorflow.org/tutorials/load_data/csv).
