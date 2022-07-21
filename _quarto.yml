@@ -50,6 +50,15 @@ website:
       - { text: Guides, href: guides/ }
       - { text: Examples, href: examples/ }
       - { text: Reference, href: reference/ }
+    right:
+      - icon: github
+        aria-label: GitHub repository
+        menu:
+          - { text: tensorflow,  href: https://github.com/rstudio/tensorflow }
+          - { text: keras,       href: https://github.com/rstudio/keras }
+          - { text: tfdatasets,  href: https://github.com/rstudio/tfdatasets }
+          - { text: tfautograph, href: https://github.com/t-kalinowski/tfautograph }
+          - { text: website,     href: https://github.com/rstudio/tensorflow.rstudio.com }
 
   sidebar:
     - title: "Install"
