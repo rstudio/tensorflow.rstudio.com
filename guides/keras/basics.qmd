@@ -1,19 +1,19 @@
 ---
 title: "Guide to Keras Basics"
 aliases:
-  - /keras/articles/guide_keras.html
+  - /articles/guide_keras.html
 ---
 
 Keras is a high-level API to build and train deep learning models. It's
 used for fast prototyping, advanced research, and production, with three
 key advantages:
 
--   *User friendly*<br> Keras has a simple, consistent interface
+-   *User friendly* -- Keras has a simple, consistent interface
     optimized for common use cases. It provides clear and actionable
     feedback for user errors.
--   *Modular and composable*<br> Keras models are made by connecting
+-   *Modular and composable* -- Keras models are made by connecting
     configurable building blocks together, with few restrictions.
--   *Easy to extend*<br> Write custom building blocks to express new
+-   *Easy to extend* -- Write custom building blocks to express new
     ideas for research. Create new layers, loss functions, and develop
     state-of-the-art models.
 
@@ -39,14 +39,14 @@ perceptron):
 ```{r}
 model <- keras_model_sequential()
 
-model %>% 
-  
+model %>%
+
   # Adds a densely-connected layer with 64 units to the model:
   layer_dense(units = 64, activation = 'relu') %>%
-  
+
   # Add another:
   layer_dense(units = 64, activation = 'relu') %>%
-  
+
   # Add a softmax layer with 10 output units:
   layer_dense(units = 10, activation = 'softmax')
 ```
@@ -205,7 +205,7 @@ provided, again as R data as well as a `dataset`:
 
 ```{r, eval = FALSE}
 model %>% predict(test_data, batch_size = 32)
-    
+
 model %>% predict(test_dataset, steps = 30)
 ```
 
@@ -235,9 +235,9 @@ fully-connected network:
 ```{r}
 inputs <- layer_input(shape = (32))  # Returns a placeholder tensor
 
-predictions <- inputs %>% 
+predictions <- inputs %>%
   layer_dense(units = 64, activation = 'relu') %>%
-  layer_dense(units = 64, activation = 'relu') %>% 
+  layer_dense(units = 64, activation = 'relu') %>%
   layer_dense(units = 10, activation = 'softmax')
 
 # Instantiate the model given inputs and outputs.
@@ -283,32 +283,32 @@ Here is an example custom layer that performs a matrix multiplication:
 library(keras)
 
 CustomLayer <- R6::R6Class("CustomLayer",
-                                  
+
   inherit = KerasLayer,
-  
+
   public = list(
-    
+
     output_dim = NULL,
-    
+
     kernel = NULL,
-    
+
     initialize = function(output_dim) {
       self$output_dim <- output_dim
     },
-    
+
     build = function(input_shape) {
       self$kernel <- self$add_weight(
-        name = 'kernel', 
+        name = 'kernel',
         shape = list(input_shape[[2]], self$output_dim),
         initializer = initializer_random_normal(),
         trainable = TRUE
       )
     },
-    
+
     call = function(x, mask = NULL) {
       k_dot(x, self$kernel)
     },
-    
+
     compute_output_shape = function(input_shape) {
       list(input_shape[[1]], self$output_dim)
     }
@@ -336,8 +336,8 @@ You can now use the layer in a model as usual:
 
 ```{r}
 model <- keras_model_sequential()
-model %>% 
-  layer_dense(units = 32, input_shape = c(32,32)) %>% 
+model %>%
+  layer_dense(units = 32, input_shape = c(32,32)) %>%
   layer_custom(output_dim = 32)
 ```
 
@@ -359,13 +359,13 @@ be executed on forward pass.
 # define a custom model type
 my_model_constructor <- new_model_class(
   "MyModel",
-  
+
   initialize = function(output_dim, ...) {
     super$initialize(...)
     # store our output dim in self until build() is called
     self$output_dim <- output_dim
   },
-  
+
   build = function(input_shape) {
     # create layers we'll need for the call (this code executes once)
     # note: the layers have to be created on the self object!
@@ -375,7 +375,7 @@ my_model_constructor <- new_model_class(
     self$dense2 <- layer_dense(units = 64, activation = 'relu')
     self$dense3 <- layer_dense(units = self$output_dim, activation = 'softmax')
   },
-  
+
   # implement call (this code executes during training & inference)
   call = function(inputs) {
     x <- inputs %>%
@@ -384,8 +384,8 @@ my_model_constructor <- new_model_class(
       self$dense3()
     x
   },
-  
-  # define a `get_config()` method in custom objects 
+
+  # define a `get_config()` method in custom objects
   # to enable model saving and restoring
   get_config = function() {
     list(output_dim = self$output_dim)
@@ -480,7 +480,7 @@ fresh_model <- model_from_json(json_string,
 json_string <- model %>% model_to_json()
 
 # Recreate the model (freshly initialized)
-fresh_model <- model_from_json(json_string, 
+fresh_model <- model_from_json(json_string,
                                custom_objects = list('MyModel' = my_model_constructor))
 ```
 

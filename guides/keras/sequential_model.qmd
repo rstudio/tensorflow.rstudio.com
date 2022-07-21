@@ -5,7 +5,6 @@ date-created: 2020/04/12
 date-last-modified: 2020/04/12
 description: Complete guide to the Sequential model.
 aliases:
-  - ../../articles/guide_keras.html
   - ../../articles/sequential_model.html
   - ../../guide/keras/sequential_model/index.html
 ---
@@ -26,9 +25,9 @@ Schematically, the following `Sequential` model:
 
 ```{r}
 # Define Sequential model with 3 layers
-model <- keras_model_sequential() %>% 
-  layer_dense(2, activation = "relu", name = "layer1") %>% 
-  layer_dense(3, activation = "relu", name = "layer2") %>% 
+model <- keras_model_sequential() %>%
+  layer_dense(2, activation = "relu", name = "layer1") %>%
+  layer_dense(3, activation = "relu", name = "layer2") %>%
   layer_dense(4, name = "layer3")
 
 # Call model on a test input
@@ -131,9 +130,9 @@ this). The weights are created when the model first sees some input
 data:
 
 ```{r}
-model <- keras_model_sequential() %>% 
-        layer_dense(2, activation = "relu") %>% 
-        layer_dense(3, activation = "relu") %>% 
+model <- keras_model_sequential() %>%
+        layer_dense(2, activation = "relu") %>%
+        layer_dense(3, activation = "relu") %>%
         layer_dense(4)
 
 # No weights at this stage!
@@ -188,11 +187,11 @@ is downsampling image feature maps:
 
 ```{r}
 model <- keras_model_sequential(input_shape = c(250, 250, 3)) # 250x250 RGB images
-  
-model %>% 
+
+model %>%
   layer_conv_2d(32, 5, strides = 2, activation = "relu") %>%
   layer_conv_2d(32, 3, activation = "relu") %>%
-  layer_max_pooling_2d(3) 
+  layer_max_pooling_2d(3)
 
 # Can you guess what the current output shape is at this point? Probably not.
 # Let's just print it:
@@ -205,7 +204,7 @@ model %>%
   layer_max_pooling_2d(3) %>%
   layer_conv_2d(32, 3, activation = "relu") %>%
   layer_conv_2d(32, 3, activation = "relu") %>%
-  layer_max_pooling_2d(2) 
+  layer_max_pooling_2d(2)
 
 # And now?
 model
@@ -351,4 +350,3 @@ To find out more about building models in Keras, see:
 
 
 {{< include ../../_environment.qmd >}}
-
