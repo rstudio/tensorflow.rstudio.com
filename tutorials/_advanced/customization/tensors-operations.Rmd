@@ -1,0 +1,106 @@
+---
+title: "Tensors and operations"
+type: docs
+menu:
+  main:
+    name: "Tensors and operations"
+    identifier: "tutorials-advanced-customization-tensors"
+    parent: "tutorials-advanced-customization-top"
+    weight: 60
+---
+
+This is an introductory TensorFlow tutorial shows how to:
+
+* Import the required package
+* Create and use tensors
+* Use GPU acceleration
+
+## Import TensorFlow
+
+To get started, import the tensorflow module. As of TensorFlow 2.0, eager execution is turned on by default. This enables a more interactive frontend to TensorFlow, the details of which we will discuss much later.
+
+```{r}
+library(tensorflow)
+```
+
+## Tensors
+
+A Tensor is a multi-dimensional array. Similar to `array` objects in R, `tf$Tensor` objects have a data type and a shape. Additionally, `tf$Tensors` can reside in accelerator memory (like a GPU). TensorFlow offers a rich library of operations (`tf$add`, `tf$matmul`, `tf$linalg$inv` etc.) that consume and produce `tf.Tensors`. These operations automatically convert native R types, for example:
+
+```{r}
+tf$add(1, 2)
+tf$add(c(1, 2), c(3, 4))
+tf$square(5)
+tf$reduce_sum(c(1, 2, 3))
+
+# Operator overloading is also supported
+tf$square(2) + tf$square(3)
+```
+
+Each `tf$Tensor` has a shape and a datatype:
+
+```{r}
+x = tf$matmul(matrix(1,ncol = 1), matrix(c(2, 3), nrow = 1))
+x
+x$shape
+x$dtype
+```
+
+The most obvious differences between arrays and `tf$Tensor`s are:
+
+1. Tensors can be backed by accelerator memory (like GPU, TPU).
+2. Tensors are immutable.
+
+## R arrays compatibility
+
+Converting between a TensorFlow tf.Tensors and an array is easy:
+
+* TensorFlow operations automatically convert R arrays to Tensors.
+
+Tensors are explicitly converted to R arrays using the `as.array`, `as.matrix` or `as.numeric` methods. There's always a memory copy when converting from a Tensor to an array in R. 
+
+```{r}
+# TensorFlow operations convert arrays to Tensors automatically
+1 + tf$ones(shape = 1)
+
+# The as.array method explicitly converts a Tensor to an array
+as.array(tf$ones(shape = 1))
+```
+
+## GPU acceleration
+
+Many TensorFlow operations are accelerated using the GPU for computation. Without any annotations, TensorFlow automatically decides whether to use the GPU or CPU for an operation—copying the tensor between CPU and GPU memory, if necessary. Tensors produced by an operation are typically backed by the memory of the device on which the operation executed, for example:
+
+```{r}
+x <- tf$random$uniform(shape(3, 3))
+
+# List devices
+tf$config$experimental$list_physical_devices()
+
+# What device is x placed
+x$device
+```
+
+### Device Names
+
+The `Tensor$device` property provides a fully qualified string name of the device hosting the contents of the tensor. This name encodes many details, such as an identifier of the network address of the host on which this program is executing and the device within that host. This is required for distributed execution of a TensorFlow program. The string ends with `GPU:<N>` if the tensor is placed on the `N`-th GPU on the host.
+
+
+## Explicit Device Placement
+
+In TensorFlow, placement refers to how individual operations are assigned (placed on) a device for execution. As mentioned, when there is no explicit guidance provided, TensorFlow automatically decides which device to execute an operation and copies tensors to that device, if needed. However, TensorFlow operations can be explicitly placed on specific devices using the `tf$device` context manager, for example:
+
+```{r, eval = FALSE}
+print("On CPU:0:")
+with(tf$device("CPU:0"), {
+  x <- tf$ones(shape(1000, 1000))
+  print(x$device)
+})
+
+print("On GPU:0:")
+with(tf$device("GPU:0"), {
+  x <- tf$ones(shape(1000, 1000))
+  print(x$device)
+})
+```
+

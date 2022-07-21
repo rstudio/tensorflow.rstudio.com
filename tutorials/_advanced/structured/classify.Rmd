@@ -1,0 +1,295 @@
+---
+title: "Classify structured data with feature columns"
+type: docs
+menu:
+  main:
+    name: "Classify structured data"
+    identifier: "tutorials-advanced-structured-classify"
+    parent: "tutorials-advanced-structured-top"
+    weight: 20
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+This tutorial demonstrates how to classify structured data (e.g. tabular data in a CSV). We will use Keras to define the model, and feature columns as a bridge to map from columns in a CSV to features used to train the model. This tutorial contains complete code to:
+
+1. Load a CSV file using the tidyverse.
+2. Build an input pipeline to batch and shuffle the rows using tf.data.
+3. Map from columns in the CSV to features used to train the model using feature columns.
+4. Build, train, and evaluate a model using Keras.
+
+## The Dataset
+
+We will use a small dataset provided by the Cleveland Clinic Foundation for Heart Disease. There are several hundred rows in the CSV. Each row describes a patient, and each column describes an attribute. We will use this information to predict whether a patient has heart disease, which in this dataset is a binary classification task.
+
+Following is a description of this dataset. Notice there are both numeric and categorical columns.
+
+>Column| Description| Feature Type | Data Type
+>------------|--------------------|----------------------|-----------------
+>Age | Age in years | Numerical | integer
+>Sex | (1 = male; 0 = female) | Categorical | integer
+>CP | Chest pain type (0, 1, 2, 3, 4) | Categorical | integer
+>Trestbpd | Resting blood pressure (in mm Hg on admission to the hospital) | Numerical | integer
+>Chol | Serum cholestoral in mg/dl | Numerical | integer
+>FBS | (fasting blood sugar > 120 mg/dl) (1 = true; 0 = false) | Categorical | integer
+>RestECG | Resting electrocardiographic results (0, 1, 2) | Categorical | integer
+>Thalach | Maximum heart rate achieved | Numerical | integer
+>Exang | Exercise induced angina (1 = yes; 0 = no) | Categorical | integer
+>Oldpeak | ST depression induced by exercise relative to rest | Numerical | integer
+>Slope | The slope of the peak exercise ST segment | Numerical | float
+>CA | Number of major vessels (0-3) colored by flourosopy | Numerical | integer
+>Thal | 3 = normal; 6 = fixed defect; 7 = reversable defect | Categorical | string
+>Target | Diagnosis of heart disease (1 = true; 0 = false) | Classification | integer
+
+## Setup
+
+We will use Keras and TensorFlow datasets.
+
+```{r}
+library(keras)
+library(tfdatasets)
+library(tidyverse)
+library(rsample)
+```
+
+## Read the data
+
+We will use `read_csv` in order to read the csv file to R. 
+
+```{r}
+heart <- pins::pin("https://storage.googleapis.com/applied-dl/heart.csv", "heart")
+df <- read_csv(heart)
+glimpse(df)
+```
+
+## Split the dataframe into train, validation, and test
+
+We are going to use the `rsample` package to split the data into train, validation
+and test sets.
+
+```{r}
+# first we split between training and testing sets
+split <- initial_split(df, prop = 4/5)
+train <- training(split)
+test <- testing(split)
+
+# the we split the training set into validation and training
+split <- initial_split(train, prop = 4/5)
+train <- training(split)
+val <- testing(split)
+```
+
+```{r}
+nrow(train)
+nrow(val)
+nrow(test)
+```
+
+## Create an input pipeline using tfdatasets
+
+Next, we will wrap the dataframes with tfdatasets. This will enable us to use feature columns as a bridge to map from the columns in the dataframe to features used to train the model. If we were working with a very large CSV file (so large that it does not fit into memory), we would use tfdatasets to read it from disk directly. That is not covered in this tutorial.
+
+```{r}
+df_to_dataset <- function(df, shuffle = TRUE, batch_size = 32) {
+  ds <- df %>% 
+    tensor_slices_dataset()
+  
+  if (shuffle)
+    ds <- ds %>% dataset_shuffle(buffer_size = nrow(df))
+  
+  ds %>% 
+    dataset_batch(batch_size = batch_size)
+}
+```
+
+```{r}
+batch_size <- 5
+train_ds <- df_to_dataset(train, batch_size = batch_size)
+val_ds <- df_to_dataset(val, shuffle = FALSE, batch_size = batch_size)
+test_ds <- df_to_dataset(test, shuffle = FALSE, batch_size = batch_size)
+```
+
+## Understand the input pipeline
+
+Now that we have created the input pipeline, let's call it to see the format of the data it returns. We have used a small batch size to keep the output readable.
+
+```{r}
+train_ds %>% 
+  reticulate::as_iterator() %>% 
+  reticulate::iter_next() %>% 
+  str()
+```
+
+We can see that the dataset returns a list of column names (from the dataframe) that map to column values from rows in the dataframe.
+
+## Create the feature spec
+
+We want to train a model to predict the `target` variable using Keras but, before
+that we need to prepare the data. We need to transform the categorical variables
+into some form of dense variable, we usually want to normalize all numeric columns too.
+
+The feature spec interface works with `data.frame`s or TensorFlow datasets objects.
+
+Let's start creating our feature specification:
+
+```{r}
+spec <- feature_spec(train_ds, target ~ .)
+```
+
+The first thing we need to do after creating the feature_spec is decide on the variables' types.
+
+We can do this by adding steps to the `spec` object.
+
+```{r}
+spec <- spec %>% 
+  step_numeric_column(
+    all_numeric(), -cp, -restecg, -exang, -sex, -fbs,
+    normalizer_fn = scaler_standard()
+  ) %>% 
+  step_categorical_column_with_vocabulary_list(thal)
+```
+
+The following steps can be used to define the variable type:
+
+* `step_numeric_column` to define numeric variables
+* `step_categorical_with_vocabulary_list` for categorical variables with a fixed vocabulary
+* `step_categorical_column_with_hash_bucket` for categorical variables using the hash trick
+* `step_categorical_column_with_identity` to store categorical variables as integers
+* `step_categorical_column_with_vocabulary_file` when you have the possible vocabulary in a file
+
+When using `step_categorical_column_with_vocabulary_list` you can also provide a `vocabulary` argument
+with the fixed vocabulary. The recipe will find all the unique values in the dataset and use it
+as the vocabulary.
+
+You can also specify a `normalizer_fn` to the `step_numeric_column`. In this case the variable will be
+transformed by the feature column. Note that the transformation will occur in the TensorFlow Graph,
+so it must use only TensorFlow ops. Like in the example we offer pre-made normalizers - and they will
+compute the normalizing function during the recipe preparation.
+
+You can also use selectors like:
+
+* `starts_with()`, `ends_with()`, `matches()` etc. (from tidyselect)
+* `all_numeric()` to select all numeric variables
+* `all_nominal()` to select all strings
+* `has_type("float32")` to select based on TensorFlow variable type.
+
+Now we can print the recipe:
+
+```{r}
+spec
+```
+
+After specifying the types of the columns you can add transformation steps. 
+For example you may want to bucketize a numeric column:
+
+```{r}
+spec <- spec %>% 
+  step_bucketized_column(age, boundaries = c(18, 25, 30, 35, 40, 45, 50, 55, 60, 65))
+```
+
+You can also specify the kind of numeric representation that you want to use for
+your categorical variables.
+
+```{r}
+spec <- spec %>% 
+  step_indicator_column(thal) %>% 
+  step_embedding_column(thal, dimension = 2)
+```
+
+Another common transformation is to add interactions between variables using crossed
+columns. 
+
+```{r}
+spec <- spec %>% 
+  step_crossed_column(thal_and_age = c(thal, bucketized_age), hash_bucket_size = 1000) %>% 
+  step_indicator_column(thal_and_age)
+```
+
+Note that the `crossed_column` is a categorical column, so we need to also specify what
+kind of numeric tranformation we want to use. Also note that we can name the transformed
+variables - each step uses a default naming for columns, eg. `bucketized_age` is the
+default name when you use `step_bucketized_column` with column called `age`.
+
+With the above code we have created our recipe. Note we can also define the
+recipe by chaining a sequence of methods:
+
+```{r} 
+spec <- feature_spec(train_ds, target ~ .) %>% 
+  step_numeric_column(
+    all_numeric(), -cp, -restecg, -exang, -sex, -fbs,
+    normalizer_fn = scaler_standard()
+  ) %>% 
+  step_categorical_column_with_vocabulary_list(thal) %>% 
+  step_bucketized_column(age, boundaries = c(18, 25, 30, 35, 40, 45, 50, 55, 60, 65)) %>% 
+  step_indicator_column(thal) %>% 
+  step_embedding_column(thal, dimension = 2) %>% 
+  step_crossed_column(c(thal, bucketized_age), hash_bucket_size = 10) %>%
+  step_indicator_column(crossed_thal_bucketized_age)
+```
+
+After defining the recipe we need to `fit` it. It's when fitting that we compute the vocabulary
+list for categorical variables or find the mean and standard deviation for the normalizing functions.
+Fitting involves evaluating the full dataset, so if you have provided the vocabulary list and 
+your columns are already normalized you can skip the fitting step (TODO).
+
+In our case, we will fit the feature spec, since we didn't specify the vocabulary list
+for the categorical variables.
+
+```{r}
+spec_prep <- fit(spec)
+```
+
+After preparing we can see the list of dense features that were defined:
+
+```{r}
+str(spec_prep$dense_features())
+```
+
+## Build the model
+
+Now we are ready to define our model in Keras. We will use a specialized `layer_dense_features` that
+knows what to do with the feature columns specification.
+
+We also use a new `layer_input_from_dataset` that is useful to create a Keras input object copying the structure from a `data.frame` or TensorFlow dataset.
+
+```{r}
+model <- keras_model_sequential() %>% 
+  layer_dense_features(dense_features(spec_prep)) %>% 
+  layer_dense(units = 32, activation = "relu") %>% 
+  layer_dense(units = 1, activation = "sigmoid")
+
+
+model %>% compile(
+  loss = loss_binary_crossentropy, 
+  optimizer = "adam", 
+  metrics = "binary_accuracy"
+)
+```
+
+## Train the model
+
+We can finally train the model on the dataset:
+
+```{r warning=FALSE}
+history <- model %>% 
+  fit(
+    dataset_use_spec(train_ds, spec = spec_prep),
+    epochs = 15, 
+    validation_data = dataset_use_spec(val_ds, spec_prep),
+    verbose = 2
+  )
+plot(history)
+```
+
+Finally we can make predictions in the test set and calculate performance 
+metrics like the AUC of the ROC curve:
+
+```{r}
+pred <- predict(model, test)
+Metrics::auc(test$target, pred)
+```
+
