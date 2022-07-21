@@ -30,16 +30,14 @@ website:
   repo-actions: [edit, source, issue]
   search: true
   page-navigation: true
-  reader-mode: true
+  reader-mode: false
   favicon: "images/favicon/icon.png"
   page-footer:
     left: |
       Proudly supported by
-      [![](https://www.rstudio.com/wp-content/uploads/2018/10/RStudio-Logo-flat.svg){fig-alt="RStudio" width=65px}](https://www.rstudio.com)
+      [![](/images/RStudio-Logo-flat.svg){fig-alt="RStudio" width=65px}](https://www.rstudio.com)
     right:
-      - icon: github
-        href: https://github.com/rstudio/tensorflow
-        aria-label: GitHub repository
+      - Copyright © 2015-2022 The TensorFlow Authors and RStudio, PBC.
   navbar:
     search: true
     logo: "images/favicon/icon.png"
