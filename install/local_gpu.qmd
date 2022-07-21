@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 The default build of TensorFlow will use an NVIDIA® GPU if it is available and the appropriate drivers are installed, and otherwise fallback to using the CPU only.
 
 The prerequisites for the GPU version of TensorFlow on each platform are covered below.
-Note that on all platforms you must be running an NVIDIA® GPU with CUDA® Compute Capability 3.5 or higher.
+Note that on all platforms (except macOS) you must be running an NVIDIA® GPU with CUDA® Compute Capability 3.5 or higher.
 See the list of [CUDA-enabled GPU cards](https://developer.nvidia.com/cuda-gpus).
 
 To enable TensorFlow to use a local NVIDIA® GPU, you can install the following:
@@ -45,6 +45,7 @@ sudo apt-mark hold libcudnn8
 
 ### Windows
 
+First, confirm you have an appropriate GPU.
 This article describes how to detect whether your graphics card uses an NVIDIA® GPU:
 
 <http://nvidia.custhelp.com/app/answers/detail/a_id/2040/~/identifying-the-graphics-card-model-and-device-id-in-a-pc>
