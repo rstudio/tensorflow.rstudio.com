@@ -1,5 +1,6 @@
 ---
 title: Basic Regression
+description: Train a neural netowrk to predict a continous value.
 aliases:
   - ../beginners/basic-ml/tutorial_basic_regression/index.html
   - ../../articles/tutorial_basic_regression.html
@@ -28,7 +29,7 @@ The dataset is available from the [UCI Machine Learning Repository](https://arch
 
 ### Get the data
 
-First download and import the dataset using pandas:
+First download and import the dataset:
 
 ```{r}
 url <- "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data"

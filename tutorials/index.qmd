@@ -23,7 +23,7 @@ listing:
       - keras/classification.qmd
       - keras/text_classification.qmd
       - keras/regression.qmd
-      - keras/overfit_and_underfit.qmd 
+      - keras/overfit_and_underfit.qmd
       - keras/save_and_load.qmd
       - keras/text_classification_with_hub.qmd
 
@@ -33,7 +33,7 @@ listing:
   #   filter-ui: false
   #   fields: [title, description]
   #   contents:
-  #     - tfdatasets/csv.qmd 
+  #     - tfdatasets/csv.qmd
 aliases:
   - ../beginners/basic-ml/index.html
 ---
@@ -47,6 +47,8 @@ These "Hello World" examples show Keras in action.
 :::
 
 ## Keras
+
+This collection of tutorials demonstrates basic machine learning tasks using Keras.
 
 ::: {#keras}
 :::

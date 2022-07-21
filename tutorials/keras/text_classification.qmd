@@ -1,5 +1,6 @@
 ---
 title: Basic Text Classification
+description: "Train a binary classifier to perform sentiment analysis, starting from plain text files stored on disk."
 aliases:
   - ../beginners/basic-ml/tutorial_basic_text_classification/index.html
   - ../../articles/tutorial_basic_text_classification.html
@@ -20,7 +21,7 @@ library(tfdatasets)
 This notebook trains a sentiment analysis model to classify movie reviews as *positive* or *negative*, based on the text of the review.
 This is an example of *binary*---or two-class---classification, an important and widely applicable kind of machine learning problem.
 
-You'll use the [Large Movie Review Dataset](https://ai$stanford$edu/~amaas/data/sentiment/) that contains the text of 50,000 movie reviews from the [Internet Movie Database](https://www.imdb.com/).
+You'll use the [Large Movie Review Dataset](https://ai.stanford.edu/~amaas/data/sentiment/) that contains the text of 50,000 movie reviews from the [Internet Movie Database](https://www.imdb.com/).
 These are split into 25,000 reviews for training and 25,000 reviews for testing.
 The training and testing sets are *balanced*, meaning they contain an equal number of positive and negative reviews.
 
