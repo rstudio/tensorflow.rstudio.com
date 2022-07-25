@@ -1,4 +1,9 @@
 [[redirects]]
+  from = "http://keras.rstudio.com/*"
+  to = "http://tensorflow.rstudio.com/:splat"
+  force = true
+
+[[redirects]]
   from = "https://keras.rstudio.com/*"
   to = "https://tensorflow.rstudio.com/:splat"
   force = true
