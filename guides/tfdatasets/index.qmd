@@ -4,6 +4,7 @@ aliases:
   - ../../tutorials/beginners/load/load_csv/index.html
   - ../../tutorials/beginners/load/load_image/index.html
   - ../../guide/tfdatasets/introduction/index.html
+  - /tools/tfdatasets/
 ---
 
 The tfdatasets API enables you to build complex input pipelines from simple,
