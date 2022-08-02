@@ -1,6 +1,7 @@
 
+
 if(file.exists("~/.Rprofile"))
-  sys.source("~/.Rprofile")
+  sys.source("~/.Rprofile", envir = globalenv())
 
 set.seed(123456)
 
@@ -25,9 +26,17 @@ options(
 setHook("plot.new", function() par(las = 1))
 
 setHook(packageEvent("reticulate", "onLoad"),
-        function(...) {
-          try(reticulate::use_virtualenv("r-tensorflow-site", required = TRUE))
-        })
+  function(...) {
+    tryCatch(
+      reticulate::use_virtualenv("r-tensorflow-website", required = TRUE),
+      error = function(e) {
+        warning(paste(sep = "\n",
+          "'r-tensorflow-website' virtual environment not found.",
+          "Please run ./_utils/create-r-tensorflow-webiste-venv.R"
+        ))
+      }
+    )
+})
 
 if(is.na(Sys.getenv("CUDA_VISIBLE_DEVICES", NA)) &&
    Sys.info()[["sysname"]] == "Linux" &&
