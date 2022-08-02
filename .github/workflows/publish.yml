@@ -2,6 +2,9 @@ on:
   workflow_dispatch:
   push:
     branches: main
+  paths:
+    - '**.qmd'
+    - '_freeze'
 
 name: Quarto Publish
 
