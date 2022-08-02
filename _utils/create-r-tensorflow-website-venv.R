@@ -20,6 +20,12 @@ if("--fresh" %in% commandArgs(TRUE)) {
   unlink(reticulate:::virtualenv_path(envname), recursive = TRUE)
 }
 
+
+# not strictly necessary, but `reticulate::install_python()` is much
+# faster if we install some dependencies as pre-built kegs, especially openssl@1.1
+if(nzchar(Sys.which("brew")))
+  system("brew install --only-dependencies pyenv python@3.9")
+
 python <- reticulate::install_python(force = "--fresh" %in% commandArgs(TRUE))
 reticulate::virtualenv_create(envname, python = python)
 
