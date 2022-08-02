@@ -5,6 +5,8 @@ on:
     paths:
       - '**.qmd'
       - '_freeze'
+      - '**.yml'
+      - 'reference'
 
 name: Quarto Publish
 

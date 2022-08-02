@@ -27,8 +27,7 @@ website:
   title: TensorFlow for R
   site-url: https://tensorflow.rstudio.com/
   repo-url: https://github.com/rstudio/tensorflow.rstudio.com
-  # Uncomment when we move to tensorflow.rstudio.com
-  # google-analytics: "UA-20375833-3"
+  google-analytics: "UA-20375833-3"
   repo-actions: [edit, source, issue]
   search: true
   page-navigation: true
