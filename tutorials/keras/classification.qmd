@@ -243,7 +243,7 @@ Next, compare how the model performs on the test dataset:
 score <- model %>% evaluate(test_images, test_labels, verbose = 0)
 
 cat('Test loss:', score["loss"], "\n")
-cat('Test accuracy:', score["acc"], "\n")
+cat('Test accuracy:', score["accuracy"], "\n")
 ```
 
 It turns out, the accuracy on the test dataset is a little less than the accuracy on the training dataset.
