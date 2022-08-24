@@ -1,34 +1,33 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/run_metadata.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfruns//edit/main/R/run_metadata.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/run_metadata.R*
+
 # write_run_data
 
-
-Write run data (deprecated)
-
-
-
+## Write run data (deprecated)
 
 ## Description
-
-Deprecated alias for `write_run_metadata()`.
-
-
-
+Deprecated alias for `write_run_metadata()`. 
 
 
 ## Usage
 ```r
-write_run_data(type, data)
+write_run_data(type, data) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| type | Type of metadata to write. Standard types include "flags", "sources", "properties", "metrics", and "evaluation". You can also specify a custom type (see **Custom Types** section below). |
+| data | Metadata to write: <br>- "flags" --- Named list of training flags <br>- "source" --- Directory to copy source files from <br>- "properties" --- Named list of arbitrary properties. Note that properties will be stored as strings. <br>- "metrics" --- Data frame with training run metrics (see **Metrics Data Frame** below). <br>- "evaluation" --- Named list of evaluation metrics. <br>- "error" --- Named list with 'message' and 'traceback' <br>- "<custom>" -- Function used to write the data (see **Custom Types** section below).  |
 
-
-Argument      |Description
-------------- |----------------
-type | Type of metadata to write. Standard types include "flags", "sources", "properties", "metrics", and "evaluation". You can also specify a custom type (see Custom Types section below).
-data | Metadata to write:   *  "flags" --- Named list of training flags  *  "source" --- Directory to copy source files from  *  "properties" --- Named list of arbitrary properties. Note that properties will be stored as strings.  *  "metrics" --- Data frame with training run metrics (see Metrics Data Frame below).  *  "evaluation" --- Named list of evaluation metrics.  *  "error" --- Named list with 'message' and 'traceback'  *  "<custom>" -- Function used to write the data (see Custom Types section below).
 
 
 

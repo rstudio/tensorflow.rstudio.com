@@ -1,35 +1,34 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfhub//blob/main/R/install.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfhub//edit/main/R/install.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/install.R*
+
 # install_tfhub
 
-
-Install TensorFlow Hub
-
-
-
+## Install TensorFlow Hub
 
 ## Description
-
-This function is used to install the TensorFlow Hub python module.
-
-
-
+This function is used to install the TensorFlow Hub python module. 
 
 
 ## Usage
 ```r
-install_tfhub(version = "release", ..., restart_session = TRUE)
+install_tfhub(version = "release", ..., restart_session = TRUE) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| version | version of TensorFlow Hub to be installed. |
+| ... | other arguments passed to [reticulate::py_install()]. |
+| restart_session | Restart R session after installing (note this will only occur within RStudio). |
 
-
-Argument      |Description
-------------- |----------------
-version | version of TensorFlow Hub to be installed.
-... | other arguments passed to [reticulate::py_install()].
-restart_session | Restart R session after installing (note this will only occur within RStudio).
 
 
 

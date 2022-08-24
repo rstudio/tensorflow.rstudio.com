@@ -1,45 +1,41 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-core.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/layers-core.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/layers-core.R*
+
 # create_layer
 
-
-Create a Keras Layer
-
-
-
+## Create a Keras Layer
 
 ## Description
-
-Create a Keras Layer
-
-
-
+Create a Keras Layer 
 
 
 ## Usage
 ```r
-create_layer(layer_class, object, args = list())
+create_layer(layer_class, object, args = list()) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-layer_class | Python layer class or R6 class of type KerasLayer
-object | Object to compose layer with. This is either a `keras_model_sequential()` to add the layer to, or another Layer which this layer will call.
-args | List of arguments to layer constructor function
-
-
+|Arguments|Description|
+|---|---|
+| layer_class | Python layer class or R6 class of type KerasLayer |
+| object | Object to compose layer with. This is either a `keras_model_sequential()` to add the layer to, or another Layer which this layer will call. |
+| args | List of arguments to layer constructor function |
 
 
 
 ## Value
+A Keras layer 
 
-A Keras layer
-
-
+## Note
+The `object` parameter can be missing, in which case the layer is created without a connection to an existing graph. 
 
 
 

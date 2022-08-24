@@ -1,42 +1,36 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/run_dir.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfruns//edit/main/R/run_dir.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/run_dir.R*
+
 # as_run_dir
 
-
-Extract run directory from an object
-
-
-
+## Extract run directory from an object
 
 ## Description
-
-Extract run directory from an object
-
-
-
+Extract run directory from an object 
 
 
 ## Usage
 ```r
-as_run_dir(x)
+as_run_dir(x) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-x | Object to extract run directory from
-
-
+|Arguments|Description|
+|---|---|
+| x | Object to extract run directory from |
 
 
 
 ## Value
-
-Run directory path(s)
-
+Run directory path(s) 
 
 
 

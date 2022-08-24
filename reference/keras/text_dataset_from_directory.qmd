@@ -1,93 +1,88 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/preprocessing.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/preprocessing.R*
+
 # text_dataset_from_directory
 
-
-Generate a ``tf.data.Dataset`` from text files in a directory
-
-
-
+## Generate a `tf.data.Dataset` from text files in a directory
 
 ## Description
-
-Generate a ``tf.data.Dataset`` from text files in a directory
-
-
-
+Generate a `tf.data.Dataset` from text files in a directory 
 
 
 ## Usage
 ```r
-text_dataset_from_directory(
-  directory,
-  labels = "inferred",
-  label_mode = "int",
-  class_names = NULL,
-  batch_size = 32L,
-  max_length = NULL,
-  shuffle = TRUE,
-  seed = NULL,
-  validation_split = NULL,
-  subset = NULL,
-  follow_links = FALSE,
-  ...
-)
+text_dataset_from_directory( 
+  directory, 
+  labels = "inferred", 
+  label_mode = "int", 
+  class_names = NULL, 
+  batch_size = 32L, 
+  max_length = NULL, 
+  shuffle = TRUE, 
+  seed = NULL, 
+  validation_split = NULL, 
+  subset = NULL, 
+  follow_links = FALSE, 
+  ... 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-directory | Directory where the data is located. If ``labels`` is "inferred", it should contain subdirectories, each containing text files for a class. Otherwise, the directory structure is ignored.
-labels | Either "inferred" (labels are generated from the directory structure), NULL (no labels), or a list of integer labels of the same size as the number of text files found in the directory. Labels should be sorted according to the alphanumeric order of the text file paths (obtained via ``os.walk(directory)`` in Python).
-label_mode |   *  `'int'`: means that the labels are encoded as integers (e.g. for `sparse_categorical_crossentropy` loss).  *  `'categorical'` means that the labels are encoded as a categorical vector (e.g. for `categorical_crossentropy` loss).  *  `'binary'` means that the labels (there can be only 2) are encoded as `float32` scalars with values 0 or 1 (e.g. for `binary_crossentropy`).  *  `NULL` (no labels).
-class_names | Only valid if ``labels`` is ``"inferred"``. This is the explicit list of class names (must match names of subdirectories). Used to control the order of the classes (otherwise alphanumerical order is used).
-batch_size | Size of the batches of data. Default: ``32``.
-max_length | Maximum size of a text string. Texts longer than this will be truncated to ``max_length``.
-shuffle | Whether to shuffle the data. Default: ``TRUE``. If set to ``FALSE``, sorts the data in alphanumeric order.
-seed | Optional random seed for shuffling and transformations.
-validation_split | Optional float between 0 and 1, fraction of data to reserve for validation.
-subset | One of "training" or "validation". Only used if ``validation_split`` is set.
-follow_links | Whether to visits subdirectories pointed to by symlinks. Defaults to ``FALSE``.
-... | For future compatibility (unused presently).
-
-
-
+|Arguments|Description|
+|---|---|
+| directory | Directory where the data is located. If `labels` is "inferred", it should contain subdirectories, each containing text files for a class. Otherwise, the directory structure is ignored. |
+| labels | Either "inferred" (labels are generated from the directory structure), NULL (no labels), or a list of integer labels of the same size as the number of text files found in the directory. Labels should be sorted according to the alphanumeric order of the text file paths (obtained via `os.walk(directory)` in Python). |
+| label_mode | - `'int'`: means that the labels are encoded as integers (e.g. for `sparse_categorical_crossentropy` loss). <br>- `'categorical'` means that the labels are encoded as a categorical vector (e.g. for `categorical_crossentropy` loss). <br>- `'binary'` means that the labels (there can be only 2) are encoded as `float32` scalars with values 0 or 1 (e.g. for `binary_crossentropy`). <br>- `NULL` (no labels).  |
+| class_names | Only valid if `labels` is `"inferred"`. This is the explicit list of class names (must match names of subdirectories). Used to control the order of the classes (otherwise alphanumerical order is used). |
+| batch_size | Size of the batches of data. Default: `32`. |
+| max_length | Maximum size of a text string. Texts longer than this will be truncated to `max_length`. |
+| shuffle | Whether to shuffle the data. Default: `TRUE`. If set to `FALSE`, sorts the data in alphanumeric order. |
+| seed | Optional random seed for shuffling and transformations. |
+| validation_split | Optional float between 0 and 1, fraction of data to reserve for validation. |
+| subset | One of "training" or "validation". Only used if `validation_split` is set. |
+| follow_links | Whether to visits subdirectories pointed to by symlinks. Defaults to `FALSE`. |
+| ... | For future compatibility (unused presently). |
 
 ## Details
 
-If your directory structure is:
+If your directory structure is: 
 
-html<div class="sourceCode">main_directory/
-...class_a/
-......a_text_1.txt
-......a_text_2.txt
-...class_b/
-......b_text_1.txt
-......b_text_2.txt
-html</div>
+```
 
-Then calling ``text_dataset_from_directory(main_directory, labels = 'inferred')``
-will return a ``tf.data.Dataset`` that yields batches of texts from
-the subdirectories ``class_a`` and ``class_b``, together with labels
-0 and 1 (0 corresponding to ``class_a`` and 1 corresponding to ``class_b``).
+main_directory/ 
 
-Only ``.txt`` files are supported at this time.
+...class_a/ 
 
+......a_text_1.txt 
 
+......a_text_2.txt 
+
+...class_b/ 
+
+......b_text_1.txt 
+
+......b_text_2.txt 
+
+```
+
+Then calling `text_dataset_from_directory(main_directory, labels = 'inferred')`
+
+will return a `tf.data.Dataset` that yields batches of texts from the subdirectories `class_a` and `class_b`, together with labels 0 and 1 (0 corresponding to `class_a` and 1 corresponding to `class_b`). 
+
+Only `.txt` files are supported at this time. 
 
 
 
 
 
 ## See Also
-
-
-
-*  https://www.tensorflow.org/api_docs/python/tf/keras/utils/text_dataset_from_directory
-
-
-
+- [https://www.tensorflow.org/api_docs/python/tf/keras/utils/text_dataset_from_directory](https://www.tensorflow.org/api_docs/python/tf/keras/utils/text_dataset_from_directory)
 

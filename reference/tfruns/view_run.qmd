@@ -1,35 +1,32 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/training_run.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfruns//edit/main/R/training_run.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/training_run.R*
+
 # view_run
 
-
-View a training run
-
-
-
+## View a training run
 
 ## Description
-
-View metrics and other attributes of a training run.
-
-
-
+View metrics and other attributes of a training run. 
 
 
 ## Usage
 ```r
-view_run(run_dir = latest_run(), viewer = getOption("tfruns.viewer"))
+view_run(run_dir = latest_run(), viewer = getOption("tfruns.viewer")) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-run_dir | Training run directory or data frame returned from `ls_runs()`.
-viewer | Viewer to display training run information within (default to an internal page viewer if available, otherwise to the R session default web browser).
-
+|Arguments|Description|
+|---|---|
+| run_dir | Training run directory or data frame returned from `ls_runs()`. |
+| viewer | Viewer to display training run information within (default to an internal page viewer if available, otherwise to the R session default web browser). |
 
 
 
@@ -37,8 +34,5 @@ viewer | Viewer to display training run information within (default to an intern
 
 
 ## See Also
-
 `ls_runs()`, `run_info()`
-
-
 

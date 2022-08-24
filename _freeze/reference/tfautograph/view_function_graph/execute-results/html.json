@@ -1,0 +1,14 @@
+{
+  "hash": "646b3e6e396e0bcd3dc2c70b7957ee41",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/view.R) </button> | <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/view.R) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n*R/view.R*\n\n# view_function_graph\n\n## Visualizes the generated graph\n\n## Description\nVisualizes the generated graph \n\n\n## Usage\n```r\nview_function_graph( \n  fn, \n  args, \n  ..., \n  name = deparse(substitute(fn)), \n  profiler = FALSE, \n  concrete_fn = do.call(fn$get_concrete_fn, args), \n  graph = concrete_fn$graph \n) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| fn | TensorFlow function (returned from `tf.function()`) |\n| args | arguments passed to `fun` |\n| ... | other arguments passed to `tensorflow::tensorboard()` |\n| name | string, provided to tensorboard |\n| profiler | logical, passed on to `tf.compat.v2.summary.trace_on()` (only used in eager mode) |\n| concrete_fn | a `ConcreteFunction` (only used in graph mode, ignored with a warning if executing eagerly) |\n| graph | a tensorflow graph (only used in graph mode, ignored with a warning if executing eagerly) |\n\n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nfn <- tf_function(function(x) autograph(if(x > 0) x * x else x)) \nview_function_graph(fn, list(tf$constant(5))) \n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

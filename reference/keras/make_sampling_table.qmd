@@ -1,77 +1,55 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/preprocessing.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/preprocessing.R*
+
 # make_sampling_table
 
-
-Generates a word rank-based probabilistic sampling table.
-
-
-
+## Generates a word rank-based probabilistic sampling table.
 
 ## Description
-
-Generates a word rank-based probabilistic sampling table.
-
-
-
+Generates a word rank-based probabilistic sampling table. 
 
 
 ## Usage
 ```r
-make_sampling_table(size, sampling_factor = 1e-05)
+make_sampling_table(size, sampling_factor = 1e-05) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-size | Int, number of possible words to sample.
-sampling_factor | The sampling factor in the word2vec formula.
-
-
-
+|Arguments|Description|
+|---|---|
+| size | Int, number of possible words to sample. |
+| sampling_factor | The sampling factor in the word2vec formula. |
 
 ## Details
 
-Used for generating the ``sampling_table`` argument for `skipgrams()`.
-``sampling_table[[i]]`` is the probability of sampling the word i-th most common
-word in a dataset (more common words should be sampled less frequently, for balance).
+Used for generating the `sampling_table` argument for `skipgrams()`. `sampling_table[[i]]` is the probability of sampling the word i-th most common word in a dataset (more common words should be sampled less frequently, for balance). 
 
-The sampling probabilities are generated according to the sampling distribution used in word2vec:
+The sampling probabilities are generated according to the sampling distribution used in word2vec: 
 
-``p(word) = min(1, sqrt(word_frequency / sampling_factor) / (word_frequency / sampling_factor))``
+`p(word) = min(1, sqrt(word_frequency / sampling_factor) / (word_frequency / sampling_factor))`
 
-We assume that the word frequencies follow Zipf's law (s=1) to derive a
-numerical approximation of frequency(rank):
+We assume that the word frequencies follow Zipf's law (s=1) to derive a numerical approximation of frequency(rank): 
 
-``frequency(rank) ~ 1/(rank * (log(rank) + gamma) + 1/2 - 1/(12*rank))``
+`frequency(rank) ~ 1/(rank * (log(rank) + gamma) + 1/2 - 1/(12*rank))`
 
-where ``gamma`` is the Euler-Mascheroni constant.
-
-
-
+where `gamma` is the Euler-Mascheroni constant. 
 
 
 ## Value
+An array of length `size` where the ith entry is the probability that a word of rank i should be sampled. 
 
-An array of length ``size`` where the ith entry is the
-probability that a word of rank i should be sampled.
-
-
-
-
+## Note
+The word2vec formula is: p(word) = min(1, sqrt(word.frequency/sampling_factor) / (word.frequency/sampling_factor)) 
 
 
 ## See Also
-
-Other text preprocessing: 
-`pad_sequences()`,
-`skipgrams()`,
-`text_hashing_trick()`,
-`text_one_hot()`,
-`text_to_word_sequence()`
-
-
+Other text preprocessing:  `pad_sequences()`, `skipgrams()`, `text_hashing_trick()`, `text_one_hot()`, `text_to_word_sequence()`
 

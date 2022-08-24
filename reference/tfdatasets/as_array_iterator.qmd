@@ -1,42 +1,36 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/dataset_methods.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/dataset_methods.R*
+
 # as_array_iterator
 
-
-Convert tf_dataset to an iterator that yields R arrays.
-
-
-
+## Convert tf_dataset to an iterator that yields R arrays.
 
 ## Description
-
-Convert tf_dataset to an iterator that yields R arrays.
-
-
-
+Convert tf_dataset to an iterator that yields R arrays. 
 
 
 ## Usage
 ```r
-as_array_iterator(dataset)
+as_array_iterator(dataset) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-dataset | A tensorflow dataset
-
-
+|Arguments|Description|
+|---|---|
+| dataset | A tensorflow dataset |
 
 
 
 ## Value
-
-An iterable. Use `iterate()` or `iter_next()` to access values from the iterator.
-
+An iterable. Use `iterate()` or `iter_next()` to access values from the iterator. 
 
 
 

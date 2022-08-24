@@ -1,34 +1,31 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/jobs.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](NULL/edit/main/R/jobs.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/jobs.R*
+
 # job_cancel
 
-
-Cancel a job
-
-
-
+## Cancel a job
 
 ## Description
-
-Cancel a job.
-
-
-
+Cancel a job. 
 
 
 ## Usage
 ```r
-job_cancel(job = "latest")
+job_cancel(job = "latest") 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-job | Job name or job object. Pass "latest" to indicate the most recently submitted job.
-
+|Arguments|Description|
+|---|---|
+| job | Job name or job object. Pass "latest" to indicate the most recently submitted job. |
 
 
 
@@ -36,10 +33,5 @@ job | Job name or job object. Pass "latest" to indicate the most recently submit
 
 
 ## See Also
-
-Other job management functions: `job_collect`,
-  `job_list`, `job_status`,
-  `job_stream_logs`, `job_trials`
-
-
+Other job management functions: `job_collect`,   `job_list`, `job_status`,   `job_stream_logs`, `job_trials`
 

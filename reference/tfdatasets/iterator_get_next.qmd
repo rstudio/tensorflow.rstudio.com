@@ -1,56 +1,40 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/iterators.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/iterators.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/iterators.R*
+
 # iterator_get_next
 
-
-Get next element from iterator
-
-
-
+## Get next element from iterator
 
 ## Description
-
-Returns a nested list of tensors that when evaluated will yield
-the next element(s) in the dataset.
-
-
-
+Returns a nested list of tensors that when evaluated will yield the next element(s) in the dataset. 
 
 
 ## Usage
 ```r
-iterator_get_next(iterator, name = NULL)
+iterator_get_next(iterator, name = NULL) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-iterator | An iterator
-name | (Optional) A name for the created operation.
-
-
+|Arguments|Description|
+|---|---|
+| iterator | An iterator |
+| name | (Optional) A name for the created operation. |
 
 
 
 ## Value
-
-A nested list of tensors
-
-
-
+A nested list of tensors 
 
 
 
 ## See Also
-
-Other iterator functions: 
-`iterator_initializer()`,
-`iterator_make_initializer()`,
-`iterator_string_handle()`,
-`make-iterator`
-
-
+Other iterator functions:  `iterator_initializer()`, `iterator_make_initializer()`, `iterator_string_handle()`, `make-iterator`
 

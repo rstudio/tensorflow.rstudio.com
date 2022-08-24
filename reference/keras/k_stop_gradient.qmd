@@ -1,43 +1,43 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/backend.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/backend.R*
+
 # k_stop_gradient
 
-
-Returns ``variables`` but with zero gradient w.r.t. every other variable.
-
-
-
+## Returns `variables` but with zero gradient w.r.t. every other variable.
 
 ## Description
-
-Returns ``variables`` but with zero gradient w.r.t. every other variable.
-
-
-
+Returns `variables` but with zero gradient w.r.t. every other variable. 
 
 
 ## Usage
 ```r
-k_stop_gradient(variables)
+k_stop_gradient(variables) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| variables | tensor or list of tensors to consider constant with respect to any other variable. |
 
 
-Argument      |Description
-------------- |----------------
-variables | tensor or list of tensors to consider constant with respect to any other variable.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A single tensor or a list of tensors (depending on the passed
-argument) that has constant gradient with respect to any other variable.
-
+A single tensor or a list of tensors (depending on the passed argument) that has constant gradient with respect to any other variable. 
 
 
 

@@ -1,0 +1,14 @@
+{
+  "hash": "8e41cef001194df6c55384f7eed07bdb",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R) </button> | <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/dataset_methods.R) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n*R/dataset_methods.R*\n\n# dataset_enumerate\n\n## Enumerates the elements of this dataset\n\n## Description\nEnumerates the elements of this dataset \n\n\n## Usage\n```r\ndataset_enumerate(dataset, start = 0L) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| dataset | A tensorflow dataset |\n| start | An integer (coerced to a `tf$int64` scalar `tf.Tensor`), representing the start value for enumeration. |\n\n## Details\nIt is similar to python's `enumerate`, this transforms a sequence of elements into a sequence of `list(index, element)`, where index is an integer that indicates the position of the element in the sequence. \n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\ndataset <- tensor_slices_dataset(100:103) %>% \n  dataset_enumerate() \niterator <- reticulate::as_iterator(dataset) \nreticulate::iter_next(iterator) # list(0, 100) \nreticulate::iter_next(iterator) # list(1, 101) \nreticulate::iter_next(iterator) # list(2, 102) \nreticulate::iter_next(iterator) # list(3, 103) \nreticulate::iter_next(iterator) # NULL (iterator exhausted) \nreticulate::iter_next(iterator) # NULL (iterator exhausted) \n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,43 +1,37 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/dataset_methods.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/dataset_methods.R*
+
 # dataset_flat_map
 
-
-Maps map_func across this dataset and flattens the result.
-
-
-
+## Maps map_func across this dataset and flattens the result.
 
 ## Description
-
-Maps map_func across this dataset and flattens the result.
-
-
-
+Maps map_func across this dataset and flattens the result. 
 
 
 ## Usage
 ```r
-dataset_flat_map(dataset, map_func)
+dataset_flat_map(dataset, map_func) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-dataset | A dataset
-map_func | A function mapping a nested structure of tensors (having shapes and types defined by `output_shapes()` and `output_types()` to a dataset.
-
-
+|Arguments|Description|
+|---|---|
+| dataset | A dataset |
+| map_func | A function mapping a nested structure of tensors (having shapes and types defined by `output_shapes()` and `output_types()` to a dataset. |
 
 
 
 ## Value
-
-A dataset
-
+A dataset 
 
 
 

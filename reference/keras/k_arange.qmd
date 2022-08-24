@@ -1,47 +1,46 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/backend.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/backend.R*
+
 # k_arange
 
-
-Creates a 1D tensor containing a sequence of integers.
-
-
-
+## Creates a 1D tensor containing a sequence of integers.
 
 ## Description
-
-The function arguments use the same convention as Theano's arange: if only
-one argument is provided, it is in fact the "stop" argument. The default
-type of the returned tensor is ``'int32'`` to match TensorFlow's default.
-
-
-
+The function arguments use the same convention as Theano's arange: if only one argument is provided, it is in fact the "stop" argument. The default type of the returned tensor is `'int32'` to match TensorFlow's default. 
 
 
 ## Usage
 ```r
-k_arange(start, stop = NULL, step = 1, dtype = "int32")
+k_arange(start, stop = NULL, step = 1, dtype = "int32") 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| start | Start value. |
+| stop | Stop value. |
+| step | Difference between two successive values. |
+| dtype | Integer dtype to use. |
 
 
-Argument      |Description
-------------- |----------------
-start | Start value.
-stop | Stop value.
-step | Difference between two successive values.
-dtype | Integer dtype to use.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-An integer tensor.
-
+An integer tensor. 
 
 
 

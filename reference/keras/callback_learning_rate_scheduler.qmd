@@ -1,34 +1,31 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/callbacks.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/callbacks.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/callbacks.R*
+
 # callback_learning_rate_scheduler
 
-
-Learning rate scheduler.
-
-
-
+## Learning rate scheduler.
 
 ## Description
-
-Learning rate scheduler.
-
-
-
+Learning rate scheduler. 
 
 
 ## Usage
 ```r
-callback_learning_rate_scheduler(schedule)
+callback_learning_rate_scheduler(schedule) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-schedule | a function that takes an epoch index as input (integer, indexed from 0) and current learning rate and returns a new learning rate as output (float).
-
+|Arguments|Description|
+|---|---|
+| schedule | a function that takes an epoch index as input (integer, indexed from 0) and current learning rate and returns a new learning rate as output (float). |
 
 
 
@@ -36,17 +33,5 @@ schedule | a function that takes an epoch index as input (integer, indexed from 
 
 
 ## See Also
-
-Other callbacks: 
-`callback_csv_logger()`,
-`callback_early_stopping()`,
-`callback_lambda()`,
-`callback_model_checkpoint()`,
-`callback_progbar_logger()`,
-`callback_reduce_lr_on_plateau()`,
-`callback_remote_monitor()`,
-`callback_tensorboard()`,
-`callback_terminate_on_naan()`
-
-
+Other callbacks:  `callback_csv_logger()`, `callback_early_stopping()`, `callback_lambda()`, `callback_model_checkpoint()`, `callback_progbar_logger()`, `callback_reduce_lr_on_plateau()`, `callback_remote_monitor()`, `callback_tensorboard()`, `callback_terminate_on_naan()`
 

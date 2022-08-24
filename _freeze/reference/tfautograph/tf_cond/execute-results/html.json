@@ -1,0 +1,14 @@
+{
+  "hash": "1ddfabd42cf0c6f92057f62af4aaa898",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf-ctrl-flow-wrappers.R) </button> | <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/tf-ctrl-flow-wrappers.R) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n*R/tf-ctrl-flow-wrappers.R*\n\n# tf_cond\n\n## tf.cond\n\n## Description\nThis is a minimal wrapper around `tf$cond()` that allows you to supply `true_fn` and `false_fn` as lambda functions defined using the tilde `~`. \n\n\n## Usage\n```r\ntf_cond(pred, true_fn, false_fn, name = NULL) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| pred | R logical or a tensor. |\n| true_fn, false_fn | a `~` function, a function, or something coercible to a function via `as.function` |\n| name | a string, passed on to `tf.cond()` |\n\n\n\n## Value\nif cond is a tensor, then the result of `tf.cond()`. Otherwise, if `pred` is an `EagerTensor` or an R logical, then the result of either `true_fn()` or `false_fn()`\n\n## Note\nin Tensorflow version 1, the `strict` keyword argument is supplied with a value of `TRUE` (different from the default) \n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\n## square if positive \n# using tf$cond directly: \nraw <- function(x) tf$cond(x > 0, function() x * x, function() x) \n# using tf_cond() wrapper \ntilde <- function(x) tf_cond(x > 0, ~ x * x, ~ x) \n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

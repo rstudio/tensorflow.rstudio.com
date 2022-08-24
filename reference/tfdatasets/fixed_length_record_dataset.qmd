@@ -1,52 +1,46 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/fixed_length_dataset.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/fixed_length_dataset.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/fixed_length_dataset.R*
+
 # fixed_length_record_dataset
 
-
-A dataset of fixed-length records from one or more binary files.
-
-
-
+## A dataset of fixed-length records from one or more binary files.
 
 ## Description
-
-A dataset of fixed-length records from one or more binary files.
-
-
-
+A dataset of fixed-length records from one or more binary files. 
 
 
 ## Usage
 ```r
-fixed_length_record_dataset(
-  filenames,
-  record_bytes,
-  header_bytes = NULL,
-  footer_bytes = NULL,
-  buffer_size = NULL
-)
+fixed_length_record_dataset( 
+  filenames, 
+  record_bytes, 
+  header_bytes = NULL, 
+  footer_bytes = NULL, 
+  buffer_size = NULL 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-filenames | A string tensor containing one or more filenames.
-record_bytes | An integer representing the number of bytes in each record.
-header_bytes | (Optional) An integer scalar representing the number of bytes to skip at the start of a file.
-footer_bytes | (Optional) A integer scalar representing the number of bytes to ignore at the end of a file.
-buffer_size | (Optional) A integer scalar representing the number of bytes to buffer when reading.
-
-
+|Arguments|Description|
+|---|---|
+| filenames | A string tensor containing one or more filenames. |
+| record_bytes | An integer representing the number of bytes in each record. |
+| header_bytes | (Optional) An integer scalar representing the number of bytes to skip at the start of a file. |
+| footer_bytes | (Optional) A integer scalar representing the number of bytes to ignore at the end of a file. |
+| buffer_size | (Optional) A integer scalar representing the number of bytes to buffer when reading. |
 
 
 
 ## Value
-
-A dataset
-
+A dataset 
 
 
 

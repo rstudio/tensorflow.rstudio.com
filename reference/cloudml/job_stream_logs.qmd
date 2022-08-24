@@ -1,39 +1,36 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/jobs.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](NULL/edit/main/R/jobs.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/jobs.R*
+
 # job_stream_logs
 
-
-Show job log stream
-
-
-
+## Show job log stream
 
 ## Description
-
-Show logs from a running Cloud ML Engine job.
-
-
-
+Show logs from a running Cloud ML Engine job. 
 
 
 ## Usage
 ```r
-job_stream_logs(job = "latest",
-  polling_interval = getOption("cloudml.stream_logs.polling", 5),
-  task_name = NULL, allow_multiline_logs = FALSE)
+job_stream_logs(job = "latest", 
+  polling_interval = getOption("cloudml.stream_logs.polling", 5), 
+  task_name = NULL, allow_multiline_logs = FALSE) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-job | Job name or job object. Pass "latest" to indicate the most recently submitted job.
-polling_interval | Number of seconds to wait between efforts to fetch the latest log messages.
-task_name | If set, display only the logs for this particular task.
-allow_multiline_logs | Output multiline log messages as single records.
-
+|Arguments|Description|
+|---|---|
+| job | Job name or job object. Pass "latest" to indicate the most recently submitted job. |
+| polling_interval | Number of seconds to wait between efforts to fetch the latest log messages. |
+| task_name | If set, display only the logs for this particular task. |
+| allow_multiline_logs | Output multiline log messages as single records. |
 
 
 
@@ -41,10 +38,5 @@ allow_multiline_logs | Output multiline log messages as single records.
 
 
 ## See Also
-
-Other job management functions: `job_cancel`,
-  `job_collect`, `job_list`,
-  `job_status`, `job_trials`
-
-
+Other job management functions: `job_cancel`,   `job_collect`, `job_list`,   `job_status`, `job_trials`
 

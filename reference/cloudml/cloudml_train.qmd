@@ -1,69 +1,53 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/jobs.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](NULL/edit/main/R/jobs.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/jobs.R*
+
 # cloudml_train
 
-
-Train a model using Cloud ML
-
-
-
+## Train a model using Cloud ML
 
 ## Description
-
-Upload a TensorFlow application to Google Cloud, and use that application to
-train a model.
-
-
-
+Upload a TensorFlow application to Google Cloud, and use that application to train a model. 
 
 
 ## Usage
 ```r
-cloudml_train(file = "train.R", master_type = NULL, flags = NULL,
-  region = NULL, config = NULL, collect = "ask", dry_run = FALSE)
+cloudml_train(file = "train.R", master_type = NULL, flags = NULL, 
+  region = NULL, config = NULL, collect = "ask", dry_run = FALSE) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-file | File to be used as entrypoint for training.
-master_type | Training master node machine type. "standard" provides a basic machine configuration suitable for training simple models with small to moderate datasets. See the documentation at https://cloud.google.com/ml-engine/docs/tensorflow/machine-types#machine_type_table for details on available machine types.
-flags | Named list with flag values (see `flags()`) or path to YAML file containing flag values.
-region | The region to be used for training.
-config | A list, ``YAML`` or ``JSON`` configuration file as described https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs.
-collect | Logical. If TRUE, collect job when training is completed (blocks waiting for the job to complete). The default (``"ask"``) will interactively prompt the user whether to collect the results or not.
-dry_run | Triggers a local dry run over the deployment phase to validate packages and packing work as expected.
-
+|Arguments|Description|
+|---|---|
+| file | File to be used as entrypoint for training. |
+| master_type | Training master node machine type. "standard" provides a basic machine configuration suitable for training simple models with small to moderate datasets. See the documentation at [https://cloud.google.com/ml-engine/docs/tensorflow/machine-types#machine_type_table](https://cloud.google.com/ml-engine/docs/tensorflow/machine-types#machine_type_table)<br>for details on available machine types. |
+| flags | Named list with flag values (see `flags()`) or path to YAML file containing flag values. |
+| region | The region to be used for training. |
+| config | A list, `YAML` or `JSON` configuration file as described [https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs](https://cloud.google.com/ml-engine/reference/rest/v1/projects.jobs). |
+| collect | Logical. If TRUE, collect job when training is completed (blocks waiting for the job to complete). The default (`"ask"`) will interactively prompt the user whether to collect the results or not. |
+| dry_run | Triggers a local dry run over the deployment phase to validate packages and packing work as expected. |
 
 
 
 
 
 ## Examples
-
-```r
-
-library(cloudml)
-
-gcloud_install()
-job <- cloudml_train("train.R")
-
+```{r, eval=ecodown::examples_not_run()}
+library(cloudml) 
+gcloud_install() 
+job <- cloudml_train("train.R") 
 ```
-
-
-
-
-
 
 ## See Also
 
 `job_status()`, `job_collect()`, `job_cancel()`
 
-Other CloudML functions: `cloudml_deploy`,
-  `cloudml_predict`
-
-
+Other CloudML functions: `cloudml_deploy`,   `cloudml_predict`
 

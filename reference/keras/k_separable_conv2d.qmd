@@ -1,56 +1,57 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/backend.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/backend.R*
+
 # k_separable_conv2d
 
-
-2D convolution with separable filters.
-
-
-
+## 2D convolution with separable filters.
 
 ## Description
-
-2D convolution with separable filters.
-
-
-
+2D convolution with separable filters. 
 
 
 ## Usage
 ```r
-k_separable_conv2d(
-  x,
-  depthwise_kernel,
-  pointwise_kernel,
-  strides = c(1, 1),
-  padding = "valid",
-  data_format = NULL,
-  dilation_rate = c(1, 1)
-)
+k_separable_conv2d( 
+  x, 
+  depthwise_kernel, 
+  pointwise_kernel, 
+  strides = c(1, 1), 
+  padding = "valid", 
+  data_format = NULL, 
+  dilation_rate = c(1, 1) 
+) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | input tensor |
+| depthwise_kernel | convolution kernel for the depthwise convolution. |
+| pointwise_kernel | kernel for the 1x1 convolution. |
+| strides | strides list (length 2). |
+| padding | string, `"same"` or `"valid"`. |
+| data_format | string, `"channels_last"` or `"channels_first"`. |
+| dilation_rate | list of integers, dilation rates for the separable convolution. |
 
 
-Argument      |Description
-------------- |----------------
-x | input tensor
-depthwise_kernel | convolution kernel for the depthwise convolution.
-pointwise_kernel | kernel for the 1x1 convolution.
-strides | strides list (length 2).
-padding | string, ``"same"`` or ``"valid"``.
-data_format | string, ``"channels_last"`` or ``"channels_first"``.
-dilation_rate | list of integers, dilation rates for the separable convolution.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-Output tensor.
-
+Output tensor. 
 
 
 

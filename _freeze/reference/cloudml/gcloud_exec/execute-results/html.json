@@ -1,0 +1,14 @@
+{
+  "hash": "057ab654c5d704d88c6226e749872a66",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](NULL/blob/main/R/gcloud-exec.R) </button> | <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [Suggest edits on GitHub](NULL/edit/main/R/gcloud-exec.R) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n*R/gcloud-exec.R*\n\n# gcloud_exec\n\n## Executes a Google Cloud Command\n\n## Description\nExecutes a Google Cloud command with the given parameters. \n\n\n## Usage\n```r\ngcloud_exec(..., args = NULL, echo = TRUE, dry_run = FALSE) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| ... | Parameters to use specified based on position. |\n| args | Parameters to use specified as a list. |\n| echo | Echo command output to console. |\n| dry_run | Echo but not execute the command? |\n\n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\ngcloud_exec(\"help\", \"info\") \n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

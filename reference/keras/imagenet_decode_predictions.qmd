@@ -1,44 +1,37 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/applications.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/applications.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/applications.R*
+
 # imagenet_decode_predictions
 
-
-Decodes the prediction of an ImageNet model.
-
-
-
+## Decodes the prediction of an ImageNet model.
 
 ## Description
-
-Decodes the prediction of an ImageNet model.
-
-
-
+Decodes the prediction of an ImageNet model. 
 
 
 ## Usage
 ```r
-imagenet_decode_predictions(preds, top = 5)
+imagenet_decode_predictions(preds, top = 5) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-preds | Tensor encoding a batch of predictions.
-top | integer, how many top-guesses to return.
-
-
+|Arguments|Description|
+|---|---|
+| preds | Tensor encoding a batch of predictions. |
+| top | integer, how many top-guesses to return. |
 
 
 
 ## Value
-
-List of data frames with variables ``class_name``, ``class_description``,
-and ``score`` (one data frame per sample in batch input).
-
+List of data frames with variables `class_name`, `class_description`, and `score` (one data frame per sample in batch input). 
 
 
 

@@ -1,45 +1,46 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/backend.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/backend.R*
+
 # k_function
 
-
-Instantiates a Keras function
-
-
-
+## Instantiates a Keras function
 
 ## Description
-
-Instantiates a Keras function
-
-
-
+Instantiates a Keras function 
 
 
 ## Usage
 ```r
-k_function(inputs, outputs, updates = NULL, ...)
+k_function(inputs, outputs, updates = NULL, ...) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| inputs | List of placeholder tensors. |
+| outputs | List of output tensors. |
+| updates | List of update ops. |
+| ... | Named arguments passed to `tf$Session$run`. |
 
 
-Argument      |Description
-------------- |----------------
-inputs | List of placeholder tensors.
-outputs | List of output tensors.
-updates | List of update ops.
-... | Named arguments passed to ``tf$Session$run``.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-Output values as R arrays.
-
+Output values as R arrays. 
 
 
 

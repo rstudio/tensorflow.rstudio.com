@@ -1,51 +1,47 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/optimizers.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/optimizers.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/optimizers.R*
+
 # optimizer_adamax
 
-
-Adamax optimizer
-
-
-
+## Adamax optimizer
 
 ## Description
-
-Adamax optimizer from Section 7 of the https://arxiv.org/abs/1412.6980v8Adam paper.
-It is a variant of Adam based on the infinity norm.
-
-
-
+Adamax optimizer from Section 7 of the [Adam paper](https://arxiv.org/abs/1412.6980v8). It is a variant of Adam based on the infinity norm. 
 
 
 ## Usage
 ```r
-optimizer_adamax(
-  learning_rate = 0.002,
-  beta_1 = 0.9,
-  beta_2 = 0.999,
-  epsilon = NULL,
-  decay = 0,
-  clipnorm = NULL,
-  clipvalue = NULL,
-  ...
-)
+optimizer_adamax( 
+  learning_rate = 0.002, 
+  beta_1 = 0.9, 
+  beta_2 = 0.999, 
+  epsilon = NULL, 
+  decay = 0, 
+  clipnorm = NULL, 
+  clipvalue = NULL, 
+  ... 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-learning_rate | float >= 0. Learning rate.
-beta_1 | The exponential decay rate for the 1st moment estimates. float, 0 < beta < 1. Generally close to 1.
-beta_2 | The exponential decay rate for the 2nd moment estimates. float, 0 < beta < 1. Generally close to 1.
-epsilon | float >= 0. Fuzz factor. If ``NULL``, defaults to ``k_epsilon()``.
-decay | float >= 0. Learning rate decay over each update.
-clipnorm | Gradients will be clipped when their L2 norm exceeds this value.
-clipvalue | Gradients will be clipped when their absolute value exceeds this value.
-... | Unused, present only for backwards compatability
-
+|Arguments|Description|
+|---|---|
+| learning_rate | float >= 0. Learning rate. |
+| beta_1 | The exponential decay rate for the 1st moment estimates. float, 0 < beta < 1. Generally close to 1. |
+| beta_2 | The exponential decay rate for the 2nd moment estimates. float, 0 < beta < 1. Generally close to 1. |
+| epsilon | float >= 0. Fuzz factor. If `NULL`, defaults to `k_epsilon()`. |
+| decay | float >= 0. Learning rate decay over each update. |
+| clipnorm | Gradients will be clipped when their L2 norm exceeds this value. |
+| clipvalue | Gradients will be clipped when their absolute value exceeds this value. |
+| ... | Unused, present only for backwards compatability |
 
 
 
@@ -53,14 +49,5 @@ clipvalue | Gradients will be clipped when their absolute value exceeds this val
 
 
 ## See Also
-
-Other optimizers: 
-`optimizer_adadelta()`,
-`optimizer_adagrad()`,
-`optimizer_adam()`,
-`optimizer_nadam()`,
-`optimizer_rmsprop()`,
-`optimizer_sgd()`
-
-
+Other optimizers:  `optimizer_adadelta()`, `optimizer_adagrad()`, `optimizer_adam()`, `optimizer_nadam()`, `optimizer_rmsprop()`, `optimizer_sgd()`
 

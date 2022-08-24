@@ -1,72 +1,53 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_iterators.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/dataset_iterators.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/dataset_iterators.R*
+
 # with_dataset
 
-
-Execute code that traverses a dataset
-
-
-
+## Execute code that traverses a dataset
 
 ## Description
-
-Execute code that traverses a dataset
-
-
-
+Execute code that traverses a dataset 
 
 
 ## Usage
 ```r
-with_dataset(expr)
+with_dataset(expr) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-expr | Expression to execute
-
-
-
+|Arguments|Description|
+|---|---|
+| expr | Expression to execute |
 
 ## Details
-
-When a dataset iterator reaches the end, an out of range runtime error
-will occur. You can catch and ignore the error when it occurs by wrapping
-your iteration code in a call to ``with_dataset()`` (see the example
-below for an illustration).
-
-
+When a dataset iterator reaches the end, an out of range runtime error will occur. You can catch and ignore the error when it occurs by wrapping your iteration code in a call to `with_dataset()` (see the example below for an illustration). 
 
 
 
 
 ## Examples
-
-```r
-
-library(tfdatasets)
-dataset <- text_line_dataset("mtcars.csv", record_spec = mtcars_spec) %>%
-  dataset_prepare(x = c(mpg, disp), y = cyl) %>%
-  dataset_batch(128) %>%
-  dataset_repeat(10)
-
-iter <- make_iterator_one_shot(dataset)
-next_batch <- iterator_get_next(iter)
-
-with_dataset({
-  while(TRUE) {
-    batch <- sess$run(next_batch)
-    # use batch$x and batch$y tensors
-  }
-})
-
+```{r, eval=ecodown::examples_not_run()}
+library(tfdatasets) 
+dataset <- text_line_dataset("mtcars.csv", record_spec = mtcars_spec) %>% 
+  dataset_prepare(x = c(mpg, disp), y = cyl) %>% 
+  dataset_batch(128) %>% 
+  dataset_repeat(10) 
+iter <- make_iterator_one_shot(dataset) 
+next_batch <- iterator_get_next(iter) 
+with_dataset({ 
+  while(TRUE) { 
+    batch <- sess$run(next_batch) 
+    # use batch$x and batch$y tensors 
+  } 
+}) 
 ```
-
-
-
 
 

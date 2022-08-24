@@ -1,28 +1,47 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R, R/feature_spec.R,) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/dataset_methods.R, R/feature_spec.R,) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/dataset_methods.R, R/feature_spec.R,*
+
 # reexports
 
-
-Objects exported from other packages
-
-
-
+## Objects exported from other packages
 
 ## Description
 
-These objects are imported from other packages. Follow the links
-below to see their documentation.
-
+These objects are imported from other packages. Follow the links below to see their documentation. 
 
   
-* 
+
+generics
+
+`fit`
 
   
-* 
+
+reticulate
+
+`as_iterator`
 
   
-* 
+
+tensorflow
+
+`as_tensor`
 
   
-* 
+
+tidyselect
+
+`contains`
+
+
 
 
 

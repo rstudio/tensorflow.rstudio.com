@@ -1,111 +1,56 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/metrics.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/metrics.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/metrics.R*
+
 # metric_mean_absolute_percentage_error
 
-
-Computes the mean absolute percentage error between ``y_true`` and ``y_pred``
-
-
-
+## Computes the mean absolute percentage error between `y_true` and `y_pred`
 
 ## Description
-
-Computes the mean absolute percentage error between ``y_true`` and ``y_pred``
-
-
-
+Computes the mean absolute percentage error between `y_true` and `y_pred`
 
 
 ## Usage
 ```r
-metric_mean_absolute_percentage_error(
-  y_true,
-  y_pred,
-  ...,
-  name = "mean_absolute_percentage_error",
-  dtype = NULL
-)
+metric_mean_absolute_percentage_error( 
+  y_true, 
+  y_pred, 
+  ..., 
+  name = "mean_absolute_percentage_error", 
+  dtype = NULL 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-y_true | Tensor of true targets.
-y_pred | Tensor of predicted targets.
-... | Passed on to the underlying metric. Used for forwards and backwards compatibility.
-name | (Optional) string name of the metric instance.
-dtype | (Optional) data type of the metric result.
-
-
-
+|Arguments|Description|
+|---|---|
+| y_true | Tensor of true targets. |
+| y_pred | Tensor of predicted targets. |
+| ... | Passed on to the underlying metric. Used for forwards and backwards compatibility. |
+| name | (Optional) string name of the metric instance. |
+| dtype | (Optional) data type of the metric result. |
 
 ## Details
-
-``loss = 100 * mean(abs((y_true - y_pred) / y_true), axis=-1)``
-
-
-
+`loss = 100 * mean(abs((y_true - y_pred) / y_true), axis=-1)`
 
 
 ## Value
 
-If ``y_true`` and ``y_pred`` are missing, a (subclassed) ``Metric``
-instance is returned. The ``Metric`` object can be passed directly to
-``compile(metrics = )`` or used as a standalone object. See ``?Metric`` for
-example usage.
+If `y_true` and `y_pred` are missing, a (subclassed) `Metric`
 
-Alternatively, if called with ``y_true`` and ``y_pred`` arguments, then the
-computed case-wise values for the mini-batch are returned directly.
+instance is returned. The `Metric` object can be passed directly to `compile(metrics = )` or used as a standalone object. See `?Metric` for example usage. 
 
-
-
+Alternatively, if called with `y_true` and `y_pred` arguments, then the computed case-wise values for the mini-batch are returned directly. 
 
 
 
 ## See Also
-
-Other metrics: 
-`custom_metric()`,
-`metric_accuracy()`,
-`metric_auc()`,
-`metric_binary_accuracy()`,
-`metric_binary_crossentropy()`,
-`metric_categorical_accuracy()`,
-`metric_categorical_crossentropy()`,
-`metric_categorical_hinge()`,
-`metric_cosine_similarity()`,
-`metric_false_negatives()`,
-`metric_false_positives()`,
-`metric_hinge()`,
-`metric_kullback_leibler_divergence()`,
-`metric_logcosh_error()`,
-`metric_mean_absolute_error()`,
-`metric_mean_iou()`,
-`metric_mean_relative_error()`,
-`metric_mean_squared_error()`,
-`metric_mean_squared_logarithmic_error()`,
-`metric_mean_tensor()`,
-`metric_mean_wrapper()`,
-`metric_mean()`,
-`metric_poisson()`,
-`metric_precision_at_recall()`,
-`metric_precision()`,
-`metric_recall_at_precision()`,
-`metric_recall()`,
-`metric_root_mean_squared_error()`,
-`metric_sensitivity_at_specificity()`,
-`metric_sparse_categorical_accuracy()`,
-`metric_sparse_categorical_crossentropy()`,
-`metric_sparse_top_k_categorical_accuracy()`,
-`metric_specificity_at_sensitivity()`,
-`metric_squared_hinge()`,
-`metric_sum()`,
-`metric_top_k_categorical_accuracy()`,
-`metric_true_negatives()`,
-`metric_true_positives()`
-
-
+Other metrics:  `custom_metric()`, `metric_accuracy()`, `metric_auc()`, `metric_binary_accuracy()`, `metric_binary_crossentropy()`, `metric_categorical_accuracy()`, `metric_categorical_crossentropy()`, `metric_categorical_hinge()`, `metric_cosine_similarity()`, `metric_false_negatives()`, `metric_false_positives()`, `metric_hinge()`, `metric_kullback_leibler_divergence()`, `metric_logcosh_error()`, `metric_mean_absolute_error()`, `metric_mean_iou()`, `metric_mean_relative_error()`, `metric_mean_squared_error()`, `metric_mean_squared_logarithmic_error()`, `metric_mean_tensor()`, `metric_mean_wrapper()`, `metric_mean()`, `metric_poisson()`, `metric_precision_at_recall()`, `metric_precision()`, `metric_recall_at_precision()`, `metric_recall()`, `metric_root_mean_squared_error()`, `metric_sensitivity_at_specificity()`, `metric_sparse_categorical_accuracy()`, `metric_sparse_categorical_crossentropy()`, `metric_sparse_top_k_categorical_accuracy()`, `metric_specificity_at_sensitivity()`, `metric_squared_hinge()`, `metric_sum()`, `metric_top_k_categorical_accuracy()`, `metric_true_negatives()`, `metric_true_positives()`
 

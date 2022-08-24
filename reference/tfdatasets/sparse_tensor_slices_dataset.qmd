@@ -1,52 +1,39 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/tensors_dataset.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/tensors_dataset.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/tensors_dataset.R*
+
 # sparse_tensor_slices_dataset
 
-
-Splits each rank-N ``tf$SparseTensor`` in this dataset row-wise.
-
-
-
+## Splits each rank-N `tf$SparseTensor` in this dataset row-wise.
 
 ## Description
-
-Splits each rank-N ``tf$SparseTensor`` in this dataset row-wise.
-
-
-
+Splits each rank-N `tf$SparseTensor` in this dataset row-wise. 
 
 
 ## Usage
 ```r
-sparse_tensor_slices_dataset(sparse_tensor)
+sparse_tensor_slices_dataset(sparse_tensor) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-sparse_tensor | A ``tf$SparseTensor``.
-
-
+|Arguments|Description|
+|---|---|
+| sparse_tensor | A `tf$SparseTensor`. |
 
 
 
 ## Value
-
-A dataset of rank-(N-1) sparse tensors.
-
-
-
+A dataset of rank-(N-1) sparse tensors. 
 
 
 
 ## See Also
-
-Other tensor datasets: 
-`tensor_slices_dataset()`,
-`tensors_dataset()`
-
-
+Other tensor datasets:  `tensor_slices_dataset()`, `tensors_dataset()`
 

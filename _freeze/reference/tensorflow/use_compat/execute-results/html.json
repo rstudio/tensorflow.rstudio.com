@@ -1,0 +1,16 @@
+{
+  "hash": "582cbcd73ce5d54827f1d31aa65ed737",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/compat.R) </button> | <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/compat.R) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n*R/compat.R*\n\n# use_compat\n\n## Use Compatibility\n\n## Description\nEnables TensorFlow to run under a different API version for compatibility with previous versions. For instance, this is useful to run TensorFlow 1.x code when using TensorFlow 2.x. \n\n\n## Usage\n```r\nuse_compat(version = c(\"v1\", \"v2\")) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| version | The version to activate. Must be `\"v1\"` or `\"v2\"` |\n\n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tensorflow) \nuse_compat(\"v1\") \n```\n:::\n",
+    "supporting": [
+      "use_compat_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

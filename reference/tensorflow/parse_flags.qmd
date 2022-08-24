@@ -1,87 +1,67 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/flags.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/flags.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/flags.R*
+
 # parse_flags
 
-
-Parse Configuration Flags for a TensorFlow Application
-
-
-
+## Parse Configuration Flags for a TensorFlow Application
 
 ## Description
-
-Parse configuration flags for a TensorFlow application. Use
-this to parse and unify the configuration(s) specified through
-a ``flags.yml`` configuration file, alongside other arguments
-set through the command line.
-
-
-
+Parse configuration flags for a TensorFlow application. Use this to parse and unify the configuration(s) specified through a `flags.yml` configuration file, alongside other arguments set through the command line. 
 
 
 ## Usage
 ```r
-parse_flags(
-  config = Sys.getenv("R_CONFIG_ACTIVE", unset = "default"),
-  file = "flags.yml",
-  arguments = commandArgs(TRUE)
-)
+parse_flags( 
+  config = Sys.getenv("R_CONFIG_ACTIVE", unset = "default"), 
+  file = "flags.yml", 
+  arguments = commandArgs(TRUE) 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-config | The configuration to use. Defaults to the active configuration for the current environment (as specified by the ``R_CONFIG_ACTIVE`` environment variable), or ``default`` when unset.
-file | The configuration file to read.
-arguments | The command line arguments (as a character vector) to be parsed.
-
-
+|Arguments|Description|
+|---|---|
+| config | The configuration to use. Defaults to the active configuration for the current environment (as specified by the `R_CONFIG_ACTIVE` environment variable), or `default` when unset. |
+| file | The configuration file to read. |
+| arguments | The command line arguments (as a character vector) to be parsed. |
 
 
 
 ## Value
-
-A named  list, mapping configuration keys to values.
-
-
-
+A named `R` list, mapping configuration keys to values. 
 
 
 ## Examples
-
-```r
-
-# examine an example configuration file provided by tensorflow
-file <- system.file("examples/config/flags.yml", package = "tensorflow")
-cat(readLines(file), sep = "\n")
-
-# read the default configuration
-FLAGS <- tensorflow::parse_flags("default", file = file)
-str(FLAGS)
-
-# read the alternate configuration: note that
-# the default configuration is inherited, but
-# we override the 'string' configuration here
-FLAGS <- tensorflow::parse_flags("alternate", file = file)
-str(FLAGS)
-
-# override configuration values using command
-# line arguments (normally, these would be
-# passed in through the command line invocation
-# used to start the process)
-FLAGS <- tensorflow::parse_flags(
-  "alternate",
-  file = file,
-  arguments = c("--foo=1")
-)
-str(FLAGS)
-
-
+```{r, eval=ecodown::examples_not_run()}
+# examine an example configuration file provided by tensorflow 
+file <- system.file("examples/config/flags.yml", package = "tensorflow") 
+cat(readLines(file), sep = "\n") 
+# read the default configuration 
+FLAGS <- tensorflow::parse_flags("default", file = file) 
+str(FLAGS) 
+# read the alternate configuration: note that 
+# the default configuration is inherited, but 
+# we override the 'string' configuration here 
+FLAGS <- tensorflow::parse_flags("alternate", file = file) 
+str(FLAGS) 
+# override configuration values using command 
+# line arguments (normally, these would be 
+# passed in through the command line invocation 
+# used to start the process) 
+FLAGS <- tensorflow::parse_flags( 
+  "alternate", 
+  file = file, 
+  arguments = c("--foo=1") 
+) 
+str(FLAGS) 
 ```
-
-
 
 

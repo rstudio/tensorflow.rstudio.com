@@ -1,46 +1,46 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/backend.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/backend.R*
+
 # k_ctc_batch_cost
 
-
-Runs CTC loss algorithm on each batch element.
-
-
-
+## Runs CTC loss algorithm on each batch element.
 
 ## Description
-
-Runs CTC loss algorithm on each batch element.
-
-
-
+Runs CTC loss algorithm on each batch element. 
 
 
 ## Usage
 ```r
-k_ctc_batch_cost(y_true, y_pred, input_length, label_length)
+k_ctc_batch_cost(y_true, y_pred, input_length, label_length) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| y_true | tensor `(samples, max_string_length)` containing the truth labels. |
+| y_pred | tensor `(samples, time_steps, num_categories)` containing the prediction, or output of the softmax. |
+| input_length | tensor `(samples, 1)` containing the sequence length for each batch item in `y_pred`. |
+| label_length | tensor `(samples, 1)` containing the sequence length for each batch item in `y_true`. |
 
 
-Argument      |Description
-------------- |----------------
-y_true | tensor (samples, max_string_length) containing the truth labels.
-y_pred | tensor (samples, time_steps, num_categories) containing the prediction, or output of the softmax.
-input_length | tensor (samples, 1) containing the sequence length for each batch item in ``y_pred``.
-label_length | tensor (samples, 1) containing the sequence length for each batch item in ``y_true``.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-Tensor with shape (samples,1) containing the CTC loss of each
-element.
-
+Tensor with shape (samples,1) containing the CTC loss of each element. 
 
 
 

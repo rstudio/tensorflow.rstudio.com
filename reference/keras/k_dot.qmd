@@ -1,45 +1,44 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/backend.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/backend.R*
+
 # k_dot
 
-
-Multiplies 2 tensors (and/or variables) and returns a tensor.
-
-
-
+## Multiplies 2 tensors (and/or variables) and returns a **tensor**.
 
 ## Description
-
-When attempting to multiply a nD tensor
-with a nD tensor, it reproduces the Theano behavior.
-(e.g. (2, 3) * (4, 3, 5) -> (2, 4, 5))
-
-
-
+When attempting to multiply a nD tensor with a nD tensor, it reproduces the Theano behavior. (e.g. `(2, 3) * (4, 3, 5) -> (2, 4, 5)`) 
 
 
 ## Usage
 ```r
-k_dot(x, y)
+k_dot(x, y) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | Tensor or variable. |
+| y | Tensor or variable. |
 
 
-Argument      |Description
-------------- |----------------
-x | Tensor or variable.
-y | Tensor or variable.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A tensor, dot product of ``x`` and ``y``.
-
+A tensor, dot product of `x` and `y`. 
 
 
 

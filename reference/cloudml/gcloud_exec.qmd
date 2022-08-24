@@ -1,50 +1,42 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gcloud-exec.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](NULL/edit/main/R/gcloud-exec.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/gcloud-exec.R*
+
 # gcloud_exec
 
-
-Executes a Google Cloud Command
-
-
-
+## Executes a Google Cloud Command
 
 ## Description
-
-Executes a Google Cloud command with the given parameters.
-
-
-
+Executes a Google Cloud command with the given parameters. 
 
 
 ## Usage
 ```r
-gcloud_exec(..., args = NULL, echo = TRUE, dry_run = FALSE)
+gcloud_exec(..., args = NULL, echo = TRUE, dry_run = FALSE) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-... | Parameters to use specified based on position.
-args | Parameters to use specified as a list.
-echo | Echo command output to console.
-dry_run | Echo but not execute the command?
-
+|Arguments|Description|
+|---|---|
+| ... | Parameters to use specified based on position. |
+| args | Parameters to use specified as a list. |
+| echo | Echo command output to console. |
+| dry_run | Echo but not execute the command? |
 
 
 
 
 
 ## Examples
-
-```r
-
-gcloud_exec("help", "info")
-
+```{r, eval=ecodown::examples_not_run()}
+gcloud_exec("help", "info") 
 ```
-
-
 
 

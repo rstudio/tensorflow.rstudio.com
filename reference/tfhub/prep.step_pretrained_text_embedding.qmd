@@ -1,36 +1,35 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfhub//blob/main/R/recipe.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfhub//edit/main/R/recipe.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/recipe.R*
+
 # prep.step_pretrained_text_embedding
 
-
-Prep method for step_pretrained_text_embedding
-
-
-
+## Prep method for step_pretrained_text_embedding
 
 ## Description
-
-Prep method for step_pretrained_text_embedding
-
-
-
+Prep method for step_pretrained_text_embedding 
 
 
 ## Usage
 ```r
-prep.step_pretrained_text_embedding(x, training, info = NULL, ...)
+prep.step_pretrained_text_embedding(x, training, info = NULL, ...) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | object |
+| training | wether or not it's training |
+| info | variables state |
+| ... | One or more selector functions to choose variables. |
 
-
-Argument      |Description
-------------- |----------------
-x | object
-training | wether or not it's training
-info | variables state
-... | One or more selector functions to choose variables.
 
 
 

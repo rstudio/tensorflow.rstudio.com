@@ -1,24 +1,25 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/feature_spec.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/feature_spec.R*
+
 # all_numeric
 
-
-Speciy all numeric variables.
-
-
-
+## Speciy all numeric variables.
 
 ## Description
-
-Find all the variables with the following types:
-"float16", "float32", "float64", "int16", "int32", "int64",
-"half", "double".
-
-
-
+Find all the variables with the following types: "float16", "float32", "float64", "int16", "int32", "int64", "half", "double". 
 
 
 ## Usage
 ```r
-all_numeric()
+all_numeric() 
 ```
 
 
@@ -28,10 +29,5 @@ all_numeric()
 
 
 ## See Also
-
-Other Selectors: 
-`all_nominal()`,
-`has_type()`
-
-
+Other Selectors:  `all_nominal()`, `has_type()`
 

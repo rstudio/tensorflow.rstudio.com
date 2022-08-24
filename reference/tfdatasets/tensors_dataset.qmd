@@ -1,52 +1,39 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/tensors_dataset.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/tensors_dataset.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/tensors_dataset.R*
+
 # tensors_dataset
 
-
-Creates a dataset with a single element, comprising the given tensors.
-
-
-
+## Creates a dataset with a single element, comprising the given tensors.
 
 ## Description
-
-Creates a dataset with a single element, comprising the given tensors.
-
-
-
+Creates a dataset with a single element, comprising the given tensors. 
 
 
 ## Usage
 ```r
-tensors_dataset(tensors)
+tensors_dataset(tensors) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-tensors | A nested structure of tensors.
-
-
+|Arguments|Description|
+|---|---|
+| tensors | A nested structure of tensors. |
 
 
 
 ## Value
-
-A dataset.
-
-
-
+A dataset. 
 
 
 
 ## See Also
-
-Other tensor datasets: 
-`sparse_tensor_slices_dataset()`,
-`tensor_slices_dataset()`
-
-
+Other tensor datasets:  `sparse_tensor_slices_dataset()`, `tensor_slices_dataset()`
 

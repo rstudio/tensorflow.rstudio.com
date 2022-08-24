@@ -1,48 +1,37 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/eager.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/eager.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/eager.R*
+
 # tf_function
 
-
-Creates a callable TensorFlow graph from an R function.
-
-
-
+## Creates a callable TensorFlow graph from an R function.
 
 ## Description
-
-``tf_function`` constructs a callable that executes a TensorFlow graph created
-by tracing the TensorFlow operations in ``f``. This allows the TensorFlow
-runtime to apply optimizations and exploit parallelism in the computation
-defined by ``f``.
-
-
-
+`tf_function` constructs a callable that executes a TensorFlow graph created by tracing the TensorFlow operations in `f`. This allows the TensorFlow runtime to apply optimizations and exploit parallelism in the computation defined by `f`. 
 
 
 ## Usage
 ```r
-tf_function(f, input_signature = NULL, autograph = TRUE, ...)
+tf_function(f, input_signature = NULL, autograph = TRUE, ...) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-f | the function to be compiled
-input_signature | A possibly nested sequence of ``tf$TensorSpec`` objects specifying the shapes and dtypes of the tensors that will be supplied to this function. If ``NULL``, a separate function is instantiated for each inferred input signature. If ``input_signature`` is specified, every input to ``f`` must be a tensor.
-autograph | TRUE or FALSE. If TRUE (the default), you can use tensors in R control flow expressions ``if``, ``while``, ``for`` and ``break`` and they will be traced into the tensorflow graph. A guide to getting started and additional details can be found: https://t-kalinowski.github.io/tfautograph/here
-... | additional arguments passed on to ``tf.function`` (vary based on Tensorflow version). See https://www.tensorflow.org/api_docs/python/tf/function#args_1here for details.
-
-
-
+|Arguments|Description|
+|---|---|
+| f | the function to be compiled |
+| input_signature | A possibly nested sequence of `tf$TensorSpec` objects specifying the shapes and dtypes of the tensors that will be supplied to this function. If `NULL`, a separate function is instantiated for each inferred input signature. If `input_signature` is specified, every input to `f` must be a tensor. |
+| autograph | TRUE or FALSE. If TRUE (the default), you can use tensors in R control flow expressions `if`, `while`, `for` and `break` and they will be traced into the tensorflow graph. A guide to getting started and additional details can be found: [here](https://t-kalinowski.github.io/tfautograph/) |
+| ... | additional arguments passed on to `tf.function` (vary based on Tensorflow version). See [here](https://www.tensorflow.org/api_docs/python/tf/function#args_1) for details. |
 
 ## Details
-
-A guide to getting started with
-https://www.tensorflow.org/api_docs/python/tf/functiontf.function can
-be found https://www.tensorflow.org/guide/functionhere.
+A guide to getting started with [`tf.function`](https://www.tensorflow.org/api_docs/python/tf/function) can be found [here](https://www.tensorflow.org/guide/function). 
 
 
 

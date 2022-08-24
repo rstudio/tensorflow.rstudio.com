@@ -1,0 +1,16 @@
+{
+  "hash": "19826b9a010b90db82bc3462da78a024",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/extract.R) </button> | <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/extract.R) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n*R/extract.R*\n\n# tf_extract_opts\n\n## Tensor extract options\n\n## Description\nTensor extract options \n\n\n## Usage\n```r\ntf_extract_opts( \n  style = getOption(\"tensorflow.extract.style\"), \n  ..., \n  one_based = getOption(\"tensorflow.extract.one_based\", TRUE), \n  inclusive_stop = getOption(\"tensorflow.extract.inclusive_stop\", TRUE), \n  disallow_out_of_bounds = getOption(\"tensorflow.extract.dissallow_out_of_bounds\", \n    TRUE), \n  warn_tensors_passed_asis = getOption(\"tensorflow.extract.warn_tensors_passed_asis\", \n    TRUE), \n  warn_negatives_pythonic = getOption(\"tensorflow.extract.warn_negatives_pythonic\", \n    TRUE) \n) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| style | one of `NULL` (the default) `\"R\"` or `\"python\"`. If supplied, this overrides all other options. `\"python\"` is equivalent to all the other arguments being `FALSE`. `\"R\"` is equivalent to `warn_tensors_passed_asis` and `warn_negatives_pythonic`<br>set to `FALSE` |\n| ... | ignored |\n| one_based | TRUE or FALSE, if one-based indexing should be used |\n| inclusive_stop | TRUE or FALSE, if slices like `start:stop` should be inclusive of `stop` |\n| disallow_out_of_bounds | TRUE or FALSE, whether checks are performed on the slicing index to ensure it is within bounds. |\n| warn_tensors_passed_asis | TRUE or FALSE, whether to emit a warning the first time a tensor is supplied to `[` that tensors are passed as-is, with no R to python translation |\n| warn_negatives_pythonic | TRUE or FALSE, whether to emit a warning the first time a negative number is supplied to `[` about the non-standard (python-style) interpretation |\n\n\n\n## Value\nan object with class \"tf_extract_opts\", suitable for passing to `[.tensorflow.tensor()`\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nx <- tf$constant(1:10) \nopts <-  tf_extract_opts(\"R\") \nx[1, options = opts] \n# or for more fine-grained control \nopts <- tf_extract_opts( \n    one_based = FALSE, \n    warn_tensors_passed_asis = FALSE, \n    warn_negatives_pythonic = FALSE \n) \nx[0:2, options = opts] \n```\n:::\n",
+    "supporting": [
+      "tf_extract_opts_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

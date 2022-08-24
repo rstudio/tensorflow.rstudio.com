@@ -1,34 +1,31 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/iterators.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/iterators.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/iterators.R*
+
 # iterator_initializer
 
-
-An operation that should be run to initialize this iterator.
-
-
-
+## An operation that should be run to initialize this iterator.
 
 ## Description
-
-An operation that should be run to initialize this iterator.
-
-
-
+An operation that should be run to initialize this iterator. 
 
 
 ## Usage
 ```r
-iterator_initializer(iterator)
+iterator_initializer(iterator) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-iterator | An iterator
-
+|Arguments|Description|
+|---|---|
+| iterator | An iterator |
 
 
 
@@ -36,12 +33,5 @@ iterator | An iterator
 
 
 ## See Also
-
-Other iterator functions: 
-`iterator_get_next()`,
-`iterator_make_initializer()`,
-`iterator_string_handle()`,
-`make-iterator`
-
-
+Other iterator functions:  `iterator_get_next()`, `iterator_make_initializer()`, `iterator_string_handle()`, `make-iterator`
 

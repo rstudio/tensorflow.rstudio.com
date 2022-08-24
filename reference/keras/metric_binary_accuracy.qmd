@@ -1,119 +1,61 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/metrics.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/metrics.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/metrics.R*
+
 # metric_binary_accuracy
 
-
-Calculates how often predictions match binary labels
-
-
-
+## Calculates how often predictions match binary labels
 
 ## Description
-
-Calculates how often predictions match binary labels
-
-
-
+Calculates how often predictions match binary labels 
 
 
 ## Usage
 ```r
-metric_binary_accuracy(
-  y_true,
-  y_pred,
-  threshold = 0.5,
-  ...,
-  name = "binary_accuracy",
-  dtype = NULL
-)
+metric_binary_accuracy( 
+  y_true, 
+  y_pred, 
+  threshold = 0.5, 
+  ..., 
+  name = "binary_accuracy", 
+  dtype = NULL 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-y_true | Tensor of true targets.
-y_pred | Tensor of predicted targets.
-threshold | (Optional) Float representing the threshold for deciding whether prediction values are 1 or 0.
-... | Passed on to the underlying metric. Used for forwards and backwards compatibility.
-name | (Optional) string name of the metric instance.
-dtype | (Optional) data type of the metric result.
-
-
-
+|Arguments|Description|
+|---|---|
+| y_true | Tensor of true targets. |
+| y_pred | Tensor of predicted targets. |
+| threshold | (Optional) Float representing the threshold for deciding whether prediction values are 1 or 0. |
+| ... | Passed on to the underlying metric. Used for forwards and backwards compatibility. |
+| name | (Optional) string name of the metric instance. |
+| dtype | (Optional) data type of the metric result. |
 
 ## Details
 
-This metric creates two local variables, ``total`` and ``count`` that are used to
-compute the frequency with which ``y_pred`` matches ``y_true``. This frequency is
-ultimately returned as binary accuracy: an idempotent operation that simply
-divides ``total`` by ``count``.
+This metric creates two local variables, `total` and `count` that are used to compute the frequency with which `y_pred` matches `y_true`. This frequency is ultimately returned as `binary accuracy`: an idempotent operation that simply divides `total` by `count`. 
 
-If ``sample_weight`` is ``NULL``, weights default to 1.
-Use ``sample_weight`` of 0 to mask values.
-
-
-
+If `sample_weight` is `NULL`, weights default to 1. Use `sample_weight` of 0 to mask values. 
 
 
 ## Value
 
-If ``y_true`` and ``y_pred`` are missing, a (subclassed) ``Metric``
-instance is returned. The ``Metric`` object can be passed directly to
-``compile(metrics = )`` or used as a standalone object. See ``?Metric`` for
-example usage.
+If `y_true` and `y_pred` are missing, a (subclassed) `Metric`
 
-Alternatively, if called with ``y_true`` and ``y_pred`` arguments, then the
-computed case-wise values for the mini-batch are returned directly.
+instance is returned. The `Metric` object can be passed directly to `compile(metrics = )` or used as a standalone object. See `?Metric` for example usage. 
 
-
-
+Alternatively, if called with `y_true` and `y_pred` arguments, then the computed case-wise values for the mini-batch are returned directly. 
 
 
 
 ## See Also
-
-Other metrics: 
-`custom_metric()`,
-`metric_accuracy()`,
-`metric_auc()`,
-`metric_binary_crossentropy()`,
-`metric_categorical_accuracy()`,
-`metric_categorical_crossentropy()`,
-`metric_categorical_hinge()`,
-`metric_cosine_similarity()`,
-`metric_false_negatives()`,
-`metric_false_positives()`,
-`metric_hinge()`,
-`metric_kullback_leibler_divergence()`,
-`metric_logcosh_error()`,
-`metric_mean_absolute_error()`,
-`metric_mean_absolute_percentage_error()`,
-`metric_mean_iou()`,
-`metric_mean_relative_error()`,
-`metric_mean_squared_error()`,
-`metric_mean_squared_logarithmic_error()`,
-`metric_mean_tensor()`,
-`metric_mean_wrapper()`,
-`metric_mean()`,
-`metric_poisson()`,
-`metric_precision_at_recall()`,
-`metric_precision()`,
-`metric_recall_at_precision()`,
-`metric_recall()`,
-`metric_root_mean_squared_error()`,
-`metric_sensitivity_at_specificity()`,
-`metric_sparse_categorical_accuracy()`,
-`metric_sparse_categorical_crossentropy()`,
-`metric_sparse_top_k_categorical_accuracy()`,
-`metric_specificity_at_sensitivity()`,
-`metric_squared_hinge()`,
-`metric_sum()`,
-`metric_top_k_categorical_accuracy()`,
-`metric_true_negatives()`,
-`metric_true_positives()`
-
-
+Other metrics:  `custom_metric()`, `metric_accuracy()`, `metric_auc()`, `metric_binary_crossentropy()`, `metric_categorical_accuracy()`, `metric_categorical_crossentropy()`, `metric_categorical_hinge()`, `metric_cosine_similarity()`, `metric_false_negatives()`, `metric_false_positives()`, `metric_hinge()`, `metric_kullback_leibler_divergence()`, `metric_logcosh_error()`, `metric_mean_absolute_error()`, `metric_mean_absolute_percentage_error()`, `metric_mean_iou()`, `metric_mean_relative_error()`, `metric_mean_squared_error()`, `metric_mean_squared_logarithmic_error()`, `metric_mean_tensor()`, `metric_mean_wrapper()`, `metric_mean()`, `metric_poisson()`, `metric_precision_at_recall()`, `metric_precision()`, `metric_recall_at_precision()`, `metric_recall()`, `metric_root_mean_squared_error()`, `metric_sensitivity_at_specificity()`, `metric_sparse_categorical_accuracy()`, `metric_sparse_categorical_crossentropy()`, `metric_sparse_top_k_categorical_accuracy()`, `metric_specificity_at_sensitivity()`, `metric_squared_hinge()`, `metric_sum()`, `metric_top_k_categorical_accuracy()`, `metric_true_negatives()`, `metric_true_positives()`
 

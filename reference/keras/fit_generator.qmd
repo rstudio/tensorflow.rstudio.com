@@ -1,94 +1,65 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/model.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/model.R*
+
 # fit_generator
 
-
-(Deprecated) Fits the model on data yielded batch-by-batch by a generator.
-
-
-
+## (Deprecated) Fits the model on data yielded batch-by-batch by a generator.
 
 ## Description
-
-The generator is run in parallel to the model, for efficiency. For instance,
-this allows you to do real-time data augmentation on images on CPU in
-parallel to training your model on GPU.
-
-
-
+The generator is run in parallel to the model, for efficiency. For instance, this allows you to do real-time data augmentation on images on CPU in parallel to training your model on GPU. 
 
 
 ## Usage
 ```r
-fit_generator(
-  object,
-  generator,
-  steps_per_epoch,
-  epochs = 1,
-  verbose = getOption("keras.fit_verbose", default = 1),
-  callbacks = NULL,
-  view_metrics = getOption("keras.view_metrics", default = "auto"),
-  validation_data = NULL,
-  validation_steps = NULL,
-  class_weight = NULL,
-  max_queue_size = 10,
-  workers = 1,
-  initial_epoch = 0
-)
+fit_generator( 
+  object, 
+  generator, 
+  steps_per_epoch, 
+  epochs = 1, 
+  verbose = getOption("keras.fit_verbose", default = 1), 
+  callbacks = NULL, 
+  view_metrics = getOption("keras.view_metrics", default = "auto"), 
+  validation_data = NULL, 
+  validation_steps = NULL, 
+  class_weight = NULL, 
+  max_queue_size = 10, 
+  workers = 1, 
+  initial_epoch = 0 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-object | Keras model object
-generator | A generator (e.g. like the one provided by `flow_images_from_directory()` or a custom R https://rstudio.github.io/reticulate/articles/calling_python.html#generators-1generator function).  The output of the generator must be a list of one of these forms:  html<div class="sourceCode"> - (inputs, targets)  - (inputs, targets, sample_weights) html</div>  This list (a single output of the generator) makes a single batch. Therefore, all arrays in this list must have the same length (equal to the size of this batch). Different batches may have different sizes. For example, the last batch of the epoch is commonly smaller than the others, if the size of the dataset is not divisible by the batch size. The generator is expected to loop over its data indefinitely. An epoch finishes when ``steps_per_epoch`` batches have been seen by the model.
-steps_per_epoch | Total number of steps (batches of samples) to yield from ``generator`` before declaring one epoch finished and starting the next epoch. It should typically be equal to the number of samples if your dataset divided by the batch size.
-epochs | Integer. Number of epochs to train the model. An epoch is an iteration over the entire data provided, as defined by ``steps_per_epoch``. Note that in conjunction with ``initial_epoch``, ``epochs`` is to be understood as "final epoch". The model is not trained for a number of iterations given by ``epochs``, but merely until the epoch of index ``epochs`` is reached.
-verbose | Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch).
-callbacks | List of callbacks to apply during training.
-view_metrics | View realtime plot of training metrics (by epoch). The default (``"auto"``) will display the plot when running within RStudio, ``metrics`` were specified during model `compile()`, ``epochs > 1`` and ``verbose > 0``. Use the global ``keras.view_metrics`` option to establish a different default.
-validation_data | this can be either:   *  a generator for the validation data  *  a list (inputs, targets)  *  a list (inputs, targets, sample_weights). on which to evaluate the loss and any model metrics at the end of each epoch. The model will not be trained on this data.
-validation_steps | Only relevant if ``validation_data`` is a generator. Total number of steps (batches of samples) to yield from ``generator`` before stopping at the end of every epoch. It should typically be equal to the number of samples of your validation dataset divided by the batch size.
-class_weight | Optional named list mapping class indices (integer) to a weight (float) value, used for weighting the loss function (during training only). This can be useful to tell the model to "pay more attention" to samples from an under-represented class.
-max_queue_size | Maximum size for the generator queue. If unspecified, ``max_queue_size`` will default to 10.
-workers | Maximum number of threads to use for parallel processing. Note that parallel processing will only be performed for native Keras generators (e.g. ``flow_images_from_directory()``) as R based generators must run on the main thread.
-initial_epoch | epoch at which to start training (useful for resuming a previous training run)
-
-
+|Arguments|Description|
+|---|---|
+| object | Keras model object |
+| generator | A generator (e.g. like the one provided by `flow_images_from_directory()` or a custom R [generator function](https://rstudio.github.io/reticulate/articles/calling_python.html#generators-1)). <br>The output of the generator must be a list of one of these forms: <br>```<br> - (inputs, targets) <br> - (inputs, targets, sample_weights) <br>```<br>This list (a single output of the generator) makes a single batch. Therefore, all arrays in this list must have the same length (equal to the size of this batch). Different batches may have different sizes. For example, the last batch of the epoch is commonly smaller than the others, if the size of the dataset is not divisible by the batch size. The generator is expected to loop over its data indefinitely. An epoch finishes when `steps_per_epoch` batches have been seen by the model. |
+| steps_per_epoch | Total number of steps (batches of samples) to yield from `generator` before declaring one epoch finished and starting the next epoch. It should typically be equal to the number of samples if your dataset divided by the batch size. |
+| epochs | Integer. Number of epochs to train the model. An epoch is an iteration over the entire data provided, as defined by `steps_per_epoch`. Note that in conjunction with `initial_epoch`, `epochs` is to be understood as "final epoch". The model is not trained for a number of iterations given by `epochs`, but merely until the epoch of index `epochs` is reached. |
+| verbose | Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch). |
+| callbacks | List of callbacks to apply during training. |
+| view_metrics | View realtime plot of training metrics (by epoch). The default (`"auto"`) will display the plot when running within RStudio, `metrics` were specified during model `compile()`, `epochs > 1` and `verbose > 0`. Use the global `keras.view_metrics` option to establish a different default. |
+| validation_data | this can be either: <br>- a generator for the validation data <br>- a list (inputs, targets) <br>- a list (inputs, targets, sample_weights). on which to evaluate the loss and any model metrics at the end of each epoch. The model will not be trained on this data.  |
+| validation_steps | Only relevant if `validation_data` is a generator. Total number of steps (batches of samples) to yield from `generator` before stopping at the end of every epoch. It should typically be equal to the number of samples of your validation dataset divided by the batch size. |
+| class_weight | Optional named list mapping class indices (integer) to a weight (float) value, used for weighting the loss function (during training only). This can be useful to tell the model to "pay more attention" to samples from an under-represented class. |
+| max_queue_size | Maximum size for the generator queue. If unspecified, `max_queue_size` will default to 10. |
+| workers | Maximum number of threads to use for parallel processing. Note that parallel processing will only be performed for native Keras generators (e.g. `flow_images_from_directory()`) as R based generators must run on the main thread. |
+| initial_epoch | epoch at which to start training (useful for resuming a previous training run) |
 
 
 
 ## Value
-
-Training history object (invisibly)
-
-
-
+Training history object (invisibly) 
 
 
 
 ## See Also
-
-Other model functions: 
-`compile.keras.engine.training.Model()`,
-`evaluate.keras.engine.training.Model()`,
-`evaluate_generator()`,
-`fit.keras.engine.training.Model()`,
-`get_config()`,
-`get_layer()`,
-`keras_model_sequential()`,
-`keras_model()`,
-`multi_gpu_model()`,
-`pop_layer()`,
-`predict.keras.engine.training.Model()`,
-`predict_generator()`,
-`predict_on_batch()`,
-`predict_proba()`,
-`summary.keras.engine.training.Model()`,
-`train_on_batch()`
-
-
+Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()`
 

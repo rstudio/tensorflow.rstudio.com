@@ -1,48 +1,42 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/probability.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/probability.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/probability.R*
+
 # tf_probability
 
-
-TensorFlow Probability Module
-
-
-
+## TensorFlow Probability Module
 
 ## Description
-
-TensorFlow Probability Module
-
-
-
+TensorFlow Probability Module 
 
 
 ## Usage
 ```r
-tf_probability()
+tf_probability() 
 ```
-
 
 
 
 
 ## Value
 
-Reference to https://www.tensorflow.org/probabilityTensorFlow Probability
-functions and classes
+Reference to [TensorFlow Probability](https://www.tensorflow.org/probability)
 
-
-
+functions and classes 
 
 
 ## Examples
-
-```r
-
-library(tensorflow)
-tfp <- tf_probability()
-tfp$distributions$Normal(loc=0, scale=1)
-
+```{r, eval=ecodown::examples_not_run()}
+library(tensorflow) 
+tfp <- tf_probability() 
+tfp$distributions$Normal(loc=0, scale=1) 
 ```
-
-
-
 
 

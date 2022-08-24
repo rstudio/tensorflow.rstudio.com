@@ -1,43 +1,36 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/zip_datasets.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/zip_datasets.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/zip_datasets.R*
+
 # zip_datasets
 
-
-Creates a dataset by zipping together the given datasets.
-
-
-
+## Creates a dataset by zipping together the given datasets.
 
 ## Description
-
-Merges datasets together into pairs or tuples that contain an element from
-each dataset.
-
-
-
+Merges datasets together into pairs or tuples that contain an element from each dataset. 
 
 
 ## Usage
 ```r
-zip_datasets(...)
+zip_datasets(...) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-... | Datasets to zip (or a single argument with a list or list of lists of datasets).
-
-
+|Arguments|Description|
+|---|---|
+| ... | Datasets to zip (or a single argument with a list or list of lists of datasets). |
 
 
 
 ## Value
-
-A dataset
-
+A dataset 
 
 
 

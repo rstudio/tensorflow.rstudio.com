@@ -1,85 +1,59 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/model.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/model.R*
+
 # evaluate.keras.engine.training.Model
 
-
-Evaluate a Keras model
-
-
-
+## Evaluate a Keras model
 
 ## Description
-
-Evaluate a Keras model
-
-
-
+Evaluate a Keras model 
 
 
 ## Usage
-
-evaluatekeras.engine.training.Model(
-  object,
-  x = NULL,
-  y = NULL,
-  batch_size = NULL,
-  verbose = "auto",
-  sample_weight = NULL,
-  steps = NULL,
-  callbacks = NULL,
-  ...
-)
-
-
-
-
+```r
+## S3 method for class 'keras.engine.training.Model'
+evaluate
+( 
+  object, 
+  x = NULL, 
+  y = NULL, 
+  batch_size = NULL, 
+  verbose = "auto", 
+  sample_weight = NULL, 
+  steps = NULL, 
+  callbacks = NULL, 
+  ... 
+) 
+```
 
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-object | Model object to evaluate
-x | Vector, matrix, or array of test data (or list if the model has multiple inputs). If all inputs in the model are named, you can also pass a list mapping input names to data. ``x`` can be ``NULL`` (default) if feeding from framework-native tensors (e.g. TensorFlow data tensors). You can also pass a ``tfdataset`` or a generator returning a list with (inputs, targets) or (inputs, targets, sample_weights).
-y | Vector, matrix, or array of target (label) data (or list if the model has multiple outputs). If all outputs in the model are named, you can also pass a list mapping output names to data. ``y`` can be ``NULL`` (default) if feeding from framework-native tensors (e.g. TensorFlow data tensors).
-batch_size | Integer or ``NULL``. Number of samples per gradient update. If unspecified, ``batch_size`` will default to 32.
-verbose | Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch).
-sample_weight | Optional array of the same length as x, containing weights to apply to the model's loss for each sample. In the case of temporal data, you can pass a 2D array with shape (samples, sequence_length), to apply a different weight to every timestep of every sample. In this case you should make sure to specify ``sample_weight_mode="temporal"`` in `compile()`.
-steps | Total number of steps (batches of samples) before declaring the evaluation round finished. Ignored with the default value of ``NULL``.
-callbacks | List of callbacks to apply during evaluation.
-... | Unused
-
-
+|Arguments|Description|
+|---|---|
+| object | Model object to evaluate |
+| x | Vector, matrix, or array of test data (or list if the model has multiple inputs). If all inputs in the model are named, you can also pass a list mapping input names to data. `x` can be `NULL` (default) if feeding from framework-native tensors (e.g. TensorFlow data tensors). You can also pass a `tfdataset` or a generator returning a list with `(inputs, targets)` or `(inputs, targets, sample_weights)`. |
+| y | Vector, matrix, or array of target (label) data (or list if the model has multiple outputs). If all outputs in the model are named, you can also pass a list mapping output names to data. `y` can be `NULL` (default) if feeding from framework-native tensors (e.g. TensorFlow data tensors). |
+| batch_size | Integer or `NULL`. Number of samples per gradient update. If unspecified, `batch_size` will default to 32. |
+| verbose | Verbosity mode (0 = silent, 1 = progress bar, 2 = one line per epoch). |
+| sample_weight | Optional array of the same length as x, containing weights to apply to the model's loss for each sample. In the case of temporal data, you can pass a 2D array with shape (samples, sequence_length), to apply a different weight to every timestep of every sample. In this case you should make sure to specify `sample_weight_mode="temporal"` in `compile()`. |
+| steps | Total number of steps (batches of samples) before declaring the evaluation round finished. Ignored with the default value of `NULL`. |
+| callbacks | List of callbacks to apply during evaluation. |
+| ... | Unused |
 
 
 
 ## Value
-
-Named list of model test loss (or losses for models with multiple
-outputs) and model metrics.
-
-
-
+Named list of model test loss (or losses for models with multiple outputs) and model metrics. 
 
 
 
 ## See Also
-
-Other model functions: 
-`compile.keras.engine.training.Model()`,
-`evaluate_generator()`,
-`fit.keras.engine.training.Model()`,
-`fit_generator()`,
-`get_config()`,
-`get_layer()`,
-`keras_model_sequential()`,
-`keras_model()`,
-`multi_gpu_model()`,
-`pop_layer()`,
-`predict.keras.engine.training.Model()`,
-`predict_generator()`,
-`predict_on_batch()`,
-`predict_proba()`,
-`summary.keras.engine.training.Model()`,
-`train_on_batch()`
-
-
+Other model functions:  `compile.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()`
 

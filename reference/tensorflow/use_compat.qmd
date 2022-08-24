@@ -1,51 +1,40 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/compat.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/compat.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/compat.R*
+
 # use_compat
 
-
-Use Compatibility
-
-
-
+## Use Compatibility
 
 ## Description
-
-Enables TensorFlow to run under a different API version for compatibility
-with previous versions. For instance, this is useful to run TensorFlow 1.x
-code when using TensorFlow 2.x.
-
-
-
+Enables TensorFlow to run under a different API version for compatibility with previous versions. For instance, this is useful to run TensorFlow 1.x code when using TensorFlow 2.x. 
 
 
 ## Usage
 ```r
-use_compat(version = c("v1", "v2"))
+use_compat(version = c("v1", "v2")) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-version | The version to activate. Must be ``"v1"`` or ``"v2"``
-
+|Arguments|Description|
+|---|---|
+| version | The version to activate. Must be `"v1"` or `"v2"` |
 
 
 
 
 
 ## Examples
-
-```r
-
-library(tensorflow)
-use_compat("v1")
-
+```{r, eval=ecodown::examples_not_run()}
+library(tensorflow) 
+use_compat("v1") 
 ```
-
-
-
 
 

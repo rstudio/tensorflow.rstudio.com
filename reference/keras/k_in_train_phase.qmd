@@ -1,45 +1,48 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/backend.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/backend.R*
+
 # k_in_train_phase
 
-
-Selects ``x`` in train phase, and ``alt`` otherwise.
-
-
-
+## Selects `x` in train phase, and `alt` otherwise.
 
 ## Description
-
-Note that ``alt`` should have the same shape as ``x``.
-
-
-
+Note that `alt` should have the **same shape** as `x`. 
 
 
 ## Usage
 ```r
-k_in_train_phase(x, alt, training = NULL)
+k_in_train_phase(x, alt, training = NULL) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | What to return in train phase (tensor or function that returns a tensor). |
+| alt | What to return otherwise (tensor or function that returns a tensor). |
+| training | Optional scalar tensor (or R logical or integer) specifying the learning phase. |
 
 
-Argument      |Description
-------------- |----------------
-x | What to return in train phase (tensor or function that returns a tensor).
-alt | What to return otherwise (tensor or function that returns a tensor).
-training | Optional scalar tensor (or R logical or integer) specifying the learning phase.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
 
-Either ``x`` or ``alt`` based on the ``training`` flag. the ``training``
-flag defaults to ``k_learning_phase()``.
+Either `x` or `alt` based on the `training` flag. the `training`
 
+flag defaults to `k_learning_phase()`. 
 
 
 

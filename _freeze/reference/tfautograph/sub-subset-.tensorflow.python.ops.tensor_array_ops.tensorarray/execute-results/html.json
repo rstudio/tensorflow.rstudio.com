@@ -1,0 +1,14 @@
+{
+  "hash": "49ac5e2f53f56f60674e2aa0e0b37dd0",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/methods.R) </button> | <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/methods.R) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n*R/methods.R*\n\n# [[<-.tensorflow.python.ops.tensor_array_ops.TensorArray\n\n## `TensorArray.write()`\n\n## Description\n`TensorArray.write()`\n\n\n## Usage\n```r\n## S3 method for class 'tensorflow.python.ops.tensor_array_ops.TensorArray'\n[[\n(ta, i, ..., name = NULL) <- value \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| ta | a tensorflow `TensorArray` |\n| i | something castable to an int32 scalar tensor. 0-based. |\n| ... | Error if anything is passed to `...` |\n| name | A scalar string, name of the op |\n| value | The value to write. |\n\n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nta <- tf$TensorArray(tf$float32, size = 5L) \nfor(i in 0:4) \n  ta[[i]] <- i \nta$stack() \n# You can use this to grow objects in graph mode \naccuracies_log <- tf$TensorArray(tf$float32, size = 0L, dynamic_size=TRUE) \nfor(epoch in 0:4) \n  accuracies_log[[epoch]] <- runif(1) \nacc <- accuracies_log$stack() \nacc \n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

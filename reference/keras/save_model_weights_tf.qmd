@@ -1,61 +1,49 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model-persistence.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/model-persistence.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/model-persistence.R*
+
 # save_model_weights_tf
 
-
-Save model weights in the SavedModel format
-
-
-
+## Save model weights in the SavedModel format
 
 ## Description
-
-Save model weights in the SavedModel format
-
-
-
+Save model weights in the SavedModel format 
 
 
 ## Usage
 ```r
-save_model_weights_tf(object, filepath, overwrite = TRUE)
-
-load_model_weights_tf(
-  object,
-  filepath,
-  by_name = FALSE,
-  skip_mismatch = FALSE,
-  reshape = FALSE
-)
+save_model_weights_tf(object, filepath, overwrite = TRUE) 
+load_model_weights_tf( 
+  object, 
+  filepath, 
+  by_name = FALSE, 
+  skip_mismatch = FALSE, 
+  reshape = FALSE 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-object | Model object to save/load
-filepath | Path to the file
-overwrite | Whether to silently overwrite any existing file at the target location
-by_name | Whether to load weights by name or by topological order.
-skip_mismatch | Logical, whether to skip loading of layers where there is a mismatch in the number of weights, or a mismatch in the shape of the weight (only valid when ``by_name = FALSE``).
-reshape | Reshape weights to fit the layer when the correct number of values are present but the shape does not match.
-
-
-
+|Arguments|Description|
+|---|---|
+| object | Model object to save/load |
+| filepath | Path to the file |
+| overwrite | Whether to silently overwrite any existing file at the target location |
+| by_name | Whether to load weights by name or by topological order. |
+| skip_mismatch | Logical, whether to skip loading of layers where there is a mismatch in the number of weights, or a mismatch in the shape of the weight (only valid when `by_name = FALSE`). |
+| reshape | Reshape weights to fit the layer when the correct number of values are present but the shape does not match. |
 
 ## Details
 
-When saving in TensorFlow format, all objects referenced by the network
-are saved in the same format as ``tf.train.Checkpoint``, including any Layer instances
-or Optimizer instances assigned to object attributes. For networks constructed from
-inputs and outputs using ``tf.keras.Model(inputs, outputs)``, Layer instances used by
-the network are tracked/saved automatically. For user-defined classes which inherit
-from ``tf.keras.Model``, Layer instances must be assigned to object attributes,
-typically in the constructor.
+When saving in TensorFlow format, all objects referenced by the network are saved in the same format as `tf.train.Checkpoint`, including any Layer instances or Optimizer instances assigned to object attributes. For networks constructed from inputs and outputs using `tf.keras.Model(inputs, outputs)`, Layer instances used by the network are tracked/saved automatically. For user-defined classes which inherit from `tf.keras.Model`, Layer instances must be assigned to object attributes, typically in the constructor. 
 
-See the documentation of ``tf.train.Checkpoint`` and ``tf.keras.Model`` for details.
+See the documentation of `tf.train.Checkpoint` and `tf.keras.Model` for details. 
 
 
 

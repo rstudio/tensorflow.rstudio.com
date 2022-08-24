@@ -1,58 +1,43 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/opts.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/opts.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/opts.R*
+
 # ag_name
 
-
-Specify a tensor name
-
-
-
+## Specify a tensor name
 
 ## Description
-
-This can be used before any autographed expression that results in the
-creation of a tensor or op graph node. This can be used before ``for`` (both with tensors and datasets), ``while``, and ``if`` statements.
-
-
-
+This can be used before any autographed expression that results in the creation of a tensor or op graph node. This can be used before `for` (both with tensors and datasets), `while`, and `if` statements. 
 
 
 ## Usage
 ```r
-ag_name(x)
+ag_name(x) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-x | A string
-
-
+|Arguments|Description|
+|---|---|
+| x | A string |
 
 
 
 ## Value
-
-``x``, invisibly
-
-
-
+`x`, invisibly 
 
 
 ## Examples
-
-```r
-
-## when you're in graph mode. (e.g, tf$executing_eagerly == FALSE)
-
-ag_name("main-training-loop")
-for(elem in dataset) ...
-
+```{r, eval=ecodown::examples_not_run()}
+## when you're in graph mode. (e.g, tf$executing_eagerly == FALSE) 
+ag_name("main-training-loop") 
+for(elem in dataset) ... 
 ```
-
-
 
 

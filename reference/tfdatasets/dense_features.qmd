@@ -1,42 +1,36 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/feature_spec.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/feature_spec.R*
+
 # dense_features
 
-
-Dense Features
-
-
-
+## Dense Features
 
 ## Description
-
-Retrives the Dense Features from a spec.
-
-
-
+Retrives the Dense Features from a spec. 
 
 
 ## Usage
 ```r
-dense_features(spec)
+dense_features(spec) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-spec | A feature specification created with `feature_spec()`.
-
-
+|Arguments|Description|
+|---|---|
+| spec | A feature specification created with `feature_spec()`. |
 
 
 
 ## Value
-
-A list of feature columns.
-
+A list of feature columns. 
 
 
 

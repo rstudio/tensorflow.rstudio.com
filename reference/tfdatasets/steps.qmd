@@ -1,45 +1,57 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/feature_spec.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/feature_spec.R*
+
 # steps
 
-
-Steps for feature columns specification.
-
-
-
+## Steps for feature columns specification.
 
 ## Description
-
-List of steps that can be used to specify columns in the ``feature_spec`` interface.
-
+List of steps that can be used to specify columns in the `feature_spec` interface. 
 
 
 
 
+
+## Section
+
+## Steps
+
+- `step_numeric_column()` to define numeric columns. 
+
+- `step_categorical_column_with_vocabulary_list()` to define categorical columns. 
+
+- `step_categorical_column_with_hash_bucket()` to define categorical columns where ids are set by hashing. 
+
+- `step_categorical_column_with_identity()` to define categorical columns represented by integers in the range `[0-num_buckets)`. 
+
+- `step_categorical_column_with_vocabulary_file()` to define categorical columns when their vocabulary is available in a file. 
+
+- `step_indicator_column()` to create indicator columns from categorical columns. 
+
+- `step_embedding_column()` to create embeddings columns from categorical columns. 
+
+- `step_bucketized_column()` to create bucketized columns from numeric columns. 
+
+- `step_crossed_column()` to perform crosses of categorical columns. 
+
+- `step_shared_embeddings_column()` to share embeddings between a list of categorical columns. 
+
+- `step_remove_column()` to remove columns from the specification. 
 
 
 
 
 ## See Also
 
+- selectors for a list of selectors that can be used to specify variables. 
 
-
-*  selectors for a list of selectors that can be used to specify variables.
-
-
-Other Feature Spec Functions: 
-`dataset_use_spec()`,
-`feature_spec()`,
-`fit.FeatureSpec()`,
-`step_bucketized_column()`,
-`step_categorical_column_with_hash_bucket()`,
-`step_categorical_column_with_identity()`,
-`step_categorical_column_with_vocabulary_file()`,
-`step_categorical_column_with_vocabulary_list()`,
-`step_crossed_column()`,
-`step_embedding_column()`,
-`step_indicator_column()`,
-`step_numeric_column()`,
-`step_remove_column()`,
-`step_shared_embeddings_column()`
-
-
+Other Feature Spec Functions:  `dataset_use_spec()`, `feature_spec()`, `fit.FeatureSpec()`, `step_bucketized_column()`, `step_categorical_column_with_hash_bucket()`, `step_categorical_column_with_identity()`, `step_categorical_column_with_vocabulary_file()`, `step_categorical_column_with_vocabulary_list()`, `step_crossed_column()`, `step_embedding_column()`, `step_indicator_column()`, `step_numeric_column()`, `step_remove_column()`, `step_shared_embeddings_column()`
 

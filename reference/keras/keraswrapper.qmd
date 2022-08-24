@@ -1,28 +1,57 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/wrapper_custom.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/wrapper_custom.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/wrapper_custom.R*
+
 # KerasWrapper
 
-
-(Deprecated) Base R6 class for Keras wrappers
-
-
-
+## (Deprecated) Base R6 class for Keras wrappers
 
 ## Description
+Instead of inheriting from the proxy class `KerasWrapper` and using `create_wrapper` to create instances, new R6 custom classes are encouraged to inherit directly from `keras$layers$Wrapper` and use `create_layer` to create instances. 
 
-Instead of inheriting from the proxy class ``KerasWrapper`` and using
-``create_wrapper`` to create instances, new R6 custom classes are encouraged to
-inherit directly from ``keras$layers$Wrapper`` and use ``create_layer`` to create
-instances.
-
+## Format
+An R6Class generator object 
 
 
 
 
+## Section
 
+## Methods
+
+ 
+
+`build(input_shape)`
+
+Builds the wrapped layer. 
+
+`call(inputs,mask)`
+
+Calls the wrapped layer on an input tensor.
+
+`compute_output_shape(input_shape)`
+
+Computes the output shape 
+
+`add_loss(losses, inputs)`
+
+Subclasses can use this to add losses to the wrapped layer.
+
+`add_weight(name,shape,dtype,initializer,regularizer,trainable,constraint)`
+
+Subclasses can use this to add weights to the wrapped layer.
+
+ 
 
 ## Value
-
-KerasWrapper.
-
+KerasWrapper. 
 
 
 

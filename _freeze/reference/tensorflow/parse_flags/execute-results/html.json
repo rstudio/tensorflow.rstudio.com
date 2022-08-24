@@ -1,0 +1,16 @@
+{
+  "hash": "706aa71162e15bfd0ce4df95dfa53775",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/flags.R) </button> | <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/flags.R) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n*R/flags.R*\n\n# parse_flags\n\n## Parse Configuration Flags for a TensorFlow Application\n\n## Description\nParse configuration flags for a TensorFlow application. Use this to parse and unify the configuration(s) specified through a `flags.yml` configuration file, alongside other arguments set through the command line. \n\n\n## Usage\n```r\nparse_flags( \n  config = Sys.getenv(\"R_CONFIG_ACTIVE\", unset = \"default\"), \n  file = \"flags.yml\", \n  arguments = commandArgs(TRUE) \n) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| config | The configuration to use. Defaults to the active configuration for the current environment (as specified by the `R_CONFIG_ACTIVE` environment variable), or `default` when unset. |\n| file | The configuration file to read. |\n| arguments | The command line arguments (as a character vector) to be parsed. |\n\n\n\n## Value\nA named `R` list, mapping configuration keys to values. \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\n# examine an example configuration file provided by tensorflow \nfile <- system.file(\"examples/config/flags.yml\", package = \"tensorflow\") \ncat(readLines(file), sep = \"\\n\") \n# read the default configuration \nFLAGS <- tensorflow::parse_flags(\"default\", file = file) \nstr(FLAGS) \n# read the alternate configuration: note that \n# the default configuration is inherited, but \n# we override the 'string' configuration here \nFLAGS <- tensorflow::parse_flags(\"alternate\", file = file) \nstr(FLAGS) \n# override configuration values using command \n# line arguments (normally, these would be \n# passed in through the command line invocation \n# used to start the process) \nFLAGS <- tensorflow::parse_flags( \n  \"alternate\", \n  file = file, \n  arguments = c(\"--foo=1\") \n) \nstr(FLAGS) \n```\n:::\n",
+    "supporting": [
+      "parse_flags_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

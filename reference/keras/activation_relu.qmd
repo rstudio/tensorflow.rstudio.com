@@ -1,117 +1,99 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/activations.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/activations.R) </button> |
+|:------------------------------:|:--------------------------------------:|
+
+*R/activations.R*
+
 # activation_relu
 
-
-Activation functions
-
-
-
+## Activation functions
 
 ## Description
 
-``relu(...)``: Applies the rectified linear unit activation function.
+`relu(...)`: Applies the rectified linear unit activation function. 
 
-``elu(...)``: Exponential Linear Unit.
+`elu(...)`: Exponential Linear Unit. 
 
-``selu(...)``: Scaled Exponential Linear Unit (SELU).
+`selu(...)`: Scaled Exponential Linear Unit (SELU). 
 
-``hard_sigmoid(...)``: Hard sigmoid activation function.
+`hard_sigmoid(...)`: Hard sigmoid activation function. 
 
-``linear(...)``: Linear activation function (pass-through).
+`linear(...)`: Linear activation function (pass-through). 
 
-``sigmoid(...)``: Sigmoid activation function, ``sigmoid(x) = 1 / (1 + exp(-x))``.
+`sigmoid(...)`: Sigmoid activation function, `sigmoid(x) = 1 / (1 + exp(-x))`. 
 
-``softmax(...)``: Softmax converts a vector of values to a probability distribution.
+`softmax(...)`: Softmax converts a vector of values to a probability distribution. 
 
-``softplus(...)``: Softplus activation function, ``softplus(x) = log(exp(x) + 1)``.
+`softplus(...)`: Softplus activation function, `softplus(x) = log(exp(x) + 1)`. 
 
-``softsign(...)``: Softsign activation function, ``softsign(x) = x / (abs(x) + 1)``.
+`softsign(...)`: Softsign activation function, `softsign(x) = x / (abs(x) + 1)`. 
 
-``tanh(...)``: Hyperbolic tangent activation function.
+`tanh(...)`: Hyperbolic tangent activation function. 
 
-``exponential(...)``: Exponential activation function.
+`exponential(...)`: Exponential activation function. 
 
-``gelu(...)``: Applies the Gaussian error linear unit (GELU) activation function.
+`gelu(...)`: Applies the Gaussian error linear unit (GELU) activation function. 
 
-``swish(...)``: Swish activation function, ``swish(x) = x * sigmoid(x)``.
-
-
-
+`swish(...)`: Swish activation function, `swish(x) = x * sigmoid(x)`. 
 
 
 ## Usage
 ```r
-activation_relu(x, alpha = 0, max_value = NULL, threshold = 0)
-
-activation_elu(x, alpha = 1)
-
-activation_selu(x)
-
-activation_hard_sigmoid(x)
-
-activation_linear(x)
-
-activation_sigmoid(x)
-
-activation_softmax(x, axis = -1)
-
-activation_softplus(x)
-
-activation_softsign(x)
-
-activation_tanh(x)
-
-activation_exponential(x)
-
-activation_gelu(x, approximate = FALSE)
-
-activation_swish(x)
+activation_relu(x, alpha = 0, max_value = NULL, threshold = 0) 
+activation_elu(x, alpha = 1) 
+activation_selu(x) 
+activation_hard_sigmoid(x) 
+activation_linear(x) 
+activation_sigmoid(x) 
+activation_softmax(x, axis = -1) 
+activation_softplus(x) 
+activation_softsign(x) 
+activation_tanh(x) 
+activation_exponential(x) 
+activation_gelu(x, approximate = FALSE) 
+activation_swish(x) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-x | Tensor
-alpha | Alpha value
-max_value | Max value
-threshold | Threshold value for thresholded activation.
-axis | Integer, axis along which the softmax normalization is applied
-approximate | A bool, whether to enable approximation.
-
-
-
+|Arguments|Description|
+|---|---|
+| x | Tensor |
+| alpha | Alpha value |
+| max_value | Max value |
+| threshold | Threshold value for thresholded activation. |
+| axis | Integer, axis along which the softmax normalization is applied |
+| approximate | A bool, whether to enable approximation. |
 
 ## Details
 
-Activations functions can either be used through `layer_activation()`, or
-through the activation argument supported by all forward layers.
+Activations functions can either be used through `layer_activation()`, or through the activation argument supported by all forward layers. 
 
+- `activation_selu()` to be used together with the initialization "lecun_normal". 
 
-*  `activation_selu()` to be used together with the initialization "lecun_normal".
+- `activation_selu()` to be used together with the dropout variant "AlphaDropout". 
 
-*  `activation_selu()` to be used together with the dropout variant "AlphaDropout".
+## Section
 
+## References
 
+- `activation_swish()`: [Searching for Activation Functions](https://arxiv.org/abs/1710.05941)
 
+- `activation_gelu()`: [Gaussian Error Linear Units (GELUs)](https://arxiv.org/abs/1606.08415)
 
+- `activation_selu()`: [Self-Normalizing Neural Networks](https://arxiv.org/abs/1706.02515)
 
+- `activation_elu()`: [Fast and Accurate Deep Network Learning by Exponential Linear Units (ELUs)](https://arxiv.org/abs/1511.07289)
 
 ## Value
-
-Tensor with the same shape and dtype as ``x``.
-
-
-
+Tensor with the same shape and dtype as `x`. 
 
 
 
 ## See Also
-
-https://www.tensorflow.org/api_docs/python/tf/keras/activations
-
-
+[https://www.tensorflow.org/api_docs/python/tf/keras/activations](https://www.tensorflow.org/api_docs/python/tf/keras/activations)
 
