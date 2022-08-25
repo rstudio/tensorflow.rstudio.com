@@ -1,9 +1,7 @@
 ---
- 
+title: tfhub
+description: R interface to TensorFlow Hub, a library for reusable machine learning modules
 ---
- 
-## 1
- 
 Function(s) | Description
 |---|---|
 |[bake.step_pretrained_text_embedding()](/reference/tfhub/bake.step_pretrained_text_embedding.html)|Bake method for step_pretrained_text_embedding|
@@ -15,5 +13,5 @@ Function(s) | Description
 |[layer_hub()](/reference/tfhub/layer_hub.html)|Hub Layer|
 |[`%>%`](/reference/tfhub/pipe.html)|Pipe operator|
 |[prep.step_pretrained_text_embedding()](/reference/tfhub/prep.step_pretrained_text_embedding.html)|Prep method for step_pretrained_text_embedding|
-|[](/reference/tfhub/reexports.html)|Objects exported from other packages|
+|[reexports install_tensorflow tf shape](/reference/tfhub/reexports.html)|Objects exported from other packages|
 |[step_pretrained_text_embedding()](/reference/tfhub/step_pretrained_text_embedding.html)|Pretrained text-embeddings|

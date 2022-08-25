@@ -1,5 +1,6 @@
 ---
- 
+title: keras
+description: High level API for deep learning
 ---
  
 ## Keras Models
@@ -376,7 +377,7 @@ Function(s) | Description
 |[callback_terminate_on_naan()](/reference/keras/callback_terminate_on_naan.html)|Callback that terminates training when a NaN loss is encountered.|
 |[callback_csv_logger()](/reference/keras/callback_csv_logger.html)|Callback that streams epoch results to a csv file|
 |[callback_lambda()](/reference/keras/callback_lambda.html)|Create a custom callback|
-|[](/reference/keras/KerasCallback.html)|(Deprecated) Base R6 class for Keras callbacks|
+|[KerasCallback](/reference/keras/KerasCallback.html)|(Deprecated) Base R6 class for Keras callbacks|
  
 ## Initializers
  
@@ -403,7 +404,7 @@ Function(s) | Description
 Function(s) | Description
 |---|---|
 |[constraint_maxnorm() constraint_nonneg() constraint_unitnorm() constraint_minmaxnorm()](/reference/keras/constraints.html)|Weight constraints|
-|[](/reference/keras/KerasConstraint.html)|(Deprecated) Base R6 class for Keras constraints|
+|[KerasConstraint](/reference/keras/KerasConstraint.html)|(Deprecated) Base R6 class for Keras constraints|
  
 ## Utils
  
@@ -420,7 +421,7 @@ Function(s) | Description
 |[keras_array()](/reference/keras/keras_array.html)|Keras array object|
 |[hdf5_matrix()](/reference/keras/hdf5_matrix.html)|Representation of HDF5 dataset to be used instead of an R array|
 |[get_file()](/reference/keras/get_file.html)|Downloads a file from a URL if it not already in the cache.|
-|[](/reference/keras/reexports.html)|Objects exported from other packages|
+|[reexports %<>% use_python use_virtualenv use_condaenv array_reshape tuple use_session_with_seed tensorboard evaluate export_savedmodel shape as_tensor flags flag_numeric flag_integer flag_string flag_boolean run_dir fit compile](/reference/keras/reexports.html)|Objects exported from other packages|
 |[install_keras()](/reference/keras/install_keras.html)|Install TensorFlow and Keras, including all Python dependencies|
 |[is_keras_available()](/reference/keras/is_keras_available.html)|Check if Keras is Available|
 |[backend()](/reference/keras/backend.html)|Keras backend tensor engine|
@@ -439,7 +440,7 @@ Function(s) | Description
  
 Function(s) | Description
 |---|---|
-|[](/reference/keras/Metric.html)|Metric|
+|[Metric](/reference/keras/Metric.html)|Metric|
 |[metric_accuracy()](/reference/keras/metric_accuracy.html)|Calculates how often predictions equal labels|
 |[metric_auc()](/reference/keras/metric_auc.html)|Approximates the AUC (Area under the curve) of the ROC or PR curves|
 |[metric_binary_accuracy()](/reference/keras/metric_binary_accuracy.html)|Calculates how often predictions match binary labels|
@@ -655,8 +656,8 @@ Function(s) | Description
  
 Function(s) | Description
 |---|---|
-|[](/reference/keras/KerasLayer.html)|(Deprecated) Base R6 class for Keras layers|
-|[](/reference/keras/KerasWrapper.html)|(Deprecated) Base R6 class for Keras wrappers|
+|[KerasLayer](/reference/keras/KerasLayer.html)|(Deprecated) Base R6 class for Keras layers|
+|[KerasWrapper](/reference/keras/KerasWrapper.html)|(Deprecated) Base R6 class for Keras wrappers|
 |[create_wrapper()](/reference/keras/create_wrapper.html)|(Deprecated) Create a Keras Wrapper|
 |[loss_cosine_proximity()](/reference/keras/loss_cosine_proximity.html)|(Deprecated) loss_cosine_proximity|
 |[layer_cudnn_gru()](/reference/keras/layer_cudnn_gru.html)|(Deprecated) Fast GRU implementation backed by <a href='https://developer.nvidia.com/cudnn'>CuDNN</a>.|

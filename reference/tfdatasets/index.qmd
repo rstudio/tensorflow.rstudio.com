@@ -1,5 +1,6 @@
 ---
- 
+title: tfdatasets
+description: Create efficient and fast data loading pipelines
 ---
  
 ## Creating Datasets
@@ -77,7 +78,7 @@ Function(s) | Description
 |[dense_features()](/reference/tfdatasets/dense_features.html)|Dense Features|
 |[dataset_use_spec()](/reference/tfdatasets/dataset_use_spec.html)|Transform the dataset using the provided spec.|
 |[fit(<i><FeatureSpec></i>)](/reference/tfdatasets/fit.FeatureSpec.html)|Fits a feature specification.|
-|[](/reference/tfdatasets/scaler.html)|List of pre-made scalers|
+|[scaler](/reference/tfdatasets/scaler.html)|List of pre-made scalers|
 |[scaler_min_max()](/reference/tfdatasets/scaler_min_max.html)|Creates an instance of a min max scaler|
 |[scaler_standard()](/reference/tfdatasets/scaler_standard.html)|Creates an instance of a standard scaler|
 |[step_bucketized_column()](/reference/tfdatasets/step_bucketized_column.html)|Creates bucketized columns|
@@ -91,7 +92,7 @@ Function(s) | Description
 |[step_numeric_column()](/reference/tfdatasets/step_numeric_column.html)|Creates a numeric column specification|
 |[step_remove_column()](/reference/tfdatasets/step_remove_column.html)|Creates a step that can remove columns|
 |[step_shared_embeddings_column()](/reference/tfdatasets/step_shared_embeddings_column.html)|Creates shared embeddings for categorical columns|
-|[](/reference/tfdatasets/steps.html)|Steps for feature columns specification.|
+|[steps](/reference/tfdatasets/steps.html)|Steps for feature columns specification.|
 |[all_nominal()](/reference/tfdatasets/all_nominal.html)|Find all nominal variables.|
 |[all_numeric()](/reference/tfdatasets/all_numeric.html)|Speciy all numeric variables.|
 |[has_type()](/reference/tfdatasets/has_type.html)|Identify the type of the variable.|

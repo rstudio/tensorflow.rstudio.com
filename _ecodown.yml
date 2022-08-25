@@ -5,22 +5,33 @@ site:
     convert_news: false
     convert_articles: false
     reference_folder: ""
+    reference_examples: false
+    reference_examples_not_run: false
     reference_template: "reference/assets/_reference.qmd"
-    reference_qmd_options: "execute:\n  freeze: true"
     packages:
       - repo_url: https://github.com/rstudio/tensorflow
         quarto_sub_folder: "reference/tensorflow"
+        package_description: "Tensors, Graphs and other primatives"
       - repo_url: https://github.com/rstudio/keras
         quarto_sub_folder: "reference/keras"
+        package_description: "High level API for deep learning"
       - repo_url: https://github.com/rstudio/tfdatasets
         quarto_sub_folder: "reference/tfdatasets"
+        package_description: "Create efficient and fast data loading pipelines"
       - repo_url: https://github.com/t-kalinowski/tfautograph
         quarto_sub_folder: "reference/tfautograph"
+        package_description: "Tools for translating R code to Tensorflow Graphs"
       - repo_url: https://github.com/rstudio/tfhub
         quarto_sub_folder: "reference/tfhub"
+        package_description: "R interface to TensorFlow Hub, a library for reusable machine learning modules"
       - repo_url: https://github.com/rstudio/tfruns
         quarto_sub_folder: "reference/tfruns"
+        package_description: "Track and visualize training runs and experiments"
       - repo_url: https://github.com/rstudio/cloudml
         quarto_sub_folder: "reference/cloudml"
+        package_description: "R interface to Google CloudML"
   autolink:
     run: FALSE
+  quarto:
+    run: FALSE
+
