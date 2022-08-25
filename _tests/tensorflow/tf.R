@@ -1,0 +1,5 @@
+library(tensorflow) 
+hello <- tf$constant('Hello, TensorFlow!') 
+zeros <- tf$Variable(tf$zeros(shape(1L))) 
+tf$print(hello) 
+tf$print(zeros) 
