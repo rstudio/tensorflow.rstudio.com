@@ -1,19 +1,27 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/reexports.R#L) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # reexports
 
-
-Objects exported from other packages
-
-
-
+## Objects exported from other packages
 
 ## Description
 
-These objects are imported from other packages. Follow the links
-below to see their documentation.
-
+These objects are imported from other packages. Follow the links below to see their documentation. 
 
   
-* 
+
+magrittr
+
+`%>%`
+
+
 
 
 

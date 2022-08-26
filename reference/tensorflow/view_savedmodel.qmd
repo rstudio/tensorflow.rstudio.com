@@ -1,42 +1,34 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/save.R#L10) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # view_savedmodel
 
-
-View a Saved Model
-
-
-
+## View a Saved Model
 
 ## Description
-
-View a serialized model from disk.
-
-
-
+View a serialized model from disk. 
 
 
 ## Usage
 ```r
-view_savedmodel(model_dir)
+view_savedmodel(model_dir) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-model_dir | The path to the exported model, as a string.
-
-
+|Arguments|Description|
+|---|---|
+| model_dir | The path to the exported model, as a string. |
 
 
 
 ## Value
-
-URL for browsing TensorBoard (invisibly).
-
+URL for browsing TensorBoard (invisibly). 
 
 
 

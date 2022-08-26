@@ -1,42 +1,41 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L622) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_count_params
 
-
-Returns the static number of elements in a Keras variable or tensor.
-
-
-
+## Returns the static number of elements in a Keras variable or tensor.
 
 ## Description
-
-Returns the static number of elements in a Keras variable or tensor.
-
-
-
+Returns the static number of elements in a Keras variable or tensor. 
 
 
 ## Usage
 ```r
-k_count_params(x)
+k_count_params(x) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | Keras variable or tensor. |
 
 
-Argument      |Description
-------------- |----------------
-x | Keras variable or tensor.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-Integer, the number of elements in ``x``, i.e., the product of the array's static dimensions.
-
+Integer, the number of elements in `x`, i.e., the product of the array's static dimensions. 
 
 
 

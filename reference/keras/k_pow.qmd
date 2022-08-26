@@ -1,43 +1,42 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L2025) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_pow
 
-
-Element-wise exponentiation.
-
-
-
+## Element-wise exponentiation.
 
 ## Description
-
-Element-wise exponentiation.
-
-
-
+Element-wise exponentiation. 
 
 
 ## Usage
 ```r
-k_pow(x, a)
+k_pow(x, a) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | Tensor or variable. |
+| a | R integer. |
 
 
-Argument      |Description
-------------- |----------------
-x | Tensor or variable.
-a | R integer.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A tensor.
-
+A tensor. 
 
 
 

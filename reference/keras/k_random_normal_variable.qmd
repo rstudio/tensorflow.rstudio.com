@@ -1,54 +1,53 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L2173) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_random_normal_variable
 
-
-Instantiates a variable with values drawn from a normal distribution.
-
-
-
+## Instantiates a variable with values drawn from a normal distribution.
 
 ## Description
-
-Instantiates a variable with values drawn from a normal distribution.
-
-
-
+Instantiates a variable with values drawn from a normal distribution. 
 
 
 ## Usage
 ```r
-k_random_normal_variable(
-  shape,
-  mean,
-  scale,
-  dtype = NULL,
-  name = NULL,
-  seed = NULL
-)
+k_random_normal_variable( 
+  shape, 
+  mean, 
+  scale, 
+  dtype = NULL, 
+  name = NULL, 
+  seed = NULL 
+) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| shape | Tuple of integers, shape of returned Keras variable. |
+| mean | Float, mean of the normal distribution. |
+| scale | Float, standard deviation of the normal distribution. |
+| dtype | String, dtype of returned Keras variable. |
+| name | String, name of returned Keras variable. |
+| seed | Integer, random seed. |
 
 
-Argument      |Description
-------------- |----------------
-shape | Tuple of integers, shape of returned Keras variable.
-mean | Float, mean of the normal distribution.
-scale | Float, standard deviation of the normal distribution.
-dtype | String, dtype of returned Keras variable.
-name | String, name of returned Keras variable.
-seed | Integer, random seed.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A Keras variable, filled with drawn samples.
-
+A Keras variable, filled with drawn samples. 
 
 
 

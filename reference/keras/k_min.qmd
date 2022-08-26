@@ -1,44 +1,43 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L1750) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_min
 
-
-Minimum value in a tensor.
-
-
-
+## Minimum value in a tensor.
 
 ## Description
-
-Minimum value in a tensor.
-
-
-
+Minimum value in a tensor. 
 
 
 ## Usage
 ```r
-k_min(x, axis = NULL, keepdims = FALSE)
+k_min(x, axis = NULL, keepdims = FALSE) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | A tensor or variable. |
+| axis | An integer, axis to find minimum values (axis indexes are 1-based). |
+| keepdims | A boolean, whether to keep the dimensions or not. If `keepdims` is `FALSE`, the rank of the tensor is reduced by 1. If `keepdims` is `TRUE`, the reduced dimension is retained with length 1. |
 
 
-Argument      |Description
-------------- |----------------
-x | A tensor or variable.
-axis | An integer, axis to find minimum values (axis indexes are 1-based).
-keepdims | A boolean, whether to keep the dimensions or not. If ``keepdims`` is ``FALSE``, the rank of the tensor is reduced by 1. If ``keepdims`` is ``TRUE``, the reduced dimension is retained with length 1.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A tensor with miminum values of ``x``.
-
+A tensor with miminum values of `x`. 
 
 
 

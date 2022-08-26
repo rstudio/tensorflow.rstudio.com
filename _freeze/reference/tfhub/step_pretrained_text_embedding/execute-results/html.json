@@ -1,0 +1,16 @@
+{
+  "hash": "2039d218ea303f12b29aaf478406e292",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tfhub//blob/main/R/recipe.R#L39) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# step_pretrained_text_embedding\n\n## Pretrained text-embeddings\n\n## Description\n`step_pretrained_text_embedding` creates a *specification* of a  recipe step that will transform text data into its numerical  transformation based on a pretrained model. \n\n\n## Usage\n```r\nstep_pretrained_text_embedding( \n  recipe, \n  ..., \n  role = \"predictor\", \n  trained = FALSE, \n  handle, \n  args = NULL, \n  skip = FALSE, \n  id = recipes::rand_id(\"pretrained_text_embedding\") \n) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| recipe | A recipe object. The step will be added to the sequence of operations for this recipe. |\n| ... | One or more selector functions to choose variables. |\n| role | Role for the created variables |\n| trained | A logical to indicate if the quantities for preprocessing have been estimated. |\n| handle | the Module handle to resolve. |\n| args | other arguments passed to [hub_load()]. |\n| skip | A logical. Should the step be skipped when the recipe is baked by [recipes::bake.recipe()]? While all operations are baked when [recipes::prep.recipe()] is run, some operations may not be able to be conducted on new data (e.g. processing the outcome variable(s)). Care should be taken when using `skip = TRUE` as it may affect the computations for subsequent operations |\n| id | A character string that is unique to this step to identify it. |\n\n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tfhub)\nlibrary(tibble) \nlibrary(recipes) \ndf <- tibble(text = c('hi', \"heello\", \"goodbye\"), y = 0) \nrec <- recipe(y ~ text, df) \nrec <- rec %>% step_pretrained_text_embedding( \n text, \n handle = \"https://tfhub.dev/google/tf2-preview/gnews-swivel-20dim-with-oov/1\" \n) \n```\n:::\n",
+    "supporting": [
+      "step_pretrained_text_embedding_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

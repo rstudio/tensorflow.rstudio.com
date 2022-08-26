@@ -1,0 +1,16 @@
+{
+  "hash": "135ea3ab1fde81382a4730a750b91cb3",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1105) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# dataset_options\n\n## Get or Set Dataset Options\n\n## Description\nGet or Set Dataset Options \n\n\n## Usage\n```r\ndataset_options(dataset, ...) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| dataset | a tensorflow dataset |\n| ... | Valid values include: <br>- A set of named arguments setting options. Names of nested attributes can be separated with a `\".\"` (see examples). The set of named arguments can be supplied individually to `...`, or as a single named list. <br>- a `tf$data$Options()` instance.  |\n\n## Details\nThe options are \"global\" in the sense they apply to the entire dataset. If options are set multiple times, they are merged as long as different options do not use different non-default values. \n\n\n## Value\nIf values are supplied to `...`, returns a `tf.data.Dataset` with the given options set/updated. Otherwise, returns the currently set options for the dataset. \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tfdatasets)\n# pass options directly: \nrange_dataset(0, 10) %>% \n  dataset_options( \n    experimental_deterministic = FALSE, \n    threading.private_threadpool_size = 10 \n  ) \n# pass options as a named list: \nopts <- list( \n  experimental_deterministic = FALSE, \n  threading.private_threadpool_size = 10 \n) \nrange_dataset(0, 10) %>% \n  dataset_options(opts) \n# pass a tf.data.Options() instance \nopts <- tf$data$Options() \nopts$experimental_deterministic <- FALSE \nopts$threading$private_threadpool_size <- 10L \nrange_dataset(0, 10) %>% \n  dataset_options(opts) \n# get currently set options \nrange_dataset(0, 10) %>% dataset_options() \n```\n:::\n",
+    "supporting": [
+      "dataset_options_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

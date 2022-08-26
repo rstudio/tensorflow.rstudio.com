@@ -1,23 +1,26 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/reexports.R#L5) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # %>%
 
-
-Pipe operator
-
-
-
+## Pipe operator
 
 ## Description
-
-See `%>%` for more details.
-
-
-
+See `%>%` for more details. 
 
 
 ## Usage
 ```r
-lhs %>% rhs
+lhs %>% rhs 
 ```
+
+
 
 
 

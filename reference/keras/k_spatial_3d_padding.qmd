@@ -1,51 +1,47 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L2704) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_spatial_3d_padding
 
-
-Pads 5D tensor with zeros along the depth, height, width dimensions.
-
-
-
+## Pads 5D tensor with zeros along the depth, height, width dimensions.
 
 ## Description
-
-Pads these dimensions with respectively ``padding[[1]]``, ``padding[[2]]``, and
-``padding[[3]]`` zeros left and right. For 'channels_last' data_format, the
-2nd, 3rd and 4th dimension will be padded. For 'channels_first' data_format,
-the 3rd, 4th and 5th dimension will be padded.
-
-
-
+Pads these dimensions with respectively `padding[[1]]`, `padding[[2]]`, and `padding[[3]]` zeros left and right. For 'channels_last' data_format, the 2nd, 3rd and 4th dimension will be padded. For 'channels_first' data_format, the 3rd, 4th and 5th dimension will be padded. 
 
 
 ## Usage
 ```r
-k_spatial_3d_padding(
-  x,
-  padding = list(list(1, 1), list(1, 1), list(1, 1)),
-  data_format = NULL
-)
+k_spatial_3d_padding( 
+  x, 
+  padding = list(list(1, 1), list(1, 1), list(1, 1)), 
+  data_format = NULL 
+) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | Tensor or variable. |
+| padding | List of 3 lists, padding pattern. |
+| data_format | string, `"channels_last"` or `"channels_first"`. |
 
 
-Argument      |Description
-------------- |----------------
-x | Tensor or variable.
-padding | List of 3 lists, padding pattern.
-data_format | string, ``"channels_last"`` or ``"channels_first"``.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A padded 5D tensor.
-
+A padded 5D tensor. 
 
 
 

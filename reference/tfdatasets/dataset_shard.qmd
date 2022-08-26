@@ -1,45 +1,36 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L570) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # dataset_shard
 
-
-Creates a dataset that includes only 1 / num_shards of this dataset.
-
-
-
+## Creates a dataset that includes only 1 / num_shards of this dataset.
 
 ## Description
-
-This dataset operator is very useful when running distributed training, as it
-allows each worker to read a unique subset.
-
-
-
+This dataset operator is very useful when running distributed training, as it allows each worker to read a unique subset. 
 
 
 ## Usage
 ```r
-dataset_shard(dataset, num_shards, index)
+dataset_shard(dataset, num_shards, index) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-dataset | A dataset
-num_shards | A integer representing the number of shards operating in parallel.
-index | A integer, representing the worker index.
-
-
+|Arguments|Description|
+|---|---|
+| dataset | A dataset |
+| num_shards | A integer representing the number of shards operating in parallel. |
+| index | A integer, representing the worker index. |
 
 
 
 ## Value
-
-A dataset
-
+A dataset 
 
 
 

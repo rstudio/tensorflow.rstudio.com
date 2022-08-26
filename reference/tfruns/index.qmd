@@ -2,42 +2,44 @@
 title: tfruns
 description: Track and visualize training runs and experiments
 ---
-
+ 
 ## Training
-
+ 
 Function(s) | Description
-------------- |----------------
-[training_run()](/reference/tfruns/training_run.html) | Run a training script
-[tuning_run()](/reference/tfruns/tuning_run.html) | Tune hyperparameters using training flags
-[flags()](/reference/tfruns/flags.html) [flag_numeric()](/reference/tfruns/latest/reference/flags.html) [flag_integer()](/reference/tfruns/latest/reference/flags.html) [flag_boolean()](/reference/tfruns/latest/reference/flags.html) [flag_string()](/reference/tfruns/latest/reference/flags.html) | Flags for a training run
-[run_dir()](/reference/tfruns/run_dir.html) | Current run directory
-[unique_run_dir()](/reference/tfruns/unique_run_dir.html) | Create a unique run directory
-
+|---|---|
+|[training_run()](/reference/tfruns/training_run.html)|Run a training script|
+|[tuning_run()](/reference/tfruns/tuning_run.html)|Tune hyperparameters using training flags|
+|[flags() flag_numeric() flag_integer() flag_boolean() flag_string()](/reference/tfruns/flags.html)|Flags for a training run|
+|[run_dir()](/reference/tfruns/run_dir.html)|Current run directory|
+|[unique_run_dir()](/reference/tfruns/unique_run_dir.html)|Create a unique run directory|
+ 
 ## Visualizing Runs
-
+ 
 Function(s) | Description
-------------- |----------------
-[view_run()](/reference/tfruns/view_run.html) | View a training run
-[compare_runs()](/reference/tfruns/compare_runs.html) | Compare training runs
-[save_run_view()](/reference/tfruns/save_run_view.html) | Save a run view as HTML
-[save_run_comparison()](/reference/tfruns/save_run_comparison.html) | Save a run comparison as HTML
-
+|---|---|
+|[view_run()](/reference/tfruns/view_run.html)|View a training run|
+|[compare_runs()](/reference/tfruns/compare_runs.html)|Compare training runs|
+|[save_run_view()](/reference/tfruns/save_run_view.html)|Save a run view as HTML|
+|[save_run_comparison()](/reference/tfruns/save_run_comparison.html)|Save a run comparison as HTML|
+ 
 ## Managing Runs
-
+ 
 Function(s) | Description
-------------- |----------------
-[ls_runs()](/reference/tfruns/ls_runs.html) | List or view training runs
-[latest_run()](/reference/tfruns/latest_run.html) | Latest training run
-[run_info()](/reference/tfruns/run_info.html) | Summary of training run
-[clean_runs()](/reference/tfruns/clean_runs.html) [purge_runs()](/reference/tfruns/latest/reference/clean_runs.html) | Clean run directories
-[copy_run()](/reference/tfruns/copy_run.html) [copy_run_files()](/reference/tfruns/latest/reference/copy_run.html) | Copy run directories
-
+|---|---|
+|[ls_runs()](/reference/tfruns/ls_runs.html)|List or view training runs|
+|[latest_run()](/reference/tfruns/latest_run.html)|Latest training run|
+|[run_info()](/reference/tfruns/run_info.html)|Summary of training run|
+|[clean_runs() purge_runs()](/reference/tfruns/clean_runs.html)|Clean run directories|
+|[clean_runs() purge_runs()](/reference/tfruns/clean_runs.html)|Clean run directories|
+|[copy_run() copy_run_files()](/reference/tfruns/copy_run.html)|Copy run directories|
+|[copy_run() copy_run_files()](/reference/tfruns/copy_run.html)|Copy run directories|
+ 
 ## Package API
-
+ 
 Function(s) | Description
-------------- |----------------
-[is_run_active()](/reference/tfruns/is_run_active.html) | Check for an active training run
-[as_run_dir()](/reference/tfruns/as_run_dir.html) | Extract run directory from an object
-[view_run_metrics()](/reference/tfruns/view_run_metrics.html) [update_run_metrics()](/reference/tfruns/latest/reference/view_run_metrics.html) | View metrics for a training run
-[write_run_metadata()](/reference/tfruns/write_run_metadata.html) | Write run metadata
-
+|---|---|
+|[is_run_active()](/reference/tfruns/is_run_active.html)|Check for an active training run|
+|[as_run_dir()](/reference/tfruns/as_run_dir.html)|Extract run directory from an object|
+|[view_run_metrics() update_run_metrics()](/reference/tfruns/view_run_metrics.html)|View metrics for a training run|
+|[view_run_metrics() update_run_metrics()](/reference/tfruns/view_run_metrics.html)|View metrics for a training run|
+|[write_run_metadata()](/reference/tfruns/write_run_metadata.html)|Write run metadata|

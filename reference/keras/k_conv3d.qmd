@@ -1,54 +1,53 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L556) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_conv3d
 
-
-3D convolution.
-
-
-
+## 3D convolution.
 
 ## Description
-
-3D convolution.
-
-
-
+3D convolution. 
 
 
 ## Usage
 ```r
-k_conv3d(
-  x,
-  kernel,
-  strides = c(1, 1, 1),
-  padding = "valid",
-  data_format = NULL,
-  dilation_rate = c(1, 1, 1)
-)
+k_conv3d( 
+  x, 
+  kernel, 
+  strides = c(1, 1, 1), 
+  padding = "valid", 
+  data_format = NULL, 
+  dilation_rate = c(1, 1, 1) 
+) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | Tensor or variable. |
+| kernel | kernel tensor. |
+| strides | strides |
+| padding | string, `"same"` or `"valid"`. |
+| data_format | string, `"channels_last"` or `"channels_first"`. Whether to use Theano or TensorFlow/CNTK data format for inputs/kernels/outputs. |
+| dilation_rate | list of 3 integers. |
 
 
-Argument      |Description
-------------- |----------------
-x | Tensor or variable.
-kernel | kernel tensor.
-strides | strides
-padding | string, ``"same"`` or ``"valid"``.
-data_format | string, ``"channels_last"`` or ``"channels_first"``. Whether to use Theano or TensorFlow/CNTK data format for inputs/kernels/outputs.
-dilation_rate | list of 3 integers.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A tensor, result of 3D convolution.
-
+A tensor, result of 3D convolution. 
 
 
 

@@ -1,89 +1,76 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/applications.R#L479) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # application_mobilenet
 
-
-MobileNet model architecture.
-
-
-
+## MobileNet model architecture.
 
 ## Description
-
-MobileNet model architecture.
-
-
-
+MobileNet model architecture. 
 
 
 ## Usage
 ```r
-application_mobilenet(
-  input_shape = NULL,
-  alpha = 1,
-  depth_multiplier = 1L,
-  dropout = 0.001,
-  include_top = TRUE,
-  weights = "imagenet",
-  input_tensor = NULL,
-  pooling = NULL,
-  classes = 1000L,
-  classifier_activation = "softmax",
-  ...
-)
+application_mobilenet( 
+  input_shape = NULL, 
+  alpha = 1, 
+  depth_multiplier = 1L, 
+  dropout = 0.001, 
+  include_top = TRUE, 
+  weights = "imagenet", 
+  input_tensor = NULL, 
+  pooling = NULL, 
+  classes = 1000L, 
+  classifier_activation = "softmax", 
+  ... 
+) 
 
-mobilenet_preprocess_input(x)
+mobilenet_preprocess_input(x) 
 
-mobilenet_decode_predictions(preds, top = 5)
+mobilenet_decode_predictions(preds, top = 5) 
 
-mobilenet_load_model_hdf5(filepath)
+mobilenet_load_model_hdf5(filepath) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-input_shape | optional shape list, only to be specified if ``include_top`` is FALSE (otherwise the input shape has to be (224, 224, 3) (with ``channels_last`` data format) or (3, 224, 224) (with ``channels_first`` data format). It should have exactly 3 inputs channels, and width and height should be no smaller than 32. E.g. (200, 200, 3) would be one valid value.
-alpha | controls the width of the network.   *  If `alpha` < 1.0, proportionally decreases the number of filters in each layer.  *  If `alpha` > 1.0, proportionally increases the number of filters in each layer.  *  If `alpha` = 1, default number of filters from the paper are used at each layer.
-depth_multiplier | depth multiplier for depthwise convolution (also called the resolution multiplier)
-dropout | dropout rate
-include_top | whether to include the fully-connected layer at the top of the network.
-weights | ``NULL`` (random initialization), ``imagenet`` (ImageNet weights), or the path to the weights file to be loaded.
-input_tensor | optional Keras tensor (i.e. output of ``layer_input()``) to use as image input for the model.
-pooling | Optional pooling mode for feature extraction when ``include_top`` is ``FALSE``. - ``NULL`` means that the output of the model will be the 4D tensor output of the last convolutional layer. - ``avg`` means that global average pooling will be applied to the output of the last convolutional layer, and thus the output of the model will be a 2D tensor. - ``max`` means that global max pooling will be applied.
-classes | optional number of classes to classify images into, only to be specified if ``include_top`` is TRUE, and if no ``weights`` argument is specified.
-classifier_activation | A string or callable. The activation function to use on the "top" layer. Ignored unless ``include_top = TRUE``. Set ``classifier_activation = NULL`` to return the logits of the "top" layer. Defaults to ``'softmax'``. When loading pretrained weights, ``classifier_activation`` can only be ``NULL`` or ``"softmax"``.
-... | For backwards and forwards compatibility
-x | input tensor, 4D
-preds | Tensor encoding a batch of predictions.
-top | integer, how many top-guesses to return.
-filepath | File path
-
-
-
+|Arguments|Description|
+|---|---|
+| input_shape | optional shape list, only to be specified if `include_top`<br>is FALSE (otherwise the input shape has to be `(224, 224, 3)` (with `channels_last` data format) or (3, 224, 224) (with `channels_first` data format). It should have exactly 3 inputs channels, and width and height should be no smaller than 32. E.g. `(200, 200, 3)` would be one valid value. |
+| alpha | controls the width of the network. <br>- If `alpha` < 1.0, proportionally decreases the number of filters in each layer. <br>- If `alpha` > 1.0, proportionally increases the number of filters in each layer. <br>- If `alpha` = 1, default number of filters from the paper are used at each layer.  |
+| depth_multiplier | depth multiplier for depthwise convolution (also called the resolution multiplier) |
+| dropout | dropout rate |
+| include_top | whether to include the fully-connected layer at the top of the network. |
+| weights | `NULL` (random initialization), `imagenet` (ImageNet weights), or the path to the weights file to be loaded. |
+| input_tensor | optional Keras tensor (i.e. output of `layer_input()`) to use as image input for the model. |
+| pooling | Optional pooling mode for feature extraction when `include_top` is `FALSE`. - `NULL` means that the output of the model will be the 4D tensor output of the last convolutional layer. - `avg` means that global average pooling will be applied to the output of the last convolutional layer, and thus the output of the model will be a 2D tensor. - `max` means that global max pooling will be applied. |
+| classes | optional number of classes to classify images into, only to be specified if `include_top` is TRUE, and if no `weights` argument is specified. |
+| classifier_activation | A string or callable. The activation function to use on the "top" layer. Ignored unless `include_top = TRUE`. Set `classifier_activation = NULL` to return the logits of the "top" layer. Defaults to `'softmax'`. When loading pretrained weights, `classifier_activation` can only be `NULL` or `"softmax"`. |
+| ... | For backwards and forwards compatibility |
+| x | input tensor, 4D |
+| preds | Tensor encoding a batch of predictions. |
+| top | integer, how many top-guesses to return. |
+| filepath | File path |
 
 ## Details
+The `mobilenet_preprocess_input()` function should be used for image preprocessing. To load a saved instance of a MobileNet model use the `mobilenet_load_model_hdf5()` function. To prepare image input for MobileNet use `mobilenet_preprocess_input()`. To decode predictions use `mobilenet_decode_predictions()`. 
 
-The ``mobilenet_preprocess_input()`` function should be used for image
-preprocessing. To load a saved instance of a MobileNet model use
-the ``mobilenet_load_model_hdf5()`` function. To prepare image input
-for MobileNet use ``mobilenet_preprocess_input()``. To decode
-predictions use ``mobilenet_decode_predictions()``.
+## Section
 
+## Reference
 
-
-
+- [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/pdf/1704.04861v1.pdf). 
 
 ## Value
 
-``application_mobilenet()`` and ``mobilenet_load_model_hdf5()`` return a
-Keras model instance. ``mobilenet_preprocess_input()`` returns image input
-suitable for feeding into a mobilenet model. ``mobilenet_decode_predictions()``
-returns a list of data frames with variables ``class_name``, ``class_description``,
-and ``score`` (one data frame per sample in batch input).
+`application_mobilenet()` and `mobilenet_load_model_hdf5()` return a Keras model instance. `mobilenet_preprocess_input()` returns image input suitable for feeding into a mobilenet model. `mobilenet_decode_predictions()`
 
+returns a list of data frames with variables `class_name`, `class_description`, and `score` (one data frame per sample in batch input). 
 
 
 

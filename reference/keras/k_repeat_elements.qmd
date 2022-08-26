@@ -1,45 +1,43 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L2296) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_repeat_elements
 
-
-Repeats the elements of a tensor along an axis.
-
-
-
+## Repeats the elements of a tensor along an axis.
 
 ## Description
-
-If ``x`` has shape (s1, s2, s3) and ``axis`` is ``2``, the output
-will have shape (s1, s2 * rep, s3).
-
-
-
+If `x` has shape `(s1, s2, s3)` and `axis` is `2`, the output will have shape `(s1, s2 * rep, s3)`. 
 
 
 ## Usage
 ```r
-k_repeat_elements(x, rep, axis)
+k_repeat_elements(x, rep, axis) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | Tensor or variable. |
+| rep | Integer, number of times to repeat. |
+| axis | Axis along which to repeat (axis indexes are 1-based) |
 
 
-Argument      |Description
-------------- |----------------
-x | Tensor or variable.
-rep | Integer, number of times to repeat.
-axis | Axis along which to repeat (axis indexes are 1-based)
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A tensor.
-
+A tensor. 
 
 
 

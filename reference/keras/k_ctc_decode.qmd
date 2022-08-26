@@ -1,57 +1,54 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L681) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_ctc_decode
 
-
-Decodes the output of a softmax.
-
-
-
+## Decodes the output of a softmax.
 
 ## Description
-
-Can use either greedy search (also known as best path) or a constrained
-dictionary search.
-
-
-
+Can use either greedy search (also known as best path) or a constrained dictionary search. 
 
 
 ## Usage
 ```r
-k_ctc_decode(
-  y_pred,
-  input_length,
-  greedy = TRUE,
-  beam_width = 100L,
-  top_paths = 1
-)
+k_ctc_decode( 
+  y_pred, 
+  input_length, 
+  greedy = TRUE, 
+  beam_width = 100L, 
+  top_paths = 1 
+) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| y_pred | tensor `(samples, time_steps, num_categories)` containing the prediction, or output of the softmax. |
+| input_length | tensor `(samples, )` containing the sequence length for each batch item in `y_pred`. |
+| greedy | perform much faster best-path search if `TRUE`. This does not use a dictionary. |
+| beam_width | if `greedy` is `FALSE`: a beam search decoder will be used with a beam of this width. |
+| top_paths | if `greedy` is `FALSE`, how many of the most probable paths will be returned. |
 
 
-Argument      |Description
-------------- |----------------
-y_pred | tensor (samples, time_steps, num_categories) containing the prediction, or output of the softmax.
-input_length | tensor (samples, ) containing the sequence length for each batch item in ``y_pred``.
-greedy | perform much faster best-path search if ``TRUE``. This does not use a dictionary.
-beam_width | if ``greedy`` is ``FALSE``: a beam search decoder will be used with a beam of this width.
-top_paths | if ``greedy`` is ``FALSE``, how many of the most probable paths will be returned.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
 
-If ``greedy`` is ``TRUE``, returns a list of one element
-that contains the decoded sequence. If ``FALSE``, returns the ``top_paths``
-most probable decoded sequences. Important: blank labels are returned as
-``-1``. Tensor ``(top_paths)`` that contains the log probability of each
-decoded sequence.
+If `greedy` is `TRUE`, returns a list of one element that contains the decoded sequence. If `FALSE`, returns the `top_paths`
 
+most probable decoded sequences. Important: blank labels are returned as `-1`. Tensor `(top_paths)` that contains the log probability of each decoded sequence. 
 
 
 

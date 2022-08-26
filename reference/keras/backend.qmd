@@ -1,44 +1,37 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L16) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # backend
 
-
-Keras backend tensor engine
-
-
-
+## Keras backend tensor engine
 
 ## Description
-
-Obtain a reference to the ``keras.backend`` Python module used to implement
-tensor operations.
-
-
-
+Obtain a reference to the `keras.backend` Python module used to implement tensor operations. 
 
 
 ## Usage
 ```r
-backend(convert = TRUE)
+backend(convert = TRUE) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-convert | Boolean; should Python objects be automatically converted to their  equivalent? If set to ``FALSE``, you can still manually convert Python objects to  via the `py_to_r()` function.
-
-
+|Arguments|Description|
+|---|---|
+| convert | Boolean; should Python objects be automatically converted to their `R` equivalent? If set to `FALSE`, you can still manually convert Python objects to `R` via the `py_to_r()` function. |
 
 
 
 ## Value
+Reference to Keras backend python module. 
 
-Reference to Keras backend python module.
-
-
+## Note
+See the documentation here [https://keras.io/backend/](https://keras.io/backend/) for additional details on the available functions. 
 
 
 

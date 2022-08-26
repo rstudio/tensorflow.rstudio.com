@@ -1,94 +1,66 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L955) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # predict_proba
 
-
-(Deprecated) Generates probability or class probability predictions for the input samples.
-
-
-
+## (Deprecated) Generates probability or class probability predictions for the input samples.
 
 ## Description
-
-These functions were removed in Tensorflow version 2.6. See details for how to update your code:
-
-
-
+These functions were removed in Tensorflow version 2.6. See details for how to update your code: 
 
 
 ## Usage
 ```r
-predict_proba(object, x, batch_size = NULL, verbose = 0, steps = NULL)
+predict_proba(object, x, batch_size = NULL, verbose = 0, steps = NULL) 
 
-predict_classes(object, x, batch_size = NULL, verbose = 0, steps = NULL)
+predict_classes(object, x, batch_size = NULL, verbose = 0, steps = NULL) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-object | Keras model object
-x | Input data (vector, matrix, or array). You can also pass a ``tfdataset`` or a generator returning a list with (inputs, targets) or (inputs, targets, sample_weights).
-batch_size | Integer. If unspecified, it will default to 32.
-verbose | Verbosity mode, 0, 1, 2, or "auto". "auto" defaults to 1 for for most cases and defaults to ``verbose=2`` when used with ParameterServerStrategy or with interactive logging disabled.
-steps | Total number of steps (batches of samples) before declaring the evaluation round finished. The default ``NULL`` is equal to the number of samples in your dataset divided by the batch size.
-
-
-
+|Arguments|Description|
+|---|---|
+| object | Keras model object |
+| x | Input data (vector, matrix, or array). You can also pass a `tfdataset` or a generator returning a list with `(inputs, targets)` or `(inputs, targets, sample_weights)`. |
+| batch_size | Integer. If unspecified, it will default to 32. |
+| verbose | Verbosity mode, 0, 1, 2, or "auto". "auto" defaults to 1 for for most cases and defaults to `verbose=2` when used with ParameterServerStrategy or with interactive logging disabled. |
+| steps | Total number of steps (batches of samples) before declaring the evaluation round finished. The default `NULL` is equal to the number of samples in your dataset divided by the batch size. |
 
 ## Details
 
-How to update your code:
+How to update your code: 
 
-``predict_proba()``: use ``predict()`` directly.
+`predict_proba()`: use `predict()` directly. 
 
-``predict_classes()``:
+`predict_classes()`: 
 
+- If your model does multi-class classification: (e.g. if it uses a `softmax` last-layer activation). 
 
-*  If your model does multi-class classification:
-(e.g. if it uses a `softmax` last-layer activation).
+```
 
+     model %>% predict(x) %>% k_argmax() 
 
-html<div class="sourceCode r">     model %>% predict(x) %>% k_argmax()
-html</div>
+```
 
+- if your model does binary classification (e.g. if it uses a `sigmoid` last-layer activation). 
 
-*  if your model does binary classification
-(e.g. if it uses a `sigmoid` last-layer activation).
+```
 
+     model %>% predict(x) %>% `>`(0.5) %>% k_cast("int32") 
 
-html<div class="sourceCode r">     model %>% predict(x) %>% `>`(0.5) %>% k_cast("int32")
-html</div>
+```
 
-The input samples are processed batch by batch.
-
-
+The input samples are processed batch by batch. 
 
 
 
 
 
 ## See Also
-
-Other model functions: 
-`compile.keras.engine.training.Model()`,
-`evaluate.keras.engine.training.Model()`,
-`evaluate_generator()`,
-`fit.keras.engine.training.Model()`,
-`fit_generator()`,
-`get_config()`,
-`get_layer()`,
-`keras_model_sequential()`,
-`keras_model()`,
-`multi_gpu_model()`,
-`pop_layer()`,
-`predict.keras.engine.training.Model()`,
-`predict_generator()`,
-`predict_on_batch()`,
-`summary.keras.engine.training.Model()`,
-`train_on_batch()`
-
-
+Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `summary.keras.engine.training.Model()`, `train_on_batch()`
 

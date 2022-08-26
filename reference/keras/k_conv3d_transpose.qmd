@@ -1,54 +1,53 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L584) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_conv3d_transpose
 
-
-3D deconvolution (i.e. transposed convolution).
-
-
-
+## 3D deconvolution (i.e. transposed convolution).
 
 ## Description
-
-3D deconvolution (i.e. transposed convolution).
-
-
-
+3D deconvolution (i.e. transposed convolution). 
 
 
 ## Usage
 ```r
-k_conv3d_transpose(
-  x,
-  kernel,
-  output_shape,
-  strides = c(1, 1, 1),
-  padding = "valid",
-  data_format = NULL
-)
+k_conv3d_transpose( 
+  x, 
+  kernel, 
+  output_shape, 
+  strides = c(1, 1, 1), 
+  padding = "valid", 
+  data_format = NULL 
+) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | input tensor. |
+| kernel | kernel tensor. |
+| output_shape | 1D int tensor for the output shape. |
+| strides | strides |
+| padding | string, "same" or "valid". |
+| data_format | string, `"channels_last"` or `"channels_first"`. Whether to use Theano or TensorFlow/CNTK data format for inputs/kernels/outputs. |
 
 
-Argument      |Description
-------------- |----------------
-x | input tensor.
-kernel | kernel tensor.
-output_shape | 1D int tensor for the output shape.
-strides | strides
-padding | string, "same" or "valid".
-data_format | string, ``"channels_last"`` or ``"channels_first"``. Whether to use Theano or TensorFlow/CNTK data format for inputs/kernels/outputs.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A tensor, result of transposed 3D convolution.
-
+A tensor, result of transposed 3D convolution. 
 
 
 

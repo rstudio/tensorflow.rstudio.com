@@ -1,0 +1,16 @@
+{
+  "hash": "0ec4843751a974ea3094e1b093b2b281",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/extract.R#L263) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# all_dims\n\n## All dims\n\n## Description\nThis function returns an object that can be used when subsetting tensors with `[`. If you are familiar with python,, this is equivalent to the python Ellipsis `...`, (not to be confused with `...` in `R`). \n\n\n## Usage\n```r\nall_dims() \n```\n\n\n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tensorflow)\n# in python, if x is a numpy array or tensorflow tensor \nx[..., i] \n# the ellipsis means \"expand to match number of dimension of x\". \n# to translate the above python expression to R, write: \nx[all_dims(), i] \n```\n:::\n",
+    "supporting": [
+      "all_dims_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

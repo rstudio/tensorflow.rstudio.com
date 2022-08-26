@@ -1,87 +1,62 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L1702) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # step_shared_embeddings_column
 
-
-Creates shared embeddings for categorical columns
-
-
-
+## Creates shared embeddings for categorical columns
 
 ## Description
-
-This is similar to step_embedding_column, except that it produces a list of
-embedding columns that share the same embedding weights.
-
-
-
+This is similar to step_embedding_column, except that it produces a list of embedding columns that share the same embedding weights. 
 
 
 ## Usage
 ```r
-step_shared_embeddings_column(
-  spec,
-  ...,
-  dimension,
-  combiner = "mean",
-  initializer = NULL,
-  shared_embedding_collection_name = NULL,
-  ckpt_to_load_from = NULL,
-  tensor_name_in_ckpt = NULL,
-  max_norm = NULL,
-  trainable = TRUE
-)
+step_shared_embeddings_column( 
+  spec, 
+  ..., 
+  dimension, 
+  combiner = "mean", 
+  initializer = NULL, 
+  shared_embedding_collection_name = NULL, 
+  ckpt_to_load_from = NULL, 
+  tensor_name_in_ckpt = NULL, 
+  max_norm = NULL, 
+  trainable = TRUE 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-spec | A feature specification created with `feature_spec()`.
-... | Comma separated list of variable names to apply the step. selectors can also be used.
-dimension | An integer specifying dimension of the embedding, must be > 0. Can also be a function of the size of the vocabulary.
-combiner | A string specifying how to reduce if there are multiple entries in a single row. Currently 'mean', 'sqrtn' and 'sum' are supported, with 'mean' the default. 'sqrtn' often achieves good accuracy, in particular with bag-of-words columns. Each of this can be thought as example level normalizations on the column. For more information, see ``tf.embedding_lookup_sparse``.
-initializer | A variable initializer function to be used in embedding variable initialization. If not specified, defaults to ``tf.truncated_normal_initializer`` with mean ``0.0`` and standard deviation ``1/sqrt(dimension)``.
-shared_embedding_collection_name | Optional collective name of these columns. If not given, a reasonable name will be chosen based on the names of categorical_columns.
-ckpt_to_load_from | String representing checkpoint name/pattern from which to restore column weights. Required if ``tensor_name_in_ckpt`` is not ``NULL``.
-tensor_name_in_ckpt | Name of the Tensor in ckpt_to_load_from from which to restore the column weights. Required if ``ckpt_to_load_from`` is not ``NULL``.
-max_norm | If not ``NULL``, embedding values are l2-normalized to this value.
-trainable | Whether or not the embedding is trainable. Default is ``TRUE``.
-
-
+|Arguments|Description|
+|---|---|
+| spec | A feature specification created with `feature_spec()`. |
+| ... | Comma separated list of variable names to apply the step. selectors can also be used. |
+| dimension | An integer specifying dimension of the embedding, must be > 0. Can also be a function of the size of the vocabulary. |
+| combiner | A string specifying how to reduce if there are multiple entries in a single row. Currently 'mean', 'sqrtn' and 'sum' are supported, with 'mean' the default. 'sqrtn' often achieves good accuracy, in particular with bag-of-words columns. Each of this can be thought as example level normalizations on the column. For more information, see `tf.embedding_lookup_sparse`. |
+| initializer | A variable initializer function to be used in embedding variable initialization. If not specified, defaults to `tf.truncated_normal_initializer` with mean `0.0` and standard deviation `1/sqrt(dimension)`. |
+| shared_embedding_collection_name | Optional collective name of these columns. If not given, a reasonable name will be chosen based on the names of categorical_columns. |
+| ckpt_to_load_from | String representing checkpoint name/pattern from which to restore column weights. Required if `tensor_name_in_ckpt` is not `NULL`. |
+| tensor_name_in_ckpt | Name of the Tensor in ckpt_to_load_from from which to restore the column weights. Required if `ckpt_to_load_from` is not `NULL`. |
+| max_norm | If not `NULL`, embedding values are l2-normalized to this value. |
+| trainable | Whether or not the embedding is trainable. Default is `TRUE`. |
 
 
 
 ## Value
+a `FeatureSpec` object. 
 
-a ``FeatureSpec`` object.
-
-
-
-
+## Note
+Does not work in the eager mode. 
 
 
 ## See Also
 
-steps for a complete list of allowed steps.
+steps for a complete list of allowed steps. 
 
-Other Feature Spec Functions: 
-`dataset_use_spec()`,
-`feature_spec()`,
-`fit.FeatureSpec()`,
-`step_bucketized_column()`,
-`step_categorical_column_with_hash_bucket()`,
-`step_categorical_column_with_identity()`,
-`step_categorical_column_with_vocabulary_file()`,
-`step_categorical_column_with_vocabulary_list()`,
-`step_crossed_column()`,
-`step_embedding_column()`,
-`step_indicator_column()`,
-`step_numeric_column()`,
-`step_remove_column()`,
-`steps`
-
-
+Other Feature Spec Functions:  `dataset_use_spec()`, `feature_spec()`, `fit.FeatureSpec()`, `step_bucketized_column()`, `step_categorical_column_with_hash_bucket()`, `step_categorical_column_with_identity()`, `step_categorical_column_with_vocabulary_file()`, `step_categorical_column_with_vocabulary_list()`, `step_crossed_column()`, `step_embedding_column()`, `step_indicator_column()`, `step_numeric_column()`, `step_remove_column()`, `steps`
 

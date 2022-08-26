@@ -1,0 +1,16 @@
+{
+  "hash": "2555d429b6b2ccca7dcbe20c6e9e914e",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L1408) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# step_categorical_column_with_vocabulary_file\n\n## Creates a categorical column with vocabulary file\n\n## Description\nUse this function when the vocabulary of a categorical variable is written to a file. \n\n\n## Usage\n```r\nstep_categorical_column_with_vocabulary_file( \n  spec, \n  ..., \n  vocabulary_file, \n  vocabulary_size = NULL, \n  dtype = tf$string, \n  default_value = NULL, \n  num_oov_buckets = 0L \n) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| spec | A feature specification created with `feature_spec()`. |\n| ... | Comma separated list of variable names to apply the step. selectors can also be used. |\n| vocabulary_file | The vocabulary file name. |\n| vocabulary_size | Number of the elements in the vocabulary. This must be no greater than length of `vocabulary_file`, if less than length, later values are ignored. If None, it is set to the length of `vocabulary_file`. |\n| dtype | The type of features. Only string and integer types are supported. |\n| default_value | The integer ID value to return for out-of-vocabulary feature values, defaults to `-1`. This can not be specified with a positive `num_oov_buckets`. |\n| num_oov_buckets | Non-negative integer, the number of out-of-vocabulary buckets. All out-of-vocabulary inputs will be assigned IDs in the range `[vocabulary_size, vocabulary_size+num_oov_buckets)` based on a hash of the input value. A positive `num_oov_buckets` can not be specified with default_value. |\n\n\n\n## Value\na `FeatureSpec` object. \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tfdatasets) \ndata(hearts) \nfile <- tempfile() \nwriteLines(unique(hearts$thal), file) \nhearts <- tensor_slices_dataset(hearts) %>% dataset_batch(32) \n# use the formula interface \nspec <- feature_spec(hearts, target ~ thal) %>% \n  step_categorical_column_with_vocabulary_file(thal, vocabulary_file = file) \nspec_fit <- fit(spec) \nfinal_dataset <- hearts %>% dataset_use_spec(spec_fit) \n```\n:::\n\n\n## See Also\n\nsteps for a complete list of allowed steps. \n\nOther Feature Spec Functions:  `dataset_use_spec()`, `feature_spec()`, `fit.FeatureSpec()`, `step_bucketized_column()`, `step_categorical_column_with_hash_bucket()`, `step_categorical_column_with_identity()`, `step_categorical_column_with_vocabulary_list()`, `step_crossed_column()`, `step_embedding_column()`, `step_indicator_column()`, `step_numeric_column()`, `step_remove_column()`, `step_shared_embeddings_column()`, `steps`\n\n",
+    "supporting": [
+      "step_categorical_column_with_vocabulary_file_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,71 +1,53 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/tensorboard.R#L37) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # tensorboard
 
-
-TensorBoard Visualization Tool
-
-
-
+## TensorBoard Visualization Tool
 
 ## Description
-
-TensorBoard is a tool inspecting and understanding your TensorFlow runs and
-graphs.
-
-
-
+TensorBoard is a tool inspecting and understanding your TensorFlow runs and graphs. 
 
 
 ## Usage
 ```r
-tensorboard(
-  log_dir,
-  action = c("start", "stop"),
-  host = "127.0.0.1",
-  port = "auto",
-  launch_browser = getOption("tensorflow.tensorboard.browser", interactive()),
-  reload_interval = 5,
-  purge_orphaned_data = TRUE
-)
+tensorboard( 
+  log_dir, 
+  action = c("start", "stop"), 
+  host = "127.0.0.1", 
+  port = "auto", 
+  launch_browser = getOption("tensorflow.tensorboard.browser", interactive()), 
+  reload_interval = 5, 
+  purge_orphaned_data = TRUE 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-log_dir | Directories to scan for training logs. If this is a named character vector then the specified names will be used as aliases within TensorBoard.
-action | Specify whether to start or stop TensorBoard (TensorBoard will be stopped automatically when the R session from which it is launched is terminated).
-host | Host for serving TensorBoard
-port | Port for serving TensorBoard. If "auto" is specified (the default) then an unused port will be chosen automatically.
-launch_browser | Open a web browser for TensorBoard after launching. Defaults to ``TRUE`` in interactive sessions. When running under RStudio uses an RStudio window by default (pass a function e.g. `utils::browseURL()` to open in an external browser). Use the ``tensorflow.tensorboard.browser`` option to establish a global default behavior.
-reload_interval | How often the backend should load more data.
-purge_orphaned_data | Whether to purge data that may have been orphaned due to TensorBoard restarts. Disabling purge_orphaned_data can be used to debug data disappearance.
-
-
-
+|Arguments|Description|
+|---|---|
+| log_dir | Directories to scan for training logs. If this is a named character vector then the specified names will be used as aliases within TensorBoard. |
+| action | Specify whether to start or stop TensorBoard (TensorBoard will be stopped automatically when the R session from which it is launched is terminated). |
+| host | Host for serving TensorBoard |
+| port | Port for serving TensorBoard. If "auto" is specified (the default) then an unused port will be chosen automatically. |
+| launch_browser | Open a web browser for TensorBoard after launching. Defaults to `TRUE` in interactive sessions. When running under RStudio uses an RStudio window by default (pass a function e.g. `utils::browseURL()` to open in an external browser). Use the `tensorflow.tensorboard.browser`<br>option to establish a global default behavior. |
+| reload_interval | How often the backend should load more data. |
+| purge_orphaned_data | Whether to purge data that may have been orphaned due to TensorBoard restarts. Disabling purge_orphaned_data can be used to debug data disappearance. |
 
 ## Details
 
-When TensorBoard is passed a logdir at startup, it recursively walks
-the directory tree rooted at logdir looking for subdirectories that contain
-tfevents data. Every time it encounters such a subdirectory, it loads it as
-a new run, and the frontend will organize the data accordingly.
+When TensorBoard is passed a logdir at startup, it recursively walks the directory tree rooted at logdir looking for subdirectories that contain tfevents data. Every time it encounters such a subdirectory, it loads it as a new run, and the frontend will organize the data accordingly. 
 
-The TensorBoard process will be automatically destroyed when the R session
-in which it is launched exits. You can pass ``action = "stop"`` to manually
-terminate TensorBoard.
-
-
-
+The TensorBoard process will be automatically destroyed when the R session in which it is launched exits. You can pass `action = "stop"` to manually terminate TensorBoard. 
 
 
 ## Value
-
-URL for browsing TensorBoard (invisibly).
-
+URL for browsing TensorBoard (invisibly). 
 
 
 

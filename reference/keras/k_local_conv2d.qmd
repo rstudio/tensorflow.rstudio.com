@@ -1,56 +1,53 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L1570) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_local_conv2d
 
-
-Apply 2D conv with un-shared weights.
-
-
-
+## Apply 2D conv with un-shared weights.
 
 ## Description
-
-Apply 2D conv with un-shared weights.
-
-
-
+Apply 2D conv with un-shared weights. 
 
 
 ## Usage
 ```r
-k_local_conv2d(
-  inputs,
-  kernel,
-  kernel_size,
-  strides,
-  output_shape,
-  data_format = NULL
-)
+k_local_conv2d( 
+  inputs, 
+  kernel, 
+  kernel_size, 
+  strides, 
+  output_shape, 
+  data_format = NULL 
+) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| inputs | 4D tensor with shape: (batch_size, filters, new_rows, new_cols) if data_format='channels_first' or 4D tensor with shape: (batch_size, new_rows, new_cols, filters) if data_format='channels_last'. |
+| kernel | the unshared weight for convolution, with shape (output_items, feature_dim, filters) |
+| kernel_size | a list of 2 integers, specifying the width and height of the 2D convolution window. |
+| strides | a list of 2 integers, specifying the strides of the convolution along the width and height. |
+| output_shape | a list with (output_row, output_col) |
+| data_format | the data format, channels_first or channels_last |
 
 
-Argument      |Description
-------------- |----------------
-inputs | 4D tensor with shape: (batch_size, filters, new_rows, new_cols) if data_format='channels_first' or 4D tensor with shape: (batch_size, new_rows, new_cols, filters) if data_format='channels_last'.
-kernel | the unshared weight for convolution, with shape (output_items, feature_dim, filters)
-kernel_size | a list of 2 integers, specifying the width and height of the 2D convolution window.
-strides | a list of 2 integers, specifying the strides of the convolution along the width and height.
-output_shape | a list with (output_row, output_col)
-data_format | the data format, channels_first or channels_last
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A 4d tensor with shape: (batch_size, filters, new_rows, new_cols) if
-data_format='channels_first' or 4D tensor with shape: (batch_size,
-new_rows, new_cols, filters) if data_format='channels_last'.
-
+A 4d tensor with shape: (batch_size, filters, new_rows, new_cols) if data_format='channels_first' or 4D tensor with shape: (batch_size, new_rows, new_cols, filters) if data_format='channels_last'. 
 
 
 

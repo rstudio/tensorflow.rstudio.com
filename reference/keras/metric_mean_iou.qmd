@@ -1,111 +1,53 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/metrics.R#L1015) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # metric_mean_iou
 
-
-Computes the mean Intersection-Over-Union metric
-
-
-
+## Computes the mean Intersection-Over-Union metric
 
 ## Description
-
-Computes the mean Intersection-Over-Union metric
-
-
-
+Computes the mean Intersection-Over-Union metric 
 
 
 ## Usage
 ```r
-metric_mean_iou(..., num_classes, name = NULL, dtype = NULL)
+metric_mean_iou(..., num_classes, name = NULL, dtype = NULL) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-... | Passed on to the underlying metric. Used for forwards and backwards compatibility.
-num_classes | The possible number of labels the prediction task can have. This value must be provided, since a confusion matrix of ``dim`` ``c(num_classes, num_classes)`` will be allocated.
-name | (Optional) string name of the metric instance.
-dtype | (Optional) data type of the metric result.
-
-
-
+|Arguments|Description|
+|---|---|
+| ... | Passed on to the underlying metric. Used for forwards and backwards compatibility. |
+| num_classes | The possible number of labels the prediction task can have. This value must be provided, since a confusion matrix of `dim`<br>`c(num_classes, num_classes)` will be allocated. |
+| name | (Optional) string name of the metric instance. |
+| dtype | (Optional) data type of the metric result. |
 
 ## Details
 
-Mean Intersection-Over-Union is a common evaluation metric for semantic image
-segmentation, which first computes the IOU for each semantic class and then
-computes the average over classes. IOU is defined as follows:
+Mean Intersection-Over-Union is a common evaluation metric for semantic image segmentation, which first computes the IOU for each semantic class and then computes the average over classes. IOU is defined as follows: 
 
-html<div class="sourceCode">  IOU = true_positive / (true_positive + false_positive + false_negative)
-html</div>
+```
 
-The predictions are accumulated in a confusion matrix, weighted by
-``sample_weight`` and the metric is then calculated from it.
+  IOU = true_positive / (true_positive + false_positive + false_negative) 
 
-If ``sample_weight`` is ``NULL``, weights default to 1.
-Use ``sample_weight`` of 0 to mask values.
+```
 
+The predictions are accumulated in a confusion matrix, weighted by `sample_weight` and the metric is then calculated from it. 
 
-
+If `sample_weight` is `NULL`, weights default to 1. Use `sample_weight` of 0 to mask values. 
 
 
 ## Value
-
-A (subclassed) ``Metric`` instance that can be passed directly to
-``compile(metrics = )``, or used as a standalone object. See ``?Metric`` for
-example usage.
-
-
-
+A (subclassed) `Metric` instance that can be passed directly to `compile(metrics = )`, or used as a standalone object. See `?Metric` for example usage. 
 
 
 
 ## See Also
-
-Other metrics: 
-`custom_metric()`,
-`metric_accuracy()`,
-`metric_auc()`,
-`metric_binary_accuracy()`,
-`metric_binary_crossentropy()`,
-`metric_categorical_accuracy()`,
-`metric_categorical_crossentropy()`,
-`metric_categorical_hinge()`,
-`metric_cosine_similarity()`,
-`metric_false_negatives()`,
-`metric_false_positives()`,
-`metric_hinge()`,
-`metric_kullback_leibler_divergence()`,
-`metric_logcosh_error()`,
-`metric_mean_absolute_error()`,
-`metric_mean_absolute_percentage_error()`,
-`metric_mean_relative_error()`,
-`metric_mean_squared_error()`,
-`metric_mean_squared_logarithmic_error()`,
-`metric_mean_tensor()`,
-`metric_mean_wrapper()`,
-`metric_mean()`,
-`metric_poisson()`,
-`metric_precision_at_recall()`,
-`metric_precision()`,
-`metric_recall_at_precision()`,
-`metric_recall()`,
-`metric_root_mean_squared_error()`,
-`metric_sensitivity_at_specificity()`,
-`metric_sparse_categorical_accuracy()`,
-`metric_sparse_categorical_crossentropy()`,
-`metric_sparse_top_k_categorical_accuracy()`,
-`metric_specificity_at_sensitivity()`,
-`metric_squared_hinge()`,
-`metric_sum()`,
-`metric_top_k_categorical_accuracy()`,
-`metric_true_negatives()`,
-`metric_true_positives()`
-
-
+Other metrics:  `custom_metric()`, `metric_accuracy()`, `metric_auc()`, `metric_binary_accuracy()`, `metric_binary_crossentropy()`, `metric_categorical_accuracy()`, `metric_categorical_crossentropy()`, `metric_categorical_hinge()`, `metric_cosine_similarity()`, `metric_false_negatives()`, `metric_false_positives()`, `metric_hinge()`, `metric_kullback_leibler_divergence()`, `metric_logcosh_error()`, `metric_mean_absolute_error()`, `metric_mean_absolute_percentage_error()`, `metric_mean_relative_error()`, `metric_mean_squared_error()`, `metric_mean_squared_logarithmic_error()`, `metric_mean_tensor()`, `metric_mean_wrapper()`, `metric_mean()`, `metric_poisson()`, `metric_precision_at_recall()`, `metric_precision()`, `metric_recall_at_precision()`, `metric_recall()`, `metric_root_mean_squared_error()`, `metric_sensitivity_at_specificity()`, `metric_sparse_categorical_accuracy()`, `metric_sparse_categorical_crossentropy()`, `metric_sparse_top_k_categorical_accuracy()`, `metric_specificity_at_sensitivity()`, `metric_squared_hinge()`, `metric_sum()`, `metric_top_k_categorical_accuracy()`, `metric_true_negatives()`, `metric_true_positives()`
 

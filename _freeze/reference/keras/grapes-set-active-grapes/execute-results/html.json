@@ -1,0 +1,16 @@
+{
+  "hash": "fc39511458f189b654c2231e99eb0e58",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/py-classes.R#L) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# %<-active%\n\n## Make an Active Binding\n\n## Description\nMake an Active Binding \n\n\n## Usage\n```r\nsym %<-active% value \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| sym | symbol to bind |\n| value | A function to call when the value of `sym` is accessed. |\n\n## Details\nActive bindings defined in a `%py_class%` are converted to `@property` decorated methods. \n\n\n## Value\n`value`, invisibly \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras)\nset.seed(1234) \nx %<-active% function(value) { \n  message(\"Evaluating function of active binding\") \n  if(missing(value)) \n    runif(1) \n  else \n   message(\"Received: \", value) \n} \nx \nx \nx <- \"foo\" \nx <- \"foo\" \nx \nrm(x) # cleanup \n```\n:::\n\n\n## See Also\n`makeActiveBinding()`\n\n",
+    "supporting": [
+      "grapes-set-active-grapes_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

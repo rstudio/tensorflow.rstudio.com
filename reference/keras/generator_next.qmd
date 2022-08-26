@@ -1,35 +1,31 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L710) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # generator_next
 
-
-Retrieve the next item from a generator
-
-
-
+## Retrieve the next item from a generator
 
 ## Description
-
-Use to retrieve items from generators (e.g. `image_data_generator()`). Will return
-either the next item or ``NULL`` if there are no more items.
-
-
-
+Use to retrieve items from generators (e.g. `image_data_generator()`). Will return either the next item or `NULL` if there are no more items. 
 
 
 ## Usage
 ```r
-generator_next(generator, completed = NULL)
+generator_next(generator, completed = NULL) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| generator | Generator |
+| completed | Sentinel value to return from `generator_next()` if the iteration completes (defaults to `NULL` but can be any R value you specify). |
 
-
-Argument      |Description
-------------- |----------------
-generator | Generator
-completed | Sentinel value to return from ``generator_next()`` if the iteration completes (defaults to ``NULL`` but can be any R value you specify).
 
 
 

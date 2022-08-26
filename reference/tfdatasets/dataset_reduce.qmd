@@ -1,73 +1,39 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1051) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # dataset_reduce
 
-
-Reduces the input dataset to a single element.
-
-
-
+## Reduces the input dataset to a single element.
 
 ## Description
-
-The transformation calls reduce_func successively on every element of the input dataset
-until the dataset is exhausted, aggregating information in its internal state.
-The initial_state argument is used for the initial state and the final state is returned as the result.
-
-
-
+The transformation calls reduce_func successively on every element of the input dataset until the dataset is exhausted, aggregating information in its internal state. The initial_state argument is used for the initial state and the final state is returned as the result. 
 
 
 ## Usage
 ```r
-dataset_reduce(dataset, initial_state, reduce_func)
+dataset_reduce(dataset, initial_state, reduce_func) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-dataset | A dataset
-initial_state | An element representing the initial state of the transformation.
-reduce_func | A function that maps (old_state, input_element) to new_state. It must take two arguments and return a new element. The structure of new_state must match the structure of initial_state.
-
-
+|Arguments|Description|
+|---|---|
+| dataset | A dataset |
+| initial_state | An element representing the initial state of the transformation. |
+| reduce_func | A function that maps `(old_state, input_element)` to new_state. It must take two arguments and return a new element. The structure of new_state must match the structure of initial_state. |
 
 
 
 ## Value
-
-A dataset element.
-
-
-
+A dataset element. 
 
 
 
 ## See Also
-
-Other dataset methods: 
-`dataset_batch()`,
-`dataset_cache()`,
-`dataset_collect()`,
-`dataset_concatenate()`,
-`dataset_decode_delim()`,
-`dataset_filter()`,
-`dataset_interleave()`,
-`dataset_map_and_batch()`,
-`dataset_map()`,
-`dataset_padded_batch()`,
-`dataset_prefetch_to_device()`,
-`dataset_prefetch()`,
-`dataset_repeat()`,
-`dataset_shuffle_and_repeat()`,
-`dataset_shuffle()`,
-`dataset_skip()`,
-`dataset_take_while()`,
-`dataset_take()`,
-`dataset_window()`
-
-
+Other dataset methods:  `dataset_batch()`, `dataset_cache()`, `dataset_collect()`, `dataset_concatenate()`, `dataset_decode_delim()`, `dataset_filter()`, `dataset_interleave()`, `dataset_map_and_batch()`, `dataset_map()`, `dataset_padded_batch()`, `dataset_prefetch_to_device()`, `dataset_prefetch()`, `dataset_repeat()`, `dataset_shuffle_and_repeat()`, `dataset_shuffle()`, `dataset_skip()`, `dataset_take_while()`, `dataset_take()`, `dataset_window()`
 

@@ -1,34 +1,30 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/losses.R#L371) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # loss_cosine_proximity
 
-
-(Deprecated) loss_cosine_proximity
-
-
-
+## (Deprecated) loss_cosine_proximity
 
 ## Description
-
-``loss_cosine_proximity`` is deprecated and will be removed in a future
-version. It has been renamed to ``loss_cosine_similarity``().
-
-
-
+`loss_cosine_proximity` is deprecated and will be removed in a future version. It has been renamed to `loss_cosine_similarity`(). 
 
 
 ## Usage
 ```r
-loss_cosine_proximity(...)
+loss_cosine_proximity(...) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| ... | passed on to `loss_cosine_similarity()` |
 
-
-Argument      |Description
-------------- |----------------
-... | passed on to `loss_cosine_similarity()`
 
 
 

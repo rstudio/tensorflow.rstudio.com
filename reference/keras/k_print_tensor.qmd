@@ -1,45 +1,42 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L2048) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_print_tensor
 
-
-Prints ``message`` and the tensor value when evaluated.
-
-
-
+## Prints `message` and the tensor value when evaluated.
 
 ## Description
-
-Note that ``print_tensor`` returns a new tensor identical to ``x`` which should
-be used in the following code. Otherwise the print operation is not taken
-into account during evaluation.
-
-
-
+Note that `print_tensor` returns a new tensor identical to `x` which should be used in the following code. Otherwise the print operation is not taken into account during evaluation. 
 
 
 ## Usage
 ```r
-k_print_tensor(x, message = "")
+k_print_tensor(x, message = "") 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | Tensor to print. |
+| message | Message to print jointly with the tensor. |
 
 
-Argument      |Description
-------------- |----------------
-x | Tensor to print.
-message | Message to print jointly with the tensor.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-The same tensor ``x``, unchanged.
-
+The same tensor `x`, unchanged. 
 
 
 

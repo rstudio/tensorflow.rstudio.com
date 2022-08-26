@@ -1,0 +1,16 @@
+{
+  "hash": "8514da1bbc80848b4dea8fc3a419401e",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/tfrecord_dataset.R#L29) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# tfrecord_dataset\n\n## A dataset comprising records from one or more TFRecord files.\n\n## Description\nA dataset comprising records from one or more TFRecord files. \n\n\n## Usage\n```r\ntfrecord_dataset( \n  filenames, \n  compression_type = NULL, \n  buffer_size = NULL, \n  num_parallel_reads = NULL \n) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| filenames | String(s) specifying one or more filenames |\n| compression_type | A string, one of: `NULL` (no compression), `\"ZLIB\"`, or `\"GZIP\"`. |\n| buffer_size | An integer representing the number of bytes in the read buffer. (0 means no buffering). |\n| num_parallel_reads | An integer representing the number of files to read in parallel. Defaults to reading files sequentially. |\n\n## Details\nIf the dataset encodes a set of TFExample instances, then they can be decoded into named records using the `dataset_map()` function (see example below). \n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tfdatasets)\n# Creates a dataset that reads all of the examples from two files, and extracts \n# the image and label features. \nfilenames <- c(\"/var/data/file1.tfrecord\", \"/var/data/file2.tfrecord\") \ndataset <- tfrecord_dataset(filenames) %>% \n  dataset_map(function(example_proto) { \n    features <- list( \n      image = tf$FixedLenFeature(shape(), tf$string, default_value = \"\"), \n      label = tf$FixedLenFeature(shape(), tf$int32, default_value = 0L) \n    ) \n    tf$parse_single_example(example_proto, features) \n  }) \n```\n:::\n",
+    "supporting": [
+      "tfrecord_dataset_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

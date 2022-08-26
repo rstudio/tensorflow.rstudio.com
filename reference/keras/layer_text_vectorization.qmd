@@ -1,117 +1,83 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-preprocessing.R#L1289) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # layer_text_vectorization
 
-
-A preprocessing layer which maps text features to integer sequences.
-
-
-
+## A preprocessing layer which maps text features to integer sequences.
 
 ## Description
-
-A preprocessing layer which maps text features to integer sequences.
-
-
-
+A preprocessing layer which maps text features to integer sequences. 
 
 
 ## Usage
 ```r
-layer_text_vectorization(
-  object,
-  max_tokens = NULL,
-  standardize = "lower_and_strip_punctuation",
-  split = "whitespace",
-  ngrams = NULL,
-  output_mode = "int",
-  output_sequence_length = NULL,
-  pad_to_max_tokens = FALSE,
-  vocabulary = NULL,
-  ...
-)
+layer_text_vectorization( 
+  object, 
+  max_tokens = NULL, 
+  standardize = "lower_and_strip_punctuation", 
+  split = "whitespace", 
+  ngrams = NULL, 
+  output_mode = "int", 
+  output_sequence_length = NULL, 
+  pad_to_max_tokens = FALSE, 
+  vocabulary = NULL, 
+  ... 
+) 
 
-get_vocabulary(object, include_special_tokens = TRUE)
+get_vocabulary(object, include_special_tokens = TRUE) 
 
-set_vocabulary(object, vocabulary, idf_weights = NULL, ...)
+set_vocabulary(object, vocabulary, idf_weights = NULL, ...) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
-max_tokens | The maximum size of the vocabulary for this layer. If NULL, there is no cap on the size of the vocabulary. Note that this vocabulary contains 1 OOV token, so the effective number of tokens is (max_tokens - 1 - (1 if output_mode == "int" else 0)).
-standardize | Optional specification for standardization to apply to the input text. Values can be NULL (no standardization), ``"lower_and_strip_punctuation"`` (lowercase and remove punctuation) or a Callable. Default is ``"lower_and_strip_punctuation"``.
-split | Optional specification for splitting the input text. Values can be NULL (no splitting), ``"whitespace"`` (split on ASCII whitespace), or a Callable. The default is ``"whitespace"``.
-ngrams | Optional specification for ngrams to create from the possibly-split input text. Values can be NULL, an integer or list of integers; passing an integer will create ngrams up to that integer, and passing a list of integers will create ngrams for the specified values in the list. Passing NULL means that no ngrams will be created.
-output_mode | Optional specification for the output of the layer. Values can be ``"int"``, ``"multi_hot"``, ``"count"`` or ``"tf_idf"``, configuring the layer as follows:   *  `"int"`: Outputs integer indices, one integer index per split string token. When `output_mode == "int"`, 0 is reserved for masked locations; this reduces the vocab size to `max_tokens - 2` instead of `max_tokens - 1`.  *  `"multi_hot"`: Outputs a single int array per batch, of either vocab_size or max_tokens size, containing 1s in all elements where the token mapped to that index exists at least once in the batch item.  *  `"count"`: Like `"multi_hot"`, but the int array contains a count of the number of times the token at that index appeared in the batch item.  *  `"tf_idf"`: Like `"multi_hot"`, but the TF-IDF algorithm is applied to find the value in each token slot. For `"int"` output, any shape of input and output is supported. For all other output modes, currently only rank 1 inputs (and rank 2 outputs after splitting) are supported.
-output_sequence_length | Only valid in INT mode. If set, the output will have its time dimension padded or truncated to exactly ``output_sequence_length`` values, resulting in a tensor of shape (batch_size, output_sequence_length) regardless of how many tokens resulted from the splitting step. Defaults to NULL.
-pad_to_max_tokens | Only valid in  ``"multi_hot"``, ``"count"``, and ``"tf_idf"`` modes. If TRUE, the output will have its feature axis padded to ``max_tokens`` even if the number of unique tokens in the vocabulary is less than max_tokens, resulting in a tensor of shape (batch_size, max_tokens) regardless of vocabulary size. Defaults to FALSE.
-vocabulary | Optional for ``layer_text_vectorization()``. Either an array of strings or a string path to a text file. If passing an array, can pass an R list or character vector, 1D numpy array, or 1D tensor containing the string vocabulary terms. If passing a file path, the file should contain one line per term in the vocabulary. If vocabulary is set (either by passing ``layer_text_vectorization(vocabulary = ...)`` or by calling set_vocabulary(layer, vocabulary = ...), there is no need to ``adapt()`` the layer.
-... | standard layer arguments.
-include_special_tokens | If True, the returned vocabulary will include the padding and OOV tokens, and a term's index in the vocabulary will equal the term's index when calling the layer. If False, the returned vocabulary will not include any padding or OOV tokens.
-idf_weights | An R vector, 1D numpy array, or 1D tensor of inverse document frequency weights with equal length to vocabulary. Must be set if output_mode is "tf_idf". Should not be set otherwise.
-
-
-
+|Arguments|Description|
+|---|---|
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| max_tokens | The maximum size of the vocabulary for this layer. If NULL, there is no cap on the size of the vocabulary. Note that this vocabulary contains 1 OOV token, so the effective number of tokens is `(max_tokens - 1 - (1 if output_mode == "int" else 0))`. |
+| standardize | Optional specification for standardization to apply to the input text. Values can be NULL (no standardization), `"lower_and_strip_punctuation"` (lowercase and remove punctuation) or a Callable. Default is `"lower_and_strip_punctuation"`. |
+| split | Optional specification for splitting the input text. Values can be NULL (no splitting), `"whitespace"` (split on ASCII whitespace), or a Callable. The default is `"whitespace"`. |
+| ngrams | Optional specification for ngrams to create from the possibly-split input text. Values can be NULL, an integer or list of integers; passing an integer will create ngrams up to that integer, and passing a list of integers will create ngrams for the specified values in the list. Passing NULL means that no ngrams will be created. |
+| output_mode | Optional specification for the output of the layer. Values can be `"int"`, `"multi_hot"`, `"count"` or `"tf_idf"`, configuring the layer as follows: <br>- `"int"`: Outputs integer indices, one integer index per split string token. When `output_mode == "int"`, 0 is reserved for masked locations; this reduces the vocab size to `max_tokens - 2` instead of `max_tokens - 1`. <br>- `"multi_hot"`: Outputs a single int array per batch, of either vocab_size or max_tokens size, containing 1s in all elements where the token mapped to that index exists at least once in the batch item. <br>- `"count"`: Like `"multi_hot"`, but the int array contains a count of the number of times the token at that index appeared in the batch item. <br>- `"tf_idf"`: Like `"multi_hot"`, but the TF-IDF algorithm is applied to find the value in each token slot. For `"int"` output, any shape of input and output is supported. For all other output modes, currently only rank 1 inputs (and rank 2 outputs after splitting) are supported.  |
+| output_sequence_length | Only valid in INT mode. If set, the output will have its time dimension padded or truncated to exactly `output_sequence_length`<br>values, resulting in a tensor of shape `(batch_size, output_sequence_length)` regardless of how many tokens resulted from the splitting step. Defaults to NULL. |
+| pad_to_max_tokens | Only valid in  `"multi_hot"`, `"count"`, and `"tf_idf"`<br>modes. If TRUE, the output will have its feature axis padded to `max_tokens` even if the number of unique tokens in the vocabulary is less than max_tokens, resulting in a tensor of shape `(batch_size, max_tokens)`<br>regardless of vocabulary size. Defaults to FALSE. |
+| vocabulary | Optional for `layer_text_vectorization()`. Either an array of strings or a string path to a text file. If passing an array, can pass an R list or character vector, 1D numpy array, or 1D tensor containing the string vocabulary terms. If passing a file path, the file should contain one line per term in the vocabulary. If vocabulary is set (either by passing `layer_text_vectorization(vocabulary = ...)` or by calling `set_vocabulary(layer, vocabulary = ...`), there is no need to `adapt()`<br>the layer. |
+| ... | standard layer arguments. |
+| include_special_tokens | If True, the returned vocabulary will include the padding and OOV tokens, and a term's index in the vocabulary will equal the term's index when calling the layer. If False, the returned vocabulary will not include any padding or OOV tokens. |
+| idf_weights | An R vector, 1D numpy array, or 1D tensor of inverse document frequency weights with equal length to vocabulary. Must be set if output_mode is "tf_idf". Should not be set otherwise. |
 
 ## Details
 
-This layer has basic options for managing text in a Keras model. It
-transforms a batch of strings (one example = one string) into either a list of
-token indices (one example = 1D tensor of integer token indices) or a dense
-representation (one example = 1D tensor of float values representing data
-about the example's tokens).
+This layer has basic options for managing text in a Keras model. It transforms a batch of strings (one example = one string) into either a list of token indices (one example = 1D tensor of integer token indices) or a dense representation (one example = 1D tensor of float values representing data about the example's tokens). 
 
-The vocabulary for the layer must be either supplied on construction or
-learned via ``adapt()``. When this layer is adapted, it will analyze the
-dataset, determine the frequency of individual string values, and create a
-vocabulary from them. This vocabulary can have unlimited size or be capped,
-depending on the configuration options for this layer; if there are more
-unique values in the input than the maximum vocabulary size, the most
-frequent terms will be used to create the vocabulary.
+The vocabulary for the layer must be either supplied on construction or learned via `adapt()`. When this layer is adapted, it will analyze the dataset, determine the frequency of individual string values, and create a vocabulary from them. This vocabulary can have unlimited size or be capped, depending on the configuration options for this layer; if there are more unique values in the input than the maximum vocabulary size, the most frequent terms will be used to create the vocabulary. 
 
-The processing of each example contains the following steps:
+The processing of each example contains the following steps: 
 
+- Standardize each example (usually lowercasing + punctuation stripping) 
 
-*  Standardize each example (usually lowercasing + punctuation stripping)
+- Split each example into substrings (usually words) 
 
-*  Split each example into substrings (usually words)
+- Recombine substrings into tokens (usually ngrams) 
 
-*  Recombine substrings into tokens (usually ngrams)
+- Index tokens (associate a unique int value with each token) 
 
-*  Index tokens (associate a unique int value with each token)
+- Transform each example using this index, either into a vector of ints or a dense float vector. 
 
-*  Transform each example using this index, either into a vector of ints or
-a dense float vector.
+Some notes on passing callables to customize splitting and normalization for this layer: 
 
+- Any callable can be passed to this Layer, but if you want to serialize this object you should only pass functions that are registered Keras serializables (see [`tf$keras$utils$register_keras_serializable`](https://www.tensorflow.org/api_docs/python/tf/keras/utils/register_keras_serializable)
 
-Some notes on passing callables to customize splitting and normalization for
-this layer:
+for more details). 
 
+- When using a custom callable for `standardize`, the data received by the callable will be exactly as passed to this layer. The callable should return a tensor of the same shape as the input. 
 
-*  Any callable can be passed to this Layer, but if you want to serialize
-this object you should only pass functions that are registered Keras
-serializables (see https://www.tensorflow.org/api_docs/python/tf/keras/utils/register_keras_serializablelist("tf$keras$utils$register_keras_serializable")
-for more details).
-
-*  When using a custom callable for `standardize`, the data received
-by the callable will be exactly as passed to this layer. The callable
-should return a tensor of the same shape as the input.
-
-*  When using a custom callable for `split`, the data received by the
-callable will have the 1st dimension squeezed out - instead of
-`matrix(c("string to split", "another string to split"))`, the Callable will
-see `c("string to split", "another string to split")`. The callable should
-return a Tensor with the first dimension containing the split tokens -
-in this example, we should see something like `list(c("string", "to", "split"), c("another", "string", "to", "split"))`. This makes the callable
-site natively compatible with `tf$strings$split()`.
-
-
-
+- When using a custom callable for `split`, the data received by the callable will have the 1st dimension squeezed out - instead of `matrix(c("string to split", "another string to split"))`, the Callable will see `c("string to split", "another string to split")`. The callable should return a Tensor with the first dimension containing the split tokens - in this example, we should see something like `list(c("string", "to", "split"), c("another", "string", "to", "split"))`. This makes the callable site natively compatible with `tf$strings$split()`. 
 
 
 
@@ -119,34 +85,11 @@ site natively compatible with `tf$strings$split()`.
 
 ## See Also
 
+- `adapt()`
 
+- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/TextVectorization](https://www.tensorflow.org/api_docs/python/tf/keras/layers/TextVectorization)
 
-*  adapt()
+- [https://keras.io/api/layers/preprocessing_layers/text/text_vectorization](https://keras.io/api/layers/preprocessing_layers/text/text_vectorization)
 
-*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/TextVectorization
-
-*  https://keras.io/api/layers/preprocessing_layers/text/text_vectorization
-
-
-Other preprocessing layers: 
-`layer_category_encoding()`,
-`layer_center_crop()`,
-`layer_discretization()`,
-`layer_hashing()`,
-`layer_integer_lookup()`,
-`layer_normalization()`,
-`layer_random_brightness()`,
-`layer_random_contrast()`,
-`layer_random_crop()`,
-`layer_random_flip()`,
-`layer_random_height()`,
-`layer_random_rotation()`,
-`layer_random_translation()`,
-`layer_random_width()`,
-`layer_random_zoom()`,
-`layer_rescaling()`,
-`layer_resizing()`,
-`layer_string_lookup()`
-
-
+Other preprocessing layers:  `layer_category_encoding()`, `layer_center_crop()`, `layer_discretization()`, `layer_hashing()`, `layer_integer_lookup()`, `layer_normalization()`, `layer_random_brightness()`, `layer_random_contrast()`, `layer_random_crop()`, `layer_random_flip()`, `layer_random_height()`, `layer_random_rotation()`, `layer_random_translation()`, `layer_random_width()`, `layer_random_zoom()`, `layer_rescaling()`, `layer_resizing()`, `layer_string_lookup()`
 

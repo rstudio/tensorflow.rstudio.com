@@ -1,52 +1,38 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/terminal.R#L13) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # gcloud_terminal
 
-
-Create an RStudio terminal with access to the Google Cloud SDK
-
-
-
+## Create an RStudio terminal with access to the Google Cloud SDK
 
 ## Description
-
-Create an RStudio terminal with access to the Google Cloud SDK
-
-
-
+Create an RStudio terminal with access to the Google Cloud SDK 
 
 
 ## Usage
 ```r
-gcloud_terminal(command = NULL, clear = FALSE)
+gcloud_terminal(command = NULL, clear = FALSE) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-command | Command to send to terminal
-clear | Clear terminal buffer
-
-
+|Arguments|Description|
+|---|---|
+| command | Command to send to terminal |
+| clear | Clear terminal buffer |
 
 
 
 ## Value
-
-Terminal id (invisibly)
-
-
-
+Terminal id (invisibly) 
 
 
 
 ## See Also
-
-Other Google Cloud SDK functions: `gcloud_init`,
-  `gcloud_install`
-
-
+Other Google Cloud SDK functions: `gcloud_init`,   `gcloud_install`
 

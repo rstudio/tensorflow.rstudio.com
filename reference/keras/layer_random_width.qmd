@@ -1,56 +1,47 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-preprocessing.R#L557) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # layer_random_width
 
-
-Randomly vary the width of a batch of images during training
-
-
-
+## Randomly vary the width of a batch of images during training
 
 ## Description
-
-Randomly vary the width of a batch of images during training
-
-
-
+Randomly vary the width of a batch of images during training 
 
 
 ## Usage
 ```r
-layer_random_width(
-  object,
-  factor,
-  interpolation = "bilinear",
-  seed = NULL,
-  ...
-)
+layer_random_width( 
+  object, 
+  factor, 
+  interpolation = "bilinear", 
+  seed = NULL, 
+  ... 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-object | What to compose the new ``Layer`` instance with. Typically a Sequential model or a Tensor (e.g., as returned by ``layer_input()``). The return value depends on ``object``. If ``object`` is:   *  missing or `NULL`, the `Layer` instance is returned.  *  a `Sequential` model, the model with an additional layer is returned.  *  a Tensor, the output tensor from `layer_instance(object)` is returned.
-factor | A positive float (fraction of original height), or a list of size 2 representing lower and upper bound for resizing vertically. When represented as a single float, this value is used for both the upper and lower bound. For instance, ``factor = c(0.2, 0.3)`` results in an output with width changed by a random amount in the range [20%, 30%]. factor=(-0.2, 0.3) results in an output with width changed by a random amount in the range [-20%, +30%]. ``factor = 0.2`` results in an output with width changed by a random amount in the range [-20%, +20%].
-interpolation | String, the interpolation method. Defaults to ``bilinear``. Supports ``"bilinear"``, ``"nearest"``, ``"bicubic"``, ``"area"``, ``"lanczos3"``, ``"lanczos5"``, ``"gaussian"``, ``"mitchellcubic"``.
-seed | Integer. Used to create a random seed.
-... | standard layer arguments.
-
-
-
+|Arguments|Description|
+|---|---|
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| factor | A positive float (fraction of original height), or a list of size 2 representing lower and upper bound for resizing vertically. When represented as a single float, this value is used for both the upper and lower bound. For instance, `factor = c(0.2, 0.3)` results in an output with width changed by a random amount in the range `[20%, 30%]`. `factor=(-0.2, 0.3)` results in an output with width changed by a random amount in the range `[-20%, +30%]`. `factor = 0.2` results in an output with width changed by a random amount in the range `[-20%, +20%]`. |
+| interpolation | String, the interpolation method. Defaults to `bilinear`. Supports `"bilinear"`, `"nearest"`, `"bicubic"`, `"area"`, `"lanczos3"`, `"lanczos5"`, `"gaussian"`, `"mitchellcubic"`. |
+| seed | Integer. Used to create a random seed. |
+| ... | standard layer arguments. |
 
 ## Details
 
-Adjusts the width of a batch of images by a random factor. The input
-should be a 3D (unbatched) or 4D (batched) tensor in the ``"channels_last"``
-image data format.
+Adjusts the width of a batch of images by a random factor. The input should be a 3D (unbatched) or 4D (batched) tensor in the `"channels_last"`
 
-By default, this layer is inactive during inference.
+image data format. 
 
-
+By default, this layer is inactive during inference. 
 
 
 
@@ -58,42 +49,11 @@ By default, this layer is inactive during inference.
 
 ## See Also
 
+- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/RandomWidth](https://www.tensorflow.org/api_docs/python/tf/keras/layers/RandomWidth)
 
+- [https://keras.io/api/layers/preprocessing_layers/](https://keras.io/api/layers/preprocessing_layers/)
 
-*  https://www.tensorflow.org/api_docs/python/tf/keras/layers/RandomWidth
+Other image augmentation layers:  `layer_random_brightness()`, `layer_random_contrast()`, `layer_random_crop()`, `layer_random_flip()`, `layer_random_height()`, `layer_random_rotation()`, `layer_random_translation()`, `layer_random_zoom()`
 
-*  https://keras.io/api/layers/preprocessing_layers/
-
-
-Other image augmentation layers: 
-`layer_random_brightness()`,
-`layer_random_contrast()`,
-`layer_random_crop()`,
-`layer_random_flip()`,
-`layer_random_height()`,
-`layer_random_rotation()`,
-`layer_random_translation()`,
-`layer_random_zoom()`
-
-Other preprocessing layers: 
-`layer_category_encoding()`,
-`layer_center_crop()`,
-`layer_discretization()`,
-`layer_hashing()`,
-`layer_integer_lookup()`,
-`layer_normalization()`,
-`layer_random_brightness()`,
-`layer_random_contrast()`,
-`layer_random_crop()`,
-`layer_random_flip()`,
-`layer_random_height()`,
-`layer_random_rotation()`,
-`layer_random_translation()`,
-`layer_random_zoom()`,
-`layer_rescaling()`,
-`layer_resizing()`,
-`layer_string_lookup()`,
-`layer_text_vectorization()`
-
-
+Other preprocessing layers:  `layer_category_encoding()`, `layer_center_crop()`, `layer_discretization()`, `layer_hashing()`, `layer_integer_lookup()`, `layer_normalization()`, `layer_random_brightness()`, `layer_random_contrast()`, `layer_random_crop()`, `layer_random_flip()`, `layer_random_height()`, `layer_random_rotation()`, `layer_random_translation()`, `layer_random_zoom()`, `layer_rescaling()`, `layer_resizing()`, `layer_string_lookup()`, `layer_text_vectorization()`
 

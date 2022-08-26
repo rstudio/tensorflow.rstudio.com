@@ -1,75 +1,54 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/package.R#L64) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # use_implementation
 
-
-Select a Keras implementation and backend
-
-
-
+## Select a Keras implementation and backend
 
 ## Description
-
-Select a Keras implementation and backend
-
-
-
+Select a Keras implementation and backend 
 
 
 ## Usage
 ```r
-use_implementation(implementation = c("keras", "tensorflow"))
+use_implementation(implementation = c("keras", "tensorflow")) 
 
-use_backend(backend = c("tensorflow", "cntk", "theano", "plaidml"))
+use_backend(backend = c("tensorflow", "cntk", "theano", "plaidml")) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-implementation | One of "keras" or "tensorflow" (defaults to "keras").
-backend | One of "tensorflow", "cntk", or "theano" (defaults to "tensorflow")
-
-
-
+|Arguments|Description|
+|---|---|
+| implementation | One of "keras" or "tensorflow" (defaults to "keras"). |
+| backend | One of "tensorflow", "cntk", or "theano" (defaults to "tensorflow") |
 
 ## Details
 
-Keras has multiple implementations (the original keras implementation
-and the implementation native to TensorFlow) and supports multiple
-backends ("tensorflow", "cntk", "theano", and "plaidml"). These functions allow
-switching between the various implementations and backends.
+Keras has multiple implementations (the original keras implementation and the implementation native to TensorFlow) and supports multiple backends ("tensorflow", "cntk", "theano", and "plaidml"). These functions allow switching between the various implementations and backends. 
 
-The functions should be called after ``library(keras)`` and before calling
-other functions within the package (see below for an example).
+The functions should be called after `library(keras)` and before calling other functions within the package (see below for an example). 
 
-The default implementation and backend should be suitable for most
-use cases. The "tensorflow" implementation is useful when using Keras
-in conjunction with TensorFlow Estimators (the tfestimators
-R package).
+The default implementation and backend should be suitable for most use cases. The "tensorflow" implementation is useful when using Keras in conjunction with TensorFlow Estimators (the `tfestimators`
 
-
+R package). 
 
 
 
 
 ## Examples
-
-```r
-
-# use the tensorflow implementation
-library(keras)
-use_implementation("tensorflow")
-
-# use the cntk backend
-library(keras)
-use_backend("theano")
-
+```{r, eval=ecodown::examples_not_run()}
+# use the tensorflow implementation 
+library(keras) 
+use_implementation("tensorflow") 
+# use the cntk backend 
+library(keras) 
+use_backend("theano") 
 ```
-
-
-
 
 

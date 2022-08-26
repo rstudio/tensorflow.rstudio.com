@@ -1,54 +1,37 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layer-methods.R#L110) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # count_params
 
-
-Count the total number of scalars composing the weights.
-
-
-
+## Count the total number of scalars composing the weights.
 
 ## Description
-
-Count the total number of scalars composing the weights.
-
-
-
+Count the total number of scalars composing the weights. 
 
 
 ## Usage
 ```r
-count_params(object)
+count_params(object) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-object | Layer or model object
-
-
+|Arguments|Description|
+|---|---|
+| object | Layer or model object |
 
 
 
 ## Value
-
-An integer count
-
-
-
+An integer count 
 
 
 
 ## See Also
-
-Other layer methods: 
-`get_config()`,
-`get_input_at()`,
-`get_weights()`,
-`reset_states()`
-
-
+Other layer methods:  `get_config()`, `get_input_at()`, `get_weights()`, `reset_states()`
 

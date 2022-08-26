@@ -1,88 +1,63 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L1456) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # summary.keras.engine.training.Model
 
-
-Print a summary of a Keras model
-
-
-
+## Print a summary of a Keras model
 
 ## Description
-
-Print a summary of a Keras model
-
-
-
+Print a summary of a Keras model 
 
 
 ## Usage
+```r
+## S3 method for class 'keras.engine.training.Model'
+summary(object, ...) 
 
-summarykeras.engine.training.Model(object, ...)
+## S3 method for class 'keras.engine.training.Model'
+format( 
+  x, 
+  line_length = width - (11L * show_trainable), 
+  positions = NULL, 
+  expand_nested = FALSE, 
+  show_trainable = x$built && as.logical(length(x$non_trainable_weights)), 
+  ..., 
+  compact = TRUE, 
+  width = getOption("width") 
+) 
 
-formatkeras.engine.training.Model(
-  x,
-  line_length = width - (11L * show_trainable),
-  positions = NULL,
-  expand_nested = FALSE,
-  show_trainable = x$built && as.logical(length(x$non_trainable_weights)),
-  ...,
-  compact = TRUE,
-  width = getOption("width")
-)
-
-printkeras.engine.training.Model(x, ...)
-
-
-
-
+## S3 method for class 'keras.engine.training.Model'
+print(x, ...) 
+```
 
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-object, x | Keras model instance
-... | for ``summary()`` and ``print()``, passed on to ``format()``. For ``format()``, passed on to ``model$summary()``.
-line_length | Total length of printed lines
-positions | Relative or absolute positions of log elements in each line. If not provided, defaults to ``c(0.33, 0.55, 0.67, 1.0)``.
-expand_nested | Whether to expand the nested models. If not provided, defaults to ``FALSE``.
-show_trainable | Whether to show if a layer is trainable. If not provided, defaults to ``FALSE``.
-compact | Whether to remove white-space only lines from the model summary. (Default ``TRUE``)
-width | the column width to use for printing.
-
-
+|Arguments|Description|
+|---|---|
+| object, x | Keras model instance |
+| ... | for `summary()` and `print()`, passed on to `format()`. For `format()`, passed on to `model$summary()`. |
+| line_length | Total length of printed lines |
+| positions | Relative or absolute positions of log elements in each line. If not provided, defaults to `c(0.33, 0.55, 0.67, 1.0)`. |
+| expand_nested | Whether to expand the nested models. If not provided, defaults to `FALSE`. |
+| show_trainable | Whether to show if a layer is trainable. If not provided, defaults to `FALSE`. |
+| compact | Whether to remove white-space only lines from the model summary. (Default `TRUE`) |
+| width | the column width to use for printing. |
 
 
 
 ## Value
 
-``format()`` returns a length 1 character vector. ``print()`` returns the
-model object invisibly. ``summary()`` returns the output of ``format()``
-invisibly after printing it.
+`format()` returns a length 1 character vector. `print()` returns the model object invisibly. `summary()` returns the output of `format()`
 
-
-
+invisibly after printing it. 
 
 
 
 ## See Also
-
-Other model functions: 
-`compile.keras.engine.training.Model()`,
-`evaluate.keras.engine.training.Model()`,
-`evaluate_generator()`,
-`fit.keras.engine.training.Model()`,
-`fit_generator()`,
-`get_config()`,
-`get_layer()`,
-`keras_model_sequential()`,
-`keras_model()`,
-`multi_gpu_model()`,
-`pop_layer()`,
-`predict.keras.engine.training.Model()`,
-`predict_generator()`,
-`predict_on_batch()`,
-`predict_proba()`,
-`train_on_batch()`
-
-
+Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `train_on_batch()`
 

@@ -1,116 +1,55 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/metrics.R#L1319) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # custom_metric
 
-
-Custom metric function
-
-
-
+## Custom metric function
 
 ## Description
-
-Custom metric function
-
-
-
+Custom metric function 
 
 
 ## Usage
 ```r
-custom_metric(name, metric_fn)
+custom_metric(name, metric_fn) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-name | name used to show training progress output
-metric_fn | An R function with signature ``function(y_true, y_pred){}`` that accepts tensors.
-
-
-
+|Arguments|Description|
+|---|---|
+| name | name used to show training progress output |
+| metric_fn | An R function with signature `function(y_true, y_pred){}` that accepts tensors. |
 
 ## Details
 
-You can provide an arbitrary R function as a custom metric. Note that
-the ``y_true`` and ``y_pred`` parameters are tensors, so computations on
-them should use backend tensor functions.
+You can provide an arbitrary R function as a custom metric. Note that the `y_true` and `y_pred` parameters are tensors, so computations on them should use backend tensor functions. 
 
-Use the ``custom_metric()`` function to define a custom metric.
-Note that a name ('mean_pred') is provided for the custom metric
-function: this name is used within training progress output.
+Use the `custom_metric()` function to define a custom metric. Note that a name ('mean_pred') is provided for the custom metric function: this name is used within training progress output. 
 
-If you want to save and load a model with custom metrics, you should
-also specify the metric in the call the `load_model_hdf5()`. For example:
-``load_model_hdf5("my_model.h5", c('mean_pred' = metric_mean_pred))``.
+If you want to save and load a model with custom metrics, you should also specify the metric in the call the `load_model_hdf5()`. For example: `load_model_hdf5("my_model.h5", c('mean_pred' = metric_mean_pred))`. 
 
-Alternatively, you can wrap all of your code in a call to
-`with_custom_object_scope()` which will allow you to refer to the
-metric by name just like you do with built in keras metrics.
+Alternatively, you can wrap all of your code in a call to `with_custom_object_scope()` which will allow you to refer to the metric by name just like you do with built in keras metrics. 
 
-Documentation on the available backend tensor functions can be
-found at https://keras.rstudio.com/articles/backend.html#backend-functions.
+Documentation on the available backend tensor functions can be found at [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
-Alternative ways of supplying custom metrics:
+Alternative ways of supplying custom metrics: 
 
+- `custom_metric():` Arbitrary R function. 
 
-*  custom_metric(): Arbitrary R function.
+- `metric_mean_wrapper()`: Wrap an arbitrary R function in a `Metric` instance. 
 
-*  metric_mean_wrapper(): Wrap an arbitrary R function in a `Metric` instance.
-
-*  subclass `keras$metrics$Metric`: see `?Metric` for example.
-
-
-
+- subclass `keras$metrics$Metric`: see `?Metric` for example. 
 
 
 
 
 
 ## See Also
-
-Other metrics: 
-`metric_accuracy()`,
-`metric_auc()`,
-`metric_binary_accuracy()`,
-`metric_binary_crossentropy()`,
-`metric_categorical_accuracy()`,
-`metric_categorical_crossentropy()`,
-`metric_categorical_hinge()`,
-`metric_cosine_similarity()`,
-`metric_false_negatives()`,
-`metric_false_positives()`,
-`metric_hinge()`,
-`metric_kullback_leibler_divergence()`,
-`metric_logcosh_error()`,
-`metric_mean_absolute_error()`,
-`metric_mean_absolute_percentage_error()`,
-`metric_mean_iou()`,
-`metric_mean_relative_error()`,
-`metric_mean_squared_error()`,
-`metric_mean_squared_logarithmic_error()`,
-`metric_mean_tensor()`,
-`metric_mean_wrapper()`,
-`metric_mean()`,
-`metric_poisson()`,
-`metric_precision_at_recall()`,
-`metric_precision()`,
-`metric_recall_at_precision()`,
-`metric_recall()`,
-`metric_root_mean_squared_error()`,
-`metric_sensitivity_at_specificity()`,
-`metric_sparse_categorical_accuracy()`,
-`metric_sparse_categorical_crossentropy()`,
-`metric_sparse_top_k_categorical_accuracy()`,
-`metric_specificity_at_sensitivity()`,
-`metric_squared_hinge()`,
-`metric_sum()`,
-`metric_top_k_categorical_accuracy()`,
-`metric_true_negatives()`,
-`metric_true_positives()`
-
-
+Other metrics:  `metric_accuracy()`, `metric_auc()`, `metric_binary_accuracy()`, `metric_binary_crossentropy()`, `metric_categorical_accuracy()`, `metric_categorical_crossentropy()`, `metric_categorical_hinge()`, `metric_cosine_similarity()`, `metric_false_negatives()`, `metric_false_positives()`, `metric_hinge()`, `metric_kullback_leibler_divergence()`, `metric_logcosh_error()`, `metric_mean_absolute_error()`, `metric_mean_absolute_percentage_error()`, `metric_mean_iou()`, `metric_mean_relative_error()`, `metric_mean_squared_error()`, `metric_mean_squared_logarithmic_error()`, `metric_mean_tensor()`, `metric_mean_wrapper()`, `metric_mean()`, `metric_poisson()`, `metric_precision_at_recall()`, `metric_precision()`, `metric_recall_at_precision()`, `metric_recall()`, `metric_root_mean_squared_error()`, `metric_sensitivity_at_specificity()`, `metric_sparse_categorical_accuracy()`, `metric_sparse_categorical_crossentropy()`, `metric_sparse_top_k_categorical_accuracy()`, `metric_specificity_at_sensitivity()`, `metric_squared_hinge()`, `metric_sum()`, `metric_top_k_categorical_accuracy()`, `metric_true_negatives()`, `metric_true_positives()`
 

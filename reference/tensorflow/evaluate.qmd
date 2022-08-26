@@ -1,37 +1,39 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/estimator-generics.R#L36) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # evaluate
 
-
-Evaluate a Model
-
-
-
+## Evaluate a Model
 
 ## Description
-
-Evaluate a model object. See implementations in the
-keras and
-tfestimators packages.
-
-
-
+Evaluate a model object. See implementations in the keras and tfestimators packages. 
 
 
 ## Usage
 ```r
-evaluate(object, ...)
+evaluate(object, ...) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| object | An evaluatable `R` object. |
+| ... | Optional arguments passed on to implementing methods. |
 
 
-Argument      |Description
-------------- |----------------
-object | An evaluatable  object.
-... | Optional arguments passed on to implementing methods.
+## Section
 
+## Implementations
+
+- keras
+
+- tfestimators
 
 
 

@@ -1,0 +1,16 @@
+{
+  "hash": "648e7dcdb5bc12158250bc21909cc738",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/py-classes.R#L) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# %py_class%\n\n## Make a python class constructor\n\n## Description\nMake a python class constructor \n\n\n## Usage\n```r\nspec %py_class% body \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| spec | a bare symbol `MyClassName`, or a call `MyClassName(SuperClass)` |\n| body | an expression that can be evaluated to construct the class methods. |\n\n\n\n## Value\nThe python class constructor, invisibly. Note, the same constructor is also assigned in the parent frame. \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras)\nMyClass %py_class% { \n  initialize <- function(x) { \n    print(\"Hi from MyClass$initialize()!\") \n    self$x <- x \n  } \n  my_method <- function() { \n    self$x \n  } \n} \nmy_class_instance <- MyClass(42) \nmy_class_instance$my_method() \nMyClass2(MyClass) %py_class% { \n  \"This will be a __doc__ string for MyClass2\" \n  initialize <- function(...) { \n    \"This will be the __doc__ string for the MyClass2.__init__() method\" \n    print(\"Hi from MyClass2$initialize()!\") \n    super$initialize(...) \n  } \n} \nmy_class_instance2 <- MyClass2(42) \nmy_class_instance2$my_method() \nreticulate::py_help(MyClass2) # see the __doc__ strings and more! \n# In addition to `self`, there is also `private` available. \n# This is an R environment unique to each class instance, where you can \n# store objects that you don't want converted to Python, but still want \n# available from methods. You can also assign methods to private, and \n# `self` and `private` will be available in private methods. \nMyClass %py_class% { \n  initialize <- function(x) { \n    print(\"Hi from MyClass$initialize()!\") \n    private$y <- paste(\"A Private field:\", x) \n  } \n  get_private_field <- function() { \n    private$y \n  } \n  private$a_private_method <- function() { \n    cat(\"a_private_method() was called.\\n\") \n    cat(\"private$y is \", sQuote(private$y), \"\\n\") \n  } \n  call_private_method <- function() \n    private$a_private_method() \n} \ninst1 <- MyClass(1) \ninst2 <- MyClass(2) \ninst1$get_private_field() \ninst2$get_private_field() \ninst1$call_private_method() \ninst2$call_private_method() \n```\n:::\n\n\n## See Also\n[https://keras.rstudio.com/articles/new-guides/python_subclasses.html](https://keras.rstudio.com/articles/new-guides/python_subclasses.html)\n\n",
+    "supporting": [
+      "grapes-py_class-grapes_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

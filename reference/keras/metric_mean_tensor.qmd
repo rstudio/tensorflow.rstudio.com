@@ -1,103 +1,42 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/metrics.R#L1144) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # metric_mean_tensor
 
-
-Computes the element-wise (weighted) mean of the given tensors
-
-
-
+## Computes the element-wise (weighted) mean of the given tensors
 
 ## Description
-
-Computes the element-wise (weighted) mean of the given tensors
-
-
-
+Computes the element-wise (weighted) mean of the given tensors 
 
 
 ## Usage
 ```r
-metric_mean_tensor(..., shape = NULL, name = NULL, dtype = NULL)
+metric_mean_tensor(..., shape = NULL, name = NULL, dtype = NULL) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-... | Passed on to the underlying metric. Used for forwards and backwards compatibility.
-shape | (Optional) A list of integers, a list of integers, or a 1-D Tensor of type int32. If not specified, the shape is inferred from the values at the first call of update_state.
-name | (Optional) string name of the metric instance.
-dtype | (Optional) data type of the metric result.
-
-
-
+|Arguments|Description|
+|---|---|
+| ... | Passed on to the underlying metric. Used for forwards and backwards compatibility. |
+| shape | (Optional) A list of integers, a list of integers, or a 1-D Tensor of type int32. If not specified, the shape is inferred from the values at the first call of update_state. |
+| name | (Optional) string name of the metric instance. |
+| dtype | (Optional) data type of the metric result. |
 
 ## Details
-
-``MeanTensor`` returns a tensor with the same shape of the input tensors. The
-mean value is updated by keeping local variables ``total`` and ``count``. The
-``total`` tracks the sum of the weighted values, and ``count`` stores the sum of
-the weighted counts.
-
-
-
+`MeanTensor` returns a tensor with the same shape of the input tensors. The mean value is updated by keeping local variables `total` and `count`. The `total` tracks the sum of the weighted values, and `count` stores the sum of the weighted counts. 
 
 
 ## Value
-
-A (subclassed) ``Metric`` instance that can be passed directly to
-``compile(metrics = )``, or used as a standalone object. See ``?Metric`` for
-example usage.
-
-
-
+A (subclassed) `Metric` instance that can be passed directly to `compile(metrics = )`, or used as a standalone object. See `?Metric` for example usage. 
 
 
 
 ## See Also
-
-Other metrics: 
-`custom_metric()`,
-`metric_accuracy()`,
-`metric_auc()`,
-`metric_binary_accuracy()`,
-`metric_binary_crossentropy()`,
-`metric_categorical_accuracy()`,
-`metric_categorical_crossentropy()`,
-`metric_categorical_hinge()`,
-`metric_cosine_similarity()`,
-`metric_false_negatives()`,
-`metric_false_positives()`,
-`metric_hinge()`,
-`metric_kullback_leibler_divergence()`,
-`metric_logcosh_error()`,
-`metric_mean_absolute_error()`,
-`metric_mean_absolute_percentage_error()`,
-`metric_mean_iou()`,
-`metric_mean_relative_error()`,
-`metric_mean_squared_error()`,
-`metric_mean_squared_logarithmic_error()`,
-`metric_mean_wrapper()`,
-`metric_mean()`,
-`metric_poisson()`,
-`metric_precision_at_recall()`,
-`metric_precision()`,
-`metric_recall_at_precision()`,
-`metric_recall()`,
-`metric_root_mean_squared_error()`,
-`metric_sensitivity_at_specificity()`,
-`metric_sparse_categorical_accuracy()`,
-`metric_sparse_categorical_crossentropy()`,
-`metric_sparse_top_k_categorical_accuracy()`,
-`metric_specificity_at_sensitivity()`,
-`metric_squared_hinge()`,
-`metric_sum()`,
-`metric_top_k_categorical_accuracy()`,
-`metric_true_negatives()`,
-`metric_true_positives()`
-
-
+Other metrics:  `custom_metric()`, `metric_accuracy()`, `metric_auc()`, `metric_binary_accuracy()`, `metric_binary_crossentropy()`, `metric_categorical_accuracy()`, `metric_categorical_crossentropy()`, `metric_categorical_hinge()`, `metric_cosine_similarity()`, `metric_false_negatives()`, `metric_false_positives()`, `metric_hinge()`, `metric_kullback_leibler_divergence()`, `metric_logcosh_error()`, `metric_mean_absolute_error()`, `metric_mean_absolute_percentage_error()`, `metric_mean_iou()`, `metric_mean_relative_error()`, `metric_mean_squared_error()`, `metric_mean_squared_logarithmic_error()`, `metric_mean_wrapper()`, `metric_mean()`, `metric_poisson()`, `metric_precision_at_recall()`, `metric_precision()`, `metric_recall_at_precision()`, `metric_recall()`, `metric_root_mean_squared_error()`, `metric_sensitivity_at_specificity()`, `metric_sparse_categorical_accuracy()`, `metric_sparse_categorical_crossentropy()`, `metric_sparse_top_k_categorical_accuracy()`, `metric_specificity_at_sensitivity()`, `metric_squared_hinge()`, `metric_sum()`, `metric_top_k_categorical_accuracy()`, `metric_true_negatives()`, `metric_true_positives()`
 

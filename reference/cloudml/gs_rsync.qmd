@@ -1,45 +1,38 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gcloud-storage.R#L64) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # gs_rsync
 
-
-Synchronize content of two buckets/directories
-
-
-
+## Synchronize content of two buckets/directories
 
 ## Description
-
-The ``gs_rsync`` function makes the contents under ``destination`` the same
-as the contents under ``source``, by copying any missing files/objects (or
-those whose data has changed), and (if the ``delete`` option is specified)
-deleting any extra files/objects. ``source`` must specify a directory, bucket,
-or bucket subdirectory.
-
-
-
+The `gs_rsync` function makes the contents under `destination` the same as the contents under `source`, by copying any missing files/objects (or those whose data has changed), and (if the `delete` option is specified) deleting any extra files/objects. `source` must specify a directory, bucket, or bucket subdirectory. 
 
 
 ## Usage
 ```r
-gs_rsync(source, destination, delete = FALSE, recursive = FALSE,
-  parallel = TRUE, dry_run = FALSE, options = NULL, echo = TRUE)
+gs_rsync(source, destination, delete = FALSE, recursive = FALSE, 
+  parallel = TRUE, dry_run = FALSE, options = NULL, echo = TRUE) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| source | The file to be copied. This can be either a path on the local filesystem, or a Google Storage URI (e.g. `gs://[BUCKET_NAME]/[FILENAME.CSV]`). |
+| destination | The location where the `source` file should be copied to. This can be either a path on the local filesystem, or a Google Storage URI (e.g. `gs://[BUCKET_NAME]/[FILENAME.CSV]`). |
+| delete | Delete extra files under `destination` not found under `source` By default extra files are not deleted. |
+| recursive | Causes directories, buckets, and bucket subdirectories to be synchronized recursively. If you neglect to use this option `gs_rsync()` will make only the top-level directory in the source and destination URLs match, skipping any sub-directories. |
+| parallel | Causes synchronization to run in parallel. This can significantly improve performance if you are performing operations on a large number of files over a reasonably fast network connection. |
+| dry_run | Causes rsync to run in "dry run" mode, i.e., just outputting what would be copied or deleted without actually doing any copying/deleting. |
+| options | Character vector of additional command line options to the gsutil rsync command (as specified at [https://cloud.google.com/storage/docs/gsutil/commands/rsync](https://cloud.google.com/storage/docs/gsutil/commands/rsync)). |
+| echo | Echo command output to console. |
 
-
-Argument      |Description
-------------- |----------------
-source | The file to be copied. This can be either a path on the local filesystem, or a Google Storage URI (e.g. ``gs://[BUCKET_NAME]/[FILENAME.CSV]``).
-destination | The location where the ``source`` file should be copied to. This can be either a path on the local filesystem, or a Google Storage URI (e.g. ``gs://[BUCKET_NAME]/[FILENAME.CSV]``).
-delete | Delete extra files under ``destination`` not found under ``source`` By default extra files are not deleted.
-recursive | Causes directories, buckets, and bucket subdirectories to be synchronized recursively. If you neglect to use this option ``gs_rsync()`` will make only the top-level directory in the source and destination URLs match, skipping any sub-directories.
-parallel | Causes synchronization to run in parallel. This can significantly improve performance if you are performing operations on a large number of files over a reasonably fast network connection.
-dry_run | Causes rsync to run in "dry run" mode, i.e., just outputting what would be copied or deleted without actually doing any copying/deleting.
-options | Character vector of additional command line options to the gsutil rsync command (as specified at https://cloud.google.com/storage/docs/gsutil/commands/rsync).
-echo | Echo command output to console.
 
 
 

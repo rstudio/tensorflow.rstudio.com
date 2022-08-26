@@ -1,32 +1,30 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/run_dir.R#L32) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # is_run_active
 
-
-Check for an active training run
-
-
-
+## Check for an active training run
 
 ## Description
-
-Check for an active training run
-
-
-
+Check for an active training run 
 
 
 ## Usage
 ```r
-is_run_active()
+is_run_active() 
 ```
 
 
 
 
-
 ## Value
-
-``TRUE`` if a training tun is currently active
-
+`TRUE` if a training tun is currently active 
 
 
 

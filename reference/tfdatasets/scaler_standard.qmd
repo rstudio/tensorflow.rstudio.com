@@ -1,23 +1,23 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L498) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # scaler_standard
 
-
-Creates an instance of a standard scaler
-
-
-
+## Creates an instance of a standard scaler
 
 ## Description
-
-This scaler will learn the mean and the standard deviation
-and use this to create a ``normalizer_fn``.
-
-
-
+This scaler will learn the mean and the standard deviation and use this to create a `normalizer_fn`. 
 
 
 ## Usage
 ```r
-scaler_standard()
+scaler_standard() 
 ```
 
 
@@ -28,10 +28,7 @@ scaler_standard()
 
 ## See Also
 
-scaler to a complete list of normalizers
+scaler to a complete list of normalizers 
 
-Other scaler: 
-`scaler_min_max()`
-
-
+Other scaler:  `scaler_min_max()`
 

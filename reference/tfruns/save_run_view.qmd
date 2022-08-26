@@ -1,36 +1,30 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/training_run.R#L471) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # save_run_view
 
-
-Save a run view as HTML
-
-
-
+## Save a run view as HTML
 
 ## Description
-
-The saved view includes summary information (flags, metrics, model
-attributes, etc.), plot and console output, and the code used for the run.
-
-
-
+The saved view includes summary information (flags, metrics, model attributes, etc.), plot and console output, and the code used for the run. 
 
 
 ## Usage
 ```r
-save_run_view(run_dir = latest_run(), filename = "auto")
+save_run_view(run_dir = latest_run(), filename = "auto") 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-run_dir | Training run directory or data frame returned from `ls_runs()`.
-filename | Path to save the HTML to. If no ``filename`` is specified then a temporary file is used (the path to the file is returned invisibly).
-
+|Arguments|Description|
+|---|---|
+| run_dir | Training run directory or data frame returned from `ls_runs()`. |
+| filename | Path to save the HTML to. If no `filename` is specified then a temporary file is used (the path to the file is returned invisibly). |
 
 
 
@@ -38,8 +32,5 @@ filename | Path to save the HTML to. If no ``filename`` is specified then a temp
 
 
 ## See Also
-
 `ls_runs()`, `run_info()`, `view_run()`
-
-
 

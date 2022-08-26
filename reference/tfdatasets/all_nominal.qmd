@@ -1,22 +1,23 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L113) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # all_nominal
 
-
-Find all nominal variables.
-
-
-
+## Find all nominal variables.
 
 ## Description
-
-Currently we only consider "string" type as nominal.
-
-
-
+Currently we only consider "string" type as nominal. 
 
 
 ## Usage
 ```r
-all_nominal()
+all_nominal() 
 ```
 
 
@@ -26,10 +27,5 @@ all_nominal()
 
 
 ## See Also
-
-Other Selectors: 
-`all_numeric()`,
-`has_type()`
-
-
+Other Selectors:  `all_numeric()`, `has_type()`
 

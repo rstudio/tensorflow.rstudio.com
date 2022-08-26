@@ -1,0 +1,16 @@
+{
+  "hash": "8a1eac72f8d34069d879da306958187c",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L1057) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# dataset_use_spec\n\n## Transform the dataset using the provided spec.\n\n## Description\nPrepares the dataset to be used directly in a model.The transformed dataset is prepared to return tuples (x,y) that can be used directly in Keras. \n\n\n## Usage\n```r\ndataset_use_spec(dataset, spec) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| dataset | A TensorFlow dataset. |\n| spec | A feature specification created with `feature_spec()`. |\n\n\n\n## Value\nA TensorFlow dataset. \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tfdatasets) \ndata(hearts) \nhearts <- tensor_slices_dataset(hearts) %>% dataset_batch(32) \n# use the formula interface \nspec <- feature_spec(hearts, target ~ age) %>% \n  step_numeric_column(age) \nspec_fit <- fit(spec) \nfinal_dataset <- hearts %>% dataset_use_spec(spec_fit) \n```\n:::\n\n\n## See Also\n\n- `feature_spec()` to initialize the feature specification. \n\n- `fit.FeatureSpec()` to create a tensorflow dataset prepared to modeling. \n\n- steps to a list of all implemented steps. \n\nOther Feature Spec Functions:  `feature_spec()`, `fit.FeatureSpec()`, `step_bucketized_column()`, `step_categorical_column_with_hash_bucket()`, `step_categorical_column_with_identity()`, `step_categorical_column_with_vocabulary_file()`, `step_categorical_column_with_vocabulary_list()`, `step_crossed_column()`, `step_embedding_column()`, `step_indicator_column()`, `step_numeric_column()`, `step_remove_column()`, `step_shared_embeddings_column()`, `steps`\n\n",
+    "supporting": [
+      "dataset_use_spec_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

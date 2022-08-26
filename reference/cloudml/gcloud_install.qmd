@@ -1,57 +1,40 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gcloud-install.R#L75) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # gcloud_install
 
-
-Install the Google Cloud SDK
-
-
-
+## Install the Google Cloud SDK
 
 ## Description
-
-Installs the Google Cloud SDK which enables CloudML operations.
-
-
-
+Installs the Google Cloud SDK which enables CloudML operations. 
 
 
 ## Usage
 ```r
-gcloud_install(update = TRUE)
+gcloud_install(update = TRUE) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-update | Attempt to update an existing installation.
-
+|Arguments|Description|
+|---|---|
+| update | Attempt to update an existing installation. |
 
 
 
 
 
 ## Examples
-
-```r
-
-library(cloudml)
-gcloud_install()
-
+```{r, eval=ecodown::examples_not_run()}
+library(cloudml) 
+gcloud_install() 
 ```
 
-
-
-
-
-
 ## See Also
-
-Other Google Cloud SDK functions: `gcloud_init`,
-  `gcloud_terminal`
-
-
+Other Google Cloud SDK functions: `gcloud_init`,   `gcloud_terminal`
 

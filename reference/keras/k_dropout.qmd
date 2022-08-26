@@ -1,45 +1,44 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L811) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_dropout
 
-
-Sets entries in ``x`` to zero at random, while scaling the entire tensor.
-
-
-
+## Sets entries in `x` to zero at random, while scaling the entire tensor.
 
 ## Description
-
-Sets entries in ``x`` to zero at random, while scaling the entire tensor.
-
-
-
+Sets entries in `x` to zero at random, while scaling the entire tensor. 
 
 
 ## Usage
 ```r
-k_dropout(x, level, noise_shape = NULL, seed = NULL)
+k_dropout(x, level, noise_shape = NULL, seed = NULL) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | tensor |
+| level | fraction of the entries in the tensor that will be set to 0. |
+| noise_shape | shape for randomly generated keep/drop flags, must be broadcastable to the shape of `x` |
+| seed | random seed to ensure determinism. |
 
 
-Argument      |Description
-------------- |----------------
-x | tensor
-level | fraction of the entries in the tensor that will be set to 0.
-noise_shape | shape for randomly generated keep/drop flags, must be broadcastable to the shape of ``x``
-seed | random seed to ensure determinism.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A tensor.
-
+A tensor. 
 
 
 

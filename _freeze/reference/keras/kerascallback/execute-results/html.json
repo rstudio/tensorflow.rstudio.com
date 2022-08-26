@@ -1,0 +1,16 @@
+{
+  "hash": "2aa5e6a4ea7cfccbc634ad0b6c41e5fd",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/callbacks.R#L605) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# KerasCallback\n\n## (Deprecated) Base R6 class for Keras callbacks\n\n## Description\nNew custom callbacks implemented as R6 classes are encouraged to inherit from `keras$callbacks$Callback` directly. \n\n## Format\nAn R6Class generator object \n\n\n\n## Details\n\nThe `logs` named list that callback methods take as argument will contain keys for quantities relevant to the current batch or epoch. \n\nCurrently, the `fit.keras.engine.training.Model()` method for sequential models will include the following quantities in the `logs` that it passes to its callbacks: \n\n- `on_epoch_end`: logs include `acc` and `loss`, and optionally include `val_loss` (if validation is enabled in `fit`), and `val_acc` (if validation and accuracy monitoring are enabled). \n\n- `on_batch_begin`: logs include `size`, the number of samples in the current batch. \n\n- `on_batch_end`: logs include `loss`, and optionally `acc` (if accuracy monitoring is enabled). \n\n## Section\n\n## Fields\n\n`params`\n\nNamed list with training parameters (eg. verbosity, batch size, number of epochs...).\n\n`model`\n\nReference to the Keras model being trained.\n\n## Methods\n\n`on_epoch_begin(epoch, logs)`\n\nCalled at the beginning of each epoch.\n\n`on_epoch_end(epoch, logs)`\n\nCalled at the end of each epoch.\n\n`on_batch_begin(batch, logs)`\n\nCalled at the beginning of each batch.\n\n`on_batch_end(batch, logs)`\n\nCalled at the end of each batch.\n\n`on_train_begin(logs)`\n\nCalled at the beginning of training.\n\n`on_train_end(logs)`\n\nCalled at the end of training.\n\n## Value\nKerasCallback. \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras) \nLossHistory <- R6::R6Class(\"LossHistory\", \n  inherit = KerasCallback, \n  public = list( \n    losses = NULL, \n    on_batch_end = function(batch, logs = list()) { \n      self$losses <- c(self$losses, logs[[\"loss\"]]) \n    } \n  ) \n) \n```\n:::\n",
+    "supporting": [
+      "kerascallback_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

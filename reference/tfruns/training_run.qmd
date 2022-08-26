@@ -1,81 +1,67 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/training_run.R#L39) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # training_run
 
-
-Run a training script
-
-
-
+## Run a training script
 
 ## Description
-
-Run a training script
-
-
-
+Run a training script 
 
 
 ## Usage
 ```r
-training_run(
-  file = "train.R",
-  context = "local",
-  config = Sys.getenv("R_CONFIG_ACTIVE", unset = "default"),
-  flags = NULL,
-  properties = NULL,
-  run_dir = NULL,
-  artifacts_dir = getwd(),
-  echo = TRUE,
-  view = "auto",
-  envir = parent.frame(),
-  encoding = getOption("encoding")
-)
+training_run( 
+  file = "train.R", 
+  context = "local", 
+  config = Sys.getenv("R_CONFIG_ACTIVE", unset = "default"), 
+  flags = NULL, 
+  properties = NULL, 
+  run_dir = NULL, 
+  artifacts_dir = getwd(), 
+  echo = TRUE, 
+  view = "auto", 
+  envir = parent.frame(), 
+  encoding = getOption("encoding") 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-file | Path to training script (defaults to "train.R")
-context | Run context (defaults to "local")
-config | The configuration to use. Defaults to the active configuration for the current environment (as specified by the ``R_CONFIG_ACTIVE`` environment variable), or ``default`` when unset.
-flags | Named list with flag values (see `flags()`) or path to YAML file containing flag values.
-properties | Named character vector with run properties. Properties are additional metadata about the run which will be subsequently available via `ls_runs()`.
-run_dir | Directory to store run data within
-artifacts_dir | Directory to capture created and modified files within. Pass ``NULL`` to not capture any artifcats.
-echo | Print expressions within training script
-view | View the results of the run after training. The default "auto" will view the run when executing a top-level (printed) statement in an interactive session. Pass ``TRUE`` or ``FALSE`` to control whether the view is shown explictly. You can also pass "save" to save a copy of the run report at ``tfruns.d/view.html``
-envir | The environment in which the script should be evaluated
-encoding | The encoding of the training script; see `file()`.
-
-
-
+|Arguments|Description|
+|---|---|
+| file | Path to training script (defaults to "train.R") |
+| context | Run context (defaults to "local") |
+| config | The configuration to use. Defaults to the active configuration for the current environment (as specified by the `R_CONFIG_ACTIVE`<br>environment variable), or `default` when unset. |
+| flags | Named list with flag values (see `flags()`) or path to YAML file containing flag values. |
+| properties | Named character vector with run properties. Properties are additional metadata about the run which will be subsequently available via `ls_runs()`. |
+| run_dir | Directory to store run data within |
+| artifacts_dir | Directory to capture created and modified files within. Pass `NULL` to not capture any artifcats. |
+| echo | Print expressions within training script |
+| view | View the results of the run after training. The default "auto" will view the run when executing a top-level (printed) statement in an interactive session. Pass `TRUE` or `FALSE` to control whether the view is shown explictly. You can also pass "save" to save a copy of the run report at `tfruns.d/view.html` |
+| envir | The environment in which the script should be evaluated |
+| encoding | The encoding of the training script; see `file()`. |
 
 ## Details
 
-The training run will by default use a unique new run directory
-within the "runs" sub-directory of the current working directory (or to the
-value of the ``tfruns.runs_dir`` R option if specified).
+The training run will by default use a unique new run directory within the "runs" sub-directory of the current working directory (or to the value of the `tfruns.runs_dir` R option if specified). 
 
-The directory name will be a timestamp (in GMT time). If a duplicate name is
-generated then the function will wait long enough to return a unique one.
+The directory name will be a timestamp (in GMT time). If a duplicate name is generated then the function will wait long enough to return a unique one. 
 
-If you want to use an alternate directory to store run data you can either
-set the global ``tfruns.runs_dir`` R option, or you can pass a ``run_dir``
-explicitly to ``training_run()``, optionally using the `unique_run_dir()`
-function to generate a timestamp-based directory name.
+If you want to use an alternate directory to store run data you can either set the global `tfruns.runs_dir` R option, or you can pass a `run_dir`
 
+explicitly to `training_run()`, optionally using the `unique_run_dir()`
 
-
+function to generate a timestamp-based directory name. 
 
 
 ## Value
-
-Single row data frame with run flags, metrics, etc.
-
+Single row data frame with run flags, metrics, etc. 
 
 
 

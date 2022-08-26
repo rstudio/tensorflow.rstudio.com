@@ -1,0 +1,16 @@
+{
+  "hash": "c9933b03554e44b654e0ac93b0a320ea",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf-ctrl-flow-wrappers.R#L94) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# tf_case\n\n## tf.case\n\n## Description\nThis is a minimal wrapper around `tf.case()` that allows you to supply the `pred_fn_pairs` using the `~`. \n\n\n## Usage\n```r\ntf_case( \n  ..., \n  pred_fn_pairs = list(...), \n  default = NULL, \n  exclusive = FALSE, \n  name = \"case\" \n) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| ..., pred_fn_pairs | a list `pred_fn_pairs` supplied with the `~` like so: `pred ~ fn_body` |\n| default | a function, optionally specified with the `~`, (or something coercible to a function via `as.function()`) |\n| exclusive | bool, whether to evaluate all `preds` and ensure only one is true. If `FALSE` (the default), then the `preds` are evaluated in the order supplied until the first `TRUE` value is encountered (effectively, acting as an `if()... else if() ... else if() ...` chain) |\n| name | a string, passed on to `tf.case()` |\n\n\n\n## Value\nThe result from `tf$case()`\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tfautograph)\nfizz_buzz_one <- function(x) { \n  tf_case( \n    x %% 15 == 0 ~ \"FizzBuzz\", \n    x %%  5 == 0 ~ \"Buzz\", \n    x %%  3 == 0 ~ \"Fizz\", \n    default = ~ tf$as_string(x, precision = 0L) \n  ) \n} \nfn <- tf_function(autograph(function(n) { \n  for(e in tf$range(n)) \n    tf$print(fizz_buzz_one(e)) \n})) \nx <- tf$constant(16) \nfn(x) \n```\n:::\n",
+    "supporting": [
+      "tf_case_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

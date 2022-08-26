@@ -1,46 +1,35 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/package.R#L) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # keras-package
 
-
-R interface to Keras
-
-
-
+## R interface to Keras
 
 ## Description
-
-Keras is a high-level neural networks API, developed with a focus on enabling
-fast experimentation. Keras has the following key features:
-
-
+Keras is a high-level neural networks API, developed with a focus on enabling fast experimentation. Keras has the following key features: 
 
 
 
 
 ## Details
 
+- Allows the same code to run on CPU or on GPU, seamlessly. 
 
+- User-friendly API which makes it easy to quickly prototype deep learning models. 
 
-*  Allows the same code to run on CPU or on GPU, seamlessly.
+- Built-in support for convolutional networks (for computer vision), recurrent networks (for sequence processing), and any combination of both. 
 
-*  User-friendly API which makes it easy to quickly prototype deep learning models.
+- Supports arbitrary network architectures: multi-input or multi-output models, layer sharing, model sharing, etc. This means that Keras is appropriate for building essentially any deep learning model, from a memory network to a neural Turing machine. 
 
-*  Built-in support for convolutional networks (for computer vision), recurrent
-networks (for sequence processing), and any combination of both.
+- Is capable of running on top of multiple back-ends including [TensorFlow](https://github.com/tensorflow/tensorflow), [CNTK](https://github.com/Microsoft/cntk), or [Theano](https://github.com/Theano/Theano). 
 
-*  Supports arbitrary network architectures: multi-input or multi-output models,
-layer sharing, model sharing, etc. This means that Keras is appropriate for
-building essentially any deep learning model, from a memory network to a neural
-Turing machine.
-
-*  Is capable of running on top of multiple back-ends including
-https://github.com/tensorflow/tensorflowTensorFlow,
-https://github.com/Microsoft/cntkCNTK,
-or https://github.com/Theano/TheanoTheano.
-
-
-See the package website at https://keras.rstudio.com for complete documentation.
-
-
+See the package website at [https://keras.rstudio.com](https://keras.rstudio.com) for complete documentation. 
 
 
 
@@ -48,14 +37,42 @@ See the package website at https://keras.rstudio.com for complete documentation.
 
 ## See Also
 
-Useful links:
+Useful links: 
 
   
-*  https://keras.rstudio.com
+
+- [https://keras.rstudio.com](https://keras.rstudio.com)
+
   
-*  Report bugs at https://github.com/rstudio/keras/issues
 
+- Report bugs at [https://github.com/rstudio/keras/issues](https://github.com/rstudio/keras/issues)
 
+## Author(s)
 
+**Maintainer**: Tomasz Kalinowski [tomasz.kalinowski@rstudio.com](tomasz.kalinowski@rstudio.com) [contributor, copyright holder] 
 
+Authors: 
 
+  
+
+- JJ Allaire [copyright holder]   
+
+- François Chollet [copyright holder] 
+
+Other contributors: 
+
+  
+
+- Daniel Falbel [daniel@rstudio.com](daniel@rstudio.com) [contributor, copyright holder]   
+
+- RStudio [contributor, copyright holder, funder]   
+
+- Google [contributor, copyright holder, funder]   
+
+- Yuan Tang [terrytangyuan@gmail.com](terrytangyuan@gmail.com) ([ORCID](https://orcid.org/0000-0001-5243-233X)) [contributor, copyright holder]   
+
+- Wouter Van Der Bijl [contributor, copyright holder]   
+
+- Martin Studer [contributor, copyright holder]   
+
+- Sigrid Keydana [contributor] 

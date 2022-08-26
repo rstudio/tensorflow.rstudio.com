@@ -1,0 +1,49 @@
+library(keras)
+MyClass %py_class% { 
+  initialize <- function(x) { 
+    print("Hi from MyClass$initialize()!") 
+    self$x <- x 
+  } 
+  my_method <- function() { 
+    self$x 
+  } 
+} 
+my_class_instance <- MyClass(42) 
+my_class_instance$my_method() 
+MyClass2(MyClass) %py_class% { 
+  "This will be a __doc__ string for MyClass2" 
+  initialize <- function(...) { 
+    "This will be the __doc__ string for the MyClass2.__init__() method" 
+    print("Hi from MyClass2$initialize()!") 
+    super$initialize(...) 
+  } 
+} 
+my_class_instance2 <- MyClass2(42) 
+my_class_instance2$my_method() 
+reticulate::py_help(MyClass2) # see the __doc__ strings and more! 
+# In addition to `self`, there is also `private` available. 
+# This is an R environment unique to each class instance, where you can 
+# store objects that you don't want converted to Python, but still want 
+# available from methods. You can also assign methods to private, and 
+# `self` and `private` will be available in private methods. 
+MyClass %py_class% { 
+  initialize <- function(x) { 
+    print("Hi from MyClass$initialize()!") 
+    private$y <- paste("A Private field:", x) 
+  } 
+  get_private_field <- function() { 
+    private$y 
+  } 
+  private$a_private_method <- function() { 
+    cat("a_private_method() was called.\n") 
+    cat("private$y is ", sQuote(private$y), "\n") 
+  } 
+  call_private_method <- function() 
+    private$a_private_method() 
+} 
+inst1 <- MyClass(1) 
+inst2 <- MyClass(2) 
+inst1$get_private_field() 
+inst2$get_private_field() 
+inst1$call_private_method() 
+inst2$call_private_method() 

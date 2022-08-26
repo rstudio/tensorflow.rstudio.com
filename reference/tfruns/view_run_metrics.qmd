@@ -1,41 +1,75 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/metrics_viewer.R#L33) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # view_run_metrics
 
-
-View metrics for a training run
-
-
-
+## View metrics for a training run
 
 ## Description
-
-Interactive D3 visualization of metrics for a training run. Metrics will
-be displayed in the RStudio Viewer (if available), otherwise will be
-displayed in an external web browser.
-
-
-
+Interactive D3 visualization of metrics for a training run. Metrics will be displayed in the RStudio Viewer (if available), otherwise will be displayed in an external web browser. 
 
 
 ## Usage
 ```r
-view_run_metrics(metrics)
+view_run_metrics(metrics) 
 
-update_run_metrics(viewer, metrics)
+update_run_metrics(viewer, metrics) 
+```
+
+## Arguments
+|Arguments|Description|
+|---|---|
+| metrics | Data frame containing run metrics |
+| viewer | Viewer object returned from `view_run_metrics()`. |
+
+
+## Section
+
+## Metrics Data Frame
+
+Metrics should be passed as a data frame with one column for each metric. If the metrics are not yet complete (e.g. only metrics for the first several epochs are provided) then metrics in yet to be completed epochs should use `NA` as their values. For example:```
+
+data.frame':	30 obs. of  4 variables: 
+
+$ loss    : num  0.423 0.201 NA NA NA ... 
+
+$ acc     : num  0.873 0.942 NA NA NA ... 
+
+$ val_loss: num  0.174 0.121 NA NA NA ... 
+
+$ val_acc : num  0.949 0.964 NA NA NA ... 
+
+```
+
+If both metrics and validation metrics are provided, you should preface the name of the validation metric with `"val_"` (e.g. for a metric named `"loss"`
+
+provide validation metrics in `"val_loss"`). This indicates that the metrics are related which is useful e.g. when plotting metrics. 
+
+## Realtime Updates
+
+Metrics can be updated in real-time by calling the `update_run_metrics()`
+
+with the run viewer instance returned from `view_run_metrics()`. For example:```
+
+# view metrics 
+
+viewer <- view_run_metrics(metrics) 
+
+# update with new metrics 
+
+update_run_metrics(viewer, updated_metrics) 
+
 ```
 
 
-
-
-## Arguments
-
-
-Argument      |Description
-------------- |----------------
-metrics | Data frame containing run metrics
-viewer | Viewer object returned from ``view_run_metrics()``.
-
-
-
+## Note
+Metrics named `"acc"` or `"accuracy"` will automatically use `1.0` as the maximum value on their y-axis scale. 
 
 
 

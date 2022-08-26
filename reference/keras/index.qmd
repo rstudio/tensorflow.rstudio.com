@@ -2,413 +2,664 @@
 title: keras
 description: High level API for deep learning
 ---
-
+ 
 ## Keras Models
-
+ 
 Function(s) | Description
-------------- |----------------
-[keras_model()](/reference/keras/keras_model.html) | Keras Model
-[keras_model_sequential()](/reference/keras/keras_model_sequential.html) | Keras Model composed of a linear stack of layers
-[keras_model_custom()](/reference/keras/keras_model_custom.html) | (Deprecated) Create a Keras custom model
-[multi_gpu_model()](/reference/keras/multi_gpu_model.html) | (Deprecated) Replicates a model on different GPUs.
-[summary(<i>&lt;keras.engine.training.Model&gt;</i>)](/reference/keras/summary.keras.engine.training.Model.html) [format(<i>&lt;keras.engine.training.Model&gt;</i>)](/reference/keras/latest/reference/summary.keras.engine.training.Model.html) [print(<i>&lt;keras.engine.training.Model&gt;</i>)](/reference/keras/latest/reference/summary.keras.engine.training.Model.html) | Print a summary of a Keras model
-[compile(<i>&lt;keras.engine.training.Model&gt;</i>)](/reference/keras/compile.keras.engine.training.Model.html) | Configure a Keras model for training
-[evaluate(<i>&lt;keras.engine.training.Model&gt;</i>)](/reference/keras/evaluate.keras.engine.training.Model.html) | Evaluate a Keras model
-[export_savedmodel(<i>&lt;keras.engine.training.Model&gt;</i>)](/reference/keras/export_savedmodel.keras.engine.training.Model.html) | Export a Saved Model
-[fit(<i>&lt;keras.engine.training.Model&gt;</i>)](/reference/keras/fit.keras.engine.training.Model.html) | Train a Keras model
-[fit_generator()](/reference/keras/fit_generator.html) | (Deprecated) Fits the model on data yielded batch-by-batch by a generator.
-[evaluate_generator()](/reference/keras/evaluate_generator.html) | (Deprecated) Evaluates the model on a data generator.
-[predict(<i>&lt;keras.engine.training.Model&gt;</i>)](/reference/keras/predict.keras.engine.training.Model.html) | Generate predictions from a Keras model
-[predict_proba()](/reference/keras/predict_proba.html) [predict_classes()](/reference/keras/latest/reference/predict_proba.html) | (Deprecated) Generates probability or class probability predictions for the input samples.
-[predict_on_batch()](/reference/keras/predict_on_batch.html) | Returns predictions for a single batch of samples.
-[predict_generator()](/reference/keras/predict_generator.html) | (Deprecated) Generates predictions for the input samples from a data generator.
-[train_on_batch()](/reference/keras/train_on_batch.html) [test_on_batch()](/reference/keras/latest/reference/train_on_batch.html) | Single gradient update or model evaluation over one batch of samples.
-[get_layer()](/reference/keras/get_layer.html) | Retrieves a layer based on either its name (unique) or index.
-[pop_layer()](/reference/keras/pop_layer.html) | Remove the last layer in a model
-[save_model_hdf5()](/reference/keras/save_model_hdf5.html) [load_model_hdf5()](/reference/keras/latest/reference/save_model_hdf5.html) | Save/Load models using HDF5 files
-[serialize_model()](/reference/keras/serialize_model.html) [unserialize_model()](/reference/keras/latest/reference/serialize_model.html) | Serialize a model to an R object
-[clone_model()](/reference/keras/clone_model.html) | Clone a model instance.
-[freeze_weights()](/reference/keras/freeze_weights.html) [unfreeze_weights()](/reference/keras/latest/reference/freeze_weights.html) | Freeze and unfreeze weights
-
+|---|---|
+|[keras_model()](/reference/keras/keras_model.html)|Keras Model|
+|[keras_model_sequential()](/reference/keras/keras_model_sequential.html)|Keras Model composed of a linear stack of layers|
+|[keras_model_custom()](/reference/keras/keras_model_custom.html)|(Deprecated) Create a Keras custom model|
+|[multi_gpu_model()](/reference/keras/multi_gpu_model.html)|(Deprecated) Replicates a model on different GPUs.|
+|[summary(<i><keras.engine.training.Model></i>) format(<i><keras.engine.training.Model></i>) print(<i><keras.engine.training.Model></i>)](/reference/keras/summary.keras.engine.training.Model.html)|Print a summary of a Keras model|
+|[compile(<i><keras.engine.training.Model></i>)](/reference/keras/compile.keras.engine.training.Model.html)|Configure a Keras model for training|
+|[evaluate(<i><keras.engine.training.Model></i>)](/reference/keras/evaluate.keras.engine.training.Model.html)|Evaluate a Keras model|
+|[export_savedmodel(<i><keras.engine.training.Model></i>)](/reference/keras/export_savedmodel.keras.engine.training.Model.html)|Export a Saved Model|
+|[fit(<i><keras.engine.training.Model></i>)](/reference/keras/fit.keras.engine.training.Model.html)|Train a Keras model|
+|[fit_generator()](/reference/keras/fit_generator.html)|(Deprecated) Fits the model on data yielded batch-by-batch by a generator.|
+|[evaluate_generator()](/reference/keras/evaluate_generator.html)|(Deprecated) Evaluates the model on a data generator.|
+|[predict(<i><keras.engine.training.Model></i>)](/reference/keras/predict.keras.engine.training.Model.html)|Generate predictions from a Keras model|
+|[predict_proba() predict_classes()](/reference/keras/predict_proba.html)|(Deprecated) Generates probability or class probability predictions for the input samples.|
+|[predict_proba() predict_classes()](/reference/keras/predict_proba.html)|(Deprecated) Generates probability or class probability predictions for the input samples.|
+|[predict_on_batch()](/reference/keras/predict_on_batch.html)|Returns predictions for a single batch of samples.|
+|[predict_generator()](/reference/keras/predict_generator.html)|(Deprecated) Generates predictions for the input samples from a data generator.|
+|[train_on_batch() test_on_batch()](/reference/keras/train_on_batch.html)|Single gradient update or model evaluation over one batch of samples.|
+|[get_layer()](/reference/keras/get_layer.html)|Retrieves a layer based on either its name (unique) or index.|
+|[pop_layer()](/reference/keras/pop_layer.html)|Remove the last layer in a model|
+|[save_model_hdf5() load_model_hdf5()](/reference/keras/save_model_hdf5.html)|Save/Load models using HDF5 files|
+|[save_model_hdf5() load_model_hdf5()](/reference/keras/save_model_hdf5.html)|Save/Load models using HDF5 files|
+|[serialize_model() unserialize_model()](/reference/keras/serialize_model.html)|Serialize a model to an R object|
+|[clone_model()](/reference/keras/clone_model.html)|Clone a model instance.|
+|[freeze_weights() unfreeze_weights()](/reference/keras/freeze_weights.html)|Freeze and unfreeze weights|
+ 
 ## Core Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_input()](/reference/keras/layer_input.html) | Input layer
-[layer_dense()](/reference/keras/layer_dense.html) | Add a densely-connected NN layer to an output
-[layer_activation()](/reference/keras/layer_activation.html) | Apply an activation function to an output.
-[layer_dropout()](/reference/keras/layer_dropout.html) | Applies Dropout to the input.
-[layer_reshape()](/reference/keras/layer_reshape.html) | Reshapes an output to a certain shape.
-[layer_permute()](/reference/keras/layer_permute.html) | Permute the dimensions of an input according to a given pattern
-[layer_repeat_vector()](/reference/keras/layer_repeat_vector.html) | Repeats the input n times.
-[layer_lambda()](/reference/keras/layer_lambda.html) | Wraps arbitrary expression as a layer
-[layer_activity_regularization()](/reference/keras/layer_activity_regularization.html) | Layer that applies an update to the cost function based input activity.
-[layer_masking()](/reference/keras/layer_masking.html) | Masks a sequence by using a mask value to skip timesteps.
-[layer_flatten()](/reference/keras/layer_flatten.html) | Flattens an input
-
+|---|---|
+|[layer_input()](/reference/keras/layer_input.html)|Input layer|
+|[layer_dense()](/reference/keras/layer_dense.html)|Add a densely-connected NN layer to an output|
+|[layer_activation()](/reference/keras/layer_activation.html)|Apply an activation function to an output.|
+|[layer_dropout()](/reference/keras/layer_dropout.html)|Applies Dropout to the input.|
+|[layer_reshape()](/reference/keras/layer_reshape.html)|Reshapes an output to a certain shape.|
+|[layer_permute()](/reference/keras/layer_permute.html)|Permute the dimensions of an input according to a given pattern|
+|[layer_repeat_vector()](/reference/keras/layer_repeat_vector.html)|Repeats the input n times.|
+|[layer_lambda()](/reference/keras/layer_lambda.html)|Wraps arbitrary expression as a layer|
+|[layer_activity_regularization()](/reference/keras/layer_activity_regularization.html)|Layer that applies an update to the cost function based input activity.|
+|[layer_masking()](/reference/keras/layer_masking.html)|Masks a sequence by using a mask value to skip timesteps.|
+|[layer_flatten()](/reference/keras/layer_flatten.html)|Flattens an input|
+ 
 ## Convolutional Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-
+|---|---|
+|[layer_conv_1d()](/reference/keras/layer_conv_1d.html)|1D convolution layer (e.g. temporal convolution).|
+|[layer_conv_1d_transpose()](/reference/keras/layer_conv_1d_transpose.html)|Transposed 1D convolution layer (sometimes called Deconvolution).|
+|[layer_conv_2d()](/reference/keras/layer_conv_2d.html)|2D convolution layer (e.g. spatial convolution over images).|
+|[layer_conv_2d_transpose()](/reference/keras/layer_conv_2d_transpose.html)|Transposed 2D convolution layer (sometimes called Deconvolution).|
+|[layer_conv_3d()](/reference/keras/layer_conv_3d.html)|3D convolution layer (e.g. spatial convolution over volumes).|
+|[layer_conv_3d_transpose()](/reference/keras/layer_conv_3d_transpose.html)|Transposed 3D convolution layer (sometimes called Deconvolution).|
+|[layer_conv_lstm_1d()](/reference/keras/layer_conv_lstm_1d.html)|1D Convolutional LSTM|
+|[layer_conv_lstm_2d()](/reference/keras/layer_conv_lstm_2d.html)|Convolutional LSTM.|
+|[layer_conv_lstm_3d()](/reference/keras/layer_conv_lstm_3d.html)|3D Convolutional LSTM|
+|[layer_separable_conv_1d()](/reference/keras/layer_separable_conv_1d.html)|Depthwise separable 1D convolution.|
+|[layer_separable_conv_2d()](/reference/keras/layer_separable_conv_2d.html)|Separable 2D convolution.|
+|[layer_depthwise_conv_1d()](/reference/keras/layer_depthwise_conv_1d.html)|Depthwise 1D convolution|
+|[layer_depthwise_conv_2d()](/reference/keras/layer_depthwise_conv_2d.html)|Depthwise separable 2D convolution.|
+|[layer_upsampling_1d()](/reference/keras/layer_upsampling_1d.html)|Upsampling layer for 1D inputs.|
+|[layer_upsampling_2d()](/reference/keras/layer_upsampling_2d.html)|Upsampling layer for 2D inputs.|
+|[layer_upsampling_3d()](/reference/keras/layer_upsampling_3d.html)|Upsampling layer for 3D inputs.|
+|[layer_zero_padding_1d()](/reference/keras/layer_zero_padding_1d.html)|Zero-padding layer for 1D input (e.g. temporal sequence).|
+|[layer_zero_padding_2d()](/reference/keras/layer_zero_padding_2d.html)|Zero-padding layer for 2D input (e.g. picture).|
+|[layer_zero_padding_3d()](/reference/keras/layer_zero_padding_3d.html)|Zero-padding layer for 3D data (spatial or spatio-temporal).|
+|[layer_cropping_1d()](/reference/keras/layer_cropping_1d.html)|Cropping layer for 1D input (e.g. temporal sequence).|
+|[layer_cropping_2d()](/reference/keras/layer_cropping_2d.html)|Cropping layer for 2D input (e.g. picture).|
+|[layer_cropping_3d()](/reference/keras/layer_cropping_3d.html)|Cropping layer for 3D data (e.g. spatial or spatio-temporal).|
+ 
 ## Pooling Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_global_max_pooling_1d()](/reference/keras/layer_global_max_pooling_1d.html) | Global max pooling operation for temporal data.
-[layer_global_average_pooling_1d()](/reference/keras/layer_global_average_pooling_1d.html) | Global average pooling operation for temporal data.
-[layer_global_max_pooling_2d()](/reference/keras/layer_global_max_pooling_2d.html) | Global max pooling operation for spatial data.
-[layer_global_average_pooling_2d()](/reference/keras/layer_global_average_pooling_2d.html) | Global average pooling operation for spatial data.
-[layer_global_max_pooling_3d()](/reference/keras/layer_global_max_pooling_3d.html) | Global Max pooling operation for 3D data.
-[layer_global_average_pooling_3d()](/reference/keras/layer_global_average_pooling_3d.html) | Global Average pooling operation for 3D data.
-
+|---|---|
+|[layer_max_pooling_1d()](/reference/keras/layer_max_pooling_1d.html)|Max pooling operation for temporal data.|
+|[layer_max_pooling_2d()](/reference/keras/layer_max_pooling_2d.html)|Max pooling operation for spatial data.|
+|[layer_max_pooling_3d()](/reference/keras/layer_max_pooling_3d.html)|Max pooling operation for 3D data (spatial or spatio-temporal).|
+|[layer_average_pooling_1d()](/reference/keras/layer_average_pooling_1d.html)|Average pooling for temporal data.|
+|[layer_average_pooling_2d()](/reference/keras/layer_average_pooling_2d.html)|Average pooling operation for spatial data.|
+|[layer_average_pooling_3d()](/reference/keras/layer_average_pooling_3d.html)|Average pooling operation for 3D data (spatial or spatio-temporal).|
+|[layer_global_max_pooling_1d()](/reference/keras/layer_global_max_pooling_1d.html)|Global max pooling operation for temporal data.|
+|[layer_global_average_pooling_1d()](/reference/keras/layer_global_average_pooling_1d.html)|Global average pooling operation for temporal data.|
+|[layer_global_max_pooling_2d()](/reference/keras/layer_global_max_pooling_2d.html)|Global max pooling operation for spatial data.|
+|[layer_global_average_pooling_2d()](/reference/keras/layer_global_average_pooling_2d.html)|Global average pooling operation for spatial data.|
+|[layer_global_max_pooling_3d()](/reference/keras/layer_global_max_pooling_3d.html)|Global Max pooling operation for 3D data.|
+|[layer_global_average_pooling_3d()](/reference/keras/layer_global_average_pooling_3d.html)|Global Average pooling operation for 3D data.|
+ 
 ## Activation Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_activation()](/reference/keras/layer_activation.html) | Apply an activation function to an output.
-[layer_activation_relu()](/reference/keras/layer_activation_relu.html) | Rectified Linear Unit activation function
-[layer_activation_leaky_relu()](/reference/keras/layer_activation_leaky_relu.html) | Leaky version of a Rectified Linear Unit.
-[layer_activation_parametric_relu()](/reference/keras/layer_activation_parametric_relu.html) | Parametric Rectified Linear Unit.
-[layer_activation_thresholded_relu()](/reference/keras/layer_activation_thresholded_relu.html) | Thresholded Rectified Linear Unit.
-[layer_activation_elu()](/reference/keras/layer_activation_elu.html) | Exponential Linear Unit.
-[layer_activation_softmax()](/reference/keras/layer_activation_softmax.html) | Softmax activation function.
-[layer_activation_selu()](/reference/keras/layer_activation_selu.html) | Scaled Exponential Linear Unit.
-
+|---|---|
+|[layer_activation()](/reference/keras/layer_activation.html)|Apply an activation function to an output.|
+|[layer_activation_relu()](/reference/keras/layer_activation_relu.html)|Rectified Linear Unit activation function|
+|[layer_activation_leaky_relu()](/reference/keras/layer_activation_leaky_relu.html)|Leaky version of a Rectified Linear Unit.|
+|[layer_activation_parametric_relu()](/reference/keras/layer_activation_parametric_relu.html)|Parametric Rectified Linear Unit.|
+|[layer_activation_thresholded_relu()](/reference/keras/layer_activation_thresholded_relu.html)|Thresholded Rectified Linear Unit.|
+|[layer_activation_elu()](/reference/keras/layer_activation_elu.html)|Exponential Linear Unit.|
+|[layer_activation_softmax()](/reference/keras/layer_activation_softmax.html)|Softmax activation function.|
+|[layer_activation_selu()](/reference/keras/layer_activation_selu.html)|Scaled Exponential Linear Unit.|
+ 
 ## Dropout Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_dropout()](/reference/keras/layer_dropout.html) | Applies Dropout to the input.
-
+|---|---|
+|[layer_dropout()](/reference/keras/layer_dropout.html)|Applies Dropout to the input.|
+|[layer_spatial_dropout_1d()](/reference/keras/layer_spatial_dropout_1d.html)|Spatial 1D version of Dropout.|
+|[layer_spatial_dropout_2d()](/reference/keras/layer_spatial_dropout_2d.html)|Spatial 2D version of Dropout.|
+|[layer_spatial_dropout_3d()](/reference/keras/layer_spatial_dropout_3d.html)|Spatial 3D version of Dropout.|
+ 
 ## Locally-connected Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_locally_connected_1d()](/reference/keras/layer_locally_connected_1d.html) | Locally-connected layer for 1D inputs.
-[layer_locally_connected_2d()](/reference/keras/layer_locally_connected_2d.html) | Locally-connected layer for 2D inputs.
-
+|---|---|
+|[layer_locally_connected_1d()](/reference/keras/layer_locally_connected_1d.html)|Locally-connected layer for 1D inputs.|
+|[layer_locally_connected_2d()](/reference/keras/layer_locally_connected_2d.html)|Locally-connected layer for 2D inputs.|
+ 
 ## Recurrent Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_simple_rnn()](/reference/keras/layer_simple_rnn.html) | Fully-connected RNN where the output is to be fed back to input.
-[layer_gru()](/reference/keras/layer_gru.html) | Gated Recurrent Unit - Cho et al.
-[layer_lstm()](/reference/keras/layer_lstm.html) | Long Short-Term Memory unit - Hochreiter 1997.
-
+|---|---|
+|[layer_simple_rnn()](/reference/keras/layer_simple_rnn.html)|Fully-connected RNN where the output is to be fed back to input.|
+|[layer_gru()](/reference/keras/layer_gru.html)|Gated Recurrent Unit - Cho et al.|
+|[layer_lstm()](/reference/keras/layer_lstm.html)|Long Short-Term Memory unit - Hochreiter 1997.|
+ 
 ## Customize Recurrent Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_rnn()](/reference/keras/layer_rnn.html) | Base class for recurrent layers
-[layer_simple_rnn_cell()](/reference/keras/layer_simple_rnn_cell.html) | Cell class for SimpleRNN
-[layer_gru_cell()](/reference/keras/layer_gru_cell.html) | Cell class for the GRU layer
-[layer_lstm_cell()](/reference/keras/layer_lstm_cell.html) | Cell class for the LSTM layer
-[layer_stacked_rnn_cells()](/reference/keras/layer_stacked_rnn_cells.html) | Wrapper allowing a stack of RNN cells to behave as a single cell
-
+|---|---|
+|[layer_rnn()](/reference/keras/layer_rnn.html)|Base class for recurrent layers|
+|[layer_simple_rnn_cell()](/reference/keras/layer_simple_rnn_cell.html)|Cell class for SimpleRNN|
+|[layer_gru_cell()](/reference/keras/layer_gru_cell.html)|Cell class for the GRU layer|
+|[layer_lstm_cell()](/reference/keras/layer_lstm_cell.html)|Cell class for the LSTM layer|
+|[layer_stacked_rnn_cells()](/reference/keras/layer_stacked_rnn_cells.html)|Wrapper allowing a stack of RNN cells to behave as a single cell|
+ 
 ## Embedding Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_embedding()](/reference/keras/layer_embedding.html) | Turns positive integers (indexes) into dense vectors of fixed size.
-
+|---|---|
+|[layer_embedding()](/reference/keras/layer_embedding.html)|Turns positive integers (indexes) into dense vectors of fixed size.|
+ 
 ## Normalization Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_batch_normalization()](/reference/keras/layer_batch_normalization.html) | Batch normalization layer (Ioffe and Szegedy, 2014).
-[layer_layer_normalization()](/reference/keras/layer_layer_normalization.html) | Layer normalization layer (Ba et al., 2016).
-
+|---|---|
+|[layer_batch_normalization()](/reference/keras/layer_batch_normalization.html)|Batch normalization layer (Ioffe and Szegedy, 2014).|
+|[layer_layer_normalization()](/reference/keras/layer_layer_normalization.html)|Layer normalization layer (Ba et al., 2016).|
+ 
 ## Noise Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_gaussian_noise()](/reference/keras/layer_gaussian_noise.html) | Apply additive zero-centered Gaussian noise.
-[layer_gaussian_dropout()](/reference/keras/layer_gaussian_dropout.html) | Apply multiplicative 1-centered Gaussian noise.
-[layer_alpha_dropout()](/reference/keras/layer_alpha_dropout.html) | Applies Alpha Dropout to the input.
-
+|---|---|
+|[layer_gaussian_noise()](/reference/keras/layer_gaussian_noise.html)|Apply additive zero-centered Gaussian noise.|
+|[layer_gaussian_dropout()](/reference/keras/layer_gaussian_dropout.html)|Apply multiplicative 1-centered Gaussian noise.|
+|[layer_alpha_dropout()](/reference/keras/layer_alpha_dropout.html)|Applies Alpha Dropout to the input.|
+ 
 ## Merge Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_add()](/reference/keras/layer_add.html) | Layer that adds a list of inputs.
-[layer_subtract()](/reference/keras/layer_subtract.html) | Layer that subtracts two inputs.
-[layer_multiply()](/reference/keras/layer_multiply.html) | Layer that multiplies (element-wise) a list of inputs.
-[layer_average()](/reference/keras/layer_average.html) | Layer that averages a list of inputs.
-[layer_maximum()](/reference/keras/layer_maximum.html) | Layer that computes the maximum (element-wise) a list of inputs.
-[layer_minimum()](/reference/keras/layer_minimum.html) | Layer that computes the minimum (element-wise) a list of inputs.
-[layer_concatenate()](/reference/keras/layer_concatenate.html) | Layer that concatenates a list of inputs.
-[layer_dot()](/reference/keras/layer_dot.html) | Layer that computes a dot product between samples in two tensors.
-
+|---|---|
+|[layer_add()](/reference/keras/layer_add.html)|Layer that adds a list of inputs.|
+|[layer_subtract()](/reference/keras/layer_subtract.html)|Layer that subtracts two inputs.|
+|[layer_multiply()](/reference/keras/layer_multiply.html)|Layer that multiplies (element-wise) a list of inputs.|
+|[layer_average()](/reference/keras/layer_average.html)|Layer that averages a list of inputs.|
+|[layer_maximum()](/reference/keras/layer_maximum.html)|Layer that computes the maximum (element-wise) a list of inputs.|
+|[layer_minimum()](/reference/keras/layer_minimum.html)|Layer that computes the minimum (element-wise) a list of inputs.|
+|[layer_concatenate()](/reference/keras/layer_concatenate.html)|Layer that concatenates a list of inputs.|
+|[layer_dot()](/reference/keras/layer_dot.html)|Layer that computes a dot product between samples in two tensors.|
+ 
 ## Image Preprocessing Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_resizing()](/reference/keras/layer_resizing.html) | Image resizing layer
-[layer_rescaling()](/reference/keras/layer_rescaling.html) | Multiply inputs by <code>scale</code> and adds <code>offset</code>
-[layer_center_crop()](/reference/keras/layer_center_crop.html) | Crop the central portion of the images to target height and width
-
+|---|---|
+|[layer_resizing()](/reference/keras/layer_resizing.html)|Image resizing layer|
+|[layer_rescaling()](/reference/keras/layer_rescaling.html)|Multiply inputs by <code>scale</code> and adds <code>offset</code>|
+|[layer_center_crop()](/reference/keras/layer_center_crop.html)|Crop the central portion of the images to target height and width|
+ 
 ## Image Augmentation Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_random_contrast()](/reference/keras/layer_random_contrast.html) | Adjust the contrast of an image or images by a random factor
-[layer_random_crop()](/reference/keras/layer_random_crop.html) | Randomly crop the images to target height and width
-[layer_random_flip()](/reference/keras/layer_random_flip.html) | Randomly flip each image horizontally and vertically
-[layer_random_height()](/reference/keras/layer_random_height.html) | Randomly vary the height of a batch of images during training
-[layer_random_rotation()](/reference/keras/layer_random_rotation.html) | Randomly rotate each image
-[layer_random_translation()](/reference/keras/layer_random_translation.html) | Randomly translate each image during training
-[layer_random_width()](/reference/keras/layer_random_width.html) | Randomly vary the width of a batch of images during training
-[layer_random_zoom()](/reference/keras/layer_random_zoom.html) | A preprocessing layer which randomly zooms images during training.
-
+|---|---|
+|[layer_random_contrast()](/reference/keras/layer_random_contrast.html)|Adjust the contrast of an image or images by a random factor|
+|[layer_random_crop()](/reference/keras/layer_random_crop.html)|Randomly crop the images to target height and width|
+|[layer_random_flip()](/reference/keras/layer_random_flip.html)|Randomly flip each image horizontally and vertically|
+|[layer_random_height()](/reference/keras/layer_random_height.html)|Randomly vary the height of a batch of images during training|
+|[layer_random_rotation()](/reference/keras/layer_random_rotation.html)|Randomly rotate each image|
+|[layer_random_translation()](/reference/keras/layer_random_translation.html)|Randomly translate each image during training|
+|[layer_random_width()](/reference/keras/layer_random_width.html)|Randomly vary the width of a batch of images during training|
+|[layer_random_zoom()](/reference/keras/layer_random_zoom.html)|A preprocessing layer which randomly zooms images during training.|
+ 
 ## Categorical Features Preprocessing
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_category_encoding()](/reference/keras/layer_category_encoding.html) | A preprocessing layer which encodes integer features.
-[layer_hashing()](/reference/keras/layer_hashing.html) | A preprocessing layer which hashes and bins categorical features.
-[layer_integer_lookup()](/reference/keras/layer_integer_lookup.html) | A preprocessing layer which maps integer features to contiguous ranges.
-[layer_string_lookup()](/reference/keras/layer_string_lookup.html) | A preprocessing layer which maps string features to integer indices.
-
+|---|---|
+|[layer_category_encoding()](/reference/keras/layer_category_encoding.html)|A preprocessing layer which encodes integer features.|
+|[layer_hashing()](/reference/keras/layer_hashing.html)|A preprocessing layer which hashes and bins categorical features.|
+|[layer_integer_lookup()](/reference/keras/layer_integer_lookup.html)|A preprocessing layer which maps integer features to contiguous ranges.|
+|[layer_string_lookup()](/reference/keras/layer_string_lookup.html)|A preprocessing layer which maps string features to integer indices.|
+ 
 ## Numerical Features Preprocessing
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_normalization()](/reference/keras/layer_normalization.html) | A preprocessing layer which normalizes continuous features.
-[layer_discretization()](/reference/keras/layer_discretization.html) | A preprocessing layer which buckets continuous features by ranges.
-
+|---|---|
+|[layer_normalization()](/reference/keras/layer_normalization.html)|A preprocessing layer which normalizes continuous features.|
+|[layer_discretization()](/reference/keras/layer_discretization.html)|A preprocessing layer which buckets continuous features by ranges.|
+ 
 ## Attention Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[layer_attention()](/reference/keras/layer_attention.html) | Creates attention layer
-[layer_multi_head_attention()](/reference/keras/layer_multi_head_attention.html) | MultiHeadAttention layer
-[layer_additive_attention()](/reference/keras/layer_additive_attention.html) | Additive attention layer, a.k.a. Bahdanau-style attention
-
+|---|---|
+|[layer_attention()](/reference/keras/layer_attention.html)|Creates attention layer|
+|[layer_multi_head_attention()](/reference/keras/layer_multi_head_attention.html)|MultiHeadAttention layer|
+|[layer_additive_attention()](/reference/keras/layer_additive_attention.html)|Additive attention layer, a.k.a. Bahdanau-style attention|
+ 
 ## Layer Wrappers
-
+ 
 Function(s) | Description
-------------- |----------------
-[time_distributed()](/reference/keras/time_distributed.html) | This layer wrapper allows to apply a layer to every temporal slice of an input
-[bidirectional()](/reference/keras/bidirectional.html) | Bidirectional wrapper for RNNs
-
+|---|---|
+|[time_distributed()](/reference/keras/time_distributed.html)|This layer wrapper allows to apply a layer to every temporal slice of an input|
+|[bidirectional()](/reference/keras/bidirectional.html)|Bidirectional wrapper for RNNs|
+ 
 ## Layer Methods
-
+ 
 Function(s) | Description
-------------- |----------------
-[get_config()](/reference/keras/get_config.html) [from_config()](/reference/keras/latest/reference/get_config.html) | Layer/Model configuration
-[get_weights()](/reference/keras/get_weights.html) [set_weights()](/reference/keras/latest/reference/get_weights.html) | Layer/Model weights as R arrays
-[get_input_at()](/reference/keras/get_input_at.html) [get_output_at()](/reference/keras/latest/reference/get_input_at.html) [get_input_shape_at()](/reference/keras/latest/reference/get_input_at.html) [get_output_shape_at()](/reference/keras/latest/reference/get_input_at.html) [get_input_mask_at()](/reference/keras/latest/reference/get_input_at.html) [get_output_mask_at()](/reference/keras/latest/reference/get_input_at.html) | Retrieve tensors for layers with multiple nodes
-[count_params()](/reference/keras/count_params.html) | Count the total number of scalars composing the weights.
-[reset_states()](/reference/keras/reset_states.html) | Reset the states for a layer
-
+|---|---|
+|[get_config() from_config()](/reference/keras/get_config.html)|Layer/Model configuration|
+|[get_weights() set_weights()](/reference/keras/get_weights.html)|Layer/Model weights as R arrays|
+|[get_input_at() get_output_at() get_input_shape_at() get_output_shape_at() get_input_mask_at() get_output_mask_at()](/reference/keras/get_input_at.html)|Retrieve tensors for layers with multiple nodes|
+|[count_params()](/reference/keras/count_params.html)|Count the total number of scalars composing the weights.|
+|[reset_states()](/reference/keras/reset_states.html)|Reset the states for a layer|
+ 
 ## Custom Layers
-
+ 
 Function(s) | Description
-------------- |----------------
-[`%py_class%`](/reference/keras/grapes-py_class-grapes.html) | Make a python class constructor
-[Layer()](/reference/keras/Layer.html) | (Deprecated) Create a custom Layer
-[create_layer_wrapper()](/reference/keras/create_layer_wrapper.html) | Create a Keras Layer wrapper
-[create_layer()](/reference/keras/create_layer.html) | Create a Keras Layer
-
+|---|---|
+|[`%py_class%`](/reference/keras/grapes-py_class-grapes.html)|Make a python class constructor|
+|[Layer()](/reference/keras/Layer.html)|(Deprecated) Create a custom Layer|
+|[create_layer_wrapper()](/reference/keras/create_layer_wrapper.html)|Create a Keras Layer wrapper|
+|[create_layer()](/reference/keras/create_layer.html)|Create a Keras Layer|
+ 
 ## Model Persistence
-
+ 
 Function(s) | Description
-------------- |----------------
-[save_model_hdf5()](/reference/keras/save_model_hdf5.html) [load_model_hdf5()](/reference/keras/latest/reference/save_model_hdf5.html) | Save/Load models using HDF5 files
-[save_model_weights_hdf5()](/reference/keras/save_model_weights_hdf5.html) [load_model_weights_hdf5()](/reference/keras/latest/reference/save_model_weights_hdf5.html) | Save/Load model weights using HDF5 files
-[serialize_model()](/reference/keras/serialize_model.html) [unserialize_model()](/reference/keras/latest/reference/serialize_model.html) | Serialize a model to an R object
-[get_weights()](/reference/keras/get_weights.html) [set_weights()](/reference/keras/latest/reference/get_weights.html) | Layer/Model weights as R arrays
-[get_config()](/reference/keras/get_config.html) [from_config()](/reference/keras/latest/reference/get_config.html) | Layer/Model configuration
-[model_to_saved_model()](/reference/keras/model_to_saved_model.html) | (Deprecated) Export to Saved Model format
-[model_from_saved_model()](/reference/keras/model_from_saved_model.html) | Load a Keras model from the Saved Model format
-[save_model_tf()](/reference/keras/save_model_tf.html) [load_model_tf()](/reference/keras/latest/reference/save_model_tf.html) | Save/Load models using SavedModel format
-[save_model_weights_tf()](/reference/keras/save_model_weights_tf.html) [load_model_weights_tf()](/reference/keras/latest/reference/save_model_weights_tf.html) | Save model weights in the SavedModel format
-[model_to_json()](/reference/keras/model_to_json.html) [model_from_json()](/reference/keras/latest/reference/model_to_json.html) | Model configuration as JSON
-[model_to_yaml()](/reference/keras/model_to_yaml.html) [model_from_yaml()](/reference/keras/latest/reference/model_to_yaml.html) | Model configuration as YAML
-
+|---|---|
+|[save_model_hdf5() load_model_hdf5()](/reference/keras/save_model_hdf5.html)|Save/Load models using HDF5 files|
+|[save_model_weights_hdf5() load_model_weights_hdf5()](/reference/keras/save_model_weights_hdf5.html)|Save/Load model weights using HDF5 files|
+|[serialize_model() unserialize_model()](/reference/keras/serialize_model.html)|Serialize a model to an R object|
+|[get_weights() set_weights()](/reference/keras/get_weights.html)|Layer/Model weights as R arrays|
+|[get_config() from_config()](/reference/keras/get_config.html)|Layer/Model configuration|
+|[model_to_saved_model()](/reference/keras/model_to_saved_model.html)|(Deprecated) Export to Saved Model format|
+|[model_from_saved_model()](/reference/keras/model_from_saved_model.html)|Load a Keras model from the Saved Model format|
+|[save_model_tf() load_model_tf()](/reference/keras/save_model_tf.html)|Save/Load models using SavedModel format|
+|[save_model_weights_tf() load_model_weights_tf()](/reference/keras/save_model_weights_tf.html)|Save model weights in the SavedModel format|
+|[model_to_json() model_from_json()](/reference/keras/model_to_json.html)|Model configuration as JSON|
+|[model_to_yaml() model_from_yaml()](/reference/keras/model_to_yaml.html)|Model configuration as YAML|
+ 
 ## Datasets
-
+ 
 Function(s) | Description
-------------- |----------------
-
+|---|---|
+|[dataset_boston_housing()](/reference/keras/dataset_boston_housing.html)|Boston housing price regression dataset|
+|[dataset_cifar10()](/reference/keras/dataset_cifar10.html)|CIFAR10 small image classification|
+|[dataset_cifar100()](/reference/keras/dataset_cifar100.html)|CIFAR100 small image classification|
+|[dataset_fashion_mnist()](/reference/keras/dataset_fashion_mnist.html)|Fashion-MNIST database of fashion articles|
+|[dataset_imdb() dataset_imdb_word_index()](/reference/keras/dataset_imdb.html)|IMDB Movie reviews sentiment classification|
+|[dataset_mnist()](/reference/keras/dataset_mnist.html)|MNIST database of handwritten digits|
+|[dataset_reuters() dataset_reuters_word_index()](/reference/keras/dataset_reuters.html)|Reuters newswire topics classification|
+ 
 ## Applications
-
+ 
 Function(s) | Description
-------------- |----------------
-[imagenet_preprocess_input()](/reference/keras/imagenet_preprocess_input.html) | Preprocesses a tensor or array encoding a batch of images.
-[imagenet_decode_predictions()](/reference/keras/imagenet_decode_predictions.html) | Decodes the prediction of an ImageNet model.
-[application_mobilenet()](/reference/keras/application_mobilenet.html) [mobilenet_preprocess_input()](/reference/keras/latest/reference/application_mobilenet.html) [mobilenet_decode_predictions()](/reference/keras/latest/reference/application_mobilenet.html) [mobilenet_load_model_hdf5()](/reference/keras/latest/reference/application_mobilenet.html) | MobileNet model architecture.
-
+|---|---|
+|[application_densenet() application_densenet121() application_densenet169() application_densenet201() densenet_preprocess_input()](/reference/keras/application_densenet.html)|Instantiates the DenseNet architecture.|
+|[application_efficientnet_b0() application_efficientnet_b1() application_efficientnet_b2() application_efficientnet_b3() application_efficientnet_b4() application_efficientnet_b5() application_efficientnet_b6() application_efficientnet_b7()](/reference/keras/application_efficientnet.html)|Instantiates the EfficientNetB0 architecture|
+|[application_inception_resnet_v2() inception_resnet_v2_preprocess_input()](/reference/keras/application_inception_resnet_v2.html)|Inception-ResNet v2 model, with weights trained on ImageNet|
+|[application_inception_v3() inception_v3_preprocess_input()](/reference/keras/application_inception_v3.html)|Inception V3 model, with weights pre-trained on ImageNet.|
+|[application_mobilenet() mobilenet_preprocess_input() mobilenet_decode_predictions() mobilenet_load_model_hdf5()](/reference/keras/application_mobilenet.html)|MobileNet model architecture.|
+|[application_mobilenet_v2() mobilenet_v2_preprocess_input() mobilenet_v2_decode_predictions() mobilenet_v2_load_model_hdf5()](/reference/keras/application_mobilenet_v2.html)|MobileNetV2 model architecture|
+|[application_mobilenet_v3_large() application_mobilenet_v3_small()](/reference/keras/application_mobilenet_v3.html)|Instantiates the MobileNetV3Large architecture|
+|[application_nasnet() application_nasnetlarge() application_nasnetmobile() nasnet_preprocess_input()](/reference/keras/application_nasnet.html)|Instantiates a NASNet model.|
+|[application_resnet50() application_resnet101() application_resnet152() application_resnet50_v2() application_resnet101_v2() application_resnet152_v2() resnet_preprocess_input() resnet_v2_preprocess_input()](/reference/keras/application_resnet.html)|Instantiates the ResNet architecture|
+|[application_vgg16() application_vgg19()](/reference/keras/application_vgg.html)|VGG16 and VGG19 models for Keras.|
+|[application_xception() xception_preprocess_input()](/reference/keras/application_xception.html)|Instantiates the Xception architecture|
+|[imagenet_preprocess_input()](/reference/keras/imagenet_preprocess_input.html)|Preprocesses a tensor or array encoding a batch of images.|
+|[imagenet_decode_predictions()](/reference/keras/imagenet_decode_predictions.html)|Decodes the prediction of an ImageNet model.|
+|[application_mobilenet() mobilenet_preprocess_input() mobilenet_decode_predictions() mobilenet_load_model_hdf5()](/reference/keras/application_mobilenet.html)|MobileNet model architecture.|
+|[application_mobilenet() mobilenet_preprocess_input() mobilenet_decode_predictions() mobilenet_load_model_hdf5()](/reference/keras/application_mobilenet.html)|MobileNet model architecture.|
+ 
 ## Sequence Preprocessing
-
+ 
 Function(s) | Description
-------------- |----------------
-[pad_sequences()](/reference/keras/pad_sequences.html) | Pads sequences to the same length
-[skipgrams()](/reference/keras/skipgrams.html) | Generates skipgram word pairs.
-[make_sampling_table()](/reference/keras/make_sampling_table.html) | Generates a word rank-based probabilistic sampling table.
-[timeseries_dataset_from_array()](/reference/keras/timeseries_dataset_from_array.html) | Creates a dataset of sliding windows over a timeseries provided as array
-
+|---|---|
+|[pad_sequences()](/reference/keras/pad_sequences.html)|Pads sequences to the same length|
+|[skipgrams()](/reference/keras/skipgrams.html)|Generates skipgram word pairs.|
+|[make_sampling_table()](/reference/keras/make_sampling_table.html)|Generates a word rank-based probabilistic sampling table.|
+|[timeseries_dataset_from_array()](/reference/keras/timeseries_dataset_from_array.html)|Creates a dataset of sliding windows over a timeseries provided as array|
+ 
 ## Text Preprocessing
-
+ 
 Function(s) | Description
-------------- |----------------
-[text_dataset_from_directory()](/reference/keras/text_dataset_from_directory.html) | Generate a <code>tf.data.Dataset</code> from text files in a directory
-[text_tokenizer()](/reference/keras/text_tokenizer.html) | Text tokenization utility
-[fit_text_tokenizer()](/reference/keras/fit_text_tokenizer.html) | Update tokenizer internal vocabulary based on a list of texts or list of
-sequences.
-[save_text_tokenizer()](/reference/keras/save_text_tokenizer.html) [load_text_tokenizer()](/reference/keras/latest/reference/save_text_tokenizer.html) | Save a text tokenizer to an external file
-[texts_to_sequences()](/reference/keras/texts_to_sequences.html) | Transform each text in texts in a sequence of integers.
-[texts_to_sequences_generator()](/reference/keras/texts_to_sequences_generator.html) | Transforms each text in texts in a sequence of integers.
-[texts_to_matrix()](/reference/keras/texts_to_matrix.html) | Convert a list of texts to a matrix.
-[sequences_to_matrix()](/reference/keras/sequences_to_matrix.html) | Convert a list of sequences into a matrix.
-[text_one_hot()](/reference/keras/text_one_hot.html) | One-hot encode a text into a list of word indexes in a vocabulary of size n.
-[text_hashing_trick()](/reference/keras/text_hashing_trick.html) | Converts a text to a sequence of indexes in a fixed-size hashing space.
-[text_to_word_sequence()](/reference/keras/text_to_word_sequence.html) | Convert text to a sequence of words (or tokens).
-[layer_text_vectorization()](/reference/keras/layer_text_vectorization.html) [get_vocabulary()](/reference/keras/latest/reference/layer_text_vectorization.html) [set_vocabulary()](/reference/keras/latest/reference/layer_text_vectorization.html) | A preprocessing layer which maps text features to integer sequences.
-[adapt()](/reference/keras/adapt.html) | Fits the state of the preprocessing layer to the data being passed
-
+|---|---|
+|[text_dataset_from_directory()](/reference/keras/text_dataset_from_directory.html)|Generate a <code>tf.data.Dataset</code> from text files in a directory|
+|[text_tokenizer()](/reference/keras/text_tokenizer.html)|Text tokenization utility|
+|[fit_text_tokenizer()](/reference/keras/fit_text_tokenizer.html)|Update tokenizer internal vocabulary based on a list of texts or list of
+sequences.|
+|[save_text_tokenizer() load_text_tokenizer()](/reference/keras/save_text_tokenizer.html)|Save a text tokenizer to an external file|
+|[texts_to_sequences()](/reference/keras/texts_to_sequences.html)|Transform each text in texts in a sequence of integers.|
+|[texts_to_sequences_generator()](/reference/keras/texts_to_sequences_generator.html)|Transforms each text in texts in a sequence of integers.|
+|[texts_to_matrix()](/reference/keras/texts_to_matrix.html)|Convert a list of texts to a matrix.|
+|[sequences_to_matrix()](/reference/keras/sequences_to_matrix.html)|Convert a list of sequences into a matrix.|
+|[text_one_hot()](/reference/keras/text_one_hot.html)|One-hot encode a text into a list of word indexes in a vocabulary of size n.|
+|[text_hashing_trick()](/reference/keras/text_hashing_trick.html)|Converts a text to a sequence of indexes in a fixed-size hashing space.|
+|[text_to_word_sequence()](/reference/keras/text_to_word_sequence.html)|Convert text to a sequence of words (or tokens).|
+|[layer_text_vectorization() get_vocabulary() set_vocabulary()](/reference/keras/layer_text_vectorization.html)|A preprocessing layer which maps text features to integer sequences.|
+|[layer_text_vectorization() get_vocabulary() set_vocabulary()](/reference/keras/layer_text_vectorization.html)|A preprocessing layer which maps text features to integer sequences.|
+|[layer_text_vectorization() get_vocabulary() set_vocabulary()](/reference/keras/layer_text_vectorization.html)|A preprocessing layer which maps text features to integer sequences.|
+|[adapt()](/reference/keras/adapt.html)|Fits the state of the preprocessing layer to the data being passed|
+ 
 ## Image Preprocessing
-
+ 
 Function(s) | Description
-------------- |----------------
-[image_load()](/reference/keras/image_load.html) | Loads an image into PIL format.
-[image_to_array()](/reference/keras/image_to_array.html) [image_array_resize()](/reference/keras/latest/reference/image_to_array.html) [image_array_save()](/reference/keras/latest/reference/image_to_array.html) | 3D array representation of images
-[image_data_generator()](/reference/keras/image_data_generator.html) | Generate batches of image data with real-time data augmentation. The data will be
-looped over (in batches).
-[fit_image_data_generator()](/reference/keras/fit_image_data_generator.html) | Fit image data generator internal statistics to some sample data.
-[image_dataset_from_directory()](/reference/keras/image_dataset_from_directory.html) | Create a dataset from a directory
-[flow_images_from_data()](/reference/keras/flow_images_from_data.html) | Generates batches of augmented/normalized data from image data and labels
-[flow_images_from_directory()](/reference/keras/flow_images_from_directory.html) | Generates batches of data from images in a directory (with optional
-augmented/normalized data)
-[flow_images_from_dataframe()](/reference/keras/flow_images_from_dataframe.html) | Takes the dataframe and the path to a directory and generates batches of
-augmented/normalized data.
-[generator_next()](/reference/keras/generator_next.html) | Retrieve the next item from a generator
-
+|---|---|
+|[image_load()](/reference/keras/image_load.html)|Loads an image into PIL format.|
+|[image_to_array() image_array_resize() image_array_save()](/reference/keras/image_to_array.html)|3D array representation of images|
+|[image_data_generator()](/reference/keras/image_data_generator.html)|Generate batches of image data with real-time data augmentation. The data will be
+looped over (in batches).|
+|[fit_image_data_generator()](/reference/keras/fit_image_data_generator.html)|Fit image data generator internal statistics to some sample data.|
+|[image_dataset_from_directory()](/reference/keras/image_dataset_from_directory.html)|Create a dataset from a directory|
+|[flow_images_from_data()](/reference/keras/flow_images_from_data.html)|Generates batches of augmented/normalized data from image data and labels|
+|[flow_images_from_directory()](/reference/keras/flow_images_from_directory.html)|Generates batches of data from images in a directory (with optional
+augmented/normalized data)|
+|[flow_images_from_dataframe()](/reference/keras/flow_images_from_dataframe.html)|Takes the dataframe and the path to a directory and generates batches of
+augmented/normalized data.|
+|[generator_next()](/reference/keras/generator_next.html)|Retrieve the next item from a generator|
+ 
 ## Optimizers
-
+ 
 Function(s) | Description
-------------- |----------------
-[optimizer_sgd()](/reference/keras/optimizer_sgd.html) | Stochastic gradient descent optimizer
-[optimizer_rmsprop()](/reference/keras/optimizer_rmsprop.html) | RMSProp optimizer
-[optimizer_adagrad()](/reference/keras/optimizer_adagrad.html) | Adagrad optimizer.
-[optimizer_adadelta()](/reference/keras/optimizer_adadelta.html) | Adadelta optimizer.
-[optimizer_adam()](/reference/keras/optimizer_adam.html) | Adam optimizer
-[optimizer_adamax()](/reference/keras/optimizer_adamax.html) | Adamax optimizer
-[optimizer_nadam()](/reference/keras/optimizer_nadam.html) | Nesterov Adam optimizer
-
+|---|---|
+|[optimizer_sgd()](/reference/keras/optimizer_sgd.html)|Stochastic gradient descent optimizer|
+|[optimizer_rmsprop()](/reference/keras/optimizer_rmsprop.html)|RMSProp optimizer|
+|[optimizer_adagrad()](/reference/keras/optimizer_adagrad.html)|Adagrad optimizer.|
+|[optimizer_adadelta()](/reference/keras/optimizer_adadelta.html)|Adadelta optimizer.|
+|[optimizer_adam()](/reference/keras/optimizer_adam.html)|Adam optimizer|
+|[optimizer_adamax()](/reference/keras/optimizer_adamax.html)|Adamax optimizer|
+|[optimizer_nadam()](/reference/keras/optimizer_nadam.html)|Nesterov Adam optimizer|
+ 
 ## Learning Rate Schedules
-
+ 
 Function(s) | Description
-------------- |----------------
-[new_learning_rate_schedule_class()](/reference/keras/new_learning_rate_schedule_class.html) | Create a new learning rate schedule type
-
+|---|---|
+|[learning_rate_schedule_cosine_decay()](/reference/keras/learning_rate_schedule_cosine_decay.html)|A LearningRateSchedule that uses a cosine decay schedule|
+|[learning_rate_schedule_cosine_decay_restarts()](/reference/keras/learning_rate_schedule_cosine_decay_restarts.html)|A LearningRateSchedule that uses a cosine decay schedule with restarts|
+|[learning_rate_schedule_exponential_decay()](/reference/keras/learning_rate_schedule_exponential_decay.html)|A LearningRateSchedule that uses an exponential decay schedule|
+|[learning_rate_schedule_inverse_time_decay()](/reference/keras/learning_rate_schedule_inverse_time_decay.html)|A LearningRateSchedule that uses an inverse time decay schedule|
+|[learning_rate_schedule_piecewise_constant_decay()](/reference/keras/learning_rate_schedule_piecewise_constant_decay.html)|A LearningRateSchedule that uses a piecewise constant decay schedule|
+|[learning_rate_schedule_polynomial_decay()](/reference/keras/learning_rate_schedule_polynomial_decay.html)|A LearningRateSchedule that uses a polynomial decay schedule|
+|[new_learning_rate_schedule_class()](/reference/keras/new_learning_rate_schedule_class.html)|Create a new learning rate schedule type|
+ 
 ## Callbacks
-
+ 
 Function(s) | Description
-------------- |----------------
-[callback_progbar_logger()](/reference/keras/callback_progbar_logger.html) | Callback that prints metrics to stdout.
-[callback_model_checkpoint()](/reference/keras/callback_model_checkpoint.html) | Save the model after every epoch.
-[callback_early_stopping()](/reference/keras/callback_early_stopping.html) | Stop training when a monitored quantity has stopped improving.
-[callback_remote_monitor()](/reference/keras/callback_remote_monitor.html) | Callback used to stream events to a server.
-[callback_learning_rate_scheduler()](/reference/keras/callback_learning_rate_scheduler.html) | Learning rate scheduler.
-[callback_tensorboard()](/reference/keras/callback_tensorboard.html) | TensorBoard basic visualizations
-[callback_reduce_lr_on_plateau()](/reference/keras/callback_reduce_lr_on_plateau.html) | Reduce learning rate when a metric has stopped improving.
-[callback_terminate_on_naan()](/reference/keras/callback_terminate_on_naan.html) | Callback that terminates training when a NaN loss is encountered.
-[callback_csv_logger()](/reference/keras/callback_csv_logger.html) | Callback that streams epoch results to a csv file
-[callback_lambda()](/reference/keras/callback_lambda.html) | Create a custom callback
-
+|---|---|
+|[callback_progbar_logger()](/reference/keras/callback_progbar_logger.html)|Callback that prints metrics to stdout.|
+|[callback_model_checkpoint()](/reference/keras/callback_model_checkpoint.html)|Save the model after every epoch.|
+|[callback_early_stopping()](/reference/keras/callback_early_stopping.html)|Stop training when a monitored quantity has stopped improving.|
+|[callback_remote_monitor()](/reference/keras/callback_remote_monitor.html)|Callback used to stream events to a server.|
+|[callback_learning_rate_scheduler()](/reference/keras/callback_learning_rate_scheduler.html)|Learning rate scheduler.|
+|[callback_tensorboard()](/reference/keras/callback_tensorboard.html)|TensorBoard basic visualizations|
+|[callback_reduce_lr_on_plateau()](/reference/keras/callback_reduce_lr_on_plateau.html)|Reduce learning rate when a metric has stopped improving.|
+|[callback_terminate_on_naan()](/reference/keras/callback_terminate_on_naan.html)|Callback that terminates training when a NaN loss is encountered.|
+|[callback_csv_logger()](/reference/keras/callback_csv_logger.html)|Callback that streams epoch results to a csv file|
+|[callback_lambda()](/reference/keras/callback_lambda.html)|Create a custom callback|
+|[KerasCallback](/reference/keras/KerasCallback.html)|(Deprecated) Base R6 class for Keras callbacks|
+ 
 ## Initializers
-
+ 
 Function(s) | Description
-------------- |----------------
-[initializer_zeros()](/reference/keras/initializer_zeros.html) | Initializer that generates tensors initialized to 0.
-[initializer_ones()](/reference/keras/initializer_ones.html) | Initializer that generates tensors initialized to 1.
-[initializer_constant()](/reference/keras/initializer_constant.html) | Initializer that generates tensors initialized to a constant value.
-[initializer_random_normal()](/reference/keras/initializer_random_normal.html) | Initializer that generates tensors with a normal distribution.
-[initializer_random_uniform()](/reference/keras/initializer_random_uniform.html) | Initializer that generates tensors with a uniform distribution.
-[initializer_truncated_normal()](/reference/keras/initializer_truncated_normal.html) | Initializer that generates a truncated normal distribution.
-[initializer_variance_scaling()](/reference/keras/initializer_variance_scaling.html) | Initializer capable of adapting its scale to the shape of weights.
-[initializer_orthogonal()](/reference/keras/initializer_orthogonal.html) | Initializer that generates a random orthogonal matrix.
-[initializer_identity()](/reference/keras/initializer_identity.html) | Initializer that generates the identity matrix.
-[initializer_glorot_normal()](/reference/keras/initializer_glorot_normal.html) | Glorot normal initializer, also called Xavier normal initializer.
-[initializer_glorot_uniform()](/reference/keras/initializer_glorot_uniform.html) | Glorot uniform initializer, also called Xavier uniform initializer.
-[initializer_he_normal()](/reference/keras/initializer_he_normal.html) | He normal initializer.
-[initializer_he_uniform()](/reference/keras/initializer_he_uniform.html) | He uniform variance scaling initializer.
-[initializer_lecun_uniform()](/reference/keras/initializer_lecun_uniform.html) | LeCun uniform initializer.
-[initializer_lecun_normal()](/reference/keras/initializer_lecun_normal.html) | LeCun normal initializer.
-
+|---|---|
+|[initializer_zeros()](/reference/keras/initializer_zeros.html)|Initializer that generates tensors initialized to 0.|
+|[initializer_ones()](/reference/keras/initializer_ones.html)|Initializer that generates tensors initialized to 1.|
+|[initializer_constant()](/reference/keras/initializer_constant.html)|Initializer that generates tensors initialized to a constant value.|
+|[initializer_random_normal()](/reference/keras/initializer_random_normal.html)|Initializer that generates tensors with a normal distribution.|
+|[initializer_random_uniform()](/reference/keras/initializer_random_uniform.html)|Initializer that generates tensors with a uniform distribution.|
+|[initializer_truncated_normal()](/reference/keras/initializer_truncated_normal.html)|Initializer that generates a truncated normal distribution.|
+|[initializer_variance_scaling()](/reference/keras/initializer_variance_scaling.html)|Initializer capable of adapting its scale to the shape of weights.|
+|[initializer_orthogonal()](/reference/keras/initializer_orthogonal.html)|Initializer that generates a random orthogonal matrix.|
+|[initializer_identity()](/reference/keras/initializer_identity.html)|Initializer that generates the identity matrix.|
+|[initializer_glorot_normal()](/reference/keras/initializer_glorot_normal.html)|Glorot normal initializer, also called Xavier normal initializer.|
+|[initializer_glorot_uniform()](/reference/keras/initializer_glorot_uniform.html)|Glorot uniform initializer, also called Xavier uniform initializer.|
+|[initializer_he_normal()](/reference/keras/initializer_he_normal.html)|He normal initializer.|
+|[initializer_he_uniform()](/reference/keras/initializer_he_uniform.html)|He uniform variance scaling initializer.|
+|[initializer_lecun_uniform()](/reference/keras/initializer_lecun_uniform.html)|LeCun uniform initializer.|
+|[initializer_lecun_normal()](/reference/keras/initializer_lecun_normal.html)|LeCun normal initializer.|
+ 
 ## Constraints
-
+ 
 Function(s) | Description
-------------- |----------------
-[constraint_maxnorm()](/reference/keras/constraints.html) [constraint_nonneg()](/reference/keras/latest/reference/constraints.html) [constraint_unitnorm()](/reference/keras/latest/reference/constraints.html) [constraint_minmaxnorm()](/reference/keras/latest/reference/constraints.html) | Weight constraints
-
+|---|---|
+|[constraint_maxnorm() constraint_nonneg() constraint_unitnorm() constraint_minmaxnorm()](/reference/keras/constraints.html)|Weight constraints|
+|[KerasConstraint](/reference/keras/KerasConstraint.html)|(Deprecated) Base R6 class for Keras constraints|
+ 
 ## Utils
-
+ 
 Function(s) | Description
-------------- |----------------
-[plot(<i>&lt;keras_training_history&gt;</i>)](/reference/keras/plot.keras_training_history.html) | Plot training history
-[plot(<i>&lt;keras.engine.training.Model&gt;</i>)](/reference/keras/plot.keras.engine.training.Model.html) | Plot a Keras model
-[zip_lists()](/reference/keras/zip_lists.html) | zip lists
-[mark_active()](/reference/keras/new-classes.html) [new_metric_class()](/reference/keras/latest/reference/new-classes.html) [new_loss_class()](/reference/keras/latest/reference/new-classes.html) [new_callback_class()](/reference/keras/latest/reference/new-classes.html) [new_model_class()](/reference/keras/latest/reference/new-classes.html) [new_layer_class()](/reference/keras/latest/reference/new-classes.html) | Define new keras types
-[timeseries_generator()](/reference/keras/timeseries_generator.html) | Utility function for generating batches of temporal data.
-[to_categorical()](/reference/keras/to_categorical.html) | Converts a class vector (integers) to binary class matrix.
-[normalize()](/reference/keras/normalize.html) | Normalize a matrix or nd-array
-[with_custom_object_scope()](/reference/keras/with_custom_object_scope.html) | Provide a scope with mappings of names to custom objects
-[keras_array()](/reference/keras/keras_array.html) | Keras array object
-[hdf5_matrix()](/reference/keras/hdf5_matrix.html) | Representation of HDF5 dataset to be used instead of an R array
-[get_file()](/reference/keras/get_file.html) | Downloads a file from a URL if it not already in the cache.
-[install_keras()](/reference/keras/install_keras.html) | Install TensorFlow and Keras, including all Python dependencies
-[is_keras_available()](/reference/keras/is_keras_available.html) | Check if Keras is Available
-[backend()](/reference/keras/backend.html) | Keras backend tensor engine
-[implementation()](/reference/keras/implementation.html) | Keras implementation
-[use_implementation()](/reference/keras/use_implementation.html) [use_backend()](/reference/keras/latest/reference/use_implementation.html) | Select a Keras implementation and backend
-
+|---|---|
+|[plot(<i><keras_training_history></i>)](/reference/keras/plot.keras_training_history.html)|Plot training history|
+|[plot(<i><keras.engine.training.Model></i>)](/reference/keras/plot.keras.engine.training.Model.html)|Plot a Keras model|
+|[zip_lists()](/reference/keras/zip_lists.html)|zip lists|
+|[mark_active() new_metric_class() new_loss_class() new_callback_class() new_model_class() new_layer_class()](/reference/keras/new-classes.html)|Define new keras types|
+|[timeseries_generator()](/reference/keras/timeseries_generator.html)|Utility function for generating batches of temporal data.|
+|[to_categorical()](/reference/keras/to_categorical.html)|Converts a class vector (integers) to binary class matrix.|
+|[normalize()](/reference/keras/normalize.html)|Normalize a matrix or nd-array|
+|[with_custom_object_scope()](/reference/keras/with_custom_object_scope.html)|Provide a scope with mappings of names to custom objects|
+|[keras_array()](/reference/keras/keras_array.html)|Keras array object|
+|[hdf5_matrix()](/reference/keras/hdf5_matrix.html)|Representation of HDF5 dataset to be used instead of an R array|
+|[get_file()](/reference/keras/get_file.html)|Downloads a file from a URL if it not already in the cache.|
+|[reexports %<>% use_python use_virtualenv use_condaenv array_reshape tuple use_session_with_seed tensorboard evaluate export_savedmodel shape as_tensor flags flag_numeric flag_integer flag_string flag_boolean run_dir fit compile](/reference/keras/reexports.html)|Objects exported from other packages|
+|[install_keras()](/reference/keras/install_keras.html)|Install TensorFlow and Keras, including all Python dependencies|
+|[is_keras_available()](/reference/keras/is_keras_available.html)|Check if Keras is Available|
+|[backend()](/reference/keras/backend.html)|Keras backend tensor engine|
+|[implementation()](/reference/keras/implementation.html)|Keras implementation|
+|[use_implementation() use_backend()](/reference/keras/use_implementation.html)|Select a Keras implementation and backend|
+|[use_implementation() use_backend()](/reference/keras/use_implementation.html)|Select a Keras implementation and backend|
+ 
 ## Losses
-
+ 
 Function(s) | Description
-------------- |----------------
-[loss_binary_crossentropy()](/reference/keras/loss-functions.html) [loss_categorical_crossentropy()](/reference/keras/latest/reference/loss-functions.html) [loss_categorical_hinge()](/reference/keras/latest/reference/loss-functions.html) [loss_cosine_similarity()](/reference/keras/latest/reference/loss-functions.html) [loss_hinge()](/reference/keras/latest/reference/loss-functions.html) [loss_huber()](/reference/keras/latest/reference/loss-functions.html) [loss_kullback_leibler_divergence()](/reference/keras/latest/reference/loss-functions.html) [loss_kl_divergence()](/reference/keras/latest/reference/loss-functions.html) [loss_logcosh()](/reference/keras/latest/reference/loss-functions.html) [loss_mean_absolute_error()](/reference/keras/latest/reference/loss-functions.html) [loss_mean_absolute_percentage_error()](/reference/keras/latest/reference/loss-functions.html) [loss_mean_squared_error()](/reference/keras/latest/reference/loss-functions.html) [loss_mean_squared_logarithmic_error()](/reference/keras/latest/reference/loss-functions.html) [loss_poisson()](/reference/keras/latest/reference/loss-functions.html) [loss_sparse_categorical_crossentropy()](/reference/keras/latest/reference/loss-functions.html) [loss_squared_hinge()](/reference/keras/latest/reference/loss-functions.html) | Loss functions
-
+|---|---|
+|[loss_binary_crossentropy() loss_categorical_crossentropy() loss_categorical_hinge() loss_cosine_similarity() loss_hinge() loss_huber() loss_kullback_leibler_divergence() loss_kl_divergence() loss_logcosh() loss_mean_absolute_error() loss_mean_absolute_percentage_error() loss_mean_squared_error() loss_mean_squared_logarithmic_error() loss_poisson() loss_sparse_categorical_crossentropy() loss_squared_hinge()](/reference/keras/loss-functions.html)|Loss functions|
+|[loss_binary_crossentropy() loss_categorical_crossentropy() loss_categorical_hinge() loss_cosine_similarity() loss_hinge() loss_huber() loss_kullback_leibler_divergence() loss_kl_divergence() loss_logcosh() loss_mean_absolute_error() loss_mean_absolute_percentage_error() loss_mean_squared_error() loss_mean_squared_logarithmic_error() loss_poisson() loss_sparse_categorical_crossentropy() loss_squared_hinge()](/reference/keras/loss-functions.html)|Loss functions|
+ 
 ## Metrics
-
+ 
 Function(s) | Description
-------------- |----------------
-[custom_metric()](/reference/keras/custom_metric.html) | Custom metric function
-
+|---|---|
+|[Metric](/reference/keras/Metric.html)|Metric|
+|[metric_accuracy()](/reference/keras/metric_accuracy.html)|Calculates how often predictions equal labels|
+|[metric_auc()](/reference/keras/metric_auc.html)|Approximates the AUC (Area under the curve) of the ROC or PR curves|
+|[metric_binary_accuracy()](/reference/keras/metric_binary_accuracy.html)|Calculates how often predictions match binary labels|
+|[metric_binary_crossentropy()](/reference/keras/metric_binary_crossentropy.html)|Computes the crossentropy metric between the labels and predictions|
+|[metric_categorical_accuracy()](/reference/keras/metric_categorical_accuracy.html)|Calculates how often predictions match one-hot labels|
+|[metric_categorical_crossentropy()](/reference/keras/metric_categorical_crossentropy.html)|Computes the crossentropy metric between the labels and predictions|
+|[metric_categorical_hinge()](/reference/keras/metric_categorical_hinge.html)|Computes the categorical hinge metric between <code>y_true</code> and <code>y_pred</code>|
+|[metric_cosine_similarity()](/reference/keras/metric_cosine_similarity.html)|Computes the cosine similarity between the labels and predictions|
+|[metric_false_negatives()](/reference/keras/metric_false_negatives.html)|Calculates the number of false negatives|
+|[metric_false_positives()](/reference/keras/metric_false_positives.html)|Calculates the number of false positives|
+|[metric_hinge()](/reference/keras/metric_hinge.html)|Computes the hinge metric between <code>y_true</code> and <code>y_pred</code>|
+|[metric_kullback_leibler_divergence()](/reference/keras/metric_kullback_leibler_divergence.html)|Computes Kullback-Leibler divergence|
+|[metric_logcosh_error()](/reference/keras/metric_logcosh_error.html)|Computes the logarithm of the hyperbolic cosine of the prediction error|
+|[metric_mean()](/reference/keras/metric_mean.html)|Computes the (weighted) mean of the given values|
+|[metric_mean_absolute_error()](/reference/keras/metric_mean_absolute_error.html)|Computes the mean absolute error between the labels and predictions|
+|[metric_mean_absolute_percentage_error()](/reference/keras/metric_mean_absolute_percentage_error.html)|Computes the mean absolute percentage error between <code>y_true</code> and <code>y_pred</code>|
+|[metric_mean_iou()](/reference/keras/metric_mean_iou.html)|Computes the mean Intersection-Over-Union metric|
+|[metric_mean_relative_error()](/reference/keras/metric_mean_relative_error.html)|Computes the mean relative error by normalizing with the given values|
+|[metric_mean_squared_error()](/reference/keras/metric_mean_squared_error.html)|Computes the mean squared error between labels and predictions|
+|[metric_mean_squared_logarithmic_error()](/reference/keras/metric_mean_squared_logarithmic_error.html)|Computes the mean squared logarithmic error|
+|[metric_mean_tensor()](/reference/keras/metric_mean_tensor.html)|Computes the element-wise (weighted) mean of the given tensors|
+|[metric_mean_wrapper()](/reference/keras/metric_mean_wrapper.html)|Wraps a stateless metric function with the Mean metric|
+|[metric_poisson()](/reference/keras/metric_poisson.html)|Computes the Poisson metric between <code>y_true</code> and <code>y_pred</code>|
+|[metric_precision()](/reference/keras/metric_precision.html)|Computes the precision of the predictions with respect to the labels|
+|[metric_precision_at_recall()](/reference/keras/metric_precision_at_recall.html)|Computes best precision where recall is &gt;= specified value|
+|[metric_recall()](/reference/keras/metric_recall.html)|Computes the recall of the predictions with respect to the labels|
+|[metric_recall_at_precision()](/reference/keras/metric_recall_at_precision.html)|Computes best recall where precision is &gt;= specified value|
+|[metric_root_mean_squared_error()](/reference/keras/metric_root_mean_squared_error.html)|Computes root mean squared error metric between <code>y_true</code> and <code>y_pred</code>|
+|[metric_sensitivity_at_specificity()](/reference/keras/metric_sensitivity_at_specificity.html)|Computes best sensitivity where specificity is &gt;= specified value|
+|[metric_sparse_categorical_accuracy()](/reference/keras/metric_sparse_categorical_accuracy.html)|Calculates how often predictions match integer labels|
+|[metric_sparse_categorical_crossentropy()](/reference/keras/metric_sparse_categorical_crossentropy.html)|Computes the crossentropy metric between the labels and predictions|
+|[metric_sparse_top_k_categorical_accuracy()](/reference/keras/metric_sparse_top_k_categorical_accuracy.html)|Computes how often integer targets are in the top <code>K</code> predictions|
+|[metric_specificity_at_sensitivity()](/reference/keras/metric_specificity_at_sensitivity.html)|Computes best specificity where sensitivity is &gt;= specified value|
+|[metric_squared_hinge()](/reference/keras/metric_squared_hinge.html)|Computes the squared hinge metric|
+|[metric_sum()](/reference/keras/metric_sum.html)|Computes the (weighted) sum of the given values|
+|[metric_top_k_categorical_accuracy()](/reference/keras/metric_top_k_categorical_accuracy.html)|Computes how often targets are in the top <code>K</code> predictions|
+|[metric_true_negatives()](/reference/keras/metric_true_negatives.html)|Calculates the number of true negatives|
+|[metric_true_positives()](/reference/keras/metric_true_positives.html)|Calculates the number of true positives|
+|[custom_metric()](/reference/keras/custom_metric.html)|Custom metric function|
+ 
 ## Regularizers
-
+ 
 Function(s) | Description
-------------- |----------------
-[regularizer_l1()](/reference/keras/regularizer_l1.html) [regularizer_l2()](/reference/keras/latest/reference/regularizer_l1.html) [regularizer_l1_l2()](/reference/keras/latest/reference/regularizer_l1.html) | L1 and L2 regularization
-
+|---|---|
+|[regularizer_l1() regularizer_l2() regularizer_l1_l2()](/reference/keras/regularizer_l1.html)|L1 and L2 regularization|
+ 
 ## Activations
-
+ 
 Function(s) | Description
-------------- |----------------
-[activation_relu()](/reference/keras/activation_relu.html) [activation_elu()](/reference/keras/latest/reference/activation_relu.html) [activation_selu()](/reference/keras/latest/reference/activation_relu.html) [activation_hard_sigmoid()](/reference/keras/latest/reference/activation_relu.html) [activation_linear()](/reference/keras/latest/reference/activation_relu.html) [activation_sigmoid()](/reference/keras/latest/reference/activation_relu.html) [activation_softmax()](/reference/keras/latest/reference/activation_relu.html) [activation_softplus()](/reference/keras/latest/reference/activation_relu.html) [activation_softsign()](/reference/keras/latest/reference/activation_relu.html) [activation_tanh()](/reference/keras/latest/reference/activation_relu.html) [activation_exponential()](/reference/keras/latest/reference/activation_relu.html) [activation_gelu()](/reference/keras/latest/reference/activation_relu.html) [activation_swish()](/reference/keras/latest/reference/activation_relu.html) | Activation functions
-
+|---|---|
+|[activation_relu() activation_elu() activation_selu() activation_hard_sigmoid() activation_linear() activation_sigmoid() activation_softmax() activation_softplus() activation_softsign() activation_tanh() activation_exponential() activation_gelu() activation_swish()](/reference/keras/activation_relu.html)|Activation functions|
+ 
 ## Backend
-
+ 
 Function(s) | Description
-------------- |----------------
-
+|---|---|
+|[k_abs()](/reference/keras/k_abs.html)|Element-wise absolute value.|
+|[k_all()](/reference/keras/k_all.html)|Bitwise reduction (logical AND).|
+|[k_any()](/reference/keras/k_any.html)|Bitwise reduction (logical OR).|
+|[k_arange()](/reference/keras/k_arange.html)|Creates a 1D tensor containing a sequence of integers.|
+|[k_argmax()](/reference/keras/k_argmax.html)|Returns the index of the maximum value along an axis.|
+|[k_argmin()](/reference/keras/k_argmin.html)|Returns the index of the minimum value along an axis.|
+|[k_backend()](/reference/keras/k_backend.html)|Active Keras backend|
+|[k_batch_dot()](/reference/keras/k_batch_dot.html)|Batchwise dot product.|
+|[k_batch_flatten()](/reference/keras/k_batch_flatten.html)|Turn a nD tensor into a 2D tensor with same 1st dimension.|
+|[k_batch_get_value()](/reference/keras/k_batch_get_value.html)|Returns the value of more than one tensor variable.|
+|[k_batch_normalization()](/reference/keras/k_batch_normalization.html)|Applies batch normalization on x given mean, var, beta and gamma.|
+|[k_batch_set_value()](/reference/keras/k_batch_set_value.html)|Sets the values of many tensor variables at once.|
+|[k_bias_add()](/reference/keras/k_bias_add.html)|Adds a bias vector to a tensor.|
+|[k_binary_crossentropy()](/reference/keras/k_binary_crossentropy.html)|Binary crossentropy between an output tensor and a target tensor.|
+|[k_cast()](/reference/keras/k_cast.html)|Casts a tensor to a different dtype and returns it.|
+|[k_cast_to_floatx()](/reference/keras/k_cast_to_floatx.html)|Cast an array to the default Keras float type.|
+|[k_categorical_crossentropy()](/reference/keras/k_categorical_crossentropy.html)|Categorical crossentropy between an output tensor and a target tensor.|
+|[k_clear_session()](/reference/keras/k_clear_session.html)|Destroys the current TF graph and creates a new one.|
+|[k_clip()](/reference/keras/k_clip.html)|Element-wise value clipping.|
+|[k_concatenate()](/reference/keras/k_concatenate.html)|Concatenates a list of tensors alongside the specified axis.|
+|[k_constant()](/reference/keras/k_constant.html)|Creates a constant tensor.|
+|[k_conv1d()](/reference/keras/k_conv1d.html)|1D convolution.|
+|[k_conv2d()](/reference/keras/k_conv2d.html)|2D convolution.|
+|[k_conv2d_transpose()](/reference/keras/k_conv2d_transpose.html)|2D deconvolution (i.e. transposed convolution).|
+|[k_conv3d()](/reference/keras/k_conv3d.html)|3D convolution.|
+|[k_conv3d_transpose()](/reference/keras/k_conv3d_transpose.html)|3D deconvolution (i.e. transposed convolution).|
+|[k_cos()](/reference/keras/k_cos.html)|Computes cos of x element-wise.|
+|[k_count_params()](/reference/keras/k_count_params.html)|Returns the static number of elements in a Keras variable or tensor.|
+|[k_ctc_batch_cost()](/reference/keras/k_ctc_batch_cost.html)|Runs CTC loss algorithm on each batch element.|
+|[k_ctc_decode()](/reference/keras/k_ctc_decode.html)|Decodes the output of a softmax.|
+|[k_ctc_label_dense_to_sparse()](/reference/keras/k_ctc_label_dense_to_sparse.html)|Converts CTC labels from dense to sparse.|
+|[k_cumprod()](/reference/keras/k_cumprod.html)|Cumulative product of the values in a tensor, alongside the specified axis.|
+|[k_cumsum()](/reference/keras/k_cumsum.html)|Cumulative sum of the values in a tensor, alongside the specified axis.|
+|[k_depthwise_conv2d()](/reference/keras/k_depthwise_conv2d.html)|Depthwise 2D convolution with separable filters.|
+|[k_dot()](/reference/keras/k_dot.html)|Multiplies 2 tensors (and/or variables) and returns a <em>tensor</em>.|
+|[k_dropout()](/reference/keras/k_dropout.html)|Sets entries in <code>x</code> to zero at random, while scaling the entire tensor.|
+|[k_dtype()](/reference/keras/k_dtype.html)|Returns the dtype of a Keras tensor or variable, as a string.|
+|[k_elu()](/reference/keras/k_elu.html)|Exponential linear unit.|
+|[k_epsilon() k_set_epsilon()](/reference/keras/k_epsilon.html)|Fuzz factor used in numeric expressions.|
+|[k_equal()](/reference/keras/k_equal.html)|Element-wise equality between two tensors.|
+|[k_eval()](/reference/keras/k_eval.html)|Evaluates the value of a variable.|
+|[k_exp()](/reference/keras/k_exp.html)|Element-wise exponential.|
+|[k_expand_dims()](/reference/keras/k_expand_dims.html)|Adds a 1-sized dimension at index <code>axis</code>.|
+|[k_eye()](/reference/keras/k_eye.html)|Instantiate an identity matrix and returns it.|
+|[k_flatten()](/reference/keras/k_flatten.html)|Flatten a tensor.|
+|[k_floatx() k_set_floatx()](/reference/keras/k_floatx.html)|Default float type|
+|[k_foldl()](/reference/keras/k_foldl.html)|Reduce elems using fn to combine them from left to right.|
+|[k_foldr()](/reference/keras/k_foldr.html)|Reduce elems using fn to combine them from right to left.|
+|[k_function()](/reference/keras/k_function.html)|Instantiates a Keras function|
+|[k_gather()](/reference/keras/k_gather.html)|Retrieves the elements of indices <code>indices</code> in the tensor <code>reference</code>.|
+|[k_get_session() k_set_session()](/reference/keras/k_get_session.html)|TF session to be used by the backend.|
+|[k_get_uid()](/reference/keras/k_get_uid.html)|Get the uid for the default graph.|
+|[k_get_value()](/reference/keras/k_get_value.html)|Returns the value of a variable.|
+|[k_get_variable_shape()](/reference/keras/k_get_variable_shape.html)|Returns the shape of a variable.|
+|[k_gradients()](/reference/keras/k_gradients.html)|Returns the gradients of <code>variables</code> w.r.t. <code>loss</code>.|
+|[k_greater()](/reference/keras/k_greater.html)|Element-wise truth value of (x &gt; y).|
+|[k_greater_equal()](/reference/keras/k_greater_equal.html)|Element-wise truth value of (x &gt;= y).|
+|[k_hard_sigmoid()](/reference/keras/k_hard_sigmoid.html)|Segment-wise linear approximation of sigmoid.|
+|[k_identity()](/reference/keras/k_identity.html)|Returns a tensor with the same content as the input tensor.|
+|[k_image_data_format() k_set_image_data_format()](/reference/keras/k_image_data_format.html)|Default image data format convention ('channels_first' or 'channels_last').|
+|[k_in_test_phase()](/reference/keras/k_in_test_phase.html)|Selects <code>x</code> in test phase, and <code>alt</code> otherwise.|
+|[k_in_top_k()](/reference/keras/k_in_top_k.html)|Returns whether the <code>targets</code> are in the top <code>k</code> <code>predictions</code>.|
+|[k_in_train_phase()](/reference/keras/k_in_train_phase.html)|Selects <code>x</code> in train phase, and <code>alt</code> otherwise.|
+|[k_int_shape()](/reference/keras/k_int_shape.html)|Returns the shape of tensor or variable as a list of int or NULL entries.|
+|[k_is_keras_tensor()](/reference/keras/k_is_keras_tensor.html)|Returns whether <code>x</code> is a Keras tensor.|
+|[k_is_placeholder()](/reference/keras/k_is_placeholder.html)|Returns whether <code>x</code> is a placeholder.|
+|[k_is_sparse()](/reference/keras/k_is_sparse.html)|Returns whether a tensor is a sparse tensor.|
+|[k_is_tensor()](/reference/keras/k_is_tensor.html)|Returns whether <code>x</code> is a symbolic tensor.|
+|[k_l2_normalize()](/reference/keras/k_l2_normalize.html)|Normalizes a tensor wrt the L2 norm alongside the specified axis.|
+|[k_learning_phase()](/reference/keras/k_learning_phase.html)|Returns the learning phase flag.|
+|[k_less()](/reference/keras/k_less.html)|Element-wise truth value of (x &lt; y).|
+|[k_less_equal()](/reference/keras/k_less_equal.html)|Element-wise truth value of (x &lt;= y).|
+|[k_local_conv1d()](/reference/keras/k_local_conv1d.html)|Apply 1D conv with un-shared weights.|
+|[k_local_conv2d()](/reference/keras/k_local_conv2d.html)|Apply 2D conv with un-shared weights.|
+|[k_log()](/reference/keras/k_log.html)|Element-wise log.|
+|[k_manual_variable_initialization()](/reference/keras/k_manual_variable_initialization.html)|Sets the manual variable initialization flag.|
+|[k_map_fn()](/reference/keras/k_map_fn.html)|Map the function fn over the elements elems and return the outputs.|
+|[k_max()](/reference/keras/k_max.html)|Maximum value in a tensor.|
+|[k_maximum()](/reference/keras/k_maximum.html)|Element-wise maximum of two tensors.|
+|[k_mean()](/reference/keras/k_mean.html)|Mean of a tensor, alongside the specified axis.|
+|[k_min()](/reference/keras/k_min.html)|Minimum value in a tensor.|
+|[k_minimum()](/reference/keras/k_minimum.html)|Element-wise minimum of two tensors.|
+|[k_moving_average_update()](/reference/keras/k_moving_average_update.html)|Compute the moving average of a variable.|
+|[k_ndim()](/reference/keras/k_ndim.html)|Returns the number of axes in a tensor, as an integer.|
+|[k_normalize_batch_in_training()](/reference/keras/k_normalize_batch_in_training.html)|Computes mean and std for batch then apply batch_normalization on batch.|
+|[k_not_equal()](/reference/keras/k_not_equal.html)|Element-wise inequality between two tensors.|
+|[k_one_hot()](/reference/keras/k_one_hot.html)|Computes the one-hot representation of an integer tensor.|
+|[k_ones()](/reference/keras/k_ones.html)|Instantiates an all-ones tensor variable and returns it.|
+|[k_ones_like()](/reference/keras/k_ones_like.html)|Instantiates an all-ones variable of the same shape as another tensor.|
+|[k_permute_dimensions()](/reference/keras/k_permute_dimensions.html)|Permutes axes in a tensor.|
+|[k_placeholder()](/reference/keras/k_placeholder.html)|Instantiates a placeholder tensor and returns it.|
+|[k_pool2d()](/reference/keras/k_pool2d.html)|2D Pooling.|
+|[k_pool3d()](/reference/keras/k_pool3d.html)|3D Pooling.|
+|[k_pow()](/reference/keras/k_pow.html)|Element-wise exponentiation.|
+|[k_print_tensor()](/reference/keras/k_print_tensor.html)|Prints <code>message</code> and the tensor value when evaluated.|
+|[k_prod()](/reference/keras/k_prod.html)|Multiplies the values in a tensor, alongside the specified axis.|
+|[k_random_binomial() k_random_bernoulli()](/reference/keras/k_random_bernoulli.html)|Returns a tensor with random binomial distribution of values.|
+|[k_random_normal()](/reference/keras/k_random_normal.html)|Returns a tensor with normal distribution of values.|
+|[k_random_normal_variable()](/reference/keras/k_random_normal_variable.html)|Instantiates a variable with values drawn from a normal distribution.|
+|[k_random_uniform()](/reference/keras/k_random_uniform.html)|Returns a tensor with uniform distribution of values.|
+|[k_random_uniform_variable()](/reference/keras/k_random_uniform_variable.html)|Instantiates a variable with values drawn from a uniform distribution.|
+|[k_relu()](/reference/keras/k_relu.html)|Rectified linear unit.|
+|[k_repeat()](/reference/keras/k_repeat.html)|Repeats a 2D tensor.|
+|[k_repeat_elements()](/reference/keras/k_repeat_elements.html)|Repeats the elements of a tensor along an axis.|
+|[k_reset_uids()](/reference/keras/k_reset_uids.html)|Reset graph identifiers.|
+|[k_reshape()](/reference/keras/k_reshape.html)|Reshapes a tensor to the specified shape.|
+|[k_resize_images()](/reference/keras/k_resize_images.html)|Resizes the images contained in a 4D tensor.|
+|[k_resize_volumes()](/reference/keras/k_resize_volumes.html)|Resizes the volume contained in a 5D tensor.|
+|[k_reverse()](/reference/keras/k_reverse.html)|Reverse a tensor along the specified axes.|
+|[k_rnn()](/reference/keras/k_rnn.html)|Iterates over the time dimension of a tensor|
+|[k_round()](/reference/keras/k_round.html)|Element-wise rounding to the closest integer.|
+|[k_separable_conv2d()](/reference/keras/k_separable_conv2d.html)|2D convolution with separable filters.|
+|[k_set_learning_phase()](/reference/keras/k_set_learning_phase.html)|Sets the learning phase to a fixed value.|
+|[k_set_value()](/reference/keras/k_set_value.html)|Sets the value of a variable, from an R array.|
+|[k_shape()](/reference/keras/k_shape.html)|Returns the symbolic shape of a tensor or variable.|
+|[k_sigmoid()](/reference/keras/k_sigmoid.html)|Element-wise sigmoid.|
+|[k_sign()](/reference/keras/k_sign.html)|Element-wise sign.|
+|[k_sin()](/reference/keras/k_sin.html)|Computes sin of x element-wise.|
+|[k_softmax()](/reference/keras/k_softmax.html)|Softmax of a tensor.|
+|[k_softplus()](/reference/keras/k_softplus.html)|Softplus of a tensor.|
+|[k_softsign()](/reference/keras/k_softsign.html)|Softsign of a tensor.|
+|[k_sparse_categorical_crossentropy()](/reference/keras/k_sparse_categorical_crossentropy.html)|Categorical crossentropy with integer targets.|
+|[k_spatial_2d_padding()](/reference/keras/k_spatial_2d_padding.html)|Pads the 2nd and 3rd dimensions of a 4D tensor.|
+|[k_spatial_3d_padding()](/reference/keras/k_spatial_3d_padding.html)|Pads 5D tensor with zeros along the depth, height, width dimensions.|
+|[k_sqrt()](/reference/keras/k_sqrt.html)|Element-wise square root.|
+|[k_square()](/reference/keras/k_square.html)|Element-wise square.|
+|[k_squeeze()](/reference/keras/k_squeeze.html)|Removes a 1-dimension from the tensor at index <code>axis</code>.|
+|[k_stack()](/reference/keras/k_stack.html)|Stacks a list of rank <code>R</code> tensors into a rank <code>R+1</code> tensor.|
+|[k_std()](/reference/keras/k_std.html)|Standard deviation of a tensor, alongside the specified axis.|
+|[k_stop_gradient()](/reference/keras/k_stop_gradient.html)|Returns <code>variables</code> but with zero gradient w.r.t. every other variable.|
+|[k_sum()](/reference/keras/k_sum.html)|Sum of the values in a tensor, alongside the specified axis.|
+|[k_switch()](/reference/keras/k_switch.html)|Switches between two operations depending on a scalar value.|
+|[k_tanh()](/reference/keras/k_tanh.html)|Element-wise tanh.|
+|[k_temporal_padding()](/reference/keras/k_temporal_padding.html)|Pads the middle dimension of a 3D tensor.|
+|[k_tile()](/reference/keras/k_tile.html)|Creates a tensor by tiling <code>x</code> by <code>n</code>.|
+|[k_to_dense()](/reference/keras/k_to_dense.html)|Converts a sparse tensor into a dense tensor and returns it.|
+|[k_transpose()](/reference/keras/k_transpose.html)|Transposes a tensor and returns it.|
+|[k_truncated_normal()](/reference/keras/k_truncated_normal.html)|Returns a tensor with truncated random normal distribution of values.|
+|[k_unstack()](/reference/keras/k_unstack.html)|Unstack rank <code>R</code> tensor into a list of rank <code>R-1</code> tensors.|
+|[k_update()](/reference/keras/k_update.html)|Update the value of <code>x</code> to <code>new_x</code>.|
+|[k_update_add()](/reference/keras/k_update_add.html)|Update the value of <code>x</code> by adding <code>increment</code>.|
+|[k_update_sub()](/reference/keras/k_update_sub.html)|Update the value of <code>x</code> by subtracting <code>decrement</code>.|
+|[k_var()](/reference/keras/k_var.html)|Variance of a tensor, alongside the specified axis.|
+|[k_variable()](/reference/keras/k_variable.html)|Instantiates a variable and returns it.|
+|[k_zeros()](/reference/keras/k_zeros.html)|Instantiates an all-zeros variable and returns it.|
+|[k_zeros_like()](/reference/keras/k_zeros_like.html)|Instantiates an all-zeros variable of the same shape as another tensor.|
+ 
 ## Python
-
+ 
 Function(s) | Description
-------------- |----------------
-[keras](/reference/keras/keras.html) | Main Keras module
-[`%py_class%`](/reference/keras/grapes-py_class-grapes.html) | Make a python class constructor
-[`%&lt;-active%`](/reference/keras/grapes-set-active-grapes.html) | Make an Active Binding
-
+|---|---|
+|[keras](/reference/keras/keras.html)|Main Keras module|
+|[`%py_class%`](/reference/keras/grapes-py_class-grapes.html)|Make a python class constructor|
+|[`%<-active%`](/reference/keras/grapes-set-active-grapes.html)|Make an Active Binding|
+ 
 ## Deprecated
-
+ 
 Function(s) | Description
-------------- |----------------
-[create_wrapper()](/reference/keras/create_wrapper.html) | (Deprecated) Create a Keras Wrapper
-[loss_cosine_proximity()](/reference/keras/loss_cosine_proximity.html) | (Deprecated) loss_cosine_proximity
-[layer_cudnn_gru()](/reference/keras/layer_cudnn_gru.html) | (Deprecated) Fast GRU implementation backed by <a href='https://developer.nvidia.com/cudnn'>CuDNN</a>.
-[layer_cudnn_lstm()](/reference/keras/layer_cudnn_lstm.html) | (Deprecated) Fast LSTM implementation backed by <a href='https://developer.nvidia.com/cudnn'>CuDNN</a>.
-[layer_dense_features()](/reference/keras/layer_dense_features.html) | Constructs a DenseFeatures.
-
+|---|---|
+|[KerasLayer](/reference/keras/KerasLayer.html)|(Deprecated) Base R6 class for Keras layers|
+|[KerasWrapper](/reference/keras/KerasWrapper.html)|(Deprecated) Base R6 class for Keras wrappers|
+|[create_wrapper()](/reference/keras/create_wrapper.html)|(Deprecated) Create a Keras Wrapper|
+|[loss_cosine_proximity()](/reference/keras/loss_cosine_proximity.html)|(Deprecated) loss_cosine_proximity|
+|[layer_cudnn_gru()](/reference/keras/layer_cudnn_gru.html)|(Deprecated) Fast GRU implementation backed by <a href='https://developer.nvidia.com/cudnn'>CuDNN</a>.|
+|[layer_cudnn_lstm()](/reference/keras/layer_cudnn_lstm.html)|(Deprecated) Fast LSTM implementation backed by <a href='https://developer.nvidia.com/cudnn'>CuDNN</a>.|
+|[layer_dense_features()](/reference/keras/layer_dense_features.html)|Constructs a DenseFeatures.|

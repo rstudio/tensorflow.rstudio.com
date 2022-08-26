@@ -1,100 +1,63 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L1147) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # step_numeric_column
 
-
-Creates a numeric column specification
-
-
-
+## Creates a numeric column specification
 
 ## Description
-
-``step_numeric_column`` creates a numeric column specification. It can also be
-used to normalize numeric columns.
-
-
-
+`step_numeric_column` creates a numeric column specification. It can also be used to normalize numeric columns. 
 
 
 ## Usage
 ```r
-step_numeric_column(
-  spec,
-  ...,
-  shape = 1L,
-  default_value = NULL,
-  dtype = tf$float32,
-  normalizer_fn = NULL
-)
+step_numeric_column( 
+  spec, 
+  ..., 
+  shape = 1L, 
+  default_value = NULL, 
+  dtype = tf$float32, 
+  normalizer_fn = NULL 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-spec | A feature specification created with `feature_spec()`.
-... | Comma separated list of variable names to apply the step. selectors can also be used.
-shape | An iterable of integers specifies the shape of the Tensor. An integer can be given which means a single dimension Tensor with given width. The Tensor representing the column will have the shape of ``batch_size`` + ``shape``.
-default_value | A single value compatible with ``dtype`` or an iterable of values compatible with ``dtype`` which the column takes on during ``tf.Example`` parsing if data is missing. A default value of ``NULL`` will cause ``tf.parse_example`` to fail if an example does not contain this column. If a single value is provided, the same value will be applied as the default value for every item. If an iterable of values is provided, the shape of the default_value should be equal to the given shape.
-dtype | defines the type of values. Default value is ``tf$float32``. Must be a non-quantized, real integer or floating point type.
-normalizer_fn | If not ``NULL``, a function that can be used to normalize the value of the tensor after default_value is applied for parsing. Normalizer function takes the input Tensor as its argument, and returns the output Tensor. (e.g. function(x) (x - 3.0) / 4.2). Please note that even though the most common use case of this function is normalization, it can be used for any kind of Tensorflow transformations. You can also a pre-made scaler, in this case a function will be created after fit.FeatureSpec is called on the feature specification.
-
-
+|Arguments|Description|
+|---|---|
+| spec | A feature specification created with `feature_spec()`. |
+| ... | Comma separated list of variable names to apply the step. selectors can also be used. |
+| shape | An iterable of integers specifies the shape of the Tensor. An integer can be given which means a single dimension Tensor with given width. The Tensor representing the column will have the shape of `batch_size` + `shape`. |
+| default_value | A single value compatible with `dtype` or an iterable of values compatible with `dtype` which the column takes on during `tf.Example` parsing if data is missing. A default value of `NULL` will cause `tf.parse_example` to fail if an example does not contain this column. If a single value is provided, the same value will be applied as the default value for every item. If an iterable of values is provided, the shape of the default_value should be equal to the given shape. |
+| dtype | defines the type of values. Default value is `tf$float32`. Must be a non-quantized, real integer or floating point type. |
+| normalizer_fn | If not `NULL`, a function that can be used to normalize the value of the tensor after default_value is applied for parsing. Normalizer function takes the input Tensor as its argument, and returns the output Tensor. (e.g. `function(x) (x - 3.0) / 4.2)`. Please note that even though the most common use case of this function is normalization, it can be used for any kind of Tensorflow transformations. You can also a pre-made scaler, in this case a function will be created after fit.FeatureSpec is called on the feature specification. |
 
 
 
 ## Value
-
-a ``FeatureSpec`` object.
-
-
-
+a `FeatureSpec` object. 
 
 
 ## Examples
-
-```r
-
-library(tfdatasets)
-data(hearts)
-hearts <- tensor_slices_dataset(hearts) %>% dataset_batch(32)
-
-# use the formula interface
-spec <- feature_spec(hearts, target ~ age) %>%
-  step_numeric_column(age, normalizer_fn = standard_scaler())
-
-spec_fit <- fit(spec)
-final_dataset <- hearts %>% dataset_use_spec(spec_fit)
-
+```{r, eval=ecodown::examples_not_run()}
+library(tfdatasets) 
+data(hearts) 
+hearts <- tensor_slices_dataset(hearts) %>% dataset_batch(32) 
+# use the formula interface 
+spec <- feature_spec(hearts, target ~ age) %>% 
+  step_numeric_column(age, normalizer_fn = standard_scaler()) 
+spec_fit <- fit(spec) 
+final_dataset <- hearts %>% dataset_use_spec(spec_fit) 
 ```
-
-
-
-
-
 
 ## See Also
 
-steps for a complete list of allowed steps.
+steps for a complete list of allowed steps. 
 
-Other Feature Spec Functions: 
-`dataset_use_spec()`,
-`feature_spec()`,
-`fit.FeatureSpec()`,
-`step_bucketized_column()`,
-`step_categorical_column_with_hash_bucket()`,
-`step_categorical_column_with_identity()`,
-`step_categorical_column_with_vocabulary_file()`,
-`step_categorical_column_with_vocabulary_list()`,
-`step_crossed_column()`,
-`step_embedding_column()`,
-`step_indicator_column()`,
-`step_remove_column()`,
-`step_shared_embeddings_column()`,
-`steps`
-
-
+Other Feature Spec Functions:  `dataset_use_spec()`, `feature_spec()`, `fit.FeatureSpec()`, `step_bucketized_column()`, `step_categorical_column_with_hash_bucket()`, `step_categorical_column_with_identity()`, `step_categorical_column_with_vocabulary_file()`, `step_categorical_column_with_vocabulary_list()`, `step_crossed_column()`, `step_embedding_column()`, `step_indicator_column()`, `step_remove_column()`, `step_shared_embeddings_column()`, `steps`
 

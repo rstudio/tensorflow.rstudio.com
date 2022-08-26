@@ -1,54 +1,53 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L2002) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_pool3d
 
-
-3D Pooling.
-
-
-
+## 3D Pooling.
 
 ## Description
-
-3D Pooling.
-
-
-
+3D Pooling. 
 
 
 ## Usage
 ```r
-k_pool3d(
-  x,
-  pool_size,
-  strides = c(1, 1, 1),
-  padding = "valid",
-  data_format = NULL,
-  pool_mode = "max"
-)
+k_pool3d( 
+  x, 
+  pool_size, 
+  strides = c(1, 1, 1), 
+  padding = "valid", 
+  data_format = NULL, 
+  pool_mode = "max" 
+) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | Tensor or variable. |
+| pool_size | list of 3 integers. |
+| strides | list of 3 integers. |
+| padding | string, `"same"` or `"valid"`. |
+| data_format | string, `"channels_last"` or `"channels_first"`. |
+| pool_mode | string, `"max"` or `"avg"`. |
 
 
-Argument      |Description
-------------- |----------------
-x | Tensor or variable.
-pool_size | list of 3 integers.
-strides | list of 3 integers.
-padding | string, ``"same"`` or ``"valid"``.
-data_format | string, ``"channels_last"`` or ``"channels_first"``.
-pool_mode | string, ``"max"`` or ``"avg"``.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A tensor, result of 3D pooling.
-
+A tensor, result of 3D pooling. 
 
 
 

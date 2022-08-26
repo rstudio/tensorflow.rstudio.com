@@ -2,46 +2,45 @@
 title: cloudml
 description: R interface to Google CloudML
 ---
-
+ 
 ## Training
-
+ 
 Function(s) | Description
-------------- |----------------
-[cloudml_train()](/reference/cloudml/cloudml_train.html) | Train a model using Cloud ML
-
+|---|---|
+|[cloudml_train()](/reference/cloudml/cloudml_train.html)|Train a model using Cloud ML|
+ 
 ## Prediction
-
+ 
 Function(s) | Description
-------------- |----------------
-[cloudml_deploy()](/reference/cloudml/cloudml_deploy.html) | Deploy SavedModel to CloudML
-[cloudml_predict()](/reference/cloudml/cloudml_predict.html) | Perform Prediction over a CloudML Model.
-
+|---|---|
+|[cloudml_deploy()](/reference/cloudml/cloudml_deploy.html)|Deploy SavedModel to CloudML|
+|[cloudml_predict()](/reference/cloudml/cloudml_predict.html)|Perform Prediction over a CloudML Model.|
+ 
 ## Managing Jobs
-
+ 
 Function(s) | Description
-------------- |----------------
-[job_status()](/reference/cloudml/job_status.html) | Current status of a job
-[job_collect()](/reference/cloudml/job_collect.html) | Collect job output
-[job_stream_logs()](/reference/cloudml/job_stream_logs.html) | Show job log stream
-[job_trials()](/reference/cloudml/job_trials.html) | Current trials of a job
-[job_cancel()](/reference/cloudml/job_cancel.html) | Cancel a job
-[job_list()](/reference/cloudml/job_list.html) | List all jobs
-
+|---|---|
+|[job_status()](/reference/cloudml/job_status.html)|Current status of a job|
+|[job_collect()](/reference/cloudml/job_collect.html)|Collect job output|
+|[job_stream_logs()](/reference/cloudml/job_stream_logs.html)|Show job log stream|
+|[job_trials()](/reference/cloudml/job_trials.html)|Current trials of a job|
+|[job_cancel()](/reference/cloudml/job_cancel.html)|Cancel a job|
+|[job_list()](/reference/cloudml/job_list.html)|List all jobs|
+ 
 ## Google Storage
-
+ 
 Function(s) | Description
-------------- |----------------
-[gs_copy()](/reference/cloudml/gs_copy.html) | Copy files to / from Google Storage
-[gs_rsync()](/reference/cloudml/gs_rsync.html) | Synchronize content of two buckets/directories
-[gs_data_dir()](/reference/cloudml/gs_data_dir.html) | Google storage bucket path that syncs to local storage when not
-running on CloudML.
-[gs_data_dir_local()](/reference/cloudml/gs_data_dir_local.html) | Get a local path to the contents of Google Storage bucket
-
+|---|---|
+|[gs_copy()](/reference/cloudml/gs_copy.html)|Copy files to / from Google Storage|
+|[gs_rsync()](/reference/cloudml/gs_rsync.html)|Synchronize content of two buckets/directories|
+|[gs_data_dir()](/reference/cloudml/gs_data_dir.html)|Google storage bucket path that syncs to local storage when not
+running on CloudML.|
+|[gs_data_dir_local()](/reference/cloudml/gs_data_dir_local.html)|Get a local path to the contents of Google Storage bucket|
+ 
 ## Google Cloud SDK
-
+ 
 Function(s) | Description
-------------- |----------------
-[gcloud_install()](/reference/cloudml/gcloud_install.html) | Install the Google Cloud SDK
-[gcloud_init()](/reference/cloudml/gcloud_init.html) | Initialize the Google Cloud SDK
-[gcloud_terminal()](/reference/cloudml/gcloud_terminal.html) | Create an RStudio terminal with access to the Google Cloud SDK
-
+|---|---|
+|[gcloud_install()](/reference/cloudml/gcloud_install.html)|Install the Google Cloud SDK|
+|[gcloud_init()](/reference/cloudml/gcloud_init.html)|Initialize the Google Cloud SDK|
+|[gcloud_terminal()](/reference/cloudml/gcloud_terminal.html)|Create an RStudio terminal with access to the Google Cloud SDK|

@@ -1,104 +1,67 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L1408) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # step_categorical_column_with_vocabulary_file
 
-
-Creates a categorical column with vocabulary file
-
-
-
+## Creates a categorical column with vocabulary file
 
 ## Description
-
-Use this function when the vocabulary of a categorical variable
-is written to a file.
-
-
-
+Use this function when the vocabulary of a categorical variable is written to a file. 
 
 
 ## Usage
 ```r
-step_categorical_column_with_vocabulary_file(
-  spec,
-  ...,
-  vocabulary_file,
-  vocabulary_size = NULL,
-  dtype = tf$string,
-  default_value = NULL,
-  num_oov_buckets = 0L
-)
+step_categorical_column_with_vocabulary_file( 
+  spec, 
+  ..., 
+  vocabulary_file, 
+  vocabulary_size = NULL, 
+  dtype = tf$string, 
+  default_value = NULL, 
+  num_oov_buckets = 0L 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-spec | A feature specification created with `feature_spec()`.
-... | Comma separated list of variable names to apply the step. selectors can also be used.
-vocabulary_file | The vocabulary file name.
-vocabulary_size | Number of the elements in the vocabulary. This must be no greater than length of ``vocabulary_file``, if less than length, later values are ignored. If None, it is set to the length of ``vocabulary_file``.
-dtype | The type of features. Only string and integer types are supported.
-default_value | The integer ID value to return for out-of-vocabulary feature values, defaults to ``-1``. This can not be specified with a positive ``num_oov_buckets``.
-num_oov_buckets | Non-negative integer, the number of out-of-vocabulary buckets. All out-of-vocabulary inputs will be assigned IDs in the range [vocabulary_size, vocabulary_size+num_oov_buckets) based on a hash of the input value. A positive ``num_oov_buckets`` can not be specified with default_value.
-
-
+|Arguments|Description|
+|---|---|
+| spec | A feature specification created with `feature_spec()`. |
+| ... | Comma separated list of variable names to apply the step. selectors can also be used. |
+| vocabulary_file | The vocabulary file name. |
+| vocabulary_size | Number of the elements in the vocabulary. This must be no greater than length of `vocabulary_file`, if less than length, later values are ignored. If None, it is set to the length of `vocabulary_file`. |
+| dtype | The type of features. Only string and integer types are supported. |
+| default_value | The integer ID value to return for out-of-vocabulary feature values, defaults to `-1`. This can not be specified with a positive `num_oov_buckets`. |
+| num_oov_buckets | Non-negative integer, the number of out-of-vocabulary buckets. All out-of-vocabulary inputs will be assigned IDs in the range `[vocabulary_size, vocabulary_size+num_oov_buckets)` based on a hash of the input value. A positive `num_oov_buckets` can not be specified with default_value. |
 
 
 
 ## Value
-
-a ``FeatureSpec`` object.
-
-
-
+a `FeatureSpec` object. 
 
 
 ## Examples
-
-```r
-
-library(tfdatasets)
-data(hearts)
-file <- tempfile()
-writeLines(unique(hearts$thal), file)
-hearts <- tensor_slices_dataset(hearts) %>% dataset_batch(32)
-
-# use the formula interface
-spec <- feature_spec(hearts, target ~ thal) %>%
-  step_categorical_column_with_vocabulary_file(thal, vocabulary_file = file)
-
-spec_fit <- fit(spec)
-final_dataset <- hearts %>% dataset_use_spec(spec_fit)
-
+```{r, eval=ecodown::examples_not_run()}
+library(tfdatasets) 
+data(hearts) 
+file <- tempfile() 
+writeLines(unique(hearts$thal), file) 
+hearts <- tensor_slices_dataset(hearts) %>% dataset_batch(32) 
+# use the formula interface 
+spec <- feature_spec(hearts, target ~ thal) %>% 
+  step_categorical_column_with_vocabulary_file(thal, vocabulary_file = file) 
+spec_fit <- fit(spec) 
+final_dataset <- hearts %>% dataset_use_spec(spec_fit) 
 ```
-
-
-
-
-
 
 ## See Also
 
-steps for a complete list of allowed steps.
+steps for a complete list of allowed steps. 
 
-Other Feature Spec Functions: 
-`dataset_use_spec()`,
-`feature_spec()`,
-`fit.FeatureSpec()`,
-`step_bucketized_column()`,
-`step_categorical_column_with_hash_bucket()`,
-`step_categorical_column_with_identity()`,
-`step_categorical_column_with_vocabulary_list()`,
-`step_crossed_column()`,
-`step_embedding_column()`,
-`step_indicator_column()`,
-`step_numeric_column()`,
-`step_remove_column()`,
-`step_shared_embeddings_column()`,
-`steps`
-
-
+Other Feature Spec Functions:  `dataset_use_spec()`, `feature_spec()`, `fit.FeatureSpec()`, `step_bucketized_column()`, `step_categorical_column_with_hash_bucket()`, `step_categorical_column_with_identity()`, `step_categorical_column_with_vocabulary_list()`, `step_crossed_column()`, `step_embedding_column()`, `step_indicator_column()`, `step_numeric_column()`, `step_remove_column()`, `step_shared_embeddings_column()`, `steps`
 

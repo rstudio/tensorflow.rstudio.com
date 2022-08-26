@@ -1,49 +1,46 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L2096) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_random_binomial
 
-
-Returns a tensor with random binomial distribution of values.
-
-
-
+## Returns a tensor with random binomial distribution of values.
 
 ## Description
-
-``k_random_binomial()`` and ``k_random_bernoulli()`` are aliases for the same
-function. Both are maintained for backwards compatibility. New code
-should prefer ``k_random_bernoulli()``.
-
-
-
+`k_random_binomial()` and `k_random_bernoulli()` are aliases for the same function. Both are maintained for backwards compatibility. New code should prefer `k_random_bernoulli()`. 
 
 
 ## Usage
 ```r
-k_random_binomial(shape, p = 0, dtype = NULL, seed = NULL)
+k_random_binomial(shape, p = 0, dtype = NULL, seed = NULL) 
 
-k_random_bernoulli(shape, p = 0, dtype = NULL, seed = NULL)
+k_random_bernoulli(shape, p = 0, dtype = NULL, seed = NULL) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| shape | A list of integers, the shape of tensor to create. |
+| p | A float, `0. <= p <= 1`, probability of binomial distribution. |
+| dtype | String, dtype of returned tensor. |
+| seed | Integer, random seed. |
 
 
-Argument      |Description
-------------- |----------------
-shape | A list of integers, the shape of tensor to create.
-p | A float, 0. <= p <= 1, probability of binomial distribution.
-dtype | String, dtype of returned tensor.
-seed | Integer, random seed.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A tensor.
-
+A tensor. 
 
 
 

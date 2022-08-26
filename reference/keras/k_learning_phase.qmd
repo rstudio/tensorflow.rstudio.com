@@ -1,34 +1,37 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L1480) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_learning_phase
 
-
-Returns the learning phase flag.
-
-
-
+## Returns the learning phase flag.
 
 ## Description
-
-The learning phase flag is a bool tensor (0 = test, 1 = train) to be passed
-as input to any Keras function that uses a different behavior at train time
-and test time.
-
-
-
+The learning phase flag is a bool tensor (0 = test, 1 = train) to be passed as input to any Keras function that uses a different behavior at train time and test time. 
 
 
 ## Usage
 ```r
-k_learning_phase()
+k_learning_phase() 
 ```
 
 
 
+## Section
 
+## Keras Backend
+
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
+
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-Learning phase (scalar integer tensor or R integer).
-
+Learning phase (scalar integer tensor or R integer). 
 
 
 

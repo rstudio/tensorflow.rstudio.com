@@ -1,61 +1,58 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/record_spec.R#L51) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # delim_record_spec
 
-
-Specification for reading a record from a text file with delimited values
-
-
-
+## Specification for reading a record from a text file with delimited values
 
 ## Description
-
-Specification for reading a record from a text file with delimited values
-
-
-
+Specification for reading a record from a text file with delimited values 
 
 
 ## Usage
 ```r
-delim_record_spec(
-  example_file,
-  delim = ",",
-  skip = 0,
-  names = NULL,
-  types = NULL,
-  defaults = NULL
-)
+delim_record_spec( 
+  example_file, 
+  delim = ",", 
+  skip = 0, 
+  names = NULL, 
+  types = NULL, 
+  defaults = NULL 
+) 
 
-csv_record_spec(
-  example_file,
-  skip = 0,
-  names = NULL,
-  types = NULL,
-  defaults = NULL
-)
+csv_record_spec( 
+  example_file, 
+  skip = 0, 
+  names = NULL, 
+  types = NULL, 
+  defaults = NULL 
+) 
 
-tsv_record_spec(
-  example_file,
-  skip = 0,
-  names = NULL,
-  types = NULL,
-  defaults = NULL
-)
+tsv_record_spec( 
+  example_file, 
+  skip = 0, 
+  names = NULL, 
+  types = NULL, 
+  defaults = NULL 
+) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| example_file | File that provides an example of the records to be read. If you don't explicitly specify names and types (or defaults) then this file will be read to generate default values. |
+| delim | Character delimiter to separate fields in a record (defaults to ",") |
+| skip | Number of lines to skip before reading data. Note that if `names` is explicitly provided and there are column names witin the file then `skip` should be set to 1 to ensure that the column names are bypassed. |
+| names | Character vector with column names (or `NULL` to automatically detect the column names from the first row of `example_file`). <br>If `names` is a character vector, the values will be used as the names of the columns, and the first row of the input will be read into the first row of the datset. Note that if the underlying text file also includes column names in it's first row, this row should be skipped explicitly with `skip = 1`. <br>If `NULL`, the first row of the example_file will be used as the column names, and will be skipped when reading the dataset. |
+| types | Column types. If `NULL` and `defaults` is specified then types will be imputed from the defaults. Otherwise, all column types will be imputed from the first 1000 rows of the `example_file`. This is convenient (and fast), but not robust. If the imputation fails, you'll need to supply the correct types yourself. <br>Types can be explicitliy specified in a character vector as "integer", "double", and "character" (e.g. `col_types = c("double", "double", "integer"`). <br>Alternatively, you can use a compact string representation where each character represents one column: c = character, i = integer, d = double (e.g. `types = `ddi`). |
+| defaults | List of default values which are used when data is missing from a record (e.g. `list(0, 0, 0L`). If `NULL` then defaults will be automatically provided based on `types` (`0` for numeric columns and `""` for character columns). |
 
-
-Argument      |Description
-------------- |----------------
-example_file | File that provides an example of the records to be read. If you don't explicitly specify names and types (or defaults) then this file will be read to generate default values.
-delim | Character delimiter to separate fields in a record (defaults to ",")
-skip | Number of lines to skip before reading data. Note that if ``names`` is explicitly provided and there are column names witin the file then ``skip`` should be set to 1 to ensure that the column names are bypassed.
-names | Character vector with column names (or ``NULL`` to automatically detect the column names from the first row of ``example_file``).  If ``names`` is a character vector, the values will be used as the names of the columns, and the first row of the input will be read into the first row of the datset. Note that if the underlying text file also includes column names in it's first row, this row should be skipped explicitly with ``skip = 1``.  If ``NULL``, the first row of the example_file will be used as the column names, and will be skipped when reading the dataset.
-types | Column types. If ``NULL`` and ``defaults`` is specified then types will be imputed from the defaults. Otherwise, all column types will be imputed from the first 1000 rows of the ``example_file``. This is convenient (and fast), but not robust. If the imputation fails, you'll need to supply the correct types yourself.  Types can be explicitliy specified in a character vector as "integer", "double", and "character" (e.g. col_types = c("double", "double", "integer").  Alternatively, you can use a compact string representation where each character represents one column: c = character, i = integer, d = double (e.g. types = ddi`).
-defaults | List of default values which are used when data is missing from a record (e.g. list(0, 0, 0L). If ``NULL`` then defaults will be automatically provided based on ``types`` (``0`` for numeric columns and ``""`` for character columns).
 
 
 

@@ -1,44 +1,34 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L960) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # as_tf_dataset
 
-
-Add the tf_dataset class to a dataset
-
-
-
+## Add the tf_dataset class to a dataset
 
 ## Description
-
-Calling this function on a dataset adds the "tf_dataset" class to the dataset
-object. All datasets returned by functions in the tfdatasets package
-call this function on the dataset before returning it.
-
-
-
+Calling this function on a dataset adds the "tf_dataset" class to the dataset object. All datasets returned by functions in the `tfdatasets` package call this function on the dataset before returning it. 
 
 
 ## Usage
 ```r
-as_tf_dataset(dataset)
+as_tf_dataset(dataset) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-dataset | A dataset
-
-
+|Arguments|Description|
+|---|---|
+| dataset | A dataset |
 
 
 
 ## Value
-
-A dataset with class "tf_dataset"
-
+A dataset with class "tf_dataset" 
 
 
 

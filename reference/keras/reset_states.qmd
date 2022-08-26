@@ -1,34 +1,29 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layer-methods.R#L178) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # reset_states
 
-
-Reset the states for a layer
-
-
-
+## Reset the states for a layer
 
 ## Description
-
-Reset the states for a layer
-
-
-
+Reset the states for a layer 
 
 
 ## Usage
 ```r
-reset_states(object)
+reset_states(object) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-object | Model or layer object
-
+|Arguments|Description|
+|---|---|
+| object | Model or layer object |
 
 
 
@@ -36,12 +31,5 @@ object | Model or layer object
 
 
 ## See Also
-
-Other layer methods: 
-`count_params()`,
-`get_config()`,
-`get_input_at()`,
-`get_weights()`
-
-
+Other layer methods:  `count_params()`, `get_config()`, `get_input_at()`, `get_weights()`
 

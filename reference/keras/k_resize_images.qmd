@@ -1,45 +1,44 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L2346) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_resize_images
 
-
-Resizes the images contained in a 4D tensor.
-
-
-
+## Resizes the images contained in a 4D tensor.
 
 ## Description
-
-Resizes the images contained in a 4D tensor.
-
-
-
+Resizes the images contained in a 4D tensor. 
 
 
 ## Usage
 ```r
-k_resize_images(x, height_factor, width_factor, data_format)
+k_resize_images(x, height_factor, width_factor, data_format) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | Tensor or variable to resize. |
+| height_factor | Positive integer. |
+| width_factor | Positive integer. |
+| data_format | string, `"channels_last"` or `"channels_first"`. |
 
 
-Argument      |Description
-------------- |----------------
-x | Tensor or variable to resize.
-height_factor | Positive integer.
-width_factor | Positive integer.
-data_format | string, ``"channels_last"`` or ``"channels_first"``.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A tensor.
-
+A tensor. 
 
 
 

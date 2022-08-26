@@ -1,37 +1,34 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/range_dataset.R#L15) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # range_dataset
 
-
-Creates a dataset of a step-separated range of values.
-
-
-
+## Creates a dataset of a step-separated range of values.
 
 ## Description
-
-Creates a dataset of a step-separated range of values.
-
-
-
+Creates a dataset of a step-separated range of values. 
 
 
 ## Usage
 ```r
-range_dataset(from = 0, to = 0, by = 1, ..., dtype = tf$int64)
+range_dataset(from = 0, to = 0, by = 1, ..., dtype = tf$int64) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| from | Range start |
+| to | Range end (exclusive) |
+| by | Increment of the sequence |
+| ... | ignored |
+| dtype | Output dtype. (Optional, default: `tf$int64`). |
 
-
-Argument      |Description
-------------- |----------------
-from | Range start
-to | Range end (exclusive)
-by | Increment of the sequence
-... | ignored
-dtype | Output dtype. (Optional, default: ``tf$int64``).
 
 
 

@@ -1,59 +1,44 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layer-methods.R#L80) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # get_weights
 
-
-Layer/Model weights as R arrays
-
-
-
+## Layer/Model weights as R arrays
 
 ## Description
-
-Layer/Model weights as R arrays
-
-
-
+Layer/Model weights as R arrays 
 
 
 ## Usage
 ```r
-get_weights(object, trainable = NA)
+get_weights(object, trainable = NA) 
 
-set_weights(object, weights)
+set_weights(object, weights) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-object | Layer or model object
-trainable | if ``NA`` (the default), all weights are returned. If TRUE, 
-weights | Weights as R array
-
+|Arguments|Description|
+|---|---|
+| object | Layer or model object |
+| trainable | if `NA` (the default), all weights are returned. If `TRUE, ` |
+| weights | Weights as R array |
 
 
 
 
+## Note
+You can access the Layer/Model as `tf.Tensors` or `tf.Variables` at `object$weights`, `object$trainable_weights`, or `object$non_trainable_weights`
 
 
 ## See Also
 
-Other model persistence: 
-`model_to_json()`,
-`model_to_yaml()`,
-`save_model_hdf5()`,
-`save_model_tf()`,
-`save_model_weights_hdf5()`,
-`serialize_model()`
+Other model persistence:  `model_to_json()`, `model_to_yaml()`, `save_model_hdf5()`, `save_model_tf()`, `save_model_weights_hdf5()`, `serialize_model()`
 
-Other layer methods: 
-`count_params()`,
-`get_config()`,
-`get_input_at()`,
-`reset_states()`
-
-
+Other layer methods:  `count_params()`, `get_config()`, `get_input_at()`, `reset_states()`
 

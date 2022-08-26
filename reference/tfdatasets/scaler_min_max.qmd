@@ -1,23 +1,23 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L510) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # scaler_min_max
 
-
-Creates an instance of a min max scaler
-
-
-
+## Creates an instance of a min max scaler
 
 ## Description
-
-This scaler will learn the min and max of the numeric variable
-and use this to create a ``normalizer_fn``.
-
-
-
+This scaler will learn the min and max of the numeric variable and use this to create a `normalizer_fn`. 
 
 
 ## Usage
 ```r
-scaler_min_max()
+scaler_min_max() 
 ```
 
 
@@ -28,10 +28,7 @@ scaler_min_max()
 
 ## See Also
 
-scaler to a complete list of normalizers
+scaler to a complete list of normalizers 
 
-Other scaler: 
-`scaler_standard()`
-
-
+Other scaler:  `scaler_standard()`
 

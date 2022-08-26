@@ -1,43 +1,42 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L3036) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_update_add
 
-
-Update the value of ``x`` by adding ``increment``.
-
-
-
+## Update the value of `x` by adding `increment`.
 
 ## Description
-
-Update the value of ``x`` by adding ``increment``.
-
-
-
+Update the value of `x` by adding `increment`. 
 
 
 ## Usage
 ```r
-k_update_add(x, increment)
+k_update_add(x, increment) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| x | A `Variable`. |
+| increment | A tensor of same shape as `x`. |
 
 
-Argument      |Description
-------------- |----------------
-x | A ``Variable``.
-increment | A tensor of same shape as ``x``.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-The variable ``x`` updated.
-
+The variable `x` updated. 
 
 
 

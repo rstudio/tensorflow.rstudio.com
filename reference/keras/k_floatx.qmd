@@ -1,36 +1,40 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L987) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_floatx
 
-
-Default float type
-
-
-
+## Default float type
 
 ## Description
-
-Default float type
-
-
-
+Default float type 
 
 
 ## Usage
 ```r
-k_floatx()
+k_floatx() 
 
-k_set_floatx(floatx)
+k_set_floatx(floatx) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| floatx | String, 'float16', 'float32', or 'float64'. |
 
 
-Argument      |Description
-------------- |----------------
-floatx | String, 'float16', 'float32', or 'float64'.
+## Section
 
+## Keras Backend
+
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
+
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 
 

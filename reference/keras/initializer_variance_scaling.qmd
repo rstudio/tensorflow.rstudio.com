@@ -1,82 +1,52 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/initializers.R#L113) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # initializer_variance_scaling
 
-
-Initializer capable of adapting its scale to the shape of weights.
-
-
-
+## Initializer capable of adapting its scale to the shape of weights.
 
 ## Description
 
-With ``distribution="normal"``, samples are drawn from a truncated normal
-distribution centered on zero, with ``stddev = sqrt(scale / n)`` where n is:
+With `distribution="normal"`, samples are drawn from a truncated normal distribution centered on zero, with `stddev = sqrt(scale / n)` where n is: 
 
+- number of input units in the weight tensor, if mode = "fan_in" 
 
-*  number of input units in the weight tensor, if mode = "fan_in"
+- number of output units, if mode = "fan_out" 
 
-*  number of output units, if mode = "fan_out"
-
-*  average of the numbers of input and output units, if mode = "fan_avg"
-
-
-
-
+- average of the numbers of input and output units, if mode = "fan_avg" 
 
 
 ## Usage
 ```r
-initializer_variance_scaling(
-  scale = 1,
-  mode = c("fan_in", "fan_out", "fan_avg"),
-  distribution = c("normal", "uniform", "truncated_normal", "untruncated_normal"),
-  seed = NULL
-)
+initializer_variance_scaling( 
+  scale = 1, 
+  mode = c("fan_in", "fan_out", "fan_avg"), 
+  distribution = c("normal", "uniform", "truncated_normal", "untruncated_normal"), 
+  seed = NULL 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-scale | Scaling factor (positive float).
-mode | One of "fan_in", "fan_out", "fan_avg".
-distribution | One of "truncated_normal", "untruncated_normal" and "uniform". For backward compatibility, "normal" will be accepted and converted to "untruncated_normal".
-seed | Integer used to seed the random generator.
-
-
-
+|Arguments|Description|
+|---|---|
+| scale | Scaling factor (positive float). |
+| mode | One of "fan_in", "fan_out", "fan_avg". |
+| distribution | One of "truncated_normal", "untruncated_normal" and "uniform". For backward compatibility, "normal" will be accepted and converted to "untruncated_normal". |
+| seed | Integer used to seed the random generator. |
 
 ## Details
-
-With ``distribution="uniform"``, samples are drawn from a uniform distribution
-within -limit, limit, with ``limit = sqrt(3 * scale / n)``.
-
-
+With `distribution="uniform"`, samples are drawn from a uniform distribution within `-limit, limit`, with `limit = sqrt(3 * scale / n)`. 
 
 
 
 
 
 ## See Also
-
-Other initializers: 
-`initializer_constant()`,
-`initializer_glorot_normal()`,
-`initializer_glorot_uniform()`,
-`initializer_he_normal()`,
-`initializer_he_uniform()`,
-`initializer_identity()`,
-`initializer_lecun_normal()`,
-`initializer_lecun_uniform()`,
-`initializer_ones()`,
-`initializer_orthogonal()`,
-`initializer_random_normal()`,
-`initializer_random_uniform()`,
-`initializer_truncated_normal()`,
-`initializer_zeros()`
-
-
+Other initializers:  `initializer_constant()`, `initializer_glorot_normal()`, `initializer_glorot_uniform()`, `initializer_he_normal()`, `initializer_he_uniform()`, `initializer_identity()`, `initializer_lecun_normal()`, `initializer_lecun_uniform()`, `initializer_ones()`, `initializer_orthogonal()`, `initializer_random_normal()`, `initializer_random_uniform()`, `initializer_truncated_normal()`, `initializer_zeros()`
 

@@ -1,96 +1,56 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L1057) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # dataset_use_spec
 
-
-Transform the dataset using the provided spec.
-
-
-
+## Transform the dataset using the provided spec.
 
 ## Description
-
-Prepares the dataset to be used directly in a model.The transformed
-dataset is prepared to return tuples (x,y) that can be used directly
-in Keras.
-
-
-
+Prepares the dataset to be used directly in a model.The transformed dataset is prepared to return tuples (x,y) that can be used directly in Keras. 
 
 
 ## Usage
 ```r
-dataset_use_spec(dataset, spec)
+dataset_use_spec(dataset, spec) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-dataset | A TensorFlow dataset.
-spec | A feature specification created with `feature_spec()`.
-
-
+|Arguments|Description|
+|---|---|
+| dataset | A TensorFlow dataset. |
+| spec | A feature specification created with `feature_spec()`. |
 
 
 
 ## Value
-
-A TensorFlow dataset.
-
-
-
+A TensorFlow dataset. 
 
 
 ## Examples
-
-```r
-
-library(tfdatasets)
-data(hearts)
-hearts <- tensor_slices_dataset(hearts) %>% dataset_batch(32)
-
-# use the formula interface
-spec <- feature_spec(hearts, target ~ age) %>%
-  step_numeric_column(age)
-
-spec_fit <- fit(spec)
-final_dataset <- hearts %>% dataset_use_spec(spec_fit)
-
+```{r, eval=ecodown::examples_not_run()}
+library(tfdatasets) 
+data(hearts) 
+hearts <- tensor_slices_dataset(hearts) %>% dataset_batch(32) 
+# use the formula interface 
+spec <- feature_spec(hearts, target ~ age) %>% 
+  step_numeric_column(age) 
+spec_fit <- fit(spec) 
+final_dataset <- hearts %>% dataset_use_spec(spec_fit) 
 ```
-
-
-
-
 
 ## See Also
 
+- `feature_spec()` to initialize the feature specification. 
 
+- `fit.FeatureSpec()` to create a tensorflow dataset prepared to modeling. 
 
-*  feature_spec() to initialize the feature specification.
+- steps to a list of all implemented steps. 
 
-*  fit.FeatureSpec() to create a tensorflow dataset prepared to modeling.
-
-*  steps to a list of all implemented steps.
-
-
-Other Feature Spec Functions: 
-`feature_spec()`,
-`fit.FeatureSpec()`,
-`step_bucketized_column()`,
-`step_categorical_column_with_hash_bucket()`,
-`step_categorical_column_with_identity()`,
-`step_categorical_column_with_vocabulary_file()`,
-`step_categorical_column_with_vocabulary_list()`,
-`step_crossed_column()`,
-`step_embedding_column()`,
-`step_indicator_column()`,
-`step_numeric_column()`,
-`step_remove_column()`,
-`step_shared_embeddings_column()`,
-`steps`
-
-
+Other Feature Spec Functions:  `feature_spec()`, `fit.FeatureSpec()`, `step_bucketized_column()`, `step_categorical_column_with_hash_bucket()`, `step_categorical_column_with_identity()`, `step_categorical_column_with_vocabulary_file()`, `step_categorical_column_with_vocabulary_list()`, `step_crossed_column()`, `step_embedding_column()`, `step_indicator_column()`, `step_numeric_column()`, `step_remove_column()`, `step_shared_embeddings_column()`, `steps`
 

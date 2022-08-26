@@ -2,35 +2,40 @@
 title: tfautograph
 description: Tools for translating R code to Tensorflow Graphs
 ---
-
+ 
 ## Autograph
-
+ 
 Function(s) | Description
-------------- |----------------
-[autograph()](/reference/tfautograph/autograph.html) | Autograph R code
-
+|---|---|
+|[autograph()](/reference/tfautograph/autograph.html)|Autograph R code|
+ 
 ## Options
-
+ 
 Function(s) | Description
-------------- |----------------
-[ag_name()](/reference/tfautograph/ag_name.html) | Specify a tensor name
-[ag_while_opts()](/reference/tfautograph/ag_while_opts.html) | specify <code>tf.while_loop</code> options
-
+|---|---|
+|[ag_name()](/reference/tfautograph/ag_name.html)|Specify a tensor name|
+|[ag_while_opts()](/reference/tfautograph/ag_while_opts.html)|specify <code>tf.while_loop</code> options|
+ 
 ## Hints
-
+ 
 Function(s) | Description
-------------- |----------------
-[ag_if_vars()](/reference/tfautograph/ag_if_vars.html) | Specify <code>tf.cond()</code> output structure when autographing <code>if</code>
-[ag_loop_vars()](/reference/tfautograph/ag_loop_vars.html) | Specify loop variables
-
+|---|---|
+|[ag_if_vars()](/reference/tfautograph/ag_if_vars.html)|Specify <code>tf.cond()</code> output structure when autographing <code>if</code>|
+|[ag_loop_vars()](/reference/tfautograph/ag_loop_vars.html)|Specify loop variables|
+ 
 ## Thin Convenience Wrappers
-
+ 
 Function(s) | Description
-------------- |----------------
-
+|---|---|
+|[tf_assert()](/reference/tfautograph/tf_assert.html)|tf_assert|
+|[tf_case()](/reference/tfautograph/tf_case.html)|tf.case|
+|[tf_cond()](/reference/tfautograph/tf_cond.html)|tf.cond|
+|[tf_map()](/reference/tfautograph/tf_map.html)|<code>tf.map_fn()</code>|
+|[tf_switch()](/reference/tfautograph/tf_switch.html)|tf.switch_case|
+|[`[[<-`(<i><tensorflow.python.ops.tensor_array_ops.TensorArray></i>)](/reference/tfautograph/sub-subset-.tensorflow.python.ops.tensor_array_ops.TensorArray.html)|<code>TensorArray.write()</code>|
+ 
 ## Interactive helpers
-
+ 
 Function(s) | Description
-------------- |----------------
-[view_function_graph()](/reference/tfautograph/view_function_graph.html) | Visualizes the generated graph
-
+|---|---|
+|[view_function_graph()](/reference/tfautograph/view_function_graph.html)|Visualizes the generated graph|

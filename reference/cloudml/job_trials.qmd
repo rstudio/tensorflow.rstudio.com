@@ -1,34 +1,29 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/jobs.R#L394) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # job_trials
 
-
-Current trials of a job
-
-
-
+## Current trials of a job
 
 ## Description
-
-Get the hyperparameter trials for job, as an  data frame
-
-
-
+Get the hyperparameter trials for job, as an `R` data frame 
 
 
 ## Usage
 ```r
-job_trials(x)
+job_trials(x) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-x | Job name or job object.
-
+|Arguments|Description|
+|---|---|
+| x | Job name or job object. |
 
 
 
@@ -36,10 +31,5 @@ x | Job name or job object.
 
 
 ## See Also
-
-Other job management functions: `job_cancel`,
-  `job_collect`, `job_list`,
-  `job_status`, `job_stream_logs`
-
-
+Other job management functions: `job_cancel`,   `job_collect`, `job_list`,   `job_status`, `job_stream_logs`
 

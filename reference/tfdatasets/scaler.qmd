@@ -1,19 +1,21 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L486) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # scaler
 
-
-List of pre-made scalers
-
-
-
+## List of pre-made scalers
 
 ## Description
 
+- scaler_standard: mean and standard deviation normalizer. 
 
-
-*  scaler_standard: mean and standard deviation normalizer.
-
-*  scaler_min_max: min max normalizer
-
+- scaler_min_max: min max normalizer 
 
 
 
@@ -24,8 +26,5 @@ List of pre-made scalers
 
 
 ## See Also
-
 step_numeric_column
-
-
 

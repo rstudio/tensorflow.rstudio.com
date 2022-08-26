@@ -1,0 +1,16 @@
+{
+  "hash": "f880b3db1acef0dea6811a8e9df6e507",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1179) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# length.tf_dataset\n\n## Get Dataset length\n\n## Description\nReturns the length of the dataset. \n\n\n## Usage\n```r\n## S3 method for class 'tf_dataset'\nlength(x) \n\n## S3 method for class 'tensorflow.python.data.ops.dataset_ops.DatasetV2'\nlength(x) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| x | a `tf.data.Dataset` object. |\n\n\n\n## Value\nEither `Inf` if the dataset is infinite, `NA` if the dataset length is unknown, or an R numeric if it is known. \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tfdatasets)\nrange_dataset(0, 42) %>% length() \n# 42 \nrange_dataset(0, 42) %>% dataset_repeat() %>% length() \n# Inf \nrange_dataset(0, 42) %>% dataset_repeat() %>% \n  dataset_filter(function(x) TRUE) %>% length() \n# NA \n```\n:::\n",
+    "supporting": [
+      "length.tf_dataset_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

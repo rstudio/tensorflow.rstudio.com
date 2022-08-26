@@ -1,24 +1,25 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/modules.R#L21) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # tf
 
-
-Main TensorFlow module
-
-
-
+## Main TensorFlow module
 
 ## Description
+Interface to main TensorFlow  module. Provides access to top level classes and functions as well as sub-modules (e.g. `tf$nn`, `tf$contrib$learn`, etc.). 
 
-Interface to main TensorFlow  module. Provides access to top level classes
-and functions as well as sub-modules (e.g. ``tf$nn``,
-``tf$contrib$learn``, etc.).
-
-
-
-
+## Format
+TensorFlow module 
 
 ## Usage
 ```r
-tf
+tf 
 ```
 
 
@@ -27,19 +28,12 @@ tf
 
 
 ## Examples
-
-```r
-
-library(tensorflow)
-
-hello <- tf$constant('Hello, TensorFlow!')
-zeros <- tf$Variable(tf$zeros(shape(1L)))
-
-tf$print(hello)
-tf$print(zeros)
-
+```{r, eval=ecodown::examples_not_run()}
+library(tensorflow) 
+hello <- tf$constant('Hello, TensorFlow!') 
+zeros <- tf$Variable(tf$zeros(shape(1L))) 
+tf$print(hello) 
+tf$print(zeros) 
 ```
-
-
 
 

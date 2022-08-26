@@ -1,34 +1,29 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/jobs.R#L343) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # job_status
 
-
-Current status of a job
-
-
-
+## Current status of a job
 
 ## Description
-
-Get the status of a job, as an  list.
-
-
-
+Get the status of a job, as an `R` list. 
 
 
 ## Usage
 ```r
-job_status(job = "latest")
+job_status(job = "latest") 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-job | Job name or job object. Pass "latest" to indicate the most recently submitted job.
-
+|Arguments|Description|
+|---|---|
+| job | Job name or job object. Pass "latest" to indicate the most recently submitted job. |
 
 
 
@@ -36,10 +31,5 @@ job | Job name or job object. Pass "latest" to indicate the most recently submit
 
 
 ## See Also
-
-Other job management functions: `job_cancel`,
-  `job_collect`, `job_list`,
-  `job_stream_logs`, `job_trials`
-
-
+Other job management functions: `job_cancel`,   `job_collect`, `job_list`,   `job_stream_logs`, `job_trials`
 

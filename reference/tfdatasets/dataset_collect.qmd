@@ -1,37 +1,30 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1015) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # dataset_collect
 
-
-Collects a dataset
-
-
-
+## Collects a dataset
 
 ## Description
-
-Iterates throught the dataset collecting every element into a list.
-It's useful for looking at the full result of the dataset.
-Note: You may run out of memory if your dataset is too big.
-
-
-
+Iterates throught the dataset collecting every element into a list. It's useful for looking at the full result of the dataset. Note: You may run out of memory if your dataset is too big. 
 
 
 ## Usage
 ```r
-dataset_collect(dataset, iter_max = Inf)
+dataset_collect(dataset, iter_max = Inf) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-dataset | A dataset
-iter_max | Maximum number of iterations. ``Inf`` until the end of the dataset
-
+|Arguments|Description|
+|---|---|
+| dataset | A dataset |
+| iter_max | Maximum number of iterations. `Inf` until the end of the dataset |
 
 
 
@@ -39,27 +32,5 @@ iter_max | Maximum number of iterations. ``Inf`` until the end of the dataset
 
 
 ## See Also
-
-Other dataset methods: 
-`dataset_batch()`,
-`dataset_cache()`,
-`dataset_concatenate()`,
-`dataset_decode_delim()`,
-`dataset_filter()`,
-`dataset_interleave()`,
-`dataset_map_and_batch()`,
-`dataset_map()`,
-`dataset_padded_batch()`,
-`dataset_prefetch_to_device()`,
-`dataset_prefetch()`,
-`dataset_reduce()`,
-`dataset_repeat()`,
-`dataset_shuffle_and_repeat()`,
-`dataset_shuffle()`,
-`dataset_skip()`,
-`dataset_take_while()`,
-`dataset_take()`,
-`dataset_window()`
-
-
+Other dataset methods:  `dataset_batch()`, `dataset_cache()`, `dataset_concatenate()`, `dataset_decode_delim()`, `dataset_filter()`, `dataset_interleave()`, `dataset_map_and_batch()`, `dataset_map()`, `dataset_padded_batch()`, `dataset_prefetch_to_device()`, `dataset_prefetch()`, `dataset_reduce()`, `dataset_repeat()`, `dataset_shuffle_and_repeat()`, `dataset_shuffle()`, `dataset_skip()`, `dataset_take_while()`, `dataset_take()`, `dataset_window()`
 

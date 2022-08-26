@@ -1,0 +1,16 @@
+{
+  "hash": "da499c84bc209946346de55944a827c6",
+  "result": {
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L33) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# keras_model\n\n## Keras Model\n\n## Description\nA model is a directed acyclic graph of layers. \n\n\n## Usage\n```r\nkeras_model(inputs, outputs = NULL, ...) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| inputs | Input layer |\n| outputs | Output layer |\n| ... | Any additional arguments |\n\n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras) \n# input layer \ninputs <- layer_input(shape = c(784)) \n# outputs compose input + dense layers \npredictions <- inputs %>% \n  layer_dense(units = 64, activation = 'relu') %>% \n  layer_dense(units = 64, activation = 'relu') %>% \n  layer_dense(units = 10, activation = 'softmax') \n# create and compile model \nmodel <- keras_model(inputs = inputs, outputs = predictions) \nmodel %>% compile( \n  optimizer = 'rmsprop', \n  loss = 'categorical_crossentropy', \n  metrics = c('accuracy') \n) \n```\n:::\n\n\n## See Also\nOther model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()`\n\n",
+    "supporting": [
+      "keras_model_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

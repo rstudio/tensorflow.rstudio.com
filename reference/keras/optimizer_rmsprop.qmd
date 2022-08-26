@@ -1,63 +1,54 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/optimizers.R#L56) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # optimizer_rmsprop
 
-
-RMSProp optimizer
-
-
-
+## RMSProp optimizer
 
 ## Description
-
-RMSProp optimizer
-
-
-
+RMSProp optimizer 
 
 
 ## Usage
 ```r
-optimizer_rmsprop(
-  learning_rate = 0.001,
-  rho = 0.9,
-  epsilon = NULL,
-  decay = 0,
-  clipnorm = NULL,
-  clipvalue = NULL,
-  ...
-)
+optimizer_rmsprop( 
+  learning_rate = 0.001, 
+  rho = 0.9, 
+  epsilon = NULL, 
+  decay = 0, 
+  clipnorm = NULL, 
+  clipvalue = NULL, 
+  ... 
+) 
 ```
 
-
-
-
 ## Arguments
-
-
-Argument      |Description
-------------- |----------------
-learning_rate | float >= 0. Learning rate.
-rho | float >= 0. Decay factor.
-epsilon | float >= 0. Fuzz factor. If ``NULL``, defaults to ``k_epsilon()``.
-decay | float >= 0. Learning rate decay over each update.
-clipnorm | Gradients will be clipped when their L2 norm exceeds this value.
-clipvalue | Gradients will be clipped when their absolute value exceeds this value.
-... | Unused, present only for backwards compatability
-
+|Arguments|Description|
+|---|---|
+| learning_rate | float >= 0. Learning rate. |
+| rho | float >= 0. Decay factor. |
+| epsilon | float >= 0. Fuzz factor. If `NULL`, defaults to `k_epsilon()`. |
+| decay | float >= 0. Learning rate decay over each update. |
+| clipnorm | Gradients will be clipped when their L2 norm exceeds this value. |
+| clipvalue | Gradients will be clipped when their absolute value exceeds this value. |
+| ... | Unused, present only for backwards compatability |
 
 
 
 
+## Note
+
+It is recommended to leave the parameters of this optimizer at their default values (except the learning rate, which can be freely tuned). 
+
+This optimizer is usually a good choice for recurrent neural networks. 
 
 
 ## See Also
-
-Other optimizers: 
-`optimizer_adadelta()`,
-`optimizer_adagrad()`,
-`optimizer_adamax()`,
-`optimizer_adam()`,
-`optimizer_nadam()`,
-`optimizer_sgd()`
-
-
+Other optimizers:  `optimizer_adadelta()`, `optimizer_adagrad()`, `optimizer_adamax()`, `optimizer_adam()`, `optimizer_nadam()`, `optimizer_sgd()`
 

@@ -1,44 +1,43 @@
+---
+format:
+  html:
+    css: /reference/assets/reference.css
+---
+
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L955) </button> |
+|:------------------------------:|:--------------------------------------:|
+
 # k_eye
 
-
-Instantiate an identity matrix and returns it.
-
-
-
+## Instantiate an identity matrix and returns it.
 
 ## Description
-
-Instantiate an identity matrix and returns it.
-
-
-
+Instantiate an identity matrix and returns it. 
 
 
 ## Usage
 ```r
-k_eye(size, dtype = NULL, name = NULL)
+k_eye(size, dtype = NULL, name = NULL) 
 ```
 
-
-
-
 ## Arguments
+|Arguments|Description|
+|---|---|
+| size | Integer, number of rows/columns. |
+| dtype | String, data type of returned Keras variable. |
+| name | String, name of returned Keras variable. |
 
 
-Argument      |Description
-------------- |----------------
-size | Integer, number of rows/columns.
-dtype | String, data type of returned Keras variable.
-name | String, name of returned Keras variable.
+## Section
 
+## Keras Backend
 
+This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
 
-
+You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-
-A Keras variable, an identity matrix.
-
+A Keras variable, an identity matrix. 
 
 
 
