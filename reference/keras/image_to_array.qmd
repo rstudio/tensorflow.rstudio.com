@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/preprocessing.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L544) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/preprocessing.R*
 
 # image_to_array
 
@@ -20,12 +18,14 @@ format:
 ## Usage
 ```r
 image_to_array(img, data_format = c("channels_last", "channels_first")) 
+
 image_array_resize( 
   img, 
   height, 
   width, 
   data_format = c("channels_last", "channels_first") 
 ) 
+
 image_array_save( 
   img, 
   path, 

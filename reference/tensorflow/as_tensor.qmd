@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/generics.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/generics.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/generics.R#L743) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/generics.R*
 
 # as_tensor
 
@@ -25,12 +23,12 @@ Coerce objects to tensorflow tensors (potentially of a specific dtype or shape).
 ## Usage
 ```r
 as_tensor(x, dtype = NULL, ..., name = NULL) 
+
 ## S3 method for class 'default'
-as_tensor
-(x, dtype = NULL, ..., shape = NULL, name = NULL) 
+as_tensor(x, dtype = NULL, ..., shape = NULL, name = NULL) 
+
 ## S3 method for class 'double'
-as_tensor
-(x, dtype = NULL, ..., name = NULL) 
+as_tensor(x, dtype = NULL, ..., name = NULL) 
 ```
 
 ## Arguments
@@ -50,6 +48,7 @@ a tensorflow tensor
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tensorflow)
 as_tensor(42, "int32") 
 as_tensor(as_tensor(42)) 
 ```

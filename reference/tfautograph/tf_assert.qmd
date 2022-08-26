@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf_assert.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/tf_assert.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf_assert.R#L26) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/tf_assert.R*
 
 # tf_assert
 
@@ -46,6 +44,7 @@ tf_assert(
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfautograph)
 x <- tf$constant(-1) 
 try(tf_assert(x > 0, "oopsies! x must be greater than 0")) 
 ```

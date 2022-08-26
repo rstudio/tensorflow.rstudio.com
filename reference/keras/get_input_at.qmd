@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layer-methods.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/layer-methods.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layer-methods.R#L135) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/layer-methods.R*
 
 # get_input_at
 
@@ -20,10 +18,15 @@ Whenever you are calling a layer on some input, you are creating a new tensor (t
 ## Usage
 ```r
 get_input_at(object, node_index) 
+
 get_output_at(object, node_index) 
+
 get_input_shape_at(object, node_index) 
+
 get_output_shape_at(object, node_index) 
+
 get_input_mask_at(object, node_index) 
+
 get_output_mask_at(object, node_index) 
 ```
 

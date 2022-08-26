@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/dataset_methods.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1105) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/dataset_methods.R*
 
 # dataset_options
 
@@ -38,6 +36,7 @@ If values are supplied to `...`, returns a `tf.data.Dataset` with the given opti
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfdatasets)
 # pass options directly: 
 range_dataset(0, 10) %>% 
   dataset_options( 

@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/clean_runs.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfruns//edit/main/R/clean_runs.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/clean_runs.R#L24) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/clean_runs.R*
 
 # clean_runs
 
@@ -24,6 +22,7 @@ clean_runs(
   runs_dir = getOption("tfruns.runs_dir", "runs"), 
   confirm = interactive() 
 ) 
+
 purge_runs( 
   runs_dir = getOption("tfruns.runs_dir", "runs"), 
   confirm = interactive() 
@@ -48,6 +47,7 @@ The `purge_runs()` function permanently deletes the "archive" subdirectory.
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfruns)
 clean_runs(ls_runs(completed == FALSE)) 
 ```
 

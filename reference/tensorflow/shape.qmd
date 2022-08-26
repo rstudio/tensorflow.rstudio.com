@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/shape.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/shape.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/shape.R#L105) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/shape.R*
 
 # shape
 
@@ -34,6 +32,7 @@ shape(..., dims = list(...))
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tensorflow)
 # --- construct --- 
 shape()       # tf.TensorShape()       # scalar 
 shape(NULL)   # tf.TensorShape([None]) # 1-D array of unknown length 

@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/model.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L1049) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/model.R*
 
 # train_on_batch
 
@@ -20,6 +18,7 @@ Single gradient update or model evaluation over one batch of samples.
 ## Usage
 ```r
 train_on_batch(object, x, y, class_weight = NULL, sample_weight = NULL) 
+
 test_on_batch(object, x, y, sample_weight = NULL) 
 ```
 

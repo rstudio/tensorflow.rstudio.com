@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/extract.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/extract.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/extract.R#L) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/extract.R*
 
 # [.tensorflow.tensor
 
@@ -20,8 +18,7 @@ Subset tensors with `[`
 ## Usage
 ```r
 ## S3 method for class 'tensorflow.tensor'
-[
-( 
+[( 
   x, 
   ..., 
   drop = TRUE, 
@@ -45,6 +42,7 @@ Subset tensors with `[`
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tensorflow)
 x <- as_tensor(array(1:15, dim = c(3, 5))) 
 x 
 # by default, numerics supplied to [...] are interpreted R style 

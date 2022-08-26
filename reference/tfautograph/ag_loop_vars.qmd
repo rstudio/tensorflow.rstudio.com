@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/hints.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/hints.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/hints.R#L218) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/hints.R*
 
 # ag_loop_vars
 
@@ -54,6 +52,7 @@ The semantics of this function are inspired by base::rm()
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfautograph)
 i <- tf$constant(0L) 
 autograph({ 
   ag_loop_vars(x, i) 

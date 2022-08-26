@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/losses.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/losses.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/losses.R#L5) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/losses.R*
 
 # loss-functions
 
@@ -29,6 +27,7 @@ loss_binary_crossentropy(
   reduction = "auto", 
   name = "binary_crossentropy" 
 ) 
+
 loss_categorical_crossentropy( 
   y_true, 
   y_pred, 
@@ -39,6 +38,7 @@ loss_categorical_crossentropy(
   reduction = "auto", 
   name = "categorical_crossentropy" 
 ) 
+
 loss_categorical_hinge( 
   y_true, 
   y_pred, 
@@ -46,6 +46,7 @@ loss_categorical_hinge(
   reduction = "auto", 
   name = "categorical_hinge" 
 ) 
+
 loss_cosine_similarity( 
   y_true, 
   y_pred, 
@@ -54,7 +55,9 @@ loss_cosine_similarity(
   reduction = "auto", 
   name = "cosine_similarity" 
 ) 
+
 loss_hinge(y_true, y_pred, ..., reduction = "auto", name = "hinge") 
+
 loss_huber( 
   y_true, 
   y_pred, 
@@ -63,6 +66,7 @@ loss_huber(
   reduction = "auto", 
   name = "huber_loss" 
 ) 
+
 loss_kullback_leibler_divergence( 
   y_true, 
   y_pred, 
@@ -70,6 +74,7 @@ loss_kullback_leibler_divergence(
   reduction = "auto", 
   name = "kl_divergence" 
 ) 
+
 loss_kl_divergence( 
   y_true, 
   y_pred, 
@@ -77,7 +82,9 @@ loss_kl_divergence(
   reduction = "auto", 
   name = "kl_divergence" 
 ) 
+
 loss_logcosh(y_true, y_pred, ..., reduction = "auto", name = "log_cosh") 
+
 loss_mean_absolute_error( 
   y_true, 
   y_pred, 
@@ -85,6 +92,7 @@ loss_mean_absolute_error(
   reduction = "auto", 
   name = "mean_absolute_error" 
 ) 
+
 loss_mean_absolute_percentage_error( 
   y_true, 
   y_pred, 
@@ -92,6 +100,7 @@ loss_mean_absolute_percentage_error(
   reduction = "auto", 
   name = "mean_absolute_percentage_error" 
 ) 
+
 loss_mean_squared_error( 
   y_true, 
   y_pred, 
@@ -99,6 +108,7 @@ loss_mean_squared_error(
   reduction = "auto", 
   name = "mean_squared_error" 
 ) 
+
 loss_mean_squared_logarithmic_error( 
   y_true, 
   y_pred, 
@@ -106,7 +116,9 @@ loss_mean_squared_logarithmic_error(
   reduction = "auto", 
   name = "mean_squared_logarithmic_error" 
 ) 
+
 loss_poisson(y_true, y_pred, ..., reduction = "auto", name = "poisson") 
+
 loss_sparse_categorical_crossentropy( 
   y_true, 
   y_pred, 
@@ -116,6 +128,7 @@ loss_sparse_categorical_crossentropy(
   reduction = "auto", 
   name = "sparse_categorical_crossentropy" 
 ) 
+
 loss_squared_hinge( 
   y_true, 
   y_pred, 

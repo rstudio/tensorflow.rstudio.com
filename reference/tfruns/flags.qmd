@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/flags.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfruns//edit/main/R/flags.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/flags.R#L49) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/flags.R*
 
 # flags
 
@@ -25,9 +23,13 @@ flags(
   file = "flags.yml", 
   arguments = commandArgs(TRUE) 
 ) 
+
 flag_numeric(name, default, description = NULL) 
+
 flag_integer(name, default, description = NULL) 
+
 flag_boolean(name, default, description = NULL) 
+
 flag_string(name, default, description = NULL) 
 ```
 

@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model-persistence.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/model-persistence.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model-persistence.R#L37) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/model-persistence.R*
 
 # save_model_hdf5
 
@@ -20,6 +18,7 @@ Save/Load models using HDF5 files
 ## Usage
 ```r
 save_model_hdf5(object, filepath, overwrite = TRUE, include_optimizer = TRUE) 
+
 load_model_hdf5(filepath, custom_objects = NULL, compile = TRUE) 
 ```
 

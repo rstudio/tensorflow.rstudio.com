@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/preprocessing.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L370) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/preprocessing.R*
 
 # save_text_tokenizer
 
@@ -20,6 +18,7 @@ Enables persistence of text tokenizers alongside saved models.
 ## Usage
 ```r
 save_text_tokenizer(object, filename) 
+
 load_text_tokenizer(filename) 
 ```
 
@@ -40,6 +39,7 @@ In this case you need to save the text tokenizer object after training and then 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(keras)
 # vectorize texts then save for use in prediction 
 tokenizer <- text_tokenizer(num_words = 10000) %>% 
 fit_text_tokenizer(tokenizer, texts) 

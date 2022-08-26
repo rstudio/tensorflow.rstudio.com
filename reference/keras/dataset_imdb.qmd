@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/datasets.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/datasets.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/datasets.R#L94) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/datasets.R*
 
 # dataset_imdb
 
@@ -29,6 +27,7 @@ dataset_imdb(
   oov_char = 2L, 
   index_from = 3L 
 ) 
+
 dataset_imdb_word_index(path = "imdb_word_index.json") 
 ```
 

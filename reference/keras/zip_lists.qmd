@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/utils.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/utils.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/utils.R#L625) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/utils.R*
 
 # zip_lists
 
@@ -37,6 +35,7 @@ A inverted list
 
 ## Examples
 ```{r, eval=ecodown::examples_run()}
+library(keras)
 gradients <- list("grad_for_wt_1", "grad_for_wt_2", "grad_for_wt_3") 
 weights <- list("weight_1", "weight_2", "weight_3") 
 str(zip_lists(gradients, weights)) 

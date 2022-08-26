@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/methods.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/methods.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/methods.R#L) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/methods.R*
 
 # [[<-.tensorflow.python.ops.tensor_array_ops.TensorArray
 
@@ -20,8 +18,7 @@ format:
 ## Usage
 ```r
 ## S3 method for class 'tensorflow.python.ops.tensor_array_ops.TensorArray'
-[[
-(ta, i, ..., name = NULL) <- value 
+[[(ta, i, ..., name = NULL) <- value 
 ```
 
 ## Arguments
@@ -39,6 +36,7 @@ format:
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfautograph)
 ta <- tf$TensorArray(tf$float32, size = 5L) 
 for(i in 0:4) 
   ta[[i]] <- i 

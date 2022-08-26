@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/utils.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/utils.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/utils.R#L176) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/utils.R*
 
 # with_custom_object_scope
 
@@ -41,6 +39,7 @@ The `with_custom_object_scope()` function provides an alternative that lets you 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(keras)
 # define custom metric 
 metric_top_3_categorical_accuracy <- 
   custom_metric("top_3_categorical_accuracy", function(y_true, y_pred) { 

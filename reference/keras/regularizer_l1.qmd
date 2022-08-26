@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/regularizers.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/regularizers.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/regularizers.R#L9) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/regularizers.R*
 
 # regularizer_l1
 
@@ -20,7 +18,9 @@ L1 and L2 regularization
 ## Usage
 ```r
 regularizer_l1(l = 0.01) 
+
 regularizer_l2(l = 0.01) 
+
 regularizer_l1_l2(l1 = 0.01, l2 = 0.01) 
 ```
 

@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/opts.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/opts.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/opts.R#L60) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/opts.R*
 
 # ag_while_opts
 
@@ -52,6 +50,7 @@ This is only applicable when autograph in graph mode, otherwise this has no effe
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfautograph)
 ## use tf_function() to enter graph mode: 
 tf_function(autograph(function(n) { 
   ag_name("silly-example") 

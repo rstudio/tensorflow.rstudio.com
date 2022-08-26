@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/applications.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/applications.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/applications.R#L987) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/applications.R*
 
 # application_efficientnet
 
@@ -29,6 +27,7 @@ application_efficientnet_b0(
   classifier_activation = "softmax", 
   ... 
 ) 
+
 application_efficientnet_b1( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -39,6 +38,7 @@ application_efficientnet_b1(
   classifier_activation = "softmax", 
   ... 
 ) 
+
 application_efficientnet_b2( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -49,6 +49,7 @@ application_efficientnet_b2(
   classifier_activation = "softmax", 
   ... 
 ) 
+
 application_efficientnet_b3( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -59,6 +60,7 @@ application_efficientnet_b3(
   classifier_activation = "softmax", 
   ... 
 ) 
+
 application_efficientnet_b4( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -69,6 +71,7 @@ application_efficientnet_b4(
   classifier_activation = "softmax", 
   ... 
 ) 
+
 application_efficientnet_b5( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -79,6 +82,7 @@ application_efficientnet_b5(
   classifier_activation = "softmax", 
   ... 
 ) 
+
 application_efficientnet_b6( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -89,6 +93,7 @@ application_efficientnet_b6(
   classifier_activation = "softmax", 
   ... 
 ) 
+
 application_efficientnet_b7( 
   include_top = TRUE, 
   weights = "imagenet", 

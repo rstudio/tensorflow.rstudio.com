@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/model.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L955) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/model.R*
 
 # predict_proba
 
@@ -20,6 +18,7 @@ These functions were removed in Tensorflow version 2.6. See details for how to u
 ## Usage
 ```r
 predict_proba(object, x, batch_size = NULL, verbose = 0, steps = NULL) 
+
 predict_classes(object, x, batch_size = NULL, verbose = 0, steps = NULL) 
 ```
 

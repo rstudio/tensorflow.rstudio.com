@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gcloud-exec.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](NULL/edit/main/R/gcloud-exec.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gcloud-exec.R#L74) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/gcloud-exec.R*
 
 # gcloud_exec
 
@@ -36,6 +34,7 @@ gcloud_exec(..., args = NULL, echo = TRUE, dry_run = FALSE)
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(cloudml)
 gcloud_exec("help", "info") 
 ```
 

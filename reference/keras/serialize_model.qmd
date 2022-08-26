@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model-persistence.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/model-persistence.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model-persistence.R#L343) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/model-persistence.R*
 
 # serialize_model
 
@@ -20,6 +18,7 @@ Model objects are external references to Keras objects which cannot be saved and
 ## Usage
 ```r
 serialize_model(model, include_optimizer = TRUE) 
+
 unserialize_model(model, custom_objects = NULL, compile = TRUE) 
 ```
 

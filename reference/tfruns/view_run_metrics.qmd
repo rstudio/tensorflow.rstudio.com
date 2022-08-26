@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/metrics_viewer.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfruns//edit/main/R/metrics_viewer.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/metrics_viewer.R#L33) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/metrics_viewer.R*
 
 # view_run_metrics
 
@@ -20,6 +18,7 @@ Interactive D3 visualization of metrics for a training run. Metrics will be disp
 ## Usage
 ```r
 view_run_metrics(metrics) 
+
 update_run_metrics(viewer, metrics) 
 ```
 

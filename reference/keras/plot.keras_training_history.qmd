@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/history.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/history.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/history.R#L63) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/history.R*
 
 # plot.keras_training_history
 
@@ -20,8 +18,7 @@ Plots metrics recorded during training.
 ## Usage
 ```r
 ## S3 method for class 'keras_training_history'
-plot
-( 
+plot( 
   x, 
   y, 
   metrics = NULL, 

@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/applications.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/applications.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/applications.R#L899) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/applications.R*
 
 # application_nasnet
 
@@ -33,6 +31,7 @@ application_nasnet(
   classes = 1000, 
   default_size = NULL 
 ) 
+
 application_nasnetlarge( 
   input_shape = NULL, 
   include_top = TRUE, 
@@ -41,6 +40,7 @@ application_nasnetlarge(
   pooling = NULL, 
   classes = 1000 
 ) 
+
 application_nasnetmobile( 
   input_shape = NULL, 
   include_top = TRUE, 
@@ -49,6 +49,7 @@ application_nasnetmobile(
   pooling = NULL, 
   classes = 1000 
 ) 
+
 nasnet_preprocess_input(x) 
 ```
 

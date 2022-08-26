@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf-ctrl-flow-wrappers.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/tf-ctrl-flow-wrappers.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf-ctrl-flow-wrappers.R#L94) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/tf-ctrl-flow-wrappers.R*
 
 # tf_case
 
@@ -44,6 +42,7 @@ The result from `tf$case()`
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfautograph)
 fizz_buzz_one <- function(x) { 
   tf_case( 
     x %% 15 == 0 ~ "FizzBuzz", 

@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/extract.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tensorflow//edit/main/R/extract.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/extract.R#L263) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/extract.R*
 
 # all_dims
 
@@ -29,6 +27,7 @@ all_dims()
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tensorflow)
 # in python, if x is a numpy array or tensorflow tensor 
 x[..., i] 
 # the ellipsis means "expand to match number of dimension of x". 

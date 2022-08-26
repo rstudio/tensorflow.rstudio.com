@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/constraints.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/constraints.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/constraints.R#L127) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/constraints.R*
 
 # KerasConstraint
 
@@ -38,6 +36,7 @@ Models which use custom constraints cannot be serialized using `save_model_hdf5(
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(keras)
 CustomNonNegConstraint <- R6::R6Class( 
   "CustomNonNegConstraint", 
   inherit = KerasConstraint, 

@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/hints.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/hints.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/hints.R#L115) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/hints.R*
 
 # ag_if_vars
 
@@ -53,6 +51,7 @@ When dealing with complex composites (that is, nested structures where a modifie
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfautograph)
 # these examples only have an effect in graph mode 
 # to enter graph mode easily we'll create a few helpers 
 ag <- autograph 

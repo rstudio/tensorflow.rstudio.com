@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_properties.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/dataset_properties.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_properties.R#L12) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/dataset_properties.R*
 
 # output_types
 
@@ -20,6 +18,7 @@ Output types and shapes
 ## Usage
 ```r
 output_types(object) 
+
 output_shapes(object) 
 ```
 

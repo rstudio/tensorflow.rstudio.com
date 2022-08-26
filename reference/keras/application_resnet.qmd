@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/applications.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/applications.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/applications.R#L200) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/applications.R*
 
 # application_resnet
 
@@ -28,6 +26,7 @@ application_resnet50(
   classes = 1000, 
   ... 
 ) 
+
 application_resnet101( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -37,6 +36,7 @@ application_resnet101(
   classes = 1000, 
   ... 
 ) 
+
 application_resnet152( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -46,6 +46,7 @@ application_resnet152(
   classes = 1000, 
   ... 
 ) 
+
 application_resnet50_v2( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -56,6 +57,7 @@ application_resnet50_v2(
   classifier_activation = "softmax", 
   ... 
 ) 
+
 application_resnet101_v2( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -66,6 +68,7 @@ application_resnet101_v2(
   classifier_activation = "softmax", 
   ... 
 ) 
+
 application_resnet152_v2( 
   include_top = TRUE, 
   weights = "imagenet", 
@@ -76,7 +79,9 @@ application_resnet152_v2(
   classifier_activation = "softmax", 
   ... 
 ) 
+
 resnet_preprocess_input(x) 
+
 resnet_v2_preprocess_input(x) 
 ```
 

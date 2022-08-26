@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/dataset_methods.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L547) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/dataset_methods.R*
 
 # dataset_interleave
 
@@ -38,6 +36,7 @@ The `cycle_length` and `block_length` arguments control the order in which eleme
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfdatasets)
 dataset <- tensor_slices_dataset(c(1,2,3,4,5)) %>% 
  dataset_interleave(cycle_length = 2, block_length = 4, function(x) { 
    tensors_dataset(x) %>% 

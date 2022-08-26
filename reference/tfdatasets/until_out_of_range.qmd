@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_iterators.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/dataset_iterators.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_iterators.R#L146) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/dataset_iterators.R*
 
 # until_out_of_range
 
@@ -20,6 +18,7 @@ Execute code that traverses a dataset until an out of range condition occurs
 ## Usage
 ```r
 until_out_of_range(expr) 
+
 out_of_range_handler(e) 
 ```
 

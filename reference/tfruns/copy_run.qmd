@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/copy.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfruns//edit/main/R/copy.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/copy.R#L41) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/copy.R*
 
 # copy_run
 
@@ -20,6 +18,7 @@ Functions for exporting/copying run directories and run artifact files.
 ## Usage
 ```r
 copy_run(run_dir, to = ".", rename = NULL) 
+
 copy_run_files(run_dir, to = ".", rename = NULL) 
 ```
 
@@ -43,6 +42,7 @@ Logical vector indicating which operation succeeded for each of the run director
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfruns)
 # export a run directory to the current working directory 
 copy_run("runs/2017-09-24T10-54-00Z") 
 # export to the current working directory then rename 

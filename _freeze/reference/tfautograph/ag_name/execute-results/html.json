@@ -1,8 +1,10 @@
 {
-  "hash": "b46565fa3dfc794a1dead009a63d2020",
+  "hash": "ce277e250cc1b0e7ebce8edbe1fc30d4",
   "result": {
-    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/opts.R) </button> | <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/opts.R) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n*R/opts.R*\n\n# ag_name\n\n## Specify a tensor name\n\n## Description\nThis can be used before any autographed expression that results in the creation of a tensor or op graph node. This can be used before `for` (both with tensors and datasets), `while`, and `if` statements. \n\n\n## Usage\n```r\nag_name(x) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| x | A string |\n\n\n\n## Value\n`x`, invisibly \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\n## when you're in graph mode. (e.g, tf$executing_eagerly == FALSE) \nag_name(\"main-training-loop\") \nfor(elem in dataset) ... \n```\n:::\n",
-    "supporting": [],
+    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/opts.R#L20) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# ag_name\n\n## Specify a tensor name\n\n## Description\nThis can be used before any autographed expression that results in the creation of a tensor or op graph node. This can be used before `for` (both with tensors and datasets), `while`, and `if` statements. \n\n\n## Usage\n```r\nag_name(x) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| x | A string |\n\n\n\n## Value\n`x`, invisibly \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tfautograph)\n## when you're in graph mode. (e.g, tf$executing_eagerly == FALSE) \nag_name(\"main-training-loop\") \nfor(elem in dataset) ... \n```\n:::\n",
+    "supporting": [
+      "ag_name_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

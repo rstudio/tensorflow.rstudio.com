@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfdatasets//edit/main/R/dataset_methods.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1524) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/dataset_methods.R*
 
 # as_tensor.tensorflow.python.data.ops.dataset_ops.DatasetV2
 
@@ -20,11 +18,10 @@ The function enables you to use a TF Dataset in a stateless "tensor-in tensor-ou
 ## Usage
 ```r
 ## S3 method for class 'tensorflow.python.data.ops.dataset_ops.DatasetV2'
-as_tensor
-(x, ..., name = NULL) 
+as_tensor(x, ..., name = NULL) 
+
 ## S3 method for class 'tensorflow.python.data.ops.dataset_ops.DatasetV2'
-as.array
-(x, ...) 
+as.array(x, ...) 
 ```
 
 ## Arguments

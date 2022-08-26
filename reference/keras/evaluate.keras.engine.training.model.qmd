@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/model.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L791) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/model.R*
 
 # evaluate.keras.engine.training.Model
 
@@ -20,8 +18,7 @@ Evaluate a Keras model
 ## Usage
 ```r
 ## S3 method for class 'keras.engine.training.Model'
-evaluate
-( 
+evaluate( 
   object, 
   x = NULL, 
   y = NULL, 

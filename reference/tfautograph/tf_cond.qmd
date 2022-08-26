@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf-ctrl-flow-wrappers.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/t-kalinowski/tfautograph//edit/main/R/tf-ctrl-flow-wrappers.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf-ctrl-flow-wrappers.R#L29) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/tf-ctrl-flow-wrappers.R*
 
 # tf_cond
 
@@ -39,6 +37,7 @@ in Tensorflow version 1, the `strict` keyword argument is supplied with a value 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfautograph)
 ## square if positive 
 # using tf$cond directly: 
 raw <- function(x) tf$cond(x > 0, function() x * x, function() x) 

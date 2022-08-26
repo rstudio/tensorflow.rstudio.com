@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/freeze.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/keras//edit/main/R/freeze.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/freeze.R#L89) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/freeze.R*
 
 # freeze_weights
 
@@ -20,6 +18,7 @@ Freeze weights in a model or layer so that they are no longer trainable.
 ## Usage
 ```r
 freeze_weights(object, from = NULL, to = NULL, which = NULL) 
+
 unfreeze_weights(object, from = NULL, to = NULL, which = NULL) 
 ```
 
@@ -44,6 +43,7 @@ Models must be compiled again after weights are frozen or unfrozen.
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(keras)
 conv_base <- application_vgg16( 
   weights = "imagenet", 
   include_top = FALSE, 

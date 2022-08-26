@@ -4,10 +4,8 @@ format:
     css: /reference/assets/reference.css
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfhub//blob/main/R/load.R) </button> | <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [Suggest edits on GitHub](https://github.com/rstudio/tfhub//edit/main/R/load.R) </button> |
+| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfhub//blob/main/R/load.R#L34) </button> |
 |:------------------------------:|:--------------------------------------:|
-
-*R/load.R*
 
 # hub_load
 
@@ -41,6 +39,7 @@ Currently, three types of module handles are supported: 1) Smart URL resolvers s
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+library(tfhub)
 model <- hub_load('https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/4') 
 ```
 
