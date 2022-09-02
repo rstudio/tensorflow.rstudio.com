@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/jobs.R#L216) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/jobs.R](NULL/blob/main/R/jobs.R#L216) 
 
 # job_cancel
 
 ## Cancel a job
 
 ## Description
-Cancel a job. 
+ Cancel a job. 
 
 
 ## Usage
 ```r
+ 
 job_cancel(job = "latest") 
 ```
 
@@ -31,5 +30,5 @@ job_cancel(job = "latest")
 
 
 ## See Also
-Other job management functions: `job_collect`,   `job_list`, `job_status`,   `job_stream_logs`, `job_trials`
+ Other job management functions: `job_collect`,   `job_list`, `job_status`,   `job_stream_logs`, `job_trials` 
 

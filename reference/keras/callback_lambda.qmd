@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/callbacks.R#L516) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/callbacks.R](https://github.com/rstudio/keras//blob/main/R/callbacks.R#L516) 
 
 # callback_lambda
 
 ## Create a custom callback
 
 ## Description
-This callback is constructed with anonymous functions that will be called at the appropriate time. Note that the callbacks expects positional arguments, as: 
+ This callback is constructed with anonymous functions that will be called at the appropriate time. Note that the callbacks expects positional arguments, as: 
 
 
 ## Usage
 ```r
+ 
 callback_lambda( 
   on_epoch_begin = NULL, 
   on_epoch_end = NULL, 
@@ -59,16 +58,20 @@ callback_lambda(
 
 ## Details
 
-- `on_epoch_begin` and `on_epoch_end` expect two positional arguments: `epoch`, `logs`
+  
 
-- `on_batch_*`, `on_train_batch_*`, `on_predict_batch_*` and `on_test_batch_*`, expect two positional arguments: `batch`, `logs`
+- `on_epoch_begin` and `on_epoch_end` expect two positional arguments: `epoch`, `logs` 
 
-- `on_train_*`, `on_test_*` and `on_predict_*` expect one positional argument: `logs`
+- `on_batch_*`, `on_train_batch_*`, `on_predict_batch_*` and `on_test_batch_*`, expect two positional arguments: `batch`, `logs` 
+
+- `on_train_*`, `on_test_*` and `on_predict_*` expect one positional argument: `logs` 
+
+ 
 
 
 
 
 
 ## See Also
-Other callbacks:  `callback_csv_logger()`, `callback_early_stopping()`, `callback_learning_rate_scheduler()`, `callback_model_checkpoint()`, `callback_progbar_logger()`, `callback_reduce_lr_on_plateau()`, `callback_remote_monitor()`, `callback_tensorboard()`, `callback_terminate_on_naan()`
+ Other callbacks:  `callback_csv_logger()`, `callback_early_stopping()`, `callback_learning_rate_scheduler()`, `callback_model_checkpoint()`, `callback_progbar_logger()`, `callback_reduce_lr_on_plateau()`, `callback_remote_monitor()`, `callback_tensorboard()`, `callback_terminate_on_naan()` 
 

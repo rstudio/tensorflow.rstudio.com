@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/utils.R#L62) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/utils.R](https://github.com/rstudio/keras//blob/main/R/utils.R#L62) 
 
 # get_file
 
 ## Downloads a file from a URL if it not already in the cache.
 
 ## Description
-Passing the MD5 hash will verify the file after download as well as if it is already present in the cache. 
+ Passing the MD5 hash will verify the file after download as well as if it is already present in the cache. 
 
 
 ## Usage
 ```r
+ 
 get_file( 
   fname, 
   origin, 
@@ -46,7 +45,7 @@ get_file(
 
 
 ## Value
-Path to the downloaded file 
+ Path to the downloaded file 
 
 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-locally-connected.R#L132) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-locally-connected.R](https://github.com/rstudio/keras//blob/main/R/layers-locally-connected.R#L132) 
 
 # layer_locally_connected_2d
 
 ## Locally-connected layer for 2D inputs.
 
 ## Description
-`layer_locally_connected_2d` works similarly to `layer_conv_2d()`, except that weights are unshared, that is, a different set of filters is applied at each different patch of the input. 
+ `layer_locally_connected_2d` works similarly to `layer_conv_2d()`, except that weights are unshared, that is, a different set of filters is applied at each different patch of the input. 
 
 
 ## Usage
 ```r
+ 
 layer_locally_connected_2d( 
   object, 
   filters, 
@@ -44,17 +43,17 @@ layer_locally_connected_2d(
 ## Arguments
 |Arguments|Description|
 |---|---|
-| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is:  <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
 | filters | Integer, the dimensionality of the output space (i.e. the number output of filters in the convolution). |
 | kernel_size | An integer or list of 2 integers, specifying the width and height of the 2D convolution window. Can be a single integer to specify the same value for all spatial dimensions. |
 | strides | An integer or list of 2 integers, specifying the strides of the convolution along the width and height. Can be a single integer to specify the same value for all spatial dimensions. Specifying any stride value != 1 is incompatible with specifying any `dilation_rate` value != 1. |
-| padding | Currently only supports `"valid"` (case-insensitive). `"same"`<br>may be supported in the future. |
+| padding | Currently only supports `"valid"` (case-insensitive). `"same"` may be supported in the future. |
 | data_format | A string, one of `channels_last` (default) or `channels_first`. The ordering of the dimensions in the inputs. `channels_last` corresponds to inputs with shape `(batch, width, height, channels)` while `channels_first` corresponds to inputs with shape `(batch, channels, width, height)`. It defaults to the `image_data_format` value found in your Keras config file at `~/.keras/keras.json`. If you never set it, then it will be "channels_last". |
 | activation | Activation function to use. If you don't specify anything, no activation is applied (ie. "linear" activation: `a(x) = x`). |
 | use_bias | Boolean, whether the layer uses a bias vector. |
 | kernel_initializer | Initializer for the `kernel` weights matrix. |
 | bias_initializer | Initializer for the bias vector. |
-| kernel_regularizer | Regularizer function applied to the `kernel`<br>weights matrix. |
+| kernel_regularizer | Regularizer function applied to the `kernel` weights matrix. |
 | bias_regularizer | Regularizer function applied to the bias vector. |
 | activity_regularizer | Regularizer function applied to the output of the layer (its "activation").. |
 | kernel_constraint | Constraint function applied to the kernel matrix. |
@@ -70,17 +69,15 @@ layer_locally_connected_2d(
 
 ## Input shape
 
- 4D tensor with shape: `(samples, channels, rows, cols)`
-
-if data_format='channels_first' or 4D tensor with shape: `(samples, rows, cols, channels)` if data_format='channels_last'. 
+  4D tensor with shape: `(samples, channels, rows, cols)` if data_format='channels_first' or 4D tensor with shape: `(samples, rows, cols, channels)` if data_format='channels_last'. 
 
 ## Output shape
 
- 4D tensor with shape: `(samples, filters, new_rows, new_cols)` if data_format='channels_first' or 4D tensor with shape: `(samples, new_rows, new_cols, filters)` if data_format='channels_last'. `rows` and `cols` values might have changed due to padding. 
+  4D tensor with shape: `(samples, filters, new_rows, new_cols)` if data_format='channels_first' or 4D tensor with shape: `(samples, new_rows, new_cols, filters)` if data_format='channels_last'. `rows` and `cols` values might have changed due to padding. 
 
 
 
 
 ## See Also
-Other locally connected layers:  `layer_locally_connected_1d()`
+ Other locally connected layers:  `layer_locally_connected_1d()` 
 

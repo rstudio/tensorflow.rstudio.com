@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L1198) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/model.R](https://github.com/rstudio/keras//blob/main/R/model.R#L1198) 
 
 # evaluate_generator
 
 ## (Deprecated) Evaluates the model on a data generator.
 
 ## Description
-The generator should return the same kind of data as accepted by `test_on_batch()`. 
+ The generator should return the same kind of data as accepted by `test_on_batch()`. 
 
 
 ## Usage
 ```r
+ 
 evaluate_generator( 
   object, 
   generator, 
@@ -40,10 +39,10 @@ evaluate_generator(
 
 
 ## Value
-Named list of model test loss (or losses for models with multiple outputs) and model metrics. 
+ Named list of model test loss (or losses for models with multiple outputs) and model metrics. 
 
 
 
 ## See Also
-Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()`
+ Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()` 
 

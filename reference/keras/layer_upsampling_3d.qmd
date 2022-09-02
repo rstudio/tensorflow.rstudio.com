@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-convolutional.R#L1020) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-convolutional.R](https://github.com/rstudio/keras//blob/main/R/layers-convolutional.R#L1020) 
 
 # layer_upsampling_3d
 
 ## Upsampling layer for 3D inputs.
 
 ## Description
-Repeats the 1st, 2nd and 3rd dimensions of the data by `size[[0]]`, `size[[1]]` and `size[[2]]` respectively. 
+ Repeats the 1st, 2nd and 3rd dimensions of the data by `size[[0]]`, `size[[1]]` and `size[[2]]` respectively. 
 
 
 ## Usage
 ```r
+ 
 layer_upsampling_3d( 
   object, 
   size = c(2L, 2L, 2L), 
@@ -31,7 +30,7 @@ layer_upsampling_3d(
 ## Arguments
 |Arguments|Description|
 |---|---|
-| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is:  <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
 | size | int, or list of 3 integers. The upsampling factors for dim1, dim2 and dim3. |
 | data_format | A string, one of `channels_last` (default) or `channels_first`. The ordering of the dimensions in the inputs. `channels_last` corresponds to inputs with shape `(batch, spatial_dim1, spatial_dim2, spatial_dim3, channels)` while `channels_first` corresponds to inputs with shape `(batch, channels, spatial_dim1, spatial_dim2, spatial_dim3)`. It defaults to the `image_data_format` value found in your Keras config file at `~/.keras/keras.json`. If you never set it, then it will be "channels_last". |
 | batch_size | Fixed batch size for layer |
@@ -44,23 +43,27 @@ layer_upsampling_3d(
 
 ## Input shape
 
-5D tensor with shape: 
+  5D tensor with shape:  
 
-- If `data_format` is `"channels_last"`: `(batch, dim1, dim2, dim3, channels)`
+- If `data_format` is `"channels_last"`: `(batch, dim1, dim2, dim3, channels)` 
 
-- If `data_format` is `"channels_first"`: `(batch, channels, dim1, dim2, dim3)`
+- If `data_format` is `"channels_first"`: `(batch, channels, dim1, dim2, dim3)` 
+
+ 
 
 ## Output shape
 
-5D tensor with shape: 
+  5D tensor with shape:  
 
-- If `data_format` is `"channels_last"`: `(batch, upsampled_dim1, upsampled_dim2, upsampled_dim3, channels)`
+- If `data_format` is `"channels_last"`: `(batch, upsampled_dim1, upsampled_dim2, upsampled_dim3, channels)` 
 
-- If `data_format` is `"channels_first"`: `(batch, channels, upsampled_dim1, upsampled_dim2, upsampled_dim3)`
+- If `data_format` is `"channels_first"`: `(batch, channels, upsampled_dim1, upsampled_dim2, upsampled_dim3)` 
+
+ 
 
 
 
 
 ## See Also
-Other convolutional layers:  `layer_conv_1d_transpose()`, `layer_conv_1d()`, `layer_conv_2d_transpose()`, `layer_conv_2d()`, `layer_conv_3d_transpose()`, `layer_conv_3d()`, `layer_conv_lstm_2d()`, `layer_cropping_1d()`, `layer_cropping_2d()`, `layer_cropping_3d()`, `layer_depthwise_conv_1d()`, `layer_depthwise_conv_2d()`, `layer_separable_conv_1d()`, `layer_separable_conv_2d()`, `layer_upsampling_1d()`, `layer_upsampling_2d()`, `layer_zero_padding_1d()`, `layer_zero_padding_2d()`, `layer_zero_padding_3d()`
+ Other convolutional layers:  `layer_conv_1d_transpose()`, `layer_conv_1d()`, `layer_conv_2d_transpose()`, `layer_conv_2d()`, `layer_conv_3d_transpose()`, `layer_conv_3d()`, `layer_conv_lstm_2d()`, `layer_cropping_1d()`, `layer_cropping_2d()`, `layer_cropping_3d()`, `layer_depthwise_conv_1d()`, `layer_depthwise_conv_2d()`, `layer_separable_conv_1d()`, `layer_separable_conv_2d()`, `layer_upsampling_1d()`, `layer_upsampling_2d()`, `layer_zero_padding_1d()`, `layer_zero_padding_2d()`, `layer_zero_padding_3d()` 
 

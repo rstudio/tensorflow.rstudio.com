@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/models.R#L34) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/models.R](NULL/blob/main/R/models.R#L34) 
 
 # cloudml_deploy
 
 ## Deploy SavedModel to CloudML
 
 ## Description
-Deploys a SavedModel to CloudML model for online predictions. 
+ Deploys a SavedModel to CloudML model for online predictions. 
 
 
 ## Usage
 ```r
+ 
 cloudml_deploy(export_dir_base, name, version = paste0(name, "_1"), 
   region = NULL, config = NULL) 
 ```
@@ -24,7 +23,7 @@ cloudml_deploy(export_dir_base, name, version = paste0(name, "_1"),
 ## Arguments
 |Arguments|Description|
 |---|---|
-| export_dir_base | A string containing a directory containing an exported SavedModels. Consider using `tensorflow::export_savedmodel()`<br>to export this SavedModel. |
+| export_dir_base | A string containing a directory containing an exported SavedModels. Consider using `tensorflow::export_savedmodel()` to export this SavedModel. |
 | name | The name for this model (required) |
 | version | The version for this model. Versions start with a letter and contain only letters, numbers and underscores. Defaults to name_1 |
 | region | The region to be used to deploy this model. |
@@ -36,8 +35,5 @@ cloudml_deploy(export_dir_base, name, version = paste0(name, "_1"),
 
 
 ## See Also
-
-`cloudml_predict()`
-
-Other CloudML functions: `cloudml_predict`,   `cloudml_train`
+ `cloudml_predict()`  Other CloudML functions: `cloudml_predict`,   `cloudml_train` 
 

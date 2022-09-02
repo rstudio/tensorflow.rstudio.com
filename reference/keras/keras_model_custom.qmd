@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model-custom.R#L17) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/model-custom.R](https://github.com/rstudio/keras//blob/main/R/model-custom.R#L17) 
 
 # keras_model_custom
 
 ## (Deprecated) Create a Keras custom model
 
 ## Description
-`keras_model_custom()` is soft-deprecated. Please define custom models by subclassing `keras$Model` directly using `%py_class%` or `R6::R6Class()`. 
+ `keras_model_custom()` is soft-deprecated. Please define custom models by subclassing `keras$Model` directly using `%py_class%` or `R6::R6Class()`. 
 
 
 ## Usage
 ```r
+ 
 keras_model_custom(model_fn, name = NULL) 
 ```
 
@@ -27,11 +26,11 @@ keras_model_custom(model_fn, name = NULL)
 | name | Optional name for model |
 
 ## Details
-For documentation on using custom models, see [https://keras.rstudio.com/articles/custom_models.html](https://keras.rstudio.com/articles/custom_models.html). 
+ For documentation on using custom models, see [https://keras.rstudio.com/articles/custom_models.html](https://keras.rstudio.com/articles/custom_models.html). 
 
 
 ## Value
-A Keras model 
+ A Keras model 
 
 
 

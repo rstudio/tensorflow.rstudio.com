@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/learning_rate_schedules.R#L288) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/learning_rate_schedules.R](https://github.com/rstudio/keras//blob/main/R/learning_rate_schedules.R#L288) 
 
 # learning_rate_schedule_piecewise_constant_decay
 
 ## A LearningRateSchedule that uses a piecewise constant decay schedule
 
 ## Description
-A LearningRateSchedule that uses a piecewise constant decay schedule 
+ A LearningRateSchedule that uses a piecewise constant decay schedule 
 
 
 ## Usage
 ```r
+ 
 learning_rate_schedule_piecewise_constant_decay( 
   boundaries, 
   values, 
@@ -35,11 +34,7 @@ learning_rate_schedule_piecewise_constant_decay(
 
 ## Details
 
-The function returns a 1-arg callable to compute the piecewise constant when passed the current optimizer step. This can be useful for changing the learning rate value across different invocations of optimizer functions. 
-
-Example: use a learning rate that's 1.0 for the first 100001 steps, 0.5 for the next 10000 steps, and 0.1 for any additional steps. 
-
-```
+ The function returns a 1-arg callable to compute the piecewise constant when passed the current optimizer step. This can be useful for changing the learning rate value across different invocations of optimizer functions.  Example: use a learning rate that's 1.0 for the first 100001 steps, 0.5 for the next 10000 steps, and 0.1 for any additional steps.  ```
 
 step <- tf$Variable(0, trainable=FALSE) 
 
@@ -51,18 +46,23 @@ learning_rate_fn <- learning_rate_schedule_piecewise_constant_decay(
 
     boundaries, values) 
 
+ 
+
 # Later, whenever we perform an optimization step, we pass in the step. 
 
 learning_rate <- learning_rate_fn(step) 
 
-```
-
-You can pass this schedule directly into a keras Optimizer as the `learning_rate`. 
+```  You can pass this schedule directly into a keras Optimizer as the `learning_rate`. 
 
 
 
 
 
 ## See Also
-- [https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/PiecewiseConstantDecay](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/PiecewiseConstantDecay)
+
+  
+
+- [https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/PiecewiseConstantDecay](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/PiecewiseConstantDecay) 
+
+ 
 

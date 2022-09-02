@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/callbacks.R#L437) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/callbacks.R](https://github.com/rstudio/keras//blob/main/R/callbacks.R#L437) 
 
 # callback_reduce_lr_on_plateau
 
 ## Reduce learning rate when a metric has stopped improving.
 
 ## Description
-Models often benefit from reducing the learning rate by a factor of 2-10 once learning stagnates. This callback monitors a quantity and if no improvement is seen for a 'patience' number of epochs, the learning rate is reduced. 
+ Models often benefit from reducing the learning rate by a factor of 2-10 once learning stagnates. This callback monitors a quantity and if no improvement is seen for a 'patience' number of epochs, the learning rate is reduced. 
 
 
 ## Usage
 ```r
+ 
 callback_reduce_lr_on_plateau( 
   monitor = "val_loss", 
   factor = 0.1, 
@@ -33,7 +32,7 @@ callback_reduce_lr_on_plateau(
 |Arguments|Description|
 |---|---|
 | monitor | quantity to be monitored. |
-| factor | factor by which the learning rate will be reduced. new_lr = lr <br>- factor  |
+| factor | factor by which the learning rate will be reduced. new_lr = lr  <br>- factor  |
 | patience | number of epochs with no improvement after which learning rate will be reduced. |
 | verbose | int. 0: quiet, 1: update messages. |
 | mode | one of "auto", "min", "max". In min mode, lr will be reduced when the quantity monitored has stopped decreasing; in max mode it will be reduced when the quantity monitored has stopped increasing; in auto mode, the direction is automatically inferred from the name of the monitored quantity. |
@@ -47,5 +46,5 @@ callback_reduce_lr_on_plateau(
 
 
 ## See Also
-Other callbacks:  `callback_csv_logger()`, `callback_early_stopping()`, `callback_lambda()`, `callback_learning_rate_scheduler()`, `callback_model_checkpoint()`, `callback_progbar_logger()`, `callback_remote_monitor()`, `callback_tensorboard()`, `callback_terminate_on_naan()`
+ Other callbacks:  `callback_csv_logger()`, `callback_early_stopping()`, `callback_lambda()`, `callback_learning_rate_scheduler()`, `callback_model_checkpoint()`, `callback_progbar_logger()`, `callback_remote_monitor()`, `callback_tensorboard()`, `callback_terminate_on_naan()` 
 

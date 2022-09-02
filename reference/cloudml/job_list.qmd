@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/jobs.R#L259) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/jobs.R](NULL/blob/main/R/jobs.R#L259) 
 
 # job_list
 
 ## List all jobs
 
 ## Description
-List existing Google Cloud ML jobs. 
+ List existing Google Cloud ML jobs. 
 
 
 ## Usage
 ```r
+ 
 job_list(filter = NULL, limit = NULL, page_size = NULL, 
   sort_by = NULL, uri = FALSE) 
 ```
@@ -36,5 +35,5 @@ job_list(filter = NULL, limit = NULL, page_size = NULL,
 
 
 ## See Also
-Other job management functions: `job_cancel`,   `job_collect`, `job_status`,   `job_stream_logs`, `job_trials`
+ Other job management functions: `job_cancel`,   `job_collect`, `job_status`,   `job_stream_logs`, `job_trials` 
 

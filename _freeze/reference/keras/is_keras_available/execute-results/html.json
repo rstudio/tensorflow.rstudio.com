@@ -1,10 +1,8 @@
 {
-  "hash": "3cccd41236823cd105edca4319ba37e1",
+  "hash": "3d9f887e1fed230c5e750f5143b69734",
   "result": {
-    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/utils.R#L343) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# is_keras_available\n\n## Check if Keras is Available\n\n## Description\nProbe to see whether the Keras Python package is available in the current system environment. \n\n\n## Usage\n```r\nis_keras_available(version = NULL) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| version | Minimum required version of Keras (defaults to `NULL`, no required version). |\n\n\n\n## Value\nLogical indicating whether Keras (or the specified minimum version of Keras) is available. \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras)\n# testthat utilty for skipping tests when Keras isn't available \nskip_if_no_keras <- function(version = NULL) { \n  if (!is_keras_available(version)) \n    skip(\"Required keras version not available for testing\") \n} \n# use the function within a test \ntest_that(\"keras function works correctly\", { \n  skip_if_no_keras() \n  # test code here \n}) \n```\n:::\n",
-    "supporting": [
-      "is_keras_available_files"
-    ],
+    "markdown": "---\nexecute:\n  freeze: true\n---\n\n\n[R/utils.R](https://github.com/rstudio/keras//blob/main/R/utils.R#L343) \n\n# is_keras_available\n\n## Check if Keras is Available\n\n## Description\n Probe to see whether the Keras Python package is available in the current system environment. \n\n\n## Usage\n```r\n \nis_keras_available(version = NULL) \n```\n\n## Arguments\n|Arguments|Description|\n|---|---|\n| version | Minimum required version of Keras (defaults to `NULL`, no required version). |\n\n\n\n## Value\n Logical indicating whether Keras (or the specified minimum version of Keras) is available. \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(keras)\n \n# testthat utilty for skipping tests when Keras isn't available \nskip_if_no_keras <- function(version = NULL) { \n  if (!is_keras_available(version)) \n    skip(\"Required keras version not available for testing\") \n} \n \n# use the function within a test \ntest_that(\"keras function works correctly\", { \n  skip_if_no_keras() \n  # test code here \n}) \n```\n:::\n",
+    "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

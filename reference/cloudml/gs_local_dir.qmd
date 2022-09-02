@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gcloud-storage.R#L194) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/gcloud-storage.R](NULL/blob/main/R/gcloud-storage.R#L194) 
 
 # gs_local_dir
 
 ## Alias to gs_data_dir_local() function
 
 ## Description
-This function is deprecated, please use `gs_data_dir_local()` instead. 
+ This function is deprecated, please use `gs_data_dir_local()` instead. 
 
 
 ## Usage
 ```r
+ 
 gs_local_dir(url, local_dir = "gs", echo = FALSE) 
 ```
 
@@ -33,5 +32,5 @@ gs_local_dir(url, local_dir = "gs", echo = FALSE)
 
 
 ## See Also
-`gs_data_dir_local()`
+ `gs_data_dir_local()` 
 

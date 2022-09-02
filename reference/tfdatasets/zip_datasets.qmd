@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/zip_datasets.R#L14) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/zip_datasets.R](https://github.com/rstudio/tfdatasets//blob/main/R/zip_datasets.R#L14) 
 
 # zip_datasets
 
 ## Creates a dataset by zipping together the given datasets.
 
 ## Description
-Merges datasets together into pairs or tuples that contain an element from each dataset. 
+ Merges datasets together into pairs or tuples that contain an element from each dataset. 
 
 
 ## Usage
 ```r
+ 
 zip_datasets(...) 
 ```
 
@@ -28,7 +27,7 @@ zip_datasets(...)
 
 
 ## Value
-A dataset 
+ A dataset 
 
 
 

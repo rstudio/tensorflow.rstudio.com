@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/seed.R#L156) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/seed.R](https://github.com/rstudio/tensorflow//blob/main/R/seed.R#L156) 
 
 # set_random_seed
 
 ## Set random seed for TensorFlow
 
 ## Description
-Sets all random seeds needed to make TensorFlow code reproducible. 
+ Sets all random seeds needed to make TensorFlow code reproducible. 
 
 
 ## Usage
 ```r
+ 
 set_random_seed(seed, disable_gpu = TRUE) 
 ```
 
@@ -28,9 +27,7 @@ set_random_seed(seed, disable_gpu = TRUE)
 
 ## Details
 
-This function should be used instead of `use_session_with_seed()` if you are using TensorFlow >= 2.0, as the concept of `session` doesn't really make sense anymore. 
-
-This functions sets: 
+ This function should be used instead of `use_session_with_seed()` if you are using TensorFlow >= 2.0, as the concept of `session` doesn't really make sense anymore.  This functions sets:  
 
 - The R random seed with `set.seed()`. 
 
@@ -38,7 +35,7 @@ This functions sets:
 
 - The TensorFlow seed with (`tf$random$set_seed()`) 
 
-It also optionally disables the GPU execution as this is a potential source of non-reproducibility. 
+  It also optionally disables the GPU execution as this is a potential source of non-reproducibility. 
 
 
 

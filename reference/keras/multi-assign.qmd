@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/reexports.R#L21) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/reexports.R](https://github.com/rstudio/keras//blob/main/R/reexports.R#L21) 
 
 # %<-%
 
 ## Assign values to names
 
 ## Description
-See `%<-%` for more details. 
+ See `%<-%` for more details. 
 
 
 ## Usage
 ```r
+ 
 x %<-% value 
 ```
 

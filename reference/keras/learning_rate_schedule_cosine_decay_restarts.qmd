@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/learning_rate_schedules.R#L172) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/learning_rate_schedules.R](https://github.com/rstudio/keras//blob/main/R/learning_rate_schedules.R#L172) 
 
 # learning_rate_schedule_cosine_decay_restarts
 
 ## A LearningRateSchedule that uses a cosine decay schedule with restarts
 
 ## Description
-A LearningRateSchedule that uses a cosine decay schedule with restarts 
+ A LearningRateSchedule that uses a cosine decay schedule with restarts 
 
 
 ## Usage
 ```r
+ 
 learning_rate_schedule_cosine_decay_restarts( 
   initial_learning_rate, 
   first_decay_steps, 
@@ -40,21 +39,17 @@ learning_rate_schedule_cosine_decay_restarts(
 | name | String. Optional name of the operation.  Defaults to 'SGDRDecay'. |
 
 ## Details
-
-See [Loshchilov & Hutter, ICLR2016](https://arxiv.org/abs/1608.03983), SGDR: Stochastic Gradient Descent with Warm Restarts. 
-
-When training a model, it is often useful to lower the learning rate as the training progresses. This schedule applies a cosine decay function with restarts to an optimizer step, given a provided initial learning rate. It requires a `step` value to compute the decayed learning rate. You can just pass a TensorFlow variable that you increment at each training step. 
-
-The schedule is a 1-arg callable that produces a decayed learning rate when passed the current optimizer step. This can be useful for changing the learning rate value across different invocations of optimizer functions. 
-
-The learning rate multiplier first decays from 1 to `alpha` for `first_decay_steps` steps. Then, a warm restart is performed. Each new warm restart runs for `t_mul` times more steps and with `m_mul` times initial learning rate as the new learning rate. 
-
-You can pass this schedule directly into a keras Optimizer as the `learning_rate`. 
+ See [Loshchilov & Hutter, ICLR2016](https://arxiv.org/abs/1608.03983), SGDR: Stochastic Gradient Descent with Warm Restarts.  When training a model, it is often useful to lower the learning rate as the training progresses. This schedule applies a cosine decay function with restarts to an optimizer step, given a provided initial learning rate. It requires a `step` value to compute the decayed learning rate. You can just pass a TensorFlow variable that you increment at each training step.  The schedule is a 1-arg callable that produces a decayed learning rate when passed the current optimizer step. This can be useful for changing the learning rate value across different invocations of optimizer functions.  The learning rate multiplier first decays from 1 to `alpha` for `first_decay_steps` steps. Then, a warm restart is performed. Each new warm restart runs for `t_mul` times more steps and with `m_mul` times initial learning rate as the new learning rate.  You can pass this schedule directly into a keras Optimizer as the `learning_rate`. 
 
 
 
 
 
 ## See Also
-- [https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecayRestarts](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecayRestarts)
+
+  
+
+- [https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecayRestarts](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/schedules/CosineDecayRestarts) 
+
+ 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L294) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/preprocessing.R](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L294) 
 
 # text_tokenizer
 
 ## Text tokenization utility
 
 ## Description
-Vectorize a text corpus, by turning each text into either a sequence of integers (each integer being the index of a token in a dictionary) or into a vector where the coefficient for each token could be binary, based on word count, based on tf-idf... 
+ Vectorize a text corpus, by turning each text into either a sequence of integers (each integer being the index of a token in a dictionary) or into a vector where the coefficient for each token could be binary, based on word count, based on tf-idf... 
 
 
 ## Usage
 ```r
+ 
 text_tokenizer( 
   num_words = NULL, 
   filters = "!\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n", 
@@ -38,13 +37,13 @@ text_tokenizer(
 | oov_token | `NULL` or string If given, it will be added to `word_index`` and used to replace out-of-vocabulary words during text_to_sequence calls. |
 
 ## Details
-By default, all punctuation is removed, turning the texts into space-separated sequences of words (words maybe include the ' character). These sequences are then split into lists of tokens. They will then be indexed or vectorized. `0` is a reserved index that won't be assigned to any word. 
+ By default, all punctuation is removed, turning the texts into space-separated sequences of words (words maybe include the ' character). These sequences are then split into lists of tokens. They will then be indexed or vectorized. `0` is a reserved index that won't be assigned to any word. 
 
 ## Section
 
 ## Attributes
 
-The tokenizer object has the following attributes: 
+  The tokenizer object has the following attributes:  
 
 - `word_counts` --- named list mapping words to the number of times they appeared on during fit. Only set after `fit_text_tokenizer()` is called on the tokenizer. 
 
@@ -54,9 +53,11 @@ The tokenizer object has the following attributes:
 
 - `document_count` --- int. Number of documents (texts/sequences) the tokenizer was trained on. Only set after `fit_text_tokenizer()` is called on the tokenizer. 
 
+ 
+
 
 
 
 ## See Also
-Other text tokenization:  `fit_text_tokenizer()`, `save_text_tokenizer()`, `sequences_to_matrix()`, `texts_to_matrix()`, `texts_to_sequences_generator()`, `texts_to_sequences()`
+ Other text tokenization:  `fit_text_tokenizer()`, `save_text_tokenizer()`, `sequences_to_matrix()`, `texts_to_matrix()`, `texts_to_sequences_generator()`, `texts_to_sequences()` 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-pooling.R#L350) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-pooling.R](https://github.com/rstudio/keras//blob/main/R/layers-pooling.R#L350) 
 
 # layer_global_average_pooling_2d
 
 ## Global average pooling operation for spatial data.
 
 ## Description
-Global average pooling operation for spatial data. 
+ Global average pooling operation for spatial data. 
 
 
 ## Usage
 ```r
+ 
 layer_global_average_pooling_2d( 
   object, 
   data_format = NULL, 
@@ -28,7 +27,7 @@ layer_global_average_pooling_2d(
 ## Arguments
 |Arguments|Description|
 |---|---|
-| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is:  <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
 | data_format | A string, one of `channels_last` (default) or `channels_first`. The ordering of the dimensions in the inputs. `channels_last` corresponds to inputs with shape `(batch, height, width, channels)` while `channels_first` corresponds to inputs with shape `(batch, channels, height, width)`. It defaults to the `image_data_format` value found in your Keras config file at `~/.keras/keras.json`. If you never set it, then it will be "channels_last". |
 | keepdims | A boolean, whether to keep the spatial dimensions or not. If `keepdims` is `FALSE` (default), the rank of the tensor is reduced for spatial dimensions. If `keepdims` is `TRUE`, the spatial dimensions are retained with length 1. The behavior is the same as for `tf.reduce_mean` or `np.mean`. |
 | ... | standard layer arguments. |
@@ -38,17 +37,21 @@ layer_global_average_pooling_2d(
 
 ## Input shape
 
-- If `data_format='channels_last'`: 4D tensor with shape: `(batch_size, rows, cols, channels)`
+   
 
-- If `data_format='channels_first'`: 4D tensor with shape: `(batch_size, channels, rows, cols)`
+- If `data_format='channels_last'`: 4D tensor with shape: `(batch_size, rows, cols, channels)` 
+
+- If `data_format='channels_first'`: 4D tensor with shape: `(batch_size, channels, rows, cols)` 
+
+ 
 
 ## Output shape
 
- 2D tensor with shape: `(batch_size, channels)`
+  2D tensor with shape: `(batch_size, channels)` 
 
 
 
 
 ## See Also
-Other pooling layers:  `layer_average_pooling_1d()`, `layer_average_pooling_2d()`, `layer_average_pooling_3d()`, `layer_global_average_pooling_1d()`, `layer_global_average_pooling_3d()`, `layer_global_max_pooling_1d()`, `layer_global_max_pooling_2d()`, `layer_global_max_pooling_3d()`, `layer_max_pooling_1d()`, `layer_max_pooling_2d()`, `layer_max_pooling_3d()`
+ Other pooling layers:  `layer_average_pooling_1d()`, `layer_average_pooling_2d()`, `layer_average_pooling_3d()`, `layer_global_average_pooling_1d()`, `layer_global_average_pooling_3d()`, `layer_global_max_pooling_1d()`, `layer_global_max_pooling_2d()`, `layer_global_max_pooling_3d()`, `layer_max_pooling_1d()`, `layer_max_pooling_2d()`, `layer_max_pooling_3d()` 
 

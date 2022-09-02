@@ -1,24 +1,23 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/package.R#L94) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/package.R](https://github.com/rstudio/keras//blob/main/R/package.R#L94) 
 
 # keras
 
 ## Main Keras module
 
 ## Description
-The `keras` module object is the equivalent of `keras <- tensorflow::tf$keras` and provided mainly as a convenience. 
+ The `keras` module object is the equivalent of `keras <- tensorflow::tf$keras` and provided mainly as a convenience. 
 
 ## Format
-An object of class `python.builtin.module` (inherits from `python.builtin.object`) of length 0. 
+ An object of class `python.builtin.module` (inherits from `python.builtin.object`) of length 0. 
 
 ## Usage
 ```r
+ 
 keras 
 ```
 
@@ -26,7 +25,7 @@ keras
 
 
 ## Value
-the keras Python module 
+ the keras Python module 
 
 
 

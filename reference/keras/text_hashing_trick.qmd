@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L234) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/preprocessing.R](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L234) 
 
 # text_hashing_trick
 
 ## Converts a text to a sequence of indexes in a fixed-size hashing space.
 
 ## Description
-Converts a text to a sequence of indexes in a fixed-size hashing space. 
+ Converts a text to a sequence of indexes in a fixed-size hashing space. 
 
 
 ## Usage
 ```r
+ 
 text_hashing_trick( 
   text, 
   n, 
@@ -38,14 +37,14 @@ text_hashing_trick(
 | split | Sentence split marker (string). |
 
 ## Details
-Two or more words may be assigned to the same index, due to possible collisions by the hashing function. 
+ Two or more words may be assigned to the same index, due to possible collisions by the hashing function. 
 
 
 ## Value
-A list of integer word indices (unicity non-guaranteed). 
+ A list of integer word indices (unicity non-guaranteed). 
 
 
 
 ## See Also
-Other text preprocessing:  `make_sampling_table()`, `pad_sequences()`, `skipgrams()`, `text_one_hot()`, `text_to_word_sequence()`
+ Other text preprocessing:  `make_sampling_table()`, `pad_sequences()`, `skipgrams()`, `text_one_hot()`, `text_to_word_sequence()` 
 

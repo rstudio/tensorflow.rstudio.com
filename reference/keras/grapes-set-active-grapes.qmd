@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/py-classes.R#L) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/py-classes.R](https://github.com/rstudio/keras//blob/main/R/py-classes.R#L587) 
 
 # %<-active%
 
 ## Make an Active Binding
 
 ## Description
-Make an Active Binding 
+ Make an Active Binding 
 
 
 ## Usage
 ```r
+ 
 sym %<-active% value 
 ```
 
@@ -27,16 +26,17 @@ sym %<-active% value
 | value | A function to call when the value of `sym` is accessed. |
 
 ## Details
-Active bindings defined in a `%py_class%` are converted to `@property` decorated methods. 
+ Active bindings defined in a `%py_class%` are converted to `@property` decorated methods. 
 
 
 ## Value
-`value`, invisibly 
+ `value`, invisibly 
 
 
 ## Examples
 ```{r, eval=ecodown::examples_run()}
 library(keras)
+ 
 set.seed(1234) 
 x %<-active% function(value) { 
   message("Evaluating function of active binding") 
@@ -54,5 +54,5 @@ rm(x) # cleanup
 ```
 
 ## See Also
-`makeActiveBinding()`
+ `makeActiveBinding()` 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-core.R#L31) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-core.R](https://github.com/rstudio/keras//blob/main/R/layers-core.R#L31) 
 
 # layer_input
 
 ## Input layer
 
 ## Description
-Layer to be used as an entry point into a graph. 
+ Layer to be used as an entry point into a graph. 
 
 
 ## Usage
 ```r
+ 
 layer_input( 
   shape = NULL, 
   batch_shape = NULL, 
@@ -42,10 +41,10 @@ layer_input(
 
 
 ## Value
-A tensor 
+ A tensor 
 
 
 
 ## See Also
-Other core layers:  `layer_activation()`, `layer_activity_regularization()`, `layer_attention()`, `layer_dense_features()`, `layer_dense()`, `layer_dropout()`, `layer_flatten()`, `layer_lambda()`, `layer_masking()`, `layer_permute()`, `layer_repeat_vector()`, `layer_reshape()`
+ Other core layers:  `layer_activation()`, `layer_activity_regularization()`, `layer_attention()`, `layer_dense_features()`, `layer_dense()`, `layer_dropout()`, `layer_flatten()`, `layer_lambda()`, `layer_masking()`, `layer_permute()`, `layer_repeat_vector()`, `layer_reshape()` 
 

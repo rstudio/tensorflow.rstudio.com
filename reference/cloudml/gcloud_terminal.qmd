@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/terminal.R#L13) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/terminal.R](NULL/blob/main/R/terminal.R#L13) 
 
 # gcloud_terminal
 
 ## Create an RStudio terminal with access to the Google Cloud SDK
 
 ## Description
-Create an RStudio terminal with access to the Google Cloud SDK 
+ Create an RStudio terminal with access to the Google Cloud SDK 
 
 
 ## Usage
 ```r
+ 
 gcloud_terminal(command = NULL, clear = FALSE) 
 ```
 
@@ -29,10 +28,10 @@ gcloud_terminal(command = NULL, clear = FALSE)
 
 
 ## Value
-Terminal id (invisibly) 
+ Terminal id (invisibly) 
 
 
 
 ## See Also
-Other Google Cloud SDK functions: `gcloud_init`,   `gcloud_install`
+ Other Google Cloud SDK functions: `gcloud_init`,   `gcloud_install` 
 

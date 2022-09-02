@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-convolutional.R#L1642) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-convolutional.R](https://github.com/rstudio/keras//blob/main/R/layers-convolutional.R#L1642) 
 
 # layer_conv_lstm_3d
 
 ## 3D Convolutional LSTM
 
 ## Description
-3D Convolutional LSTM 
+ 3D Convolutional LSTM 
 
 
 ## Usage
 ```r
+ 
 layer_conv_lstm_3d( 
   object, 
   filters, 
@@ -52,13 +51,13 @@ layer_conv_lstm_3d(
 ## Arguments
 |Arguments|Description|
 |---|---|
-| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is:  <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
 | filters | Integer, the dimensionality of the output space (i.e. the number of output filters in the convolution). |
 | kernel_size | An integer or list of n integers, specifying the dimensions of the convolution window. |
 | strides | An integer or list of n integers, specifying the strides of the convolution. Specifying any stride value != 1 is incompatible with specifying any `dilation_rate` value != 1. |
 | padding | One of `"valid"` or `"same"` (case-insensitive). `"valid"` means no padding. `"same"` results in padding evenly to the left/right or up/down of the input such that output has the same height/width dimension as the input. |
-| data_format | A string, one of `channels_last` (default) or `channels_first`. The ordering of the dimensions in the inputs. `channels_last` corresponds to inputs with shape `(batch, time, ..., channels)` while `channels_first`<br>corresponds to inputs with shape `(batch, time, channels, ...)`. It defaults to the `image_data_format` value found in your Keras config file at `~/.keras/keras.json`. If you never set it, then it will be "channels_last". |
-| dilation_rate | An integer or list of n integers, specifying the dilation rate to use for dilated convolution. Currently, specifying any `dilation_rate` value != 1 is incompatible with specifying any `strides`<br>value != 1. |
+| data_format | A string, one of `channels_last` (default) or `channels_first`. The ordering of the dimensions in the inputs. `channels_last` corresponds to inputs with shape `(batch, time, ..., channels)` while `channels_first` corresponds to inputs with shape `(batch, time, channels, ...)`. It defaults to the `image_data_format` value found in your Keras config file at `~/.keras/keras.json`. If you never set it, then it will be "channels_last". |
+| dilation_rate | An integer or list of n integers, specifying the dilation rate to use for dilated convolution. Currently, specifying any `dilation_rate` value != 1 is incompatible with specifying any `strides` value != 1. |
 | activation | Activation function to use. By default hyperbolic tangent activation function is applied (`tanh(x)`). |
 | recurrent_activation | Activation function to use for the recurrent step. |
 | use_bias | Boolean, whether the layer uses a bias vector. |
@@ -71,7 +70,7 @@ layer_conv_lstm_3d(
 | bias_regularizer | Regularizer function applied to the bias vector. |
 | activity_regularizer | Regularizer function applied to. |
 | kernel_constraint | Constraint function applied to the `kernel` weights matrix. |
-| recurrent_constraint | Constraint function applied to the `recurrent_kernel`<br>weights matrix. |
+| recurrent_constraint | Constraint function applied to the `recurrent_kernel` weights matrix. |
 | bias_constraint | Constraint function applied to the bias vector. |
 | return_sequences | Boolean. Whether to return the last output in the output sequence, or the full sequence. (default FALSE) |
 | return_state | Boolean Whether to return the last state in addition to the output. (default FALSE) |
@@ -82,12 +81,17 @@ layer_conv_lstm_3d(
 | ... | standard layer arguments. |
 
 ## Details
-Similar to an LSTM layer, but the input transformations and recurrent transformations are both convolutional. 
+ Similar to an LSTM layer, but the input transformations and recurrent transformations are both convolutional. 
 
 
 
 
 
 ## See Also
-- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/ConvLSTM3D](https://www.tensorflow.org/api_docs/python/tf/keras/layers/ConvLSTM3D)
+
+  
+
+- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/ConvLSTM3D](https://www.tensorflow.org/api_docs/python/tf/keras/layers/ConvLSTM3D) 
+
+ 
 

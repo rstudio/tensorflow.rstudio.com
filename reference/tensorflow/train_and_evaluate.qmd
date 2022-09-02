@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/estimator-generics.R#L54) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/estimator-generics.R](https://github.com/rstudio/tensorflow//blob/main/R/estimator-generics.R#L54) 
 
 # train_and_evaluate
 
 ## (Deprecated) Simultaneously Train and Evaluate a Model
 
 ## Description
-Train and evaluate a model object. See implementation in the tfestimators package. 
+ Train and evaluate a model object. See implementation in the tfestimators package. 
 
 
 ## Usage
 ```r
+ 
 train_and_evaluate(object, ...) 
 ```
 
@@ -31,7 +30,11 @@ train_and_evaluate(object, ...)
 
 ## Implementations
 
-- tfestimators
+   
+
+- tfestimators 
+
+ 
 
 
 

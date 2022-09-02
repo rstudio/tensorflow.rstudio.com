@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/utils.R#L343) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/utils.R](https://github.com/rstudio/keras//blob/main/R/utils.R#L343) 
 
 # is_keras_available
 
 ## Check if Keras is Available
 
 ## Description
-Probe to see whether the Keras Python package is available in the current system environment. 
+ Probe to see whether the Keras Python package is available in the current system environment. 
 
 
 ## Usage
 ```r
+ 
 is_keras_available(version = NULL) 
 ```
 
@@ -28,22 +27,26 @@ is_keras_available(version = NULL)
 
 
 ## Value
-Logical indicating whether Keras (or the specified minimum version of Keras) is available. 
+ Logical indicating whether Keras (or the specified minimum version of Keras) is available. 
 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(keras)
+ 
 # testthat utilty for skipping tests when Keras isn't available 
 skip_if_no_keras <- function(version = NULL) { 
   if (!is_keras_available(version)) 
     skip("Required keras version not available for testing") 
 } 
+ 
 # use the function within a test 
 test_that("keras function works correctly", { 
   skip_if_no_keras() 
   # test code here 
 }) 
+ 
+ 
 ```
 
 

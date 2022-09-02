@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/compat.R#L17) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/compat.R](https://github.com/rstudio/tensorflow//blob/main/R/compat.R#L17) 
 
 # use_compat
 
 ## Use Compatibility
 
 ## Description
-Enables TensorFlow to run under a different API version for compatibility with previous versions. For instance, this is useful to run TensorFlow 1.x code when using TensorFlow 2.x. 
+ Enables TensorFlow to run under a different API version for compatibility with previous versions. For instance, this is useful to run TensorFlow 1.x code when using TensorFlow 2.x. 
 
 
 ## Usage
 ```r
+ 
 use_compat(version = c("v1", "v2")) 
 ```
 
@@ -31,8 +30,11 @@ use_compat(version = c("v1", "v2"))
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+ 
 library(tensorflow) 
 use_compat("v1") 
+ 
+ 
 ```
 
 

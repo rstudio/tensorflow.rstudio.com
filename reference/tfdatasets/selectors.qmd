@@ -1,24 +1,23 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L51) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/feature_spec.R](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L51) 
 
 # selectors
 
 ## Selectors
 
 ## Description
-List of selectors that can be used to specify variables inside steps. 
+ List of selectors that can be used to specify variables inside steps. 
 
 ## Format
-An object of class `environment` of length 0. 
+ An object of class `environment` of length 0. 
 
 ## Usage
 ```r
+ 
 cur_info_env 
 ```
 
@@ -28,23 +27,27 @@ cur_info_env
 
 ## Selectors
 
-- `has_type()`
+   
 
-- `all_numeric()`
+- `has_type()` 
 
-- `all_nominal()`
+- `all_numeric()` 
 
-- `starts_with()`
+- `all_nominal()` 
 
-- `ends_with()`
+- `starts_with()` 
 
-- `one_of()`
+- `ends_with()` 
 
-- `matches()`
+- `one_of()` 
 
-- `contains()`
+- `matches()` 
 
-- `everything()`
+- `contains()` 
+
+- `everything()` 
+
+ 
 
 
 

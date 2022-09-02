@@ -1,25 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L2884) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/backend.R](https://github.com/rstudio/keras//blob/main/R/backend.R#L2884) 
 
 # k_switch
 
 ## Switches between two operations depending on a scalar value.
 
 ## Description
-
-Note that both `then_expression` and `else_expression`
-
-should be symbolic tensors of the **same shape**. 
+ Note that both `then_expression` and `else_expression` should be symbolic tensors of the **same shape**. 
 
 
 ## Usage
 ```r
+ 
 k_switch(condition, then_expression, else_expression) 
 ```
 
@@ -35,12 +31,10 @@ k_switch(condition, then_expression, else_expression)
 
 ## Keras Backend
 
-This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
-
-You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
+   This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.).  You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-The selected tensor. 
+ The selected tensor. 
 
 
 

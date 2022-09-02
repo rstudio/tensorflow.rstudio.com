@@ -1,11 +1,9 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R, R/feature_spec.R,#L) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/dataset_methods.R, R/feature_spec.R,](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R, R/feature_spec.R,#L) 
 
 # reexports
 
@@ -13,7 +11,7 @@ format:
 
 ## Description
 
-These objects are imported from other packages. Follow the links below to see their documentation. 
+ These objects are imported from other packages. Follow the links below to see their documentation.   
 
   
 
@@ -21,11 +19,19 @@ generics
 
 `fit`
 
+ 
+
+ 
+
   
 
 reticulate
 
 `as_iterator`
+
+ 
+
+ 
 
   
 
@@ -33,11 +39,17 @@ tensorflow
 
 `as_tensor`
 
+ 
+
+ 
+
   
 
 tidyselect
 
 `contains`
+
+ 
 
 
 

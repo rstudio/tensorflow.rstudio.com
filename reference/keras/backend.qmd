@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L16) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/backend.R](https://github.com/rstudio/keras//blob/main/R/backend.R#L16) 
 
 # backend
 
 ## Keras backend tensor engine
 
 ## Description
-Obtain a reference to the `keras.backend` Python module used to implement tensor operations. 
+ Obtain a reference to the `keras.backend` Python module used to implement tensor operations. 
 
 
 ## Usage
 ```r
+ 
 backend(convert = TRUE) 
 ```
 
@@ -28,10 +27,10 @@ backend(convert = TRUE)
 
 
 ## Value
-Reference to Keras backend python module. 
+ Reference to Keras backend python module. 
 
 ## Note
-See the documentation here [https://keras.io/backend/](https://keras.io/backend/) for additional details on the available functions. 
+ See the documentation here [https://keras.io/backend/](https://keras.io/backend/) for additional details on the available functions. 
 
 
 

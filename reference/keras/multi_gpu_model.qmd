@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L252) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/model.R](https://github.com/rstudio/keras//blob/main/R/model.R#L252) 
 
 # multi_gpu_model
 
 ## (Deprecated) Replicates a model on different GPUs.
 
 ## Description
-(Deprecated) Replicates a model on different GPUs. 
+ (Deprecated) Replicates a model on different GPUs. 
 
 
 ## Usage
 ```r
+ 
 multi_gpu_model(model, gpus = NULL, cpu_merge = TRUE, cpu_relocation = FALSE) 
 ```
 
@@ -30,7 +29,7 @@ multi_gpu_model(model, gpus = NULL, cpu_merge = TRUE, cpu_relocation = FALSE)
 
 ## Details
 
-Specifically, this function implements single-machine multi-GPU data parallelism. It works in the following way: 
+ Specifically, this function implements single-machine multi-GPU data parallelism. It works in the following way:  
 
 - Divide the model's input(s) into multiple sub-batches. 
 
@@ -38,28 +37,20 @@ Specifically, this function implements single-machine multi-GPU data parallelism
 
 - Concatenate the results (on CPU) into one big batch. 
 
-E.g. if your `batch_size` is 64 and you use `gpus=2`, then we will divide the input into 2 sub-batches of 32 samples, process each sub-batch on one GPU, then return the full batch of 64 processed samples. 
-
-This induces quasi-linear speedup on up to 8 GPUs. 
-
-This function is only available with the TensorFlow backend for the time being. 
+  E.g. if your `batch_size` is 64 and you use `gpus=2`, then we will divide the input into 2 sub-batches of 32 samples, process each sub-batch on one GPU, then return the full batch of 64 processed samples.  This induces quasi-linear speedup on up to 8 GPUs.  This function is only available with the TensorFlow backend for the time being. 
 
 ## Section
 
 ## Model Saving
 
-To save the multi-gpu model, use `save_model_hdf5()` or `save_model_weights_hdf5()` with the template model (the argument you passed to `multi_gpu_model`), rather than the model returned by `multi_gpu_model`. 
+   To save the multi-gpu model, use `save_model_hdf5()` or `save_model_weights_hdf5()` with the template model (the argument you passed to `multi_gpu_model`), rather than the model returned by `multi_gpu_model`. 
 
 ## Value
-A Keras model object which can be used just like the initial `model` argument, but which distributes its workload on multiple GPUs. 
+ A Keras model object which can be used just like the initial `model` argument, but which distributes its workload on multiple GPUs. 
 
 ## Note
 
-This function is deprecated and has been removed from tensorflow on 2020-04-01. To distribute your training across all available GPUS, you can use `tensorflow::tf$distribute$MirroredStrategy()`
-
-by creating your model like this: 
-
-```
+ This function is deprecated and has been removed from tensorflow on 2020-04-01. To distribute your training across all available GPUS, you can use `tensorflow::tf$distribute$MirroredStrategy()` by creating your model like this:  ```
 
 strategy <- tensorflow::tf$distribute$MirroredStrategy() 
 
@@ -75,16 +66,20 @@ with(strategy$scope(), {
 
 }) 
 
-```
+``` 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+ 
+ 
 library(keras) 
 library(tensorflow) 
+ 
 num_samples <- 1000 
 height <- 224 
 width <- 224 
 num_classes <- 1000 
+ 
 # Instantiate the base model (or "template" model). 
 # We recommend doing this with under a CPU device scope, 
 # so that the model's weights are hosted on CPU memory. 
@@ -97,6 +92,7 @@ with(tf$device("/cpu:0"), {
     classes = num_classes 
   ) 
 }) 
+ 
 # Replicates the model on 8 GPUs. 
 # This assumes that your machine has 8 available GPUs. 
 parallel_model <- multi_gpu_model(model, gpus = 8) 
@@ -104,18 +100,23 @@ parallel_model %>% compile(
   loss = "categorical_crossentropy", 
   optimizer = "rmsprop" 
 ) 
+ 
 # Generate dummy data. 
 x <- array(runif(num_samples * height * width*3), 
            dim = c(num_samples, height, width, 3)) 
 y <- array(runif(num_samples * num_classes), 
            dim = c(num_samples, num_classes)) 
+ 
 # This `fit` call will be distributed on 8 GPUs. 
 # Since the batch size is 256, each GPU will process 32 samples. 
 parallel_model %>% fit(x, y, epochs = 20, batch_size = 256) 
+ 
 # Save model via the template model (which shares the same weights): 
 model %>% save_model_hdf5("my_model.h5") 
+ 
+ 
 ```
 
 ## See Also
-Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()`
+ Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()` 
 

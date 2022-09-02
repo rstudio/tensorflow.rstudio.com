@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/opts.R#L60) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/opts.R](https://github.com/t-kalinowski/tfautograph//blob/main/R/opts.R#L60) 
 
 # ag_while_opts
 
 ## specify `tf.while_loop` options
 
 ## Description
-See https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/while_loop for additional details. 
+ See https://www.tensorflow.org/versions/r2.0/api_docs/python/tf/while_loop for additional details. 
 
 
 ## Usage
 ```r
+ 
 ag_while_opts( 
   ..., 
   shape_invariants = NULL, 
@@ -40,17 +39,15 @@ ag_while_opts(
 
 
 ## Value
-`NULL`` invisibly, called for it's side effect. 
+ `NULL`` invisibly, called for it's side effect. 
 
 ## Note
-
-Use `ag_name()` to supply `name` and `ag_loop_vars()` to supply `loop_vars` directly. 
-
-This is only applicable when autograph in graph mode, otherwise this has no effect. 
+ Use `ag_name()` to supply `name` and `ag_loop_vars()` to supply `loop_vars` directly.  This is only applicable when autograph in graph mode, otherwise this has no effect. 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(tfautograph)
+ 
 ## use tf_function() to enter graph mode: 
 tf_function(autograph(function(n) { 
   ag_name("silly-example") 
@@ -58,6 +55,7 @@ tf_function(autograph(function(n) {
   while(n > 0) 
     n <- n - 1 
 })) 
+ 
 ```
 
 

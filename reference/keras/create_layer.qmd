@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-core.R#L504) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-core.R](https://github.com/rstudio/keras//blob/main/R/layers-core.R#L504) 
 
 # create_layer
 
 ## Create a Keras Layer
 
 ## Description
-Create a Keras Layer 
+ Create a Keras Layer 
 
 
 ## Usage
 ```r
+ 
 create_layer(layer_class, object, args = list()) 
 ```
 
@@ -30,10 +29,10 @@ create_layer(layer_class, object, args = list())
 
 
 ## Value
-A Keras layer 
+ A Keras layer 
 
 ## Note
-The `object` parameter can be missing, in which case the layer is created without a connection to an existing graph. 
+ The `object` parameter can be missing, in which case the layer is created without a connection to an existing graph. 
 
 
 

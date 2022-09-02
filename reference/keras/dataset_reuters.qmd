@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/datasets.R#L148) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/datasets.R](https://github.com/rstudio/keras//blob/main/R/datasets.R#L148) 
 
 # dataset_reuters
 
 ## Reuters newswire topics classification
 
 ## Description
-Dataset of 11,228 newswires from Reuters, labeled over 46 topics. As with `dataset_imdb()` , each wire is encoded as a sequence of word indexes (same conventions). 
+ Dataset of 11,228 newswires from Reuters, labeled over 46 topics. As with `dataset_imdb()` , each wire is encoded as a sequence of word indexes (same conventions). 
 
 
 ## Usage
 ```r
+ 
 dataset_reuters( 
   path = "reuters.npz", 
   num_words = NULL, 
@@ -28,7 +27,7 @@ dataset_reuters(
   oov_char = 2L, 
   index_from = 3L 
 ) 
-
+ 
 dataset_reuters_word_index(path = "reuters_word_index.pkl") 
 ```
 
@@ -48,15 +47,10 @@ dataset_reuters_word_index(path = "reuters_word_index.pkl")
 
 
 ## Value
-
-Lists of training and test data: `train$x, train$y, test$x, test$y`
-
-with same format as `dataset_imdb()`. The `dataset_reuters_word_index()`
-
-function returns a list where the names are words and the values are integer. e.g. `word_index[["giraffe"]]` might return `1234`. 
+ Lists of training and test data: `train$x, train$y, test$x, test$y` with same format as `dataset_imdb()`. The `dataset_reuters_word_index()` function returns a list where the names are words and the values are integer. e.g. `word_index[["giraffe"]]` might return `1234`. 
 
 
 
 ## See Also
-Other datasets:  `dataset_boston_housing()`, `dataset_cifar100()`, `dataset_cifar10()`, `dataset_fashion_mnist()`, `dataset_imdb()`, `dataset_mnist()`
+ Other datasets:  `dataset_boston_housing()`, `dataset_cifar100()`, `dataset_cifar10()`, `dataset_fashion_mnist()`, `dataset_imdb()`, `dataset_mnist()` 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L2427) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/backend.R](https://github.com/rstudio/keras//blob/main/R/backend.R#L2427) 
 
 # k_rnn
 
 ## Iterates over the time dimension of a tensor
 
 ## Description
-Iterates over the time dimension of a tensor 
+ Iterates over the time dimension of a tensor 
 
 
 ## Usage
 ```r
+ 
 k_rnn( 
   step_function, 
   inputs, 
@@ -46,19 +45,19 @@ k_rnn(
 
 ## Keras Backend
 
-This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
-
-You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
+   This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.).  You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
 
-A list with: 
+ A list with:  
 
 - `last_output`: the latest output of the rnn, of shape (samples, ...) 
 
 - `outputs`: tensor with shape (samples, time, ...) where each entry `outputs[s, t]` is the output of the step function at time t for sample s. 
 
 - `new_states`: list of tensors, latest states returned by the step function, of shape (samples, ...). 
+
+ 
 
 
 

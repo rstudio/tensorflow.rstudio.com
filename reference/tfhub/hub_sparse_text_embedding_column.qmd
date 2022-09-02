@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfhub//blob/main/R/columns.R#L48) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/columns.R](https://github.com/rstudio/tfhub//blob/main/R/columns.R#L48) 
 
 # hub_sparse_text_embedding_column
 
 ## Module to construct dense representations from sparse text features.
 
 ## Description
-The input to this feature column is a batch of multiple strings with arbitrary size, assuming the input is a SparseTensor. 
+ The input to this feature column is a batch of multiple strings with arbitrary size, assuming the input is a SparseTensor. 
 
 
 ## Usage
 ```r
+ 
 hub_sparse_text_embedding_column( 
   key, 
   module_spec, 
@@ -36,10 +35,7 @@ hub_sparse_text_embedding_column(
 | trainable | Whether or not the Module is trainable. `FALSE` by default, meaning the pre-trained weights are frozen. This is different from the ordinary `tf.feature_column.embedding_column()`, but that one is intended for training from scratch. |
 
 ## Details
-
-This type of feature column is typically suited for modules that operate on pre-tokenized text to produce token level embeddings which are combined with the combiner into a text embedding. The combiner always treats the tokens  as a bag of words rather than a sequence. 
-
-The output (i.e., transformed input layer) is a DenseTensor, with shape [batch_size, num_embedding_dim]. 
+ This type of feature column is typically suited for modules that operate on pre-tokenized text to produce token level embeddings which are combined with the combiner into a text embedding. The combiner always treats the tokens  as a bag of words rather than a sequence.  The output (i.e., transformed input layer) is a DenseTensor, with shape [batch_size, num_embedding_dim]. 
 
 
 

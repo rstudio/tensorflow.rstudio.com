@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/jobs.R#L473) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/jobs.R](NULL/blob/main/R/jobs.R#L473) 
 
 # job_collect
 
 ## Collect job output
 
 ## Description
-Collect the job outputs (e.g. fitted model) from a job. If the job has not yet finished running, `job_collect()` will block and wait until the job has finished. 
+ Collect the job outputs (e.g. fitted model) from a job. If the job has not yet finished running, `job_collect()` will block and wait until the job has finished. 
 
 
 ## Usage
 ```r
+ 
 job_collect(job = "latest", trials = "best", destination = "runs", 
   timeout = NULL, view = interactive()) 
 ```
@@ -36,5 +35,5 @@ job_collect(job = "latest", trials = "best", destination = "runs",
 
 
 ## See Also
-Other job management functions: `job_cancel`,   `job_list`, `job_status`,   `job_stream_logs`, `job_trials`
+ Other job management functions: `job_cancel`,   `job_list`, `job_status`,   `job_stream_logs`, `job_trials` 
 

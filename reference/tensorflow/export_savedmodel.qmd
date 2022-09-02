@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/estimator-generics.R#L79) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/estimator-generics.R](https://github.com/rstudio/tensorflow//blob/main/R/estimator-generics.R#L79) 
 
 # export_savedmodel
 
 ## Export a Saved Model
 
 ## Description
-Serialize a model to disk. See implementations in the keras and tfestimators packages. 
+ Serialize a model to disk. See implementations in the keras and tfestimators packages. 
 
 
 ## Usage
 ```r
+ 
 export_savedmodel(object, export_dir_base, ...) 
 ```
 
@@ -32,12 +31,16 @@ export_savedmodel(object, export_dir_base, ...)
 
 ## Implementations
 
-- keras
+   
 
-- tfestimators
+- keras 
+
+- tfestimators 
+
+ 
 
 ## Value
-The path to the exported directory, as a string. 
+ The path to the exported directory, as a string. 
 
 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L662) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/preprocessing.R](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L662) 
 
 # image_data_generator
 
 ## Generate batches of image data with real-time data augmentation. The data will be looped over (in batches).
 
 ## Description
-Generate batches of image data with real-time data augmentation. The data will be looped over (in batches). 
+ Generate batches of image data with real-time data augmentation. The data will be looped over (in batches). 
 
 
 ## Usage
 ```r
+ 
 image_data_generator( 
   featurewise_center = FALSE, 
   samplewise_center = FALSE, 
@@ -58,7 +57,7 @@ image_data_generator(
 | shear_range | shear intensity (shear angle in radians). |
 | zoom_range | amount of zoom. if scalar z, zoom will be randomly picked in the range `[1-z, 1+z]`. A sequence of two can be passed instead to select this range. |
 | channel_shift_range | shift range for each channels. |
-| fill_mode | One of "constant", "nearest", "reflect" or "wrap". Points outside the boundaries of the input are filled according to the given mode: <br>- "constant": `kkkkkkkk|abcd|kkkkkkkk` (`cval=k`) <br>- "nearest":  `aaaaaaaa|abcd|dddddddd`<br>- "reflect":  `abcddcba|abcd|dcbaabcd`<br>- "wrap":     `abcdabcd|abcd|abcdabcd` |
+| fill_mode | One of "constant", "nearest", "reflect" or "wrap". Points outside the boundaries of the input are filled according to the given mode:  <br>- "constant": `kkkkkkkk|abcd|kkkkkkkk` (`cval=k`) <br>- "nearest":  `aaaaaaaa|abcd|dddddddd` <br>- "reflect":  `abcddcba|abcd|dcbaabcd` <br>- "wrap":     `abcdabcd|abcd|abcdabcd`  |
 | cval | value used for points outside the boundaries when fill_mode is 'constant'. Default is 0. |
 | horizontal_flip | whether to randomly flip images horizontally. |
 | vertical_flip | whether to randomly flip images vertically. |

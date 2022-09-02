@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/ls_runs.R#L102) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/ls_runs.R](https://github.com/rstudio/tfruns//blob/main/R/ls_runs.R#L102) 
 
 # latest_run
 
 ## Latest training run
 
 ## Description
-Latest training run 
+ Latest training run 
 
 
 ## Usage
 ```r
+ 
 latest_run(runs_dir = getOption("tfruns.runs_dir", "runs")) 
 ```
 
@@ -28,7 +27,7 @@ latest_run(runs_dir = getOption("tfruns.runs_dir", "runs"))
 
 
 ## Value
-Named list with run attributes (or `NULL` if no runs found) 
+ Named list with run attributes (or `NULL` if no runs found) 
 
 
 

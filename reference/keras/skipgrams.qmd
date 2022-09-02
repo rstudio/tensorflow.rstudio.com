@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L94) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/preprocessing.R](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L94) 
 
 # skipgrams
 
 ## Generates skipgram word pairs.
 
 ## Description
-Generates skipgram word pairs. 
+ Generates skipgram word pairs. 
 
 
 ## Usage
 ```r
+ 
 skipgrams( 
   sequence, 
   vocabulary_size, 
@@ -43,31 +42,29 @@ skipgrams(
 
 ## Details
 
-This function transforms a list of word indexes (lists of integers) into lists of words of the form: 
+ This function transforms a list of word indexes (lists of integers) into lists of words of the form:  
 
 - (word, word in the same window), with label 1 (positive samples). 
 
 - (word, random word from the vocabulary), with label 0 (negative samples). 
 
-Read more about Skipgram in this gnomic paper by Mikolov et al.: [Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/pdf/1301.3781v3.pdf)
+  Read more about Skipgram in this gnomic paper by Mikolov et al.: [Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/pdf/1301.3781v3.pdf) 
 
 
 ## Value
 
-List of `couples`, `labels` where: 
+ List of `couples`, `labels` where:  
 
 - `couples` is a list of 2-element integer vectors: `[word_index, other_word_index]`. 
 
-- `labels` is an integer vector of 0 and 1, where 1 indicates that `other_word_index`
-
-was found in the same window as `word_index`, and 0 indicates that `other_word_index`
-
-was random. 
+- `labels` is an integer vector of 0 and 1, where 1 indicates that `other_word_index` was found in the same window as `word_index`, and 0 indicates that `other_word_index` was random. 
 
 - if `categorical` is set to `TRUE`, the labels are categorical, ie. 1 becomes `[0,1]`, and 0 becomes `[1, 0]`. 
+
+ 
 
 
 
 ## See Also
-Other text preprocessing:  `make_sampling_table()`, `pad_sequences()`, `text_hashing_trick()`, `text_one_hot()`, `text_to_word_sequence()`
+ Other text preprocessing:  `make_sampling_table()`, `pad_sequences()`, `text_hashing_trick()`, `text_one_hot()`, `text_to_word_sequence()` 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/run_metadata.R#L50) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/run_metadata.R](https://github.com/rstudio/tfruns//blob/main/R/run_metadata.R#L50) 
 
 # write_run_metadata
 
 ## Write run metadata
 
 ## Description
-Record various types of training run metadata This function can be called even when a run directory isn't active (metadata will only be written if and when a run directory is initialized). 
+ Record various types of training run metadata This function can be called even when a run directory isn't active (metadata will only be written if and when a run directory is initialized). 
 
 
 ## Usage
 ```r
+ 
 write_run_metadata(type, data, run_dir = NULL) 
 ```
 
@@ -24,7 +23,7 @@ write_run_metadata(type, data, run_dir = NULL)
 |Arguments|Description|
 |---|---|
 | type | Type of metadata to write. Standard types include "flags", "sources", "properties", "metrics", and "evaluation". You can also specify a custom type (see **Custom Types** section below). |
-| data | Metadata to write: <br>- "flags" --- Named list of training flags <br>- "source" --- Directory to copy source files from <br>- "properties" --- Named list of arbitrary properties. Note that properties will be stored as strings. <br>- "metrics" --- Data frame with training run metrics (see **Metrics Data Frame** below). <br>- "evaluation" --- Named list of evaluation metrics. <br>- "error" --- Named list with 'message' and 'traceback' <br>- "<custom>" -- Function used to write the data (see **Custom Types** section below).  |
+| data | Metadata to write:  <br>- "flags" --- Named list of training flags <br>- "source" --- Directory to copy source files from <br>- "properties" --- Named list of arbitrary properties. Note that properties will be stored as strings. <br>- "metrics" --- Data frame with training run metrics (see **Metrics Data Frame** below). <br>- "evaluation" --- Named list of evaluation metrics. <br>- "error" --- Named list with 'message' and 'traceback' <br>- "\<custom\>" -- Function used to write the data (see **Custom Types** section below).  |
 | run_dir | Run directory to write metadata into (defaults to currently active run) |
 
 
@@ -32,7 +31,7 @@ write_run_metadata(type, data, run_dir = NULL)
 
 ## Metrics Data Frame
 
-Metrics should be passed as a data frame with one column for each metric. If the metrics are not yet complete (e.g. only metrics for the first several epochs are provided) then metrics in yet to be completed epochs should use `NA` as their values. For example:```
+   Metrics should be passed as a data frame with one column for each metric. If the metrics are not yet complete (e.g. only metrics for the first several epochs are provided) then metrics in yet to be completed epochs should use `NA` as their values. For example:  ```
 
 data.frame':	30 obs. of  4 variables: 
 
@@ -44,15 +43,11 @@ $ val_loss: num  0.174 0.121 NA NA NA ...
 
 $ val_acc : num  0.949 0.964 NA NA NA ... 
 
-```
-
-If both metrics and validation metrics are provided, you should preface the name of the validation metric with `"val_"` (e.g. for a metric named `"loss"`
-
-provide validation metrics in `"val_loss"`). This indicates that the metrics are related which is useful e.g. when plotting metrics. 
+```  If both metrics and validation metrics are provided, you should preface the name of the validation metric with `"val_"` (e.g. for a metric named `"loss"` provide validation metrics in `"val_loss"`). This indicates that the metrics are related which is useful e.g. when plotting metrics. 
 
 ## Custom Types
 
-You can pass a type with an arbitary name along with a function that should be used to writes the data. The function will be passed a single `data_dir` argument. For example:```
+   You can pass a type with an arbitary name along with a function that should be used to writes the data. The function will be passed a single `data_dir` argument. For example:  ```
 
 write_run_metadata("images", function(data_dir) { 
 
@@ -60,11 +55,11 @@ write_run_metadata("images", function(data_dir) {
 
 }) 
 
-```
+``` 
 
 
 ## Note
-`write_run_data()` is deprecated and is provided as an alias for backward compatibility. 
+ `write_run_data()` is deprecated and is provided as an alias for backward compatibility. 
 
 
 

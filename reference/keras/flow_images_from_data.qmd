@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L770) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/preprocessing.R](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L770) 
 
 # flow_images_from_data
 
 ## Generates batches of augmented/normalized data from image data and labels
 
 ## Description
-Generates batches of augmented/normalized data from image data and labels 
+ Generates batches of augmented/normalized data from image data and labels 
 
 
 ## Usage
 ```r
+ 
 flow_images_from_data( 
   x, 
   y = NULL, 
@@ -48,17 +47,17 @@ flow_images_from_data(
 | subset | Subset of data (`"training"` or `"validation"`) if `validation_split` is set in `image_data_generator()`. |
 
 ## Details
-Yields batches indefinitely, in an infinite loop. 
+ Yields batches indefinitely, in an infinite loop. 
 
 ## Section
 
 ## Yields
 
- `(x, y)` where `x` is an array of image data and `y` is a array of corresponding labels. The generator loops indefinitely. 
+  `(x, y)` where `x` is an array of image data and `y` is a array of corresponding labels. The generator loops indefinitely. 
 
 
 
 
 ## See Also
-Other image preprocessing:  `fit_image_data_generator()`, `flow_images_from_dataframe()`, `flow_images_from_directory()`, `image_load()`, `image_to_array()`
+ Other image preprocessing:  `fit_image_data_generator()`, `flow_images_from_dataframe()`, `flow_images_from_directory()`, `image_load()`, `image_to_array()` 
 

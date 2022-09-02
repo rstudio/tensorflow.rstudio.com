@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf-ctrl-flow-wrappers.R#L94) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/tf-ctrl-flow-wrappers.R](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf-ctrl-flow-wrappers.R#L94) 
 
 # tf_case
 
 ## tf.case
 
 ## Description
-This is a minimal wrapper around `tf.case()` that allows you to supply the `pred_fn_pairs` using the `~`. 
+ This is a minimal wrapper around `tf.case()` that allows you to supply the `pred_fn_pairs` using the `~`. 
 
 
 ## Usage
 ```r
+ 
 tf_case( 
   ..., 
   pred_fn_pairs = list(...), 
@@ -37,12 +36,13 @@ tf_case(
 
 
 ## Value
-The result from `tf$case()`
+ The result from `tf$case()` 
 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(tfautograph)
+ 
 fizz_buzz_one <- function(x) { 
   tf_case( 
     x %% 15 == 0 ~ "FizzBuzz", 
@@ -51,12 +51,15 @@ fizz_buzz_one <- function(x) {
     default = ~ tf$as_string(x, precision = 0L) 
   ) 
 } 
+ 
 fn <- tf_function(autograph(function(n) { 
   for(e in tf$range(n)) 
     tf$print(fizz_buzz_one(e)) 
 })) 
+ 
 x <- tf$constant(16) 
 fn(x) 
+ 
 ```
 
 

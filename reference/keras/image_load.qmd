@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L496) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/preprocessing.R](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L496) 
 
 # image_load
 
 ## Loads an image into PIL format.
 
 ## Description
-Loads an image into PIL format. 
+ Loads an image into PIL format. 
 
 
 ## Usage
 ```r
+ 
 image_load( 
   path, 
   grayscale = FALSE, 
@@ -38,10 +37,10 @@ image_load(
 
 
 ## Value
-A PIL Image instance. 
+ A PIL Image instance. 
 
 
 
 ## See Also
-Other image preprocessing:  `fit_image_data_generator()`, `flow_images_from_dataframe()`, `flow_images_from_data()`, `flow_images_from_directory()`, `image_to_array()`
+ Other image preprocessing:  `fit_image_data_generator()`, `flow_images_from_dataframe()`, `flow_images_from_data()`, `flow_images_from_directory()`, `image_to_array()` 
 

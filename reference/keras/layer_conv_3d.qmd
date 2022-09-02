@@ -1,25 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-convolutional.R#L257) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-convolutional.R](https://github.com/rstudio/keras//blob/main/R/layers-convolutional.R#L257) 
 
 # layer_conv_3d
 
 ## 3D convolution layer (e.g. spatial convolution over volumes).
 
 ## Description
-
-This layer creates a convolution kernel that is convolved with the layer input to produce a tensor of outputs. If `use_bias` is TRUE, a bias vector is created and added to the outputs. Finally, if `activation` is not `NULL`, it is applied to the outputs as well. When using this layer as the first layer in a model, provide the keyword argument `input_shape` (list of integers, does not include the sample axis), e.g. `input_shape=c(128L, 128L, 128L, 3L)`
-
-for 128x128x128 volumes with a single channel, in `data_format="channels_last"`. 
+ This layer creates a convolution kernel that is convolved with the layer input to produce a tensor of outputs. If `use_bias` is TRUE, a bias vector is created and added to the outputs. Finally, if `activation` is not `NULL`, it is applied to the outputs as well. When using this layer as the first layer in a model, provide the keyword argument `input_shape` (list of integers, does not include the sample axis), e.g. `input_shape=c(128L, 128L, 128L, 3L)` for 128x128x128 volumes with a single channel, in `data_format="channels_last"`. 
 
 
 ## Usage
 ```r
+ 
 layer_conv_3d( 
   object, 
   filters, 
@@ -51,7 +47,7 @@ layer_conv_3d(
 ## Arguments
 |Arguments|Description|
 |---|---|
-| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is:  <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
 | filters | Integer, the dimensionality of the output space (i.e. the number of output filters in the convolution). |
 | kernel_size | An integer or list of 3 integers, specifying the depth, height, and width of the 3D convolution window. Can be a single integer to specify the same value for all spatial dimensions. |
 | strides | An integer or list of 3 integers, specifying the strides of the convolution along each spatial dimension. Can be a single integer to specify the same value for all spatial dimensions. Specifying any stride value != 1 is incompatible with specifying any `dilation_rate` value != 1. |
@@ -63,13 +59,13 @@ layer_conv_3d(
 | use_bias | Boolean, whether the layer uses a bias vector. |
 | kernel_initializer | Initializer for the `kernel` weights matrix. |
 | bias_initializer | Initializer for the bias vector. |
-| kernel_regularizer | Regularizer function applied to the `kernel`<br>weights matrix. |
+| kernel_regularizer | Regularizer function applied to the `kernel` weights matrix. |
 | bias_regularizer | Regularizer function applied to the bias vector. |
 | activity_regularizer | Regularizer function applied to the output of the layer (its "activation").. |
 | kernel_constraint | Constraint function applied to the kernel matrix. |
 | bias_constraint | Constraint function applied to the bias vector. |
 | input_shape | Dimensionality of the input (integer) not including the samples axis. This argument is required when using this layer as the first layer in a model. |
-| batch_input_shape | Shapes, including the batch size. For instance, `batch_input_shape=c(10, 32)` indicates that the expected input will be batches of 10 32-dimensional vectors. `batch_input_shape=list(NULL, 32)`<br>indicates batches of an arbitrary number of 32-dimensional vectors. |
+| batch_input_shape | Shapes, including the batch size. For instance, `batch_input_shape=c(10, 32)` indicates that the expected input will be batches of 10 32-dimensional vectors. `batch_input_shape=list(NULL, 32)` indicates batches of an arbitrary number of 32-dimensional vectors. |
 | batch_size | Fixed batch size for layer |
 | dtype | The data type expected by the input, as a string (`float32`, `float64`, `int32`...) |
 | name | An optional name string for the layer. Should be unique in a model (do not reuse the same name twice). It will be autogenerated if it isn't provided. |
@@ -81,15 +77,15 @@ layer_conv_3d(
 
 ## Input shape
 
- 5D tensor with shape: `(samples, channels, conv_dim1, conv_dim2, conv_dim3)` if data_format='channels_first' or 5D tensor with shape: `(samples, conv_dim1, conv_dim2, conv_dim3, channels)` if data_format='channels_last'. 
+  5D tensor with shape: `(samples, channels, conv_dim1, conv_dim2, conv_dim3)` if data_format='channels_first' or 5D tensor with shape: `(samples, conv_dim1, conv_dim2, conv_dim3, channels)` if data_format='channels_last'. 
 
 ## Output shape
 
- 5D tensor with shape: `(samples, filters, new_conv_dim1, new_conv_dim2, new_conv_dim3)` if data_format='channels_first' or 5D tensor with shape: `(samples, new_conv_dim1, new_conv_dim2, new_conv_dim3, filters)` if data_format='channels_last'. `new_conv_dim1`, `new_conv_dim2` and `new_conv_dim3` values might have changed due to padding. 
+  5D tensor with shape: `(samples, filters, new_conv_dim1, new_conv_dim2, new_conv_dim3)` if data_format='channels_first' or 5D tensor with shape: `(samples, new_conv_dim1, new_conv_dim2, new_conv_dim3, filters)` if data_format='channels_last'. `new_conv_dim1`, `new_conv_dim2` and `new_conv_dim3` values might have changed due to padding. 
 
 
 
 
 ## See Also
-Other convolutional layers:  `layer_conv_1d_transpose()`, `layer_conv_1d()`, `layer_conv_2d_transpose()`, `layer_conv_2d()`, `layer_conv_3d_transpose()`, `layer_conv_lstm_2d()`, `layer_cropping_1d()`, `layer_cropping_2d()`, `layer_cropping_3d()`, `layer_depthwise_conv_1d()`, `layer_depthwise_conv_2d()`, `layer_separable_conv_1d()`, `layer_separable_conv_2d()`, `layer_upsampling_1d()`, `layer_upsampling_2d()`, `layer_upsampling_3d()`, `layer_zero_padding_1d()`, `layer_zero_padding_2d()`, `layer_zero_padding_3d()`
+ Other convolutional layers:  `layer_conv_1d_transpose()`, `layer_conv_1d()`, `layer_conv_2d_transpose()`, `layer_conv_2d()`, `layer_conv_3d_transpose()`, `layer_conv_lstm_2d()`, `layer_cropping_1d()`, `layer_cropping_2d()`, `layer_cropping_3d()`, `layer_depthwise_conv_1d()`, `layer_depthwise_conv_2d()`, `layer_separable_conv_1d()`, `layer_separable_conv_2d()`, `layer_upsampling_1d()`, `layer_upsampling_2d()`, `layer_upsampling_3d()`, `layer_zero_padding_1d()`, `layer_zero_padding_2d()`, `layer_zero_padding_3d()` 
 

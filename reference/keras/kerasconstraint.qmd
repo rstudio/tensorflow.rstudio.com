@@ -1,42 +1,45 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/constraints.R#L127) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/constraints.R](https://github.com/rstudio/keras//blob/main/R/constraints.R#L127) 
 
 # KerasConstraint
 
 ## (Deprecated) Base R6 class for Keras constraints
 
 ## Description
-New custom constraints are encouraged to subclass `keras$constraints$Constraint` directly. 
+ New custom constraints are encouraged to subclass `keras$constraints$Constraint` directly. 
 
 ## Format
-An R6Class generator object 
+ An R6Class generator object 
 
 
 
 ## Details
-You can implement a custom constraint either by creating an R function that accepts a weights (`w`) parameter, or by creating an R6 class that derives from `KerasConstraint` and implements a `call` method. 
+ You can implement a custom constraint either by creating an R function that accepts a weights (`w`) parameter, or by creating an R6 class that derives from `KerasConstraint` and implements a `call` method. 
 
 ## Section
 
 ## Methods
 
+   
+
 `call(w)`
 
 Constrain the specified weights.
 
+  
+
 
 ## Note
-Models which use custom constraints cannot be serialized using `save_model_hdf5()`. Rather, the weights of the model should be saved and restored using `save_model_weights_hdf5()`. 
+ Models which use custom constraints cannot be serialized using `save_model_hdf5()`. Rather, the weights of the model should be saved and restored using `save_model_weights_hdf5()`. 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(keras)
+ 
 CustomNonNegConstraint <- R6::R6Class( 
   "CustomNonNegConstraint", 
   inherit = KerasConstraint, 
@@ -46,10 +49,13 @@ CustomNonNegConstraint <- R6::R6Class(
     } 
   ) 
 ) 
+ 
 layer_dense(units = 32, input_shape = c(784), 
             kernel_constraint = CustomNonNegConstraint$new()) 
+ 
+ 
 ```
 
 ## See Also
-constraints
+ constraints 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L432) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/dataset_methods.R](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L432) 
 
 # dataset_prefetch_to_device
 
 ## A transformation that prefetches dataset values to the given `device`
 
 ## Description
-A transformation that prefetches dataset values to the given `device`
+ A transformation that prefetches dataset values to the given `device` 
 
 
 ## Usage
 ```r
+ 
 dataset_prefetch_to_device(dataset, device, buffer_size = NULL) 
 ```
 
@@ -30,12 +29,12 @@ dataset_prefetch_to_device(dataset, device, buffer_size = NULL)
 
 
 ## Value
-A dataset 
+ A dataset 
 
 ## Note
-Although the transformation creates a dataset, the transformation must be the final dataset in the input pipeline. 
+ Although the transformation creates a dataset, the transformation must be the final dataset in the input pipeline. 
 
 
 ## See Also
-Other dataset methods:  `dataset_batch()`, `dataset_cache()`, `dataset_collect()`, `dataset_concatenate()`, `dataset_decode_delim()`, `dataset_filter()`, `dataset_interleave()`, `dataset_map_and_batch()`, `dataset_map()`, `dataset_padded_batch()`, `dataset_prefetch()`, `dataset_reduce()`, `dataset_repeat()`, `dataset_shuffle_and_repeat()`, `dataset_shuffle()`, `dataset_skip()`, `dataset_take_while()`, `dataset_take()`, `dataset_window()`
+ Other dataset methods:  `dataset_batch()`, `dataset_cache()`, `dataset_collect()`, `dataset_concatenate()`, `dataset_decode_delim()`, `dataset_filter()`, `dataset_interleave()`, `dataset_map_and_batch()`, `dataset_map()`, `dataset_padded_batch()`, `dataset_prefetch()`, `dataset_reduce()`, `dataset_repeat()`, `dataset_shuffle_and_repeat()`, `dataset_shuffle()`, `dataset_skip()`, `dataset_take_while()`, `dataset_take()`, `dataset_window()` 
 

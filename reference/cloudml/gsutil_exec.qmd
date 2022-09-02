@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gsutil-exec.R#L28) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/gsutil-exec.R](NULL/blob/main/R/gsutil-exec.R#L28) 
 
 # gsutil_exec
 
 ## Executes a Google Utils Command
 
 ## Description
-Executes a Google Utils command with the given parameters. 
+ Executes a Google Utils command with the given parameters. 
 
 
 ## Usage
 ```r
+ 
 gsutil_exec(..., args = NULL, echo = FALSE) 
 ```
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-recurrent-cells.R#L415) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-recurrent-cells.R](https://github.com/rstudio/keras//blob/main/R/layers-recurrent-cells.R#L415) 
 
 # layer_lstm_cell
 
 ## Cell class for the LSTM layer
 
 ## Description
-Cell class for the LSTM layer 
+ Cell class for the LSTM layer 
 
 
 ## Usage
 ```r
+ 
 layer_lstm_cell( 
   units, 
   activation = "tanh", 
@@ -53,7 +52,7 @@ layer_lstm_cell(
 | recurrent_regularizer | Regularizer function applied to the `recurrent_kernel` weights matrix. Default: `NULL`. |
 | bias_regularizer | Regularizer function applied to the bias vector. Default: `NULL`. |
 | kernel_constraint | Constraint function applied to the `kernel` weights matrix. Default: `NULL`. |
-| recurrent_constraint | Constraint function applied to the `recurrent_kernel`<br>weights matrix. Default: `NULL`. |
+| recurrent_constraint | Constraint function applied to the `recurrent_kernel` weights matrix. Default: `NULL`. |
 | bias_constraint | Constraint function applied to the bias vector. Default: `NULL`. |
 | dropout | Float between 0 and 1. Fraction of the units to drop for the linear transformation of the inputs. Default: 0. |
 | recurrent_dropout | Float between 0 and 1. Fraction of the units to drop for the linear transformation of the recurrent state. Default: 0. |
@@ -61,15 +60,7 @@ layer_lstm_cell(
 
 ## Details
 
-See [the Keras RNN API guide](https://www.tensorflow.org/guide/keras/rnn)
-
-for details about the usage of RNN API. 
-
-This class processes one step within the whole time sequence input, whereas `tf$keras$layer$LSTM` processes the whole sequence. 
-
-For example: 
-
-```
+ See [the Keras RNN API guide](https://www.tensorflow.org/guide/keras/rnn) for details about the usage of RNN API.  This class processes one step within the whole time sequence input, whereas `tf$keras$layer$LSTM` processes the whole sequence.  For example:  ```
 
 inputs <- k_random_normal(c(32, 10, 8)) 
 
@@ -79,6 +70,8 @@ output <- rnn(inputs)
 
 dim(output) # (32, 4) 
 
+ 
+
 rnn <- layer_rnn(cell = layer_lstm_cell(units = 4), 
 
                  return_sequences = TRUE, 
@@ -87,13 +80,15 @@ rnn <- layer_rnn(cell = layer_lstm_cell(units = 4),
 
 c(whole_seq_output, final_memory_state, final_carry_state) %<-% rnn(inputs) 
 
+ 
+
 dim(whole_seq_output)   # (32, 10, 4) 
 
 dim(final_memory_state) # (32, 4) 
 
 dim(final_carry_state)  # (32, 4) 
 
-```
+``` 
 
 
 
@@ -101,7 +96,9 @@ dim(final_carry_state)  # (32, 4)
 
 ## See Also
 
-- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTMCell](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTMCell)
+  
 
-Other RNN cell layers:  `layer_gru_cell()`, `layer_simple_rnn_cell()`, `layer_stacked_rnn_cells()`
+- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTMCell](https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTMCell) 
+
+  Other RNN cell layers:  `layer_gru_cell()`, `layer_simple_rnn_cell()`, `layer_stacked_rnn_cells()` 
 

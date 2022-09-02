@@ -1,35 +1,34 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/flags.R#L49) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/flags.R](https://github.com/rstudio/tfruns//blob/main/R/flags.R#L49) 
 
 # flags
 
 ## Flags for a training run
 
 ## Description
-Define the flags (name, type, default value, description) which paramaterize a training run. Optionally read overrides of the default values from a "flags.yml" config file and/or command line arguments. 
+ Define the flags (name, type, default value, description) which paramaterize a training run. Optionally read overrides of the default values from a "flags.yml" config file and/or command line arguments. 
 
 
 ## Usage
 ```r
+ 
 flags( 
   ..., 
   config = Sys.getenv("R_CONFIG_ACTIVE", unset = "default"), 
   file = "flags.yml", 
   arguments = commandArgs(TRUE) 
 ) 
-
+ 
 flag_numeric(name, default, description = NULL) 
-
+ 
 flag_integer(name, default, description = NULL) 
-
+ 
 flag_boolean(name, default, description = NULL) 
-
+ 
 flag_string(name, default, description = NULL) 
 ```
 
@@ -37,7 +36,7 @@ flag_string(name, default, description = NULL)
 |Arguments|Description|
 |---|---|
 | ... | One or more flag definitions |
-| config | The configuration to use. Defaults to the active configuration for the current environment (as specified by the `R_CONFIG_ACTIVE`<br>environment variable), or `default` when unset. |
+| config | The configuration to use. Defaults to the active configuration for the current environment (as specified by the `R_CONFIG_ACTIVE` environment variable), or `default` when unset. |
 | file | The flags YAML file to read |
 | arguments | The command line arguments (as a character vector) to be parsed. |
 | name | Flag name |
@@ -49,19 +48,21 @@ flag_string(name, default, description = NULL)
 
 ## Config File Flags
 
-Config file flags are defined a YAML configuration file (by default named "flags.yml"). Flags can either appear at the top-level of the YAML or can be inclued in named configuration sections (see the [config package](https://github.com/rstudio/config) for details). 
+   Config file flags are defined a YAML configuration file (by default named "flags.yml"). Flags can either appear at the top-level of the YAML or can be inclued in named configuration sections (see the [config package](https://github.com/rstudio/config) for details). 
 
 ## Command Line Flags
 
-Command line flags should be of the form `--key=value` or `--key value`. The values are assumed to be valid `yaml` and will be converted using `yaml.load()`. 
+   Command line flags should be of the form `--key=value` or `--key value`. The values are assumed to be valid `yaml` and will be converted using `yaml.load()`. 
 
 ## Value
-Named list of training flags 
+ Named list of training flags 
 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+ 
 library(tfruns) 
+ 
 # define flags and parse flag values from flags.yml and the command line 
 FLAGS <- flags( 
   flag_numeric('learning_rate', 0.01, 'Initial learning rate.'), 
@@ -69,6 +70,8 @@ FLAGS <- flags(
   flag_string('data_dir', 'MNIST-data', 'Directory for training data'), 
   flag_boolean('fake_data', FALSE, 'If true, use fake data for testing') 
 ) 
+ 
+ 
 ```
 
 
