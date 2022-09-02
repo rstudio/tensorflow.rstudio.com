@@ -2,6 +2,8 @@
 title: "Hyperparameter Tuning"
 aliases:
     - ../../tools/tfruns/tuning/index.html
+    - /tools/tfruns/tuning/index.html
+    - /tools/tfruns/articles/tuning.html
 ---
 
 ```{r setup, include=FALSE}
@@ -69,7 +71,7 @@ runs <- tuning_run("mnist_mlp.R", flags = list(
 runs[order(runs$eval_acc, decreasing = TRUE), ]
 ```
 ```
-Data frame: 9 x 28 
+Data frame: 9 x 28
                     run_dir eval_loss eval_acc metric_loss metric_acc metric_val_loss metric_val_acc
 9 runs/2018-01-26T13-21-03Z    0.1002   0.9817      0.0346     0.9900          0.1086         0.9794
 6 runs/2018-01-26T13-23-26Z    0.1133   0.9799      0.0409     0.9880          0.1236         0.9778
@@ -104,7 +106,7 @@ tuning_run("mnist_mlp.R", runs_dir = "dropout_tuning", flags = list(
 ls_runs(order = eval_acc, runs_dir = "dropout_tuning")
 ```
 ```
-Data frame: 9 x 28 
+Data frame: 9 x 28
                               run_dir eval_acc eval_loss metric_loss metric_acc metric_val_loss metric_val_acc
 9 dropout_tuning/2018-01-26T13-38-02Z   0.9803    0.0980      0.0324     0.9902          0.1096         0.9789
 6 dropout_tuning/2018-01-26T13-40-40Z   0.9795    0.1243      0.0396     0.9885          0.1341         0.9784
