@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/utils.R#L553) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/utils.R](https://github.com/rstudio/keras//blob/main/R/utils.R#L553) 
 
 # plot.keras.engine.training.Model
 
 ## Plot a Keras model
 
 ## Description
-Plot a Keras model 
+ Plot a Keras model 
 
 
 ## Usage
 ```r
+ 
 ## S3 method for class 'keras.engine.training.Model'
 plot( 
   x, 
@@ -53,32 +52,24 @@ plot(
 
 ## Raises
 
- ValueError: if `plot_model` is called before the model is built, unless a `input_shape = ` argument was supplied to `keras_model_sequential()`. 
+  ValueError: if `plot_model` is called before the model is built, unless a `input_shape = ` argument was supplied to `keras_model_sequential()`. 
 
 ## Requirements
 
-This function requires pydot and graphviz. `pydot` is by default installed by `install_keras()`, but if you installed tensorflow by other means, you can install pydot directly with : 
-
-```
+  This function requires pydot and graphviz. `pydot` is by default installed by `install_keras()`, but if you installed tensorflow by other means, you can install pydot directly with :  ```
 
 reticulate::py_install("pydot", pip = TRUE) 
 
-```
-
-In a conda environment, you can install graphviz with: 
-
-```
+```  In a conda environment, you can install graphviz with:  ```
 
 reticulate::conda_install(packages = "graphviz") 
 
 # Restart the R session after install. 
 
-```
-
-Otherwise you can install graphviz from here: [https://graphviz.gitlab.io/download/](https://graphviz.gitlab.io/download/)
+```  Otherwise you can install graphviz from here: [https://graphviz.gitlab.io/download/](https://graphviz.gitlab.io/download/) 
 
 ## Value
-Nothing, called for it's side effects. 
+ Nothing, called for it's side effects. 
 
 
 

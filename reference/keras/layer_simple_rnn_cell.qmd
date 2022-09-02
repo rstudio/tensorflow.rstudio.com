@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-recurrent-cells.R#L182) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-recurrent-cells.R](https://github.com/rstudio/keras//blob/main/R/layers-recurrent-cells.R#L182) 
 
 # layer_simple_rnn_cell
 
 ## Cell class for SimpleRNN
 
 ## Description
-Cell class for SimpleRNN 
+ Cell class for SimpleRNN 
 
 
 ## Usage
 ```r
+ 
 layer_simple_rnn_cell( 
   units, 
   activation = "tanh", 
@@ -43,25 +42,20 @@ layer_simple_rnn_cell(
 | activation | Activation function to use. Default: hyperbolic tangent (`tanh`). If you pass `NULL`, no activation is applied (ie. "linear" activation: `a(x) = x`). |
 | use_bias | Boolean, (default `TRUE`), whether the layer uses a bias vector. |
 | kernel_initializer | Initializer for the `kernel` weights matrix, used for the linear transformation of the inputs. Default: `glorot_uniform`. |
-| recurrent_initializer | Initializer for the `recurrent_kernel`<br>weights matrix, used for the linear transformation of the recurrent state. Default: `orthogonal`. |
+| recurrent_initializer | Initializer for the `recurrent_kernel` weights matrix, used for the linear transformation of the recurrent state. Default: `orthogonal`. |
 | bias_initializer | Initializer for the bias vector. Default: `zeros`. |
 | kernel_regularizer | Regularizer function applied to the `kernel` weights matrix. Default: `NULL`. |
 | recurrent_regularizer | Regularizer function applied to the `recurrent_kernel` weights matrix. Default: `NULL`. |
 | bias_regularizer | Regularizer function applied to the bias vector. Default: `NULL`. |
 | kernel_constraint | Constraint function applied to the `kernel` weights matrix. Default: `NULL`. |
-| recurrent_constraint | Constraint function applied to the `recurrent_kernel`<br>weights matrix. Default: `NULL`. |
+| recurrent_constraint | Constraint function applied to the `recurrent_kernel` weights matrix. Default: `NULL`. |
 | bias_constraint | Constraint function applied to the bias vector. Default: `NULL`. |
 | dropout | Float between 0 and 1. Fraction of the units to drop for the linear transformation of the inputs. Default: 0. |
 | recurrent_dropout | Float between 0 and 1. Fraction of the units to drop for the linear transformation of the recurrent state. Default: 0. |
 | ... | standard layer arguments. |
 
 ## Details
-
-See [the Keras RNN API guide](https://www.tensorflow.org/guide/keras/rnn)
-
-for details about the usage of RNN API. 
-
-This class processes one step within the whole time sequence input, whereas `tf.keras.layer.SimpleRNN` processes the whole sequence. 
+ See [the Keras RNN API guide](https://www.tensorflow.org/guide/keras/rnn) for details about the usage of RNN API.  This class processes one step within the whole time sequence input, whereas `tf.keras.layer.SimpleRNN` processes the whole sequence. 
 
 
 
@@ -69,9 +63,11 @@ This class processes one step within the whole time sequence input, whereas `tf.
 
 ## See Also
 
-- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/SimpleRNNCell](https://www.tensorflow.org/api_docs/python/tf/keras/layers/SimpleRNNCell)
+  
 
-- [https://keras.io/api/layers](https://keras.io/api/layers)
+- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/SimpleRNNCell](https://www.tensorflow.org/api_docs/python/tf/keras/layers/SimpleRNNCell) 
 
-Other RNN cell layers:  `layer_gru_cell()`, `layer_lstm_cell()`, `layer_stacked_rnn_cells()`
+- [https://keras.io/api/layers](https://keras.io/api/layers) 
+
+  Other RNN cell layers:  `layer_gru_cell()`, `layer_lstm_cell()`, `layer_stacked_rnn_cells()` 
 

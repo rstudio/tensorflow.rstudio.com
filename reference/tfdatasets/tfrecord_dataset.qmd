@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/tfrecord_dataset.R#L29) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/tfrecord_dataset.R](https://github.com/rstudio/tfdatasets//blob/main/R/tfrecord_dataset.R#L29) 
 
 # tfrecord_dataset
 
 ## A dataset comprising records from one or more TFRecord files.
 
 ## Description
-A dataset comprising records from one or more TFRecord files. 
+ A dataset comprising records from one or more TFRecord files. 
 
 
 ## Usage
 ```r
+ 
 tfrecord_dataset( 
   filenames, 
   compression_type = NULL, 
@@ -34,7 +33,7 @@ tfrecord_dataset(
 | num_parallel_reads | An integer representing the number of files to read in parallel. Defaults to reading files sequentially. |
 
 ## Details
-If the dataset encodes a set of TFExample instances, then they can be decoded into named records using the `dataset_map()` function (see example below). 
+ If the dataset encodes a set of TFExample instances, then they can be decoded into named records using the `dataset_map()` function (see example below). 
 
 
 
@@ -42,6 +41,8 @@ If the dataset encodes a set of TFExample instances, then they can be decoded in
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(tfdatasets)
+ 
+ 
 # Creates a dataset that reads all of the examples from two files, and extracts 
 # the image and label features. 
 filenames <- c("/var/data/file1.tfrecord", "/var/data/file2.tfrecord") 
@@ -53,6 +54,8 @@ dataset <- tfrecord_dataset(filenames) %>%
     ) 
     tf$parse_single_example(example_proto, features) 
   }) 
+ 
+ 
 ```
 
 

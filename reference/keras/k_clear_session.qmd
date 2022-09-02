@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L391) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/backend.R](https://github.com/rstudio/keras//blob/main/R/backend.R#L391) 
 
 # k_clear_session
 
 ## Destroys the current TF graph and creates a new one.
 
 ## Description
-Useful to avoid clutter from old models / layers. 
+ Useful to avoid clutter from old models / layers. 
 
 
 ## Usage
 ```r
+ 
 k_clear_session() 
 ```
 
@@ -26,9 +25,7 @@ k_clear_session()
 
 ## Keras Backend
 
-This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
-
-You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
+   This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.).  You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 
 

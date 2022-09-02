@@ -1,10 +1,8 @@
 {
-  "hash": "1704adbcd66346595c8a1a4bb434ba1e",
+  "hash": "a6843e02b28878a7fbff6aacd6ff26e9",
   "result": {
-    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/modules.R#L21) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# tf\n\n## Main TensorFlow module\n\n## Description\nInterface to main TensorFlow  module. Provides access to top level classes and functions as well as sub-modules (e.g. `tf$nn`, `tf$contrib$learn`, etc.). \n\n## Format\nTensorFlow module \n\n## Usage\n```r\ntf \n```\n\n\n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tensorflow) \nhello <- tf$constant('Hello, TensorFlow!') \nzeros <- tf$Variable(tf$zeros(shape(1L))) \ntf$print(hello) \ntf$print(zeros) \n```\n:::\n",
-    "supporting": [
-      "tf_files"
-    ],
+    "markdown": "---\nexecute:\n  freeze: true\n---\n\n\n[R/modules.R](https://github.com/rstudio/tensorflow//blob/main/R/modules.R#L21) \n\n# tf\n\n## Main TensorFlow module\n\n## Description\n Interface to main TensorFlow  module. Provides access to top level classes and functions as well as sub-modules (e.g. `tf$nn`, `tf$contrib$learn`, etc.). \n\n## Format\n TensorFlow module \n\n## Usage\n```r\n \ntf \n```\n\n\n\n\n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tensorflow) \n \nhello <- tf$constant('Hello, TensorFlow!') \nzeros <- tf$Variable(tf$zeros(shape(1L))) \n \ntf$print(hello) \ntf$print(zeros) \n```\n:::\n",
+    "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

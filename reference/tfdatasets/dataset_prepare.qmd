@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L817) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/dataset_methods.R](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L817) 
 
 # dataset_prepare
 
 ## Prepare a dataset for analysis
 
 ## Description
-Transform a dataset with named columns into a list with features (`x`) and response (`y`) elements. 
+ Transform a dataset with named columns into a list with features (`x`) and response (`y`) elements. 
 
 
 ## Usage
 ```r
+ 
 dataset_prepare( 
   dataset, 
   x, 
@@ -41,22 +40,22 @@ dataset_prepare(
 | parallel_records | (Optional) An integer, representing the number of records to decode in parallel. If not specified, records will be processed sequentially. |
 | batch_size | (Optional). Batch size if you would like to fuse the `dataset_prepare()` operation together with a `dataset_batch()` (fusing generally improves overall training performance). |
 | num_parallel_batches | (Optional) An integer, representing the number of batches to create in parallel. On one hand, higher values can help mitigate the effect of stragglers. On the other hand, higher values can increase contention if CPU is scarce. |
-| drop_remainder | (Optional.) A boolean, representing whether the last batch should be dropped in the case it has fewer than `batch_size`<br>elements; the default behavior is not to drop the smaller batch. |
+| drop_remainder | (Optional.) A boolean, representing whether the last batch should be dropped in the case it has fewer than `batch_size` elements; the default behavior is not to drop the smaller batch. |
 
 
 
 ## Value
 
-A dataset. The dataset will have a structure of either: 
+ A dataset. The dataset will have a structure of either:  
 
-- When `named_features` is `TRUE`: `list(x = list(feature_name = feature_values, ...), y = response_values)`
+- When `named_features` is `TRUE`: `list(x = list(feature_name = feature_values, ...), y = response_values)` 
 
 - When `named_features` is `FALSE`: `list(x = features_array, y = response_values)`, where `features_array` is a Rank 2 array of `(batch_size, num_features)`. 
 
-Note that the `y` element will be omitted when `y` is `NULL`. 
+  Note that the `y` element will be omitted when `y` is `NULL`. 
 
 
 
 ## See Also
-input_fn() for use with `tfestimators`. 
+ input_fn() for use with `tfestimators`. 
 

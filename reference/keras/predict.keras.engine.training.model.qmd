@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L872) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/model.R](https://github.com/rstudio/keras//blob/main/R/model.R#L872) 
 
 # predict.keras.engine.training.Model
 
 ## Generate predictions from a Keras model
 
 ## Description
-Generates output predictions for the input samples, processing the samples in a batched way. 
+ Generates output predictions for the input samples, processing the samples in a batched way. 
 
 
 ## Usage
 ```r
+ 
 ## S3 method for class 'keras.engine.training.Model'
 predict( 
   object, 
@@ -43,10 +42,10 @@ predict(
 
 
 ## Value
-vector, matrix, or array of predictions 
+ vector, matrix, or array of predictions 
 
 
 
 ## See Also
-Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()`
+ Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()` 
 

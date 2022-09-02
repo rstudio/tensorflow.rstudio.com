@@ -1,23 +1,23 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/package.R#L) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/package.R](https://github.com/rstudio/keras//blob/main/R/package.R#L) 
 
 # keras-package
 
 ## R interface to Keras
 
 ## Description
-Keras is a high-level neural networks API, developed with a focus on enabling fast experimentation. Keras has the following key features: 
+ Keras is a high-level neural networks API, developed with a focus on enabling fast experimentation. Keras has the following key features: 
 
 
 
 
 ## Details
+
+  
 
 - Allows the same code to run on CPU or on GPU, seamlessly. 
 
@@ -29,7 +29,7 @@ Keras is a high-level neural networks API, developed with a focus on enabling fa
 
 - Is capable of running on top of multiple back-ends including [TensorFlow](https://github.com/tensorflow/tensorflow), [CNTK](https://github.com/Microsoft/cntk), or [Theano](https://github.com/Theano/Theano). 
 
-See the package website at [https://keras.rstudio.com](https://keras.rstudio.com) for complete documentation. 
+  See the package website at [https://keras.rstudio.com](https://keras.rstudio.com) for complete documentation. 
 
 
 
@@ -37,31 +37,23 @@ See the package website at [https://keras.rstudio.com](https://keras.rstudio.com
 
 ## See Also
 
-Useful links: 
+ Useful links:    
+
+- [https://keras.rstudio.com](https://keras.rstudio.com)   
+
+- Report bugs at [https://github.com/rstudio/keras/issues](https://github.com/rstudio/keras/issues) 
 
   
-
-- [https://keras.rstudio.com](https://keras.rstudio.com)
-
-  
-
-- Report bugs at [https://github.com/rstudio/keras/issues](https://github.com/rstudio/keras/issues)
 
 ## Author(s)
 
-**Maintainer**: Tomasz Kalinowski [tomasz.kalinowski@rstudio.com](tomasz.kalinowski@rstudio.com) [contributor, copyright holder] 
-
-Authors: 
-
-  
+ **Maintainer**: Tomasz Kalinowski [tomasz.kalinowski@rstudio.com](tomasz.kalinowski@rstudio.com) [contributor, copyright holder]  Authors:    
 
 - JJ Allaire [copyright holder]   
 
 - François Chollet [copyright holder] 
 
-Other contributors: 
-
-  
+  Other contributors:    
 
 - Daniel Falbel [daniel@rstudio.com](daniel@rstudio.com) [contributor, copyright holder]   
 
@@ -76,3 +68,5 @@ Other contributors:
 - Martin Studer [contributor, copyright holder]   
 
 - Sigrid Keydana [contributor] 
+
+  

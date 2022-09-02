@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/applications.R#L407) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/applications.R](https://github.com/rstudio/keras//blob/main/R/applications.R#L407) 
 
 # imagenet_preprocess_input
 
 ## Preprocesses a tensor or array encoding a batch of images.
 
 ## Description
-Preprocesses a tensor or array encoding a batch of images. 
+ Preprocesses a tensor or array encoding a batch of images. 
 
 
 ## Usage
 ```r
+ 
 imagenet_preprocess_input(x, data_format = NULL, mode = "caffe") 
 ```
 
@@ -25,12 +24,12 @@ imagenet_preprocess_input(x, data_format = NULL, mode = "caffe")
 |---|---|
 | x | Input Numpy or symbolic tensor, 3D or 4D. |
 | data_format | Data format of the image tensor/array. |
-| mode | One of "caffe", "tf", or "torch" <br>- caffe: will convert the images from RGB to BGR, then will zero-center each color channel with respect to the ImageNet dataset, without scaling. <br>- tf: will scale pixels between -1 and 1, sample-wise. <br>- torch: will scale pixels between 0 and 1 and then will normalize each channel with respect to the ImageNet dataset.  |
+| mode | One of "caffe", "tf", or "torch"  <br>- caffe: will convert the images from RGB to BGR, then will zero-center each color channel with respect to the ImageNet dataset, without scaling. <br>- tf: will scale pixels between -1 and 1, sample-wise. <br>- torch: will scale pixels between 0 and 1 and then will normalize each channel with respect to the ImageNet dataset.  |
 
 
 
 ## Value
-Preprocessed tensor or array. 
+ Preprocessed tensor or array. 
 
 
 

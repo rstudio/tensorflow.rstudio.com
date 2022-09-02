@@ -6,7 +6,7 @@ site:
     convert_articles: false
     reference_folder: ""
     reference_examples: false
-    reference_examples_not_run: false
+    reference_examples_not_run: true
     reference_template: "reference/assets/_reference.qmd"
     packages:
       - repo_url: https://github.com/rstudio/tensorflow

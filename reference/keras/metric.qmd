@@ -1,18 +1,16 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/metrics.R#L90) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/metrics.R](https://github.com/rstudio/keras//blob/main/R/metrics.R#L90) 
 
 # Metric
 
 ## Metric
 
 ## Description
-A `Metric` object encapsulates metric logic and state that can be used to track model performance during training. It is what is returned by the family of metric functions that start with prefix `metric_*`. 
+ A `Metric` object encapsulates metric logic and state that can be used to track model performance during training. It is what is returned by the family of metric functions that start with prefix `metric_*`. 
 
 
 
@@ -27,7 +25,7 @@ A `Metric` object encapsulates metric logic and state that can be used to track 
 
 ## Usage with `compile`
 
-```
+   ```
 
 model %>% compile( 
 
@@ -39,11 +37,11 @@ model %>% compile(
 
 ) 
 
-```
+``` 
 
 ## Standalone usage
 
-```
+   ```
 
 m <- metric_SOME_METRIC() 
 
@@ -63,33 +61,27 @@ for (e in seq(epochs)) {
 
 } 
 
-```
+``` 
 
 ## Custom Metric (subclass)
 
-To be implemented by subclasses: 
+  To be implemented by subclasses:  
 
-- `initialize()`: All state variables should be created in this method by calling `self$add_weight()` like: 
-
-```
+- `initialize()`: All state variables should be created in this method by calling `self$add_weight()` like:  ```
 
 self$var <- self$add_weight(...) 
 
-```
+``` 
 
-- `update_state()`: Has all updates to the state variables like: 
-
-```
+- `update_state()`: Has all updates to the state variables like:  ```
 
 self$var$assign_add(...) 
 
-```
+``` 
 
 - `result()`: Computes and returns a value for the metric from the state variables. 
 
-Example custom metric subclass: 
-
-```
+  Example custom metric subclass:  ```
 
 metric_binary_true_positives <- new_metric_class( 
 
@@ -105,11 +97,15 @@ metric_binary_true_positives <- new_metric_class(
 
   }, 
 
+ 
+
   update_state = function(y_true, y_pred, sample_weight = NULL) { 
 
     y_true <- k_cast(y_true, "bool") 
 
     y_pred <- k_cast(y_pred, "bool") 
+
+ 
 
     values <- y_true & y_pred 
 
@@ -129,6 +125,8 @@ metric_binary_true_positives <- new_metric_class(
 
   }, 
 
+ 
+
   result = function() 
 
     self$true_positives 
@@ -137,11 +135,7 @@ metric_binary_true_positives <- new_metric_class(
 
 model %>% compile(..., metrics = list(metric_binary_true_positives())) 
 
-```
-
-The same `metric_binary_true_positives` could be built with `%py_class%` like this: 
-
-```
+```  The same `metric_binary_true_positives` could be built with `%py_class%` like this:  ```
 
 metric_binary_true_positives(keras$metrics$Metric) %py_class% { 
 
@@ -153,10 +147,10 @@ metric_binary_true_positives(keras$metrics$Metric) %py_class% {
 
 } 
 
-```
+``` 
 
 ## Value
-A (subclassed) `Metric` instance that can be passed directly to `compile(metrics = )`, or used as a standalone object. See `?Metric` for example usage. 
+ A (subclassed) `Metric` instance that can be passed directly to `compile(metrics = )`, or used as a standalone object. See `?Metric` for example usage. 
 
 
 

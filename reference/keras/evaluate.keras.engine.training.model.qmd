@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L791) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/model.R](https://github.com/rstudio/keras//blob/main/R/model.R#L791) 
 
 # evaluate.keras.engine.training.Model
 
 ## Evaluate a Keras model
 
 ## Description
-Evaluate a Keras model 
+ Evaluate a Keras model 
 
 
 ## Usage
 ```r
+ 
 ## S3 method for class 'keras.engine.training.Model'
 evaluate( 
   object, 
@@ -47,10 +46,10 @@ evaluate(
 
 
 ## Value
-Named list of model test loss (or losses for models with multiple outputs) and model metrics. 
+ Named list of model test loss (or losses for models with multiple outputs) and model metrics. 
 
 
 
 ## See Also
-Other model functions:  `compile.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()`
+ Other model functions:  `compile.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()` 
 

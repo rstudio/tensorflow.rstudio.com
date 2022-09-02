@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/iterators.R#L140) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/iterators.R](https://github.com/rstudio/tfdatasets//blob/main/R/iterators.R#L140) 
 
 # iterator_string_handle
 
 ## String-valued tensor that represents this iterator
 
 ## Description
-String-valued tensor that represents this iterator 
+ String-valued tensor that represents this iterator 
 
 
 ## Usage
 ```r
+ 
 iterator_string_handle(iterator, name = NULL) 
 ```
 
@@ -29,10 +28,10 @@ iterator_string_handle(iterator, name = NULL)
 
 
 ## Value
-Scalar tensor of type string 
+ Scalar tensor of type string 
 
 
 
 ## See Also
-Other iterator functions:  `iterator_get_next()`, `iterator_initializer()`, `iterator_make_initializer()`, `make-iterator`
+ Other iterator functions:  `iterator_get_next()`, `iterator_initializer()`, `iterator_make_initializer()`, `make-iterator` 
 

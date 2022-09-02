@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L695) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/model.R](https://github.com/rstudio/keras//blob/main/R/model.R#L695) 
 
 # fit.keras.engine.training.Model
 
 ## Train a Keras model
 
 ## Description
-Trains the model for a fixed number of epochs (iterations on a dataset). 
+ Trains the model for a fixed number of epochs (iterations on a dataset). 
 
 
 ## Usage
 ```r
+ 
 ## S3 method for class 'keras.engine.training.Model'
 fit( 
   object, 
@@ -63,10 +62,10 @@ fit(
 
 
 ## Value
-A `history` object that contains all information collected during training. 
+ A `history` object that contains all information collected during training. 
 
 
 
 ## See Also
-Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()`
+ Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_on_batch()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()` 
 

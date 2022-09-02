@@ -1,21 +1,19 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layer-custom.R#L24) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layer-custom.R](https://github.com/rstudio/keras//blob/main/R/layer-custom.R#L24) 
 
 # KerasLayer
 
 ## (Deprecated) Base R6 class for Keras layers
 
 ## Description
-Custom R6 layers can now inherit directly from `keras$layers$Layer` or other layers. 
+ Custom R6 layers can now inherit directly from `keras$layers$Layer` or other layers. 
 
 ## Format
-An R6Class generator object 
+ An R6Class generator object 
 
 
 
@@ -24,32 +22,40 @@ An R6Class generator object
 
 ## Methods
 
-  
+   
 
 `build(input_shape)`
 
 Creates the 
 
+ 
+
 `call(inputs,mask)`
 
 Call the layer on an input tensor.
+
+ 
 
 `compute_output_shape(input_shape)`
 
 Compute the output shape 
 
+ 
+
 `add_loss(losses, inputs)`
 
 Add losses to the layer.
+
+ 
 
 `add_weight(name,shape,dtype,initializer,regularizer,trainable,constraint)`
 
 Adds 
 
- 
+  
 
 ## Value
-KerasLayer. 
+ KerasLayer. 
 
 
 

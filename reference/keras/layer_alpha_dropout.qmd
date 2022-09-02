@@ -1,57 +1,57 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-noise.R#L107) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-noise.R](https://github.com/rstudio/keras//blob/main/R/layers-noise.R#L107) 
 
 # layer_alpha_dropout
 
 ## Applies Alpha Dropout to the input.
 
 ## Description
-Alpha Dropout is a dropout that keeps mean and variance of inputs to their original values, in order to ensure the self-normalizing property even after this dropout. 
+ Alpha Dropout is a dropout that keeps mean and variance of inputs to their original values, in order to ensure the self-normalizing property even after this dropout. 
 
 
 ## Usage
 ```r
+ 
 layer_alpha_dropout(object, rate, noise_shape = NULL, seed = NULL, ...) 
 ```
 
 ## Arguments
 |Arguments|Description|
 |---|---|
-| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is:  <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
 | rate | float, drop probability (as with `layer_dropout()`). The multiplicative noise will have standard deviation `sqrt(rate / (1 - rate))`. |
 | noise_shape | Noise shape |
 | seed | An integer to use as random seed. |
 | ... | standard layer arguments. |
 
 ## Details
-Alpha Dropout fits well to Scaled Exponential Linear Units by randomly setting activations to the negative saturation value. 
+ Alpha Dropout fits well to Scaled Exponential Linear Units by randomly setting activations to the negative saturation value. 
 
 ## Section
 
 ## Input shape
 
- Arbitrary. Use the keyword argument `input_shape` (list of integers, does not include the samples axis) when using this layer as the first layer in a model. 
+  Arbitrary. Use the keyword argument `input_shape` (list of integers, does not include the samples axis) when using this layer as the first layer in a model. 
 
 ## Output shape
 
- Same shape as input. 
+  Same shape as input. 
 
 ## References
 
-- [Self-Normalizing Neural Networks](https://arxiv.org/abs/1706.02515)
+   
+
+- [Self-Normalizing Neural Networks](https://arxiv.org/abs/1706.02515) 
+
+ 
 
 
 
 
 ## See Also
-
-[https://www.tensorflow.org/api_docs/python/tf/keras/layers/AlphaDropout](https://www.tensorflow.org/api_docs/python/tf/keras/layers/AlphaDropout)
-
-Other noise layers:  `layer_gaussian_dropout()`, `layer_gaussian_noise()`
+ [https://www.tensorflow.org/api_docs/python/tf/keras/layers/AlphaDropout](https://www.tensorflow.org/api_docs/python/tf/keras/layers/AlphaDropout)  Other noise layers:  `layer_gaussian_dropout()`, `layer_gaussian_noise()` 
 

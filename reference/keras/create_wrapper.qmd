@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/wrapper_custom.R#L113) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/wrapper_custom.R](https://github.com/rstudio/keras//blob/main/R/wrapper_custom.R#L113) 
 
 # create_wrapper
 
 ## (Deprecated) Create a Keras Wrapper
 
 ## Description
-R6 classes that inherit from `keras$layers$Wrapper` can now be instantiated directly by `create_layer`
+ R6 classes that inherit from `keras$layers$Wrapper` can now be instantiated directly by `create_layer` 
 
 
 ## Usage
 ```r
+ 
 create_wrapper(wrapper_class, object, args = list()) 
 ```
 
@@ -30,10 +29,10 @@ create_wrapper(wrapper_class, object, args = list())
 
 
 ## Value
-A Keras wrapper 
+ A Keras wrapper 
 
 ## Note
-The `object` parameter can be missing, in which case the layer is created without a connection to an existing graph. 
+ The `object` parameter can be missing, in which case the layer is created without a connection to an existing graph. 
 
 
 

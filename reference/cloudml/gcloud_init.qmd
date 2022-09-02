@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/terminal.R#L120) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/terminal.R](NULL/blob/main/R/terminal.R#L120) 
 
 # gcloud_init
 
 ## Initialize the Google Cloud SDK
 
 ## Description
-Initialize the Google Cloud SDK 
+ Initialize the Google Cloud SDK 
 
 
 ## Usage
 ```r
+ 
 gcloud_init() 
 ```
 
@@ -27,5 +26,5 @@ gcloud_init()
 
 
 ## See Also
-Other Google Cloud SDK functions: `gcloud_install`,   `gcloud_terminal`
+ Other Google Cloud SDK functions: `gcloud_install`,   `gcloud_terminal` 
 

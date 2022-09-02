@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-recurrent-cells.R#L323) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-recurrent-cells.R](https://github.com/rstudio/keras//blob/main/R/layers-recurrent-cells.R#L323) 
 
 # layer_stacked_rnn_cells
 
 ## Wrapper allowing a stack of RNN cells to behave as a single cell
 
 ## Description
-Used to implement efficient stacked RNNs. 
+ Used to implement efficient stacked RNNs. 
 
 
 ## Usage
 ```r
+ 
 layer_stacked_rnn_cells(cells, ...) 
 ```
 
@@ -33,7 +32,9 @@ layer_stacked_rnn_cells(cells, ...)
 
 ## See Also
 
-- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/StackedRNNCells](https://www.tensorflow.org/api_docs/python/tf/keras/layers/StackedRNNCells)
+  
 
-Other RNN cell layers:  `layer_gru_cell()`, `layer_lstm_cell()`, `layer_simple_rnn_cell()`
+- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/StackedRNNCells](https://www.tensorflow.org/api_docs/python/tf/keras/layers/StackedRNNCells) 
+
+  Other RNN cell layers:  `layer_gru_cell()`, `layer_lstm_cell()`, `layer_simple_rnn_cell()` 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L1951) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/backend.R](https://github.com/rstudio/keras//blob/main/R/backend.R#L1951) 
 
 # k_placeholder
 
 ## Instantiates a placeholder tensor and returns it.
 
 ## Description
-Instantiates a placeholder tensor and returns it. 
+ Instantiates a placeholder tensor and returns it. 
 
 
 ## Usage
 ```r
+ 
 k_placeholder( 
   shape = NULL, 
   ndim = NULL, 
@@ -29,8 +28,8 @@ k_placeholder(
 ## Arguments
 |Arguments|Description|
 |---|---|
-| shape | Shape of the placeholder (integer list, may include `NULL`<br>entries). |
-| ndim | Number of axes of the tensor. At least one of `shape`, `ndim` <br>must be specified. If both are specified, `shape` is used. |
+| shape | Shape of the placeholder (integer list, may include `NULL` entries). |
+| ndim | Number of axes of the tensor. At least one of `shape`, `ndim`  must be specified. If both are specified, `shape` is used. |
 | dtype | Placeholder type. |
 | sparse | Logical, whether the placeholder should have a sparse type. |
 | name | Optional name string for the placeholder. |
@@ -40,12 +39,10 @@ k_placeholder(
 
 ## Keras Backend
 
-This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
-
-You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
+   This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.).  You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-Tensor instance (with Keras metadata included). 
+ Tensor instance (with Keras metadata included). 
 
 
 

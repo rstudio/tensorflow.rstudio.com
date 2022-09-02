@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1241) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/dataset_methods.R](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1241) 
 
 # random_integer_dataset
 
 ## Creates a `Dataset` of pseudorandom values
 
 ## Description
-Creates a `Dataset` of pseudorandom values 
+ Creates a `Dataset` of pseudorandom values 
 
 
 ## Usage
 ```r
+ 
 random_integer_dataset(seed = NULL) 
 ```
 
@@ -26,7 +25,7 @@ random_integer_dataset(seed = NULL)
 | seed | (Optional) If specified, the dataset produces a deterministic sequence of values. |
 
 ## Details
-The dataset generates a sequence of uniformly distributed integer values (dtype int64). 
+ The dataset generates a sequence of uniformly distributed integer values (dtype int64). 
 
 
 

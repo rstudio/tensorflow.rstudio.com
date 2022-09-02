@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model-persistence.R#L398) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/model-persistence.R](https://github.com/rstudio/keras//blob/main/R/model-persistence.R#L398) 
 
 # export_savedmodel.keras.engine.training.Model
 
 ## Export a Saved Model
 
 ## Description
-Serialize a model to disk. 
+ Serialize a model to disk. 
 
 
 ## Usage
 ```r
+ 
 ## S3 method for class 'keras.engine.training.Model'
 export_savedmodel( 
   object, 
@@ -43,7 +42,7 @@ export_savedmodel(
 
 
 ## Value
-The path to the exported directory, as a string. 
+ The path to the exported directory, as a string. 
 
 
 

@@ -1,24 +1,23 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model-persistence.R#L304) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/model-persistence.R](https://github.com/rstudio/keras//blob/main/R/model-persistence.R#L304) 
 
 # model_to_yaml
 
 ## Model configuration as YAML
 
 ## Description
-Save and re-load models configurations as YAML Note that the representation does not include the weights, only the architecture. 
+ Save and re-load models configurations as YAML Note that the representation does not include the weights, only the architecture. 
 
 
 ## Usage
 ```r
+ 
 model_to_yaml(object) 
-
+ 
 model_from_yaml(yaml, custom_objects = NULL) 
 ```
 
@@ -35,5 +34,5 @@ model_from_yaml(yaml, custom_objects = NULL)
 
 
 ## See Also
-Other model persistence:  `get_weights()`, `model_to_json()`, `save_model_hdf5()`, `save_model_tf()`, `save_model_weights_hdf5()`, `serialize_model()`
+ Other model persistence:  `get_weights()`, `model_to_json()`, `save_model_hdf5()`, `save_model_tf()`, `save_model_weights_hdf5()`, `serialize_model()` 
 

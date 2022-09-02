@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L730) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/dataset_methods.R](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L730) 
 
 # dataset_rejection_resample
 
 ## A transformation that resamples a dataset to a target distribution.
 
 ## Description
-A transformation that resamples a dataset to a target distribution. 
+ A transformation that resamples a dataset to a target distribution. 
 
 
 ## Usage
 ```r
+ 
 dataset_rejection_resample( 
   dataset, 
   class_func, 
@@ -40,12 +39,13 @@ dataset_rejection_resample(
 
 
 ## Value
-A `tf.Dataset`
+ A `tf.Dataset` 
 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(tfdatasets)
+ 
 initial_dist <- c(.5, .5) 
 target_dist <- c(.6, .4) 
 num_classes <- length(initial_dist) 
@@ -66,6 +66,7 @@ dataset %>%
 # The value of `tally` will be close to c(50000, 50000) as 
 # per the `initial_dist` distribution. 
 tally # c(50287, 49713) 
+ 
 tally <- c(0, 0) 
 dataset %>% 
   dataset_rejection_resample( 
@@ -81,6 +82,7 @@ dataset %>%
 # The value of tally will be now be close to c(75000, 50000) 
 # thus satisfying the target_dist distribution. 
 tally # c(74822, 49921) 
+ 
 ```
 
 

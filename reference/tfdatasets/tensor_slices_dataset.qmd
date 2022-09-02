@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/tensors_dataset.R#L42) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/tensors_dataset.R](https://github.com/rstudio/tfdatasets//blob/main/R/tensors_dataset.R#L42) 
 
 # tensor_slices_dataset
 
 ## Creates a dataset whose elements are slices of the given tensors.
 
 ## Description
-Creates a dataset whose elements are slices of the given tensors. 
+ Creates a dataset whose elements are slices of the given tensors. 
 
 
 ## Usage
 ```r
+ 
 tensor_slices_dataset(tensors) 
 ```
 
@@ -28,10 +27,10 @@ tensor_slices_dataset(tensors)
 
 
 ## Value
-A dataset. 
+ A dataset. 
 
 
 
 ## See Also
-Other tensor datasets:  `sparse_tensor_slices_dataset()`, `tensors_dataset()`
+ Other tensor datasets:  `sparse_tensor_slices_dataset()`, `tensors_dataset()` 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/eager.R#L174) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/eager.R](https://github.com/rstudio/tensorflow//blob/main/R/eager.R#L174) 
 
 # tf_function
 
 ## Creates a callable TensorFlow graph from an R function.
 
 ## Description
-`tf_function` constructs a callable that executes a TensorFlow graph created by tracing the TensorFlow operations in `f`. This allows the TensorFlow runtime to apply optimizations and exploit parallelism in the computation defined by `f`. 
+ `tf_function` constructs a callable that executes a TensorFlow graph created by tracing the TensorFlow operations in `f`. This allows the TensorFlow runtime to apply optimizations and exploit parallelism in the computation defined by `f`. 
 
 
 ## Usage
 ```r
+ 
 tf_function(f, input_signature = NULL, autograph = TRUE, ...) 
 ```
 
@@ -29,7 +28,7 @@ tf_function(f, input_signature = NULL, autograph = TRUE, ...)
 | ... | additional arguments passed on to `tf.function` (vary based on Tensorflow version). See [here](https://www.tensorflow.org/api_docs/python/tf/function#args_1) for details. |
 
 ## Details
-A guide to getting started with [`tf.function`](https://www.tensorflow.org/api_docs/python/tf/function) can be found [here](https://www.tensorflow.org/guide/function). 
+ A guide to getting started with [`tf.function`](https://www.tensorflow.org/api_docs/python/tf/function) can be found [here](https://www.tensorflow.org/guide/function). 
 
 
 

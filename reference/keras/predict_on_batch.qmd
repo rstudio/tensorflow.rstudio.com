@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model.R#L1025) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/model.R](https://github.com/rstudio/keras//blob/main/R/model.R#L1025) 
 
 # predict_on_batch
 
 ## Returns predictions for a single batch of samples.
 
 ## Description
-Returns predictions for a single batch of samples. 
+ Returns predictions for a single batch of samples. 
 
 
 ## Usage
 ```r
+ 
 predict_on_batch(object, x) 
 ```
 
@@ -29,10 +28,10 @@ predict_on_batch(object, x)
 
 
 ## Value
-array of predictions. 
+ array of predictions. 
 
 
 
 ## See Also
-Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()`
+ Other model functions:  `compile.keras.engine.training.Model()`, `evaluate.keras.engine.training.Model()`, `evaluate_generator()`, `fit.keras.engine.training.Model()`, `fit_generator()`, `get_config()`, `get_layer()`, `keras_model_sequential()`, `keras_model()`, `multi_gpu_model()`, `pop_layer()`, `predict.keras.engine.training.Model()`, `predict_generator()`, `predict_proba()`, `summary.keras.engine.training.Model()`, `train_on_batch()` 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L77) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/feature_spec.R](https://github.com/rstudio/tfdatasets//blob/main/R/feature_spec.R#L77) 
 
 # has_type
 
 ## Identify the type of the variable.
 
 ## Description
-Can only be used inside the steps specifications to find variables by type. 
+ Can only be used inside the steps specifications to find variables by type. 
 
 
 ## Usage
 ```r
+ 
 has_type(match = "float32") 
 ```
 
@@ -31,5 +30,5 @@ has_type(match = "float32")
 
 
 ## See Also
-Other Selectors:  `all_nominal()`, `all_numeric()`
+ Other Selectors:  `all_nominal()`, `all_numeric()` 
 

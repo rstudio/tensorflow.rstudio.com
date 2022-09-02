@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/datasets.R#L249) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/datasets.R](https://github.com/rstudio/keras//blob/main/R/datasets.R#L249) 
 
 # dataset_boston_housing
 
 ## Boston housing price regression dataset
 
 ## Description
-Dataset taken from the StatLib library which is maintained at Carnegie Mellon University. 
+ Dataset taken from the StatLib library which is maintained at Carnegie Mellon University. 
 
 
 ## Usage
 ```r
+ 
 dataset_boston_housing( 
   path = "boston_housing.npz", 
   test_split = 0.2, 
@@ -34,13 +33,10 @@ dataset_boston_housing(
 
 
 ## Value
-
-Lists of training and test data: `train$x, train$y, test$x, test$y`. 
-
-Samples contain 13 attributes of houses at different locations around the Boston suburbs in the late 1970s. Targets are the median values of the houses at a location (in k$). 
+ Lists of training and test data: `train$x, train$y, test$x, test$y`.  Samples contain 13 attributes of houses at different locations around the Boston suburbs in the late 1970s. Targets are the median values of the houses at a location (in k$). 
 
 
 
 ## See Also
-Other datasets:  `dataset_cifar100()`, `dataset_cifar10()`, `dataset_fashion_mnist()`, `dataset_imdb()`, `dataset_mnist()`, `dataset_reuters()`
+ Other datasets:  `dataset_cifar100()`, `dataset_cifar10()`, `dataset_fashion_mnist()`, `dataset_imdb()`, `dataset_mnist()`, `dataset_reuters()` 
 

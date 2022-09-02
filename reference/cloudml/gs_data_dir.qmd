@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gcloud-storage.R#L116) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/gcloud-storage.R](NULL/blob/main/R/gcloud-storage.R#L116) 
 
 # gs_data_dir
 
 ## Google storage bucket path that syncs to local storage when not running on CloudML.
 
 ## Description
-Refer to data within a Google Storage bucket. When running on CloudML the bucket will be read from directly. Otherwise, the bucket will be automatically synchronized to a local directory. 
+ Refer to data within a Google Storage bucket. When running on CloudML the bucket will be read from directly. Otherwise, the bucket will be automatically synchronized to a local directory. 
 
 
 ## Usage
 ```r
+ 
 gs_data_dir(url, local_dir = "gs", force_sync = FALSE, echo = TRUE) 
 ```
 
@@ -29,14 +28,14 @@ gs_data_dir(url, local_dir = "gs", force_sync = FALSE, echo = TRUE)
 | echo | Echo command output to console. |
 
 ## Details
-This function is suitable for use in TensorFlow APIs that accept gs:// URLs (e.g. TensorFlow datasets). However, many package functions accept only local filesystem paths as input (rather than gs:// URLs). For these cases you can the `gs_data_dir_local()` function, which will always synchronize gs:// buckets to the local filesystem and provide a local path interface to their contents. 
+ This function is suitable for use in TensorFlow APIs that accept gs:// URLs (e.g. TensorFlow datasets). However, many package functions accept only local filesystem paths as input (rather than gs:// URLs). For these cases you can the `gs_data_dir_local()` function, which will always synchronize gs:// buckets to the local filesystem and provide a local path interface to their contents. 
 
 
 ## Value
-Path to contents of data directory. 
+ Path to contents of data directory. 
 
 
 
 ## See Also
-`gs_data_dir_local()`
+ `gs_data_dir_local()` 
 

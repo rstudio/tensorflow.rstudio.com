@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gcloud-exec.R#L74) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/gcloud-exec.R](NULL/blob/main/R/gcloud-exec.R#L74) 
 
 # gcloud_exec
 
 ## Executes a Google Cloud Command
 
 ## Description
-Executes a Google Cloud command with the given parameters. 
+ Executes a Google Cloud command with the given parameters. 
 
 
 ## Usage
 ```r
+ 
 gcloud_exec(..., args = NULL, echo = TRUE, dry_run = FALSE) 
 ```
 
@@ -35,7 +34,9 @@ gcloud_exec(..., args = NULL, echo = TRUE, dry_run = FALSE)
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(cloudml)
+ 
 gcloud_exec("help", "info") 
+ 
 ```
 
 

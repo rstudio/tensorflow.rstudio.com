@@ -1,11 +1,9 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/reexports.R#L) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/reexports.R](https://github.com/rstudio/keras//blob/main/R/reexports.R#L) 
 
 # reexports
 
@@ -13,7 +11,7 @@ format:
 
 ## Description
 
-These objects are imported from other packages. Follow the links below to see their documentation. 
+ These objects are imported from other packages. Follow the links below to see their documentation.   
 
   
 
@@ -21,11 +19,19 @@ generics
 
 `compile`
 
+ 
+
+ 
+
   
 
 magrittr
 
 `%<>%`
+
+ 
+
+ 
 
   
 
@@ -33,17 +39,27 @@ reticulate
 
 `array_reshape`
 
+ 
+
+ 
+
   
 
 tensorflow
 
 `as_tensor`
 
+ 
+
+ 
+
   
 
 tfruns
 
 `flag_boolean`
+
+ 
 
 
 

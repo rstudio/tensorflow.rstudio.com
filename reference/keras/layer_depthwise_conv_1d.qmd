@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-convolutional.R#L742) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-convolutional.R](https://github.com/rstudio/keras//blob/main/R/layers-convolutional.R#L742) 
 
 # layer_depthwise_conv_1d
 
 ## Depthwise 1D convolution
 
 ## Description
-Depthwise 1D convolution 
+ Depthwise 1D convolution 
 
 
 ## Usage
 ```r
+ 
 layer_depthwise_conv_1d( 
   object, 
   kernel_size, 
@@ -41,7 +40,7 @@ layer_depthwise_conv_1d(
 ## Arguments
 |Arguments|Description|
 |---|---|
-| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is:  <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
 | kernel_size | An integer, specifying the height and width of the 1D convolution window. Can be a single integer to specify the same value for all spatial dimensions. |
 | strides | An integer, specifying the strides of the convolution along the height and width. Can be a single integer to specify the same value for all spatial dimensions. Specifying any stride value != 1 is incompatible with specifying any `dilation_rate` value != 1. |
 | padding | one of `'valid'` or `'same'` (case-insensitive). `"valid"` means no padding. `"same"` results in padding with zeros evenly to the left/right or up/down of the input such that output has the same height/width dimension as the input. |
@@ -61,9 +60,7 @@ layer_depthwise_conv_1d(
 
 ## Details
 
-Depthwise convolution is a type of convolution in which each input channel is convolved with a different kernel (called a depthwise kernel). You can understand depthwise convolution as the first step in a depthwise separable convolution. 
-
-It is implemented via the following steps: 
+ Depthwise convolution is a type of convolution in which each input channel is convolved with a different kernel (called a depthwise kernel). You can understand depthwise convolution as the first step in a depthwise separable convolution.  It is implemented via the following steps:  
 
 - Split the input into individual channels. 
 
@@ -71,9 +68,7 @@ It is implemented via the following steps:
 
 - Concatenate the convolved outputs along the channels axis. 
 
-Unlike a regular 1D convolution, depthwise convolution does not mix information across different input channels. 
-
-The `depth_multiplier` argument determines how many filter are applied to one input channel. As such, it controls the amount of output channels that are generated per input channel in the depthwise step. 
+  Unlike a regular 1D convolution, depthwise convolution does not mix information across different input channels.  The `depth_multiplier` argument determines how many filter are applied to one input channel. As such, it controls the amount of output channels that are generated per input channel in the depthwise step. 
 
 
 
@@ -81,7 +76,9 @@ The `depth_multiplier` argument determines how many filter are applied to one in
 
 ## See Also
 
-- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/DepthwiseConv1D](https://www.tensorflow.org/api_docs/python/tf/keras/layers/DepthwiseConv1D)
+  
 
-Other convolutional layers:  `layer_conv_1d_transpose()`, `layer_conv_1d()`, `layer_conv_2d_transpose()`, `layer_conv_2d()`, `layer_conv_3d_transpose()`, `layer_conv_3d()`, `layer_conv_lstm_2d()`, `layer_cropping_1d()`, `layer_cropping_2d()`, `layer_cropping_3d()`, `layer_depthwise_conv_2d()`, `layer_separable_conv_1d()`, `layer_separable_conv_2d()`, `layer_upsampling_1d()`, `layer_upsampling_2d()`, `layer_upsampling_3d()`, `layer_zero_padding_1d()`, `layer_zero_padding_2d()`, `layer_zero_padding_3d()`
+- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/DepthwiseConv1D](https://www.tensorflow.org/api_docs/python/tf/keras/layers/DepthwiseConv1D) 
+
+  Other convolutional layers:  `layer_conv_1d_transpose()`, `layer_conv_1d()`, `layer_conv_2d_transpose()`, `layer_conv_2d()`, `layer_conv_3d_transpose()`, `layer_conv_3d()`, `layer_conv_lstm_2d()`, `layer_cropping_1d()`, `layer_cropping_2d()`, `layer_cropping_3d()`, `layer_depthwise_conv_2d()`, `layer_separable_conv_1d()`, `layer_separable_conv_2d()`, `layer_upsampling_1d()`, `layer_upsampling_2d()`, `layer_upsampling_3d()`, `layer_zero_padding_1d()`, `layer_zero_padding_2d()`, `layer_zero_padding_3d()` 
 

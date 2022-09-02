@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/optimizers.R#L160) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/optimizers.R](https://github.com/rstudio/keras//blob/main/R/optimizers.R#L160) 
 
 # optimizer_adam
 
 ## Adam optimizer
 
 ## Description
-Adam optimizer as described in [Adam - A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980v8). 
+ Adam optimizer as described in [Adam - A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980v8). 
 
 
 ## Usage
 ```r
+ 
 optimizer_adam( 
   learning_rate = 0.001, 
   beta_1 = 0.9, 
@@ -48,15 +47,19 @@ optimizer_adam(
 
 ## References
 
-- [Adam - A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980v8)
+   
 
-- [On the Convergence of Adam and Beyond](https://openreview.net/forum?id=ryQu7f-RZ)
+- [Adam - A Method for Stochastic Optimization](https://arxiv.org/abs/1412.6980v8) 
+
+- [On the Convergence of Adam and Beyond](https://openreview.net/forum?id=ryQu7f-RZ) 
+
+ 
 
 
 ## Note
-Default parameters follow those provided in the original paper. 
+ Default parameters follow those provided in the original paper. 
 
 
 ## See Also
-Other optimizers:  `optimizer_adadelta()`, `optimizer_adagrad()`, `optimizer_adamax()`, `optimizer_nadam()`, `optimizer_rmsprop()`, `optimizer_sgd()`
+ Other optimizers:  `optimizer_adadelta()`, `optimizer_adagrad()`, `optimizer_adamax()`, `optimizer_nadam()`, `optimizer_rmsprop()`, `optimizer_sgd()` 
 

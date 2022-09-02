@@ -1,24 +1,23 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/model-persistence.R#L343) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/model-persistence.R](https://github.com/rstudio/keras//blob/main/R/model-persistence.R#L343) 
 
 # serialize_model
 
 ## Serialize a model to an R object
 
 ## Description
-Model objects are external references to Keras objects which cannot be saved and restored across R sessions. The `serialize_model()` and `unserialize_model()` functions provide facilities to convert Keras models to R objects for persistence within R data files. 
+ Model objects are external references to Keras objects which cannot be saved and restored across R sessions. The `serialize_model()` and `unserialize_model()` functions provide facilities to convert Keras models to R objects for persistence within R data files. 
 
 
 ## Usage
 ```r
+ 
 serialize_model(model, include_optimizer = TRUE) 
-
+ 
 unserialize_model(model, custom_objects = NULL, compile = TRUE) 
 ```
 
@@ -33,12 +32,12 @@ unserialize_model(model, custom_objects = NULL, compile = TRUE)
 
 
 ## Value
-`serialize_model()` returns an R "raw" object containing an hdf5 version of the Keras model. `unserialize_model()` returns a Keras model. 
+ `serialize_model()` returns an R "raw" object containing an hdf5 version of the Keras model. `unserialize_model()` returns a Keras model. 
 
 ## Note
-The `save_model_hdf5()` function enables saving Keras models to external hdf5 files. 
+ The `save_model_hdf5()` function enables saving Keras models to external hdf5 files. 
 
 
 ## See Also
-Other model persistence:  `get_weights()`, `model_to_json()`, `model_to_yaml()`, `save_model_hdf5()`, `save_model_tf()`, `save_model_weights_hdf5()`
+ Other model persistence:  `get_weights()`, `model_to_json()`, `model_to_yaml()`, `save_model_hdf5()`, `save_model_tf()`, `save_model_weights_hdf5()` 
 

@@ -1,11 +1,9 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf_map.R#L38) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/tf_map.R](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf_map.R#L38) 
 
 # tf_map
 
@@ -13,17 +11,18 @@ format:
 
 ## Description
 
-Thin wrapper around `tf.map_fn()` with the following differences: 
+ Thin wrapper around `tf.map_fn()` with the following differences:  
 
 - accepts `purrr` style `~` lambda syntax to define function `fn`. 
 
-- The order of `elems` and `fn` is switched to make it more pipe `%>%`
+- The order of `elems` and `fn` is switched to make it more pipe `%>%` friendly and consistent with R mappers `lapply()` and `purrr::map()`. 
 
-friendly and consistent with R mappers `lapply()` and `purrr::map()`. 
+ 
 
 
 ## Usage
 ```r
+ 
 tf_map( 
   elems, 
   fn, 
@@ -51,7 +50,7 @@ tf_map(
 
 
 ## Value
-A tensor or (possibly nested) sequence of tensors. Each tensor packs the results of applying fn to tensors unpacked from elems along the first dimension, from first to last. 
+ A tensor or (possibly nested) sequence of tensors. Each tensor packs the results of applying fn to tensors unpacked from elems along the first dimension, from first to last. 
 
 
 

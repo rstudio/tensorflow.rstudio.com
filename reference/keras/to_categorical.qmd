@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/utils.R#L18) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/utils.R](https://github.com/rstudio/keras//blob/main/R/utils.R#L18) 
 
 # to_categorical
 
 ## Converts a class vector (integers) to binary class matrix.
 
 ## Description
-Converts a class vector (integers) to binary class matrix. 
+ Converts a class vector (integers) to binary class matrix. 
 
 
 ## Usage
 ```r
+ 
 to_categorical(y, num_classes = NULL, dtype = "float32") 
 ```
 
@@ -28,11 +27,11 @@ to_categorical(y, num_classes = NULL, dtype = "float32")
 | dtype | The data type expected by the input, as a string |
 
 ## Details
-E.g. for use with `loss_categorical_crossentropy()`. 
+ E.g. for use with `loss_categorical_crossentropy()`. 
 
 
 ## Value
-A binary matrix representation of the input. 
+ A binary matrix representation of the input. 
 
 
 

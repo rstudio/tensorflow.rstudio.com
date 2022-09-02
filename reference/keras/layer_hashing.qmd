@@ -1,29 +1,28 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-preprocessing.R#L794) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-preprocessing.R](https://github.com/rstudio/keras//blob/main/R/layers-preprocessing.R#L794) 
 
 # layer_hashing
 
 ## A preprocessing layer which hashes and bins categorical features.
 
 ## Description
-A preprocessing layer which hashes and bins categorical features. 
+ A preprocessing layer which hashes and bins categorical features. 
 
 
 ## Usage
 ```r
+ 
 layer_hashing(object, num_bins, mask_value = NULL, salt = NULL, ...) 
 ```
 
 ## Arguments
 |Arguments|Description|
 |---|---|
-| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is:  <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
 | num_bins | Number of hash bins. Note that this includes the `mask_value` bin, so the effective number of bins is `(num_bins - 1)` if `mask_value` is set. |
 | mask_value | A value that represents masked inputs, which are mapped to index 0. Defaults to NULL, meaning no mask term will be added and the hashing will start at index 0. |
 | salt | A single unsigned integer or NULL. If passed, the hash function used will be SipHash64, with these values used as an additional input (known as a "salt" in cryptography). These should be non-zero. Defaults to `NULL` (in that case, the FarmHash64 hash function is used). It also supports list of 2 unsigned integer numbers, see reference paper for details. |
@@ -31,17 +30,7 @@ layer_hashing(object, num_bins, mask_value = NULL, salt = NULL, ...)
 
 ## Details
 
-This layer transforms single or multiple categorical inputs to hashed output. It converts a sequence of int or string to a sequence of int. The stable hash function uses `tensorflow::ops::Fingerprint` to produce the same output consistently across all platforms. 
-
-This layer uses [FarmHash64](https://github.com/google/farmhash) by default, which provides a consistent hashed output across different platforms and is stable across invocations, regardless of device and context, by mixing the input bits thoroughly. 
-
-If you want to obfuscate the hashed output, you can also pass a random `salt`
-
-argument in the constructor. In that case, the layer will use the [SipHash64](https://github.com/google/highwayhash) hash function, with the `salt` value serving as additional input to the hash function. 
-
-**Example (FarmHash64)**
-
-```
+ This layer transforms single or multiple categorical inputs to hashed output. It converts a sequence of int or string to a sequence of int. The stable hash function uses `tensorflow::ops::Fingerprint` to produce the same output consistently across all platforms.  This layer uses [FarmHash64](https://github.com/google/farmhash) by default, which provides a consistent hashed output across different platforms and is stable across invocations, regardless of device and context, by mixing the input bits thoroughly.  If you want to obfuscate the hashed output, you can also pass a random `salt` argument in the constructor. In that case, the layer will use the [SipHash64](https://github.com/google/highwayhash) hash function, with the `salt` value serving as additional input to the hash function.  **Example (FarmHash64)**  ```
 
 layer <- layer_hashing(num_bins=3) 
 
@@ -61,11 +50,7 @@ layer(inp)
 
 #          [2]])> 
 
-```
-
-**Example (FarmHash64) with a mask value**
-
-```
+```  **Example (FarmHash64) with a mask value**  ```
 
 layer <- layer_hashing(num_bins=3, mask_value='') 
 
@@ -85,11 +70,7 @@ layer(inp)
 
 #          [2]])> 
 
-```
-
-**Example (SipHash64)**
-
-```
+```  **Example (SipHash64)**  ```
 
 layer <- layer_hashing(num_bins=3, salt=c(133, 137)) 
 
@@ -109,11 +90,7 @@ layer(inp)
 
 #          [2]])> 
 
-```
-
-**Example (Siphash64 with a single integer, same as ****list("salt=[133, 133]")****)**
-
-```
+```  **Example (Siphash64 with a single integer, same as ****list("salt=[133, 133]")****)**  ```
 
 layer <- layer_hashing(num_bins=3, salt=133) 
 
@@ -133,7 +110,7 @@ layer(inp)
 
 #          [0]])> 
 
-```
+``` 
 
 
 
@@ -141,11 +118,11 @@ layer(inp)
 
 ## See Also
 
-- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/Hashing](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Hashing)
+  
 
-- [https://keras.io/api/layers/preprocessing_layers/categorical/hashing/](https://keras.io/api/layers/preprocessing_layers/categorical/hashing/)
+- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/Hashing](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Hashing) 
 
-Other categorical features preprocessing layers:  `layer_category_encoding()`, `layer_integer_lookup()`, `layer_string_lookup()`
+- [https://keras.io/api/layers/preprocessing_layers/categorical/hashing/](https://keras.io/api/layers/preprocessing_layers/categorical/hashing/) 
 
-Other preprocessing layers:  `layer_category_encoding()`, `layer_center_crop()`, `layer_discretization()`, `layer_integer_lookup()`, `layer_normalization()`, `layer_random_brightness()`, `layer_random_contrast()`, `layer_random_crop()`, `layer_random_flip()`, `layer_random_height()`, `layer_random_rotation()`, `layer_random_translation()`, `layer_random_width()`, `layer_random_zoom()`, `layer_rescaling()`, `layer_resizing()`, `layer_string_lookup()`, `layer_text_vectorization()`
+  Other categorical features preprocessing layers:  `layer_category_encoding()`, `layer_integer_lookup()`, `layer_string_lookup()`  Other preprocessing layers:  `layer_category_encoding()`, `layer_center_crop()`, `layer_discretization()`, `layer_integer_lookup()`, `layer_normalization()`, `layer_random_brightness()`, `layer_random_contrast()`, `layer_random_crop()`, `layer_random_flip()`, `layer_random_height()`, `layer_random_rotation()`, `layer_random_translation()`, `layer_random_width()`, `layer_random_zoom()`, `layer_rescaling()`, `layer_resizing()`, `layer_string_lookup()`, `layer_text_vectorization()` 
 

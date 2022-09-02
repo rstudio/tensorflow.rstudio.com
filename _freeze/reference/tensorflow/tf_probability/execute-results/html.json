@@ -1,10 +1,8 @@
 {
-  "hash": "4c89631faa8434358fd723b751ab4d9b",
+  "hash": "9aa714247316d50f42c2fab7dc8a2517",
   "result": {
-    "markdown": "---\nformat:\n  html:\n    css: /reference/assets/reference.css\n---\n\n\n| <button class=\"button\"> ![](/reference/assets/GitHub-Mark-32px.png){width=\"20\"} [View source on GitHub](https://github.com/rstudio/tensorflow//blob/main/R/probability.R#L14) </button> |\n|:------------------------------:|:--------------------------------------:|\n\n# tf_probability\n\n## TensorFlow Probability Module\n\n## Description\nTensorFlow Probability Module \n\n\n## Usage\n```r\ntf_probability() \n```\n\n\n\n\n## Value\n\nReference to [TensorFlow Probability](https://www.tensorflow.org/probability)\n\nfunctions and classes \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tensorflow) \ntfp <- tf_probability() \ntfp$distributions$Normal(loc=0, scale=1) \n```\n:::\n",
-    "supporting": [
-      "tf_probability_files"
-    ],
+    "markdown": "---\nexecute:\n  freeze: true\n---\n\n\n[R/probability.R](https://github.com/rstudio/tensorflow//blob/main/R/probability.R#L14) \n\n# tf_probability\n\n## TensorFlow Probability Module\n\n## Description\n TensorFlow Probability Module \n\n\n## Usage\n```r\n \ntf_probability() \n```\n\n\n\n\n## Value\n Reference to [TensorFlow Probability](https://www.tensorflow.org/probability) functions and classes \n\n\n## Examples\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tensorflow) \ntfp <- tf_probability() \ntfp$distributions$Normal(loc=0, scale=1) \n```\n:::\n",
+    "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],

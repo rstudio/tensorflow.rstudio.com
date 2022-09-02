@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/utils.R#L124) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/utils.R](https://github.com/rstudio/keras//blob/main/R/utils.R#L124) 
 
 # normalize
 
 ## Normalize a matrix or nd-array
 
 ## Description
-Normalize a matrix or nd-array 
+ Normalize a matrix or nd-array 
 
 
 ## Usage
 ```r
+ 
 normalize(x, axis = -1, order = 2) 
 ```
 
@@ -30,7 +29,7 @@ normalize(x, axis = -1, order = 2)
 
 
 ## Value
-A normalized copy of the array. 
+ A normalized copy of the array. 
 
 
 

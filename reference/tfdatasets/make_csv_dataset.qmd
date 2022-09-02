@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/text_line_dataset.R#L159) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/text_line_dataset.R](https://github.com/rstudio/tfdatasets//blob/main/R/text_line_dataset.R#L159) 
 
 # make_csv_dataset
 
 ## Reads CSV files into a batched dataset
 
 ## Description
-Reads CSV files into a dataset, where each element is a (features, labels) list that corresponds to a batch of CSV rows. The features dictionary maps feature column names to tensors containing the corresponding feature data, and labels is a tensor containing the batch's label data. 
+ Reads CSV files into a dataset, where each element is a (features, labels) list that corresponds to a batch of CSV rows. The features dictionary maps feature column names to tensors containing the corresponding feature data, and labels is a tensor containing the batch's label data. 
 
 
 ## Usage
 ```r
+ 
 make_csv_dataset( 
   file_pattern, 
   batch_size, 
@@ -66,7 +65,7 @@ make_csv_dataset(
 
 
 ## Value
-A dataset, where each element is a (features, labels) list that corresponds to a batch of `batch_size` CSV rows. The features dictionary maps feature column names to tensors containing the corresponding column data, and labels is a tensor containing the column data for the label column specified by `label_name`. 
+ A dataset, where each element is a (features, labels) list that corresponds to a batch of `batch_size` CSV rows. The features dictionary maps feature column names to tensors containing the corresponding column data, and labels is a tensor containing the column data for the label column specified by `label_name`. 
 
 
 

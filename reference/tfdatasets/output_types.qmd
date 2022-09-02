@@ -1,24 +1,23 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_properties.R#L12) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/dataset_properties.R](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_properties.R#L12) 
 
 # output_types
 
 ## Output types and shapes
 
 ## Description
-Output types and shapes 
+ Output types and shapes 
 
 
 ## Usage
 ```r
+ 
 output_types(object) 
-
+ 
 output_shapes(object) 
 ```
 
@@ -30,7 +29,7 @@ output_shapes(object)
 
 
 ## Value
-`output_types()` returns the type of each component of an element of this object; `output_shapes()` returns the shape of each component of an element of this object 
+ `output_types()` returns the type of each component of an element of this object; `output_shapes()` returns the shape of each component of an element of this object 
 
 
 

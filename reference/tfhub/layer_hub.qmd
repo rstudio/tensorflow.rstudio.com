@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfhub//blob/main/R/layer.R#L50) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layer.R](https://github.com/rstudio/tfhub//blob/main/R/layer.R#L50) 
 
 # layer_hub
 
 ## Hub Layer
 
 ## Description
-Wraps a Hub module (or a similar callable) for TF2 as a Keras Layer. 
+ Wraps a Hub module (or a similar callable) for TF2 as a Keras Layer. 
 
 
 ## Usage
 ```r
+ 
 layer_hub(object, handle, trainable = FALSE, arguments = NULL, ...) 
 ```
 
@@ -30,14 +29,7 @@ layer_hub(object, handle, trainable = FALSE, arguments = NULL, ...)
 | ... | Other arguments that are passed to the TensorFlow Hub module. |
 
 ## Details
-
-This layer wraps a callable object for use as a Keras layer. The callable object can be passed directly, or be specified by a string with a handle that gets passed to `hub_load()`. 
-
-The callable object is expected to follow the conventions detailed below. (These are met by TF2-compatible modules loaded from TensorFlow Hub.) 
-
-The callable is invoked with a single positional argument set to one tensor or a list of tensors containing the inputs to the layer. If the callable accepts a training argument, a boolean is passed for it. It is `TRUE` if this layer is marked trainable and called for training. 
-
-If present, the following attributes of callable are understood to have special meanings: variables: a list of all tf.Variable objects that the callable depends on. trainable_variables: those elements of variables that are reported as trainable variables of this Keras Layer when the layer is trainable. regularization_losses: a list of callables to be added as losses of this Keras Layer when the layer is trainable. Each one must accept zero arguments and return a scalar tensor. 
+ This layer wraps a callable object for use as a Keras layer. The callable object can be passed directly, or be specified by a string with a handle that gets passed to `hub_load()`.  The callable object is expected to follow the conventions detailed below. (These are met by TF2-compatible modules loaded from TensorFlow Hub.)  The callable is invoked with a single positional argument set to one tensor or a list of tensors containing the inputs to the layer. If the callable accepts a training argument, a boolean is passed for it. It is `TRUE` if this layer is marked trainable and called for training.  If present, the following attributes of callable are understood to have special meanings: variables: a list of all tf.Variable objects that the callable depends on. trainable_variables: those elements of variables that are reported as trainable variables of this Keras Layer when the layer is trainable. regularization_losses: a list of callables to be added as losses of this Keras Layer when the layer is trainable. Each one must accept zero arguments and return a scalar tensor. 
 
 
 
@@ -45,13 +37,19 @@ If present, the following attributes of callable are understood to have special 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(tfhub)
+ 
+ 
 library(keras) 
+ 
 model <- keras_model_sequential() %>% 
  layer_hub( 
    handle = "https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/4", 
    input_shape = c(224, 224, 3) 
  ) %>% 
  layer_dense(1) 
+ 
+ 
+ 
 ```
 
 

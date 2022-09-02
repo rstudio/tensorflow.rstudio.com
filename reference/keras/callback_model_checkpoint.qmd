@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/callbacks.R#L63) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/callbacks.R](https://github.com/rstudio/keras//blob/main/R/callbacks.R#L63) 
 
 # callback_model_checkpoint
 
 ## Save the model after every epoch.
 
 ## Description
-`filepath` can contain named formatting options, which will be filled the value of `epoch` and keys in `logs` (passed in `on_epoch_end`). For example: if `filepath` is `weights.{epoch:02d}-{val_loss:.2f}.hdf5`, then the model checkpoints will be saved with the epoch number and the validation loss in the filename. 
+ `filepath` can contain named formatting options, which will be filled the value of `epoch` and keys in `logs` (passed in `on_epoch_end`). For example: if `filepath` is `weights.{epoch:02d}-{val_loss:.2f}.hdf5`, then the model checkpoints will be saved with the epoch number and the validation loss in the filename. 
 
 
 ## Usage
 ```r
+ 
 callback_model_checkpoint( 
   filepath, 
   monitor = "val_loss", 
@@ -46,11 +45,11 @@ callback_model_checkpoint(
 
 ## For example
 
- if `filepath` is `weights.{epoch:02d}-{val_loss:.2f}.hdf5`,: then the model checkpoints will be saved with the epoch number and the validation loss in the filename. 
+  if `filepath` is `weights.{epoch:02d}-{val_loss:.2f}.hdf5`,: then the model checkpoints will be saved with the epoch number and the validation loss in the filename. 
 
 
 
 
 ## See Also
-Other callbacks:  `callback_csv_logger()`, `callback_early_stopping()`, `callback_lambda()`, `callback_learning_rate_scheduler()`, `callback_progbar_logger()`, `callback_reduce_lr_on_plateau()`, `callback_remote_monitor()`, `callback_tensorboard()`, `callback_terminate_on_naan()`
+ Other callbacks:  `callback_csv_logger()`, `callback_early_stopping()`, `callback_lambda()`, `callback_learning_rate_scheduler()`, `callback_progbar_logger()`, `callback_reduce_lr_on_plateau()`, `callback_remote_monitor()`, `callback_tensorboard()`, `callback_terminate_on_naan()` 
 

@@ -1,18 +1,16 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/metrics.R#L96) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/metrics.R](https://github.com/rstudio/keras//blob/main/R/metrics.R#L96) 
 
 # metric-or-Metric
 
 ## metric-or-Metric
 
 ## Description
-metric-or-Metric 
+ metric-or-Metric 
 
 
 
@@ -29,12 +27,7 @@ metric-or-Metric
 
 
 ## Value
-
-If `y_true` and `y_pred` are missing, a (subclassed) `Metric`
-
-instance is returned. The `Metric` object can be passed directly to `compile(metrics = )` or used as a standalone object. See `?Metric` for example usage. 
-
-Alternatively, if called with `y_true` and `y_pred` arguments, then the computed case-wise values for the mini-batch are returned directly. 
+ If `y_true` and `y_pred` are missing, a (subclassed) `Metric` instance is returned. The `Metric` object can be passed directly to `compile(metrics = )` or used as a standalone object. See `?Metric` for example usage.  Alternatively, if called with `y_true` and `y_pred` arguments, then the computed case-wise values for the mini-batch are returned directly. 
 
 
 

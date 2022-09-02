@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/models.R#L95) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/models.R](NULL/blob/main/R/models.R#L95) 
 
 # cloudml_predict
 
 ## Perform Prediction over a CloudML Model.
 
 ## Description
-Perform online prediction over a CloudML model, usually, created using `cloudml_deploy()`
+ Perform online prediction over a CloudML model, usually, created using `cloudml_deploy()` 
 
 
 ## Usage
 ```r
+ 
 cloudml_predict(instances, name, version = paste0(name, "_1"), 
   verbose = FALSE) 
 ```
@@ -35,8 +34,5 @@ cloudml_predict(instances, name, version = paste0(name, "_1"),
 
 
 ## See Also
-
-`cloudml_deploy()`
-
-Other CloudML functions: `cloudml_deploy`,   `cloudml_train`
+ `cloudml_deploy()`  Other CloudML functions: `cloudml_deploy`,   `cloudml_train` 
 

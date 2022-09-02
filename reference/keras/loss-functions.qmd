@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/losses.R#L5) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/losses.R](https://github.com/rstudio/keras//blob/main/R/losses.R#L5) 
 
 # loss-functions
 
 ## Loss functions
 
 ## Description
-Loss functions 
+ Loss functions 
 
 
 ## Usage
 ```r
+ 
 loss_binary_crossentropy( 
   y_true, 
   y_pred, 
@@ -27,7 +26,7 @@ loss_binary_crossentropy(
   reduction = "auto", 
   name = "binary_crossentropy" 
 ) 
-
+ 
 loss_categorical_crossentropy( 
   y_true, 
   y_pred, 
@@ -38,7 +37,7 @@ loss_categorical_crossentropy(
   reduction = "auto", 
   name = "categorical_crossentropy" 
 ) 
-
+ 
 loss_categorical_hinge( 
   y_true, 
   y_pred, 
@@ -46,7 +45,7 @@ loss_categorical_hinge(
   reduction = "auto", 
   name = "categorical_hinge" 
 ) 
-
+ 
 loss_cosine_similarity( 
   y_true, 
   y_pred, 
@@ -55,9 +54,9 @@ loss_cosine_similarity(
   reduction = "auto", 
   name = "cosine_similarity" 
 ) 
-
+ 
 loss_hinge(y_true, y_pred, ..., reduction = "auto", name = "hinge") 
-
+ 
 loss_huber( 
   y_true, 
   y_pred, 
@@ -66,7 +65,7 @@ loss_huber(
   reduction = "auto", 
   name = "huber_loss" 
 ) 
-
+ 
 loss_kullback_leibler_divergence( 
   y_true, 
   y_pred, 
@@ -74,7 +73,7 @@ loss_kullback_leibler_divergence(
   reduction = "auto", 
   name = "kl_divergence" 
 ) 
-
+ 
 loss_kl_divergence( 
   y_true, 
   y_pred, 
@@ -82,9 +81,9 @@ loss_kl_divergence(
   reduction = "auto", 
   name = "kl_divergence" 
 ) 
-
+ 
 loss_logcosh(y_true, y_pred, ..., reduction = "auto", name = "log_cosh") 
-
+ 
 loss_mean_absolute_error( 
   y_true, 
   y_pred, 
@@ -92,7 +91,7 @@ loss_mean_absolute_error(
   reduction = "auto", 
   name = "mean_absolute_error" 
 ) 
-
+ 
 loss_mean_absolute_percentage_error( 
   y_true, 
   y_pred, 
@@ -100,7 +99,7 @@ loss_mean_absolute_percentage_error(
   reduction = "auto", 
   name = "mean_absolute_percentage_error" 
 ) 
-
+ 
 loss_mean_squared_error( 
   y_true, 
   y_pred, 
@@ -108,7 +107,7 @@ loss_mean_squared_error(
   reduction = "auto", 
   name = "mean_squared_error" 
 ) 
-
+ 
 loss_mean_squared_logarithmic_error( 
   y_true, 
   y_pred, 
@@ -116,9 +115,9 @@ loss_mean_squared_logarithmic_error(
   reduction = "auto", 
   name = "mean_squared_logarithmic_error" 
 ) 
-
+ 
 loss_poisson(y_true, y_pred, ..., reduction = "auto", name = "poisson") 
-
+ 
 loss_sparse_categorical_crossentropy( 
   y_true, 
   y_pred, 
@@ -128,7 +127,7 @@ loss_sparse_categorical_crossentropy(
   reduction = "auto", 
   name = "sparse_categorical_crossentropy" 
 ) 
-
+ 
 loss_squared_hinge( 
   y_true, 
   y_pred, 
@@ -152,57 +151,37 @@ loss_squared_hinge(
 | delta | A float, the point where the Huber loss function changes from a quadratic to linear. |
 
 ## Details
-
-Loss functions for model training. These are typically supplied in the `loss` parameter of the `compile.keras.engine.training.Model()`
-
-function. 
+ Loss functions for model training. These are typically supplied in the `loss` parameter of the `compile.keras.engine.training.Model()` function. 
 
 ## Section
 
 ## binary_crossentropy
 
-Computes the binary crossentropy loss. 
-
-`label_smoothing` details: Float in `[0, 1]`. If `> 0` then smooth the labels by squeezing them towards 0.5 That is, using `1. - 0.5 * label_smoothing`
-
-for the target class and `0.5 * label_smoothing` for the non-target class. 
+   Computes the binary crossentropy loss.  `label_smoothing` details: Float in `[0, 1]`. If `> 0` then smooth the labels by squeezing them towards 0.5 That is, using `1. - 0.5 * label_smoothing` for the target class and `0.5 * label_smoothing` for the non-target class. 
 
 ## categorical_crossentropy
 
-Computes the categorical crossentropy loss. 
-
-When using the categorical_crossentropy loss, your targets should be in categorical format (e.g. if you have 10 classes, the target for each sample should be a 10-dimensional vector that is all-zeros except for a 1 at the index corresponding to the class of the sample). In order to convert integer targets into categorical targets, you can use the Keras utility function `to_categorical()`: 
-
-`categorical_labels <- to_categorical(int_labels, num_classes = NULL)`
+   Computes the categorical crossentropy loss.  When using the categorical_crossentropy loss, your targets should be in categorical format (e.g. if you have 10 classes, the target for each sample should be a 10-dimensional vector that is all-zeros except for a 1 at the index corresponding to the class of the sample). In order to convert integer targets into categorical targets, you can use the Keras utility function `to_categorical()`:  `categorical_labels <- to_categorical(int_labels, num_classes = NULL)` 
 
 ## huber
 
-Computes Huber loss value. For each value x in `error = y_true - y_pred`: 
-
-```
+   Computes Huber loss value. For each value x in `error = y_true - y_pred`:  ```
 
 loss = 0.5 * x^2                  if |x| <= d 
 
 loss = d * |x| - 0.5 * d^2        if |x| > d 
 
-```
-
-where d is `delta`. See: https://en.wikipedia.org/wiki/Huber_loss 
+```  where d is `delta`. See: https://en.wikipedia.org/wiki/Huber_loss 
 
 ## log_cosh
 
-Logarithm of the hyperbolic cosine of the prediction error. 
-
-`log(cosh(x))` is approximately equal to `(x ** 2) / 2` for small `x` and to `abs(x) - log(2)` for large `x`. This means that 'logcosh' works mostly like the mean squared error, but will not be so strongly affected by the occasional wildly incorrect prediction. However, it may return NaNs if the intermediate value `cosh(y_pred - y_true)` is too large to be represented in the chosen precision. 
+   Logarithm of the hyperbolic cosine of the prediction error.  `log(cosh(x))` is approximately equal to `(x ** 2) / 2` for small `x` and to `abs(x) - log(2)` for large `x`. This means that 'logcosh' works mostly like the mean squared error, but will not be so strongly affected by the occasional wildly incorrect prediction. However, it may return NaNs if the intermediate value `cosh(y_pred - y_true)` is too large to be represented in the chosen precision. 
 
 ## Value
-
-If called with `y_true` and `y_pred`, then the corresponding loss is evaluated and the result returned (as a tensor). Alternatively, if `y_true`
-
-and `y_pred` are missing, then a callable is returned that will compute the loss function and, by default, reduce the loss to a scalar tensor; see the `reduction` parameter for details. (The callable is a typically a class instance that inherits from `keras$losses$Loss`). 
+ If called with `y_true` and `y_pred`, then the corresponding loss is evaluated and the result returned (as a tensor). Alternatively, if `y_true` and `y_pred` are missing, then a callable is returned that will compute the loss function and, by default, reduce the loss to a scalar tensor; see the `reduction` parameter for details. (The callable is a typically a class instance that inherits from `keras$losses$Loss`). 
 
 
 
 ## See Also
-`compile.keras.engine.training.Model()`, `loss_binary_crossentropy()`
+ `compile.keras.engine.training.Model()`, `loss_binary_crossentropy()` 
 

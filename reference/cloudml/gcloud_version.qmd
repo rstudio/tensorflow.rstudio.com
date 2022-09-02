@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gcloud-version.R#L8) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/gcloud-version.R](NULL/blob/main/R/gcloud-version.R#L8) 
 
 # gcloud_version
 
 ## Gcloud version
 
 ## Description
-Get version of Google Cloud SDK components. 
+ Get version of Google Cloud SDK components. 
 
 
 ## Usage
 ```r
+ 
 gcloud_version() 
 ```
 
@@ -24,7 +23,7 @@ gcloud_version()
 
 
 ## Value
-a list with the version of each component. 
+ a list with the version of each component. 
 
 
 

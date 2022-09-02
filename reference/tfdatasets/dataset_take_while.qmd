@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L315) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/dataset_methods.R](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L315) 
 
 # dataset_take_while
 
 ## A transformation that stops dataset iteration based on a predicate.
 
 ## Description
-A transformation that stops dataset iteration based on a predicate. 
+ A transformation that stops dataset iteration based on a predicate. 
 
 
 ## Usage
 ```r
+ 
 dataset_take_while(dataset, predicate, name = NULL) 
 ```
 
@@ -29,9 +28,7 @@ dataset_take_while(dataset, predicate, name = NULL)
 
 ## Details
 
-Example usage: 
-
-```
+ Example usage:  ```
 
  range_dataset(from = 0, to = 10) %>% 
 
@@ -53,14 +50,14 @@ Example usage:
 
  #> $ : num 4 
 
-```
+``` 
 
 
 ## Value
-A TF Dataset 
+ A TF Dataset 
 
 
 
 ## See Also
-Other dataset methods:  `dataset_batch()`, `dataset_cache()`, `dataset_collect()`, `dataset_concatenate()`, `dataset_decode_delim()`, `dataset_filter()`, `dataset_interleave()`, `dataset_map_and_batch()`, `dataset_map()`, `dataset_padded_batch()`, `dataset_prefetch_to_device()`, `dataset_prefetch()`, `dataset_reduce()`, `dataset_repeat()`, `dataset_shuffle_and_repeat()`, `dataset_shuffle()`, `dataset_skip()`, `dataset_take()`, `dataset_window()`
+ Other dataset methods:  `dataset_batch()`, `dataset_cache()`, `dataset_collect()`, `dataset_concatenate()`, `dataset_decode_delim()`, `dataset_filter()`, `dataset_interleave()`, `dataset_map_and_batch()`, `dataset_map()`, `dataset_padded_batch()`, `dataset_prefetch_to_device()`, `dataset_prefetch()`, `dataset_reduce()`, `dataset_repeat()`, `dataset_shuffle_and_repeat()`, `dataset_shuffle()`, `dataset_skip()`, `dataset_take()`, `dataset_window()` 
 

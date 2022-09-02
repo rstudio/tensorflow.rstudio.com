@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1368) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/dataset_methods.R](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1368) 
 
 # dataset_snapshot
 
 ## Persist the output of a dataset
 
 ## Description
-Persist the output of a dataset 
+ Persist the output of a dataset 
 
 
 ## Usage
 ```r
+ 
 dataset_snapshot( 
   dataset, 
   path, 
@@ -37,17 +36,7 @@ dataset_snapshot(
 
 ## Details
 
-The snapshot API allows users to transparently persist the output of their preprocessing pipeline to disk, and materialize the pre-processed data on a different training run. 
-
-This API enables repeated preprocessing steps to be consolidated, and allows re-use of already processed data, trading off disk storage and network bandwidth for freeing up more valuable CPU resources and accelerator compute time. 
-
-https://github.com/tensorflow/community/blob/master/rfcs/20200107-tf-data-snapshot.md has detailed design documentation of this feature. 
-
-Users can specify various options to control the behavior of snapshot, including how snapshots are read from and written to by passing in user-defined functions to the `reader_func` and `shard_func` parameters. 
-
-`shard_func` is a user specified function that maps input elements to snapshot shards. 
-
-```
+ The snapshot API allows users to transparently persist the output of their preprocessing pipeline to disk, and materialize the pre-processed data on a different training run.  This API enables repeated preprocessing steps to be consolidated, and allows re-use of already processed data, trading off disk storage and network bandwidth for freeing up more valuable CPU resources and accelerator compute time.  https://github.com/tensorflow/community/blob/master/rfcs/20200107-tf-data-snapshot.md has detailed design documentation of this feature.  Users can specify various options to control the behavior of snapshot, including how snapshots are read from and written to by passing in user-defined functions to the `reader_func` and `shard_func` parameters.  `shard_func` is a user specified function that maps input elements to snapshot shards.  ```
 
 NUM_SHARDS <- parallel::detectCores() 
 
@@ -63,15 +52,7 @@ dataset %>%
 
   dataset_map(function(index, ds_elem) ds_elem) 
 
-```
-
-`reader_func` is a user specified function that accepts a single argument: a Dataset of Datasets, each representing a "split" of elements of the original dataset. The cardinality of the input dataset matches the number of the shards specified in the `shard_func`. The function should return a Dataset of elements of the original dataset. 
-
-Users may want specify this function to control how snapshot files should be read from disk, including the amount of shuffling and parallelism. 
-
-Here is an example of a standard reader function a user can define. This function enables both dataset shuffling and parallel reading of datasets: 
-
-```
+```  `reader_func` is a user specified function that accepts a single argument: a Dataset of Datasets, each representing a "split" of elements of the original dataset. The cardinality of the input dataset matches the number of the shards specified in the `shard_func`. The function should return a Dataset of elements of the original dataset.  Users may want specify this function to control how snapshot files should be read from disk, including the amount of shuffling and parallelism.  Here is an example of a standard reader function a user can define. This function enables both dataset shuffling and parallel reading of datasets:  ```
 
 user_reader_func <- function(datasets) { 
 
@@ -85,15 +66,15 @@ user_reader_func <- function(datasets) {
 
 } 
 
+ 
+
 dataset <- dataset %>% 
 
   dataset_snapshot("/path/to/snapshot/dir", 
 
                    reader_func = user_reader_func) 
 
-```
-
-By default, snapshot parallelizes reads by the number of cores available on the system, but will not attempt to shuffle the data. 
+```  By default, snapshot parallelizes reads by the number of cores available on the system, but will not attempt to shuffle the data. 
 
 
 

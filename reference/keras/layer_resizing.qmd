@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layers-preprocessing.R#L36) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layers-preprocessing.R](https://github.com/rstudio/keras//blob/main/R/layers-preprocessing.R#L36) 
 
 # layer_resizing
 
 ## Image resizing layer
 
 ## Description
-Image resizing layer 
+ Image resizing layer 
 
 
 ## Usage
 ```r
+ 
 layer_resizing( 
   object, 
   height, 
@@ -30,7 +29,7 @@ layer_resizing(
 ## Arguments
 |Arguments|Description|
 |---|---|
-| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is:  <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
 | height | Integer, the height of the output shape. |
 | width | Integer, the width of the output shape. |
 | interpolation | String, the interpolation method. Defaults to `"bilinear"`. Supports `"bilinear"`, `"nearest"`, `"bicubic"`, `"area"`, `"lanczos3"`, `"lanczos5"`, `"gaussian"`, and `"mitchellcubic"`. |
@@ -38,7 +37,7 @@ layer_resizing(
 | ... | standard layer arguments. |
 
 ## Details
-Resize the batched image input to target height and width. The input should be a 4D (batched) or 3D (unbatched) tensor in `"channels_last"` format. 
+ Resize the batched image input to target height and width. The input should be a 4D (batched) or 3D (unbatched) tensor in `"channels_last"` format. 
 
 
 
@@ -46,11 +45,11 @@ Resize the batched image input to target height and width. The input should be a
 
 ## See Also
 
-- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/Resizing](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Resizing)
+  
 
-- [https://keras.io/api/layers/preprocessing_layers/image_preprocessing/resizing](https://keras.io/api/layers/preprocessing_layers/image_preprocessing/resizing)
+- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/Resizing](https://www.tensorflow.org/api_docs/python/tf/keras/layers/Resizing) 
 
-Other image preprocessing layers:  `layer_center_crop()`, `layer_rescaling()`
+- [https://keras.io/api/layers/preprocessing_layers/image_preprocessing/resizing](https://keras.io/api/layers/preprocessing_layers/image_preprocessing/resizing) 
 
-Other preprocessing layers:  `layer_category_encoding()`, `layer_center_crop()`, `layer_discretization()`, `layer_hashing()`, `layer_integer_lookup()`, `layer_normalization()`, `layer_random_brightness()`, `layer_random_contrast()`, `layer_random_crop()`, `layer_random_flip()`, `layer_random_height()`, `layer_random_rotation()`, `layer_random_translation()`, `layer_random_width()`, `layer_random_zoom()`, `layer_rescaling()`, `layer_string_lookup()`, `layer_text_vectorization()`
+  Other image preprocessing layers:  `layer_center_crop()`, `layer_rescaling()`  Other preprocessing layers:  `layer_category_encoding()`, `layer_center_crop()`, `layer_discretization()`, `layer_hashing()`, `layer_integer_lookup()`, `layer_normalization()`, `layer_random_brightness()`, `layer_random_contrast()`, `layer_random_crop()`, `layer_random_flip()`, `layer_random_height()`, `layer_random_rotation()`, `layer_random_translation()`, `layer_random_width()`, `layer_random_zoom()`, `layer_rescaling()`, `layer_string_lookup()`, `layer_text_vectorization()` 
 

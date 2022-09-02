@@ -1,41 +1,34 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layer-wrappers.R#L33) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layer-wrappers.R](https://github.com/rstudio/keras//blob/main/R/layer-wrappers.R#L33) 
 
 # time_distributed
 
 ## This layer wrapper allows to apply a layer to every temporal slice of an input
 
 ## Description
-This layer wrapper allows to apply a layer to every temporal slice of an input 
+ This layer wrapper allows to apply a layer to every temporal slice of an input 
 
 
 ## Usage
 ```r
+ 
 time_distributed(object, layer, ...) 
 ```
 
 ## Arguments
 |Arguments|Description|
 |---|---|
-| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is: <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
+| object | What to compose the new `Layer` instance with. Typically a Sequential model or a Tensor (e.g., as returned by `layer_input()`). The return value depends on `object`. If `object` is:  <br>- missing or `NULL`, the `Layer` instance is returned. <br>- a `Sequential` model, the model with an additional layer is returned. <br>- a Tensor, the output tensor from `layer_instance(object)` is returned.  |
 | layer | a `tf.keras.layers.Layer` instance. |
 | ... | standard layer arguments. |
 
 ## Details
 
-Every input should be at least 3D, and the dimension of index one of the first input will be considered to be the temporal dimension. 
-
-Consider a batch of 32 video samples, where each sample is a 128x128 RGB image with `channels_last` data format, across 10 timesteps. The batch input shape is `(32, 10, 128, 128, 3)`. 
-
-You can then use `TimeDistributed` to apply the same `Conv2D` layer to each of the 10 timesteps, independently: 
-
-```
+ Every input should be at least 3D, and the dimension of index one of the first input will be considered to be the temporal dimension.  Consider a batch of 32 video samples, where each sample is a 128x128 RGB image with `channels_last` data format, across 10 timesteps. The batch input shape is `(32, 10, 128, 128, 3)`.  You can then use `TimeDistributed` to apply the same `Conv2D` layer to each of the 10 timesteps, independently:  ```
 
 input <- layer_input(c(10, 128, 128, 3)) 
 
@@ -45,9 +38,7 @@ output <- input %>% time_distributed(conv_layer)
 
 output$shape # TensorShape([None, 10, 126, 126, 64]) 
 
-```
-
-Because `TimeDistributed` applies the same instance of `Conv2D` to each of the timestamps, the same set of weights are used at each timestamp. 
+```  Because `TimeDistributed` applies the same instance of `Conv2D` to each of the timestamps, the same set of weights are used at each timestamp. 
 
 
 
@@ -55,7 +46,9 @@ Because `TimeDistributed` applies the same instance of `Conv2D` to each of the t
 
 ## See Also
 
-- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/TimeDistributed](https://www.tensorflow.org/api_docs/python/tf/keras/layers/TimeDistributed)
+  
 
-Other layer wrappers:  `bidirectional()`
+- [https://www.tensorflow.org/api_docs/python/tf/keras/layers/TimeDistributed](https://www.tensorflow.org/api_docs/python/tf/keras/layers/TimeDistributed) 
+
+  Other layer wrappers:  `bidirectional()` 
 

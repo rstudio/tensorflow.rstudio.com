@@ -1,29 +1,25 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/callbacks.R#L605) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/callbacks.R](https://github.com/rstudio/keras//blob/main/R/callbacks.R#L605) 
 
 # KerasCallback
 
 ## (Deprecated) Base R6 class for Keras callbacks
 
 ## Description
-New custom callbacks implemented as R6 classes are encouraged to inherit from `keras$callbacks$Callback` directly. 
+ New custom callbacks implemented as R6 classes are encouraged to inherit from `keras$callbacks$Callback` directly. 
 
 ## Format
-An R6Class generator object 
+ An R6Class generator object 
 
 
 
 ## Details
 
-The `logs` named list that callback methods take as argument will contain keys for quantities relevant to the current batch or epoch. 
-
-Currently, the `fit.keras.engine.training.Model()` method for sequential models will include the following quantities in the `logs` that it passes to its callbacks: 
+ The `logs` named list that callback methods take as argument will contain keys for quantities relevant to the current batch or epoch.  Currently, the `fit.keras.engine.training.Model()` method for sequential models will include the following quantities in the `logs` that it passes to its callbacks:  
 
 - `on_epoch_end`: logs include `acc` and `loss`, and optionally include `val_loss` (if validation is enabled in `fit`), and `val_acc` (if validation and accuracy monitoring are enabled). 
 
@@ -31,60 +27,90 @@ Currently, the `fit.keras.engine.training.Model()` method for sequential models 
 
 - `on_batch_end`: logs include `loss`, and optionally `acc` (if accuracy monitoring is enabled). 
 
+ 
+
 ## Section
 
 ## Fields
+
+   
 
 `params`
 
 Named list with training parameters (eg. verbosity, batch size, number of epochs...).
 
+ 
+
+ 
+
 `model`
 
 Reference to the Keras model being trained.
 
+ 
+
 ## Methods
+
+   
 
 `on_epoch_begin(epoch, logs)`
 
 Called at the beginning of each epoch.
 
+ 
+
 `on_epoch_end(epoch, logs)`
 
 Called at the end of each epoch.
+
+ 
 
 `on_batch_begin(batch, logs)`
 
 Called at the beginning of each batch.
 
+ 
+
 `on_batch_end(batch, logs)`
 
 Called at the end of each batch.
+
+ 
 
 `on_train_begin(logs)`
 
 Called at the beginning of training.
 
+ 
+
 `on_train_end(logs)`
 
 Called at the end of training.
 
+  
+
 ## Value
-KerasCallback. 
+ KerasCallback. 
 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+ 
 library(keras) 
+ 
 LossHistory <- R6::R6Class("LossHistory", 
   inherit = KerasCallback, 
+ 
   public = list( 
+ 
     losses = NULL, 
+ 
     on_batch_end = function(batch, logs = list()) { 
       self$losses <- c(self$losses, logs[["loss"]]) 
     } 
   ) 
 ) 
+ 
 ```
 
 

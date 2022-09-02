@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L1208) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/backend.R](https://github.com/rstudio/keras//blob/main/R/backend.R#L1208) 
 
 # k_greater
 
 ## Element-wise truth value of (x > y).
 
 ## Description
-Element-wise truth value of (x > y). 
+ Element-wise truth value of (x > y). 
 
 
 ## Usage
 ```r
+ 
 k_greater(x, y) 
 ```
 
@@ -31,12 +30,10 @@ k_greater(x, y)
 
 ## Keras Backend
 
-This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
-
-You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
+   This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.).  You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-A bool tensor. 
+ A bool tensor. 
 
 
 

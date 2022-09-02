@@ -1,28 +1,27 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/clean_runs.R#L24) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/clean_runs.R](https://github.com/rstudio/tfruns//blob/main/R/clean_runs.R#L24) 
 
 # clean_runs
 
 ## Clean run directories
 
 ## Description
-Remove run directories from the filesystem. 
+ Remove run directories from the filesystem. 
 
 
 ## Usage
 ```r
+ 
 clean_runs( 
   runs = ls_runs(runs_dir = runs_dir), 
   runs_dir = getOption("tfruns.runs_dir", "runs"), 
   confirm = interactive() 
 ) 
-
+ 
 purge_runs( 
   runs_dir = getOption("tfruns.runs_dir", "runs"), 
   confirm = interactive() 
@@ -37,10 +36,7 @@ purge_runs(
 | confirm | `TRUE` to confirm before performing operation |
 
 ## Details
-
-The `clean_runs()` function moves the specified runs (by default, all runs) into an "archive" subdirectory of the "runs" directory. 
-
-The `purge_runs()` function permanently deletes the "archive" subdirectory. 
+ The `clean_runs()` function moves the specified runs (by default, all runs) into an "archive" subdirectory of the "runs" directory.  The `purge_runs()` function permanently deletes the "archive" subdirectory. 
 
 
 
@@ -48,9 +44,12 @@ The `purge_runs()` function permanently deletes the "archive" subdirectory.
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(tfruns)
+ 
 clean_runs(ls_runs(completed == FALSE)) 
+ 
+ 
 ```
 
 ## See Also
-Other run management:  `copy_run()`
+ Other run management:  `copy_run()` 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf-ctrl-flow-wrappers.R#L180) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/tf-ctrl-flow-wrappers.R](https://github.com/t-kalinowski/tfautograph//blob/main/R/tf-ctrl-flow-wrappers.R#L180) 
 
 # tf_switch
 
 ## tf.switch_case
 
 ## Description
-tf.switch_case 
+ tf.switch_case 
 
 
 ## Usage
 ```r
+ 
 tf_switch( 
   branch_index, 
   ..., 
@@ -37,12 +36,13 @@ tf_switch(
 
 
 ## Value
-The result from `tf.switch_case()`
+ The result from `tf.switch_case()` 
 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(tfautograph)
+ 
 tf_pow <- tf_function(function(x, pow) { 
    tf_switch(pow, 
    0 ~ 1, 
@@ -51,6 +51,7 @@ tf_pow <- tf_function(function(x, pow) {
    3 ~ x * x * x, 
    default = ~ -1) 
 }) 
+ 
 # can optionally also omit the left hand side int, in which case the order of 
 # the functions is used. 
 tf_pow <- function(x, pow) { 
@@ -61,6 +62,7 @@ tf_pow <- function(x, pow) {
             ~ x * x * x, 
             default = ~ -1) 
 } 
+ 
 # supply just some of the ints to override the default order 
 tf_pow <- function(x, pow) { 
   tf_switch(pow, 
@@ -70,6 +72,7 @@ tf_pow <- function(x, pow) {
             ~ x, 
             default = ~ -1) 
 } 
+ 
 # A slightly less contrived example: 
 tf_norm <- tf_function(function(x, l) { 
   tf_switch(l, 
@@ -78,6 +81,7 @@ tf_norm <- tf_function(function(x, l) {
             2 ~ tf$sqrt(tf$reduce_sum(tf$square(x))),       # L2 norm 
             default = ~ tf$reduce_max(tf$abs(x)))         # L-infinity norm 
 }) 
+ 
 ```
 
 

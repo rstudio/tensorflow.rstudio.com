@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/layer-attention.R#L17) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/layer-attention.R](https://github.com/rstudio/keras//blob/main/R/layer-attention.R#L17) 
 
 # layer_attention
 
 ## Creates attention layer
 
 ## Description
-Dot-product attention layer, a.k.a. Luong-style attention. 
+ Dot-product attention layer, a.k.a. Luong-style attention. 
 
 
 ## Usage
 ```r
+ 
 layer_attention( 
   inputs, 
   use_scale = FALSE, 
@@ -47,5 +46,5 @@ layer_attention(
 
 
 ## See Also
-Other core layers:  `layer_activation()`, `layer_activity_regularization()`, `layer_dense_features()`, `layer_dense()`, `layer_dropout()`, `layer_flatten()`, `layer_input()`, `layer_lambda()`, `layer_masking()`, `layer_permute()`, `layer_repeat_vector()`, `layer_reshape()`
+ Other core layers:  `layer_activation()`, `layer_activity_regularization()`, `layer_dense_features()`, `layer_dense()`, `layer_dropout()`, `layer_flatten()`, `layer_input()`, `layer_lambda()`, `layer_masking()`, `layer_permute()`, `layer_repeat_vector()`, `layer_reshape()` 
 

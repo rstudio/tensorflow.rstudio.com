@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfruns//blob/main/R/training_run.R#L167) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/training_run.R](https://github.com/rstudio/tfruns//blob/main/R/training_run.R#L167) 
 
 # tuning_run
 
 ## Tune hyperparameters using training flags
 
 ## Description
-Run all combinations of the specifed training flags. The number of combinations can be reduced by specifying the `sample` parameter, which will result in a random sample of the flag combinations being run. 
+ Run all combinations of the specifed training flags. The number of combinations can be reduced by specifying the `sample` parameter, which will result in a random sample of the flag combinations being run. 
 
 
 ## Usage
 ```r
+ 
 tuning_run( 
   file = "train.R", 
   context = "local", 
@@ -38,7 +37,7 @@ tuning_run(
 |---|---|
 | file | Path to training script (defaults to "train.R") |
 | context | Run context (defaults to "local") |
-| config | The configuration to use. Defaults to the active configuration for the current environment (as specified by the `R_CONFIG_ACTIVE`<br>environment variable), or `default` when unset. |
+| config | The configuration to use. Defaults to the active configuration for the current environment (as specified by the `R_CONFIG_ACTIVE` environment variable), or `default` when unset. |
 | flags | Either a named list with flag values (multiple values can be provided for each flag) or a data frame that contains pre-generated combinations of flags (e.g. via `base::expand.grid()`). The latter can be useful for subsetting combinations. See 'Examples'. |
 | sample | Sampling rate for flag combinations (defaults to running all combinations). |
 | properties | Named character vector with run properties. Properties are additional metadata about the run which will be subsequently available via `ls_runs()`. |
@@ -52,12 +51,14 @@ tuning_run(
 
 
 ## Value
-Data frame with summary of all training runs performed during tuning. 
+ Data frame with summary of all training runs performed during tuning. 
 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
+ 
 library(tfruns) 
+ 
 # using a list as input to the flags argument 
 runs <- tuning_run( 
   system.file("examples/mnist_mlp/mnist_mlp.R", package = "tfruns"), 
@@ -67,6 +68,7 @@ runs <- tuning_run(
   ) 
 ) 
 runs[order(runs$eval_acc, decreasing = TRUE), ] 
+ 
 # using a data frame as input to the flags argument 
 # resulting in the same combinations above, but remove those 
 # where the combined dropout rate exceeds 1 
@@ -80,6 +82,7 @@ runs <- tuning_run(
   system.file("examples/mnist_mlp/mnist_mlp.R", package = "tfruns"), 
   flags = grid[, c("dropout1", "dropout2")] 
 ) 
+ 
 ```
 
 

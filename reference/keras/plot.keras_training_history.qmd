@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/history.R#L63) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/history.R](https://github.com/rstudio/keras//blob/main/R/history.R#L63) 
 
 # plot.keras_training_history
 
 ## Plot training history
 
 ## Description
-Plots metrics recorded during training. 
+ Plots metrics recorded during training. 
 
 
 ## Usage
 ```r
+ 
 ## S3 method for class 'keras_training_history'
 plot( 
   x, 

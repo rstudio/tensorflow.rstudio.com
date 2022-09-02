@@ -1,25 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L730) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/preprocessing.R](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L730) 
 
 # fit_image_data_generator
 
 ## Fit image data generator internal statistics to some sample data.
 
 ## Description
-
-Required for `featurewise_center`, `featurewise_std_normalization`
-
-and `zca_whitening`. 
+ Required for `featurewise_center`, `featurewise_std_normalization` and `zca_whitening`. 
 
 
 ## Usage
 ```r
+ 
 fit_image_data_generator(object, x, augment = FALSE, rounds = 1, seed = NULL) 
 ```
 
@@ -38,5 +34,5 @@ fit_image_data_generator(object, x, augment = FALSE, rounds = 1, seed = NULL)
 
 
 ## See Also
-Other image preprocessing:  `flow_images_from_dataframe()`, `flow_images_from_data()`, `flow_images_from_directory()`, `image_load()`, `image_to_array()`
+ Other image preprocessing:  `flow_images_from_dataframe()`, `flow_images_from_data()`, `flow_images_from_directory()`, `image_load()`, `image_to_array()` 
 

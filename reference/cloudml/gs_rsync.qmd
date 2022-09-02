@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/gcloud-storage.R#L64) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/gcloud-storage.R](NULL/blob/main/R/gcloud-storage.R#L64) 
 
 # gs_rsync
 
 ## Synchronize content of two buckets/directories
 
 ## Description
-The `gs_rsync` function makes the contents under `destination` the same as the contents under `source`, by copying any missing files/objects (or those whose data has changed), and (if the `delete` option is specified) deleting any extra files/objects. `source` must specify a directory, bucket, or bucket subdirectory. 
+ The `gs_rsync` function makes the contents under `destination` the same as the contents under `source`, by copying any missing files/objects (or those whose data has changed), and (if the `delete` option is specified) deleting any extra files/objects. `source` must specify a directory, bucket, or bucket subdirectory. 
 
 
 ## Usage
 ```r
+ 
 gs_rsync(source, destination, delete = FALSE, recursive = FALSE, 
   parallel = TRUE, dry_run = FALSE, options = NULL, echo = TRUE) 
 ```

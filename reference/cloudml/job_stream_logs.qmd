@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](NULL/blob/main/R/jobs.R#L310) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/jobs.R](NULL/blob/main/R/jobs.R#L310) 
 
 # job_stream_logs
 
 ## Show job log stream
 
 ## Description
-Show logs from a running Cloud ML Engine job. 
+ Show logs from a running Cloud ML Engine job. 
 
 
 ## Usage
 ```r
+ 
 job_stream_logs(job = "latest", 
   polling_interval = getOption("cloudml.stream_logs.polling", 5), 
   task_name = NULL, allow_multiline_logs = FALSE) 
@@ -36,5 +35,5 @@ job_stream_logs(job = "latest",
 
 
 ## See Also
-Other job management functions: `job_cancel`,   `job_collect`, `job_list`,   `job_status`, `job_trials`
+ Other job management functions: `job_cancel`,   `job_collect`, `job_list`,   `job_status`, `job_trials` 
 

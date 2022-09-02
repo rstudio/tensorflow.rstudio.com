@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/backend.R#L309) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/backend.R](https://github.com/rstudio/keras//blob/main/R/backend.R#L309) 
 
 # k_binary_crossentropy
 
 ## Binary crossentropy between an output tensor and a target tensor.
 
 ## Description
-Binary crossentropy between an output tensor and a target tensor. 
+ Binary crossentropy between an output tensor and a target tensor. 
 
 
 ## Usage
 ```r
+ 
 k_binary_crossentropy(target, output, from_logits = FALSE) 
 ```
 
@@ -32,12 +31,10 @@ k_binary_crossentropy(target, output, from_logits = FALSE)
 
 ## Keras Backend
 
-This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.). 
-
-You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
+   This function is part of a set of Keras backend functions that enable lower level access to the core operations of the backend tensor engine (e.g. TensorFlow, CNTK, Theano, etc.).  You can see a list of all available backend functions here: [https://keras.rstudio.com/articles/backend.html#backend-functions](https://keras.rstudio.com/articles/backend.html#backend-functions). 
 
 ## Value
-A tensor. 
+ A tensor. 
 
 
 

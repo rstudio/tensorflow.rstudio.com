@@ -1,25 +1,24 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1179) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/dataset_methods.R](https://github.com/rstudio/tfdatasets//blob/main/R/dataset_methods.R#L1179) 
 
 # length.tf_dataset
 
 ## Get Dataset length
 
 ## Description
-Returns the length of the dataset. 
+ Returns the length of the dataset. 
 
 
 ## Usage
 ```r
+ 
 ## S3 method for class 'tf_dataset'
 length(x) 
-
+ 
 ## S3 method for class 'tensorflow.python.data.ops.dataset_ops.DatasetV2'
 length(x) 
 ```
@@ -32,19 +31,23 @@ length(x)
 
 
 ## Value
-Either `Inf` if the dataset is infinite, `NA` if the dataset length is unknown, or an R numeric if it is known. 
+ Either `Inf` if the dataset is infinite, `NA` if the dataset length is unknown, or an R numeric if it is known. 
 
 
 ## Examples
 ```{r, eval=ecodown::examples_not_run()}
 library(tfdatasets)
+ 
 range_dataset(0, 42) %>% length() 
 # 42 
+ 
 range_dataset(0, 42) %>% dataset_repeat() %>% length() 
 # Inf 
+ 
 range_dataset(0, 42) %>% dataset_repeat() %>% 
   dataset_filter(function(x) TRUE) %>% length() 
 # NA 
+ 
 ```
 
 

@@ -1,22 +1,21 @@
 ---
-format:
-  html:
-    css: /reference/assets/reference.css
+execute:
+  freeze: true
 ---
 
-| <button class="button"> ![](/reference/assets/GitHub-Mark-32px.png){width="20"} [View source on GitHub](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L31) </button> |
-|:------------------------------:|:--------------------------------------:|
+[R/preprocessing.R](https://github.com/rstudio/keras//blob/main/R/preprocessing.R#L31) 
 
 # pad_sequences
 
 ## Pads sequences to the same length
 
 ## Description
-Pads sequences to the same length 
+ Pads sequences to the same length 
 
 
 ## Usage
 ```r
+ 
 pad_sequences( 
   sequences, 
   maxlen = NULL, 
@@ -38,21 +37,14 @@ pad_sequences(
 | value | float, padding value |
 
 ## Details
-
-This function transforms a list of `num_samples` sequences (lists of integers) into a matrix of shape `(num_samples, num_timesteps)`. `num_timesteps` is either the `maxlen` argument if provided, or the length of the longest sequence otherwise. 
-
-Sequences that are shorter than `num_timesteps` are padded with `value` at the end. 
-
-Sequences longer than `num_timesteps` are truncated so that they fit the desired length. The position where padding or truncation happens is determined by the arguments `padding` and `truncating`, respectively. 
-
-Pre-padding is the default. 
+ This function transforms a list of `num_samples` sequences (lists of integers) into a matrix of shape `(num_samples, num_timesteps)`. `num_timesteps` is either the `maxlen` argument if provided, or the length of the longest sequence otherwise.  Sequences that are shorter than `num_timesteps` are padded with `value` at the end.  Sequences longer than `num_timesteps` are truncated so that they fit the desired length. The position where padding or truncation happens is determined by the arguments `padding` and `truncating`, respectively.  Pre-padding is the default. 
 
 
 ## Value
-Matrix with dimensions (number_of_sequences, maxlen) 
+ Matrix with dimensions (number_of_sequences, maxlen) 
 
 
 
 ## See Also
-Other text preprocessing:  `make_sampling_table()`, `skipgrams()`, `text_hashing_trick()`, `text_one_hot()`, `text_to_word_sequence()`
+ Other text preprocessing:  `make_sampling_table()`, `skipgrams()`, `text_hashing_trick()`, `text_one_hot()`, `text_to_word_sequence()` 
 
