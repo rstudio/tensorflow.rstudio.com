@@ -2,6 +2,8 @@
 title: "Quick start"
 execute:
   eval: false
+aliases:
+  - /installation
 ---
 
 Prior to using the **tensorflow** R package you need to install a
@@ -131,3 +133,4 @@ TensorFlow binary. For example:
 ```{r}
 install_tensorflow(version = "https://files.pythonhosted.org/packages/c2/c1/a035e377cf5a5b90eff27f096448fa5c5a90cbcf13b7eb0673df888f2c2d/tf_nightly-1.12.0.dev20180918-cp36-cp36m-manylinux1_x86_64.whl")
 ```
+
