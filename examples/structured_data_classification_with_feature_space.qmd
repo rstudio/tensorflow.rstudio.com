@@ -149,6 +149,10 @@ into a fixed-sized vector, you don't need to worry about whether
 the co-occurence space is too large.
 
 ```{r}
-
+# TBA: FeatureSpace module is not available yet:
+# * https://github.com/keras-team/keras-io/blob/master/examples/structured_data/structured_data_classification_with_feature_space.py#L159
+# * https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/keras/utils/all_utils.py
+# * https://github.com/keras-team/keras/blob/master/keras/utils/__init__.py#L53
+print("TBA")
 ```
 
