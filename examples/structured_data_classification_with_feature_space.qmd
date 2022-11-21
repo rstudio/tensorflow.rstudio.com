@@ -1,0 +1,89 @@
+---
+title: Structured data classification with FeatureSpace
+authors: 
+  - "[fchollet](https://twitter.com/fchollet)"
+  - "[terrytangyuan](https://github.com/terrytangyuan) - R translation"
+date-created: 2022/11/20
+date-last-modified: 2022/11/20
+description: Classify tabular data in a few lines of code.
+categories: [generative]
+aliases: 
+  - ../guide/keras/examples/structured_data_classification_with_feature_space/index.html
+---
+
+## Introduction
+
+This example demonstrates how to do structured data classification
+(also known as tabular data classification), starting from a raw
+CSV file. Our data includes numerical features,
+and integer categorical features, and string categorical features.
+We will use the utility `keras.utils.FeatureSpace` to index,
+preprocess, and encode our features.
+The code is adapted from the example
+[Structured data classification from scratch](https://keras.io/examples/structured_data/structured_data_classification_from_scratch/).
+While the previous example managed its own low-level feature preprocessing and
+encoding with Keras preprocessing layers, in this example we
+delegate everything to `FeatureSpace`, making the workflow
+extremely quick and easy.
+Note that this example should be run with TensorFlow 2.12 or higher.
+Before the release of TensorFlow 2.12, you can use `tf-nightly`.
+
+
+## The dataset
+
+[Our dataset](https://archive.ics.uci.edu/ml/datasets/heart+Disease) is provided by the
+Cleveland Clinic Foundation for Heart Disease.
+It's a CSV file with 303 rows. Each row contains information about a patient (a
+**sample**), and each column describes an attribute of the patient (a **feature**). We
+use the features to predict whether a patient has a heart disease
+(**binary classification**).
+Here's the description of each feature:
+Column| Description| Feature Type
+------------|--------------------|----------------------
+Age | Age in years | Numerical
+Sex | (1 = male; 0 = female) | Categorical
+CP | Chest pain type (0, 1, 2, 3, 4) | Categorical
+Trestbpd | Resting blood pressure (in mm Hg on admission) | Numerical
+Chol | Serum cholesterol in mg/dl | Numerical
+FBS | fasting blood sugar in 120 mg/dl (1 = true; 0 = false) | Categorical
+RestECG | Resting electrocardiogram results (0, 1, 2) | Categorical
+Thalach | Maximum heart rate achieved | Numerical
+Exang | Exercise induced angina (1 = yes; 0 = no) | Categorical
+Oldpeak | ST depression induced by exercise relative to rest | Numerical
+Slope | Slope of the peak exercise ST segment | Numerical
+CA | Number of major vessels (0-3) colored by fluoroscopy | Both numerical & categorical
+Thal | 3 = normal; 6 = fixed defect; 7 = reversible defect | Categorical
+Target | Diagnosis of heart disease (1 = true; 0 = false) | Target
+
+## Setup
+
+```{r}
+library(tensorflow)
+library(keras)
+```
+
+## Preparing the data
+
+Let's download the data and load it into a dataframe:
+
+```{r}
+df <- read.csv2("http://storage.googleapis.com/download.tensorflow.org/data/heart.csv", header = TRUE, sep = ",")
+```
+
+The dataset includes 303 samples with 14 columns per sample
+(13 features, plus the target label):
+```{r}
+dim(df)
+```
+
+Here's a preview of a few samples:
+
+```{r}
+head(df)
+```
+
+The last column, "target", indicates whether the patient
+has a heart disease (1) or not (0).
+Let's split the data into a training and validation set:
+
+
