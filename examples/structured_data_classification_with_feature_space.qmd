@@ -19,12 +19,14 @@ CSV file. Our data includes numerical features,
 and integer categorical features, and string categorical features.
 We will use the utility `keras.utils.FeatureSpace` to index,
 preprocess, and encode our features.
+
 The code is adapted from the example
 [Structured data classification from scratch](https://keras.io/examples/structured_data/structured_data_classification_from_scratch/).
 While the previous example managed its own low-level feature preprocessing and
 encoding with Keras preprocessing layers, in this example we
 delegate everything to `FeatureSpace`, making the workflow
 extremely quick and easy.
+
 Note that this example should be run with TensorFlow 2.12 or higher.
 Before the release of TensorFlow 2.12, you can use `tf-nightly`.
 
@@ -60,6 +62,7 @@ Target | Diagnosis of heart disease (1 = true; 0 = false) | Target
 ```{r}
 library(tensorflow)
 library(keras)
+library(tfdatasets)
 ```
 
 ## Preparing the data
@@ -86,4 +89,66 @@ The last column, "target", indicates whether the patient
 has a heart disease (1) or not (0).
 Let's split the data into a training and validation set:
 
+```{r}
+val_df <- df[sample(nrow(df), ceiling(nrow(df)*0.2)), ]
+train_df <- df[-as.numeric(rownames(val_df)), ]
+sprintf("Using %d samples for training and %d for validation", nrow(train_df), nrow(val_df))
+
+```
+
+Let's generate `tf.data.Dataset` objects for each dataframe:
+
+```{r}
+df_to_dataset <- function(df) {
+  features <- df[,-ncol(df)]
+  labels <- df[ncol(df)]
+  ds <- tensor_slices_dataset(list(features, labels))
+  df <- ds$shuffle(buffer_size = nrow(df))
+  return(df)
+}
+train_ds <- df_to_dataset(train_df)
+val_ds <- df_to_dataset(val_df)
+```
+
+Each `Dataset` yields a tuple `(input, target)` where `input` is a dictionary of features
+and `target` is the value `0` or `1`:
+
+```{r}
+out = train_ds$take(1L) %>% as_array_iterator() %>% iterate(simplify = FALSE)
+sprintf("Dataset: %s", out[[1]])
+```
+
+Let's batch the datasets:
+
+```{r}
+train_ds <- train_ds$batch(32L)
+val_ds <- val_ds$batch(32L)
+```
+
+## Configuring a `FeatureSpace`
+
+To configure how each feature should be preprocessed,
+we instantiate a `keras.utils.FeatureSpace`, and we
+pass to it a dictionary that maps the name of our features
+to a string that describes the feature type.
+
+We have a few "integer categorical" features such as `"FBS"`,
+one "string categorical" feature (`"thal"`),
+and a few numerical features, which we'd like to normalize
+-- except `"age"`, which we'd like to discretize into
+a number of bins.
+
+We also use the `crosses` argument
+to capture *feature interactions* for some categorical
+features, that is to say, create additional features
+that represent value co-occurrences for these categorical features.
+You can compute feature crosses like this for arbitrary sets of
+categorical features -- not just tuples of two features.
+Because the resulting co-occurences are hashed
+into a fixed-sized vector, you don't need to worry about whether
+the co-occurence space is too large.
+
+```{r}
+
+```
 
