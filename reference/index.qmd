@@ -2,7 +2,6 @@
 title: Reference
 listing:
   type: grid
-  sort: ""
   fields: [title, description]
   sort: '' # don't sort
   contents:
