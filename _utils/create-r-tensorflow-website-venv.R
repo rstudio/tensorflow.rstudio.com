@@ -42,12 +42,14 @@ if(is_mac_arm64()) {
 } else {
 
   keras::install_keras(
-    version = "release",
+    version = "default",
+    # version = "release",
     method = "virtualenv",
     envname = envname,
     extra_packages = c("keras-tuner",
                        "ipython",
-                       "tensorflow_datasets"))
+                       "tensorflow_datasets",
+                       "kaggle"))
 }
 
 if(tensorflow:::is_linux()) {
