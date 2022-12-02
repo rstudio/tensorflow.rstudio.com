@@ -1,93 +1,100 @@
 ---
 title: "Imbalanced classification: credit card fraud detection"
-authors: 
+authors:
   - "[fchollet](https://twitter.com/fchollet)"
   - "[terrytangyuan](https://github.com/terrytangyuan) - R translation"
 date-created: 2022/11/22
 date-last-modified: 2022/11/22
 description: Demonstration of how to handle highly imbalanced classification problems.
 categories: [structured]
-aliases: 
+aliases:
   - ../guide/keras/examples/imbalanced_classification/index.html
 ---
 
 ## Introduction
 
-This example looks at the
-[Kaggle Credit Card Fraud Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud/)
-dataset to demonstrate how
-to train a classification model on data with highly imbalanced classes.
+This example looks at the [Kaggle Credit Card Fraud
+Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud/) dataset to
+demonstrate how to train a classification model on data with highly
+imbalanced classes. You can download the data by clicking "Download" at
+the link, or if you're setup with a kaggle API key at
+`"~/.kaggle/kagle.json"`, you can run the following:
 
+```{r, eval = FALSE}
+reticulate::py_install("kaggle", pip = TRUE)
+system("kaggle datasets download -d mlg-ulb/creditcardfraud")
+zip::unzip("creditcardfraud.zip", files = "creditcard.csv")
+```
 
-## First, vectorize the CSV data
+## First, read in the CSV data
 
 ```{r}
 library(tensorflow)
 library(keras)
+set.seed(1234)
+```
 
-# Get the real data from https://www.kaggle.com/mlg-ulb/creditcardfraud/
-df <- read.csv2("/Users/yuan.tang/Downloads/creditcard.csv", header = TRUE, sep = ",")
-
-sprintf("HEADER: %s", paste0(colnames(df), collapse = ","))
-sprintf("EXAMPLE FEATURES: %s", paste0(df[1, ], collapse = ","))
-features <- df[,-ncol(df)]
-targets <- df[ncol(df)]
-sprintf("features.shape: %s", paste0(dim(features), collapse = ", "))
-sprintf("targets.shape: %s", paste0(dim(targets), collapse = ","))
+```{r, message=FALSE}
+df <- readr::read_csv("creditcard.csv")
+tibble::glimpse(df)
 ```
 
 ## Prepare a validation set
 
 ```{r}
-num_val_samples <- sample(nrow(df), ceiling(nrow(df)*0.2))
-train_features <- features[-num_val_samples,]
-train_targets <- as.data.frame(targets[-num_val_samples,])
-val_features <- features[num_val_samples,]
-val_targets <- as.data.frame(targets[num_val_samples,])
+val_idxs <- nrow(df) %>% sample.int(., ceiling( . * 0.2))
+val_df <- df[val_idxs, ]
+train_df <- df[-val_idxs, ]
 
-sprintf("Number of training samples: %s", nrow(train_features))
-sprintf("Number of validation samples: %s", nrow(val_features))
+sprintf("Number of training samples: %s", nrow(train_df))
+sprintf("Number of validation samples: %s", nrow(val_df))
 ```
 
 ## Analyze class imbalance in the targets
 
 ```{r}
-counts <- table(train_targets)
-sprintf("Number of positive samples in training data: %s (%.2f%% of total)", counts[["1"]], 100 * (counts[["1"]] / nrow(train_features)))
+table(train_df$Class)
 ```
 
 ```{r}
-weight_for_0 = 1.0 / counts[["0"]]
-weight_for_1 = 1.0 / counts[["1"]]
+train_df$Class %>% {
+  cat(sprintf(
+    "Number of positive samples in training data: %s (%.2f%% of total)\n",
+    sum(.), 100 * mean(.)))
+}
+```
+
+```{r}
+weight_for_0 <- 1 / sum(train_df$Class == 0)
+weight_for_1 <- 1 / sum(train_df$Class == 1)
 ```
 
 ## Normalize the data using training set statistics
 
 ```{r}
-means <- apply(train_features, 2, function(x) {
-  mean(as.numeric(x))
-})
-stds <- apply(train_features, 2, function(x) {
-  sd(as.numeric(x))
-})
-for (i in ncol(train_features)) {
-  train_features[, i] <- (as.numeric(train_features[, i]) - means[i]) / stds[i]
-  val_features[, i] <- (as.numeric(val_features[, i]) - means[i]) / stds[i]
+feature_names <- colnames(train_df) %>% setdiff("Class")
+
+means <- lapply(train_df[feature_names], mean)
+stds <- lapply(train_df[feature_names], sd)
+
+for (name in feature_names) {
+  train_df[[name]] %<>% { (. - means[[name]]) / stds[[name]] }
+    val_df[[name]] %<>% { (. - means[[name]]) / stds[[name]] }
 }
 ```
 
 ## Build a binary classification model
 
 ```{r}
-model <- keras_model_sequential() %>%
-  layer_dense(256, activation = "relu", input_shape = tuple(dim(train_features)[-1])) %>%
+model <- keras_model_sequential(input_shape = c(length(feature_names))) %>%
+  layer_dense(256, activation = "relu") %>%
   layer_dense(256, activation = "relu") %>%
   layer_dropout(0.3) %>%
   layer_dense(256, activation = "relu") %>%
   layer_dropout(0.3) %>%
   layer_dense(1, activation = "sigmoid")
 
-summary(model)
+model
 ```
 
 ## Train the model with `class_weight` argument
@@ -106,33 +113,64 @@ model %>% compile(
   loss = "binary_crossentropy",
   metrics = metrics
 )
-class_weight <- list("0" = weight_for_0, "1" = weight_for_1)
-callbacks <- c(callback_model_checkpoint("fraud_model_at_epoch_{epoch}.h5"))
+class_weight <- list("0" = weight_for_0,
+                     "1" = weight_for_1)
+callbacks <- list(
+  callback_model_checkpoint("fraud_model_at_epoch_{epoch}.h5"))
 
-train_features <- as.matrix(apply(train_features, 2, as.numeric))
-train_targets <- as.matrix(apply(train_targets, 2, as.numeric))
-validation_data <- list(as.matrix(apply(val_features, 2, as.numeric)), as.matrix(apply(val_targets, 2, as.numeric)))
+train_features <- as.matrix(train_df[feature_names])
+train_targets <- as.matrix(train_df$Class)
+validation_data <- list(
+   as.matrix(val_df[feature_names]),
+   as.matrix(val_df$Class))
 
-model %>% fit(
-  train_features, train_targets, batch_size = 2048,
-  epochs = 30, verbose = 2, validation_data = validation_data,
-  callbacks = callbacks, class_weight = class_weight)
+model %>%
+  fit(train_features, train_targets,
+      validation_data = validation_data,
+      class_weight = class_weight,
+      batch_size = 2048, epochs = 30,
+      callbacks = callbacks,
+      verbose = 2)
+```
+
+```{r}
+val_pred <- model %>%
+  predict(as.matrix(val_df[feature_names])) %>%
+  { ifelse(. > .5, 1, 0) }
+
+pred_correct <- val_df$Class == val_pred
+cat(sprintf("Validation accuracy: %.2f", mean(pred_correct)))
+
+fraudulent <- val_df$Class == 1
+
+n_fraudulent_detected <- sum(fraudulent & pred_correct)
+n_fraudulent_missed <- sum(fraudulent & !pred_correct)
+n_legitimate_flagged <- sum(!fraudulent & !pred_correct)
 ```
 
 ## Conclusions
 
-At the end of training, out of 56,961 validation transactions, we are:
+At the end of training, out of
+`r prettyNum(nrow(val_df), big.mark = ",")` validation transactions, we
+are:
 
-- Correctly identifying 66 of them as fraudulent
-- Missing 9 fraudulent transactions
-- At the cost of incorrectly flagging 441 legitimate transactions
+-   Correctly identifying
+    `r prettyNum(n_fraudulent_detected, big.mark = ",")` of them as
+    fraudulent
+-   Missing `r prettyNum(n_fraudulent_missed, big.mark = ",")`
+    fraudulent transactions
+-   At the cost of incorrectly flagging
+    `r prettyNum(n_legitimate_flagged, big.mark = ",")` legitimate
+    transactions
 
-In the real world, one would put an even higher weight on class 1,
-so as to reflect that False Negatives are more costly than False Positives.
+In the real world, one would put an even higher weight on class 1, so as
+to reflect that False Negatives are more costly than False Positives.
 
-Next time your credit card gets  declined in an online purchase -- this is why.
+Next time your credit card gets declined in an online purchase -- this
+is why.
 
-Example available on HuggingFace.
-| Trained Model | Demo |
-| :--: | :--: |
-| [![Generic badge](https://img.shields.io/badge/🤗%20Model-Imbalanced%20Classification-black.svg)](https://huggingface.co/keras-io/imbalanced_classification) | [![Generic badge](https://img.shields.io/badge/🤗%20Spaces-Imbalanced%20Classification-black.svg)](https://huggingface.co/spaces/keras-io/Credit_Card_Fraud_Detection) |
+| Trained Model                                                                                                                                                          | Demo                                                                                                                                                                             |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [![Generic badge](https://img.shields.io/badge/%F0%9F%A4%97%20Model-Imbalanced%20Classification-black.svg)](https://huggingface.co/keras-io/imbalanced_classification) | [![Generic badge](https://img.shields.io/badge/%F0%9F%A4%97%20Spaces-Imbalanced%20Classification-black.svg)](https://huggingface.co/spaces/keras-io/Credit_Card_Fraud_Detection) |
+
+: Example available on HuggingFace.
