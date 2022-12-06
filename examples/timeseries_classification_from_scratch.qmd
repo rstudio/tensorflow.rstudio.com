@@ -46,6 +46,7 @@ library(ggfortify)
 ts_obj <- ts(data.frame("Class -1" = as.numeric(x_train[1, ]), "Class 1" = as.numeric(x_train[2, ])))
 autoplot(ts_obj, ts.geom = 'line', facets = FALSE)
 ```
+
 ## Standardize the data
 
 Our timeseries are already in a single length (500). However, their values are
@@ -56,20 +57,7 @@ has a mean equal to zero and a standard deviation equal to one. This type of
 normalization is very common for timeseries classification problems, see
 [Bagnall et al. (2016)](https://link.springer.com/article/10.1007/s10618-016-0483-9).
 
-Note that the timeseries data used here are univariate, meaning we only have one channel
-per timeseries example.
-We will therefore transform the timeseries into a multivariate one with one channel
-using a simple reshaping via numpy.
-This will allow us to construct a model that is easily applicable to multivariate time
-series.
-
-```{r}
-TODO:
-x_train = x_train.reshape((x_train.shape[0], x_train.shape[1], 1))
-x_test = x_test.reshape((x_test.shape[0], x_test.shape[1], 1))
-```
-
-Finally, in order to use `sparse_categorical_crossentropy`, we will have to count
+In order to use `sparse_categorical_crossentropy`, we will have to count
 the number of classes beforehand.
 
 ```{r}
@@ -92,6 +80,20 @@ y_train[y_train == -1, ] <- 0
 y_test[y_test == -1, ] <- 0
 ```
 
+Note that the timeseries data used here are univariate, meaning we only have one channel
+per timeseries example.
+We will therefore transform the timeseries into a multivariate one with one channel
+using a simple reshaping via numpy.
+This will allow us to construct a model that is easily applicable to multivariate time
+series.
+
+```{r}
+x_train <- as.matrix(x_train)
+dim(x_train) <- c(dim(x_train), 1)
+x_test <- as.matrix(x_test)
+dim(x_test) <- c(dim(x_test), 1)
+```
+
 ## Build a model
 
 We build a Fully Convolutional Neural Network originally proposed in
@@ -102,62 +104,52 @@ The following hyperparameters (kernel_size, filters, the usage of BatchNorm) wer
 via random search using [KerasTuner](https://github.com/keras-team/keras-tuner).
 
 ```{r}
-input_shape <- x_train.shape[1:]
-TODO:
-input_layer = keras.layers.Input(input_shape)
+input_shape <- dim(x_train)[-1]
+input_layer <- layer_input(input_shape)
 
-conv1 = keras.layers.Conv1D(filters=64, kernel_size=3, padding="same")(input_layer)
-conv1 = keras.layers.BatchNormalization()(conv1)
-conv1 = keras.layers.ReLU()(conv1)
+output_layer <- input_layer %>%
+  # First convolutional layer
+  layer_conv_1d(filters=64, kernel_size=3, padding="same")() %>% 
+  layer_batch_normalization()() %>%
+  layer_activation_relu()() %>%
+  # Second convolutional layer
+  layer_conv_1d(filters=64, kernel_size=3, padding="same")() %>% 
+  layer_batch_normalization()() %>%
+  layer_activation_relu()() %>%
+  # Third convolutional layer
+  layer_conv_1d(filters=64, kernel_size=3, padding="same")() %>% 
+  layer_batch_normalization()() %>%
+  layer_activation_relu()() %>%
+  layer_global_average_pooling_1d()() %>%
+  layer_dense(num_classes, activation = "softmax")
 
-conv2 = keras.layers.Conv1D(filters=64, kernel_size=3, padding="same")(conv1)
-conv2 = keras.layers.BatchNormalization()(conv2)
-conv2 = keras.layers.ReLU()(conv2)
-
-conv3 = keras.layers.Conv1D(filters=64, kernel_size=3, padding="same")(conv2)
-conv3 = keras.layers.BatchNormalization()(conv3)
-conv3 = keras.layers.ReLU()(conv3)
-
-gap = keras.layers.GlobalAveragePooling1D()(conv3)
-
-output_layer = keras.layers.Dense(num_classes, activation="softmax")(gap)
-
-return keras.models.Model(inputs=input_layer, outputs=output_layer)
-
-keras.utils.plot_model(model, show_shapes=True)
+model <- keras_model(inputs=input_layer, outputs=output_layer)
 ```
 
 
 ## Train the model
 
 ```{r}
-TODO
-epochs = 500
-batch_size = 32
+epochs <- 500
+batch_size <- 32
+callbacks <- list(
+  callback_model_checkpoint("best_model.h5", save_best_only = TRUE, monitor = "val_loss"),
+  callback_reduce_lr_on_plateau(monitor = "val_loss", factor = 0.5, patience = 20, min_lr = 0.0001),
+  callback_early_stopping(monitor = "val_loss", patience = 50, verbose = 1)
+)
 
-callbacks = [
-    keras.callbacks.ModelCheckpoint(
-        "best_model.h5", save_best_only=True, monitor="val_loss"
-    ),
-    keras.callbacks.ReduceLROnPlateau(
-        monitor="val_loss", factor=0.5, patience=20, min_lr=0.0001
-    ),
-    keras.callbacks.EarlyStopping(monitor="val_loss", patience=50, verbose=1),
-]
-model.compile(
-    optimizer="adam",
-    loss="sparse_categorical_crossentropy",
-    metrics=["sparse_categorical_accuracy"],
+model %>% compile(
+  optimizer = "adam",
+  loss = "sparse_categorical_crossentropy",
+  metrics = list("sparse_categorical_accuracy")
 )
-history = model.fit(
-    x_train,
-    y_train,
-    batch_size=batch_size,
-    epochs=epochs,
-    callbacks=callbacks,
-    validation_split=0.2,
-    verbose=1,
-)
+model %>%
+  fit(x_train, y_train,
+    batch_size = batch_size,
+    epochs = epochs,
+    callbacks = callbacks,
+    validation_split = 0.2,
+    verbose = 1)
 ```
 
 ## Evaluate model on test data
