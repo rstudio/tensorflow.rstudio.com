@@ -109,18 +109,18 @@ input_layer <- layer_input(input_shape)
 
 output_layer <- input_layer %>%
   # First convolutional layer
-  layer_conv_1d(filters=64, kernel_size=3, padding="same")() %>% 
-  layer_batch_normalization()() %>%
-  layer_activation_relu()() %>%
+  layer_conv_1d(filters=64, kernel_size=3, padding="same") %>% 
+  layer_batch_normalization() %>%
+  layer_activation_relu() %>%
   # Second convolutional layer
-  layer_conv_1d(filters=64, kernel_size=3, padding="same")() %>% 
-  layer_batch_normalization()() %>%
-  layer_activation_relu()() %>%
+  layer_conv_1d(filters=64, kernel_size=3, padding="same") %>% 
+  layer_batch_normalization() %>%
+  layer_activation_relu() %>%
   # Third convolutional layer
-  layer_conv_1d(filters=64, kernel_size=3, padding="same")() %>% 
-  layer_batch_normalization()() %>%
-  layer_activation_relu()() %>%
-  layer_global_average_pooling_1d()() %>%
+  layer_conv_1d(filters=64, kernel_size=3, padding="same") %>% 
+  layer_batch_normalization() %>%
+  layer_activation_relu() %>%
+  layer_global_average_pooling_1d() %>%
   layer_dense(num_classes, activation = "softmax")
 
 model <- keras_model(inputs=input_layer, outputs=output_layer)
@@ -156,12 +156,13 @@ model %>%
 
 ```{r}
 TODO
-model = keras.models.load_model("best_model.h5")
+loaded_model <- load_model_hdf5("best_model.h5")
+result <- loaded_model %>% evaluate(x_test, y_test)
 
-test_loss, test_acc = model.evaluate(x_test, y_test)
-
-print("Test accuracy", test_acc)
-print("Test loss", test_loss)
+sprintf("Test accuracy: %s", result$accuracy)
+sprintf("Test loss: %s", result$loss)
 ```
 
 ## Plot the model's training and validation loss
+
+TODO:
