@@ -43,7 +43,7 @@ Here we visualize one timeseries example for each class in the dataset.
 ```{r}
 library(ggfortify)
 
-ts_obj <- ts(data.frame("Class -1" = as.numeric(x_train[1, ]), "Class 1" = as.numeric(x_train[2, ])))
+ts_obj <- ts(tibble::tibble("Class -1" = as.numeric(x_train[1, ]), "Class 1" = as.numeric(x_train[2, ])))
 autoplot(ts_obj, ts.geom = 'line', facets = FALSE)
 ```
 
@@ -109,21 +109,21 @@ input_layer <- layer_input(input_shape)
 
 output_layer <- input_layer %>%
   # First convolutional layer
-  layer_conv_1d(filters=64, kernel_size=3, padding="same") %>% 
+  layer_conv_1d(filters = 64, kernel_size = 3, padding = "same") %>% 
   layer_batch_normalization() %>%
   layer_activation_relu() %>%
   # Second convolutional layer
-  layer_conv_1d(filters=64, kernel_size=3, padding="same") %>% 
+  layer_conv_1d(filters = 64, kernel_size = 3, padding = "same") %>% 
   layer_batch_normalization() %>%
   layer_activation_relu() %>%
   # Third convolutional layer
-  layer_conv_1d(filters=64, kernel_size=3, padding="same") %>% 
+  layer_conv_1d(filters = 64, kernel_size = 3, padding = "same") %>% 
   layer_batch_normalization() %>%
   layer_activation_relu() %>%
   layer_global_average_pooling_1d() %>%
   layer_dense(num_classes, activation = "softmax")
 
-model <- keras_model(inputs=input_layer, outputs=output_layer)
+model <- keras_model(inputs = input_layer, outputs = output_layer)
 ```
 
 
@@ -143,8 +143,8 @@ model %>% compile(
   loss = "sparse_categorical_crossentropy",
   metrics = list("sparse_categorical_accuracy")
 )
-model %>%
-  fit(x_train, y_train,
+history <- model %>%
+  fit(x_train, as.matrix(y_train),
     batch_size = batch_size,
     epochs = epochs,
     callbacks = callbacks,
@@ -155,14 +155,19 @@ model %>%
 ## Evaluate model on test data
 
 ```{r}
-TODO
 loaded_model <- load_model_hdf5("best_model.h5")
-result <- loaded_model %>% evaluate(x_test, y_test)
+result <- loaded_model %>% evaluate(x_test, as.matrix(y_test))
 
-sprintf("Test accuracy: %s", result$accuracy)
-sprintf("Test loss: %s", result$loss)
+sprintf("Test loss: %s", result[["loss"]])
+sprintf("Test accuracy: %s", result[["sparse_categorical_accuracy"]])
 ```
 
 ## Plot the model's training and validation loss
 
-TODO:
+```{r}
+plot(history)
+```
+
+TODO: Look into why accuracy is different in our implementation.
+
+We can see how the training accuracy reaches almost 0.95 after 100 epochs. However, by observing the validation accuracy we can see how the network still needs training until it reaches almost 0.97 for both the validation and the training accuracy after 200 epochs. Beyond the 200th epoch, if we continue on training, the validation accuracy will start decreasing while the training accuracy will continue on increasing: the model starts overfitting.
