@@ -174,7 +174,7 @@ There are 2 ways we can use our text vectorization layer:
  strings, like this:
 
 ```{r}
-x <- keras::layer_input(shape = tuple(1L), dtype = tf$string, name = 'text') %>% 
+x <- layer_input(shape = tuple(1L), dtype = tf$string, name = 'text') %>% 
   vectorize_layer() %>% 
   layer_embedding(max_features + 1, embedding_dim)
 ```
