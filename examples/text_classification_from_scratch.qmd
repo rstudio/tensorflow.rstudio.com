@@ -129,7 +129,8 @@ custom_standardization <- function(input_data) {
   return(
     tf$strings$regex_replace(
       stripped_html, 
-      "[{re.escape(string.punctuation)}]",
+      # This is an escaped form for the regex that contains all sets of punctuation: !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~
+      '[{!"\\#\\$%\\&\'\\(\\)\\*\\+,\\-\\./:;<=>\\?@\\[\\\\\\]\\^_`\\{\\|\\}\\~}]',
       "")
   )
 }
