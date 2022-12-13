@@ -27,11 +27,17 @@ set.seed(1234)
 ```
 
 ```{r, message=FALSE}
-train_df <- readr::read_tsv("https://raw.githubusercontent.com/hfawaz/cd-diagram/master/FordA/FordA_TRAIN.tsv", col_names = FALSE)
+url <- "https://raw.githubusercontent.com/hfawaz/cd-diagram/master/FordA"
+
+train_df <- "FordA_TRAIN.tsv" %>%
+  get_file(., file.path(url, .)) %>%
+  readr::read_tsv(col_names = FALSE)
 x_train <- train_df[, -1]
 y_train <- train_df[, 1]
 
-test_df <- readr::read_tsv("https://raw.githubusercontent.com/hfawaz/cd-diagram/master/FordA/FordA_TEST.tsv", col_names = FALSE)
+test_df <- "FordA_TEST.tsv" %>%
+  get_file(., file.path(url, .)) %>%
+  readr::read_tsv(col_names = FALSE)
 x_test <- test_df[, -1]
 y_test <- test_df[, 1]
 ```
@@ -61,15 +67,16 @@ In order to use `sparse_categorical_crossentropy`, we will have to count
 the number of classes beforehand.
 
 ```{r}
-num_classes <- nrow(unique(y_train))
+num_classes <- length(unique(y_train[[1]]))
 ```
 
 Now we shuffle the training set because we will be using the `validation_split` option
 later when training.
 
 ```{r}
-x_train <- x_train[sample(nrow(x_train)),]
-y_train <- y_train[sample(nrow(y_train)),]
+train_ind <- sample(nrow(x_train))
+x_train <- x_train[train_ind,]
+y_train <- y_train[train_ind,]
 ```
 
 Standardize the labels to positive integers.
@@ -167,7 +174,5 @@ sprintf("Test accuracy: %s", result[["sparse_categorical_accuracy"]])
 ```{r}
 plot(history)
 ```
-
-TODO: Look into why accuracy is different in our implementation.
 
 We can see how the training accuracy reaches almost 0.95 after 100 epochs. However, by observing the validation accuracy we can see how the network still needs training until it reaches almost 0.97 for both the validation and the training accuracy after 200 epochs. Beyond the 200th epoch, if we continue on training, the validation accuracy will start decreasing while the training accuracy will continue on increasing: the model starts overfitting.
