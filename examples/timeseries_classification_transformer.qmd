@@ -34,18 +34,23 @@ set.seed(1234)
 ```
 
 ```{r, message=FALSE}
-train_df <- readr::read_tsv("https://raw.githubusercontent.com/hfawaz/cd-diagram/master/FordA/FordA_TRAIN.tsv", col_names = FALSE)
+url <- "https://raw.githubusercontent.com/hfawaz/cd-diagram/master/FordA"
+train_df <- "FordA_TRAIN.tsv" %>%
+  get_file(., file.path(url, .)) %>%
+  readr::read_tsv(col_names = FALSE)
 x_train <- train_df[, -1]
 y_train <- train_df[, 1]
-
-test_df <- readr::read_tsv("https://raw.githubusercontent.com/hfawaz/cd-diagram/master/FordA/FordA_TEST.tsv", col_names = FALSE)
+test_df <- "FordA_TEST.tsv" %>%
+  get_file(., file.path(url, .)) %>%
+  readr::read_tsv(col_names = FALSE)
 x_test <- test_df[, -1]
 y_test <- test_df[, 1]
 
-n_classes <- nrow(unique(y_train))
+n_classes <- length(unique(y_train[[1]]))
 
-x_train <- x_train[sample(nrow(x_train)),]
-y_train <- y_train[sample(nrow(y_train)),]
+train_ind <- sample(nrow(x_train))
+x_train <- x_train[train_ind,]
+y_train <- y_train[train_ind,]
 
 y_train[y_train == -1, ] <- 0
 y_test[y_test == -1, ] <- 0
