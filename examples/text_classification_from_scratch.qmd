@@ -15,57 +15,65 @@ aliases:
 
 ## Introduction
 
-This example shows how to do text classification starting from raw text (as
-a set of text files on disk). We demonstrate the workflow on the IMDB sentiment
-classification dataset (unprocessed version). We use the `TextVectorization` layer for
- word splitting & indexing.
+This example shows how to do text classification starting from raw text
+(as a set of text files on disk). We demonstrate the workflow on the
+IMDB sentiment classification dataset (unprocessed version). We use
+`layer_text_vectorization()` for word splitting and indexing.
 
-```{bash, eval = FALSE}
-curl -O https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
-tar -xf aclImdb_v1.tar.gz
+```{r, eval = FALSE}
+url <- "https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz"
+filename <- basename(url)
+options(timeout = 60*10) # 10 minute timeout
+download.file(url, destfile = filename)
+untar(filename)
+```
+
+```{r, eval = TRUE, include = FALSE}
+unlink("aclImdb", recursive = TRUE)
+untar("aclImdb_v1.tar.gz")
 ```
 
 The `aclImdb` folder contains a `train` and `test` subfolder:
 
-```{bash, eval = FALSE}
-ls aclImdb
-```
-```{bash, eval = FALSE}
-ls aclImdb/test
-```
-```{bash, eval = FALSE}
-ls aclImdb/train
+```{r}
+fs::dir_tree("aclImdb", recurse = 1)
 ```
 
-The `aclImdb/train/pos` and `aclImdb/train/neg` folders contain text files, each of
- which represents one review (either positive or negative):
- 
-```{bash, eval = FALSE}
-cat aclImdb/train/pos/6248_7.txt
+The `aclImdb/train/pos` and `aclImdb/train/neg` folders contain text
+files, each of which represents one review (either positive or
+negative):
+
+```{r}
+"aclImdb/train/pos/6248_7.txt" |> 
+  readLines(warn = FALSE) |> writeLines() 
 ```
 
-We are only interested in the `pos` and `neg` subfolders, so let's delete the rest:
-```{bash, eval = FALSE}
-rm -r aclImdb/train/unsup
+We are only interested in the `pos` and `neg` subfolders, so let's
+delete the rest:
+
+```{r}
+fs::dir_delete("aclImdb/train/unsup/")
 ```
 
-You can use the utility `text_dataset_from_directory()` to
-generate a labeled `tf.data.Dataset` object from a set of text files on disk filed
-into class-specific folders.
- 
-Let's use it to generate the training, validation, and test datasets. The validation
-and training datasets are generated from two subsets of the `train` directory, with 20%
-of samples going to the validation dataset and 80% going to the training dataset.
-Having a validation dataset in addition to the test dataset is useful for tuning
-hyperparameters, such as the model architecture, for which the test dataset should not
-be used.
+You can use the utility `text_dataset_from_directory()` to generate a
+labeled TF Dataset object from a set of text files on disk filed into
+class-specific folders.
 
-Before putting the model out into the real world however, it should be retrained using all
-available training data (without creating a validation dataset), so its performance is maximized.
+Let's use it to generate the training, validation, and test datasets.
+The validation and training datasets are generated from two subsets of
+the `train` directory, with 20% of samples going to the validation
+dataset and 80% going to the training dataset. Having a validation
+dataset in addition to the test dataset is useful for tuning
+hyperparameters, such as the model architecture, for which the test
+dataset should not be used.
 
-When using the `validation_split` & `subset` arguments, make sure to either specify a
-random seed, or to pass `shuffle=FALSE`, so that the validation & training splits you
-get have no overlap.
+Before putting the model out into the real world however, it should be
+retrained using all available training data (without creating a
+validation dataset), so its performance is maximized.
+
+When using the `validation_split` and `subset` arguments, make sure to
+either specify a random seed, or to pass `shuffle=FALSE`, so that the
+validation & training splits you get have no overlap.
 
 ```{r}
 library(tensorflow)
@@ -79,14 +87,14 @@ raw_train_ds <- text_dataset_from_directory(
   batch_size = batch_size,
   validation_split = 0.2,
   subset = "training",
-  seed = 1337,
+  seed = 1337
 )
 raw_val_ds <- text_dataset_from_directory(
   "aclImdb/train",
   batch_size = batch_size,
   validation_split = 0.2,
   subset = "validation",
-  seed = 1337,
+  seed = 1337
 )
 
 raw_test_ds <- text_dataset_from_directory(
@@ -104,10 +112,12 @@ Let's preview a few samples:
 # It's important to take a look at your raw data to ensure your normalization
 # and tokenization will work as expected. We can do that by taking a few
 # examples from the training set and looking at them.
-raw_train_ds_iterator <- as_iterator(raw_train_ds)
-batch <- iter_next(raw_train_ds_iterator)
-text_batch <- batch[[1]]
-label_batch <- batch[[2]]
+batch <- iter_next(as_iterator(raw_train_ds))
+str(batch)
+```
+
+```{r}
+c(text_batch, label_batch) %<-% batch
 for (i in 1:3) {
   print(text_batch[i])
   print(label_batch[i])
@@ -123,18 +133,12 @@ In particular, we remove `<br />` tags.
 # tags of the form '<br />'. These tags will not be removed by the default
 # standardizer (which doesn't strip HTML). Because of this, we will need to
 # create a custom standardization function.
-custom_standardization <- function(input_data) {
-  lowercase <- tf$strings$lower(input_data)
-  stripped_html <- tf$strings$regex_replace(lowercase, "<br />", " ")
-  return(
-    tf$strings$regex_replace(
-      stripped_html, 
-      # This is an escaped form for the regex that contains all sets of punctuation: !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~
-      '[{!"\\#\\$%\\&\'\\(\\)\\*\\+,\\-\\./:;<=>\\?@\\[\\\\\\]\\^_`\\{\\|\\}\\~}]',
-      "")
-  )
+custom_standardization_fn <- function(string_tensor) {
+  string_tensor %>%
+    tf$strings$lower() %>% # convert to all lowercase
+    tf$strings$regex_replace("<br />", " ") %>% # remove '<br />' HTML tag
+    tf$strings$regex_replace("[[:punct:]]", "") # remove punctuation
 }
-
 
 # Model constants.
 max_features <- 20000
@@ -149,7 +153,7 @@ sequence_length <- 500
 # We also set an explicit maximum sequence length, since the CNNs later in our
 # model won't support ragged sequences.
 vectorize_layer <- layer_text_vectorization(
-    standardize = custom_standardization,
+    standardize = custom_standardization_fn,
     max_tokens = max_features,
     output_mode = "int",
     output_sequence_length = sequence_length,
@@ -161,50 +165,54 @@ vectorize_layer <- layer_text_vectorization(
 
 # Let's make a text-only dataset (no labels):
 text_ds <- raw_train_ds %>%
-  dataset_map(function(x, y) { return(x) } )
+  dataset_map(function(x, y) x)
 # Let's call `adapt`:
-vectorize_layer$adapt(text_ds)
+vectorize_layer %>% adapt(text_ds)
 ```
 
 ## Two options to vectorize the data
 
 There are 2 ways we can use our text vectorization layer:
 
-**Option 1: Make it part of the model**, so as to obtain a model that processes raw
- strings, like this:
+**Option 1: Make it part of the model**, so as to obtain a model that
+processes raw strings, like this:
 
 ```{r}
-x <- layer_input(shape = tuple(1L), dtype = tf$string, name = 'text') %>% 
+x <- layer_input(shape = c(1L), dtype = tf$string, name = 'text') %>% 
   vectorize_layer() %>% 
   layer_embedding(max_features + 1, embedding_dim)
 ```
 
-**Option 2: Apply it to the text dataset** to obtain a dataset of word indices, then
- feed it into a model that expects integer sequences as inputs.
- 
-An important difference between the two is that option 2 enables you to do
-**asynchronous CPU processing and buffering** of your data when training on GPU.
-So if you're training the model on GPU, you probably want to go with this option to get
- the best performance. This is what we will do below.
- 
-If we were to export our model to production, we'd ship a model that accepts raw
-strings as input, like in the code snippet for option 1 above. This can be done after
- training. We do this in the last section.
+**Option 2: Apply it to the text dataset** to obtain a dataset of word
+indices, then feed it into a model that expects integer sequences as
+inputs.
+
+An important difference between the two is that option 2 enables you to
+do **asynchronous CPU processing and buffering** of your data when
+training on GPU. So if you're training the model on GPU, you probably
+want to go with this option to get the best performance. This is what we
+will do below.
+
+If we were to export our model to production, we'd ship a model that
+accepts raw strings as input, like in the code snippet for option 1
+above. This can be done after training. We do this in the last section.
 
 ```{r}
 vectorize_text <- function(text, label) {
-  text <- tf$expand_dims(text, -1L)
-  return(tuple(vectorize_layer(text), label))
+  text <- text %>% 
+    tf$expand_dims(-1L) %>% 
+    vectorize_layer()
+  list(text, label)
 }
 
 # Vectorize the data.
 train_ds <- raw_train_ds %>% dataset_map(vectorize_text)
-val_ds <- raw_val_ds %>% dataset_map(vectorize_text)
-test_ds <- raw_test_ds %>% dataset_map(vectorize_text)
+val_ds   <- raw_val_ds   %>% dataset_map(vectorize_text)
+test_ds  <- raw_test_ds  %>% dataset_map(vectorize_text)
 
 # Do async prefetching / buffering of the data for best performance on GPU.
-train_ds <- train_ds %>%
-  dataset_cache() %>%
+train_ds <- train_ds %>% 
+  dataset_cache() %>% 
   dataset_prefetch(buffer_size = 10)
 val_ds <- val_ds %>%
   dataset_cache() %>%
@@ -216,12 +224,14 @@ test_ds <- test_ds %>%
 
 ## Build a model
 
-We choose a simple 1D convnet starting with an `Embedding` layer.
+We choose a simple 1D convnet starting with `layer_embedding()`.
 
 ```{r}
-inputs <- layer_input(shape = tuple(NULL), dtype = "int64")
+inputs <- layer_input(shape = list(NULL), dtype = "int64")
+
 predictions <- inputs %>% # A integer input for vocab indices.
-  # Next, we add a layer to map those vocab indices into a space of dimensionality 'embedding_dim'.
+  # Next, we add a layer to map those vocab indices 
+  # into a space of dimensionality 'embedding_dim'.
   layer_embedding(max_features, embedding_dim) %>% 
   layer_dropout(0.5) %>% 
   # Conv1D + global max pooling
@@ -240,13 +250,13 @@ model <- keras_model(inputs, predictions)
 model %>% compile(
   loss = "binary_crossentropy",
   optimizer = "adam",
-  metrics=c("accuracy"))
+  metrics = "accuracy")
 ```
 
 ## Train the model
 
 ```{r}
-epochs <- 3
+epochs <- 10
 
 # Fit the model using the train and test datasets.
 history <- model %>% fit(train_ds, validation_data = val_ds, epochs = epochs)
@@ -260,12 +270,12 @@ model %>% evaluate(test_ds)
 
 ## Make an end-to-end model
 
-If you want to obtain a model capable of processing raw strings, you can simply
-create a new model (using the weights we just trained):
+If you want to obtain a model capable of processing raw strings, you can
+simply create a new model (using the weights we just trained):
 
 ```{r}
 # A string input
-inputs <- layer_input(shape = tuple(1L), dtype = "string")
+inputs <- layer_input(shape = c(1), dtype = "string")
 # Turn strings into vocab indices
 indices <- vectorize_layer(inputs)
 # Turn vocab indices into predictions
