@@ -14,9 +14,10 @@ aliases:
 
 ## Introduction
 
-This example shows how to do timeseries classification from scratch, starting from raw
-CSV timeseries files on disk. We demonstrate the workflow on the FordA dataset from the
-[UCR/UEA archive](https://www.cs.ucr.edu/%7Eeamonn/time_series_data_2018/).
+This example shows how to do timeseries classification from scratch,
+starting from raw CSV timeseries files on disk. We demonstrate the
+workflow on the FordA dataset from the [UCR/UEA
+archive](https://www.cs.ucr.edu/%7Eeamonn/time_series_data_2018/).
 
 ## Setup
 
@@ -32,14 +33,14 @@ url <- "https://raw.githubusercontent.com/hfawaz/cd-diagram/master/FordA"
 train_df <- "FordA_TRAIN.tsv" %>%
   get_file(., file.path(url, .)) %>%
   readr::read_tsv(col_names = FALSE)
-x_train <- train_df[, -1]
-y_train <- train_df[, 1]
+x_train <- as.matrix(train_df[, -1])
+y_train <- as.matrix(train_df[, 1])
 
 test_df <- "FordA_TEST.tsv" %>%
   get_file(., file.path(url, .)) %>%
   readr::read_tsv(col_names = FALSE)
-x_test <- test_df[, -1]
-y_test <- test_df[, 1]
+x_test <- as.matrix(test_df[, -1])
+y_test <- as.matrix(test_df[, 1])
 ```
 
 ## Visualize the data
@@ -49,100 +50,108 @@ Here we visualize one timeseries example for each class in the dataset.
 ```{r}
 library(ggfortify)
 
-ts_obj <- ts(tibble::tibble("Class -1" = as.numeric(x_train[1, ]), "Class 1" = as.numeric(x_train[2, ])))
-autoplot(ts_obj, ts.geom = 'line', facets = FALSE)
+autoplot(ts(tibble::tibble(
+  "Class -1" = x_train[1, ],
+  "Class 1" = x_train[2, ]
+)), ts.geom = 'line', facets = FALSE)
 ```
 
 ## Standardize the data
 
-Our timeseries are already in a single length (500). However, their values are
-usually in various ranges. This is not ideal for a neural network;
-in general we should seek to make the input values normalized.
-For this specific dataset, the data is already z-normalized: each timeseries sample
-has a mean equal to zero and a standard deviation equal to one. This type of
-normalization is very common for timeseries classification problems, see
-[Bagnall et al. (2016)](https://link.springer.com/article/10.1007/s10618-016-0483-9).
+Our timeseries are already in a single length (500). However, their
+values are usually in various ranges. This is not ideal for a neural
+network; in general we should seek to make the input values normalized.
+For this specific dataset, the data is already z-normalized: each
+timeseries sample has a mean equal to zero and a standard deviation
+equal to one. This type of normalization is very common for timeseries
+classification problems, see [Bagnall et al.
+(2016)](https://link.springer.com/article/10.1007/s10618-016-0483-9).
 
 In order to use `sparse_categorical_crossentropy`, we will have to count
 the number of classes beforehand.
 
 ```{r}
-num_classes <- length(unique(y_train[[1]]))
+(num_classes <- length(unique(y_train)))
 ```
 
-Now we shuffle the training set because we will be using the `validation_split` option
-later when training.
+Now we shuffle the training set because we will be using the
+`validation_split` option later when training.
 
 ```{r}
-train_ind <- sample(nrow(x_train))
-x_train <- x_train[train_ind,]
-y_train <- y_train[train_ind,]
+shuffle_ind <- sample(nrow(x_train))
+x_train <- x_train[shuffle_ind, ]
+y_train <- y_train[shuffle_ind, ]
 ```
 
-Standardize the labels to positive integers.
-The expected labels will then be 0 and 1.
+Standardize the labels to positive integers. The expected labels will
+then be 0 and 1.
 
 ```{r}
-y_train[y_train == -1, ] <- 0
-y_test[y_test == -1, ] <- 0
+y_train[y_train == -1] <- 0
+y_test[y_test == -1] <- 0
 ```
 
-Note that the timeseries data used here are univariate, meaning we only have one channel
-per timeseries example.
-We will therefore transform the timeseries into a multivariate one with one channel
-using a simple reshaping via numpy.
-This will allow us to construct a model that is easily applicable to multivariate time
-series.
+Note that the timeseries data used here are univariate, meaning we only
+have one channel per timeseries example. We will therefore transform the
+timeseries into a multivariate one with one channel using a simple
+reshaping. This will allow us to construct a model that is easily
+applicable to multivariate time series.
 
 ```{r}
-x_train <- as.matrix(x_train)
+# add channel dim of size 1
 dim(x_train) <- c(dim(x_train), 1)
-x_test <- as.matrix(x_test)
 dim(x_test) <- c(dim(x_test), 1)
 ```
 
 ## Build a model
 
 We build a Fully Convolutional Neural Network originally proposed in
-[this paper](https://arxiv.org/abs/1611.06455).
-The implementation is based on the TF 2 version provided
-[here](https://github.com/hfawaz/dl-4-tsc/).
-The following hyperparameters (kernel_size, filters, the usage of BatchNorm) were found
-via random search using [KerasTuner](https://github.com/keras-team/keras-tuner).
+[this paper](https://arxiv.org/abs/1611.06455). The implementation is
+based on the TF 2 version provided
+[here](https://github.com/hfawaz/dl-4-tsc/). The following
+hyperparameters (kernel_size, filters, the usage of BatchNorm) were
+found via random search using
+[KerasTuner](https://github.com/keras-team/keras-tuner).
 
 ```{r}
-input_shape <- dim(x_train)[-1]
+input_shape <- dim(x_train)[-1] # drop batch dim
 input_layer <- layer_input(input_shape)
 
 output_layer <- input_layer %>%
+
   # First convolutional layer
-  layer_conv_1d(filters = 64, kernel_size = 3, padding = "same") %>% 
+  layer_conv_1d(64, 3, padding = "same") %>%
   layer_batch_normalization() %>%
   layer_activation_relu() %>%
+
   # Second convolutional layer
-  layer_conv_1d(filters = 64, kernel_size = 3, padding = "same") %>% 
+  layer_conv_1d(64, 3, padding = "same") %>%
   layer_batch_normalization() %>%
   layer_activation_relu() %>%
+
   # Third convolutional layer
-  layer_conv_1d(filters = 64, kernel_size = 3, padding = "same") %>% 
+  layer_conv_1d(64, 3, padding = "same") %>%
   layer_batch_normalization() %>%
   layer_activation_relu() %>%
+
   layer_global_average_pooling_1d() %>%
   layer_dense(num_classes, activation = "softmax")
 
-model <- keras_model(inputs = input_layer, outputs = output_layer)
+model <- keras_model(input_layer, output_layer)
 ```
-
 
 ## Train the model
 
 ```{r}
-epochs <- 500
+epochs <- 300
 batch_size <- 32
 callbacks <- list(
-  callback_model_checkpoint("best_model.h5", save_best_only = TRUE, monitor = "val_loss"),
-  callback_reduce_lr_on_plateau(monitor = "val_loss", factor = 0.5, patience = 20, min_lr = 0.0001),
-  callback_early_stopping(monitor = "val_loss", patience = 50, verbose = 1)
+  callback_model_checkpoint("best_model.h5", monitor = "val_loss",
+                            save_best_only = TRUE),
+  callback_reduce_lr_on_plateau(monitor = "val_loss", factor = 0.5,
+                                patience = 20, min_lr = 0.0001),
+  callback_early_stopping(monitor = "val_loss", patience = 50,
+                          verbose = 1)
 )
 
 model %>% compile(
@@ -150,8 +159,9 @@ model %>% compile(
   loss = "sparse_categorical_crossentropy",
   metrics = list("sparse_categorical_accuracy")
 )
+
 history <- model %>%
-  fit(x_train, as.matrix(y_train),
+  fit(x_train, y_train,
     batch_size = batch_size,
     epochs = epochs,
     callbacks = callbacks,
@@ -171,8 +181,14 @@ sprintf("Test accuracy: %s", result[["sparse_categorical_accuracy"]])
 
 ## Plot the model's training and validation loss
 
-```{r}
+```{r, fig.height=7}
 plot(history)
 ```
 
-We can see how the training accuracy reaches almost 0.95 after 100 epochs. However, by observing the validation accuracy we can see how the network still needs training until it reaches almost 0.97 for both the validation and the training accuracy after 200 epochs. Beyond the 200th epoch, if we continue on training, the validation accuracy will start decreasing while the training accuracy will continue on increasing: the model starts overfitting.
+We can see how the training accuracy reaches almost 0.95 after 100
+epochs. However, by observing the validation accuracy we can see how the
+network still needs training until it reaches almost 0.97 for both the
+validation and the training accuracy after 200 epochs. Beyond the 200th
+epoch, if we continue on training, the validation accuracy will start
+decreasing while the training accuracy will continue on increasing: the
+model starts overfitting.
