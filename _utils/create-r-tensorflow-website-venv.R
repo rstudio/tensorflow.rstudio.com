@@ -22,7 +22,8 @@ if("--fresh" %in% commandArgs(TRUE)) {
 
 
 
-python <- reticulate::install_python(force = "--fresh" %in% commandArgs(TRUE))
+python <- reticulate::install_python(version = "3.10:latest",
+                                     force = "--fresh" %in% commandArgs(TRUE))
 reticulate::virtualenv_create(envname, python = python)
 
 is_mac_arm64 <- function() {
