@@ -1,0 +1,198 @@
+---
+title: "Timeseries classification with a Transformer model"
+authors:
+  - "[Theodoros Ntakouris](https://github.com/ntakouris)"
+  - "[terrytangyuan](https://github.com/terrytangyuan) - R adaptation"
+  - "[t-kalinowski](https://github.com/t-kalinowski) - R adaptation"
+date-created: 2022/12/12
+date-last-modified: 2023/2/12
+description: "This notebook demonstrates how to do timeseries classification using a Transformer model."
+categories: [timeseries]
+aliases:
+  - ../guide/keras/examples/timeseries_classification_transformer/index.html
+---
+
+## Introduction
+
+This is the Transformer architecture from [Attention Is All You
+Need](https://arxiv.org/abs/1706.03762), applied to timeseries instead
+of natural language.
+
+This example requires TensorFlow 2.4 or higher.
+
+## Load the dataset
+
+We are going to use the same dataset and preprocessing as the
+[TimeSeries Classification from
+Scratch](https://tensorflow.rstudio.com/examples/timeseries_classification_from_scratch)
+example.
+
+```{r}
+library(tensorflow)
+library(keras)
+set.seed(1234)
+```
+
+```{r, message=FALSE}
+url <- "https://raw.githubusercontent.com/hfawaz/cd-diagram/master/FordA"
+
+train_df <- "FordA_TRAIN.tsv" %>%
+  get_file(., file.path(url, .)) %>%
+  readr::read_tsv(col_names = FALSE)
+x_train <- as.matrix(train_df[, -1])
+y_train <- as.matrix(train_df[, 1])
+
+test_df <- "FordA_TEST.tsv" %>%
+  get_file(., file.path(url, .)) %>%
+  readr::read_tsv(col_names = FALSE)
+x_test <- as.matrix(test_df[, -1])
+y_test <- as.matrix(test_df[, 1])
+
+n_classes <- length(unique(y_train))
+
+shuffle_ind <- sample(nrow(x_train))
+x_train <- x_train[shuffle_ind, , drop = FALSE]
+y_train <- y_train[shuffle_ind, , drop = FALSE]
+
+y_train[y_train == -1] <- 0
+y_test [y_test  == -1] <- 0
+
+dim(x_train) <- c(dim(x_train), 1)
+dim(x_test) <- c(dim(x_test), 1)
+```
+
+## Build a model
+
+Our model processes a tensor of shape
+`(batch size, sequence length, features)`, where `sequence length` is
+the number of time steps and `features` is each input timeseries.
+
+You can replace your classification RNN layers with this one: the inputs
+are fully compatible!
+
+We include residual connections, layer normalization, and dropout. The
+resulting layer can be stacked multiple times. The projection layers are
+implemented through `layer_conv_1d()`.
+
+```{r}
+transformer_encoder <- function(inputs,
+                                head_size,
+                                num_heads,
+                                ff_dim,
+                                dropout = 0) {
+  # Attention and Normalization
+  attention_layer <-
+    layer_multi_head_attention(key_dim = head_size,
+                               num_heads = num_heads,
+                               dropout = dropout)
+  
+  n_features <- dim(inputs) %>% tail(1)
+  
+  x <- inputs %>%
+    attention_layer(., .) %>%
+    layer_dropout(dropout) %>%
+    layer_layer_normalization(epsilon = 1e-6)
+  
+  res <- x + inputs
+  
+  # Feed Forward Part
+  x <- res %>%
+    layer_conv_1d(ff_dim, kernel_size = 1, activation = "relu") %>%
+    layer_dropout(dropout) %>%
+    layer_conv_1d(n_features, kernel_size = 1) %>%
+    layer_layer_normalization(epsilon = 1e-6)
+  
+  # return output + residual
+  x + res
+}
+
+
+build_model <- function(input_shape,
+                        head_size,
+                        num_heads,
+                        ff_dim,
+                        num_transformer_blocks,
+                        mlp_units,
+                        dropout = 0,
+                        mlp_dropout = 0) {
+  
+  inputs <- layer_input(input_shape)
+  
+  x <- inputs
+  for (i in 1:num_transformer_blocks) {
+    x <- x %>%
+      transformer_encoder(
+        head_size = head_size,
+        num_heads = num_heads,
+        ff_dim = ff_dim,
+        dropout = dropout
+      )
+  }
+  
+  x <- x %>% 
+    layer_global_average_pooling_1d(data_format = "channels_first")
+  
+  for (dim in mlp_units) {
+    x <- x %>%
+      layer_dense(dim, activation = "relu") %>%
+      layer_dropout(mlp_dropout)
+  }
+  
+  outputs <- x %>% 
+    layer_dense(n_classes, activation = "softmax")
+  
+  keras_model(inputs, outputs)
+}
+```
+
+## Train and evaluate
+
+```{r}
+input_shape <- dim(x_train)[-1] # drop batch dim
+model <- build_model(
+  input_shape,
+  head_size = 256,
+  num_heads = 4,
+  ff_dim = 4,
+  num_transformer_blocks = 4,
+  mlp_units = c(128),
+  mlp_dropout = 0.4,
+  dropout = 0.25
+)
+model %>% compile(
+  loss = "sparse_categorical_crossentropy",
+  optimizer = optimizer_adam(learning_rate = 1e-4),
+  metrics = c("sparse_categorical_accuracy")
+)
+
+model
+
+callbacks <- list(
+  callback_early_stopping(patience = 10, restore_best_weights = TRUE))
+
+history <- model %>%
+  fit(
+    x_train,
+    y_train,
+    batch_size = 64,
+    epochs = 200,
+    callbacks = callbacks,
+    validation_split = 0.2
+  )
+
+model %>% evaluate(x_test, y_test, verbose = 1)
+```
+
+## Conclusions
+
+In about 110-120 epochs (25s each on Colab), the model reaches a
+training accuracy of \~0.95, validation accuracy of \~84 and a testing
+accuracy of \~85, without hyperparameter tuning. And that is for a model
+with less than 100k parameters. Of course, parameter count and accuracy
+could be improved by a hyperparameter search and a more sophisticated
+learning rate schedule, or a different optimizer.
+
+You can use the trained model hosted on [Hugging Face
+Hub](https://huggingface.co/keras-io/timeseries_transformer_classification)
+and try the demo on [Hugging Face
+Spaces](https://huggingface.co/spaces/keras-io/timeseries_transformer_classification).
