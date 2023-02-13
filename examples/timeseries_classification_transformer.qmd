@@ -5,7 +5,7 @@ authors:
   - "[terrytangyuan](https://github.com/terrytangyuan) - R adaptation"
   - "[t-kalinowski](https://github.com/t-kalinowski) - R adaptation"
 date-created: 2022/12/12
-date-last-modified: 2022/12/12
+date-last-modified: 2023/2/12
 description: "This notebook demonstrates how to do timeseries classification using a Transformer model."
 categories: [timeseries]
 aliases:
@@ -51,11 +51,11 @@ y_test <- as.matrix(test_df[, 1])
 n_classes <- length(unique(y_train))
 
 shuffle_ind <- sample(nrow(x_train))
-x_train <- x_train[shuffle_ind,]
-y_train <- y_train[shuffle_ind,]
+x_train <- x_train[shuffle_ind, , drop = FALSE]
+y_train <- y_train[shuffle_ind, , drop = FALSE]
 
 y_train[y_train == -1] <- 0
-y_test[y_test == -1] <- 0
+y_test [y_test  == -1] <- 0
 
 dim(x_train) <- c(dim(x_train), 1)
 dim(x_test) <- c(dim(x_test), 1)
@@ -75,7 +75,6 @@ resulting layer can be stacked multiple times. The projection layers are
 implemented through `layer_conv_1d()`.
 
 ```{r}
-
 transformer_encoder <- function(inputs,
                                 head_size,
                                 num_heads,
@@ -163,7 +162,7 @@ model <- build_model(
 model %>% compile(
   loss = "sparse_categorical_crossentropy",
   optimizer = optimizer_adam(learning_rate = 1e-4),
-  metrics = c("sparse_categorical_accuracy"),
+  metrics = c("sparse_categorical_accuracy")
 )
 
 model
