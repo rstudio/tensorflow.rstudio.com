@@ -27,7 +27,6 @@ website:
   title: TensorFlow for R
   site-url: https://tensorflow.rstudio.com/
   repo-url: https://github.com/rstudio/tensorflow.rstudio.com
-  google-analytics: "UA-20375833-3"
   repo-actions: [edit, source, issue]
   search: true
   page-navigation: true
@@ -171,3 +170,5 @@ format:
     theme:
       light: [flatly, _css/light.scss, _css/custom.scss]
       dark: [darkly, _css/dark.scss, _css/custom.scss]
+    include-in-header: gtm-body.html
+    include-before-body: gtm-head.html
