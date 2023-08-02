@@ -4,8 +4,8 @@ execute:
   eval: false
 aliases:
   - /installation
-editor: 
-  markdown: 
+editor:
+  markdown:
     wrap: 72
 ---
 
@@ -24,7 +24,7 @@ tensorflow R package to use the version you installed.
 
 TensorFlow is tested and supported on the following 64-bit systems:
 
--   Ubuntu 20.04 or later
+-   Ubuntu 22.04 or later
 -   Windows 10 or later
 -   macOS 11 (Big Sur) or later (Intel or M1/M2)
 
