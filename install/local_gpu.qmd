@@ -13,10 +13,6 @@ editor_options:
     canonical: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
-```
-
 The default build of TensorFlow will use an NVIDIA® GPU if it is available and the appropriate drivers are installed, and otherwise fallback to using the CPU only.
 
 The prerequisites for the GPU version of TensorFlow on each platform are covered below.
@@ -71,7 +67,7 @@ Beginning with TensorFlow version 2.13, the 'tensorflow' pip package has native 
 Make sure that an x86_64 build of R is not running under Rosetta.
 You can test if you have an Arm build of R like this:
 
-```{r}
+``` r
 R.version$arch
 ```
 
@@ -82,7 +78,7 @@ If you have brew configured, then a command `brew install --cask r` at the termi
 
 You can install Python for reticulate to use like this:
 
-```{r}
+``` r
 reticulate::install_python()
 ```
 
@@ -93,7 +89,7 @@ Alternatively, you can download and install python from www.python.org/downloads
 
 You can test if TensorFlow can use a local GPU by running the following:
 
-```{r}
+``` r
 library(tensorflow)
 tf$config$list_physical_devices("GPU")
 ```
