@@ -25,54 +25,50 @@ See the list of [CUDA-enabled GPU cards](https://developer.nvidia.com/cuda-gpus)
 
 To enable TensorFlow to use a local NVIDIA® GPU, you can install the following:
 
--   [CUDA 11.2](https://developer.nvidia.com/cuda-11.2.2-download-archive)
--   [cuDNN 8.1](https://developer.nvidia.com/rdp/cudnn-archive)
+-   [CUDA 11.8](https://developer.nvidia.com/cuda-11.2.2-download-archive)
+-   [cuDNN 8.6](https://developer.nvidia.com/rdp/cudnn-archive)
+
+Note that the following instructions require the development version of the tensorflow R package installed:
+
+``` r
+remotes::install_github("rstudio/tensorflow")
+```
 
 ::: panel-tabset
-### Ubuntu 20.04
+### Ubuntu 22.04
 
-To install the required NVIDIA components on Ubuntu 20.04, you can run the following at the terminal:
+To install the required NVIDIA components on Ubuntu 22.04, you can run the following at the terminal:
 
 ``` bash
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
-sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
+sudo dpkg -i cuda-keyring_1.1-1_all.deb
 sudo apt-get update
-sudo apt-get -y install cuda-11-2 libcudnn8=8.1.1.33-1+cuda11.2
-sudo apt-mark hold libcudnn8
+sudo apt-get -y install cuda-toolkit-11-8
 ```
+
+cuDNN 8.6 is automatically installed by `install_tensorflow()` via pip if a GPU is detected.
 
 ### Windows
 
-First, confirm you have an appropriate GPU.
-This article describes how to detect whether your graphics card uses an NVIDIA® GPU:
-
-<http://nvidia.custhelp.com/app/answers/detail/a_id/2040/~/identifying-the-graphics-card-model-and-device-id-in-a-pc>
-
-Once you've confirmed that you have an NVIDIA® GPU, the following article describes how to install required software components including the CUDA Toolkit v11.2 and cuDNN 8.1:
-
-<https://www.tensorflow.org/install/gpu#hardware_requirements>
-
-Note that the documentation on installation of the last component (cuDNN) is a bit sparse.
-Once you join the NVIDIA® developer program and download the zip file containing cuDNN you need to extract the zip file and add the location where you extracted it to your system PATH.
+Note that Tensorflow 2.10 was the last version of TensorFlow to natively support GPUs on Windows.
+To use a GPU on widows, it is recomended to run TensorFlow under WSL.
+See [here](https://www.tensorflow.org/install/pip#windows-native) for details.
 
 ### Other Linux
 
 The specifics of installing required software differ by Linux version so please review the NVIDIA® documentation carefully to ensure you install everything correctly.
 
--   [CUDA 11.2](https://developer.nvidia.com/cuda-11.2.2-download-archive)
--   [cuDNN 8.1](https://developer.nvidia.com/rdp/cudnn-archive)
+-   [CUDA 11.8](https://developer.nvidia.com/cuda-11-8-0-download-archive)
+-   [cuDNN 8.6](https://developer.nvidia.com/rdp/cudnn-archive)
+
+Note that cuDNN 8.6 can easily be installed via `pip` now, and then can be found by TensorFlow if the `CUDNN_PATH` and `LD_LIBRARY_PATH` variables are set appropriately.
+Note that `install_tensorflow()` does this for you.
 
 ### macOS
 
-TensorFlow does not support usage of NVIDIA GPUs on Macs.
-For ARM (M1, M2) Macs however, Apple provides a custom build of TensorFlow that can take advantage of the GPU.
-`install_tensorflow()` will detect if it is being run on an Arm Mac and automatically install the appropriate Python packages (`tensorflow-macos` and `tensorflow-metal`).
+Beginning with TensorFlow version 2.13, the 'tensorflow' pip package has native support for Arm Macs, including GPUs.
 
-Conda is the only supported installation method on Arm Macs.
-Additionally, x86_64 builds of R running under Rosetta are not supported; an Arm64 build of R is required.
-
+Make sure that an x86_64 build of R is not running under Rosetta.
 You can test if you have an Arm build of R like this:
 
 ```{r}
@@ -82,15 +78,15 @@ R.version$arch
 If this returns `"aarch64"`, you're using the correct build of R.
 If instead it returns `"x86_64"`, then you need to install a different build of R.
 You can install an Arm build of R by navigating to <https://cloud.r-project.org/bin/macosx/> and selecting the appropriate package (e.g., "R-4.2.1-arm64.pkg") or using an installation manager like [rig](https://github.com/r-lib/rig) and running `rig add release`.
+If you have brew configured, then a command `brew install --cask r` at the terminal will install the correct version of R.
 
-You can configure reticulate to use a conda Python using reticulate like this:
+You can install Python for reticulate to use like this:
 
 ```{r}
-reticulate::install_miniconda()
-tensorflow::install_tensorflow()
+reticulate::install_python()
 ```
 
-Note that `install_miniconda()` automatically creates a conda environment named `r-reticulate`, that becomes the default environment used by reticulate.
+Alternatively, you can download and install python from www.python.org/downloads.
 :::
 
 ### Test
