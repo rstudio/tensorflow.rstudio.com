@@ -5,12 +5,13 @@ if(!requireNamespace("remotes", quietly = TRUE))
 
 remotes::update_packages()
 remotes::install_github("rstudio/reticulate") #, force = TRUE)
-remotes::install_github("rstudio/tensorflow") #, force = TRUE)
-remotes::install_github("rstudio/keras") #, force = TRUE)
+remotes::install_github("rstudio/tensorflow", force = TRUE)
+remotes::install_github("rstudio/keras", force = TRUE)
 remotes::install_github("rstudio/tfdatasets") #, force = TRUE)
 remotes::install_github("t-kalinowski/tfautograph") #, force = TRUE)
 
-remotes::install_cran(c("tidymodels", "tidyverse", "GGally", "skimr", "coro",
+remotes::install_cran(c("tidymodels", "tidyverse",
+                        "GGally", "skimr", "coro",
                         "tfhub"))
 
 envname <- "r-tensorflow-website"
@@ -28,9 +29,11 @@ keras::install_keras(
   configure_cuda_vars = FALSE,
   version = "default",
   # version = "release",
+  new_env = TRUE,
   extra_packages = c("keras-tuner",
                      "ipython",
                      "tensorflow_datasets",
+                     "tensorflow_hub",
                      "kaggle")
 )
 
