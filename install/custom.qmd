@@ -65,7 +65,8 @@ library) which have dependencies on additional Python packages. The
 however if you do a custom installation you should be sure to install
 them manually.
 
-You can install the additional dependencies with the following command:
+You can install the additional dependencies with the following command
+in terminal (or in `repl_python()` with the `%pip` magic):
 
 ```{r, eval = TRUE, results = 'asis', echo = FALSE}
 cat(sep = "", "\n``` bash
