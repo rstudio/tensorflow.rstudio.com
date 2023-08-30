@@ -38,7 +38,7 @@ library(tensorflow)
 ```
 
 You could also add the `RETICULATE_PYTHON` environment variable to your
-`.RProfile` or `.REnviron`.
+`.Rprofile` or `.Renviron`.
 
 Alternatively, call the `use_python()` family of configuration
 functions:
@@ -56,17 +56,6 @@ library(tensorflow)
 use_virtualenv("my_env")
 ```
 
-Note that if you use the argument `required = FALSE`, you can include
-multiple calls to the `use_` functions and all provided locations will
-be tried in the order they were specified. For example:
-
-```{r}
-library(tensorflow)
-use_python("/usr/local/bin/python", required = FALSE)
-use_virtualenv("~/myenv", required = TRUE)
-use_condaenv("myenv", required = TRUE)
-```
-
 ### Additional Dependencies
 
 There are some components of TensorFlow (e.g. the
@@ -80,7 +69,7 @@ You can install the additional dependencies with the following command:
 
 ```{r, eval = TRUE, results = 'asis', echo = FALSE}
 cat(sep = "", "\n``` bash
-pip install ", paste(keras:::default_extra_packages(), collapse = " "), 
+pip install ", paste(keras:::default_extra_packages(), collapse = " "),
 "\n```")
 ```
 
@@ -90,9 +79,3 @@ Note that binary installations of TensorFlow are provided for Windows,
 OS X, and Ubuntu 16.04 or higher. It's possible that binary
 installations will work on other Linux variants but Ubuntu is the only
 platform tested and supported.
-
-In particular, if you are running on RedHat or CentOS you may need to
-[install from source](https://www.tensorflow.org/install/source) then
-follow the instructions in the Custom Installation section to ensure
-that your installation of TensorFlow can be used with the tensorflow R
-package.

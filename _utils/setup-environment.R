@@ -13,12 +13,12 @@ remotes::install_github("t-kalinowski/tfautograph") #, force = TRUE)
 remotes::install_cran(c("tidymodels", "tidyverse",
                         "GGally", "skimr", "coro",
                         "tfhub"))
-
-envname <- "r-tensorflow-website"
-
-if("--fresh" %in% commandArgs(TRUE))
-  tryCatch(reticulate::virtualenv_remove(envname, confirm = FALSE),
-           error = function(e) NULL)
+#
+envname <- "r-tensorflow"
+#
+# if("--fresh" %in% commandArgs(TRUE))
+#   tryCatch(reticulate::virtualenv_remove(envname, confirm = FALSE),
+#            error = function(e) NULL)
 
 python <- reticulate::install_python(version = "3.10:latest")
 
@@ -26,7 +26,7 @@ keras::install_keras(
   envname = envname,
   method = "virtualenv",
   python_version = python,
-  configure_cuda_vars = FALSE,
+  # configure_cuda_vars = FALSE,
   version = "default",
   # version = "release",
   new_env = TRUE,

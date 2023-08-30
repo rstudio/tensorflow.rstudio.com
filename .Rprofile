@@ -28,7 +28,7 @@ setHook("plot.new", function() par(las = 1))
 setHook(packageEvent("reticulate", "onLoad"),
   function(...) {
     tryCatch(
-      reticulate::use_virtualenv("r-tensorflow-website", required = TRUE),
+      reticulate::use_virtualenv("r-tensorflow", required = TRUE),
       error = function(e) {
         warning(paste(sep = "\n",
           "'r-tensorflow-website' virtual environment not found.",
