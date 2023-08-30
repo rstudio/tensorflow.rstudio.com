@@ -48,7 +48,7 @@ cuDNN 8.6 is automatically installed by `install_tensorflow()` via pip if a GPU 
 
 Note that Tensorflow 2.10 was the last version of TensorFlow to natively support GPUs on Windows.
 To use a GPU on widows, it is recomended to run TensorFlow under WSL.
-See [here](https://www.tensorflow.org/install/pip#windows-native) for details.
+See [here](https://www.tensorflow.org/install/pip#windows-native) for details. To use the RStudio IDE with WSL, see [here](https://support.posit.co/hc/en-us/articles/360049776974-Using-RStudio-Server-in-Windows-WSL2)
 
 ### Other Linux
 
@@ -58,7 +58,7 @@ The specifics of installing required software differ by Linux version so please 
 -   [cuDNN 8.6](https://developer.nvidia.com/rdp/cudnn-archive)
 
 Note that cuDNN 8.6 can easily be installed via `pip` now, and then can be found by TensorFlow if the `CUDNN_PATH` and `LD_LIBRARY_PATH` variables are set appropriately.
-Note that `install_tensorflow()` does this for you.
+`install_tensorflow()` takes care of this for you.
 
 ### macOS
 
